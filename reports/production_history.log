@@ -130,3 +130,55 @@ Cumulative:
   Total tokens:         ~237,856
   Total memory artifacts: 12 (created) + 36 (reused)
 --------------------------------------------------------------------------------
+
+--- Pre-Batch 3 ---------------------------------------------------------------
+Date:           2026-06-18
+Tag created:    desk-bible-before-batch-3
+Commit:         c8bc772 (Batch 2 complete)
+STEG memory:    3 artifacts created (terminology, booking-maps, style-patterns)
+Readiness:      STEG readiness report — 10/10 PASS, verdict GO
+Retrospective:  Batch 2 retrospective complete — quality improving, tokens stable
+--------------------------------------------------------------------------------
+
+--- Batch 3 Phase A ------------------------------------------------------------
+Date:           2026-06-18
+Products:       AFRN001, NCRA001, CRASRT001, DCFN001
+Count:          4
+Families:       SRT (4)
+Pipeline:       v2.1 (stable, no changes)
+Sections:       4.2 (complete) — SRT family now 5/5 COMPLETE
+
+Quality:
+  QA BLOCKERs:          0
+  QA MAJORs:            4 (all advisory)
+  QA MINORs:            0
+  Style MUST_FIX:       0
+  Style SHOULD_FIX:     0
+  CrossRef broken:      0
+  CrossRef warnings:    4 (includes 2 cross-family refs)
+  Publishing failures:  0
+
+Memory:
+  Artifacts created:    0 (SRT artifacts reused from Batch 0)
+  Artifacts reused:     12 (3 per product × 4 products)
+  Conventions added:    0
+  False positives avoided: 16
+
+Tokens (estimated):     ~59,464
+Runtime:                ~70 min
+
+Notes:
+  - All 4 products are SRT family — completes SRT family (5/5)
+  - Diverse archetypes: accreting, range accrual (plain + callable), digital rate
+  - First cross-family references: NCRA001→CRAELN001, DCFN001→DIGITAL001
+  - Most complex product: CRASRT001 (dual optionality — range + callable)
+  - Simplest product: AFRN001 (deterministic, no model risk)
+  - SRT memory stress-tested at scale: 12 reuses, 0 new artifacts needed
+  - Zero retries, zero checkpoint recoveries
+
+Cumulative:
+  Total complete:       20 / 28 (71.4%)
+  Total remaining:      8
+  Total tokens:         ~297,320
+  Total memory artifacts: 15 (created) + 48 (reused)
+--------------------------------------------------------------------------------

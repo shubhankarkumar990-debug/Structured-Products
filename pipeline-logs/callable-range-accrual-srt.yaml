@@ -1,0 +1,13 @@
+chapter: "Callable Range Accrual SRT"
+slug: "callable-range-accrual-srt"
+initiated: "2026-06-18"
+stages:
+  research: {status: completed, completed_at: "2026-06-18T21:00Z", notes: "Gate passed. Three-component. Dual optionality. Hull-White + digital."}
+  architecture: {status: completed, completed_at: "2026-06-18T21:02Z", notes: "Gate passed. All 8 sections. NCRA + call = CRASRT concept."}
+  writing: {status: completed, completed_at: "2026-06-18T21:05Z", notes: "Gate passed. Dual optionality interaction. Joint hedging."}
+  murex_mapping: {status: completed, completed_at: "2026-06-18T21:05Z", notes: "Gate passed. Murex four-leg. Dual hedge instruments."}
+  qa: {status: completed, completed_at: "2026-06-18T21:10Z", notes: "Gate passed. Zero BLOCKERs. All scenarios verified. 1 MAJOR advisory."}
+  style: {status: completed, completed_at: "2026-06-18T21:10Z", notes: "Gate passed. Zero violations. 2 known FPs, 1 convention."}
+  crossref: {status: completed, completed_at: "2026-06-18T21:12Z", notes: "Gate passed. 4 refs validated (NCRA001, IRCFRN001). 1 warning."}
+  publishing: {status: completed, completed_at: "2026-06-18T21:15Z", notes: "Gate passed. Fourth product in section 4.2."}
+open_issues: []

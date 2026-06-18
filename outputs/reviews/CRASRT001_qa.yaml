@@ -1,0 +1,43 @@
+qa_review:
+  product_id: CRASRT001
+  reviewed_at: "2026-06-18T21:10Z"
+  scope:
+    first_run: true
+    sections_reviewed: [definition, construction, booking_systems, pricing_intuition, worked_example, reconciliation, desk_view, desk_shorthand]
+    sections_skipped: []
+  arithmetic_verification:
+    decomposition_check:
+      components: ["Digital strip: 1.5%", "Call premium: 1.2%", "Funding: 3.0%", "FTP: 0.5%", "Margin: 0.3%"]
+      expected_sum: "1.5% + 1.2% + 3.0% + 0.5% + 0.3% = 6.5%"
+      actual_sum: "6.5%"
+      result: "PASS"
+    scenario_1_check:
+      accrual: "95%"
+      effective_coupon: "6.5% × 95% = 6.175%"
+      seven_year_total: "10M × 6.175% × 7 = 4,322,500"
+      result: "PASS"
+    scenario_2_check:
+      accrual: "90% for 2 years"
+      total_pct: "6.5% × 90% × 2 = 11.7%"
+      total_usd: "10M × 11.7% = 1,170,000"
+      effective_yield: "11.7% / 2 = 5.85%"
+      result: "PASS"
+    scenario_3_check:
+      accrual: "65%"
+      effective_coupon: "6.5% × 65% = 4.225%"
+      seven_year_total: "10M × 4.225% × 7 = 2,957,500"
+      result: "PASS"
+  summary:
+    total: 1
+    blocker: 0
+    major: 1
+    minor: 0
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "Construction — NCRA-equivalent headline"
+      issue: "States NCRA-equivalent headline would be ~5.3% without derivation"
+      evidence: "5.3% is the NCRA headline minus the call enhancement. 6.5% - 1.2% = 5.3%. Arithmetic checks. The value is illustrative to show the call premium contribution."
+      required_action: "Advisory — illustrative comparison is appropriate."
+  gate: PASS
+  blocker_ids: []

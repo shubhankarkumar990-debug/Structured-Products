@@ -1,0 +1,13 @@
+chapter: "Non-Callable Range Accrual"
+slug: "non-callable-range-accrual"
+initiated: "2026-06-18"
+stages:
+  research: {status: completed, completed_at: "2026-06-18T20:40Z", notes: "Gate passed. Bond + daily digital strip on SOFR. Range accrual."}
+  architecture: {status: completed, completed_at: "2026-06-18T20:42Z", notes: "Gate passed. All 8 sections. CRAELN001 cross-reference."}
+  writing: {status: completed, completed_at: "2026-06-18T20:45Z", notes: "Gate passed. Range probability. Mean reversion. Daily accrual."}
+  murex_mapping: {status: completed, completed_at: "2026-06-18T20:45Z", notes: "Gate passed. Murex four-leg. Digital strip hedge."}
+  qa: {status: completed, completed_at: "2026-06-18T20:50Z", notes: "Gate passed. Zero BLOCKERs. All scenarios verified. 1 MAJOR advisory."}
+  style: {status: completed, completed_at: "2026-06-18T20:50Z", notes: "Gate passed. Zero violations. 2 known FPs, 1 convention."}
+  crossref: {status: completed, completed_at: "2026-06-18T20:52Z", notes: "Gate passed. 3 refs validated. 1 cross-family warning."}
+  publishing: {status: completed, completed_at: "2026-06-18T20:55Z", notes: "Gate passed. Third product in section 4.2."}
+open_issues: []

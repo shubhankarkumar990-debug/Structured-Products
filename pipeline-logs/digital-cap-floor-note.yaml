@@ -1,0 +1,13 @@
+chapter: "Digital Cap-Floor Note"
+slug: "digital-cap-floor-note"
+initiated: "2026-06-18"
+stages:
+  research: {status: completed, completed_at: "2026-06-18T21:20Z", notes: "Gate passed. Bond + digital cap strip. Binary rate coupon."}
+  architecture: {status: completed, completed_at: "2026-06-18T21:22Z", notes: "Gate passed. All 8 sections. DIGITAL001 parallel."}
+  writing: {status: completed, completed_at: "2026-06-18T21:25Z", notes: "Gate passed. Pin risk. Normal vol. NCRA contrast."}
+  murex_mapping: {status: completed, completed_at: "2026-06-18T21:25Z", notes: "Gate passed. Murex four-leg. Digital caplet strip hedge."}
+  qa: {status: completed, completed_at: "2026-06-18T21:30Z", notes: "Gate passed. Zero BLOCKERs. All scenarios verified. 1 MAJOR advisory."}
+  style: {status: completed, completed_at: "2026-06-18T21:30Z", notes: "Gate passed. Zero violations. 2 known FPs, 1 convention."}
+  crossref: {status: completed, completed_at: "2026-06-18T21:32Z", notes: "Gate passed. 4 refs validated (DIGITAL001, NCRA001). 1 warning."}
+  publishing: {status: completed, completed_at: "2026-06-18T21:35Z", notes: "Gate passed. Final SRT product. Closes SRT family."}
+open_issues: []

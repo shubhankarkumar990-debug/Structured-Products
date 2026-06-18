@@ -1,0 +1,71 @@
+blueprint:
+  product_id: CRASRT001
+  product_name: "Callable Range Accrual SRT"
+  product_family: SRT
+  generated_at: "2026-06-18T21:02Z"
+  source: "outputs/research/CRASRT001.yaml"
+  memory_used:
+    - memory/terminology/SRT.yaml
+    - memory/booking-maps/SRT_system_mapping.yaml
+  sections:
+    definition:
+      content_nodes:
+        - "Range accrual coupon + issuer call right"
+        - "Higher headline than NCRA due to dual optionality"
+        - "100% principal protection"
+        - "Most complex SRT product"
+      writing_instruction: "Build on NCRA001. Explain the incremental call feature."
+    construction:
+      primitives:
+        - instrument: "Fixed-rate bond"
+          desk_direction: "long"
+        - instrument: "Daily digital option strip on SOFR"
+          desk_direction: "long"
+        - instrument: "Bermudan call option (issuer)"
+          desk_direction: "short"
+      key_strikes: ["Range 2.5%-6.0%", "Call at par", "Headline 6.5%"]
+      path_dependency: "Daily (accrual) + discrete (call dates)."
+      writing_instruction: "Three components. NCRA + call = CRASRT. Show coupon enhancement."
+    booking_systems:
+      system_mapping: {book_of_record: Murex, risk_pnl: Murex, legal_document: Termsheet, four_leg: true}
+      content_nodes: ["Dual optionality in hedge leg", "Call-accrual interaction", "Call schedule completeness"]
+      writing_instruction: "Four-leg. Hedge has both digital strip and Bermudan swaption."
+    pricing_intuition:
+      dominant_greeks: ["DV01 (complex dual interaction)", "Vega (two sources)", "Call delta"]
+      yield_drivers: ["Range probability", "Rate vol", "Call probability", "Swaption vol"]
+      model_dependency: "Hull-White short-rate + digital strip. Joint calibration."
+      sensitivities: ["Rate drop → higher call probability, shorter life"]
+      writing_instruction: "Explain dual optionality interaction. Negative convexity."
+    worked_example:
+      notional: "USD 10M"
+      underlying: "SOFR"
+      tenor: "7 years (callable after 2)"
+      barriers: {range_lower: "2.5%", range_upper: "6.0%"}
+      decomposition: {digital_strip: "1.5%", call_premium: "1.2%", funding: "3.0%", ftp: "0.5%", margin: "0.3%"}
+      headline_yield: "6.5% (headline), callable after Y2"
+      good_scenario: "Rates stable mid-range, no call. 7 years × 6.5% = 45.5% total."
+      bad_scenario: "Rates drop, called at Y2. Only 2 years × 6.5% earned. Reinvest lower."
+      writing_instruction: "Three scenarios: stable (full life), rates drop (called early), rates volatile (low accrual)."
+    reconciliation:
+      critical_fields:
+        - {field: "Range bounds", failure_mode: "Accrual probability shift"}
+        - {field: "Call schedule", failure_mode: "Missing dates — settlement failure"}
+        - {field: "Accrued coupon on call", failure_mode: "Partial period not settled"}
+      observation_type: "Daily (accrual) + discrete (call)"
+      fixing_fallback: "Previous business day"
+      writing_instruction: "Accrued coupon on call is the unique recon risk for callable range accruals."
+    desk_view:
+      typical_buyer: "Maximum yield seekers in SRT space. Sophisticated institutional."
+      actual_risk: "Dual optionality: accrual + call. Worst case: called early after low-accrual period."
+      perceived_risk: "High-yield fixed income."
+      when_appropriate: "Stable rates, curve view, long horizon."
+      when_not_appropriate: "Need income certainty. Cannot accept reinvestment risk."
+      writing_instruction: "Emphasise that this combines NCRA and ICN risks."
+    desk_shorthand: {text: "Range coupon, callable; dual optionality, highest SRT yield.", source: "research"}
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

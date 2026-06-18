@@ -1,0 +1,23 @@
+crossref_review:
+  product_id: AFRN001
+  reviewed_at: "2026-06-18T20:32Z"
+  input_file: "outputs/drafts/AFRN001.md"
+  summary:
+    total_refs: 3
+    validated: 2
+    broken: 0
+    warning: 1
+  broken_refs: []
+  warnings:
+    - id: "CW-001"
+      type: forward_ref
+      location: "Definition — 'simplest non-bullet structure in the SRT family'"
+      reference: "SRT family"
+      reason: "Implicit comparison to other SRT products. IRCFRN001 exists."
+  validated_refs:
+    - reference: "Murex four-leg framework"
+      target: "memory/booking-maps/SRT_system_mapping.yaml"
+    - reference: "Termsheet"
+      target: "memory/booking-maps/SRT_system_mapping.yaml"
+  gate: PASS
+  broken_ids: []

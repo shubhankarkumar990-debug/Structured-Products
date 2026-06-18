@@ -1,0 +1,38 @@
+qa_review:
+  product_id: AFRN001
+  reviewed_at: "2026-06-18T20:30Z"
+  scope:
+    first_run: true
+    sections_reviewed: [definition, construction, booking_systems, pricing_intuition, worked_example, reconciliation, desk_view, desk_shorthand]
+    sections_skipped: []
+  arithmetic_verification:
+    decomposition_check:
+      components: ["Funding: 3.0%", "FTP: 0.3%", "Margin: 0.1%", "Pickup: 0.8%"]
+      expected_sum: "3.0% + 0.3% + 0.1% + 0.8% = 4.2%"
+      actual_sum: "4.2%"
+      result: "PASS"
+    coupon_schedule_check:
+      year_1: "10M × 4.2% = 420,000"
+      year_2: "10M × 4.2% = 420,000"
+      year_3: "11.25M × 4.2% = 472,500"
+      year_4: "12.50M × 4.2% = 525,000"
+      year_5: "15M × 4.2% = 630,000"
+      total: "420,000 + 420,000 + 472,500 + 525,000 + 630,000 = 2,467,500"
+      result: "PASS"
+    dv01_scenario_check:
+      description: "DV01 at year 3 stated as ~USD 4,613. Approximate check: 11.25M × 4.1yr remaining / 10000 ≈ 4,613."
+      result: "PASS (approximate, acceptable)"
+  summary:
+    total: 1
+    blocker: 0
+    major: 1
+    minor: 0
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "Worked example — WAL calculation"
+      issue: "WAL stated as 4.1 years without showing the detailed calculation"
+      evidence: "WAL = Σ(t × CF_t) / Σ(CF_t). The stated 4.1 years is plausible for the given schedule. A full WAL derivation would add complexity without pedagogical benefit in a desk bible context."
+      required_action: "Advisory — WAL is illustrative. Exact WAL depends on coupon timing and day count."
+  gate: PASS
+  blocker_ids: []

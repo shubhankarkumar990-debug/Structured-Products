@@ -1,0 +1,25 @@
+crossref_review:
+  product_id: NCRA001
+  reviewed_at: "2026-06-18T20:52Z"
+  input_file: "outputs/drafts/NCRA001.md"
+  summary:
+    total_refs: 4
+    validated: 3
+    broken: 0
+    warning: 1
+  broken_refs: []
+  warnings:
+    - id: "CW-001"
+      type: forward_ref
+      location: "Definition — 'Callable Range Accrual ELN (CRAELN001)'"
+      reference: "CRAELN001"
+      reason: "Explicit cross-family reference to ELN range accrual. Product exists."
+  validated_refs:
+    - reference: "CRAELN001 — Callable Range Accrual ELN"
+      target: "outputs/drafts/CRAELN001.md"
+    - reference: "Murex four-leg framework"
+      target: "memory/booking-maps/SRT_system_mapping.yaml"
+    - reference: "Termsheet"
+      target: "memory/booking-maps/SRT_system_mapping.yaml"
+  gate: PASS
+  broken_ids: []

@@ -1,0 +1,71 @@
+meta:
+  product_id: STEG
+  product_name: "Steepener Notes (family)"
+  family: STEG
+  category: terminology
+  stored_at: "2026-06-18T20:00Z"
+  source_stage: style
+  version: 1
+
+content:
+  product_names:
+    - full: "Vanilla Steepener Note"
+      abbreviation: null
+      first_mention_format: "Vanilla Steepener Note"
+    - full: "Range-Accrual Steepener"
+      abbreviation: null
+      first_mention_format: "Range-Accrual Steepener"
+    - full: "Callable Steepener"
+      abbreviation: null
+      first_mention_format: "Callable Steepener"
+    - full: "Target Accrual Redemption Note"
+      abbreviation: "TARN"
+      first_mention_format: "Target Accrual Redemption Note (TARN)"
+
+  system_names:
+    - name: Murex
+      casing: "Murex"
+    - name: Termsheet
+      casing: "Termsheet"
+      note: "One word, capitalised."
+
+  rate_terms:
+    - "CMS (Constant Maturity Swap)"
+    - "CMS spread (e.g., CMS 30Y − CMS 10Y)"
+    - "Convexity adjustment"
+    - "SOFR (Secured Overnight Financing Rate)"
+    - "EURIBOR"
+    - "DV01 (dollar value of 1 bps)"
+    - "Curve slope / steepness"
+    - "Bear flattener / bull steepener"
+    - "Mean reversion (curve slope)"
+    - "Correlation (CMS tenors)"
+    - "OIS (Overnight Index Swap)"
+    - "Bermuda call"
+
+  steg_specific_terms:
+    - term: "CMS spread"
+      definition: "Difference between two CMS rates of different tenors (e.g., CMS 30Y − CMS 10Y). The 'underlying' of steepener products."
+      note: "Always express as long tenor minus short tenor (positive when curve is steep)."
+    - term: "Convexity adjustment"
+      definition: "Correction applied to CMS rates to account for the difference between a swap rate and the expected value of a swap rate under the forward measure. Critical for fair pricing of CMS-linked coupons."
+      note: "This is the single most important pricing concept for STEG products."
+    - term: "Leverage"
+      definition: "Multiplier applied to the CMS spread in the coupon formula (e.g., Coupon = N × (CMS 30Y − CMS 10Y)). Typical leverage: 3x–7x."
+    - term: "Floor"
+      definition: "Minimum coupon (often 0%). Prevents negative coupon when curve inverts."
+    - term: "Cap"
+      definition: "Maximum coupon. Limits issuer exposure to extreme steepening."
+    - term: "Target level"
+      definition: "TARN-specific. Cumulative coupon threshold. Once total coupons paid reach the target, the note redeems at par."
+
+  forbidden_phrases:
+    - "It is important to note"
+    - "It is worth noting"
+    - "Please note"
+    - "As mentioned above"
+    - "deep dive"
+    - "unpack"
+    - "let's explore"
+    - "Importantly"
+    - "Crucially"

@@ -92,25 +92,25 @@ products:
     name: "Accreting Fixed Rate Note"
     family: SRT
     section: "4.2"
-    status: existing
+    status: complete
 
   - id: NCRA001
     name: "Non-Callable Range Accrual"
     family: SRT
     section: "4.2"
-    status: existing
+    status: complete
 
   - id: CRASRT001
     name: "Callable Range Accrual SRT"
     family: SRT
     section: "4.2"
-    status: existing
+    status: complete
 
   - id: DCFN001
     name: "Digital Cap-Floor Note"
     family: SRT
     section: "4.2"
-    status: existing
+    status: complete
 
   # Part 6 — Credit-Linked Notes
   - id: VCLN001

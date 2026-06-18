@@ -1,0 +1,25 @@
+pubspec:
+  product_id: CRASRT001
+  product_name: "Callable Range Accrual SRT"
+  reviewed_at: "2026-06-18T21:15Z"
+  master_document: "Structured_Products_Desk_Bible_COMPLETE.docx"
+  insertion:
+    insert_after: "NCRA001 (Non-Callable Range Accrual)"
+    insert_before: "DCFN001 (Digital Cap-Floor Note)"
+    part: "Part 4 — Structured Rate Trades"
+    section: "4.2 — SRT Products"
+    position: "Fourth product in section 4.2"
+  heading_hierarchy:
+    h3_present: true
+    h4_subsections: {definition: true, construction: true, booking_systems: true, pricing_intuition: true, worked_example: true, reconciliation: true, desk_view: true, desk_shorthand: true}
+    no_h1_h2: true
+  toc_entry:
+    level_3: "Callable Range Accrual SRT"
+    level_4: ["Definition", "Construction", "Booking & systems", "Pricing intuition", "Worked example (USD 10M)", "Reconciliation specifics", "Desk view", "Desk shorthand"]
+  numbering: {no_manual_numbering: true, section_number: "4.2", sequence_correct: true}
+  page_structure: {break_before: true, break_after: true}
+  appendix_updates:
+    - "Appendix B.4 — add CRASRT001 row (Murex four-leg)"
+  checklist: {all_subsections_present: true, shorthand_italic: true, no_emoji: true, no_manual_page_numbers: true, self_contained: true}
+  gate: READY
+  hold_reasons: []

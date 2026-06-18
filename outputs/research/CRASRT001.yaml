@@ -1,0 +1,79 @@
+research:
+  product_id: CRASRT001
+  product_name: "Callable Range Accrual SRT"
+  product_family: SRT
+  generated_at: "2026-06-18T21:00Z"
+  memory_consulted:
+    - memory/terminology/SRT.yaml
+    - memory/booking-maps/SRT_system_mapping.yaml
+    - memory/style-patterns/SRT.yaml
+
+  classification:
+    family: SRT
+    sub_family: "Callable range accrual"
+    archetype: "Bond + daily digital strip + Bermudan call (issuer)"
+    risk_profile: "Enhanced coupon with daily accrual risk + early termination risk"
+    complexity: "High"
+    path_dependent: true
+    model: "Daily digital strip + Bermudan swaption. Hull-White calibration."
+
+  structure:
+    components:
+      - instrument: "Fixed-rate bond (principal)"
+        desk_direction: "long"
+        purpose: "100% principal protection"
+      - instrument: "Daily digital option strip on SOFR"
+        desk_direction: "long"
+        purpose: "Accrual coupon for in-range days"
+      - instrument: "Bermudan call option (issuer's right)"
+        desk_direction: "short (investor sells)"
+        purpose: "Call premium enhances headline coupon beyond NCRA level"
+    barriers: []
+    observation: "Daily (accrual) + discrete call dates"
+    tenor: "5-10 years (longer than NCRA to accommodate call)"
+    coupon: "Accrual-adjusted + call-enhanced: higher headline than NCRA"
+    principal_protection: "100%"
+
+  economics:
+    headline: "Higher coupon than NCRA due to embedded call premium"
+    how_funded: "Investor sells range risk (daily accrual) AND call risk (early termination). Dual premium enhances coupon."
+    investor_trade: "Highest SRT coupon, in exchange for both accrual risk and reinvestment risk"
+    decomposition:
+      headline_coupon: "6.5% p.a. (maximum if always in range)"
+      range: "SOFR between 2.5% and 6.0%"
+      call_schedule: "Callable quarterly after year 2"
+      digital_strip_cost: "1.5% (annualised)"
+      call_option_value: "1.2% (annualised Bermudan)"
+      funding: "3.0%"
+      ftp: "0.5%"
+      desk_margin: "0.3%"
+    verification: "Headline 6.5% = digital 1.5% + call 1.2% + funding 3.0% + FTP 0.5% + margin 0.3%"
+
+  booking:
+    system_type: murex_four_leg
+    note_leg: ["Headline coupon", "Range bounds", "Call schedule", "First call date", "Observation type"]
+    hedge_leg: ["Digital strip (range)", "Bermudan receiver swaption (call)", "Combined hedge portfolio"]
+    critical_fields: ["Range bounds", "Call schedule completeness", "Interaction between call and accrual"]
+    failure_modes:
+      - "Call exercise logic does not account for accrued range coupon"
+      - "Range bounds mismatch between note and hedge"
+      - "Call dates missing from Murex schedule"
+
+  pricing:
+    dominant_greeks: ["DV01 (complex — rate affects range + call)", "Vega (two sources: range vol + swaption vol)", "Call delta"]
+    key_sensitivities:
+      - "Rate drop → higher call probability (shorter effective life) + potentially higher accrual"
+      - "Vol up → lower accrual + higher call value — mixed effect on coupon"
+      - "Negative convexity from call + range accrual gamma near boundaries"
+    model_risk: "High — two interacting embedded options. Joint calibration of range digital and Bermudan call."
+
+  reconciliation:
+    critical_fields:
+      - {field: "Range bounds", source: "Termsheet", check: "Exact in both note and hedge legs"}
+      - {field: "Call schedule", source: "Termsheet", check: "All dates in Murex, complete"}
+      - {field: "Accrued coupon on call", source: "Termsheet", check: "Accrual count to call date handled correctly"}
+    observation_type: "Daily (accrual) + discrete (call)"
+    fixing_fallback: "Previous business day"
+
+  desk_shorthand: "Range coupon, callable; dual optionality, highest SRT yield."
+  open_questions: []

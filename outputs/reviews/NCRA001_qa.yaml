@@ -1,0 +1,45 @@
+qa_review:
+  product_id: NCRA001
+  reviewed_at: "2026-06-18T20:50Z"
+  scope:
+    first_run: true
+    sections_reviewed: [definition, construction, booking_systems, pricing_intuition, worked_example, reconciliation, desk_view, desk_shorthand]
+    sections_skipped: []
+  arithmetic_verification:
+    decomposition_check:
+      components: ["Digital strip: 1.8%", "Funding: 3.0%", "FTP: 0.4%", "Margin: 0.3%"]
+      expected_sum: "1.8% + 3.0% + 0.4% + 0.3% = 5.5%"
+      actual_sum: "5.5%"
+      result: "PASS"
+    expected_coupon_check:
+      formula: "5.5% × 85% = 4.675%"
+      result: "PASS"
+    scenario_1_check:
+      accrual: "100%"
+      coupon: "5.5% × 10M = 550,000 per year"
+      three_year: "1,650,000"
+      result: "PASS"
+    scenario_2_check:
+      accrual: "85%"
+      coupon: "5.5% × 85% × 10M = 467,500 per year"
+      three_year: "1,402,500"
+      result: "PASS"
+    scenario_3_check:
+      average_accrual: "(90% + 30% + 75%) / 3 = 65%"
+      coupon: "5.5% × 65% × 10M = 357,500 per year"
+      three_year: "1,072,500"
+      result: "PASS"
+  summary:
+    total: 1
+    blocker: 0
+    major: 1
+    minor: 0
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "Worked example — expected accrual ratio"
+      issue: "85% expected accrual ratio is stated without derivation"
+      evidence: "The 85% is an illustrative estimate. Actual accrual probability depends on rate distribution, vol surface, and mean reversion calibration. In a desk bible context, the illustrative ratio serves the pedagogical purpose. The scenarios show the sensitivity to different accrual outcomes."
+      required_action: "Advisory — illustrative ratio is appropriate for desk-level explanation."
+  gate: PASS
+  blocker_ids: []

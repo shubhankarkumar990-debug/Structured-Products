@@ -1,0 +1,54 @@
+booking:
+  product_id: DCFN001
+  product_name: "Digital Cap-Floor Note"
+  generated_at: "2026-06-18T21:25Z"
+  system_type: murex_four_leg
+  murex_used: true
+  memory_consulted: "memory/booking-maps/SRT_system_mapping.yaml"
+
+  note_leg:
+    instrument_type: "Structured Note — Digital Cap-Floor"
+    fields:
+      - {name: "Product ID", value: "DCFN001"}
+      - {name: "Notional", value: "USD 10,000,000"}
+      - {name: "High coupon", value: "6.0% p.a.", critical: true}
+      - {name: "Low coupon", value: "1.0% p.a.", critical: true}
+      - {name: "Cap strike", value: "4.5% (SOFR)", critical: true}
+      - {name: "Coupon condition", value: "Below cap = high coupon", critical: true}
+      - {name: "Reference rate", value: "SOFR"}
+      - {name: "Observation dates", value: "12 quarterly dates", critical: true}
+      - {name: "Fixing source", value: "Per termsheet"}
+      - {name: "Coupon frequency", value: "Quarterly"}
+      - {name: "Maturity", value: "T + 3Y"}
+
+  issuer_leg:
+    fields:
+      - {name: "Funding rate", value: "3.0%"}
+      - {name: "Funding curve", value: "Issuer senior unsecured"}
+
+  deposit_leg:
+    fields:
+      - {name: "Deposit rate", value: "Per treasury"}
+
+  hedge_leg:
+    instrument: "Digital caplet strip replicating binary coupon condition"
+    fields:
+      - {name: "Digital strike", value: "4.5% (must match note leg)", critical: true}
+      - {name: "Coupon differential", value: "5.0% (6.0% - 1.0%)"}
+      - {name: "Observation dates", value: "12 quarterly (must match note leg)", critical: true}
+      - {name: "Model", value: "Normal (Bachelier) volatility"}
+      - {name: "Replication", value: "Tight caplet spread at strike"}
+      - {name: "Fixing source", value: "Must match note leg"}
+
+  reconciliation:
+    frequency: "Monthly (daily monitoring on observation dates)"
+    critical_checks:
+      - {field: "Cap strike", note_leg: "4.5%", hedge_leg: "4.5%", failure_mode: "Coupon flips on small rate difference"}
+      - {field: "Coupon condition", note_leg: "Below = high", hedge_leg: "Matching", failure_mode: "Inverted — catastrophic booking error"}
+      - {field: "Observation dates", note_leg: "12 dates", hedge_leg: "12 dates", failure_mode: "Missing date — coupon undetermined"}
+      - {field: "Fixing source", note_leg: "Per termsheet", hedge_leg: "Matching", failure_mode: "Different fixings near strike"}
+
+  failure_modes:
+    - "Cap strike entered incorrectly — digital probability shifted"
+    - "Coupon condition inverted — high/low assigned to wrong rate regime"
+    - "Observation dates missing — coupon not determined"

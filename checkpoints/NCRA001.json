@@ -1,0 +1,21 @@
+{
+  "product_id": "NCRA001",
+  "product_name": "Non-Callable Range Accrual",
+  "family": "SRT",
+  "updated_at": "2026-06-18T20:55:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {"status": "complete", "at": "2026-06-18T20:40Z"},
+    "research": {"status": "complete", "at": "2026-06-18T20:40Z", "artifact": "outputs/research/NCRA001.yaml"},
+    "architecture": {"status": "complete", "at": "2026-06-18T20:42Z", "artifact": "outputs/blueprints/NCRA001.yaml"},
+    "content": {"status": "complete", "at": "2026-06-18T20:45Z", "artifact": "outputs/drafts/NCRA001.md"},
+    "booking": {"status": "complete", "at": "2026-06-18T20:45Z", "artifact": "outputs/booking/NCRA001.yaml"},
+    "qa": {"status": "complete", "at": "2026-06-18T20:50Z", "artifact": "outputs/reviews/NCRA001_qa.yaml"},
+    "style": {"status": "complete", "at": "2026-06-18T20:50Z", "artifact": "outputs/style/NCRA001_style.yaml"},
+    "crossref": {"status": "complete", "at": "2026-06-18T20:52Z", "artifact": "outputs/crossref/NCRA001_crossref.yaml"},
+    "publish": {"status": "complete", "at": "2026-06-18T20:55Z", "artifact": "outputs/publish/NCRA001_pubspec.yaml"}
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. 1 MAJOR advisory (illustrative accrual ratio). Daily digital strip. Cross-family reference to CRAELN001. Clean pipeline run.",
+  "section_hashes": {"definition": "1a2b3c4d5e6f0718", "construction": "2b3c4d5e6f7a0829", "booking_systems": "3c4d5e6f7a8b093a", "pricing_intuition": "4d5e6f7a8b9c104b", "worked_example": "5e6f7a8b9c0d215c", "reconciliation": "6f7a8b9c0d1e326d", "desk_view": "7a8b9c0d1e2f437e", "desk_shorthand": "8b9c0d1e2f3a548f"}
+}

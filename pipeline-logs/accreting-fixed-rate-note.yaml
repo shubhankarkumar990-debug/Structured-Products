@@ -1,0 +1,13 @@
+chapter: "Accreting Fixed Rate Note"
+slug: "accreting-fixed-rate-note"
+initiated: "2026-06-18"
+stages:
+  research: {status: completed, completed_at: "2026-06-18T20:20Z", notes: "Gate passed. Single component. Accreting notional. Deterministic."}
+  architecture: {status: completed, completed_at: "2026-06-18T20:22Z", notes: "Gate passed. All 8 sections. WAL concept."}
+  writing: {status: completed, completed_at: "2026-06-18T20:25Z", notes: "Gate passed. Notional schedule table. Back-loaded risk."}
+  murex_mapping: {status: completed, completed_at: "2026-06-18T20:25Z", notes: "Gate passed. Murex four-leg. Accreting swap hedge."}
+  qa: {status: completed, completed_at: "2026-06-18T20:30Z", notes: "Gate passed. Zero BLOCKERs. Coupon schedule verified. 1 MAJOR advisory."}
+  style: {status: completed, completed_at: "2026-06-18T20:30Z", notes: "Gate passed. Zero violations. 2 known FPs, 1 convention."}
+  crossref: {status: completed, completed_at: "2026-06-18T20:32Z", notes: "Gate passed. 2 refs validated. 1 warning."}
+  publishing: {status: completed, completed_at: "2026-06-18T20:35Z", notes: "Gate passed. Second product in section 4.2."}
+open_issues: []

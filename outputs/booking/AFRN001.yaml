@@ -1,0 +1,53 @@
+booking:
+  product_id: AFRN001
+  product_name: "Accreting Fixed Rate Note"
+  generated_at: "2026-06-18T20:25Z"
+  system_type: murex_four_leg
+  murex_used: true
+  memory_consulted: "memory/booking-maps/SRT_system_mapping.yaml"
+
+  note_leg:
+    instrument_type: "Fixed Rate Note — Accreting Notional"
+    fields:
+      - {name: "Product ID", value: "AFRN001"}
+      - {name: "Initial notional", value: "USD 10,000,000"}
+      - {name: "Final notional", value: "USD 15,000,000", critical: true}
+      - {name: "Accretion schedule", value: "Y3: 11.25M, Y4: 12.50M, Y5: 15M", critical: true}
+      - {name: "Coupon rate", value: "4.2% p.a."}
+      - {name: "Coupon base", value: "Current (accreted) notional", critical: true}
+      - {name: "Coupon frequency", value: "Semi-annual"}
+      - {name: "Day count", value: "30/360"}
+      - {name: "Maturity", value: "T + 5Y"}
+      - {name: "Redemption", value: "Final accreted notional (USD 15M)"}
+
+  issuer_leg:
+    fields:
+      - {name: "Funding rate", value: "3.0%"}
+      - {name: "Funding curve", value: "Issuer senior unsecured"}
+      - {name: "Funding base", value: "Accreting notional (matches note leg)"}
+
+  deposit_leg:
+    fields:
+      - {name: "Deposit rate", value: "Per treasury"}
+      - {name: "Deposit tenor", value: "Rolling"}
+
+  hedge_leg:
+    instrument: "Accreting interest rate swap (pay fixed 4.2%, receive SOFR)"
+    fields:
+      - {name: "Notional schedule", value: "Must exactly match note leg accretion", critical: true}
+      - {name: "Fixed rate", value: "4.2%"}
+      - {name: "Floating rate", value: "SOFR"}
+      - {name: "Accretion dates", value: "Must match note leg dates"}
+      - {name: "Maturity", value: "T + 5Y"}
+
+  reconciliation:
+    frequency: "Monthly"
+    critical_checks:
+      - {field: "Notional schedule", note_leg: "3 accretion steps", hedge_leg: "3 matching steps", failure_mode: "Unhedged notional gap"}
+      - {field: "Coupon base", note_leg: "Current notional", hedge_leg: "Current notional", failure_mode: "Systematic coupon divergence"}
+      - {field: "Accretion dates", note_leg: "Aligned with coupon dates", hedge_leg: "Matching", failure_mode: "Stub coupon miscalculation"}
+
+  failure_modes:
+    - "Notional schedule mismatch between note and hedge legs"
+    - "Coupon computed on initial instead of current notional"
+    - "Accretion dates not aligned with coupon payment dates"

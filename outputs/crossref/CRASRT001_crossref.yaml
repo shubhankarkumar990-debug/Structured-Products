@@ -1,0 +1,27 @@
+crossref_review:
+  product_id: CRASRT001
+  reviewed_at: "2026-06-18T21:12Z"
+  input_file: "outputs/drafts/CRASRT001.md"
+  summary:
+    total_refs: 5
+    validated: 4
+    broken: 0
+    warning: 1
+  broken_refs: []
+  warnings:
+    - id: "CW-001"
+      type: forward_ref
+      location: "Definition — 'IR Callable Fixed Rate Note (call only)'"
+      reference: "IRCFRN001"
+      reason: "Comparison to IRCFRN001 for call-only feature. Product exists."
+  validated_refs:
+    - reference: "NCRA001 — Non-Callable Range Accrual"
+      target: "outputs/drafts/NCRA001.md"
+    - reference: "IRCFRN001 — IR Callable Fixed Rate Note"
+      target: "outputs/drafts/IRCFRN001.md"
+    - reference: "Murex four-leg framework"
+      target: "memory/booking-maps/SRT_system_mapping.yaml"
+    - reference: "Termsheet"
+      target: "memory/booking-maps/SRT_system_mapping.yaml"
+  gate: PASS
+  broken_ids: []
