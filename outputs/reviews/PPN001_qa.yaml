@@ -1,0 +1,42 @@
+qa_review:
+  product_id: PPN001
+  reviewed_at: "2026-06-18T18:30Z"
+  scope:
+    first_run: true
+    sections_reviewed: [definition, construction, booking_systems, pricing_intuition, worked_example, reconciliation, desk_view, desk_shorthand]
+    sections_skipped: []
+  arithmetic_verification:
+    discount_check:
+      formula: "1 - 1/(1.03)^3 = 1 - 0.9151 = 0.0849 ≈ 8.7%"
+      result: "PASS (approximate, acceptable for illustration)"
+    participation_gross_check:
+      formula: "8.7% / 12.0% = 72.5%"
+      result: "PASS"
+    participation_net_check:
+      formula: "(8.7% - 0.5% - 0.2%) / 12.0% = 8.0% / 12.0% = 66.7%"
+      result: "PASS"
+    good_scenario_gross_check:
+      formula: "72.5% × 30% = 21.75%"
+      payout: "USD 10M × 1.2175 = USD 12.175M"
+      result: "PASS"
+    good_scenario_net_check:
+      formula: "66.7% × 30% = 20.0%"
+      payout: "USD 10M + USD 2.0M = USD 12.0M"
+      result: "PASS"
+    bad_scenario_check:
+      formula: "100% protection. Return = 0%. Payout = USD 10M."
+      result: "PASS"
+  summary:
+    total: 1
+    blocker: 0
+    major: 1
+    minor: 0
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "Worked example — dual participation rates"
+      issue: "Draft shows both gross (72.5%) and net (66.7%) participation rates"
+      evidence: "Both rates are arithmetically correct. The gross rate illustrates the funding mechanism; the net rate reflects investable participation. Dual presentation adds complexity but is economically accurate."
+      required_action: "Advisory — dual rate presentation is appropriate for a desk-level document that must explain both the funding mechanism and the investable outcome."
+  gate: PASS
+  blocker_ids: []

@@ -86,3 +86,47 @@ Cumulative:
   Total tokens:         ~163,526
   Total memory artifacts: 12 (created) + 21 (reused)
 --------------------------------------------------------------------------------
+
+--- Batch 2 -------------------------------------------------------------------
+Date:           2026-06-18
+Products:       BONUS001, PPN001, WARRANT001, ICN001, DIGITAL001
+Count:          5
+Families:       ELN (5)
+Pipeline:       v2.1 (stable, no changes from Batch 1)
+Sections:       3.3 (complete) — ELN family now 13/13 COMPLETE
+Tag:            desk-bible-after-batch-1 (pre-batch)
+
+Quality:
+  QA BLOCKERs:          0
+  QA MAJORs:            5 (all advisory — diverse decomposition formats)
+  QA MINORs:            0
+  Style MUST_FIX:       0
+  Style SHOULD_FIX:     0
+  CrossRef broken:      0
+  CrossRef warnings:    5 (all forward refs to existing products)
+  Publishing failures:  0
+
+Memory:
+  Artifacts created:    0 (all ELN artifacts reused from Batch 0)
+  Artifacts reused:     15 (3 per product × 5 products)
+  Conventions added:    0
+  False positives avoided: 17 (15 known FPs + 2 accepted conventions)
+
+Tokens (estimated):     ~74,330
+Runtime:                ~90 min
+
+Notes:
+  - All 5 products are ELN family — completes entire ELN family (13/13)
+  - Sections 3.1 (RC variants), 3.2 (Autocallables), 3.3 (Other ELN) all complete
+  - Five distinct archetypes: participation, capital-protected, leveraged/listed, callable, digital
+  - First non-equity ELN: ICN001 (interest-rate-driven callable)
+  - Most operationally complex: DIGITAL001 (pin risk, digital replication, skew sensitivity)
+  - Pipeline v2.1 ran without modification — zero false BLOCKERs, zero false MUST_FIX
+  - Zero retries, zero checkpoint recoveries
+
+Cumulative:
+  Total complete:       16 / 28 (57.1%)
+  Total remaining:      12
+  Total tokens:         ~237,856
+  Total memory artifacts: 12 (created) + 36 (reused)
+--------------------------------------------------------------------------------

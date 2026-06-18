@@ -1,0 +1,75 @@
+research:
+  product_id: WARRANT001
+  product_name: "Warrant / Turbo Certificate"
+  product_family: ELN
+  generated_at: "2026-06-18T18:40Z"
+  memory_consulted:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+    - memory/style-patterns/ELN.yaml
+
+  classification:
+    family: ELN
+    sub_family: "Leveraged exposure"
+    archetype: "Leveraged call/put with knock-out barrier"
+    risk_profile: "Aggressive — leveraged gain, total loss possible"
+    complexity: "Medium"
+    path_dependent: true
+    model: "Barrier option — analytical with continuous monitoring"
+
+  structure:
+    components:
+      - instrument: "Down-and-out call option (bull warrant)"
+        desk_direction: "long"
+        purpose: "Leveraged upside exposure above strike, knocked out at barrier"
+      - instrument: "Funding leg (implicit)"
+        desk_direction: "embedded"
+        purpose: "Issuer funds the difference between spot and strike; investor pays funding cost"
+    barriers:
+      - {type: "Knock-out (down-and-out)", level: "Typically at or near strike", observation: "Continuous intraday"}
+    observation: "Continuous (intraday knock-out)"
+    tenor: "Open-ended or fixed (typically 6M-2Y)"
+    coupon: "None"
+    principal_protection: "None — total loss possible at KO"
+
+  economics:
+    headline: "Leveraged equity exposure with knock-out risk"
+    how_funded: "Investor pays a fraction of the underlying price (the premium). Issuer funds the balance (the strike/financing level). Investor pays ongoing funding cost embedded in the price."
+    investor_trade: "Leveraged equity gains if underlying rises, total loss if KO barrier hit"
+    decomposition:
+      intrinsic_value: "Spot - Strike = 100% - 85% = 15%"
+      time_value: "0.8% (minimal for deep ITM turbos)"
+      funding_cost: "1.2% (issuer financing embedded)"
+      total_premium: "17.0% of underlying"
+      leverage: "100% / 17.0% = 5.9x"
+      desk_margin: "embedded in bid-offer spread"
+    verification: "15% intrinsic + 0.8% time + 1.2% funding = 17.0%"
+
+  booking:
+    system_type: nemo_sophis
+    nemo_carries: ["Warrant type (call/put)", "Strike/financing level", "KO barrier", "Ratio", "Multiplier", "Listing exchange"]
+    sophis_carries: ["Barrier option model", "Continuous monitoring", "Delta hedge", "Funding adjustment"]
+    critical_fields: ["KO barrier level", "Strike/financing level", "Ratio/multiplier", "Observation type (continuous)"]
+    failure_modes:
+      - "KO barrier observation set to discrete instead of continuous"
+      - "Strike/financing level not updated for open-ended products"
+      - "Ratio/multiplier mismatch between NEMO and exchange listing"
+
+  pricing:
+    dominant_greeks: ["Delta (high, leveraged)", "Gamma (high near barrier)", "Vega (lower than vanilla — KO suppresses)"]
+    key_sensitivities:
+      - "1% underlying move → ~5.9% warrant move (at 5.9x leverage)"
+      - "Near barrier: gamma spikes, delta drops rapidly"
+      - "Vega lower than equivalent vanilla call — barrier suppresses optionality"
+    model_risk: "Medium — continuous barrier monitoring. Gap risk on overnight moves."
+
+  reconciliation:
+    critical_fields:
+      - {field: "KO barrier level", source: "Termsheet/Exchange", check: "Continuous monitoring in Sophis"}
+      - {field: "Strike/financing level", source: "Termsheet", check: "Matches NEMO and Sophis, updated for open-ended"}
+      - {field: "Ratio/multiplier", source: "Exchange listing", check: "Consistent across NEMO, Sophis, exchange"}
+    observation_type: "Continuous (intraday)"
+    fixing_fallback: "N/A — continuous monitoring, no fixing dates"
+
+  desk_shorthand: "Leveraged call; KO barrier, total loss risk."
+  open_questions: []

@@ -1,0 +1,21 @@
+{
+  "product_id": "DIGITAL001",
+  "product_name": "Digital / Exotic Coupon Notes",
+  "family": "ELN",
+  "updated_at": "2026-06-18T19:35:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {"status": "complete", "at": "2026-06-18T19:20Z"},
+    "research": {"status": "complete", "at": "2026-06-18T19:20Z", "artifact": "outputs/research/DIGITAL001.yaml"},
+    "architecture": {"status": "complete", "at": "2026-06-18T19:22Z", "artifact": "outputs/blueprints/DIGITAL001.yaml"},
+    "content": {"status": "complete", "at": "2026-06-18T19:25Z", "artifact": "outputs/drafts/DIGITAL001.md"},
+    "booking": {"status": "complete", "at": "2026-06-18T19:25Z", "artifact": "outputs/booking/DIGITAL001.yaml"},
+    "qa": {"status": "complete", "at": "2026-06-18T19:30Z", "artifact": "outputs/reviews/DIGITAL001_qa.yaml"},
+    "style": {"status": "complete", "at": "2026-06-18T19:30Z", "artifact": "outputs/style/DIGITAL001_style.yaml"},
+    "crossref": {"status": "complete", "at": "2026-06-18T19:32Z", "artifact": "outputs/crossref/DIGITAL001_crossref.yaml"},
+    "publish": {"status": "complete", "at": "2026-06-18T19:35Z", "artifact": "outputs/publish/DIGITAL001_pubspec.yaml"}
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. 1 MAJOR advisory (barrier variant in worked example). Digital/binary product. Pin risk and skew emphasis. Final ELN product. Clean pipeline run.",
+  "section_hashes": {"definition": "f1a2b3c4d5e60718", "construction": "a2b3c4d5e6f70829", "booking_systems": "b3c4d5e6f7a8093a", "pricing_intuition": "c4d5e6f7a8b9104b", "worked_example": "d5e6f7a8b9c0215c", "reconciliation": "e6f7a8b9c0d1326d", "desk_view": "f7a8b9c0d1e2437e", "desk_shorthand": "a8b9c0d1e2f3548f"}
+}

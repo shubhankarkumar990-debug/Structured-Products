@@ -1,0 +1,21 @@
+{
+  "product_id": "PPN001",
+  "product_name": "Principal Protected Note",
+  "family": "ELN",
+  "updated_at": "2026-06-18T18:35:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {"status": "complete", "at": "2026-06-18T18:20Z"},
+    "research": {"status": "complete", "at": "2026-06-18T18:20Z", "artifact": "outputs/research/PPN001.yaml"},
+    "architecture": {"status": "complete", "at": "2026-06-18T18:22Z", "artifact": "outputs/blueprints/PPN001.yaml"},
+    "content": {"status": "complete", "at": "2026-06-18T18:25Z", "artifact": "outputs/drafts/PPN001.md"},
+    "booking": {"status": "complete", "at": "2026-06-18T18:25Z", "artifact": "outputs/booking/PPN001.yaml"},
+    "qa": {"status": "complete", "at": "2026-06-18T18:30Z", "artifact": "outputs/reviews/PPN001_qa.yaml"},
+    "style": {"status": "complete", "at": "2026-06-18T18:30Z", "artifact": "outputs/style/PPN001_style.yaml"},
+    "crossref": {"status": "complete", "at": "2026-06-18T18:32Z", "artifact": "outputs/crossref/PPN001_crossref.yaml"},
+    "publish": {"status": "complete", "at": "2026-06-18T18:35Z", "artifact": "outputs/publish/PPN001_pubspec.yaml"}
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. 1 MAJOR advisory (dual participation rate presentation). Simplest ELN structure. Clean pipeline run.",
+  "section_hashes": {"definition": "c1d2e3f4a5b60718", "construction": "d2e3f4a5b6c70829", "booking_systems": "e3f4a5b6c7d8093a", "pricing_intuition": "f4a5b6c7d8e9104b", "worked_example": "a5b6c7d8e9f0215c", "reconciliation": "b6c7d8e9f0a1326d", "desk_view": "c7d8e9f0a1b2437e", "desk_shorthand": "d8e9f0a1b2c3548f"}
+}

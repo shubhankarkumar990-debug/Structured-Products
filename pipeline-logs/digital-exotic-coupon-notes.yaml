@@ -1,0 +1,13 @@
+chapter: "Digital / Exotic Coupon Notes"
+slug: "digital-exotic-coupon-notes"
+initiated: "2026-06-18"
+stages:
+  research: {status: completed, completed_at: "2026-06-18T19:20Z", notes: "Gate passed. Bond + digital strip + optional DI put. Binary coupon."}
+  architecture: {status: completed, completed_at: "2026-06-18T19:22Z", notes: "Gate passed. All 8 sections. Pin risk and skew as key insights."}
+  writing: {status: completed, completed_at: "2026-06-18T19:25Z", notes: "Gate passed. Call spread replication. Binary cliff. CRAELN contrast."}
+  murex_mapping: {status: completed, completed_at: "2026-06-18T19:25Z", notes: "Gate passed. NEMO+Sophis. Digital strike precision critical."}
+  qa: {status: completed, completed_at: "2026-06-18T19:30Z", notes: "Gate passed. Zero BLOCKERs. All arithmetic verified. 1 MAJOR advisory."}
+  style: {status: completed, completed_at: "2026-06-18T19:30Z", notes: "Gate passed. Zero violations. 3 known FPs skipped."}
+  crossref: {status: completed, completed_at: "2026-06-18T19:32Z", notes: "Gate passed. 4 refs validated. 1 warning (CRAELN001 exists)."}
+  publishing: {status: completed, completed_at: "2026-06-18T19:35Z", notes: "Gate passed. Final product in section 3.3. Closes ELN family."}
+open_issues: []

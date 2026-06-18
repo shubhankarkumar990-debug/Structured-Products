@@ -1,0 +1,68 @@
+blueprint:
+  product_id: WARRANT001
+  product_name: "Warrant / Turbo Certificate"
+  product_family: ELN
+  generated_at: "2026-06-18T18:42Z"
+  source: "outputs/research/WARRANT001.yaml"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+  sections:
+    definition:
+      content_nodes:
+        - "Leveraged equity exposure via barrier option"
+        - "No bond component, no principal protection"
+        - "Knock-out barrier — continuous intraday monitoring"
+        - "Most aggressive ELN product"
+      writing_instruction: "Contrast with note-based ELN structures. Explain the KO mechanism upfront."
+    construction:
+      primitives:
+        - instrument: "Down-and-out call (bull warrant)"
+          desk_direction: "long"
+      key_strikes: ["Strike 85%", "KO barrier 85%", "Spot 100%"]
+      path_dependency: "Continuous barrier. Not closed-form — barrier analytics."
+      writing_instruction: "Single component. Explain leverage mechanics. Cover put warrant symmetry briefly."
+    booking_systems:
+      system_mapping: {book_of_record: NEMO, risk_pnl: Sophis, legal_document: "Termsheet/Exchange listing", murex_legs: []}
+      content_nodes: ["Continuous barrier observation critical", "Exchange-listed fields", "Open-ended strike adjustment"]
+      writing_instruction: "Emphasise continuous vs discrete barrier as the key risk."
+    pricing_intuition:
+      dominant_greeks: ["Delta (leveraged)", "Gamma (spikes near barrier)", "Vega (suppressed by barrier)"]
+      yield_drivers: ["Leverage", "Barrier proximity", "Funding cost"]
+      model_dependency: "Barrier option model with gap risk adjustment."
+      sensitivities: ["1% underlying → ~5.9% warrant (at 5.9x leverage)"]
+      writing_instruction: "Explain vega suppression and barrier gamma. Unique to warrant products."
+    worked_example:
+      notional: "USD 10M exposure"
+      underlying: "Single stock at 100"
+      tenor: "1 year"
+      barriers: {strike: "85", KO: "85"}
+      decomposition: {intrinsic: "15.0%", time_value: "0.8%", funding: "1.2%", total_premium: "17.0%"}
+      leverage: "5.9x"
+      headline_yield: "5.9x leveraged equity exposure"
+      good_scenario: "Underlying 115. Warrant 30. Return +76.5%."
+      bad_scenario: "Underlying 85. KO triggered. Loss 100%."
+      writing_instruction: "Three scenarios. Emphasise gap risk. Include investment amount."
+    reconciliation:
+      critical_fields:
+        - {field: "KO barrier observation", failure_mode: "Discrete instead of continuous"}
+        - {field: "Strike/financing level", failure_mode: "Not updated for open-ended products"}
+        - {field: "Ratio/multiplier", failure_mode: "Mismatch with exchange listing"}
+      observation_type: "Continuous (intraday)"
+      fixing_fallback: "N/A"
+      writing_instruction: "Lead with continuous vs discrete as the most dangerous misconfiguration."
+    desk_view:
+      typical_buyer: "Sophisticated retail, day traders, tactical institutional."
+      actual_risk: "Total loss of premium at KO. Gap risk."
+      perceived_risk: "Leveraged directional bet."
+      when_appropriate: "Short-term directional views, high conviction."
+      when_not_appropriate: "Long-term, cannot monitor intraday, cannot absorb total loss."
+      writing_instruction: "Emphasise that this is the most aggressive ELN product."
+    desk_shorthand: {text: "Leveraged call; KO barrier, total loss risk.", source: "research"}
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

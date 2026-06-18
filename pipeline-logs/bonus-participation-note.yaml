@@ -1,0 +1,13 @@
+chapter: "Bonus / Participation Note"
+slug: "bonus-participation-note"
+initiated: "2026-06-18"
+stages:
+  research: {status: completed, completed_at: "2026-06-18T18:00Z", notes: "Gate passed. Three-component (bond + call + DI put). Net long vol structure."}
+  architecture: {status: completed, completed_at: "2026-06-18T18:02Z", notes: "Gate passed. All 8 sections. Closed-form pricing."}
+  writing: {status: completed, completed_at: "2026-06-18T18:05Z", notes: "Gate passed. Cost-balance decomposition. RC family contrast. Institutional tone."}
+  murex_mapping: {status: completed, completed_at: "2026-06-18T18:05Z", notes: "Gate passed. NEMO+Sophis. Participation rate as critical field. 3 failure modes."}
+  qa: {status: completed, completed_at: "2026-06-18T18:10Z", notes: "Gate passed. Zero BLOCKERs. Arithmetic verified. 1 MAJOR advisory."}
+  style: {status: completed, completed_at: "2026-06-18T18:10Z", notes: "Gate passed. Zero violations. 3 known FPs skipped."}
+  crossref: {status: completed, completed_at: "2026-06-18T18:12Z", notes: "Gate passed. 3 refs validated. 1 warning."}
+  publishing: {status: completed, completed_at: "2026-06-18T18:15Z", notes: "Gate passed. First product in section 3.3."}
+open_issues: []

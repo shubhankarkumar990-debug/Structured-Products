@@ -1,0 +1,13 @@
+chapter: "Warrant / Turbo Certificate"
+slug: "warrant-turbo-certificate"
+initiated: "2026-06-18"
+stages:
+  research: {status: completed, completed_at: "2026-06-18T18:40Z", notes: "Gate passed. Single barrier option. Continuous monitoring. 5.9x leverage."}
+  architecture: {status: completed, completed_at: "2026-06-18T18:42Z", notes: "Gate passed. All 8 sections. Most aggressive ELN product."}
+  writing: {status: completed, completed_at: "2026-06-18T18:45Z", notes: "Gate passed. Leverage mechanics. Gap risk. Listed product specifics."}
+  murex_mapping: {status: completed, completed_at: "2026-06-18T18:45Z", notes: "Gate passed. NEMO+Sophis. Continuous barrier observation critical."}
+  qa: {status: completed, completed_at: "2026-06-18T18:50Z", notes: "Gate passed. Zero BLOCKERs. Arithmetic verified. 1 MAJOR advisory."}
+  style: {status: completed, completed_at: "2026-06-18T18:50Z", notes: "Gate passed. Zero violations. 3 known FPs skipped."}
+  crossref: {status: completed, completed_at: "2026-06-18T18:52Z", notes: "Gate passed. 3 refs validated. 1 warning."}
+  publishing: {status: completed, completed_at: "2026-06-18T18:55Z", notes: "Gate passed. Third product in section 3.3."}
+open_issues: []

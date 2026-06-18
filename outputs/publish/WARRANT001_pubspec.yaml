@@ -1,0 +1,26 @@
+pubspec:
+  product_id: WARRANT001
+  product_name: "Warrant / Turbo Certificate"
+  reviewed_at: "2026-06-18T18:55Z"
+  master_document: "Structured_Products_Desk_Bible_COMPLETE.docx"
+  insertion:
+    insert_after: "PPN001 (Principal Protected Note)"
+    insert_before: "ICN001 (Issuer Callable Note)"
+    part: "Part 3 — Equity-Linked Notes"
+    section: "3.3 — Other ELN Structures"
+    position: "Third product in section 3.3"
+  heading_hierarchy:
+    h3_present: true
+    h4_subsections: {definition: true, construction: true, booking_systems: true, pricing_intuition: true, worked_example: true, reconciliation: true, desk_view: true, desk_shorthand: true}
+    no_h1_h2: true
+  toc_entry:
+    level_3: "Warrant / Turbo Certificate"
+    level_4: ["Definition", "Construction", "Booking & systems", "Pricing intuition", "Worked example (USD 10M)", "Reconciliation specifics", "Desk view", "Desk shorthand"]
+  numbering: {no_manual_numbering: true, section_number: "3.3", sequence_correct: true}
+  page_structure: {break_before: true, break_after: true}
+  appendix_updates:
+    - "Appendix B.4 — add WARRANT001 row (NEMO/Sophis)"
+    - "Appendix B.5 — add WARRANT001 KO barrier continuous entry"
+  checklist: {all_subsections_present: true, shorthand_italic: true, no_emoji: true, no_manual_page_numbers: true, self_contained: true}
+  gate: READY
+  hold_reasons: []

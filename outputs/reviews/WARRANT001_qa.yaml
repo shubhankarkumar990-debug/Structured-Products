@@ -1,0 +1,39 @@
+qa_review:
+  product_id: WARRANT001
+  reviewed_at: "2026-06-18T18:50Z"
+  scope:
+    first_run: true
+    sections_reviewed: [definition, construction, booking_systems, pricing_intuition, worked_example, reconciliation, desk_view, desk_shorthand]
+    sections_skipped: []
+  arithmetic_verification:
+    premium_check:
+      components: ["Intrinsic: 15.0%", "Time value: 0.8%", "Funding: 1.2%"]
+      expected_sum: "15.0% + 0.8% + 1.2% = 17.0%"
+      actual_sum: "17.0%"
+      result: "PASS"
+    leverage_check:
+      formula: "100% / 17.0% = 5.88x ≈ 5.9x"
+      result: "PASS"
+    good_scenario_check:
+      warrant_value: "115 - 85 = 30"
+      return: "(30 - 17) / 17 = 76.5%"
+      leverage_implied: "76.5% / 15% = 5.1x"
+      result: "PASS (leverage slightly below static due to non-linearity — correctly noted in draft)"
+    bad_scenario_check:
+      event: "Underlying = 85. KO triggered."
+      loss: "100% of premium = USD 1,700,000"
+      result: "PASS"
+  summary:
+    total: 1
+    blocker: 0
+    major: 1
+    minor: 0
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "Worked example — notional"
+      issue: "Notional described as 'USD 10M exposure' rather than 'USD 10M notional'"
+      evidence: "For warrants, the economic exposure (USD 10M) differs from the investment amount (USD 1.7M). The draft correctly distinguishes these. The header convention says 'USD 10M' but the worked example clarifies the investment is USD 1.7M. This is appropriate for a leveraged product."
+      required_action: "Advisory — notation is appropriate given the leveraged nature."
+  gate: PASS
+  blocker_ids: []

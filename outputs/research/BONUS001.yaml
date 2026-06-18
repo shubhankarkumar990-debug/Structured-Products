@@ -1,0 +1,107 @@
+research:
+  product_id: BONUS001
+  chapter: "3.3"
+  product_family: ELN
+  extracted_at: "2026-06-18T18:00Z"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+    - memory/style-patterns/ELN.yaml
+
+  definition:
+    client_payoff: "At maturity: if underlying above barrier, investor receives par plus participation in the upside (participation rate × max(0, underlying return above strike)). If underlying below barrier, investor receives par × (underlying final / initial) — standard 1:1 downside. No coupon. Return is capital gain from participation in upside."
+    capital_protection: "Conditional — protected above barrier, 1:1 loss below barrier"
+    conditional_coupon: false
+    autocall_feature: false
+    knock_in: true
+    knock_out: false
+    underlying_type: "single equity or index"
+
+  construction:
+    components:
+      - "Zero-coupon bond at par"
+      - "Long call option (participation in upside)"
+      - "Short down-and-in put (barrier protection with 1:1 downside)"
+    desk_long:
+      - "Zero-coupon bond funded at issuer credit curve"
+      - "Call option struck at 100% with participation rate (e.g., 80%)"
+    desk_short:
+      - "Down-and-in put struck at 100% with knock-in barrier at 70%"
+    key_strikes:
+      - "Call strike: 100% of initial fixing"
+      - "Put strike: 100% of initial fixing"
+      - "Knock-in barrier: 70% of initial fixing"
+      - "Participation rate: 80% of upside"
+    path_dependency: "European barrier at maturity. Call is European. Closed-form pricing possible."
+
+  systems:
+    book_of_record: NEMO
+    risk_and_pnl: Sophis
+    legal_document: Termsheet
+    murex_legs: []
+    no_murex: true
+
+  pricing:
+    dominant_greeks:
+      - "Delta (long via call, short via put — net depends on moneyness)"
+      - "Vega (long on call, short on put — net typically long vega)"
+      - "Gamma (positive near call strike, negative near barrier)"
+    yield_drivers:
+      - "Implied volatility (higher vol increases call value but also DI put cost — net effect on participation rate depends on skew)"
+      - "Barrier level (lower barrier → cheaper put → higher participation rate)"
+      - "Dividend yield (higher dividends reduce call value → lower participation rate)"
+      - "Issuer funding spread"
+    model_sensitivity: "Black-Scholes with barrier adjustment. Skew matters — the put is OTM (barrier below spot) while the call is ATM."
+    key_risks:
+      - "Participation rate sensitivity to vol skew"
+      - "Barrier proximity risk near maturity"
+      - "Dividend risk on long call component"
+
+  worked_example:
+    notional: "USD 10M"
+    underlying: "Single stock, 25% implied volatility"
+    tenor: "1 year"
+    strikes_and_barriers:
+      call_strike: "100% of initial fixing"
+      put_strike: "100% of initial fixing"
+      knock_in_barrier: "70% of initial fixing"
+      participation_rate: "80%"
+    decomposition:
+      call_option: "3.2% of notional (USD 320K) — desk buys call for investor upside"
+      down_and_in_put: "3.0% of notional (USD 300K) — desk sells put for barrier downside"
+      issuer_funding: "2.0% (USD 200K)"
+      ftp: "1.0% (USD 100K)"
+      desk_margin: "0.2% (USD 20K)"
+    ftp_assumption: "1.0% per annum"
+    desk_margin: "0.2% per annum"
+    headline_yield_to_client: "80% participation in upside above strike, barrier protection at 70%"
+    bad_scenario: "Underlying at 50% at maturity, below 70% barrier. Investor receives 50% of par (USD 5M). Loss: USD 5M or 50% of notional."
+
+  reconciliation:
+    primary_risk: "Participation rate — NEMO and Sophis must agree on the exact participation percentage, because the upside settlement amount is directly proportional to it"
+    critical_fields:
+      - "Participation rate (80%)"
+      - "Call strike (100%)"
+      - "Put strike (100%)"
+      - "Knock-in barrier (70%)"
+      - "Barrier observation convention"
+    failure_modes:
+      - "Participation rate mismatch: NEMO applies 80% but Sophis prices at 85% — settlement diverges"
+      - "Barrier observation: NEMO continuous vs Termsheet European maturity-only"
+      - "Cap on upside: Termsheet may cap participation at a maximum return — NEMO must enforce cap"
+    termsheet_ambiguities:
+      - "Participation rate: fixed at inception or variable"
+      - "Cap on upside return (if any)"
+      - "Barrier observation: maturity only or continuous"
+    observation_type: "European barrier at maturity"
+    fixing_fallback: "Modified following"
+
+  desk_view:
+    typical_buyer: "Investor seeking equity upside participation with conditional downside protection. Prefers capital gain over coupon."
+    actual_risk_taken: "Long call (upside participation) plus short DI put (1:1 downside below barrier). Asymmetric risk: capped upside (participation < 100%) with full downside below barrier."
+    perceived_risk: "Lower than actual — investor focuses on barrier protection and upside participation, may not appreciate that the participation rate caps the upside."
+    when_appropriate: "Bullish view, preference for capital gain, comfort with barrier risk, desire for upside participation rather than fixed coupon."
+    desk_opinion: "Clean structure for equity-bullish clients. The participation rate is the key commercial lever — higher participation makes the product more attractive but reduces desk margin."
+
+  desk_shorthand: "Upside participation; barrier put, no coupon."
+  open_questions: []

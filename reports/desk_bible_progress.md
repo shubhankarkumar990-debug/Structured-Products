@@ -1,8 +1,8 @@
 # Desk Bible Progress Dashboard
 
-**Last updated:** 2026-06-18T17:40Z  
+**Last updated:** 2026-06-18T19:40Z  
 **Pipeline version:** v2.1 (post production-readiness improvements)  
-**Updated after:** Batch 1 (5 ELN products)
+**Updated after:** Batch 2 (5 ELN products — ELN family now COMPLETE)
 
 ---
 
@@ -11,15 +11,15 @@
 | Metric | Count |
 |--------|------:|
 | Total products in catalog | 28 |
-| Products completed | 11 |
+| Products completed | 16 |
 | Products in progress | 0 |
 | Products requiring review | 0 |
-| Products remaining | 17 |
+| Products remaining | 12 |
 
-**Progress: 11 / 28 (39.3%)**
+**Progress: 16 / 28 (57.1%)**
 
 ```
-[███████████░░░░░░░░░░░░░░░░░░░] 39.3%
+[█████████████████░░░░░░░░░░░░░] 57.1%
 ```
 
 ---
@@ -28,7 +28,7 @@
 
 | Family | Total | Complete | Remaining | % Complete |
 |--------|------:|---------:|----------:|-----------:|
-| ELN | 13 | 8 | 5 | 61.5% |
+| ELN | 13 | 13 | 0 | 100.0% |
 | SRT | 5 | 1 | 4 | 20.0% |
 | CLN | 5 | 1 | 4 | 20.0% |
 | STEG | 4 | 0 | 4 | 0.0% |
@@ -37,7 +37,7 @@
 
 ### Completed products by family
 
-**ELN (8/13):** PHX001 (Phoenix Autocallable), RC001 (Reverse Convertible), DRC001 (Discounted Reverse Convertible), KODRC001 (Knock-Out Discounted RC), CRC001 (Callable Reverse Convertible), AIRBAG001 (Airbag / Leveraged RC), FCN001 (Fixed Coupon Note), CRAELN001 (Callable Range Accrual ELN)
+**ELN (13/13 — COMPLETE):** PHX001 (Phoenix Autocallable), RC001 (Reverse Convertible), DRC001 (Discounted RC), KODRC001 (Knock-Out Discounted RC), CRC001 (Callable RC), AIRBAG001 (Airbag / Leveraged RC), FCN001 (Fixed Coupon Note), CRAELN001 (Callable Range Accrual ELN), BONUS001 (Bonus / Participation Note), PPN001 (Principal Protected Note), WARRANT001 (Warrant / Turbo Certificate), ICN001 (Issuer Callable Note), DIGITAL001 (Digital / Exotic Coupon Notes)
 
 **SRT (1/5):** IRCFRN001 (IR Callable Fixed Rate Note)
 
@@ -57,15 +57,18 @@
 |------:|----------|--------:|--------------:|------------:|----------:|---------------:|-------------:|
 | 0 | PHX001, RC001, DRC001, VCLN001, IRCFRN001, SWAP001 | ~165 min | ~89,196 | 3 (v1) → 0 (v2) | 8 | 3 (v1) → 0 (v2) | 0 |
 | 1 | KODRC001, CRC001, AIRBAG001, FCN001, CRAELN001 | ~95 min | ~74,330 | 0 | 6 | 0 | 0 |
+| 2 | BONUS001, PPN001, WARRANT001, ICN001, DIGITAL001 | ~90 min | ~74,330 | 0 | 5 | 0 | 0 |
 
-### Batch 1 detail
+### Batch 2 detail
 
-- **Products:** 5 (all ELN family)
-- **Sections completed:** 3.1 (all 5 RC variants), 3.2 (all 3 autocallable variants)
+- **Products:** 5 (all ELN family — completes ELN)
+- **Sections completed:** 3.3 (all 5 Other ELN structures)
+- **ELN family status:** 13/13 COMPLETE (sections 3.1, 3.2, 3.3 all done)
 - **New memory artifacts created:** 0 (all ELN artifacts reused from Batch 0)
 - **Memory reuses:** 15 (3 per product × 5 products)
 - **Pipeline version:** v2.1 (stable, no changes)
 - **Zero BLOCKERs, zero MUST_FIX, zero broken cross-refs, zero publishing failures**
+- **Product diversity:** Participation (BONUS001), capital-protected (PPN001), leveraged/listed (WARRANT001), rate-driven callable (ICN001), digital/binary (DIGITAL001)
 
 ---
 
@@ -73,37 +76,30 @@
 
 Running totals (v2.1 — post improvements):
 
-| Metric | Batch 0 | Batch 1 | Cumulative |
-|--------|--------:|--------:|-----------:|
-| QA BLOCKERs | 0 | 0 | 0 |
-| QA MAJORs | 8 | 6 | 14 |
-| QA MINORs | 5 | 5 | 10 |
-| Style MUST_FIX | 0 | 0 | 0 |
-| Style SHOULD_FIX | 3 | 2 | 5 |
-| Style FPs skipped | 14 | 15 | 29 |
-| Style conventions skipped | 8 | 5 | 13 |
-| Cross-reference warnings | 3 | 5 | 8 |
-| Cross-reference broken | 0 | 0 | 0 |
-| Publishing failures | 0 | 0 | 0 |
+| Metric | Batch 0 | Batch 1 | Batch 2 | Cumulative |
+|--------|--------:|--------:|--------:|-----------:|
+| QA BLOCKERs | 0 | 0 | 0 | 0 |
+| QA MAJORs | 8 | 6 | 5 | 19 |
+| QA MINORs | 5 | 5 | 0 | 10 |
+| Style MUST_FIX | 0 | 0 | 0 | 0 |
+| Style SHOULD_FIX | 3 | 2 | 0 | 5 |
+| Style FPs skipped | 14 | 15 | 15 | 44 |
+| Style conventions skipped | 8 | 5 | 2 | 15 |
+| Cross-reference warnings | 3 | 5 | 5 | 13 |
+| Cross-reference broken | 0 | 0 | 0 | 0 |
+| Publishing failures | 0 | 0 | 0 | 0 |
 
-### QA issue breakdown (Batch 1)
-
-| Issue type | Count | Products affected |
-|------------|------:|-------------------|
-| Decomposition presentation ambiguity | 5 | All 5 products |
-| Model reference (advisory) | 1 | KODRC001 |
-| Barrier convention (advisory) | 1 | FCN001 |
-| Leverage explanation (advisory) | 1 | AIRBAG001 |
-| Sensitivity range (advisory) | 1 | CRC001 |
-| Boundary touch estimate | 1 | CRAELN001 |
-
-### Style issue breakdown (Batch 1)
+### QA issue breakdown (Batch 2)
 
 | Issue type | Count | Products affected |
 |------------|------:|-------------------|
-| Product naming consistency | 1 | KODRC001 |
-| Product abbreviation suggestion | 1 | CRC001 |
-| Genuine violations requiring content change | 0 | None |
+| Cost-balance decomposition format | 1 | BONUS001 |
+| Dual participation rate presentation | 1 | PPN001 |
+| Notional vs exposure convention | 1 | WARRANT001 |
+| Annualised decomposition convention | 1 | ICN001 |
+| DI barrier variant in worked example | 1 | DIGITAL001 |
+
+All 5 MAJORs are advisory — no content changes required.
 
 ---
 
@@ -112,11 +108,11 @@ Running totals (v2.1 — post improvements):
 | Metric | Count |
 |--------|------:|
 | Memory artifacts created (total) | 12 |
-| Memory artifacts created (Batch 1) | 0 |
-| Memory artifacts reused (Batch 1) | 15 |
-| Memory artifacts reused (cumulative) | 21 |
+| Memory artifacts created (Batch 2) | 0 |
+| Memory artifacts reused (Batch 2) | 15 |
+| Memory artifacts reused (cumulative) | 36 |
 | Accepted conventions (total) | 12 |
-| False positives avoided (cumulative) | 42 |
+| False positives avoided (cumulative) | 62 |
 
 ### Memory files by family
 
@@ -137,14 +133,14 @@ Running totals (v2.1 — post improvements):
 |------------|--------|----------|-------------------|
 | — | No products require review | — | — |
 
-No products are currently flagged as REVIEW_REQUIRED. All 11 completed products passed all gates cleanly.
+No products are currently flagged as REVIEW_REQUIRED. All 16 completed products passed all gates cleanly.
 
 ### Potential risks for future batches
 
 | Risk | Likelihood | Impact | Mitigation |
 |------|-----------|--------|------------|
 | STEG products require new memory artifacts | Certain | Low | First STEG product creates memory; subsequent reuse |
-| Cross-reference density increasing | Likely | Medium | 8 warnings in 11 products — manageable |
+| Cross-reference density increasing | Likely | Medium | 13 warnings in 16 products — manageable |
 | Exotic CLN products (FTD, NTD, Tranches) more complex | Likely | Medium | Arithmetic verification protocol handles complexity |
 
 ---
@@ -153,19 +149,18 @@ No products are currently flagged as REVIEW_REQUIRED. All 11 completed products 
 
 | Metric | Value |
 |--------|-------|
-| Remaining products | 17 |
+| Remaining products | 12 |
 | Estimated tokens per product | ~14,866 |
-| Estimated remaining tokens | ~252,722 |
+| Estimated remaining tokens | ~178,392 |
 | Products per batch (recommended) | 5 |
-| Remaining batches | ~3–4 |
-| Estimated remaining runtime | ~4–5 sessions |
+| Remaining batches | ~2–3 |
+| Estimated remaining runtime | ~3 sessions |
 
 ### Recommended batch sequence
 
 | Batch | Products | Family | Rationale |
 |------:|----------|--------|-----------|
-| 2 | BONUS001, PPN001, WARRANT001, ICN001, DIGITAL001 | ELN | Complete all remaining ELN (section 3.3) |
-| 3 | AFRN001, NCRA001, CRASRT001, DCFN001, VSTEG001 | SRT + STEG | First STEG — new memory needed |
+| 3 | AFRN001, NCRA001, CRASRT001, DCFN001, VSTEG001 | SRT + STEG | Complete SRT + first STEG (new memory needed) |
 | 4 | RASTEG001, CSTEG001, TARN001, SCLN001, FTD001 | STEG + CLN | Complete STEG + start exotic CLN |
 | 5 | NTD001, TRANCHE001 | CLN | Complete CLN |
 

@@ -55,31 +55,31 @@ products:
     name: "Bonus / Participation Note"
     family: ELN
     section: "3.3"
-    status: existing
+    status: complete
 
   - id: PPN001
     name: "Principal Protected Note (PPN)"
     family: ELN
     section: "3.3"
-    status: existing
+    status: complete
 
   - id: WARRANT001
     name: "Warrant / Turbo Certificate"
     family: ELN
     section: "3.3"
-    status: existing
+    status: complete
 
   - id: ICN001
     name: "Issuer Callable Note"
     family: ELN
     section: "3.3"
-    status: existing
+    status: complete
 
   - id: DIGITAL001
     name: "Digital / Exotic Coupon Notes"
     family: ELN
     section: "3.3"
-    status: existing
+    status: complete
 
   # Part 4 — Structured Rate Trades
   - id: IRCFRN001

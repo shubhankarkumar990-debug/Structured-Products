@@ -1,0 +1,13 @@
+chapter: "Principal Protected Note"
+slug: "principal-protected-note"
+initiated: "2026-06-18"
+stages:
+  research: {status: completed, completed_at: "2026-06-18T18:20Z", notes: "Gate passed. Two-component (bond + call). Simplest ELN. Closed-form."}
+  architecture: {status: completed, completed_at: "2026-06-18T18:22Z", notes: "Gate passed. All 8 sections. Rate-vol trade-off as key insight."}
+  writing: {status: completed, completed_at: "2026-06-18T18:25Z", notes: "Gate passed. Dual participation rate (gross/net). RC contrast. Institutional tone."}
+  murex_mapping: {status: completed, completed_at: "2026-06-18T18:25Z", notes: "Gate passed. NEMO+Sophis. Protection flag as critical field."}
+  qa: {status: completed, completed_at: "2026-06-18T18:30Z", notes: "Gate passed. Zero BLOCKERs. All arithmetic verified. 1 MAJOR advisory."}
+  style: {status: completed, completed_at: "2026-06-18T18:30Z", notes: "Gate passed. Zero violations. 3 known FPs, 1 accepted convention."}
+  crossref: {status: completed, completed_at: "2026-06-18T18:32Z", notes: "Gate passed. 3 refs validated. 1 warning."}
+  publishing: {status: completed, completed_at: "2026-06-18T18:35Z", notes: "Gate passed. Second product in section 3.3."}
+open_issues: []

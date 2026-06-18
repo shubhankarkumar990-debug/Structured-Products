@@ -1,0 +1,45 @@
+qa_review:
+  product_id: DIGITAL001
+  reviewed_at: "2026-06-18T19:30Z"
+  scope:
+    first_run: true
+    sections_reviewed: [definition, construction, booking_systems, pricing_intuition, worked_example, reconciliation, desk_view, desk_shorthand]
+    sections_skipped: []
+  arithmetic_verification:
+    decomposition_check:
+      components: ["Digital strip: 3.2%", "Funding: 2.0%", "FTP: 0.6%", "Put income: 2.0%", "Margin: 0.2%"]
+      expected_sum: "3.2% + 2.0% + 0.6% + 2.0% + 0.2% = 8.0%"
+      actual_sum: "8.0%"
+      result: "PASS"
+    scenario_1_check:
+      description: "All 8 coupons received"
+      coupon: "8 × 2.0% = 16.0%"
+      principal: "100%"
+      total_return: "16.0%"
+      result: "PASS"
+    scenario_2_check:
+      description: "5 of 8 coupons received"
+      coupon: "5 × 2.0% = 10.0%"
+      principal: "100%"
+      total_return: "10.0%"
+      result: "PASS"
+    scenario_3_check:
+      description: "3 coupons, barrier breached at 60%"
+      coupon: "3 × 2.0% = 6.0%"
+      principal: "60% (loss = 40%)"
+      total_return: "6.0% - 40.0% = -34.0%"
+      result: "PASS"
+  summary:
+    total: 1
+    blocker: 0
+    major: 1
+    minor: 0
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "Worked example — DI barrier variant"
+      issue: "Worked example includes DI barrier as if standard, but text notes it is optional"
+      evidence: "The draft correctly explains that the DI barrier is optional (Component 3). The worked example includes it to show the full risk profile. This is appropriate for a desk bible that must cover the worst-case scenario. Arithmetic is correct for both the protected and unprotected variants."
+      required_action: "Advisory — including the barrier variant in the worked example is appropriate for comprehensive risk illustration."
+  gate: PASS
+  blocker_ids: []

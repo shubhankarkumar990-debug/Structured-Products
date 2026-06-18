@@ -1,0 +1,73 @@
+research:
+  product_id: PPN001
+  product_name: "Principal Protected Note"
+  product_family: ELN
+  generated_at: "2026-06-18T18:20Z"
+  memory_consulted:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+    - memory/style-patterns/ELN.yaml
+
+  classification:
+    family: ELN
+    sub_family: "Capital-protected"
+    archetype: "Zero-coupon bond + long call"
+    risk_profile: "Asymmetric — zero downside, capped upside"
+    complexity: "Low"
+    path_dependent: false
+    model: "Black-Scholes closed-form"
+
+  structure:
+    components:
+      - instrument: "Zero-coupon bond (par redemption)"
+        desk_direction: "long"
+        purpose: "Guarantees 100% principal return at maturity"
+      - instrument: "European call option (OTM or ATM)"
+        desk_direction: "long"
+        purpose: "Provides equity upside exposure at participation rate"
+    barriers: []
+    observation: "European — maturity only"
+    tenor: "3 years (longer to fund call via discount)"
+    coupon: "None — return is capital gain"
+    principal_protection: "100%"
+
+  economics:
+    headline: "100% principal protection, participation in equity upside"
+    how_funded: "Discount to par on the zero-coupon bond (PV < 100%) funds the call option"
+    investor_trade: "Foregone interest income in exchange for equity upside with no downside"
+    decomposition:
+      zero_coupon_discount: "8.7% (100% - PV of bond at 3% funding over 3 years)"
+      call_cost_full: "12.0% (3-year ATM call at 22-vol)"
+      participation_rate: "72.5% (8.7% available / 12.0% call cost)"
+      ftp: "included in discount rate"
+      desk_margin: "deducted from participation rate"
+    verification: "Available premium 8.7% / full call 12.0% = 72.5% participation"
+
+  booking:
+    system_type: nemo_sophis
+    nemo_carries: ["Principal protection flag", "Participation rate", "Strike", "Maturity", "Underlying"]
+    sophis_carries: ["Call option model", "Delta hedge", "Vega exposure", "Funding curve"]
+    critical_fields: ["Participation rate", "Protection level (100%)", "Cap (if any)"]
+    failure_modes:
+      - "Participation rate mismatch between NEMO and pricing"
+      - "Protection level not flagged — treated as at-risk principal"
+      - "Cap omitted in NEMO when cap exists in termsheet"
+
+  pricing:
+    dominant_greeks: ["Delta (long, reduced by participation)", "Vega (long)", "Rho (short — bond duration)"]
+    key_sensitivities:
+      - "1-vol-point → ~60 bps change in participation rate"
+      - "25 bps rate increase → ~70 bps higher participation (cheaper bond, more to spend on call)"
+      - "Longer tenor → higher participation (more discount available)"
+    model_risk: "Low — closed-form European call. Skew matters for OTM strikes."
+
+  reconciliation:
+    critical_fields:
+      - {field: "Participation rate", source: "Termsheet", check: "Must match NEMO and Sophis"}
+      - {field: "Protection level", source: "Termsheet", check: "100% — must be flagged in NEMO"}
+      - {field: "Cap (if applicable)", source: "Termsheet", check: "Must appear in both systems if present"}
+    observation_type: "European"
+    fixing_fallback: "Modified following"
+
+  desk_shorthand: "Protected par; long call, no coupon, no downside."
+  open_questions: []

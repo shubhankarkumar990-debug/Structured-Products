@@ -1,0 +1,25 @@
+crossref_review:
+  product_id: WARRANT001
+  reviewed_at: "2026-06-18T18:52Z"
+  input_file: "outputs/drafts/WARRANT001.md"
+  summary:
+    total_refs: 4
+    validated: 3
+    broken: 0
+    warning: 1
+  broken_refs: []
+  warnings:
+    - id: "CW-001"
+      type: forward_ref
+      location: "Definition — 'Unlike Reverse Convertibles or Bonus Notes'"
+      reference: "RC and BONUS families"
+      reason: "Implicit comparison to other ELN products. Products exist."
+  validated_refs:
+    - reference: "Reverse Convertible family"
+      target: "outputs/drafts/RC001.md"
+    - reference: "NEMO booking system"
+      target: "memory/booking-maps/ELN_system_mapping.yaml"
+    - reference: "Sophis risk system"
+      target: "memory/booking-maps/ELN_system_mapping.yaml"
+  gate: PASS
+  broken_ids: []

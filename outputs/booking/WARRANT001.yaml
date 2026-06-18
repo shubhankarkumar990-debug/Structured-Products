@@ -1,0 +1,45 @@
+booking:
+  product_id: WARRANT001
+  product_name: "Warrant / Turbo Certificate"
+  generated_at: "2026-06-18T18:45Z"
+  system_type: nemo_sophis
+  murex_used: false
+  memory_consulted: "memory/booking-maps/ELN_system_mapping.yaml"
+
+  nemo:
+    instrument_type: "Listed Warrant — Barrier Option"
+    fields:
+      - {name: "Product ID", value: "WARRANT001"}
+      - {name: "Warrant type", value: "Bull (call) / Bear (put)"}
+      - {name: "Underlying", value: "Single stock"}
+      - {name: "Spot reference", value: "100"}
+      - {name: "Strike / financing level", value: "85", critical: true}
+      - {name: "KO barrier", value: "85 (= strike for standard turbo)", critical: true}
+      - {name: "Ratio", value: "1:1", critical: true}
+      - {name: "Multiplier", value: "1"}
+      - {name: "Barrier observation", value: "Continuous (intraday)", critical: true}
+      - {name: "Tenor", value: "1Y (or open-ended)"}
+      - {name: "Settlement", value: "Cash"}
+      - {name: "Listing exchange", value: "As per issuance"}
+      - {name: "ISIN", value: "As per issuance"}
+    validation: "KO barrier observation MUST be continuous. Ratio must match exchange listing."
+
+  sophis:
+    legs:
+      - {leg: 1, instrument: "Down-and-out call", direction: "long", strike: "85", barrier: "85", observation: "continuous", model: "Barrier option with gap risk adjustment"}
+    hedging: "Delta hedge via underlying equity. Gamma management near barrier."
+    greeks_monitored: ["Delta", "Gamma", "Vega", "Theta"]
+    special_considerations: "Gap risk reserve for overnight barrier breach. Continuous monitoring required."
+
+  reconciliation:
+    frequency: "Daily (listed product)"
+    critical_checks:
+      - {field: "KO barrier observation", nemo: "Continuous", sophis: "Continuous", failure_mode: "Discrete observation → systematic mispricing"}
+      - {field: "Strike/financing level", nemo: "85 (or daily-adjusted)", sophis: "85 (or daily-adjusted)", failure_mode: "Drift between systems on open-ended products"}
+      - {field: "Ratio/multiplier", nemo: "1:1", sophis: "1:1", failure_mode: "Position size scaled by wrong factor"}
+      - {field: "Settlement method", nemo: "Cash", sophis: "Cash", failure_mode: "Physical vs cash mismatch"}
+
+  failure_modes:
+    - "Barrier set to discrete instead of continuous — systematic pricing error"
+    - "Strike not updated daily for open-ended products — accumulating drift"
+    - "Ratio mismatch between NEMO, Sophis, and exchange listing"

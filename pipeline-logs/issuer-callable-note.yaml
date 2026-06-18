@@ -1,0 +1,13 @@
+chapter: "Issuer Callable Note"
+slug: "issuer-callable-note"
+initiated: "2026-06-18"
+stages:
+  research: {status: completed, completed_at: "2026-06-18T19:00Z", notes: "Gate passed. Two-component (bond + Bermudan call). Rate product."}
+  architecture: {status: completed, completed_at: "2026-06-18T19:02Z", notes: "Gate passed. All 8 sections. Negative convexity focus."}
+  writing: {status: completed, completed_at: "2026-06-18T19:05Z", notes: "Gate passed. Rate-driven analysis. Call schedule operational risk."}
+  murex_mapping: {status: completed, completed_at: "2026-06-18T19:05Z", notes: "Gate passed. NEMO+Sophis. Call schedule and notification period critical."}
+  qa: {status: completed, completed_at: "2026-06-18T19:10Z", notes: "Gate passed. Zero BLOCKERs. Arithmetic verified. 1 MAJOR advisory."}
+  style: {status: completed, completed_at: "2026-06-18T19:10Z", notes: "Gate passed. Zero violations. 3 known FPs, 1 accepted convention."}
+  crossref: {status: completed, completed_at: "2026-06-18T19:12Z", notes: "Gate passed. 3 refs validated. 1 warning."}
+  publishing: {status: completed, completed_at: "2026-06-18T19:15Z", notes: "Gate passed. Fourth product in section 3.3."}
+open_issues: []

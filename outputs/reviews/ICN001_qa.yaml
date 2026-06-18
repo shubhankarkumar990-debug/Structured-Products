@@ -1,0 +1,38 @@
+qa_review:
+  product_id: ICN001
+  reviewed_at: "2026-06-18T19:10Z"
+  scope:
+    first_run: true
+    sections_reviewed: [definition, construction, booking_systems, pricing_intuition, worked_example, reconciliation, desk_view, desk_shorthand]
+    sections_skipped: []
+  arithmetic_verification:
+    enhancement_check:
+      components: ["Call premium: 1.8%", "Funding: 0.4%", "FTP: 0.2%", "Margin: 0.1%"]
+      expected_sum: "1.8% + 0.4% + 0.2% + 0.1% = 2.5%"
+      actual_sum: "2.5%"
+      result: "PASS"
+    coupon_check:
+      formula: "Benchmark 3.0% + enhancement 2.5% = 5.5%"
+      result: "PASS"
+    scenario_1_check:
+      description: "Called at 1Y"
+      coupon_earned: "1 × 5.5% = 5.5% of notional = USD 550,000"
+      result: "PASS"
+    scenario_2_check:
+      description: "Held to maturity"
+      coupon_earned: "3 × 5.5% = 16.5% of notional = USD 1,650,000"
+      result: "PASS"
+  summary:
+    total: 1
+    blocker: 0
+    major: 1
+    minor: 0
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "Worked example — enhancement decomposition"
+      issue: "Enhancement components are annualised but call option premium is typically a one-time cost amortised over expected life"
+      evidence: "The decomposition presents all components as annualised percentages, which is standard for desk-level communication. The 1.8% call premium is the annualised equivalent of the upfront Bermudan option value. Arithmetic is internally consistent."
+      required_action: "Advisory — annualised presentation is standard desk convention. No change required."
+  gate: PASS
+  blocker_ids: []

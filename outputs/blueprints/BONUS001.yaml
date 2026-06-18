@@ -1,0 +1,73 @@
+blueprint:
+  product_id: BONUS001
+  product_name: "Bonus / Participation Note"
+  product_family: ELN
+  generated_at: "2026-06-18T18:02Z"
+  source: "outputs/research/BONUS001.yaml"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+  sections:
+    definition:
+      content_nodes:
+        - "Upside participation with conditional barrier protection"
+        - "No coupon — return is capital gain"
+        - "Participation rate determines fraction of upside captured"
+        - "Below barrier: 1:1 downside from initial"
+      writing_instruction: "Contrast with RC family (seller of vol vs buyer of upside)."
+    construction:
+      primitives:
+        - instrument: "Zero-coupon bond"
+          desk_direction: "long"
+        - instrument: "European call (participation rate)"
+          desk_direction: "long"
+        - instrument: "Down-and-in put (barrier)"
+          desk_direction: "short"
+      key_strikes: ["Call 100%", "Put 100%", "KI barrier 70%", "Participation 80%"]
+      path_dependency: "European barrier. Closed-form."
+      writing_instruction: "Three-component. Explain how put premium funds call."
+    booking_systems:
+      system_mapping: {book_of_record: NEMO, risk_pnl: Sophis, legal_document: Termsheet, murex_legs: []}
+      content_nodes: ["Participation rate as critical NEMO field", "Net delta hedging"]
+      writing_instruction: "Participation rate consistency is the key risk."
+    pricing_intuition:
+      dominant_greeks: ["Delta (net long)", "Vega (net long)", "Gamma (mixed)"]
+      yield_drivers: ["Vol", "Barrier level", "Dividends", "Funding"]
+      model_dependency: "Black-Scholes with skew."
+      sensitivities: ["1-vol-point: ~50 bps on participation rate"]
+      writing_instruction: "Explain why investor is net long vol, unlike RC products."
+    worked_example:
+      notional: "USD 10M"
+      underlying: "Single stock, 25-vol"
+      tenor: "1 year"
+      barriers: {call: "100%", put: "100%", KI: "70%", participation: "80%"}
+      decomposition: {call: "6.4% effective", put: "3.0%", funding: "2.0%", ftp: "1.0%", margin: "0.4%"}
+      ftp: "1.0%"
+      desk_margin: "0.4%"
+      headline_yield: "80% participation, 70% barrier"
+      good_scenario: "Underlying 130%. Par + 80%×30% = 24% return."
+      bad_scenario: "Underlying 50%. Below barrier. 1:1 loss. USD 5M."
+      writing_instruction: "Arithmetic: call cost 6.4% = put 3.0% + funding 2.0% + FTP 1.0% + margin 0.4%."
+    reconciliation:
+      critical_fields:
+        - {field: "Participation rate", failure_mode: "Mismatch between NEMO and Sophis"}
+        - {field: "Upside cap", failure_mode: "Cap not enforced in NEMO"}
+        - {field: "Barrier observation", failure_mode: "Continuous vs European"}
+      observation_type: "European"
+      fixing_fallback: "Modified following"
+      writing_instruction: "Lead with participation rate as the unique risk."
+    desk_view:
+      typical_buyer: "Equity-bullish, prefers capital gain."
+      actual_risk: "Long call + short put = directional equity bet with barrier."
+      perceived_risk: "Protected by barrier."
+      when_appropriate: "Bullish view, capital gain preference."
+      when_not_appropriate: "Wants income certainty, cannot absorb downside."
+      writing_instruction: "Contrast with RC family."
+    desk_shorthand: {text: "Upside participation; barrier put, no coupon.", source: "research"}
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

@@ -1,0 +1,71 @@
+blueprint:
+  product_id: PPN001
+  product_name: "Principal Protected Note"
+  product_family: ELN
+  generated_at: "2026-06-18T18:22Z"
+  source: "outputs/research/PPN001.yaml"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+  sections:
+    definition:
+      content_nodes:
+        - "100% principal protection at maturity"
+        - "Participation in equity upside via embedded call"
+        - "No coupon — return is capital gain only"
+        - "Investor foregoes interest income to fund equity exposure"
+      writing_instruction: "Emphasise the zero-loss guarantee. Contrast with RC family where investor sells a put."
+    construction:
+      primitives:
+        - instrument: "Zero-coupon bond"
+          desk_direction: "long"
+        - instrument: "European call option"
+          desk_direction: "long"
+      key_strikes: ["Call ATM (100%)", "Protection 100%"]
+      path_dependency: "None. European. Closed-form."
+      writing_instruction: "Two components only. Simplest ELN structure. Explain funding mechanism."
+    booking_systems:
+      system_mapping: {book_of_record: NEMO, risk_pnl: Sophis, legal_document: Termsheet, murex_legs: []}
+      content_nodes: ["Protection flag in NEMO", "Participation rate as critical field"]
+      writing_instruction: "Highlight that protection flag must be explicitly set."
+    pricing_intuition:
+      dominant_greeks: ["Delta (long, scaled by participation)", "Vega (long)", "Rho (short)"]
+      yield_drivers: ["Interest rates", "Vol", "Tenor", "Dividends"]
+      model_dependency: "Black-Scholes closed-form."
+      sensitivities: ["Rates up → higher participation", "Vol up → lower participation"]
+      writing_instruction: "Explain the rate-vol trade-off. Higher rates help PPN (more discount). Higher vol hurts (more expensive call)."
+    worked_example:
+      notional: "USD 10M"
+      underlying: "Equity index, 22-vol"
+      tenor: "3 years"
+      barriers: {protection: "100%", strike: "100%"}
+      decomposition: {zero_coupon_discount: "8.7%", call_cost_full: "12.0%", participation_rate: "72.5%"}
+      ftp: "included in discount rate"
+      desk_margin: "deducted from participation"
+      headline_yield: "72.5% participation, 100% protection"
+      good_scenario: "Underlying 130%. Par + 72.5%×30% = 21.75% return."
+      bad_scenario: "Underlying 70%. Full protection. Return = 0% (par returned)."
+      writing_instruction: "Arithmetic: 8.7% / 12.0% = 72.5%. Three scenarios: up, flat, down."
+    reconciliation:
+      critical_fields:
+        - {field: "Participation rate", failure_mode: "Mismatch between NEMO and Sophis"}
+        - {field: "Protection level", failure_mode: "Not flagged in NEMO — treated as at-risk"}
+        - {field: "Cap", failure_mode: "Present in termsheet but missing from systems"}
+      observation_type: "European"
+      fixing_fallback: "Modified following"
+      writing_instruction: "Protection flag is the unique recon risk for PPNs."
+    desk_view:
+      typical_buyer: "Conservative investor wanting equity exposure with capital guarantee."
+      actual_risk: "Issuer credit risk only. No market risk to principal."
+      perceived_risk: "None — full protection."
+      when_appropriate: "Low-risk appetite, willing to sacrifice income for protection."
+      when_not_appropriate: "Wants income. Wants full upside participation. Short-tenor."
+      writing_instruction: "Explain that the 'cost' is foregone interest, not visible premium."
+    desk_shorthand: {text: "Protected par; long call, no coupon, no downside.", source: "research"}
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

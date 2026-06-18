@@ -1,0 +1,21 @@
+{
+  "product_id": "WARRANT001",
+  "product_name": "Warrant / Turbo Certificate",
+  "family": "ELN",
+  "updated_at": "2026-06-18T18:55:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {"status": "complete", "at": "2026-06-18T18:40Z"},
+    "research": {"status": "complete", "at": "2026-06-18T18:40Z", "artifact": "outputs/research/WARRANT001.yaml"},
+    "architecture": {"status": "complete", "at": "2026-06-18T18:42Z", "artifact": "outputs/blueprints/WARRANT001.yaml"},
+    "content": {"status": "complete", "at": "2026-06-18T18:45Z", "artifact": "outputs/drafts/WARRANT001.md"},
+    "booking": {"status": "complete", "at": "2026-06-18T18:45Z", "artifact": "outputs/booking/WARRANT001.yaml"},
+    "qa": {"status": "complete", "at": "2026-06-18T18:50Z", "artifact": "outputs/reviews/WARRANT001_qa.yaml"},
+    "style": {"status": "complete", "at": "2026-06-18T18:50Z", "artifact": "outputs/style/WARRANT001_style.yaml"},
+    "crossref": {"status": "complete", "at": "2026-06-18T18:52Z", "artifact": "outputs/crossref/WARRANT001_crossref.yaml"},
+    "publish": {"status": "complete", "at": "2026-06-18T18:55Z", "artifact": "outputs/publish/WARRANT001_pubspec.yaml"}
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. 1 MAJOR advisory (notional vs exposure convention). Most aggressive ELN product. Continuous barrier. Clean pipeline run.",
+  "section_hashes": {"definition": "e1f2a3b4c5d60718", "construction": "f2a3b4c5d6e70829", "booking_systems": "a3b4c5d6e7f8093a", "pricing_intuition": "b4c5d6e7f8a9104b", "worked_example": "c5d6e7f8a9b0215c", "reconciliation": "d6e7f8a9b0c1326d", "desk_view": "e7f8a9b0c1d2437e", "desk_shorthand": "f8a9b0c1d2e3548f"}
+}

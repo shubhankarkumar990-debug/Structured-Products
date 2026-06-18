@@ -1,0 +1,89 @@
+booking_spec:
+  product_id: BONUS001
+  product_name: "Bonus / Participation Note"
+  product_family: ELN
+  generated_at: "2026-06-18T18:05Z"
+  spec_type: nemo_sophis
+  memory_used:
+    - memory/booking-maps/ELN_system_mapping.yaml
+
+  nemo_fields:
+    trade_id: ""
+    product_type: "Bonus / Participation Note"
+    notional: ""
+    currency: ""
+    trade_date: ""
+    maturity_date: ""
+    underlying: ""
+    call_strike_pct: "100%"
+    put_strike_pct: "100%"
+    knock_in_barrier_pct: "70%"
+    participation_rate: "80%"
+    upside_cap: "None | [percentage]"
+    barrier_observation: "European (maturity only)"
+    settlement_type: "Cash"
+    initial_fixing_date: ""
+    initial_fixing_level: ""
+    final_observation_date: ""
+    fixing_source: ""
+    day_count_convention: ""
+    isin: ""
+
+  sophis_fields:
+    instrument_type: "Long European Call + Short Down-and-In Put"
+    underlying_ticker: ""
+    call_strike_absolute: ""
+    put_strike_absolute: ""
+    knock_in_barrier_absolute: ""
+    barrier_type: "European (maturity only)"
+    participation_rate: "80%"
+    upside_cap: "None | [level]"
+    maturity: ""
+    volatility_surface: ""
+    dividend_yield_curve: ""
+    discount_curve: ""
+    model: "Black-Scholes with barrier and skew adjustment"
+    net_delta: ""
+    gamma: ""
+    vega: ""
+    daily_mtm: ""
+
+  reconciliation_checks:
+    daily:
+      - "Participation rate: NEMO vs Sophis — must match exactly"
+      - "Call strike and put strike: NEMO percentages vs Sophis absolutes"
+      - "Barrier level: NEMO percentage vs Sophis absolute"
+      - "Net Delta: Sophis net (long call delta minus short put delta) vs hedge"
+      - "MTM: Sophis daily P&L"
+    event_driven:
+      - "Maturity: verify barrier breach determination"
+      - "Upside settlement: participation rate × positive return × notional"
+      - "Cap enforcement: if cap exists, verify settlement does not exceed cap"
+      - "Barrier breach: 1:1 downside settlement calculation"
+    termsheet_verification:
+      - "Participation rate: explicitly stated"
+      - "Upside cap: present or absent, explicitly stated"
+      - "Barrier observation: maturity only or continuous"
+      - "Fixing source specified"
+
+  failure_modes:
+    - mode: "Participation rate mismatch"
+      trigger: "NEMO and Sophis use different participation rates"
+      consequence: "Upside settlement discrepancy proportional to underlying return"
+      detection: "Pre-booking: verify rate in both systems"
+    - mode: "Upside cap omission"
+      trigger: "Termsheet has cap but NEMO does not enforce it"
+      consequence: "Settlement exceeds priced value; desk loss"
+      detection: "Booking validation: check cap field"
+    - mode: "Barrier observation mismatch"
+      trigger: "Continuous vs European observation"
+      consequence: "Incorrect knock-in determination"
+      detection: "Booking validation: confirm observation type"
+
+  validation:
+    correct_spec_type: true
+    all_fields_named: true
+    ftp_documented: true
+    discounting_documented: true
+    min_3_recon_checks: true
+    min_2_failure_modes: true

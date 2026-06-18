@@ -1,0 +1,21 @@
+{
+  "product_id": "ICN001",
+  "product_name": "Issuer Callable Note",
+  "family": "ELN",
+  "updated_at": "2026-06-18T19:15:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {"status": "complete", "at": "2026-06-18T19:00Z"},
+    "research": {"status": "complete", "at": "2026-06-18T19:00Z", "artifact": "outputs/research/ICN001.yaml"},
+    "architecture": {"status": "complete", "at": "2026-06-18T19:02Z", "artifact": "outputs/blueprints/ICN001.yaml"},
+    "content": {"status": "complete", "at": "2026-06-18T19:05Z", "artifact": "outputs/drafts/ICN001.md"},
+    "booking": {"status": "complete", "at": "2026-06-18T19:05Z", "artifact": "outputs/booking/ICN001.yaml"},
+    "qa": {"status": "complete", "at": "2026-06-18T19:10Z", "artifact": "outputs/reviews/ICN001_qa.yaml"},
+    "style": {"status": "complete", "at": "2026-06-18T19:10Z", "artifact": "outputs/style/ICN001_style.yaml"},
+    "crossref": {"status": "complete", "at": "2026-06-18T19:12Z", "artifact": "outputs/crossref/ICN001_crossref.yaml"},
+    "publish": {"status": "complete", "at": "2026-06-18T19:15Z", "artifact": "outputs/publish/ICN001_pubspec.yaml"}
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. 1 MAJOR advisory (annualised decomposition convention). Interest rate product within ELN family. Bermudan call. Clean pipeline run.",
+  "section_hashes": {"definition": "a1c2d3e4f5a60718", "construction": "b2d3e4f5a6b70829", "booking_systems": "c3e4f5a6b7c8093a", "pricing_intuition": "d4f5a6b7c8d9104b", "worked_example": "e5a6b7c8d9e0215c", "reconciliation": "f6b7c8d9e0f1326d", "desk_view": "a7c8d9e0f1a2437e", "desk_shorthand": "b8d9e0f1a2b3548f"}
+}
