@@ -1,0 +1,40 @@
+qa_review:
+  product_id: TRANCHE001
+  product_name: "Synthetic CDO Tranche"
+  product_family: CLN
+  generated_at: "2026-06-19T13:45Z"
+  source: "outputs/drafts/TRANCHE001.md"
+  protocol: "v2.1 — arithmetic verification with ±0.2% rounding tolerance"
+  gate: PASS
+  sections_reviewed:
+    definition: {present: true, issues: []}
+    construction: {present: true, issues: []}
+    booking_systems: {present: true, issues: []}
+    pricing_intuition: {present: true, issues: []}
+    worked_example:
+      present: true
+      issues:
+        - severity: MAJOR
+          type: advisory
+          description: "Decomposition sums correctly (320 + 120 + 60 = 500 bps). Scenario arithmetic verified. Consistent with CLN decomposition convention."
+          arithmetic_verified: true
+          resolution: "No action required."
+    reconciliation: {present: true, issues: []}
+    desk_view: {present: true, issues: []}
+    desk_shorthand: {present: true, word_count: 8, within_limit: true, issues: []}
+  arithmetic_verification:
+    worked_example:
+      decomposition: {formula: "320 + 120 + 60", expected: "500 bps", computed: 500, match: true}
+      annual_premium: {formula: "USD 10,000,000 × 5.00%", expected: "USD 500,000", computed: 500000, match: true}
+      total_premium: {formula: "USD 500,000 × 5", expected: "USD 2,500,000", computed: 2500000, match: true}
+      scenario_2_loss: {formula: "4 × 0.8% × 60%", expected: "1.92%", computed: 1.92, match: true}
+      scenario_3_portfolio_loss: {formula: "10 × 0.8% × 60%", expected: "4.80%", computed: 4.80, match: true}
+      scenario_3_tranche_pct: {formula: "1.80% / 4.00%", expected: "45%", computed: 0.45, match: true}
+      scenario_3_tranche_loss: {formula: "USD 10,000,000 × 45%", expected: "USD 4,500,000", computed: 4500000, match: true}
+      scenario_3_premium_received: {formula: "USD 500,000 × 3", expected: "USD 1,500,000", computed: 1500000, match: true}
+      scenario_3_net_pnl: {formula: "1,500,000 − 4,500,000", expected: "−USD 3,000,000", computed: -3000000, match: true}
+    all_arithmetic_correct: true
+  blocker_count: 0
+  major_count: 1
+  minor_count: 0
+  summary: "Zero BLOCKERs. 1 MAJOR advisory (decomposition format). All arithmetic verified including tranche loss mechanics. QA gate PASS."

@@ -135,13 +135,13 @@ products:
     name: "Nth-to-Default (NTD)"
     family: CLN
     section: "6.2"
-    status: existing
+    status: complete
 
   - id: TRANCHE001
-    name: "Synthetic Tranches"
+    name: "Synthetic CDO Tranche"
     family: CLN
-    section: "6.2"
-    status: existing
+    section: "6.3"
+    status: complete
 
   # Part 7 — STEG Notes
   - id: VSTEG001

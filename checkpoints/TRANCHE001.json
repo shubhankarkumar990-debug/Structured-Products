@@ -1,0 +1,20 @@
+{
+  "product_id": "TRANCHE001",
+  "product_name": "Synthetic CDO Tranche",
+  "product_family": "CLN",
+  "status": "complete",
+  "generated_at": "2026-06-19T13:50Z",
+  "stages": {
+    "research": {"status": "complete", "artifact": "outputs/research/TRANCHE001.yaml"},
+    "architecture": {"status": "complete", "artifact": "outputs/blueprints/TRANCHE001.yaml"},
+    "writing": {"status": "complete", "artifact": "outputs/drafts/TRANCHE001.md"},
+    "booking": {"status": "complete", "artifact": "outputs/booking/TRANCHE001.yaml"},
+    "qa_review": {"status": "complete", "artifact": "outputs/reviews/TRANCHE001_qa.yaml", "gate": "PASS", "blockers": 0},
+    "style_review": {"status": "complete", "artifact": "outputs/style/TRANCHE001_style.yaml", "gate": "PASS", "must_fix": 0},
+    "crossref": {"status": "complete", "artifact": "outputs/crossref/TRANCHE001_crossref.yaml", "gate": "PASS", "broken": 0},
+    "publish": {"status": "complete", "artifact": "outputs/publish/TRANCHE001_pubspec.yaml", "gate": "READY"}
+  },
+  "retries": 0,
+  "recovery_used": false,
+  "all_gates_passed": true
+}

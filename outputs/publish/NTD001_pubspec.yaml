@@ -1,0 +1,10 @@
+publish:
+  product_id: NTD001
+  product_name: "Nth-to-Default"
+  product_family: CLN
+  generated_at: "2026-06-19T13:25Z"
+  gate: READY
+  pre_publish_checks: {draft_exists: true, qa_gate: PASS, style_gate: PASS, crossref_gate: PASS, all_8_sections: true, blocking_issues: 0}
+  publish_metadata: {section: "6.2", family: CLN, family_position: "4 of 5", complexity: "High", system: "NEMO + Sophis", desk_shorthand: "Second loss on basket; long correlation, mezzanine."}
+  quality_summary: {qa_blockers: 0, qa_majors: 1, style_must_fix: 0, crossref_broken: 0}
+  summary: "NTD001 READY. Correlation reversal from FTD. CLN 4/5. Publishing gate READY."

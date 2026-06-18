@@ -1,0 +1,38 @@
+qa_review:
+  product_id: NTD001
+  product_name: "Nth-to-Default"
+  product_family: CLN
+  generated_at: "2026-06-19T13:18Z"
+  source: "outputs/drafts/NTD001.md"
+  protocol: "v2.1 — arithmetic verification with ±0.2% rounding tolerance"
+  gate: PASS
+  sections_reviewed:
+    definition: {present: true, issues: []}
+    construction: {present: true, issues: []}
+    booking_systems: {present: true, issues: []}
+    pricing_intuition: {present: true, issues: []}
+    worked_example:
+      present: true
+      issues:
+        - severity: MAJOR
+          type: advisory
+          description: "Decomposition sums correctly (3.0% + 0.3% + 0.2% + 2.7% = 6.2%). FTD-to-NTD spread comparison (280/550 = 51%) stated correctly. Consistent with CLN decomposition convention."
+          arithmetic_verified: true
+          resolution: "No action required."
+    reconciliation: {present: true, issues: []}
+    desk_view: {present: true, issues: []}
+    desk_shorthand: {present: true, word_count: 7, within_limit: true, issues: []}
+  arithmetic_verification:
+    worked_example:
+      decomposition: {formula: "3.0% + 0.3% + 0.2% + 2.7%", expected: "6.2%", computed: 6.2, match: true}
+      spread_ratio: {formula: "280 / 550", expected: "51%", computed: 0.509, match: true}
+      scenario_1_coupon: {formula: "USD 10M × 6.2% × 5", expected: "USD 3,100,000", computed: 3100000, match: true}
+      scenario_3_coupon: {formula: "USD 10M × 6.2% × 3", expected: "USD 1,860,000", computed: 1860000, match: true}
+      scenario_3_recovery: {formula: "USD 10M × 40%", expected: "USD 4,000,000", computed: 4000000, match: true}
+      scenario_3_total: {formula: "1,860,000 + 4,000,000", expected: "USD 5,860,000", computed: 5860000, match: true}
+      scenario_3_loss: {formula: "10,000,000 − 5,860,000", expected: "USD 4,140,000", computed: 4140000, match: true}
+    all_arithmetic_correct: true
+  blocker_count: 0
+  major_count: 1
+  minor_count: 0
+  summary: "Zero BLOCKERs. 1 MAJOR advisory (decomposition format). All arithmetic verified. Correlation reversal explained. QA gate PASS."

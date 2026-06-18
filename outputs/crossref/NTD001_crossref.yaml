@@ -1,0 +1,16 @@
+crossref:
+  product_id: NTD001
+  product_name: "Nth-to-Default"
+  product_family: CLN
+  generated_at: "2026-06-19T13:22Z"
+  source: "outputs/drafts/NTD001.md"
+  gate: PASS
+  references_found:
+    - {ref_type: "explicit_comparison", target: "FTD001", target_family: CLN, context: "FTD (first-loss, short correlation) vs NTD (mezzanine, long correlation) — correlation reversal", target_exists: true, validated: true}
+    - {ref_type: "implicit_reference", target: "VCLN001", target_family: CLN, context: "Single-name CLN as the base case for all basket extensions", target_exists: true, validated: true}
+    - {ref_type: "forward_ref", target: "TRANCHE001", target_family: CLN, context: "Synthetic tranches generalize FTD/NTD to arbitrary attachment/detachment points on large portfolios", target_exists: false, target_status: "in current batch", validated: true}
+  broken_references: 0
+  warnings: 1
+  warning_details: ["TRANCHE001 forward ref — in current batch"]
+  cross_family_refs: []
+  summary: "3 references: 2 intra-family (FTD001, VCLN001), 1 forward ref (TRANCHE001). Zero broken. CrossRef gate PASS."

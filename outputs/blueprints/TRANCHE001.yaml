@@ -1,0 +1,35 @@
+blueprint:
+  product_id: TRANCHE001
+  product_name: "Synthetic CDO Tranche"
+  product_family: CLN
+  generated_at: "2026-06-19T13:32Z"
+  source: "outputs/research/TRANCHE001.yaml"
+  memory_used: [memory/terminology/CLN.yaml, memory/booking-maps/CLN_system_mapping.yaml]
+  sections:
+    s1_definition:
+      title: "Definition"
+      key_points: ["Synthetic CDO tranche = protection on a defined loss slice of a large portfolio", "Attachment 3%, detachment 7% → mezzanine tranche", "125-name CDX IG index as reference portfolio", "Loss allocation: sequential bottom-up (equity absorbs first)"]
+    s2_construction:
+      title: "Construction"
+      key_points: ["Start with CDX IG index (125 names, equally weighted)", "Define attachment/detachment boundaries (3%/7%)", "Tranche width = detachment − attachment = 4%", "Investor sells protection on the 3–7% slice only", "Subordination = 3% (equity tranche absorbs first losses)", "Leverage = 1/width ≈ 25× on portfolio losses within the slice"]
+    s3_booking:
+      title: "Booking & Systems"
+      system: "NEMO + Sophis"
+      key_points: ["NEMO: book of record — tranche boundaries, portfolio composition, loss waterfall", "Sophis: risk & P&L — base correlation model, portfolio loss distribution", "Critical fields: attachment, detachment, portfolio composition (125 names), loss allocation rule"]
+    s4_pricing:
+      title: "Pricing Intuition"
+      key_points: ["Base correlation: market-implied correlation at each attachment point", "Tranche spread = f(expected tranche loss, base corr at attachment, base corr at detachment)", "Higher base corr at detachment → fatter tail → more loss reaches mezzanine → wider spread", "LHP (large homogeneous pool) approximation valid for 125-name index"]
+    s5_worked_example:
+      title: "Worked Example"
+      parameters: {notional: "USD 10M", attachment: "3%", detachment: "7%", premium: "500 bps", maturity: "5Y", recovery: "40%"}
+      decomposition: "Premium 500 bps = expected tranche loss 320 bps + correlation risk premium 120 bps + liquidity/bid-offer 60 bps"
+      scenarios: ["No defaults → full premium income", "2 defaults (loss < 3%) → no tranche impact, full premium", "6 defaults (loss penetrates 3%, exhausts 7%) → full tranche loss"]
+    s6_reconciliation:
+      title: "Reconciliation"
+      key_points: ["NEMO tranche notional vs Sophis tranche notional", "Attachment/detachment consistent across systems", "Loss allocation waterfall agrees", "Premium accrual matches (quarterly act/360)", "Default counter tracks portfolio-wide events"]
+    s7_desk_view:
+      title: "Desk View"
+      key_points: ["Base correlation is THE risk — not spread, not duration", "Delta-hedge with CDX index; vega-hedge with adjacent tranches", "Correlation skew trades: equity vs mezzanine vs senior", "Mark-to-market driven by base correlation surface moves"]
+    s8_desk_shorthand:
+      title: "Desk Shorthand"
+      text: "Mezz tranche on CDX; long base correlation, leveraged credit."

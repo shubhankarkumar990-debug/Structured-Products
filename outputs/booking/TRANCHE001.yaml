@@ -1,0 +1,36 @@
+booking:
+  product_id: TRANCHE001
+  product_name: "Synthetic CDO Tranche"
+  product_family: CLN
+  generated_at: "2026-06-19T13:40Z"
+  source: "outputs/blueprints/TRANCHE001.yaml"
+  memory_used: [memory/booking-maps/CLN_system_mapping.yaml]
+  system_mapping: {book_of_record: NEMO, risk_and_pnl: Sophis, framework: nemo_sophis, legal_document: Termsheet}
+  legs:
+    nemo:
+      role: "Book of record — tranche boundaries, portfolio composition, loss waterfall"
+      fields:
+        - {name: "Reference portfolio", value: "CDX IG 125 names", critical: true}
+        - {name: "Attachment point", value: "3%", critical: true}
+        - {name: "Detachment point", value: "7%", critical: true}
+        - {name: "Tranche notional", value: "USD 10,000,000", critical: true}
+        - {name: "Loss allocation rule", value: "Sequential bottom-up", critical: true}
+        - {name: "Default counter", value: "Portfolio-wide, tracks cumulative losses", critical: true}
+        - {name: "Premium", value: "500 bps running, quarterly act/360"}
+        - {name: "Maturity", value: "5 years"}
+    sophis:
+      role: "Risk and P&L — base correlation model, portfolio loss distribution"
+      fields:
+        - {name: "Base correlation model", value: "Gaussian copula, calibrated from tranche quotes", critical: true}
+        - {name: "Base corr at attachment (3%)", value: "~15%", critical: true}
+        - {name: "Base corr at detachment (7%)", value: "~25%", critical: true}
+        - {name: "Portfolio loss distribution", value: "LHP approximation", critical: true}
+        - {name: "Individual CDS curves (125)", value: "Current market", critical: true}
+        - {name: "Expected tranche loss", value: "Computed from distribution"}
+        - {name: "Tranche delta (CS01)", value: "Computed"}
+  failure_modes:
+    - {mode: "Attachment/detachment mismatch", severity: "HIGH", description: "NEMO vs Sophis boundaries differ → wrong loss allocation"}
+    - {mode: "Wrong portfolio composition", severity: "HIGH", description: "Stale CDX series or missing names → wrong index exposure"}
+    - {mode: "Base correlation not calibrated", severity: "HIGH", description: "Stale or wrong calibration → mispriced from inception"}
+    - {mode: "Loss allocation rule wrong", severity: "MEDIUM", description: "Non-sequential allocation → incorrect subordination benefit"}
+    - {mode: "LHP approximation misapplied", severity: "MEDIUM", description: "Heterogeneous portfolio treated as homogeneous → model risk"}

@@ -1,0 +1,72 @@
+blueprint:
+  product_id: NTD001
+  product_name: "Nth-to-Default"
+  product_family: CLN
+  generated_at: "2026-06-19T13:03Z"
+  source: "outputs/research/NTD001.yaml"
+  memory_used:
+    - memory/terminology/CLN.yaml
+    - memory/booking-maps/CLN_system_mapping.yaml
+  sections:
+    definition:
+      content_nodes:
+        - "Triggered by Nth (e.g., 2nd) credit event in a basket"
+        - "Protected against first (N-1) defaults — mezzanine attachment"
+        - "Lower coupon than FTD, higher than single-name CLN"
+        - "Investor is LONG correlation — opposite to FTD"
+      writing_instruction: "Contrast with FTD001 (short correlation). Explain the correlation reversal. N=2 as the standard case."
+    construction:
+      primitives:
+        - instrument: "Fixed-rate bond (funding)"
+          desk_direction: "long"
+        - instrument: "Nth-to-default basket CDS (N=2)"
+          desk_direction: "short (investor sells protection)"
+      key_strikes: ["N=2", "5-name basket", "2TD spread 280 bps"]
+      path_dependency: "None — Nth event triggers."
+      writing_instruction: "Two components. Show how N changes the economics vs FTD. Default counter concept."
+    booking_systems:
+      system_mapping: {book_of_record: NEMO, risk_pnl: Sophis, legal_document: Termsheet, four_leg: false}
+      content_nodes: ["N value in NEMO trigger logic", "Default counter", "Copula model in Sophis"]
+      writing_instruction: "NEMO + Sophis. N value and default counter are the new booking items vs FTD."
+    pricing_intuition:
+      dominant_greeks: ["Correlation (LONG — opposite to FTD)", "Individual CS01 (×5)", "Joint default probability (2+ events)"]
+      yield_drivers: ["Default correlation", "N value", "Basket composition"]
+      model_dependency: "High — tail correlation sensitivity higher than FTD."
+      sensitivities: ["Higher correlation → higher NTD spread (clustering)", "T-copula vs Gaussian matters more for NTD"]
+      writing_instruction: "The correlation reversal is the key insight. Explain why NTD is long correlation while FTD is short."
+    worked_example:
+      notional: "USD 10M"
+      underlying: "5-name credit basket"
+      tenor: "5 years"
+      barriers: {n_value: 2}
+      decomposition: {coupon: "6.2%", funding: "3.0%", ftp: "0.3%", margin: "0.2%", ntd_spread: "2.7%"}
+      ftp: "0.3%"
+      desk_margin: "0.2%"
+      headline_yield: "6.2% (2nd-to-default protection)"
+      good_scenario: "Zero or one default. Investor earns 6.2% for 5 years."
+      bad_scenario: "Two defaults. Note triggers on second event."
+      writing_instruction: "Show N=2 trigger logic. Compare FTD vs 2TD pricing. Correlation sensitivity table."
+    reconciliation:
+      critical_fields:
+        - {field: "N value", failure_mode: "Booked as N=1 (FTD) instead of N=2 — wrong trigger"}
+        - {field: "Default counter", failure_mode: "Does not track prior defaults → triggers on wrong event"}
+        - {field: "Basket composition", failure_mode: "Wrong entity in basket"}
+        - {field: "Correlation matrix", failure_mode: "Not calibrated → mispriced NTD"}
+      observation_type: "Continuous"
+      fixing_fallback: "ISDA per entity"
+      writing_instruction: "N value is THE unique recon risk. Default counter is the operational risk."
+    desk_view:
+      typical_buyer: "Investors who want basket yield but with first-loss protection."
+      actual_risk: "Long correlation — correlation spike increases NTD spread (good for entry, bad for mark-to-market)."
+      perceived_risk: "Protected version of FTD."
+      when_appropriate: "View that at most 1 default occurs in basket. Want mezzanine attachment."
+      when_not_appropriate: "Systemic credit stress expected (clusters of defaults)."
+      writing_instruction: "Contrast with FTD: FTD is first-loss, NTD is mezzanine. Different correlation exposure."
+    desk_shorthand: {text: "Second loss on basket; long correlation, mezzanine.", source: "research"}
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

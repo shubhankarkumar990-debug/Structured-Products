@@ -1,0 +1,19 @@
+pipeline_log:
+  product_id: NTD001
+  product_name: "Nth-to-Default"
+  product_family: CLN
+  batch: "Final"
+  started_at: "2026-06-19T13:00Z"
+  completed_at: "2026-06-19T13:25Z"
+  execution_mode: FULL
+  stages_completed: 8
+  stages_total: 8
+  gates: {qa: PASS, style: PASS, crossref: PASS, publish: READY}
+  retries: 0
+  recovery_used: false
+  memory_artifacts_used: [memory/terminology/CLN.yaml, memory/booking-maps/CLN_system_mapping.yaml, memory/style-patterns/CLN.yaml]
+  memory_bootstrap: false
+  cross_family_refs: 0
+  intra_family_refs: 2
+  forward_refs: 1
+  notes: "NTD001 complete. Long-correlation basket product. Correlation reversal from FTD001. CLN 4/5."

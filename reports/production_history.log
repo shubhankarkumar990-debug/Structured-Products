@@ -270,3 +270,57 @@ Cumulative:
   Total tokens:         ~386,516
   Total memory artifacts: 15 (created) + 63 (reused)
 --------------------------------------------------------------------------------
+
+--- Pre-Final Batch ------------------------------------------------------------
+Date:           2026-06-19
+Tag created:    desk-bible-before-final-batch
+Commit:         29e5605 (Batch 4 complete)
+Status:         26/28 products (92.9%). 2 remaining: NTD001, TRANCHE001 (both CLN)
+--------------------------------------------------------------------------------
+
+--- Final Batch ----------------------------------------------------------------
+Date:           2026-06-19
+Products:       NTD001, TRANCHE001
+Count:          2
+Families:       CLN (2)
+Pipeline:       v2.1 (stable, no changes)
+Sections:       6.2, 6.3 (complete) — CLN family now 5/5 COMPLETE
+
+Quality:
+  QA BLOCKERs:          0
+  QA MAJORs:            2 (all advisory — CLN decomposition convention)
+  QA MINORs:            0
+  Style MUST_FIX:       0
+  Style SHOULD_FIX:     0
+  CrossRef broken:      0
+  CrossRef warnings:    1 (NTD001→TRANCHE001 forward ref, resolved in-batch)
+  Publishing failures:  0
+
+Memory:
+  Artifacts created:    0 (CLN artifacts reused from Batch 0)
+  Artifacts reused:     6 (3 per product × 2 products)
+  Conventions added:    0
+  False positives avoided: 6
+
+Tokens (estimated):     ~29,732
+Runtime:                ~30 min
+
+Notes:
+  - Final batch: last 2 CLN products complete the bible
+  - NTD001: correlation reversal from FTD001 (long vs short correlation)
+  - TRANCHE001: most complex CLN product — base correlation, 125-name portfolio, loss waterfall
+  - Completes the CLN arc: single-name → basket → portfolio tranche
+  - All forward references now resolved (NTD001→TRANCHE001 was the last)
+  - Zero retries, zero checkpoint recoveries — 28 consecutive clean runs
+
+Cumulative:
+  Total complete:       28 / 28 (100.0%)
+  Total remaining:      0
+  Total tokens:         ~416,248
+  Total memory artifacts: 15 (created) + 69 (reused)
+  Tag:                  desk-bible-complete-v1
+--------------------------------------------------------------------------------
+
+================================================================================
+PROJECT COMPLETE — 28 of 28 products — 2026-06-19
+================================================================================
