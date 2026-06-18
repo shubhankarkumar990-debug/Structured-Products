@@ -1,0 +1,35 @@
+# Template: Publishing Artifact (Stage 8 Output)
+# Path: outputs/publish/{PRODUCT_ID}_pubspec.yaml
+# Purpose: Final gate check. Verifies all prior stages passed and the product
+#          is ready for inclusion in the final document.
+
+publish:
+  product_id: "{PRODUCT_ID}"
+  product_name: "{Product Full Name}"
+  product_family: "{FAMILY}"
+  generated_at: "{ISO 8601 timestamp}"
+  gate: READY | NOT_READY
+
+  pre_publish_checks:
+    draft_exists: true | false
+    qa_gate: PASS | FAIL
+    style_gate: PASS | FAIL
+    crossref_gate: PASS | FAIL
+    all_sections_present: true | false  # All 8 H4 sections in the draft
+    blocking_issues: 0                  # Must be zero for READY
+
+  publish_metadata:
+    section: "{e.g. 3.1}"              # Section number in the final document
+    family: "{FAMILY}"
+    family_position: "{e.g. 3 of 5}"   # This product's position within its family
+    complexity: "Low | Medium | High | Very High"
+    system: "{e.g. NEMO + Sophis}"
+    desk_shorthand: "{The desk shorthand text}"
+
+  quality_summary:
+    qa_blockers: 0
+    qa_majors: 0
+    style_must_fix: 0
+    crossref_broken: 0
+
+  summary: "{One-line summary of publish readiness.}"

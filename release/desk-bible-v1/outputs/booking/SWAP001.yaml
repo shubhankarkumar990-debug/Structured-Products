@@ -1,0 +1,93 @@
+booking_spec:
+  product_id: SWAP001
+  product_name: "Vanilla Interest Rate Swap"
+  product_family: Swap
+  generated_at: "2026-06-18T13:25Z"
+  spec_type: murex_four_leg
+  memory_used:
+    - memory/booking-maps/Swap_system_mapping.yaml
+
+  note_leg:
+    fixed_rate: ""
+    fixed_frequency: "Semi-annual"
+    fixed_day_count: "30/360"
+    floating_index: "SOFR"
+    floating_tenor: "3M"
+    floating_frequency: "Quarterly"
+    floating_day_count: "Actual/360"
+    compounding: "In arrears with 2-day lookback"
+    notional: ""
+    currency: ""
+    effective_date: ""
+    maturity_date: ""
+    payment_netting: true
+
+  issuer_leg:
+    note: "Not applicable for bilateral swaps — no issuer funding leg"
+
+  deposit_leg:
+    csa_terms: ""
+    margin_frequency: "Daily"
+    threshold: ""
+    minimum_transfer_amount: ""
+    eligible_collateral: "Cash (USD), US Treasuries"
+    independent_amount: ""
+
+  hedge_leg:
+    instrument_type: "Offsetting swap or futures"
+    hedge_notional: ""
+    hedge_maturity: ""
+    notes: "Client swap hedged in interbank market; DV01 matched"
+
+  ftp_summary:
+    ftp_rate: ""
+    ftp_curve: "OIS"
+    ftp_method: "Matched-maturity funding"
+
+  discounting_logic:
+    discount_curve: "OIS (SOFR curve for USD)"
+    csa_terms: "Per CSA — daily margin, zero threshold"
+
+  reconciliation_checks:
+    daily:
+      - "DV01: swap DV01 vs hedge DV01 — net exposure within limits"
+      - "MTM: Murex MTM vs counterparty valuation (for margin disputes)"
+      - "SOFR fixing: correct date's fixing applied to current accrual period"
+    event_driven:
+      - "Payment: net payment calculated correctly; day count applied per leg"
+      - "Reset: SOFR fixing sourced and applied"
+      - "CSA margin call: MTM-based, correct discount curve"
+      - "Fallback: SOFR unavailable — fallback rate and spread adjustment applied"
+    termsheet_verification:
+      - "Fixed rate matches confirmation"
+      - "Floating index and tenor match confirmation"
+      - "Day count conventions for each leg specified"
+      - "Compounding convention specified (in arrears, lookback days)"
+      - "Payment netting confirmed"
+      - "CSA terms agreed and booked"
+
+  failure_modes:
+    - mode: "Wrong SOFR fixing date"
+      trigger: "T fixing applied instead of T-1"
+      consequence: "Every floating payment calculated on wrong rate"
+      detection: "Payment reconciliation"
+    - mode: "Day count mismatch"
+      trigger: "Same day count applied to both legs"
+      consequence: "Net payment incorrect on every payment date"
+      detection: "First payment reconciliation"
+    - mode: "Discount curve mismatch"
+      trigger: "Murex uses non-OIS curve; counterparty uses OIS"
+      consequence: "MTM diverges; disputed margin calls"
+      detection: "Daily margin reconciliation"
+    - mode: "Netting not applied"
+      trigger: "Gross payments sent instead of net"
+      consequence: "Unnecessary settlement risk; cash flow confusion"
+      detection: "Payment operations review"
+
+  validation:
+    correct_spec_type: true
+    all_fields_named: true
+    ftp_documented: true
+    discounting_documented: true
+    min_3_recon_checks: true
+    min_2_failure_modes: true

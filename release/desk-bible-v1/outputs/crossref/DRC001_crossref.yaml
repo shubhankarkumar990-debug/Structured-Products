@@ -1,0 +1,28 @@
+crossref_review:
+  product_id: DRC001
+  reviewed_at: "2026-06-18T12:31Z"
+  input_file: "outputs/crossref/DRC001_refs.yaml"
+
+  summary:
+    total_refs: 2
+    validated: 2
+    broken: 0
+    warning: 1
+
+  broken_refs: []
+
+  warnings:
+    - id: "CW-001"
+      type: forward_ref
+      location: "definition, construction, desk_view"
+      reference: "base Reverse Convertible / RC001"
+      reason: "Multiple references to RC001 without explicit section cross-reference — acceptable since both are in section 3.1"
+
+  validated_refs:
+    - reference: "Reverse Convertible"
+      target: "RC001 — exists in outputs/drafts/RC001.md, section 3.1"
+    - reference: "Phoenix Autocallable"
+      target: "PHX001 — exists in outputs/drafts/PHX001.md, section 3.2"
+
+  gate: PASS
+  broken_ids: []

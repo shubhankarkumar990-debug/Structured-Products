@@ -1,0 +1,25 @@
+crossref_review:
+  product_id: ICN001
+  reviewed_at: "2026-06-18T19:12Z"
+  input_file: "outputs/drafts/ICN001.md"
+  summary:
+    total_refs: 4
+    validated: 3
+    broken: 0
+    warning: 1
+  broken_refs: []
+  warnings:
+    - id: "CW-001"
+      type: forward_ref
+      location: "Definition — 'analogous to a callable bond'"
+      reference: "General callable bond concept"
+      reason: "Comparison to generic callable bond, not a specific product in the bible."
+  validated_refs:
+    - reference: "CRC001 — Callable Reverse Convertible"
+      target: "outputs/drafts/CRC001.md"
+    - reference: "NEMO booking system"
+      target: "memory/booking-maps/ELN_system_mapping.yaml"
+    - reference: "Sophis risk system"
+      target: "memory/booking-maps/ELN_system_mapping.yaml"
+  gate: PASS
+  broken_ids: []

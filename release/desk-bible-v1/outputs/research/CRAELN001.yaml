@@ -1,0 +1,106 @@
+research:
+  product_id: CRAELN001
+  chapter: "3.2"
+  product_family: ELN
+  extracted_at: "2026-06-18T17:20Z"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+    - memory/style-patterns/ELN.yaml
+
+  definition:
+    client_payoff: "Range accrual coupon: accrues on each business day the underlying stays within a defined range (between lower and upper barriers). Coupon = Fixed rate × (accrual days in range / total business days). Callable by issuer on scheduled dates. At maturity if not called: par redemption (no put component — principal protected). The investor's risk is coupon risk (low accrual if underlying moves outside range), not principal risk."
+    capital_protection: "full — no embedded put, no principal risk"
+    conditional_coupon: true
+    autocall_feature: false
+    knock_in: false
+    knock_out: false
+    underlying_type: "single equity or equity index"
+
+  construction:
+    components:
+      - "Zero-coupon bond at par (full principal protection)"
+      - "Long range accrual coupon (strip of daily digital options)"
+      - "Short Bermudan call on the note (issuer callable)"
+    desk_long:
+      - "Zero-coupon bond funded at issuer credit curve"
+      - "Range accrual coupon — strip of daily in-range digital options"
+    desk_short:
+      - "Bermudan call on the note — issuer can redeem at par plus accrued coupon on scheduled dates"
+    key_strikes:
+      - "Lower range barrier: 80% of initial fixing"
+      - "Upper range barrier: 120% of initial fixing"
+      - "Call strike: par (100%)"
+    path_dependency: "Highly path dependent — coupon accrues daily based on the underlying's position relative to the range. Requires Monte Carlo simulation with daily time steps."
+
+  systems:
+    book_of_record: NEMO
+    risk_and_pnl: Sophis
+    legal_document: Termsheet
+    murex_legs: []
+    no_murex: true
+
+  pricing:
+    dominant_greeks:
+      - "Vega (dominant — range accrual value is highly vol-sensitive)"
+      - "Delta (moderate — increases near range boundaries)"
+      - "Gamma (negative near range boundaries)"
+    yield_drivers:
+      - "Implied volatility (higher vol → more days outside range → lower expected coupon → lower cost → higher max coupon rate)"
+      - "Range width (wider range → more accrual days → higher expected coupon → higher cost to desk → lower max coupon rate)"
+      - "Call schedule (more call dates → higher call value → more compensation → higher max coupon rate)"
+      - "Issuer funding spread"
+    model_sensitivity: "Monte Carlo with daily time steps. Local volatility model preferred over Black-Scholes for realistic barrier crossing frequency. Sensitivity to vol-of-vol and skew."
+    key_risks:
+      - "Range boundary proximity: delta and gamma spike when underlying is near the range edges"
+      - "Realized vs implied vol divergence: if realized vol is lower than implied, more days accrue in range, and the desk pays more coupon than priced"
+      - "Call timing: issuer calls when expected future coupon exceeds funding cost"
+
+  worked_example:
+    notional: "USD 10M"
+    underlying: "Equity index, 18% implied volatility"
+    tenor: "2 years"
+    strikes_and_barriers:
+      lower_barrier: "80% of initial fixing"
+      upper_barrier: "120% of initial fixing"
+      call_dates: "Semi-annual (3 dates: 6M, 12M, 18M)"
+    decomposition:
+      range_accrual_strip: "3.5% per annum (USD 350K/year) — cost of daily digital strip"
+      bermudan_call: "0.8% per annum (USD 80K/year)"
+      issuer_funding: "1.5% per annum (USD 150K/year)"
+      ftp: "0.7% per annum (USD 70K/year)"
+      desk_margin: "0.5% per annum (USD 50K/year)"
+    ftp_assumption: "0.7% per annum"
+    desk_margin: "0.5% per annum"
+    headline_yield_to_client: "7.0% per annum maximum coupon (accrual-adjusted)"
+    bad_scenario: "Underlying spends 40% of business days outside range. Effective coupon: 7.0% × 60% = 4.2% per annum. No principal loss."
+
+  reconciliation:
+    primary_risk: "Daily accrual count — NEMO and Sophis must agree on the number of business days the underlying closed within the range, which requires agreement on closing prices, range boundary treatment (inclusive/exclusive), and business day calendar"
+    critical_fields:
+      - "Range barriers (lower and upper)"
+      - "Daily accrual count (in-range days vs total business days)"
+      - "Boundary treatment (at-the-barrier: in-range or out-of-range)"
+      - "Business day calendar"
+      - "Call schedule and exercise status"
+    failure_modes:
+      - "Daily closing price source mismatch: NEMO and Sophis use different closing prices, producing different accrual counts"
+      - "Boundary treatment: Termsheet is silent on whether 'at the barrier' counts as in-range — one system includes, the other excludes"
+      - "Business day calendar: different holiday schedules produce different total-day denominators"
+      - "Call event not processed: same risk as CRC001"
+    termsheet_ambiguities:
+      - "At-barrier treatment: inclusive or exclusive"
+      - "Closing price timing: official close vs VWAP vs composite"
+      - "Business day definition: exchange calendar vs settlement calendar"
+    observation_type: "Daily (for accrual), semi-annual (for call)"
+    fixing_fallback: "Disrupted day: previous day's close or next available"
+
+  desk_view:
+    typical_buyer: "Income-seeking investor who believes the underlying will trade in a range. Suitable for low-volatility environments. Principal-protected — appropriate for more conservative investors."
+    actual_risk_taken: "Coupon risk only — no principal risk. The investor may receive zero coupon if the underlying is outside the range every day. Reinvestment risk if called early."
+    perceived_risk: "Low — principal is protected. The variable coupon is seen as a minor inconvenience, not a risk."
+    when_appropriate: "Range-bound market view, desire for principal protection, acceptance of variable coupon, preference for equity-linked return without equity downside."
+    desk_opinion: "The range accrual is the most operationally intensive ELN product due to daily observation. The call is the issuer's hedge against the range accrual paying too much. Product Control must monitor the daily accrual count rigorously."
+
+  desk_shorthand: "Range coupon; daily digital strip, callable."
+  open_questions: []

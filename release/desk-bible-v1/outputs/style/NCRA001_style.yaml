@@ -1,0 +1,22 @@
+style_review:
+  product_id: NCRA001
+  reviewed_at: "2026-06-18T20:50Z"
+  artifact_reviewed: "outputs/drafts/NCRA001.md"
+  memory_consulted: "memory/style-patterns/SRT.yaml"
+  summary:
+    total: 2
+    must_fix: 0
+    should_fix: 0
+    skipped_known_fp: 2
+    skipped_accepted_convention: 1
+  violations: []
+  known_false_positives_skipped:
+    - pattern: "H4 heading names"
+      reason: "Canonical names correct"
+    - pattern: "Murex mentioned for SRT"
+      reason: "Murex IS correct for SRT products"
+  accepted_conventions_applied:
+    - pattern: "Termsheet as legal document"
+      reason: "Standard for SRT products"
+  gate: PASS
+  must_fix_ids: []

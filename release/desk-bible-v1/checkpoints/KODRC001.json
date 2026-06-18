@@ -1,0 +1,65 @@
+{
+  "product_id": "KODRC001",
+  "product_name": "Knock-Out Discounted Reverse Convertible",
+  "family": "ELN",
+  "updated_at": "2026-06-18T16:15:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {
+      "status": "complete",
+      "at": "2026-06-18T16:00Z"
+    },
+    "research": {
+      "status": "complete",
+      "at": "2026-06-18T16:00Z",
+      "artifact": "outputs/research/KODRC001.yaml"
+    },
+    "architecture": {
+      "status": "complete",
+      "at": "2026-06-18T16:02Z",
+      "artifact": "outputs/blueprints/KODRC001.yaml"
+    },
+    "content": {
+      "status": "complete",
+      "at": "2026-06-18T16:05Z",
+      "artifact": "outputs/drafts/KODRC001.md"
+    },
+    "booking": {
+      "status": "complete",
+      "at": "2026-06-18T16:05Z",
+      "artifact": "outputs/booking/KODRC001.yaml"
+    },
+    "qa": {
+      "status": "complete",
+      "at": "2026-06-18T16:10Z",
+      "artifact": "outputs/reviews/KODRC001_qa.yaml"
+    },
+    "style": {
+      "status": "complete",
+      "at": "2026-06-18T16:10Z",
+      "artifact": "outputs/style/KODRC001_style.yaml"
+    },
+    "crossref": {
+      "status": "complete",
+      "at": "2026-06-18T16:12Z",
+      "artifact": "outputs/crossref/KODRC001_crossref.yaml"
+    },
+    "publish": {
+      "status": "complete",
+      "at": "2026-06-18T16:15Z",
+      "artifact": "outputs/publish/KODRC001_pubspec.yaml"
+    }
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. 2 MAJOR advisories (decomposition presentation, Broadie-Glasserman reference). 1 MINOR (implicit DRC001 cross-reference). 3 style FPs skipped, 1 accepted convention skipped. 1 crossref warning (forward ref to DRC001). Clean pipeline run.",
+  "section_hashes": {
+    "definition": "b3e2f1a7d9c84056",
+    "construction": "e7a4c6f2b0d31985",
+    "booking_systems": "2d9f8a1c5e73b046",
+    "pricing_intuition": "f1c3e5a7b9d20468",
+    "worked_example": "a6d8f0c2e4b71935",
+    "reconciliation": "c9b1d3f5a7e60248",
+    "desk_view": "4e2a6c8f0d91b357",
+    "desk_shorthand": "8f0b2d4a6c7e1953"
+  }
+}

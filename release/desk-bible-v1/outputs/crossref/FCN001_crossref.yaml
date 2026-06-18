@@ -1,0 +1,34 @@
+crossref_review:
+  product_id: FCN001
+  reviewed_at: "2026-06-18T17:12Z"
+  input_file: "outputs/drafts/FCN001.md"
+
+  summary:
+    total_refs: 6
+    validated: 5
+    broken: 0
+    warning: 1
+
+  broken_refs: []
+
+  warnings:
+    - id: "CW-001"
+      type: forward_ref
+      location: "Definition and Desk view — 'Phoenix Autocallable'"
+      reference: "PHX001"
+      reason: "Multiple references to PHX001 for comparison. Both products exist and are complete. Formal cross-reference markers would improve navigation."
+
+  validated_refs:
+    - reference: "Phoenix Autocallable"
+      target: "outputs/drafts/PHX001.md"
+    - reference: "Reverse Convertible (base RC)"
+      target: "outputs/drafts/RC001.md"
+    - reference: "NEMO booking system"
+      target: "ELN system mapping — memory/booking-maps/ELN_system_mapping.yaml"
+    - reference: "Sophis risk system"
+      target: "ELN system mapping — memory/booking-maps/ELN_system_mapping.yaml"
+    - reference: "Conditional coupon concept"
+      target: "outputs/drafts/PHX001.md — Phoenix defines conditional coupon mechanics"
+
+  gate: PASS
+  broken_ids: []

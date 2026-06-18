@@ -1,0 +1,41 @@
+qa_review:
+  product_id: RC001
+  reviewed_at: "2026-06-18T14:00Z"
+  version: "v2 — post arithmetic verification protocol"
+  scope:
+    first_run: false
+    sections_reviewed:
+      - definition
+      - construction
+      - booking_systems
+      - pricing_intuition
+      - worked_example
+      - reconciliation
+      - desk_view
+      - desk_shorthand
+    sections_skipped: []
+
+  summary:
+    total: 2
+    blocker: 0
+    major: 1
+    minor: 1
+
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "worked_example"
+      issue: "Presentation ambiguity — bad scenario net return calculation could be clearer"
+      evidence: "Arithmetic verification: 6.0M (shares) + 0.9M (coupon) = 6.9M. Loss = 10.0M - 6.9M = 3.1M. 3.1M / 10.0M = 31%. CORRECT within tolerance."
+      required_action: "Advisory — arithmetic verified correct; consider clarifying presentation."
+      arithmetic_verification: "PASS — components sum correctly"
+
+    - id: "QA-002"
+      severity: MINOR
+      location: "pricing_intuition"
+      issue: "Dividend yield effect stated as inverse relationship but mechanism not fully explained"
+      evidence: "Appropriate level of detail for desk bible"
+      required_action: "No action"
+
+  gate: PASS
+  blocker_ids: []

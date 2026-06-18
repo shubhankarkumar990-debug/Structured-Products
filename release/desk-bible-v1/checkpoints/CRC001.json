@@ -1,0 +1,65 @@
+{
+  "product_id": "CRC001",
+  "product_name": "Callable Reverse Convertible",
+  "family": "ELN",
+  "updated_at": "2026-06-18T16:35:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {
+      "status": "complete",
+      "at": "2026-06-18T16:20Z"
+    },
+    "research": {
+      "status": "complete",
+      "at": "2026-06-18T16:20Z",
+      "artifact": "outputs/research/CRC001.yaml"
+    },
+    "architecture": {
+      "status": "complete",
+      "at": "2026-06-18T16:22Z",
+      "artifact": "outputs/blueprints/CRC001.yaml"
+    },
+    "content": {
+      "status": "complete",
+      "at": "2026-06-18T16:25Z",
+      "artifact": "outputs/drafts/CRC001.md"
+    },
+    "booking": {
+      "status": "complete",
+      "at": "2026-06-18T16:25Z",
+      "artifact": "outputs/booking/CRC001.yaml"
+    },
+    "qa": {
+      "status": "complete",
+      "at": "2026-06-18T16:30Z",
+      "artifact": "outputs/reviews/CRC001_qa.yaml"
+    },
+    "style": {
+      "status": "complete",
+      "at": "2026-06-18T16:30Z",
+      "artifact": "outputs/style/CRC001_style.yaml"
+    },
+    "crossref": {
+      "status": "complete",
+      "at": "2026-06-18T16:32Z",
+      "artifact": "outputs/crossref/CRC001_crossref.yaml"
+    },
+    "publish": {
+      "status": "complete",
+      "at": "2026-06-18T16:35Z",
+      "artifact": "outputs/publish/CRC001_pubspec.yaml"
+    }
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. 1 MAJOR advisory (decomposition presentation). 1 MINOR (sensitivity range). 3 style FPs skipped, 1 accepted convention. 1 crossref warning (RC001 forward ref). Clean pipeline run.",
+  "section_hashes": {
+    "definition": "c4f2a8e1b7d93065",
+    "construction": "a1d5f7c3e9b20486",
+    "booking_systems": "7e3b1d9f5a8c2064",
+    "pricing_intuition": "d8a0c2f4e6b71953",
+    "worked_example": "f5c7a9e1b3d40286",
+    "reconciliation": "2b4d6f8a0c1e7935",
+    "desk_view": "9a1c3e5f7b2d8046",
+    "desk_shorthand": "6f8a0c2e4d7b1953"
+  }
+}

@@ -1,0 +1,27 @@
+pubspec:
+  product_id: DIGITAL001
+  product_name: "Digital / Exotic Coupon Notes"
+  reviewed_at: "2026-06-18T19:35Z"
+  master_document: "Structured_Products_Desk_Bible_COMPLETE.docx"
+  insertion:
+    insert_after: "ICN001 (Issuer Callable Note)"
+    insert_before: "Part 4 — SRT / Securitisation"
+    part: "Part 3 — Equity-Linked Notes"
+    section: "3.3 — Other ELN Structures"
+    position: "Fifth and final product in section 3.3. Closes out ELN family."
+  heading_hierarchy:
+    h3_present: true
+    h4_subsections: {definition: true, construction: true, booking_systems: true, pricing_intuition: true, worked_example: true, reconciliation: true, desk_view: true, desk_shorthand: true}
+    no_h1_h2: true
+  toc_entry:
+    level_3: "Digital / Exotic Coupon Notes"
+    level_4: ["Definition", "Construction", "Booking & systems", "Pricing intuition", "Worked example (USD 10M)", "Reconciliation specifics", "Desk view", "Desk shorthand"]
+  numbering: {no_manual_numbering: true, section_number: "3.3", sequence_correct: true}
+  page_structure: {break_before: true, break_after: true}
+  appendix_updates:
+    - "Appendix B.4 — add DIGITAL001 row (NEMO/Sophis)"
+    - "Appendix B.5 — add DIGITAL001 digital strike entry"
+    - "Appendix B.6 — mark ELN family COMPLETE (13/13 products)"
+  checklist: {all_subsections_present: true, shorthand_italic: true, no_emoji: true, no_manual_page_numbers: true, self_contained: true}
+  gate: READY
+  hold_reasons: []

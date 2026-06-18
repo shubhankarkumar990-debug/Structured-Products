@@ -1,0 +1,47 @@
+# Template: Terminology Memory
+# Path: memory/terminology/{FAMILY}.yaml
+# Purpose: Store product names, abbreviations, system casing rules, and domain terms
+#          for a single product family. Created during family bootstrap, reused by all
+#          products in the family.
+#
+# Replace all {PLACEHOLDERS} with actual values.
+
+meta:
+  product_id: "{FAMILY}"
+  product_name: "{Family Long Name} (family)"
+  family: "{FAMILY}"
+  category: terminology
+  stored_at: "{ISO 8601 timestamp, e.g. 2026-06-19T12:00Z}"
+  source_stage: style
+  version: 1
+
+content:
+  product_names:
+    - full: "{First Product Full Name}"
+      abbreviation: "{ABBR or null if none}"
+      first_mention_format: "{Full Name} ({ABBR})"
+    # Add one entry per product in the family.
+    # Example:
+    # - full: "Reverse Convertible"
+    #   abbreviation: "RC"
+    #   first_mention_format: "Reverse Convertible (RC)"
+
+  system_names:
+    - name: "{PRIMARY_SYSTEM}"
+      casing: "{Correct Casing, e.g. NEMO or Murex}"
+      role: "{e.g. book of record}"
+    - name: "{SECONDARY_SYSTEM}"
+      casing: "{Correct Casing}"
+      role: "{e.g. risk and P&L}"
+    # List every system name that appears in this family's documentation.
+    # The casing here is authoritative — style review uses it to flag violations.
+
+  abbreviations:
+    - term: "{ABBR}"
+      expansion: "{Full expansion}"
+    # List all domain-specific abbreviations used across the family.
+    # Examples:
+    # - term: "SOFR"
+    #   expansion: "Secured Overnight Financing Rate"
+    # - term: "LGD"
+    #   expansion: "Loss Given Default"

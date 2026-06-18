@@ -1,0 +1,102 @@
+booking_spec:
+  product_id: CRC001
+  product_name: "Callable Reverse Convertible"
+  product_family: ELN
+  generated_at: "2026-06-18T16:25Z"
+  spec_type: nemo_sophis
+  memory_used:
+    - memory/booking-maps/ELN_system_mapping.yaml
+
+  nemo_fields:
+    trade_id: ""
+    product_type: "Callable Reverse Convertible"
+    notional: ""
+    currency: ""
+    trade_date: ""
+    maturity_date: ""
+    underlying: ""
+    put_strike_pct: "100%"
+    put_strike_absolute: ""
+    settlement_type: "Physical | Cash"
+    coupon_rate: ""
+    coupon_frequency: "Quarterly"
+    call_schedule: "Quarterly (Q1, Q2, Q3)"
+    call_dates: []
+    call_notice_period: "5 business days"
+    call_exercise_status: "Not exercised | Exercised on [date]"
+    call_settlement_date: ""
+    coupon_on_call: "Full period | Pro-rata"
+    initial_fixing_date: ""
+    initial_fixing_level: ""
+    final_observation_date: ""
+    fixing_source: ""
+    day_count_convention: ""
+    dividend_treatment: "Pass-through | Embedded"
+    isin: ""
+
+  sophis_fields:
+    instrument_type: "European Put + Bermudan Call"
+    underlying_ticker: ""
+    put_strike_absolute: ""
+    call_strike: "Par (100%)"
+    call_exercise_dates: []
+    maturity: ""
+    volatility_surface: ""
+    dividend_yield_curve: ""
+    discount_curve: ""
+    issuer_credit_curve: ""
+    put_model: "Black-Scholes"
+    call_model: "Least-squares Monte Carlo | Binomial tree"
+    delta: ""
+    gamma: ""
+    vega: ""
+    rho: ""
+    theta: ""
+    daily_mtm: ""
+    settlement_assumption: "Cash equivalent"
+
+  reconciliation_checks:
+    daily:
+      - "Put strike level: NEMO percentage vs Sophis absolute — verify consistency"
+      - "MTM: Sophis daily P&L vs NEMO coupon accrual"
+      - "Delta: Sophis Delta vs hedge position"
+      - "Call exercise status: NEMO flag vs Sophis call model"
+    event_driven:
+      - "Call exercise: confirm both NEMO and Sophis reflect the call on the same date"
+      - "Coupon on call: verify accrual convention matches Termsheet (full period vs pro-rata)"
+      - "Hedge unwind: Sophis must unwind put and call positions on call event"
+      - "Maturity observation: verify fixing level matches across systems"
+      - "Settlement: physical delivery vs cash — same as base RC"
+      - "Ex-dividend: verify dividend treatment consistency"
+    termsheet_verification:
+      - "Put strike: Termsheet percentage matches NEMO and Sophis"
+      - "Call schedule: dates and notice period match NEMO"
+      - "Coupon on call: accrual convention explicitly stated"
+      - "Settlement type: explicitly stated"
+      - "Fixing source: exchange close or composite specified"
+
+  failure_modes:
+    - mode: "Call event not processed"
+      trigger: "Issuer exercises call but NEMO not updated"
+      consequence: "Note appears live; coupon continues accruing; hedge remains open; phantom P&L generated"
+      detection: "Daily call-status reconciliation against issuer notifications"
+    - mode: "Coupon accrual mismatch on call"
+      trigger: "NEMO configured for full-period; Termsheet specifies pro-rata"
+      consequence: "Cash flow difference of ~USD 131K per quarter on USD 10M note"
+      detection: "Pre-call: verify accrual convention in NEMO matches Termsheet"
+    - mode: "Hedge unwind delay"
+      trigger: "Sophis does not receive call notification"
+      consequence: "Delta hedge persists past call settlement; phantom P&L; hedge costs erode margin"
+      detection: "Post-call: verify all Sophis positions closed"
+    - mode: "Settlement mismatch"
+      trigger: "Physical delivery in NEMO, cash in Sophis"
+      consequence: "Same as base RC — settlement cash flow does not reconcile"
+      detection: "Pre-maturity reconciliation"
+
+  validation:
+    correct_spec_type: true
+    all_fields_named: true
+    ftp_documented: true
+    discounting_documented: true
+    min_3_recon_checks: true
+    min_2_failure_modes: true

@@ -1,0 +1,74 @@
+research:
+  product_id: AFRN001
+  product_name: "Accreting Fixed Rate Note"
+  product_family: SRT
+  generated_at: "2026-06-18T20:20Z"
+  memory_consulted:
+    - memory/terminology/SRT.yaml
+    - memory/booking-maps/SRT_system_mapping.yaml
+    - memory/style-patterns/SRT.yaml
+
+  classification:
+    family: SRT
+    sub_family: "Fixed rate"
+    archetype: "Step-up fixed coupon bond with increasing notional"
+    risk_profile: "Credit + duration. No optionality."
+    complexity: "Low"
+    path_dependent: false
+    model: "Deterministic cash flow discounting"
+
+  structure:
+    components:
+      - instrument: "Fixed-rate bond with accreting (step-up) notional"
+        desk_direction: "long"
+        purpose: "Pays fixed coupon on a notional that increases over time according to a predetermined schedule"
+    barriers: []
+    observation: "None — deterministic schedule"
+    tenor: "3-7 years"
+    coupon: "Fixed rate applied to accreting notional"
+    principal_protection: "100% of final notional at maturity"
+
+  economics:
+    headline: "Fixed coupon on rising notional — investor's effective duration increases over time"
+    how_funded: "Investor accepts increasing exposure (duration extension) in exchange for a coupon that is slightly above market for the weighted-average life"
+    investor_trade: "Higher yield than bullet bond of same WAL, in exchange for back-loaded cash flows"
+    decomposition:
+      fixed_coupon: "4.2% p.a."
+      initial_notional: "USD 10M"
+      final_notional: "USD 15M (accretes 25% per year over 2 years from year 3)"
+      weighted_average_life: "4.1 years"
+      comparable_bullet_yield: "3.8% (4.1Y bullet)"
+      yield_pickup: "40 bps"
+      funding: "3.0%"
+      ftp: "0.3%"
+      desk_margin: "0.1%"
+    verification: "Coupon 4.2% = funding 3.0% + FTP 0.3% + margin 0.1% + investor pickup 0.8%"
+
+  booking:
+    system_type: murex_four_leg
+    note_leg: ["Accreting notional schedule", "Fixed coupon rate", "Accretion dates", "Final notional"]
+    hedge_leg: ["Accreting swap (pay fixed, receive floating)", "Notional schedule matches note"]
+    critical_fields: ["Notional schedule", "Accretion dates", "Coupon base (initial vs current notional)"]
+    failure_modes:
+      - "Notional schedule mismatch between note leg and hedge leg"
+      - "Coupon computed on wrong notional (initial instead of current)"
+      - "Accretion dates misaligned with coupon dates"
+
+  pricing:
+    dominant_greeks: ["DV01 (increasing over time)", "Duration (WAL-based)", "Convexity (positive)"]
+    key_sensitivities:
+      - "DV01 increases as notional accretes — back-loaded rate risk"
+      - "25 bps parallel shift → larger P&L impact in later years"
+      - "No optionality — pure duration/credit instrument"
+    model_risk: "Very low — deterministic cash flows. No model dependency."
+
+  reconciliation:
+    critical_fields:
+      - {field: "Notional schedule", source: "Termsheet", check: "All accretion steps in Murex note leg and hedge leg"}
+      - {field: "Coupon base", source: "Termsheet", check: "Coupon applies to current (accreted) notional, not initial"}
+      - {field: "Accretion dates", source: "Termsheet", check: "Align with coupon payment dates"}
+    observation_type: "N/A — deterministic"
+    fixing_fallback: "N/A"
+
+  desk_shorthand: "Step-up notional; fixed coupon, back-loaded duration."
+  open_questions: []

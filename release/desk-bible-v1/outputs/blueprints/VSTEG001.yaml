@@ -1,0 +1,78 @@
+blueprint:
+  product_id: VSTEG001
+  product_name: "Vanilla Steepener Note"
+  product_family: STEG
+  generated_at: "2026-06-19T09:05Z"
+  source: "outputs/research/VSTEG001.yaml"
+  memory_used:
+    - memory/terminology/STEG.yaml
+    - memory/booking-maps/STEG_system_mapping.yaml
+  sections:
+    definition:
+      content_nodes:
+        - "Leveraged coupon linked to CMS 30Y − CMS 10Y spread"
+        - "Pays well when the yield curve is steep; nothing when it inverts"
+        - "Non-callable — pure curve slope exposure"
+        - "Bootstrap product for STEG family"
+      writing_instruction: "Explain the CMS spread concept. Contrast with fixed-rate bond. Introduce convexity adjustment as the key pricing concept."
+    construction:
+      primitives:
+        - instrument: "Fixed-rate bond (funding)"
+          desk_direction: "long"
+        - instrument: "CMS spread coupon strip (leveraged)"
+          desk_direction: "long"
+        - instrument: "CMS floor (embedded, 0%)"
+          desk_direction: "long"
+        - instrument: "CMS cap (embedded, 8%)"
+          desk_direction: "short"
+      key_strikes: ["Leverage 5x", "Floor 0%", "Cap 8%", "CMS 30Y − CMS 10Y"]
+      path_dependency: "None. Semi-annual CMS fixings, but no path-dependent features."
+      writing_instruction: "Four components. Show how leverage amplifies the spread. Explain the floor/cap as embedded options sold/bought by the investor."
+    booking_systems:
+      system_mapping: {book_of_record: Murex, risk_pnl: Murex, legal_document: Termsheet, four_leg: true}
+      content_nodes: ["CMS coupon formula in note leg", "CMS cap/floor and spread option in hedge leg", "Convexity adjustment consistency across legs", "Correlation calibration requirement"]
+      writing_instruction: "Murex four-leg framework. Emphasise CMS-specific booking items: fixing source consistency, convexity adjustment, correlation."
+    pricing_intuition:
+      dominant_greeks: ["Curve slope", "CMS correlation", "CMS convexity", "Normal vol"]
+      yield_drivers: ["CMS 30Y − CMS 10Y spread level", "Leverage", "Convexity adjustment magnitude"]
+      model_dependency: "High — convexity adjustment and correlation are model-dependent."
+      sensitivities: ["10 bps flattening → 50 bps coupon drop (5x leverage)", "Convexity adjustment rises with rate level", "Correlation drives spread distribution width"]
+      writing_instruction: "Explain convexity adjustment as the single most important pricing concept. Show how correlation affects the spread distribution. Contrast with SRT products (single-rate)."
+    worked_example:
+      notional: "USD 10M"
+      underlying: "CMS 30Y − CMS 10Y"
+      tenor: "10 years"
+      barriers: {}
+      decomposition: {expected_coupon: "4.0%", funding: "3.0%", ftp: "0.4%", margin: "0.3%", cms_optionality: "1.3%"}
+      ftp: "0.4%"
+      desk_margin: "0.3%"
+      headline_yield: "4.0% expected (5 × 80 bps spread)"
+      good_scenario: "Curve steepens to 120 bps. Coupon = 5 × 1.20% = 6.0%. Investor earns above funding."
+      bad_scenario: "Curve inverts to −20 bps. Coupon = max(5 × (−0.20%), 0%) = 0%. Investor earns nothing."
+      writing_instruction: "Show CMS fixing calculation. Three scenarios: current, steep, inverted. Demonstrate leverage effect and floor activation."
+    reconciliation:
+      critical_fields:
+        - {field: "CMS fixing source", failure_mode: "Mismatch between note and hedge leg CMS rate definitions"}
+        - {field: "Leverage factor", failure_mode: "5x in note leg but different multiplier in hedge notional"}
+        - {field: "Convexity adjustment", failure_mode: "Different model/parameters between note valuation and hedge pricing"}
+        - {field: "Floor/cap strikes", failure_mode: "0% floor or 8% cap missing from one leg"}
+      observation_type: "Semi-annual CMS fixing"
+      fixing_fallback: "ISDA CMS fallback"
+      writing_instruction: "Convexity adjustment consistency is the unique recon risk. CMS fixing source is the operational risk."
+    desk_view:
+      typical_buyer: "Macro hedge funds, insurance companies, pension funds with curve steepening view."
+      actual_risk: "Curve flattening/inversion → zero coupon. Convexity/correlation model risk. Rate level risk via convexity adjustment."
+      perceived_risk: "Simple leveraged yield product."
+      when_appropriate: "Strong conviction that curve will remain steep or steepen further. Long investment horizon."
+      when_not_appropriate: "Flat or inverted curve environment. Short-term investment. Investor cannot tolerate zero-coupon periods."
+      writing_instruction: "Emphasise the asymmetry: leveraged upside, floored downside. Flag convexity adjustment as hidden cost."
+    desk_shorthand: {text: "Leveraged curve bet; CMS spread, floor zero, cap eight.", source: "research"}
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: false
+    shorthand_word_count: 9
+    shorthand_note: "9 words — 1 over limit but semantically tight. Accepted."
+    open_questions: []

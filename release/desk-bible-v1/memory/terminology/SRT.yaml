@@ -1,0 +1,56 @@
+meta:
+  product_id: SRT
+  product_name: "Structured Rate Trades (family)"
+  family: SRT
+  category: terminology
+  stored_at: "2026-06-18T12:55Z"
+  source_stage: style
+  version: 1
+
+content:
+  product_names:
+    - full: "IR Callable Fixed Rate Note"
+      abbreviation: null
+      first_mention_format: "IR Callable Fixed Rate Note"
+    - full: "Accreting Fixed Rate Note"
+      abbreviation: null
+      first_mention_format: "Accreting Fixed Rate Note"
+    - full: "Non-Callable Range Accrual"
+      abbreviation: "NCRA"
+      first_mention_format: "Non-Callable Range Accrual (NCRA)"
+    - full: "Callable Range Accrual"
+      abbreviation: "CRA"
+      first_mention_format: "Callable Range Accrual (CRA)"
+    - full: "Digital Cap-Floor Note"
+      abbreviation: null
+      first_mention_format: "Digital Cap-Floor Note"
+
+  system_names:
+    - name: Murex
+      casing: "Murex"
+    - name: Termsheet
+      casing: "Termsheet"
+      note: "One word, capitalised."
+
+  rate_terms:
+    - "SOFR (Secured Overnight Financing Rate)"
+    - "EURIBOR"
+    - "DV01 (dollar value of 1 bps)"
+    - "Bermuda call"
+    - "European swaption"
+    - "Receiver swaption"
+    - "Payer swaption"
+    - "CMS (Constant Maturity Swap)"
+    - "OIS (Overnight Index Swap)"
+    - "Convexity adjustment"
+
+  forbidden_phrases:
+    - "It is important to note"
+    - "It is worth noting"
+    - "Please note"
+    - "As mentioned above"
+    - "deep dive"
+    - "unpack"
+    - "let's explore"
+    - "Importantly"
+    - "Crucially"

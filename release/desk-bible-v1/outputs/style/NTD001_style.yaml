@@ -1,0 +1,19 @@
+style_review:
+  product_id: NTD001
+  product_name: "Nth-to-Default"
+  product_family: CLN
+  generated_at: "2026-06-19T13:20Z"
+  source: "outputs/drafts/NTD001.md"
+  memory_used: [memory/style-patterns/CLN.yaml, memory/terminology/CLN.yaml]
+  gate: PASS
+  checks:
+    heading_structure: {h3_present: true, h3_text: "Nth-to-Default (NTD)", h4_count: 8, all_canonical: true, issues: []}
+    currency_notation: {usd_prefix_consistent: true, bare_numbers_found: false, issues: []}
+    system_references: {nemo_mentioned: true, nemo_casing: "NEMO", sophis_mentioned: true, sophis_casing: "Sophis", murex_mentioned: false, termsheet_casing: "Termsheet", issues: []}
+    desk_shorthand: {text: "Second loss on basket; long correlation, mezzanine.", italic: true, word_count: 7, under_8_words: true, issues: []}
+    forbidden_phrases: {scanned: true, found: []}
+  known_false_positives_applied: [{rule: "H4 heading names", result: "Suppressed"}, {rule: "Sophis casing", result: "Suppressed"}, {rule: "Termsheet casing", result: "Suppressed"}]
+  accepted_conventions_applied: [{convention: "Termsheet as legal document", applied: true}, {convention: "Credit event types capitalised", applied: true}]
+  must_fix_count: 0
+  should_fix_count: 0
+  summary: "Zero violations. NTD abbreviation correct. Style gate PASS."

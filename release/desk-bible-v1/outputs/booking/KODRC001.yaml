@@ -1,0 +1,102 @@
+booking_spec:
+  product_id: KODRC001
+  product_name: "Knock-Out Discounted Reverse Convertible"
+  product_family: ELN
+  generated_at: "2026-06-18T16:05Z"
+  spec_type: nemo_sophis
+  memory_used:
+    - memory/booking-maps/ELN_system_mapping.yaml
+
+  nemo_fields:
+    trade_id: ""
+    product_type: "Knock-Out Discounted Reverse Convertible"
+    notional_par: ""
+    issue_price: ""
+    currency: ""
+    trade_date: ""
+    maturity_date: ""
+    underlying: ""
+    put_strike_pct: "100%"
+    put_strike_absolute: ""
+    knock_out_barrier_pct: "120%"
+    knock_out_barrier_absolute: ""
+    knock_out_status: "Active | Triggered | Expired"
+    knock_out_trigger_date: ""
+    observation_schedule: "Quarterly"
+    observation_dates: []
+    observation_convention: "Close-of-business"
+    settlement_type: "Physical | Cash"
+    settlement_on_knock_out: "T+2 from trigger date"
+    initial_fixing_date: ""
+    initial_fixing_level: ""
+    fixing_source: ""
+    day_count_convention: ""
+    dividend_treatment: "Pass-through | Embedded"
+    isin: ""
+
+  sophis_fields:
+    instrument_type: "Up-and-Out European Put"
+    underlying_ticker: ""
+    strike_absolute: ""
+    knock_out_barrier_absolute: ""
+    barrier_type: "Discrete (quarterly)"
+    maturity: ""
+    volatility_surface: ""
+    dividend_yield_curve: ""
+    discount_curve: ""
+    model: "Monte Carlo with discrete barrier adjustment"
+    barrier_correction: "Broadie-Glasserman"
+    delta: ""
+    gamma: ""
+    vega: ""
+    theta: ""
+    daily_mtm: ""
+    accretion_schedule: "Issue price to par, linear"
+    settlement_assumption: "Cash equivalent"
+
+  reconciliation_checks:
+    daily:
+      - "Put strike level: NEMO percentage vs Sophis absolute — verify consistency"
+      - "Knock-out barrier: NEMO percentage vs Sophis absolute — verify consistency"
+      - "MTM: Sophis daily P&L vs NEMO accreted value"
+      - "Delta: Sophis Delta vs hedge position"
+      - "Knock-out status: NEMO flag vs Sophis barrier monitor"
+    event_driven:
+      - "Barrier observation: on each scheduled date, verify closing price in NEMO matches Sophis and Termsheet source"
+      - "Knock-out trigger: if barrier breached, confirm both systems record the event on the same date"
+      - "Early redemption settlement: verify par cash flow on correct settlement date (T+2 or next scheduled)"
+      - "Accretion acceleration: on knock-out, Sophis must mark remaining accretion to par immediately"
+      - "Ex-dividend: verify dividend treatment consistency between systems"
+    termsheet_verification:
+      - "Put strike: percentage matches NEMO and Sophis absolute"
+      - "Knock-out barrier: percentage matches NEMO and Sophis absolute"
+      - "Observation schedule: dates match NEMO and Sophis"
+      - "Observation convention: close-of-business vs intraday explicitly stated"
+      - "Settlement on knock-out: timing explicitly stated"
+      - "Fixing source: exchange close or composite specified"
+
+  failure_modes:
+    - mode: "Knock-out event mismatch"
+      trigger: "NEMO and Sophis use different closing-price sources; barrier breached per one source but not the other"
+      consequence: "Systems disagree on note status — one shows live, one shows redeemed — irreconcilable P&L break"
+      detection: "Automated barrier-event reconciliation on each observation date"
+    - mode: "Issue price omission"
+      trigger: "Issue price not entered in NEMO; defaults to par"
+      consequence: "Notional overstated by discount amount; incorrect Day 1 P&L"
+      detection: "Pre-booking validation: issue price ≠ par for discounted structures"
+    - mode: "Observation date shift"
+      trigger: "Non-business-day adjustment differs between NEMO and Termsheet"
+      consequence: "Barrier evaluated on wrong date; may miss or spuriously trigger knock-out"
+      detection: "Pre-trade: verify observation dates across systems match Termsheet schedule"
+    - mode: "Accretion break on early redemption"
+      trigger: "Knock-out triggers mid-life but Sophis continues accreting on original schedule"
+      consequence: "Cumulative P&L diverges from actual cash flow; carry component incorrect post-knock-out"
+      detection: "Post-event: verify accretion terminated and remaining amount marked"
+
+  validation:
+    correct_spec_type: true
+    all_fields_named: true
+    ftp_documented: true
+    discounting_documented: true
+    min_3_recon_checks: true
+    min_2_failure_modes: true

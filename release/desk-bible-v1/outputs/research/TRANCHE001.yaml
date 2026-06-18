@@ -1,0 +1,41 @@
+research:
+  product_id: TRANCHE001
+  product_name: "Synthetic CDO Tranche"
+  product_family: CLN
+  generated_at: "2026-06-19T13:30Z"
+  memory_used: [memory/terminology/CLN.yaml]
+  definition: "A synthetic collateralised debt obligation tranche that provides leveraged credit exposure to a specific slice of the loss distribution on a large reference portfolio (typically 125-name CDX IG index). The investor sells protection on a defined attachment–detachment range, receiving a premium and bearing losses only when cumulative portfolio losses penetrate their tranche boundaries."
+  key_parameters:
+    reference_portfolio: "CDX IG (125 names, equally weighted)"
+    notional: "USD 10,000,000"
+    attachment_point: "3%"
+    detachment_point: "7%"
+    tranche_width: "4% (= 7% − 3%)"
+    tranche_notional: "USD 10,000,000 (on the 3–7% slice)"
+    portfolio_notional: "USD 250,000,000 (implied)"
+    maturity: "5 years"
+    premium: "500 bps running (quarterly, act/360)"
+    recovery_assumption: "40%"
+    credit_event: "Failure to Pay, Bankruptcy, Restructuring (per ISDA)"
+    loss_allocation: "Sequential bottom-up"
+  pricing_drivers:
+    primary: "Base correlation (implied from index tranche market)"
+    secondary: ["Individual CDS spreads (125 names)", "Recovery rate assumption", "Portfolio loss distribution (Gaussian copula large homogeneous pool)", "Attachment/detachment points"]
+  risk_factors:
+    - {factor: "Base correlation", direction: "Higher base corr at detachment → wider mezzanine tranche spread", primary: true}
+    - {factor: "Index spread level", direction: "Wider CDX IG → higher expected loss → thinner subordination below attachment"}
+    - {factor: "Recovery rate", direction: "Lower recovery → higher loss-given-default → tranche hit sooner"}
+    - {factor: "Tranche width", direction: "Narrower tranche → higher leverage → more volatile MTM"}
+    - {factor: "Correlation skew", direction: "Equity/mezzanine correlation difference drives relative value"}
+  market_context:
+    typical_users: ["Hedge funds (long/short correlation trades)", "Insurance companies (yield pickup)", "Bank proprietary desks (relative value)"]
+    typical_size: "USD 5M–50M tranche notional"
+    typical_maturity: "5Y (standard CDX tenor)"
+    index_series: "CDX IG on-the-run"
+  relationship_to_family:
+    - "Generalises FTD001 and NTD001 — FTD is effectively a 0–first-loss tranche on a small basket; NTD is a mezzanine tranche on a small basket"
+    - "Large portfolio (125 names) replaces small basket (5 names) — law of large numbers allows Gaussian copula large homogeneous pool (LHP) approximation"
+    - "Base correlation replaces flat correlation — market-implied, tranche-specific correlation parameter"
+    - "Completes the CLN family: single-name (VCLN001) → basket FTD/NTD → portfolio tranche"
+  complexity: "Very High"
+  system_mapping: "NEMO + Sophis (nemo_sophis)"

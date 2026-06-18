@@ -1,0 +1,43 @@
+booking:
+  product_id: ICN001
+  product_name: "Issuer Callable Note"
+  generated_at: "2026-06-18T19:05Z"
+  system_type: nemo_sophis
+  murex_used: false
+  memory_consulted: "memory/booking-maps/ELN_system_mapping.yaml"
+
+  nemo:
+    instrument_type: "Structured Note — Callable Fixed Coupon"
+    fields:
+      - {name: "Product ID", value: "ICN001"}
+      - {name: "Notional", value: "USD 10,000,000"}
+      - {name: "Coupon rate", value: "5.5% p.a.", critical: true}
+      - {name: "Coupon frequency", value: "Quarterly"}
+      - {name: "Day count", value: "30/360 or ACT/360 (per termsheet)"}
+      - {name: "First call date", value: "T + 1Y", critical: true}
+      - {name: "Call schedule", value: "Quarterly from first call date", critical: true}
+      - {name: "Call price", value: "Par (100%) + accrued"}
+      - {name: "Notification period", value: "5 business days", critical: true}
+      - {name: "Maturity", value: "T + 3Y"}
+      - {name: "Settlement", value: "Cash"}
+    validation: "ALL call dates must be entered. Non-call period must be enforced."
+
+  sophis:
+    legs:
+      - {leg: 1, instrument: "Fixed-rate bond", direction: "long", coupon: "5.5%", frequency: "quarterly", maturity: "T + 3Y"}
+      - {leg: 2, instrument: "Bermudan call (issuer)", direction: "short", exercise_dates: "Quarterly from T+1Y", strike: "Par", model: "Hull-White short-rate"}
+    hedging: "Delta hedge via interest rate swaps. Vega managed via swaptions."
+    greeks_monitored: ["Rho", "Vega (rate)", "Duration", "Convexity"]
+
+  reconciliation:
+    frequency: "Monthly (more frequent near call dates)"
+    critical_checks:
+      - {field: "Call schedule", nemo: "All call dates entered", sophis: "Bermudan exercise dates", failure_mode: "Missing call date — settlement failure"}
+      - {field: "First call date", nemo: "T + 1Y", sophis: "T + 1Y", failure_mode: "Non-call period violation or missed valid call"}
+      - {field: "Notification period", nemo: "5 BD", sophis: "N/A (operational)", failure_mode: "Call notice not processed in time"}
+      - {field: "Accrued on call", nemo: "Day count matched", sophis: "Day count matched", failure_mode: "P&L break on call event"}
+
+  failure_modes:
+    - "Incomplete call schedule — missing dates prevent settlement"
+    - "First call date wrong — non-call period violated or valid call missed"
+    - "Notification period not monitored — operational failure"

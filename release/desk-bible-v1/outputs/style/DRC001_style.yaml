@@ -1,0 +1,29 @@
+style_review:
+  product_id: DRC001
+  reviewed_at: "2026-06-18T12:30Z"
+  artifact_reviewed: "outputs/drafts/DRC001.md"
+  memory_consulted: "memory/style-patterns/ELN.yaml"
+
+  summary:
+    total: 4
+    must_fix: 0
+    should_fix: 1
+    skipped_known_fp: 3
+
+  violations:
+    - id: "S-001"
+      severity: SHOULD_FIX
+      rule: "3_product_naming"
+      location: "definition, construction, desk_view"
+      violation: "References to 'base Reverse Convertible' and 'coupon-bearing variant' — should use product ID RC001 or full product name consistently"
+
+  known_false_positives_skipped:
+    - pattern: "H4 heading names"
+      reason: "Canonical names correct per memory/style-patterns/ELN.yaml"
+    - pattern: "Sophis casing"
+      reason: "Title case correct"
+    - pattern: "Termsheet spelling"
+      reason: "One word, capitalised, correct"
+
+  gate: PASS
+  must_fix_ids: []

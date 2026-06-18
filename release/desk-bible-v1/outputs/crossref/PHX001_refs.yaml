@@ -1,0 +1,26 @@
+refs:
+  product_id: PHX001
+  extracted_from: outputs/drafts/PHX001.md
+  extracted_at: "2026-06-18T08:07:24Z"
+  product_names_checked:
+    - "Phoenix Autocallable"
+    - "Fixed Coupon Note"
+    - "FCN"
+    - "Reverse Convertible"
+    - "RC"
+    - "Callable Range Accrual"
+    - "Vanilla CLN"
+    - "Steepener"
+    - "STEG"
+    - "TARN"
+  reference_lines:
+    - line_number: 5
+      section: "Definition"
+      text: "The Phoenix Autocallable is a multi-year structured note, issued as an equity-linked note (ELN) under an ISDA or MTN wra"
+      patterns_matched: ['product_name']
+    - line_number: 49
+      section: "Desk view"
+      text: "The Phoenix Autocallable is the flagship retail ELN globally, accounting for the majority of autocallable issuance volum"
+      patterns_matched: ['product_name']
+  total_lines_in_draft: 56
+  reference_lines_extracted: 2

@@ -1,0 +1,88 @@
+booking:
+  product_id: VSTEG001
+  product_name: "Vanilla Steepener Note"
+  product_family: STEG
+  generated_at: "2026-06-19T09:15Z"
+  source: "outputs/blueprints/VSTEG001.yaml"
+  memory_used:
+    - memory/booking-maps/STEG_system_mapping.yaml
+
+  system_mapping:
+    book_of_record: Murex
+    risk_and_pnl: Murex
+    framework: murex_four_leg
+    legal_document: Termsheet
+
+  legs:
+    note_leg:
+      system: Murex
+      role: "Client-facing note — CMS spread coupon formula with leverage, floor, and cap"
+      fields:
+        - {name: "Notional", value: "USD 10M", critical: true}
+        - {name: "Currency", value: "USD"}
+        - {name: "Coupon formula", value: "5 × (CMS 30Y − CMS 10Y), floor 0%, cap 8%", critical: true}
+        - {name: "Leverage factor", value: "5x", critical: true}
+        - {name: "Floor rate", value: "0%", critical: true}
+        - {name: "Cap rate", value: "8%", critical: true}
+        - {name: "CMS tenor pair", value: "30Y / 10Y"}
+        - {name: "CMS fixing source", value: "ISDA CMS rate definition", critical: true}
+        - {name: "CMS fixing dates", value: "Semi-annual schedule", critical: true}
+        - {name: "Day count", value: "30/360"}
+        - {name: "Maturity", value: "10 years"}
+        - {name: "Redemption", value: "100% of notional at maturity"}
+
+    issuer_leg:
+      system: Murex
+      role: "Issuer internal funding"
+      fields:
+        - {name: "Funding rate", value: "3.0%"}
+        - {name: "Funding curve", value: "Issuer senior unsecured"}
+        - {name: "Credit spread", value: "Per issuer curve"}
+
+    deposit_leg:
+      system: Murex
+      role: "Client collateral"
+      fields:
+        - {name: "Deposit rate", value: "Market rate"}
+        - {name: "Deposit tenor", value: "Rolling"}
+        - {name: "Rollover convention", value: "Standard"}
+
+    hedge_leg:
+      system: Murex
+      role: "Market risk hedge — CMS cap/floor and spread options replicating embedded CMS spread optionality"
+      fields:
+        - {name: "Hedge instruments", value: "CMS cap (8% strike), CMS floor (0% strike), CMS spread option", critical: true}
+        - {name: "CMS tenor pair", value: "30Y / 10Y", critical: true}
+        - {name: "Leverage", value: "5x"}
+        - {name: "Expiry schedule", value: "Semi-annual, matching note fixing dates"}
+        - {name: "Notional", value: "USD 10M"}
+        - {name: "Convexity adjustment model", value: "Replication-based or short-rate", critical: true}
+        - {name: "Correlation assumption", value: "Calibrated to CMS spread options or historical", critical: true}
+        - {name: "Normal vol", value: "~65 bps (Bachelier)"}
+
+  ftp:
+    rate: "0.4%"
+    curve: "Internal FTP curve"
+    method: "Matched-maturity"
+
+  discounting:
+    curve: "OIS (collateralised), issuer curve (uncollateralised)"
+    csa_terms: "Per CSA agreement"
+
+  steg_specific_booking:
+    cms_fixing:
+      note: "CMS fixing source (ISDA CMS rate definition) must match between note leg and hedge leg. Mismatch creates fixing basis risk."
+      critical: true
+    convexity_adjustment:
+      note: "Convexity adjustment model and parameters must be identical in note leg valuation and hedge leg pricing. Mismatch creates systematic P&L leak."
+      critical: true
+    correlation:
+      note: "CMS tenor correlation must be calibrated to market data. Default flat correlation creates systematic mispricing."
+      critical: true
+
+  failure_modes:
+    - {mode: "CMS fixing source mismatch", severity: "HIGH", description: "Different CMS screen or publication time between legs → fixing basis on every date"}
+    - {mode: "Convexity adjustment inconsistency", severity: "HIGH", description: "Different model between note and hedge → systematic P&L leak (~15 bps per fixing with 5x leverage)"}
+    - {mode: "Correlation not calibrated", severity: "MEDIUM", description: "Default correlation → mispriced spread optionality"}
+    - {mode: "Leverage error", severity: "HIGH", description: "5x in note but different in hedge → unhedged spread exposure"}
+    - {mode: "Missing floor or cap", severity: "HIGH", description: "Missing floor → possible negative coupon; missing cap → unlimited coupon exposure"}

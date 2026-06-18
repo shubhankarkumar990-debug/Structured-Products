@@ -1,0 +1,10 @@
+publish:
+  product_id: SCLN001
+  product_name: "Skew CLN"
+  product_family: CLN
+  generated_at: "2026-06-19T11:58Z"
+  gate: READY
+  pre_publish_checks: {draft_exists: true, qa_gate: PASS, style_gate: PASS, crossref_gate: PASS, all_8_sections: true, blocking_issues: 0}
+  publish_metadata: {section: "6.2", family: CLN, family_position: "2 of 5", complexity: "Medium", system: "NEMO + Sophis", desk_shorthand: "Skew-priced credit; restructuring variant, recovery adjusted."}
+  quality_summary: {qa_blockers: 0, qa_majors: 1, style_must_fix: 0, crossref_broken: 0}
+  summary: "SCLN001 READY. First CLN reuse of CLN memory artifacts. Publishing gate READY."

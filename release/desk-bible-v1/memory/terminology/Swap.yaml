@@ -1,0 +1,46 @@
+meta:
+  product_id: Swap
+  product_name: "Swaps (family)"
+  family: Swap
+  category: terminology
+  stored_at: "2026-06-18T13:15Z"
+  source_stage: style
+  version: 1
+
+content:
+  product_names:
+    - full: "Vanilla Interest Rate Swap"
+      abbreviation: "IRS"
+      first_mention_format: "Interest Rate Swap (IRS)"
+
+  system_names:
+    - name: Murex
+      casing: "Murex"
+    - name: Termsheet
+      casing: "Termsheet"
+      note: "One word, capitalised."
+
+  swap_terms:
+    - "SOFR (Secured Overnight Financing Rate)"
+    - "ISDA Master Agreement"
+    - "CSA (Credit Support Annex)"
+    - "DV01"
+    - "OIS discounting"
+    - "Fixed leg"
+    - "Floating leg"
+    - "Reset date"
+    - "Payment date"
+    - "Notional exchange (none for vanilla IRS)"
+    - "Netting"
+    - "Bilateral margin"
+
+  forbidden_phrases:
+    - "It is important to note"
+    - "It is worth noting"
+    - "Please note"
+    - "As mentioned above"
+    - "deep dive"
+    - "unpack"
+    - "let's explore"
+    - "Importantly"
+    - "Crucially"

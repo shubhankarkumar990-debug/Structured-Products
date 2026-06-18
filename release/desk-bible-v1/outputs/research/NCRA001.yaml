@@ -1,0 +1,77 @@
+research:
+  product_id: NCRA001
+  product_name: "Non-Callable Range Accrual"
+  product_family: SRT
+  generated_at: "2026-06-18T20:40Z"
+  memory_consulted:
+    - memory/terminology/SRT.yaml
+    - memory/booking-maps/SRT_system_mapping.yaml
+    - memory/style-patterns/SRT.yaml
+
+  classification:
+    family: SRT
+    sub_family: "Range accrual"
+    archetype: "Bond + daily digital option strip on floating rate"
+    risk_profile: "Enhanced coupon with daily binary risk"
+    complexity: "Medium-High"
+    path_dependent: true
+    model: "Daily digital strip — replicated as daily cap/floorlets"
+
+  structure:
+    components:
+      - instrument: "Fixed-rate bond (principal)"
+        desk_direction: "long"
+        purpose: "100% principal protection at maturity"
+      - instrument: "Daily digital option strip on SOFR (or EURIBOR)"
+        desk_direction: "long"
+        purpose: "Pays accrual coupon for each day the reference rate is within the range"
+    barriers: []
+    observation: "Daily — each business day counts toward accrual"
+    tenor: "2-5 years"
+    coupon: "Accrual-adjusted: headline rate × (days in range / total days)"
+    principal_protection: "100%"
+
+  economics:
+    headline: "Enhanced coupon that accrues daily when reference rate stays within range"
+    how_funded: "Investor sells out-of-range digital risk. The probability of rate staying in range is less than 100%, so the headline coupon exceeds what a guaranteed coupon would be."
+    investor_trade: "Higher headline coupon in exchange for accrual risk (zero coupon for out-of-range days)"
+    decomposition:
+      headline_coupon: "5.5% p.a. (maximum if always in range)"
+      range: "SOFR between 3.0% and 5.5%"
+      expected_accrual_ratio: "~85% (estimated probability of in-range)"
+      expected_coupon: "5.5% × 85% = ~4.675%"
+      comparable_fixed: "4.0%"
+      digital_strip_cost: "1.8% (annualised cost of daily digitals)"
+      funding: "3.0%"
+      ftp: "0.4%"
+      desk_margin: "0.3%"
+    verification: "Headline 5.5% = digital cost 1.8% + funding 3.0% + FTP 0.4% + margin 0.3%"
+
+  booking:
+    system_type: murex_four_leg
+    note_leg: ["Headline coupon rate", "Range bounds (lower and upper)", "Observation type (daily)", "Reference rate (SOFR)", "Accrual formula"]
+    hedge_leg: ["Strip of daily digital caplets/floorlets", "Range = long digital floor at lower + short digital cap at upper", "Normal vol model"]
+    critical_fields: ["Range bounds (exact levels)", "Observation type (daily vs period-end)", "Reference rate and fixing source"]
+    failure_modes:
+      - "Range bounds entered incorrectly — shifts accrual probability"
+      - "Observation type set to period-end instead of daily"
+      - "Fixing source mismatch between note leg and hedge leg"
+
+  pricing:
+    dominant_greeks: ["DV01 (through range probability)", "Vega (normal vol on rate)", "Gamma (near range boundaries)"]
+    key_sensitivities:
+      - "Rate near range boundary: accrual probability drops sharply"
+      - "Normal vol up → lower expected accrual (wider rate distribution)"
+      - "Rate mean reversion → higher expected accrual (rate stays in range)"
+    model_risk: "Medium — daily digital strip. Normal vol model. Skew on rate distribution matters near boundaries."
+
+  reconciliation:
+    critical_fields:
+      - {field: "Range bounds", source: "Termsheet", check: "Exact levels in Murex note and hedge legs"}
+      - {field: "Observation type", source: "Termsheet", check: "Daily business-day count"}
+      - {field: "Fixing source", source: "Termsheet", check: "Consistent between note and hedge legs"}
+    observation_type: "Daily"
+    fixing_fallback: "Previous business day rate"
+
+  desk_shorthand: "Range coupon; daily accrual, rate stays in band."
+  open_questions: []

@@ -1,0 +1,65 @@
+{
+  "product_id": "DRC001",
+  "product_name": "Discounted Reverse Convertible",
+  "family": "ELN",
+  "updated_at": "2026-06-18T12:32:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {
+      "status": "complete",
+      "at": "2026-06-18T12:20Z"
+    },
+    "research": {
+      "status": "complete",
+      "at": "2026-06-18T12:20Z",
+      "artifact": "outputs/research/DRC001.yaml"
+    },
+    "architecture": {
+      "status": "complete",
+      "at": "2026-06-18T12:22Z",
+      "artifact": "outputs/blueprints/DRC001.yaml"
+    },
+    "content": {
+      "status": "complete",
+      "at": "2026-06-18T12:25Z",
+      "artifact": "outputs/drafts/DRC001.md"
+    },
+    "booking": {
+      "status": "complete",
+      "at": "2026-06-18T12:25Z",
+      "artifact": "outputs/booking/DRC001.yaml"
+    },
+    "qa": {
+      "status": "complete",
+      "at": "2026-06-18T12:28Z",
+      "artifact": "outputs/reviews/DRC001_qa.yaml"
+    },
+    "style": {
+      "status": "complete",
+      "at": "2026-06-18T12:30Z",
+      "artifact": "outputs/style/DRC001_style.yaml"
+    },
+    "crossref": {
+      "status": "complete",
+      "at": "2026-06-18T12:31Z",
+      "artifact": "outputs/crossref/DRC001_crossref.yaml"
+    },
+    "publish": {
+      "status": "complete",
+      "at": "2026-06-18T12:32Z",
+      "artifact": "outputs/publish/DRC001_pubspec.yaml"
+    }
+  },
+  "open_issues": [],
+  "notes": "1 QA BLOCKER (arithmetic check clarity) resolved in content. 3 style FPs skipped via memory. 1 crossref warning (implicit RC001 refs).",
+  "section_hashes": {
+    "definition": "b8d2f941c5e30a76",
+    "construction": "e023a5b7d8f14c69",
+    "booking_systems": "6c4e82f0a1d97b35",
+    "pricing_intuition": "9f7b3d1e5a20c846",
+    "worked_example": "d5b8a209f3e17c64",
+    "reconciliation": "2e9f6c4a8b310d75",
+    "desk_view": "8a1d5f3b7c940e26",
+    "desk_shorthand": "f4c3e8a1d6b20957"
+  }
+}

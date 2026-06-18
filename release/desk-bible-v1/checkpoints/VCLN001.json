@@ -1,0 +1,65 @@
+{
+  "product_id": "VCLN001",
+  "product_name": "Vanilla Credit-Linked Note",
+  "family": "CLN",
+  "updated_at": "2026-06-18T12:52:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {
+      "status": "complete",
+      "at": "2026-06-18T12:35Z"
+    },
+    "research": {
+      "status": "complete",
+      "at": "2026-06-18T12:38Z",
+      "artifact": "outputs/research/VCLN001.yaml"
+    },
+    "architecture": {
+      "status": "complete",
+      "at": "2026-06-18T12:40Z",
+      "artifact": "outputs/blueprints/VCLN001.yaml"
+    },
+    "content": {
+      "status": "complete",
+      "at": "2026-06-18T12:45Z",
+      "artifact": "outputs/drafts/VCLN001.md"
+    },
+    "booking": {
+      "status": "complete",
+      "at": "2026-06-18T12:45Z",
+      "artifact": "outputs/booking/VCLN001.yaml"
+    },
+    "qa": {
+      "status": "complete",
+      "at": "2026-06-18T12:48Z",
+      "artifact": "outputs/reviews/VCLN001_qa.yaml"
+    },
+    "style": {
+      "status": "complete",
+      "at": "2026-06-18T12:50Z",
+      "artifact": "outputs/style/VCLN001_style.yaml"
+    },
+    "crossref": {
+      "status": "complete",
+      "at": "2026-06-18T12:51Z",
+      "artifact": "outputs/crossref/VCLN001_crossref.yaml"
+    },
+    "publish": {
+      "status": "complete",
+      "at": "2026-06-18T12:52Z",
+      "artifact": "outputs/publish/VCLN001_pubspec.yaml"
+    }
+  },
+  "open_issues": [],
+  "notes": "First CLN family product. CLN memory artifacts created. 1 QA BLOCKER (arithmetic check clarity) resolved. 3 style FPs skipped via new CLN memory. Clean pipeline run.",
+  "section_hashes": {
+    "definition": "c9a1f432b7e05d86",
+    "construction": "f123b5d8a9e74c60",
+    "booking_systems": "7d5e93a1f4b20c68",
+    "pricing_intuition": "a0f8d2c6e4b31975",
+    "worked_example": "e6c4a8f1d3b09257",
+    "reconciliation": "3b7d1f9e5a4c8062",
+    "desk_view": "9e2a6c4f8b150d73",
+    "desk_shorthand": "1f4b8d3a7c690e25"
+  }
+}

@@ -1,0 +1,21 @@
+style_review:
+  product_id: WARRANT001
+  reviewed_at: "2026-06-18T18:50Z"
+  artifact_reviewed: "outputs/drafts/WARRANT001.md"
+  memory_consulted: "memory/style-patterns/ELN.yaml"
+  summary:
+    total: 3
+    must_fix: 0
+    should_fix: 0
+    skipped_known_fp: 3
+    skipped_accepted_convention: 0
+  violations: []
+  known_false_positives_skipped:
+    - pattern: "H4 heading names"
+      reason: "Canonical names correct"
+    - pattern: "Sophis casing"
+      reason: "Title case correct"
+    - pattern: "Termsheet casing"
+      reason: "One word, capitalised"
+  gate: PASS
+  must_fix_ids: []

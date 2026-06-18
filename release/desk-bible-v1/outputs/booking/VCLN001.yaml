@@ -1,0 +1,81 @@
+booking_spec:
+  product_id: VCLN001
+  product_name: "Vanilla Credit-Linked Note"
+  product_family: CLN
+  generated_at: "2026-06-18T12:45Z"
+  spec_type: nemo_sophis
+  memory_used:
+    - memory/booking-maps/CLN_system_mapping.yaml
+
+  nemo_fields:
+    trade_id: ""
+    product_type: "Credit-Linked Note"
+    notional: ""
+    currency: ""
+    trade_date: ""
+    maturity_date: ""
+    reference_entity_name: ""
+    reference_entity_id: ""
+    reference_obligation: ""
+    credit_event_types: "Bankruptcy, Failure to Pay, [Restructuring variant]"
+    restructuring_variant: "CR | MR | MMR | Old-R"
+    recovery_determination: "Auction | Dealer Poll | Fixed"
+    settlement_type: "Physical | Cash"
+    coupon_rate: ""
+    coupon_frequency: "Annual"
+    coupon_accrual_on_credit_event: "Paid | Forfeited"
+    isda_definitions_version: "2003 | 2014"
+    isin: ""
+
+  sophis_fields:
+    instrument_type: "Credit Default Swap (embedded)"
+    reference_entity: ""
+    cds_spread_curve: ""
+    recovery_rate_assumption: ""
+    hazard_rate_model: ""
+    cs01: ""
+    jump_to_default_pv: ""
+    discount_curve: ""
+    daily_mtm: ""
+    pnl_spread_component: ""
+    pnl_carry_component: ""
+
+  reconciliation_checks:
+    daily:
+      - "CS01: Sophis credit spread sensitivity vs hedge position"
+      - "MTM: Sophis mark vs NEMO accrued position"
+      - "CDS spread curve: verify Sophis curve date matches market"
+    event_driven:
+      - "Credit event: verify event type matches Termsheet definitions"
+      - "Recovery: auction price vs fixed assumption in Sophis"
+      - "Settlement: physical delivery logistics or cash payment amount"
+      - "Successor event: reference entity change requires NEMO update"
+      - "Coupon accrual: paid or forfeited per Termsheet"
+    termsheet_verification:
+      - "Reference entity name and identifier match NEMO"
+      - "Restructuring variant explicitly specified and matches NEMO"
+      - "ISDA Definitions version matches all systems"
+      - "Recovery method specified"
+      - "Coupon accrual on credit event specified"
+
+  failure_modes:
+    - mode: "Restructuring variant mismatch"
+      trigger: "Termsheet specifies MR; NEMO booked as CR"
+      consequence: "Note triggers on restructuring events outside MR scope — incorrect early termination"
+      detection: "Booking verification checklist"
+    - mode: "Recovery method undefined"
+      trigger: "No auction held; Termsheet silent on fallback"
+      consequence: "Recovery value indeterminate — settlement delayed or disputed"
+      detection: "Post-credit-event review"
+    - mode: "Successor event unprocessed"
+      trigger: "Reference entity merges; NEMO not updated"
+      consequence: "Credit event determination references wrong legal entity"
+      detection: "Corporate actions monitoring"
+
+  validation:
+    correct_spec_type: true
+    all_fields_named: true
+    ftp_documented: true
+    discounting_documented: true
+    min_3_recon_checks: true
+    min_2_failure_modes: true

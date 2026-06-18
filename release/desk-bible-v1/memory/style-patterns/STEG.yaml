@@ -1,0 +1,69 @@
+meta:
+  product_id: STEG
+  product_name: "Steepener Notes (family)"
+  family: STEG
+  category: style-patterns
+  stored_at: "2026-06-18T20:00Z"
+  source_stage: style
+  version: 1
+
+content:
+  heading_format: "Sentence case for H4 subsections"
+  currency_notation: "USD with international notation: 10M, 250k, 1.5bn"
+
+  canonical_h4_names:
+    - "Definition"
+    - "Construction"
+    - "Booking & systems"
+    - "Pricing intuition"
+    - "Worked example (USD 10M)"
+    - "Reconciliation specifics"
+    - "Desk view"
+    - "Desk shorthand"
+
+  known_false_positives:
+    - rule: "H4 heading names flagged as non-canonical"
+      reason: "The canonical names ARE sentence case per author/writer specs."
+      applies_to: "All products"
+
+    - rule: "Murex mentioned for STEG products"
+      reason: "Murex IS correct for STEG. The style rule 'Murex mentioned for ELN/CLN/Deposit' does NOT apply to STEG."
+      applies_to: "All STEG products"
+
+    - rule: "Termsheet casing flagged"
+      reason: "'Termsheet' (one word, capitalised) is correct per style guide."
+      applies_to: "All STEG products"
+
+  approved_patterns:
+    - pattern: "USD prefix on all monetary figures"
+      note: "Bare '10M' without 'USD' prefix is a genuine style violation."
+
+    - pattern: "Desk shorthand in italic, 8 words or fewer"
+      note: "Count words literally."
+
+    - pattern: "Murex four-leg framework in Booking & systems"
+      note: "STEG products must reference all four Murex legs, same as SRT."
+
+    - pattern: "CMS spread notation"
+      note: "'CMS 30Y − CMS 10Y' is the canonical notation. Use the minus sign (−), not a hyphen (-). Long tenor first."
+
+  accepted_conventions:
+    - convention: "Termsheet as legal document"
+      reason: "For STEG note-format products, the legal document is the Termsheet. This is correct."
+      applies_to: "All STEG products"
+
+    - convention: "Normal volatility in basis points"
+      reason: "'65 bps normal' is standard shorthand for Bachelier normal volatility. Inherited from SRT convention."
+      applies_to: "All STEG products with swaption components"
+
+    - convention: "CMS spread in basis points"
+      reason: "CMS spreads are quoted in basis points (e.g., '80 bps spread'). This is the market convention and should not be flagged as imprecise."
+      applies_to: "All STEG products"
+
+    - convention: "Approximate convexity adjustment"
+      reason: "Convexity adjustments are model-dependent and inherently approximate. Phrases like 'approximately 5 bps convexity adjustment' are appropriate in a desk bible context."
+      applies_to: "All STEG products"
+
+    - convention: "CMS spread decomposition format"
+      reason: "STEG product decompositions sum cost components to a total cost that exceeds the expected coupon. The expected coupon is determined by the CMS spread level, not by the cost sum. The difference represents convexity, correlation, and optionality costs. Validated across all 4 STEG products (VSTEG001, RASTEG001, CSTEG001, TARN001)."
+      applies_to: "All STEG products"

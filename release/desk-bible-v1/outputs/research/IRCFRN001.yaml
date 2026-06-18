@@ -1,0 +1,104 @@
+research:
+  product_id: IRCFRN001
+  chapter: "IR Callable Fixed Rate Note"
+  product_family: SRT
+  extracted_at: "2026-06-18T12:58Z"
+  memory_used:
+    - memory/terminology/SRT.yaml
+    - memory/booking-maps/SRT_system_mapping.yaml
+
+  definition:
+    client_payoff: "Above-market fixed coupon; par at maturity unless issuer exercises Bermuda call"
+    capital_protection: "Full — par returned at maturity or on call date"
+    conditional_coupon: false
+    autocall_feature: false
+    knock_in: false
+    knock_out: false
+    underlying_type: "Interest rates (no equity or credit underlying)"
+
+  construction:
+    components:
+      - vanilla fixed-rate bond (note leg)
+      - short Bermuda receiver swaption (call optionality sold by investor to issuer)
+    desk_long:
+      - fixed-rate bond at issuer credit curve
+    desk_short:
+      - Bermuda receiver swaption (investor is short; issuer has the call right)
+    key_strikes:
+      - "Swaption strike: the fixed coupon rate"
+    path_dependency: "None — Bermuda exercise dates are discrete, not path-dependent"
+
+  systems:
+    book_of_record: Murex
+    risk_and_pnl: Murex
+    legal_document: Termsheet
+    murex_legs:
+      - note_leg
+      - issuer_leg
+      - deposit_leg
+      - hedge_leg
+    no_murex: false
+
+  pricing:
+    dominant_greeks:
+      - "DV01 (interest rate sensitivity)"
+      - "Vega (swaption volatility)"
+      - "Gamma (rate convexity)"
+    yield_drivers:
+      - "Swap rate curve level (higher rates = higher fixed coupon)"
+      - "Swaption volatility (higher vol = higher call option value = higher coupon)"
+      - "Call schedule density (more call dates = more optionality sold = higher coupon)"
+      - "Non-call period length (longer NC = less optionality = lower coupon)"
+      - "Issuer funding spread"
+    model_sensitivity: "Normal (Bachelier) or lognormal (Black) swaption model — model choice affects vega and therefore coupon"
+    key_risks:
+      - "Rate risk: DV01 exposure to the swap curve"
+      - "Call risk: issuer calls when rates fall, forcing reinvestment at lower rates"
+      - "Swaption model risk: normal vs lognormal produces different vega hedging"
+
+  worked_example:
+    notional: "USD 10M"
+    underlying: "10-year USD swap rate"
+    tenor: "10 years, callable annually after year 2 (8 call dates)"
+    strikes_and_barriers:
+      fixed_coupon: "5.5% per annum"
+    decomposition:
+      vanilla_10y_swap_rate: "4.2% per annum"
+      bermuda_swaption_premium: "0.8% per annum (amortized over expected life)"
+      issuer_funding: "0.3%"
+      ftp: "0.15%"
+      desk_margin: "0.05%"
+      headline_coupon: "5.5%"
+    ftp_assumption: "0.15% per annum"
+    desk_margin: "0.05% per annum (USD 5K per annum on USD 10M)"
+    headline_yield_to_client: "5.5% per annum fixed"
+    bad_scenario: "Rates fall 200 bps; issuer calls at year 3; investor reinvests at 3.5%; opportunity cost of 2.0% per annum for remaining 7 years"
+
+  reconciliation:
+    primary_risk: "Call schedule mismatch between Termsheet and Murex — wrong call dates produce incorrect swaption valuation"
+    critical_fields:
+      - "Call dates (Bermuda schedule)"
+      - "Call notification period"
+      - "Fixed coupon rate"
+      - "Day count convention"
+      - "Swaption model (normal vs lognormal)"
+      - "OIS vs issuer curve discounting"
+    failure_modes:
+      - "Call date missing from Murex — swaption undervalued, coupon appears too high"
+      - "Normal vs lognormal model mismatch between pricing and risk — vega hedge does not converge"
+      - "OIS discounting applied to uncollateralized note — MTM overstated"
+    termsheet_ambiguities:
+      - "Call notification period not always explicit"
+      - "Clean vs dirty call price (with or without accrued coupon)"
+    observation_type: "Discrete Bermuda exercise dates"
+    fixing_fallback: "N/A — no floating rate component"
+
+  desk_view:
+    typical_buyer: "Institutional investor or treasury seeking enhanced fixed income"
+    actual_risk_taken: "Duration risk plus reinvestment risk on call; investor is short a Bermuda swaption"
+    perceived_risk: "High-quality fixed-rate bond with early redemption possibility"
+    when_appropriate: "View that rates will stay elevated or rise; comfortable with reinvestment risk"
+    desk_opinion: "Bread-and-butter SRT product; transparent risk/reward; call risk is well understood"
+
+  desk_shorthand: "Callable fixed; sold swaption for yield."
+  open_questions: []

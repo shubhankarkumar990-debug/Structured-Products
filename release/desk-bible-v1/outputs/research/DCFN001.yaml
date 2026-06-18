@@ -1,0 +1,79 @@
+research:
+  product_id: DCFN001
+  product_name: "Digital Cap-Floor Note"
+  product_family: SRT
+  generated_at: "2026-06-18T21:20Z"
+  memory_consulted:
+    - memory/terminology/SRT.yaml
+    - memory/booking-maps/SRT_system_mapping.yaml
+    - memory/style-patterns/SRT.yaml
+
+  classification:
+    family: SRT
+    sub_family: "Digital rate"
+    archetype: "Bond + digital cap/floor strip"
+    risk_profile: "Binary coupon conditional on rate level"
+    complexity: "Medium-High"
+    path_dependent: true
+    model: "Digital caplet/floorlet replication. Normal vol."
+
+  structure:
+    components:
+      - instrument: "Fixed-rate bond (principal)"
+        desk_direction: "long"
+        purpose: "100% principal protection at maturity"
+      - instrument: "Digital cap strip (coupon enhancement)"
+        desk_direction: "long"
+        purpose: "Pays enhanced coupon if rate is below cap strike on observation date"
+      - instrument: "Digital floor strip (coupon protection)"
+        desk_direction: "long"
+        purpose: "Pays minimum coupon if rate is above floor strike on observation date"
+    barriers: []
+    observation: "Discrete — each coupon observation date (quarterly or semi-annual)"
+    tenor: "2-5 years"
+    coupon: "Binary per period: high coupon if rate in favourable zone, low/zero otherwise"
+    principal_protection: "100%"
+
+  economics:
+    headline: "Binary coupon conditional on interest rate level per period"
+    how_funded: "Investor accepts binary coupon risk. The digital payoff is cheaper than a vanilla coupon because it is all-or-nothing — no partial payout."
+    investor_trade: "Higher headline coupon than guaranteed, but coupon is binary per period"
+    decomposition:
+      high_coupon: "6.0% p.a. (if rate below cap strike)"
+      low_coupon: "1.0% p.a. (if rate above cap strike)"
+      cap_strike: "4.5% (SOFR)"
+      digital_cap_cost: "1.8% (annualised)"
+      funding: "3.0%"
+      ftp: "0.4%"
+      desk_margin: "0.3%"
+      floor_coupon_cost: "0.5% (guaranteed minimum)"
+    verification: "High coupon 6.0% = digital cap 1.8% + funding 3.0% + FTP 0.4% + margin 0.3% + floor 0.5%"
+
+  booking:
+    system_type: murex_four_leg
+    note_leg: ["High coupon rate", "Low coupon rate", "Cap strike", "Observation dates", "Reference rate"]
+    hedge_leg: ["Digital caplet strip (rate condition)", "Normal vol model", "Pin risk management"]
+    critical_fields: ["Cap strike level", "Observation dates", "Coupon condition (above/below)", "High vs low coupon assignment"]
+    failure_modes:
+      - "Cap strike entered incorrectly — coupon flips"
+      - "Coupon condition inverted (above vs below)"
+      - "Observation dates missing"
+
+  pricing:
+    dominant_greeks: ["DV01 (through digital probability)", "Vega (normal vol on rate)", "Gamma (extreme near cap strike)"]
+    key_sensitivities:
+      - "Rate near cap strike: small move flips coupon from 6% to 1%"
+      - "Normal vol up → digital value changes (depends on direction)"
+      - "Pin risk on observation dates when rate near strike"
+    model_risk: "Medium — digital replication via tight caplet spread. Normal vol. Pin risk on observation dates."
+
+  reconciliation:
+    critical_fields:
+      - {field: "Cap strike", source: "Termsheet", check: "Exact level in both legs"}
+      - {field: "Observation dates", source: "Termsheet", check: "All dates present"}
+      - {field: "Coupon condition", source: "Termsheet", check: "Below cap = high, above cap = low"}
+    observation_type: "Discrete — coupon dates"
+    fixing_fallback: "Previous business day"
+
+  desk_shorthand: "Binary rate coupon; cap strike, high or low."
+  open_questions: []

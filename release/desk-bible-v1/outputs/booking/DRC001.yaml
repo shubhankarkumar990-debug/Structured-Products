@@ -1,0 +1,83 @@
+booking_spec:
+  product_id: DRC001
+  product_name: "Discounted Reverse Convertible"
+  product_family: ELN
+  generated_at: "2026-06-18T12:25Z"
+  spec_type: nemo_sophis
+  memory_used:
+    - memory/booking-maps/ELN_system_mapping.yaml
+
+  nemo_fields:
+    trade_id: ""
+    product_type: "Discounted Reverse Convertible"
+    par_notional: ""
+    issue_price: ""
+    issue_price_pct: ""
+    currency: ""
+    trade_date: ""
+    maturity_date: ""
+    underlying: ""
+    put_strike_pct: "100%"
+    put_strike_absolute: ""
+    settlement_type: "Physical | Cash"
+    coupon_rate: "0 (zero coupon)"
+    initial_fixing_date: ""
+    initial_fixing_level: ""
+    final_observation_date: ""
+    fixing_source: ""
+    day_count_convention: ""
+    isin: ""
+
+  sophis_fields:
+    instrument_type: "European Put + Accreting Zero"
+    underlying_ticker: ""
+    strike_absolute: ""
+    maturity: ""
+    issue_price: ""
+    par_amount: ""
+    accretion_convention: ""
+    volatility_surface: ""
+    discount_curve: ""
+    model: "Black-Scholes"
+    delta: ""
+    gamma: ""
+    vega: ""
+    daily_mtm: ""
+    daily_accretion: ""
+
+  reconciliation_checks:
+    daily:
+      - "Issue price vs par: verify NEMO carries both fields"
+      - "Accretion: Sophis daily accreted value vs NEMO position notional"
+      - "MTM: Sophis daily P&L (including accretion) vs NEMO"
+    event_driven:
+      - "Maturity: verify redemption at par (not issue price) if underlying >= strike"
+      - "Settlement: physical delivery against par notional or invested amount — verify Termsheet"
+      - "Fixing disruption: manual fallback"
+    termsheet_verification:
+      - "Issue price explicitly stated"
+      - "Par redemption amount explicitly stated"
+      - "Day count convention for accretion specified"
+      - "OID tax treatment referenced (if applicable)"
+
+  failure_modes:
+    - mode: "Issue price omission"
+      trigger: "NEMO not populated with issue price at booking"
+      consequence: "Position marked at par; Day 1 P&L overstated by discount amount"
+      detection: "T+1 reconciliation"
+    - mode: "Accretion mismatch"
+      trigger: "Sophis and NEMO use different day count conventions"
+      consequence: "Daily carry diverges; cumulative P&L break over note life"
+      detection: "Daily MTM reconciliation"
+    - mode: "Settlement basis ambiguity"
+      trigger: "Termsheet silent on whether delivery is against par or invested amount"
+      consequence: "Settlement cash flow differs by discount amount"
+      detection: "Pre-maturity Termsheet review"
+
+  validation:
+    correct_spec_type: true
+    all_fields_named: true
+    ftp_documented: true
+    discounting_documented: true
+    min_3_recon_checks: true
+    min_2_failure_modes: true

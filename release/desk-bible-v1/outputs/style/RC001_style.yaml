@@ -1,0 +1,37 @@
+style_review:
+  product_id: RC001
+  reviewed_at: "2026-06-18T12:12Z"
+  artifact_reviewed: "outputs/drafts/RC001.md"
+  memory_consulted: "memory/style-patterns/ELN.yaml"
+
+  summary:
+    total: 5
+    must_fix: 1
+    should_fix: 1
+    skipped_known_fp: 3
+
+  violations:
+    - id: "S-001"
+      severity: MUST_FIX
+      rule: "7_worked_example"
+      location: "worked_example — trade parameters"
+      violation: "Coupon stated as '9.0% per annum (paid at maturity)' — the 'per annum' is misleading for a 1-year note where coupon is a single payment"
+      resolved: "Accepted — 'per annum' is the quoting convention even for single-period notes; consistent with PHX001"
+
+    - id: "S-002"
+      severity: SHOULD_FIX
+      rule: "3_product_naming"
+      location: "definition"
+      violation: "Phoenix Autocallable referenced without section number — consider adding cross-reference"
+      resolved: "Advisory — cross-reference to be validated at crossref stage"
+
+  known_false_positives_skipped:
+    - pattern: "H4 heading names flagged as non-canonical"
+      reason: "Canonical names are correct per author/writer specs (memory/style-patterns/ELN.yaml)"
+    - pattern: "Sophis casing"
+      reason: "Title case 'Sophis' is correct"
+    - pattern: "Termsheet spelling"
+      reason: "One word, capitalised, is correct"
+
+  gate: PASS
+  must_fix_ids: []

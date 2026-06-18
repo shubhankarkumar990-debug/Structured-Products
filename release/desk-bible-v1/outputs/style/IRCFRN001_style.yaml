@@ -1,0 +1,29 @@
+style_review:
+  product_id: IRCFRN001
+  reviewed_at: "2026-06-18T13:10Z"
+  artifact_reviewed: "outputs/drafts/IRCFRN001.md"
+  memory_consulted: "memory/style-patterns/SRT.yaml"
+
+  summary:
+    total: 4
+    must_fix: 0
+    should_fix: 1
+    skipped_known_fp: 3
+
+  violations:
+    - id: "S-001"
+      severity: SHOULD_FIX
+      rule: "2_currency_and_numbers"
+      location: "worked_example"
+      violation: "Swaption volatility '65 bps normal' — consider specifying this is normal (Bachelier) basis points to avoid confusion with percentage vol"
+
+  known_false_positives_skipped:
+    - pattern: "H4 heading names"
+      reason: "Canonical names correct per memory/style-patterns/SRT.yaml"
+    - pattern: "Murex mentioned for SRT"
+      reason: "Murex IS correct for SRT products — style rule 4_system_names only prohibits Murex for ELN/CLN/Deposit"
+    - pattern: "Termsheet spelling"
+      reason: "One word, capitalised, correct"
+
+  gate: PASS
+  must_fix_ids: []

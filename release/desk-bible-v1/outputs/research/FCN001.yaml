@@ -1,0 +1,109 @@
+research:
+  product_id: FCN001
+  chapter: "3.2"
+  product_family: ELN
+  extracted_at: "2026-06-18T17:00Z"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+    - memory/style-patterns/ELN.yaml
+
+  definition:
+    client_payoff: "Fixed coupon paid regardless of underlying performance. Autocall feature: if underlying is at or above autocall strike on any observation date, note redeems early at par plus accrued coupon. At maturity if not autocalled: if above knock-in barrier, par redemption; if below knock-in barrier, physical delivery or cash at depreciated value. Coupon is fixed, not conditional — this is the key distinction from the Phoenix Autocallable."
+    capital_protection: "Conditional — knock-in barrier provides protection"
+    conditional_coupon: false
+    autocall_feature: true
+    knock_in: true
+    knock_out: false
+    underlying_type: "single equity"
+
+  construction:
+    components:
+      - "Zero-coupon bond at par"
+      - "Short down-and-in put (strike 100%, barrier 65%)"
+      - "Short autocall option (strip of digital calls at 100%)"
+    desk_long:
+      - "Zero-coupon bond funded at issuer credit curve"
+    desk_short:
+      - "Down-and-in put struck at 100% with knock-in barrier at 65%"
+      - "Autocall option — series of binary/digital calls at 100% on each observation date"
+    key_strikes:
+      - "Put strike: 100% of initial fixing"
+      - "Knock-in barrier: 65% of initial fixing"
+      - "Autocall strike: 100% of initial fixing"
+    path_dependency: "Path dependent — both the autocall and the barrier are observed on discrete dates. Requires Monte Carlo simulation."
+
+  systems:
+    book_of_record: NEMO
+    risk_and_pnl: Sophis
+    legal_document: Termsheet
+    murex_legs: []
+    no_murex: true
+
+  pricing:
+    dominant_greeks:
+      - "Delta (short via put, modified by autocall)"
+      - "Vega (short — complex interaction between put and autocall components)"
+      - "Gamma (negative near barrier and autocall strike)"
+    yield_drivers:
+      - "Implied volatility"
+      - "Autocall strike level"
+      - "Knock-in barrier level"
+      - "Observation frequency"
+      - "Issuer funding spread"
+    model_sensitivity: "Monte Carlo with discrete barrier and autocall observation. Not closed-form due to path dependency from both autocall and barrier features."
+    key_risks:
+      - "Autocall probability: higher vol increases both autocall likelihood and put activation likelihood"
+      - "Barrier proximity near maturity"
+      - "Correlation between autocall and barrier events"
+      - "Reinvestment risk on early autocall"
+
+  worked_example:
+    notional: "USD 10M"
+    underlying: "Single stock, 25% implied volatility"
+    tenor: "1 year"
+    strikes_and_barriers:
+      put_strike: "100% of initial fixing"
+      knock_in_barrier: "65% of initial fixing"
+      autocall_strike: "100% of initial fixing"
+      observation_frequency: "Quarterly (4 dates)"
+    decomposition:
+      down_and_in_put: "3.8% (USD 380K)"
+      autocall_option: "1.2% (USD 120K)"
+      issuer_funding: "2.0% (USD 200K)"
+      ftp: "0.8% (USD 80K)"
+      desk_margin: "0.2% (USD 20K)"
+    ftp_assumption: "0.8% per annum"
+    desk_margin: "0.2% per annum"
+    headline_yield_to_client: "8.0% per annum fixed coupon"
+    bad_scenario: "No autocall triggered. Underlying at 50% at maturity (below 65% barrier). Physical delivery worth USD 5M plus full annual coupon USD 800K. Net: USD 5.8M. Loss: USD 4.2M or 42% of notional."
+
+  reconciliation:
+    primary_risk: "Autocall event processing — when autocall triggers, NEMO must terminate the note, Sophis must unwind hedges, and coupon must settle correctly for the partial period"
+    critical_fields:
+      - "Autocall strike and observation schedule"
+      - "Knock-in barrier level and observation convention"
+      - "Coupon accrual on autocall (full period or pro-rata)"
+      - "Settlement type at maturity"
+      - "Put strike level"
+    failure_modes:
+      - "Autocall event not processed in NEMO — note continues live past autocall date"
+      - "Barrier observation: NEMO monitors continuously but Termsheet specifies discrete"
+      - "Coupon on autocall: Termsheet specifies pro-rata but NEMO pays full period"
+      - "Dual event: underlying touches barrier intra-period then autocalls next period — knock-in status must persist even if autocall triggers"
+    termsheet_ambiguities:
+      - "Autocall observation convention: close-of-business vs intraday"
+      - "Barrier observation: same dates as autocall or different schedule"
+      - "Coupon payment timing on autocall"
+    observation_type: "Discrete (quarterly for both autocall and barrier)"
+    fixing_fallback: "Modified following for non-business-day observations"
+
+  desk_view:
+    typical_buyer: "Yield-seeking investor who wants fixed income certainty (coupon is not conditional) with barrier protection and an upside exit via autocall. Common in Asian markets."
+    actual_risk_taken: "Short down-and-in put with autocall. Below barrier at maturity: full downside exposure from strike. Above barrier: protected."
+    perceived_risk: "Investor focuses on the fixed coupon and the barrier protection. May underestimate the risk below the barrier."
+    when_appropriate: "Neutral to mildly bullish view, preference for fixed income certainty, comfort with barrier risk, desire for potential early redemption."
+    desk_opinion: "The FCN is the workhorse of Asian structured note markets. Simpler to explain than the Phoenix because the coupon is fixed. The autocall provides upside exit without the conditional coupon complexity."
+
+  desk_shorthand: "Fixed coupon; barrier put, autocall exit."
+  open_questions: []

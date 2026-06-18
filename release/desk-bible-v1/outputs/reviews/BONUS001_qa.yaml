@@ -1,0 +1,42 @@
+qa_review:
+  product_id: BONUS001
+  reviewed_at: "2026-06-18T18:10Z"
+  scope:
+    first_run: true
+    sections_reviewed: [definition, construction, booking_systems, pricing_intuition, worked_example, reconciliation, desk_view, desk_shorthand]
+    sections_skipped: []
+  arithmetic_verification:
+    decomposition_check:
+      components: ["Call cost (effective): 6.4%", "Put income: 3.0%", "Funding: 2.0%", "FTP: 1.0%", "Desk margin: 0.4%"]
+      expected_sum: "6.4% = 3.0% + 2.0% + 1.0% + 0.4%"
+      actual_sum: "6.4% = 6.4%"
+      result: "PASS"
+    good_scenario_check:
+      participation: "80% × 30% = 24%"
+      payout: "USD 10M + USD 2.4M = USD 12.4M"
+      result: "PASS"
+    bad_scenario_check:
+      underlying: "50%"
+      payout: "USD 10M × 0.50 = USD 5M"
+      loss: "50%"
+      result: "PASS"
+  summary:
+    total: 2
+    blocker: 0
+    major: 1
+    minor: 1
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "Worked example — decomposition"
+      issue: "Decomposition presented as cost-balance rather than additive sum"
+      evidence: "The decomposition is a cost-balance equation (call cost = put + funding + FTP + margin) rather than the standard additive decomposition. Arithmetic is correct. Format differs from RC products but is appropriate for a product where the desk buys an option rather than sells one."
+      required_action: "Advisory — format is appropriate for the product's economics. No change required."
+    - id: "QA-002"
+      severity: MINOR
+      location: "Construction — full call premium"
+      issue: "States '8.0% of notional' for the full call then '6.4% effective' for 80% participation"
+      evidence: "8.0% × 80% = 6.4%. Arithmetic correct. Could be confusing — two different call values in the text."
+      required_action: "Advisory — the distinction between full call and participation-adjusted call is valuable context."
+  gate: PASS
+  blocker_ids: []

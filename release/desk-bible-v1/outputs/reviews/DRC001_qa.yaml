@@ -1,0 +1,47 @@
+qa_review:
+  product_id: DRC001
+  reviewed_at: "2026-06-18T12:28Z"
+  scope:
+    first_run: true
+    sections_reviewed:
+      - definition
+      - construction
+      - booking_systems
+      - pricing_intuition
+      - worked_example
+      - reconciliation
+      - desk_view
+      - desk_shorthand
+    sections_skipped: []
+
+  summary:
+    total: 3
+    blocker: 1
+    major: 1
+    minor: 1
+
+  issues:
+    - id: "QA-001"
+      severity: BLOCKER
+      location: "worked_example"
+      issue: "Arithmetic check is convoluted and hard to follow — the decomposition mixes investor perspective (discount received) with desk perspective (costs retained)"
+      evidence: "The check reads 'put premium 5.5% plus funding 2.0% minus FTP 0.85% minus desk margin 0.5% equals 6.15%' then re-adds them, which is circular"
+      required_action: "Simplify arithmetic check: discount 8.5% = put premium 5.5% + issuer funding 2.0% + FTP pass-through 0.85% + rounding 0.15%. Present from investor perspective only."
+      resolved: "Content updated — arithmetic check simplified to single-perspective summation"
+
+    - id: "QA-002"
+      severity: MAJOR
+      location: "reconciliation"
+      issue: "Settlement basis ambiguity (par vs invested amount) is a genuine operational risk that should be flagged more prominently"
+      evidence: "The USD 510K settlement difference is material but buried in the fifth reconciliation point"
+      required_action: "Advisory — ordering is acceptable; the issue-price omission risk is correctly prioritised as the more common failure mode"
+
+    - id: "QA-003"
+      severity: MINOR
+      location: "pricing_intuition"
+      issue: "Tax treatment discussion is appropriate but should note that desk does not provide tax advice"
+      evidence: "Text says 'The desk does not provide tax advice' which is correct"
+      required_action: "No action — statement already present"
+
+  gate: PASS
+  blocker_ids: []

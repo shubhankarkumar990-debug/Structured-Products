@@ -1,0 +1,80 @@
+research:
+  product_id: DIGITAL001
+  product_name: "Digital / Exotic Coupon Notes"
+  product_family: ELN
+  generated_at: "2026-06-18T19:20Z"
+  memory_consulted:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+    - memory/style-patterns/ELN.yaml
+
+  classification:
+    family: ELN
+    sub_family: "Digital coupon"
+    archetype: "Bond + digital option strip"
+    risk_profile: "Binary coupon outcome per period"
+    complexity: "Medium-High"
+    path_dependent: true
+    model: "Digital option replication (call spread) with skew adjustment"
+
+  structure:
+    components:
+      - instrument: "Fixed-rate bond (principal)"
+        desk_direction: "long"
+        purpose: "Provides 100% principal protection at maturity"
+      - instrument: "Digital option strip (coupon)"
+        desk_direction: "long"
+        purpose: "Pays fixed coupon if underlying above digital strike; zero otherwise"
+      - instrument: "Down-and-in put (optional barrier)"
+        desk_direction: "short"
+        purpose: "If present, makes principal conditional on barrier. Often absent."
+    barriers:
+      - {type: "Digital strike (coupon condition)", level: "Typically 100% of initial", observation: "Discrete — coupon observation dates"}
+      - {type: "KI barrier (optional, for principal)", level: "If present, typically 60-70%", observation: "European or continuous"}
+    observation: "Discrete per coupon period (quarterly or semi-annual)"
+    tenor: "1-3 years"
+    coupon: "Conditional — all-or-nothing per period"
+    principal_protection: "100% if no DI barrier; conditional if DI barrier present"
+
+  economics:
+    headline: "All-or-nothing coupon conditional on underlying above digital strike"
+    how_funded: "Investor is long a strip of digital options. Cost is less than a strip of vanilla options because the payoff is capped (binary). Funding surplus enhances the coupon."
+    investor_trade: "Higher coupon than vanilla options provide, but binary — no partial payout"
+    decomposition:
+      digital_coupon: "8.0% p.a. (conditional)"
+      digital_strike: "100% of initial"
+      digital_option_cost_per_period: "3.2% (annualised cost of digital strip)"
+      funding: "2.0%"
+      ftp: "0.6%"
+      principal_put_income: "2.0% (if DI barrier present)"
+      desk_margin: "0.2%"
+    verification: "Digital coupon 8.0% = digital cost 3.2% + funding 2.0% + FTP 0.6% + put income 2.0% + margin 0.2%"
+
+  booking:
+    system_type: nemo_sophis
+    nemo_carries: ["Digital strike", "Coupon rate (conditional)", "Observation dates", "DI barrier (if any)", "Underlying"]
+    sophis_carries: ["Digital option replication (tight call spread)", "Skew adjustment", "Pin risk management", "Delta hedge"]
+    critical_fields: ["Digital strike level", "Observation dates", "Coupon condition (above/below)", "Settlement of digital"]
+    failure_modes:
+      - "Digital strike confused with barrier level"
+      - "Observation dates misaligned between NEMO and Sophis"
+      - "Digital replicated as too-wide call spread — misprices skew"
+
+  pricing:
+    dominant_greeks: ["Delta (discontinuous at strike)", "Gamma (extreme near strike)", "Vega (complex — depends on skew)"]
+    key_sensitivities:
+      - "At-the-money: tiny spot move flips coupon from 8% to 0%"
+      - "Skew matters more than ATM vol for digitals"
+      - "Pin risk on observation date — spot near digital strike"
+    model_risk: "High — digital payoff is a Dirac delta in the limit. Replicated as tight call spread. Width of spread × skew = pricing error."
+
+  reconciliation:
+    critical_fields:
+      - {field: "Digital strike", source: "Termsheet", check: "Exact level in NEMO and Sophis"}
+      - {field: "Observation dates", source: "Termsheet", check: "All dates present in both systems"}
+      - {field: "Coupon condition", source: "Termsheet", check: "Above or at-or-above — boundary treatment"}
+    observation_type: "Discrete — coupon dates"
+    fixing_fallback: "Modified following"
+
+  desk_shorthand: "Binary coupon; digital strike, all or nothing."
+  open_questions: []

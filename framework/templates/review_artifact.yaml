@@ -1,0 +1,87 @@
+# Template: QA Review Artifact (Stage 5 Output)
+# Path: outputs/reviews/{PRODUCT_ID}_qa.yaml
+# Purpose: Document the QA review of the draft. Computationally verify all
+#          arithmetic. Flag BLOCKERs only for verified errors.
+
+qa_review:
+  product_id: "{PRODUCT_ID}"
+  product_name: "{Product Full Name}"
+  product_family: "{FAMILY}"
+  generated_at: "{ISO 8601 timestamp}"
+  source: "outputs/drafts/{PRODUCT_ID}.md"
+  protocol: "v2.1 — arithmetic verification with ±0.2% rounding tolerance"
+  gate: PASS | FAIL
+
+  sections_reviewed:
+    definition: {present: true, issues: []}
+    construction: {present: true, issues: []}
+    booking_systems: {present: true, issues: []}
+    pricing_intuition: {present: true, issues: []}
+    worked_example:
+      present: true
+      issues:
+        # Example advisory finding:
+        # - severity: MAJOR
+        #   type: advisory
+        #   description: "Decomposition sums correctly. Consistent with family convention."
+        #   arithmetic_verified: true
+        #   resolution: "No action required."
+    reconciliation: {present: true, issues: []}
+    desk_view: {present: true, issues: []}
+    desk_shorthand: {present: true, word_count: 0, within_limit: true, issues: []}
+
+  arithmetic_verification:
+    worked_example:
+      decomposition:
+        formula: "{e.g. 3.0% + 0.5% + 0.2% + 1.3%}"
+        expected: "{e.g. 5.0%}"
+        computed: 0  # Actual computed result
+        match: true | false
+      # Add one entry per arithmetic statement in the worked example.
+      # Every number claimed in the draft must have a verification entry.
+
+    all_arithmetic_correct: true | false
+
+  blocker_count: 0
+  major_count: 0
+  minor_count: 0
+  summary: "{One-line summary of QA findings and gate result.}"
+
+
+# ──────────────────────────────────────────────────────────────────────
+# Template: Style Review Artifact (Stage 6 Output)
+# Path: outputs/style/{PRODUCT_ID}_style.yaml
+# (Same file can be used as reference for style reviews)
+# ──────────────────────────────────────────────────────────────────────
+#
+# style_review:
+#   product_id: "{PRODUCT_ID}"
+#   gate: PASS | FAIL
+#   checks:
+#     heading_structure: {h3_present: true, h4_count: 8, all_canonical: true}
+#     currency_notation: {usd_prefix_consistent: true}
+#     system_references: {correct_casing: true}
+#     desk_shorthand: {italic: true, word_count: 0, under_8_words: true}
+#     forbidden_phrases: {scanned: true, found: []}
+#   known_false_positives_applied: []
+#   must_fix_count: 0
+#   should_fix_count: 0
+
+
+# ──────────────────────────────────────────────────────────────────────
+# Template: CrossRef Artifact (Stage 7 Output)
+# Path: outputs/crossref/{PRODUCT_ID}_crossref.yaml
+# ──────────────────────────────────────────────────────────────────────
+#
+# crossref:
+#   product_id: "{PRODUCT_ID}"
+#   gate: PASS | FAIL
+#   references_found:
+#     - ref_type: "explicit_comparison | implicit_reference | forward_ref"
+#       target: "{TARGET_PRODUCT_ID}"
+#       target_family: "{FAMILY}"
+#       context: "{Why this product is referenced}"
+#       target_exists: true | false
+#       validated: true | false
+#   broken_references: 0
+#   warnings: 0

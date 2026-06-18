@@ -1,0 +1,60 @@
+pubspec:
+  product_id: AIRBAG001
+  product_name: "Airbag / Leveraged Reverse Convertible"
+  reviewed_at: "2026-06-18T16:55Z"
+  master_document: "Structured_Products_Desk_Bible_COMPLETE.docx"
+
+  insertion:
+    insert_after: "CRC001 (Callable Reverse Convertible)"
+    insert_before: "PHX001 (Phoenix Autocallable) — section 3.2"
+    part: "Part 3 — Equity-Linked Notes"
+    section: "3.1 — Reverse Convertible Variants"
+    position: "Fifth and final product in section 3.1"
+
+  heading_hierarchy:
+    h3_present: true
+    h4_subsections:
+      definition: true
+      construction: true
+      booking_systems: true
+      pricing_intuition: true
+      worked_example: true
+      reconciliation: true
+      desk_view: true
+      desk_shorthand: true
+    no_h1_h2: true
+
+  toc_entry:
+    level_3: "Airbag / Leveraged Reverse Convertible"
+    level_4:
+      - "Definition"
+      - "Construction"
+      - "Booking & systems"
+      - "Pricing intuition"
+      - "Worked example (USD 10M)"
+      - "Reconciliation specifics"
+      - "Desk view"
+      - "Desk shorthand"
+
+  numbering:
+    no_manual_numbering: true
+    section_number: "3.1"
+    sequence_correct: true
+
+  page_structure:
+    break_before: true
+    break_after: true
+
+  appendix_updates:
+    - "Appendix B.4 — Product–System Matrix: add AIRBAG001 row (NEMO/Sophis, no Murex)"
+    - "Appendix B.5 — Reconciliation Quick Reference: add AIRBAG001 leverage formula entry"
+
+  checklist:
+    all_subsections_present: true
+    shorthand_italic: true
+    no_emoji: true
+    no_manual_page_numbers: true
+    self_contained: true
+
+  gate: READY
+  hold_reasons: []

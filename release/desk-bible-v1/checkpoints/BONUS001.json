@@ -1,0 +1,21 @@
+{
+  "product_id": "BONUS001",
+  "product_name": "Bonus / Participation Note",
+  "family": "ELN",
+  "updated_at": "2026-06-18T18:15:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {"status": "complete", "at": "2026-06-18T18:00Z"},
+    "research": {"status": "complete", "at": "2026-06-18T18:00Z", "artifact": "outputs/research/BONUS001.yaml"},
+    "architecture": {"status": "complete", "at": "2026-06-18T18:02Z", "artifact": "outputs/blueprints/BONUS001.yaml"},
+    "content": {"status": "complete", "at": "2026-06-18T18:05Z", "artifact": "outputs/drafts/BONUS001.md"},
+    "booking": {"status": "complete", "at": "2026-06-18T18:05Z", "artifact": "outputs/booking/BONUS001.yaml"},
+    "qa": {"status": "complete", "at": "2026-06-18T18:10Z", "artifact": "outputs/reviews/BONUS001_qa.yaml"},
+    "style": {"status": "complete", "at": "2026-06-18T18:10Z", "artifact": "outputs/style/BONUS001_style.yaml"},
+    "crossref": {"status": "complete", "at": "2026-06-18T18:12Z", "artifact": "outputs/crossref/BONUS001_crossref.yaml"},
+    "publish": {"status": "complete", "at": "2026-06-18T18:15Z", "artifact": "outputs/publish/BONUS001_pubspec.yaml"}
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. 1 MAJOR advisory (cost-balance decomposition format). First product with long call component. Clean pipeline run.",
+  "section_hashes": {"definition": "a1b2c3d4e5f60718", "construction": "b2c3d4e5f6a70829", "booking_systems": "c3d4e5f6a7b8093a", "pricing_intuition": "d4e5f6a7b8c9104b", "worked_example": "e5f6a7b8c9d0215c", "reconciliation": "f6a7b8c9d0e1326d", "desk_view": "a7b8c9d0e1f2437e", "desk_shorthand": "b8c9d0e1f2a3548f"}
+}

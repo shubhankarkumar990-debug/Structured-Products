@@ -1,0 +1,41 @@
+# Template: Research Artifact (Stage 1 Output)
+# Path: outputs/research/{PRODUCT_ID}.yaml
+# Purpose: Capture domain research — parameters, pricing drivers, risk factors,
+#          market context, and family relationships. Consumed by stage 2 (architecture).
+
+research:
+  product_id: "{PRODUCT_ID}"
+  product_name: "{Product Full Name}"
+  product_family: "{FAMILY}"
+  generated_at: "{ISO 8601 timestamp}"
+  memory_used: ["{path to terminology memory used}"]
+
+  definition: "{2–3 sentence plain-language definition of the product.}"
+
+  key_parameters:
+    notional: "USD 10,000,000"
+    maturity: "{e.g. 5 years}"
+    # Add all product-specific parameters:
+    # coupon, strike, barrier, reference entity, etc.
+
+  pricing_drivers:
+    primary: "{The single most important pricing input}"
+    secondary:
+      - "{Second pricing input}"
+      - "{Third pricing input}"
+
+  risk_factors:
+    - factor: "{Risk factor name}"
+      direction: "{How it affects the product value}"
+      primary: true | false
+
+  market_context:
+    typical_users: ["{User type 1}", "{User type 2}"]
+    typical_size: "{e.g. USD 5M–50M}"
+    typical_maturity: "{e.g. 3–7 years}"
+
+  relationship_to_family:
+    - "{How this product relates to other products in the same family}"
+
+  complexity: "Low | Medium | High | Very High"
+  system_mapping: "{e.g. NEMO + Sophis (nemo_sophis)}"

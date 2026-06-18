@@ -1,0 +1,20 @@
+crossref_review:
+  product_id: IRCFRN001
+  reviewed_at: "2026-06-18T13:11Z"
+  input_file: "outputs/crossref/IRCFRN001_refs.yaml"
+
+  summary:
+    total_refs: 1
+    validated: 1
+    broken: 0
+    warning: 0
+
+  broken_refs: []
+  warnings: []
+
+  validated_refs:
+    - reference: "Reverse Convertible (analogy in desk view)"
+      target: "RC001 — exists in outputs/drafts/RC001.md, section 3.1 — analogy is conceptual, not a structural cross-reference"
+
+  gate: PASS
+  broken_ids: []

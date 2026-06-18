@@ -1,0 +1,41 @@
+meta:
+  product_id: ELN
+  product_name: "Equity-Linked Notes (family)"
+  family: ELN
+  category: booking-maps
+  stored_at: "2026-06-18T11:30Z"
+  source_stage: booking
+  version: 1
+
+content:
+  system_type: nemo_sophis
+  book_of_record: NEMO
+  risk_pnl: Sophis
+  legal_document: Termsheet
+  murex_used: false
+  note: "Murex is NOT used for any ELN product. This includes all RC variants, Autocallables, PPNs, Digitals, and Warrants."
+
+  nemo_carries:
+    - trade lifecycle
+    - coupon schedule
+    - barrier levels
+    - observation dates
+    - memory-feature logic (where applicable)
+    - fixing source and fallback
+    - ISIN / reference
+
+  sophis_carries:
+    - embedded option pricing
+    - Greeks computation
+    - daily mark-to-market
+    - P&L attribution
+    - volatility surface
+    - correlation matrix (basket/worst-of)
+
+  termsheet_defines:
+    - barrier types and levels
+    - observation conventions
+    - coupon conditions
+    - memory-feature language (where applicable)
+    - fallback fixing rules
+    - day count convention

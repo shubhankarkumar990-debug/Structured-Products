@@ -1,0 +1,71 @@
+blueprint:
+  product_id: DCFN001
+  product_name: "Digital Cap-Floor Note"
+  product_family: SRT
+  generated_at: "2026-06-18T21:22Z"
+  source: "outputs/research/DCFN001.yaml"
+  memory_used:
+    - memory/terminology/SRT.yaml
+    - memory/booking-maps/SRT_system_mapping.yaml
+  sections:
+    definition:
+      content_nodes:
+        - "Binary coupon conditional on rate vs cap strike"
+        - "High coupon if rate favourable, low coupon otherwise"
+        - "100% principal protection"
+        - "SRT equivalent of DIGITAL001 (equity digital)"
+      writing_instruction: "Contrast with DIGITAL001 (equity) and NCRA001 (range accrual). Binary vs proportional."
+    construction:
+      primitives:
+        - instrument: "Fixed-rate bond"
+          desk_direction: "long"
+        - instrument: "Digital cap strip"
+          desk_direction: "long"
+        - instrument: "Digital floor strip"
+          desk_direction: "long"
+      key_strikes: ["Cap strike 4.5%", "High coupon 6.0%", "Low coupon 1.0%"]
+      path_dependency: "Discrete observation dates. Binary per period."
+      writing_instruction: "Explain cap-floor as two-state coupon. Digital replication."
+    booking_systems:
+      system_mapping: {book_of_record: Murex, risk_pnl: Murex, legal_document: Termsheet, four_leg: true}
+      content_nodes: ["Cap strike precision", "Coupon condition direction", "Observation dates"]
+      writing_instruction: "Four-leg. Cap strike and condition direction are the key risks."
+    pricing_intuition:
+      dominant_greeks: ["DV01 (through probability)", "Vega (normal vol)", "Gamma (near strike)"]
+      yield_drivers: ["Rate level", "Rate vol", "Cap strike placement"]
+      model_dependency: "Normal vol. Digital replication via caplet spread."
+      sensitivities: ["Near strike: coupon flips 6%→1%"]
+      writing_instruction: "Pin risk. Comparison to equity digital (DIGITAL001)."
+    worked_example:
+      notional: "USD 10M"
+      underlying: "SOFR"
+      tenor: "3 years"
+      barriers: {cap_strike: "4.5%"}
+      decomposition: {digital_cap: "1.8%", funding: "3.0%", ftp: "0.4%", margin: "0.3%", floor: "0.5%"}
+      headline_yield: "6.0% high / 1.0% low"
+      good_scenario: "Rate below 4.5% all periods. 6.0% × 3Y = 18%."
+      bad_scenario: "Rate above 4.5% all periods. 1.0% × 3Y = 3%."
+      writing_instruction: "Three scenarios: all high, mixed, all low. Emphasise binary cliff."
+    reconciliation:
+      critical_fields:
+        - {field: "Cap strike", failure_mode: "Coupon flips on small rate difference"}
+        - {field: "Coupon condition", failure_mode: "Inverted — high/low assigned wrong way"}
+        - {field: "Observation dates", failure_mode: "Missing date — coupon not determined"}
+      observation_type: "Discrete — coupon dates"
+      fixing_fallback: "Previous business day"
+      writing_instruction: "Coupon condition direction is the unique DCFN risk."
+    desk_view:
+      typical_buyer: "Rate-directional investors. View that rates stay low."
+      actual_risk: "Binary coupon. Near strike: tiny rate change flips payout."
+      perceived_risk: "Enhanced fixed-rate product."
+      when_appropriate: "Strong rate view. Cap strike well above forwards."
+      when_not_appropriate: "Rate uncertainty. Need income stability."
+      writing_instruction: "Parallel to DIGITAL001 desk view."
+    desk_shorthand: {text: "Binary rate coupon; cap strike, high or low.", source: "research"}
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

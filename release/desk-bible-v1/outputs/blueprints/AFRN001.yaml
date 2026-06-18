@@ -1,0 +1,69 @@
+blueprint:
+  product_id: AFRN001
+  product_name: "Accreting Fixed Rate Note"
+  product_family: SRT
+  generated_at: "2026-06-18T20:22Z"
+  source: "outputs/research/AFRN001.yaml"
+  memory_used:
+    - memory/terminology/SRT.yaml
+    - memory/booking-maps/SRT_system_mapping.yaml
+  sections:
+    definition:
+      content_nodes:
+        - "Fixed coupon on notional that increases over time"
+        - "Deterministic schedule — no optionality"
+        - "Back-loaded cash flows and duration"
+        - "Simplest accreting structure in SRT family"
+      writing_instruction: "Explain the accretion concept. Contrast with bullet bond."
+    construction:
+      primitives:
+        - instrument: "Fixed-rate bond with accreting notional schedule"
+          desk_direction: "long"
+      key_strikes: ["Coupon 4.2%", "Initial 10M", "Final 15M"]
+      path_dependency: "None. Deterministic."
+      writing_instruction: "Single component. Explain notional schedule and WAL concept."
+    booking_systems:
+      system_mapping: {book_of_record: Murex, risk_pnl: Murex, legal_document: Termsheet, four_leg: true}
+      content_nodes: ["Accreting notional schedule in note leg", "Matching accreting swap in hedge leg"]
+      writing_instruction: "Four-leg framework. Notional schedule consistency is the key risk."
+    pricing_intuition:
+      dominant_greeks: ["DV01 (increasing)", "Duration (WAL-based)", "Convexity (positive)"]
+      yield_drivers: ["Rate level", "Curve shape", "Credit spread"]
+      model_dependency: "None — deterministic cash flows."
+      sensitivities: ["DV01 increases over time as notional accretes"]
+      writing_instruction: "Explain back-loaded rate risk. No model risk."
+    worked_example:
+      notional: "USD 10M initial → USD 15M final"
+      underlying: "Interest rates"
+      tenor: "5 years"
+      barriers: {}
+      decomposition: {coupon: "4.2%", funding: "3.0%", ftp: "0.3%", margin: "0.1%", pickup: "0.8%"}
+      ftp: "0.3%"
+      desk_margin: "0.1%"
+      headline_yield: "4.2% on accreting notional"
+      good_scenario: "Rates fall. Mark-to-market gain. Back-loaded duration amplifies."
+      bad_scenario: "Rates rise. Mark-to-market loss increasing over time."
+      writing_instruction: "Show notional schedule table. WAL calculation. Rate scenarios."
+    reconciliation:
+      critical_fields:
+        - {field: "Notional schedule", failure_mode: "Mismatch between note and hedge legs"}
+        - {field: "Coupon base", failure_mode: "Computed on initial instead of current notional"}
+        - {field: "Accretion dates", failure_mode: "Misaligned with coupon dates"}
+      observation_type: "N/A"
+      fixing_fallback: "N/A"
+      writing_instruction: "Notional schedule is the unique recon risk."
+    desk_view:
+      typical_buyer: "Duration seekers, liability matchers, insurance companies."
+      actual_risk: "Increasing rate exposure over time. Credit risk."
+      perceived_risk: "Simple fixed-rate bond."
+      when_appropriate: "Bullish rates view with increasing conviction. ALM matching."
+      when_not_appropriate: "Rising rate environment. Need stable DV01."
+      writing_instruction: "Emphasise back-loaded risk profile."
+    desk_shorthand: {text: "Step-up notional; fixed coupon, back-loaded duration.", source: "research"}
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

@@ -1,0 +1,21 @@
+{
+  "product_id": "CRASRT001",
+  "product_name": "Callable Range Accrual SRT",
+  "family": "SRT",
+  "updated_at": "2026-06-18T21:15:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {"status": "complete", "at": "2026-06-18T21:00Z"},
+    "research": {"status": "complete", "at": "2026-06-18T21:00Z", "artifact": "outputs/research/CRASRT001.yaml"},
+    "architecture": {"status": "complete", "at": "2026-06-18T21:02Z", "artifact": "outputs/blueprints/CRASRT001.yaml"},
+    "content": {"status": "complete", "at": "2026-06-18T21:05Z", "artifact": "outputs/drafts/CRASRT001.md"},
+    "booking": {"status": "complete", "at": "2026-06-18T21:05Z", "artifact": "outputs/booking/CRASRT001.yaml"},
+    "qa": {"status": "complete", "at": "2026-06-18T21:10Z", "artifact": "outputs/reviews/CRASRT001_qa.yaml"},
+    "style": {"status": "complete", "at": "2026-06-18T21:10Z", "artifact": "outputs/style/CRASRT001_style.yaml"},
+    "crossref": {"status": "complete", "at": "2026-06-18T21:12Z", "artifact": "outputs/crossref/CRASRT001_crossref.yaml"},
+    "publish": {"status": "complete", "at": "2026-06-18T21:15Z", "artifact": "outputs/publish/CRASRT001_pubspec.yaml"}
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. 1 MAJOR advisory (NCRA-equivalent comparison). Most complex SRT. Dual optionality. Clean pipeline run.",
+  "section_hashes": {"definition": "aa11bb22cc330718", "construction": "bb22cc33dd440829", "booking_systems": "cc33dd44ee55093a", "pricing_intuition": "dd44ee55ff66104b", "worked_example": "ee55ff66aa77215c", "reconciliation": "ff66aa77bb88326d", "desk_view": "aa77bb88cc99437e", "desk_shorthand": "bb88cc99ddaa548f"}
+}

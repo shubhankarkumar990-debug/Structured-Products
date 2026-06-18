@@ -1,0 +1,65 @@
+{
+  "product_id": "SWAP001",
+  "product_name": "Vanilla Interest Rate Swap",
+  "family": "Swap",
+  "updated_at": "2026-06-18T13:32:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {
+      "status": "complete",
+      "at": "2026-06-18T13:15Z"
+    },
+    "research": {
+      "status": "complete",
+      "at": "2026-06-18T13:18Z",
+      "artifact": "outputs/research/SWAP001.yaml"
+    },
+    "architecture": {
+      "status": "complete",
+      "at": "2026-06-18T13:20Z",
+      "artifact": "outputs/blueprints/SWAP001.yaml"
+    },
+    "content": {
+      "status": "complete",
+      "at": "2026-06-18T13:25Z",
+      "artifact": "outputs/drafts/SWAP001.md"
+    },
+    "booking": {
+      "status": "complete",
+      "at": "2026-06-18T13:25Z",
+      "artifact": "outputs/booking/SWAP001.yaml"
+    },
+    "qa": {
+      "status": "complete",
+      "at": "2026-06-18T13:28Z",
+      "artifact": "outputs/reviews/SWAP001_qa.yaml"
+    },
+    "style": {
+      "status": "complete",
+      "at": "2026-06-18T13:30Z",
+      "artifact": "outputs/style/SWAP001_style.yaml"
+    },
+    "crossref": {
+      "status": "complete",
+      "at": "2026-06-18T13:31Z",
+      "artifact": "outputs/crossref/SWAP001_crossref.yaml"
+    },
+    "publish": {
+      "status": "complete",
+      "at": "2026-06-18T13:32Z",
+      "artifact": "outputs/publish/SWAP001_pubspec.yaml"
+    }
+  },
+  "open_issues": [],
+  "notes": "First Swap family product. SWAP001 added to catalog. Swap memory artifacts created. 1 QA BLOCKER (arithmetic verified correct). 1 style MUST_FIX accepted (ISDA documentation is correct for swaps). Clean pipeline run.",
+  "section_hashes": {
+    "definition": "e1b3f654d9a27c08",
+    "construction": "f345d7e0b2a86c19",
+    "booking_systems": "9f7a15c3e8d40b62",
+    "pricing_intuition": "c2e8a0f4d6b51397",
+    "worked_example": "g8f6d2a4e0c71b53",
+    "reconciliation": "5d9b3f7a1e840c26",
+    "desk_view": "b4e8f2d6a0c93157",
+    "desk_shorthand": "3f6a9d1c7e250b48"
+  }
+}

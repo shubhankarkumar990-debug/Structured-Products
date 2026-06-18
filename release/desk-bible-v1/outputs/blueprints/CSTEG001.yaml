@@ -1,0 +1,78 @@
+blueprint:
+  product_id: CSTEG001
+  product_name: "Callable Steepener"
+  product_family: STEG
+  generated_at: "2026-06-19T10:38Z"
+  source: "outputs/research/CSTEG001.yaml"
+  memory_used:
+    - memory/terminology/STEG.yaml
+    - memory/booking-maps/STEG_system_mapping.yaml
+  sections:
+    definition:
+      content_nodes:
+        - "Leveraged CMS spread coupon with issuer Bermudan call"
+        - "Higher cap (9%) than VSTEG001 (8%), funded by call premium"
+        - "Callable after year 2 — reinvestment risk for investor"
+        - "Dual optionality: CMS spread + callability"
+      writing_instruction: "Contrast with VSTEG001 (non-callable) and CRASRT001 (SRT callable range accrual). Explain dual optionality interaction."
+    construction:
+      primitives:
+        - instrument: "Fixed-rate bond (funding)"
+          desk_direction: "long"
+        - instrument: "CMS spread coupon strip (leveraged)"
+          desk_direction: "long"
+        - instrument: "CMS floor (0%)"
+          desk_direction: "long"
+        - instrument: "CMS cap (9%)"
+          desk_direction: "short"
+        - instrument: "Bermudan call (issuer)"
+          desk_direction: "short (investor perspective)"
+      key_strikes: ["Leverage 5x", "Floor 0%", "Cap 9%", "Call after Y2"]
+      path_dependency: "None — call decision is Bermudan (discrete exercise dates)."
+      writing_instruction: "Five components. Show how the Bermudan call adds to VSTEG001's four components. Explain the funding trade-off."
+    booking_systems:
+      system_mapping: {book_of_record: Murex, risk_pnl: Murex, legal_document: Termsheet, four_leg: true}
+      content_nodes: ["Call schedule in note leg", "Bermudan swaption in hedge leg", "Call-CMS interaction in calibration"]
+      writing_instruction: "Murex four-leg. Call schedule consistency is the new recon risk vs VSTEG001."
+    pricing_intuition:
+      dominant_greeks: ["Curve slope", "Correlation", "CMS convexity", "Bermudan value", "Normal vol"]
+      yield_drivers: ["CMS spread level", "Call probability", "Interaction between spread and rates"]
+      model_dependency: "Very high — joint calibration of CMS spread and Bermudan exercise."
+      sensitivities: ["Steepening → higher coupon but higher call probability", "Rate decline → call more likely"]
+      writing_instruction: "Explain the dual optionality interaction. When does the issuer call? Contrast with ICN001 (ELN callable)."
+    worked_example:
+      notional: "USD 10M"
+      underlying: "CMS 30Y − CMS 10Y"
+      tenor: "10 years (callable Y2+)"
+      barriers: {}
+      decomposition: {expected_coupon: "4.0%", funding: "3.0%", ftp: "0.4%", margin: "0.3%", cms_optionality: "1.1%", call_premium: "0.8%"}
+      ftp: "0.4%"
+      desk_margin: "0.3%"
+      headline_yield: "4.0% expected (5 × 80 bps spread)"
+      good_scenario: "Curve steepens moderately. Higher coupon. Issuer does not call."
+      bad_scenario: "Rates drop sharply. Issuer calls after Y2. Investor reinvests at lower rates."
+      writing_instruction: "Three scenarios: steepening (good), stable (call decision), flattening (bad). Show call decision logic."
+    reconciliation:
+      critical_fields:
+        - {field: "Call schedule", failure_mode: "Note and Bermudan exercise dates misaligned"}
+        - {field: "Call notification period", failure_mode: "Missing notification period → operational risk"}
+        - {field: "CMS fixing source", failure_mode: "Mismatch between legs"}
+        - {field: "Convexity adjustment", failure_mode: "Different model between legs"}
+      observation_type: "Semi-annual CMS fixing"
+      fixing_fallback: "ISDA CMS fallback"
+      writing_instruction: "Call schedule consistency is the unique recon risk for callable steepeners."
+    desk_view:
+      typical_buyer: "Yield seekers willing to accept reinvestment risk for higher cap."
+      actual_risk: "Dual optionality interaction. Issuer calls at worst time for investor."
+      perceived_risk: "High-yield callable product."
+      when_appropriate: "View that curve stays steep AND rates stable (minimizing call probability)."
+      when_not_appropriate: "Falling rate environment (high call probability). Need for certain tenor."
+      writing_instruction: "Emphasise negative convexity from the call. Cross-reference ICN001 for callable mechanics."
+    desk_shorthand: {text: "Callable curve bet; CMS spread, issuer call.", source: "research"}
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

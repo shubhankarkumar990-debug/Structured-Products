@@ -1,0 +1,102 @@
+research:
+  product_id: AIRBAG001
+  chapter: "3.1"
+  product_family: ELN
+  extracted_at: "2026-06-18T16:40Z"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+    - memory/style-patterns/ELN.yaml
+
+  definition:
+    client_payoff: "Fixed coupon. Conditional principal protection via a downside barrier. Above barrier at maturity: par + coupon. Below barrier: leveraged loss — investor's principal loss is amplified by the ratio of strike to barrier. Capital protection between strike and barrier, leveraged loss below barrier."
+    capital_protection: "Conditional — protected above barrier, leveraged loss below"
+    conditional_coupon: false
+    autocall_feature: false
+    knock_in: true
+    knock_out: false
+    underlying_type: "single equity"
+
+  construction:
+    components:
+      - "Zero-coupon bond at par"
+      - "Short down-and-in put with leverage (strike 100%, barrier 70%)"
+    desk_long:
+      - "Zero-coupon bond funded at issuer credit curve"
+    desk_short:
+      - "Down-and-in put struck at 100% with knock-in barrier at 70% — if barrier breached at maturity, loss is (Strike/Barrier) × decline from barrier"
+    key_strikes:
+      - "Put strike: 100% of initial fixing"
+      - "Knock-in barrier: 70% of initial fixing"
+      - "Leverage ratio: 100%/70% = 1.4286x"
+    path_dependency: "European barrier observation at maturity only. Not continuously monitored."
+
+  systems:
+    book_of_record: NEMO
+    risk_and_pnl: Sophis
+    legal_document: Termsheet
+    murex_legs: []
+    no_murex: true
+
+  pricing:
+    dominant_greeks:
+      - "Delta (short, discontinuous at barrier)"
+      - "Vega (short — higher than vanilla RC near barrier due to leverage)"
+      - "Gamma (negative, spikes at barrier)"
+    yield_drivers:
+      - "Implied volatility"
+      - "Barrier level (lower barrier → less likely to breach → cheaper put → lower coupon)"
+      - "Leverage ratio (higher strike/barrier ratio → more expensive put → higher coupon)"
+      - "Issuer funding spread"
+    model_sensitivity: "Black-Scholes with barrier adjustment for European barrier at maturity. Closed-form for European-observation barriers."
+    key_risks:
+      - "Leverage amplification: below barrier, losses accelerate — investor can lose 100% of principal even if underlying has not gone to zero"
+      - "Barrier proximity: Delta and Gamma spike near 70% level"
+      - "Leverage ratio misunderstanding: investor may not realize losses are amplified"
+
+  worked_example:
+    notional: "USD 10M"
+    underlying: "Single stock, 25% implied volatility"
+    tenor: "1 year"
+    strikes_and_barriers:
+      put_strike: "100% of initial fixing"
+      knock_in_barrier: "70% of initial fixing"
+      leverage_ratio: "1.4286x (100/70)"
+    decomposition:
+      down_and_in_leveraged_put: "4.8% (USD 480K)"
+      issuer_funding: "2.0% (USD 200K)"
+      ftp: "0.9% (USD 90K)"
+      desk_margin: "0.3% (USD 30K)"
+    ftp_assumption: "0.9% per annum"
+    desk_margin: "0.3% per annum"
+    headline_yield_to_client: "8.0% per annum fixed coupon"
+    bad_scenario: "Underlying at 50% at maturity (below 70% barrier). Leveraged loss: (100/70) × (70%-50%)/100% = 28.6% of notional. Investor receives 71.4% of par (USD 7.14M) plus coupon (USD 800K). Net: USD 7.94M. Principal loss: USD 2.06M."
+
+  reconciliation:
+    primary_risk: "Leverage ratio calculation — NEMO and Sophis must agree on the leverage formula and apply it consistently to the settlement amount"
+    critical_fields:
+      - "Knock-in barrier level (70%)"
+      - "Leverage ratio (1.4286x)"
+      - "Settlement formula below barrier"
+      - "Barrier observation convention (maturity only vs continuous)"
+      - "Put strike level"
+    failure_modes:
+      - "Leverage ratio mismatch: NEMO applies simple 1:1 loss below barrier (like standard knock-in RC) instead of leveraged formula"
+      - "Barrier observation convention: NEMO observes continuously but Termsheet specifies maturity-only"
+      - "Settlement formula ambiguity: Termsheet may define the leveraged payoff differently from the desk's pricing model"
+    termsheet_ambiguities:
+      - "Leveraged payoff formula: exact wording varies across issuers"
+      - "Barrier observation: maturity only (European) or continuous"
+      - "What happens at exactly the barrier level"
+    observation_type: "European barrier at maturity"
+    fixing_fallback: "Modified following for maturity observation on non-business day"
+
+  desk_view:
+    typical_buyer: "Investor who wants higher coupon than a standard barrier RC but is comfortable with leveraged losses below the barrier. Believes the barrier is sufficiently deep to provide adequate protection."
+    actual_risk_taken: "Short leveraged down-and-in put. Below barrier, losses are ~1.43x the underlying's decline measured from the barrier. Investor can lose entire principal if underlying falls to ~30% of initial (complete wipeout at leverage × barrier distance from zero)."
+    perceived_risk: "Investor focuses on the barrier protection (70% cushion) and underestimates the leverage below the barrier."
+    when_appropriate: "Moderately bullish view, comfort with barrier risk, desire for higher coupon than standard barrier RC."
+    desk_opinion: "The 'airbag' name is misleading — below the barrier, the structure does the opposite of cushioning. The leverage amplifies losses. Desk should ensure the investor understands the payoff diagram below the barrier."
+
+  desk_shorthand: "Barrier RC; leveraged loss below cushion."
+  open_questions: []

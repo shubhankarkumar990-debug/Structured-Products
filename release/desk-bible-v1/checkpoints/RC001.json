@@ -1,0 +1,65 @@
+{
+  "product_id": "RC001",
+  "product_name": "Reverse Convertible (base case)",
+  "family": "ELN",
+  "updated_at": "2026-06-18T12:15:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {
+      "status": "complete",
+      "at": "2026-06-18T12:00Z"
+    },
+    "research": {
+      "status": "complete",
+      "at": "2026-06-18T12:00Z",
+      "artifact": "outputs/research/RC001.yaml"
+    },
+    "architecture": {
+      "status": "complete",
+      "at": "2026-06-18T12:02Z",
+      "artifact": "outputs/blueprints/RC001.yaml"
+    },
+    "content": {
+      "status": "complete",
+      "at": "2026-06-18T12:05Z",
+      "artifact": "outputs/drafts/RC001.md"
+    },
+    "booking": {
+      "status": "complete",
+      "at": "2026-06-18T12:05Z",
+      "artifact": "outputs/booking/RC001.yaml"
+    },
+    "qa": {
+      "status": "complete",
+      "at": "2026-06-18T12:10Z",
+      "artifact": "outputs/reviews/RC001_qa.yaml"
+    },
+    "style": {
+      "status": "complete",
+      "at": "2026-06-18T12:12Z",
+      "artifact": "outputs/style/RC001_style.yaml"
+    },
+    "crossref": {
+      "status": "complete",
+      "at": "2026-06-18T12:14Z",
+      "artifact": "outputs/crossref/RC001_crossref.yaml"
+    },
+    "publish": {
+      "status": "complete",
+      "at": "2026-06-18T12:15Z",
+      "artifact": "outputs/publish/RC001_pubspec.yaml"
+    }
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. 1 MAJOR advisory (worked example arithmetic verified correct). 3 style FPs skipped via memory. Clean pipeline run.",
+  "section_hashes": {
+    "definition": "a7c1e930b4f21d83",
+    "construction": "d912f4a8c6e07b35",
+    "booking_systems": "5b3d91e7f2a04c68",
+    "pricing_intuition": "8e6f2c4a0d71b953",
+    "worked_example": "c4a7f198e3b05d62",
+    "reconciliation": "1d8e5b3f9a2c7064",
+    "desk_view": "7f0a4c6e2b831d95",
+    "desk_shorthand": "e3b2d9f1a5c80746"
+  }
+}

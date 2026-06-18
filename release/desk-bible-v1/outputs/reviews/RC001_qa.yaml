@@ -1,0 +1,39 @@
+qa_review:
+  product_id: RC001
+  reviewed_at: "2026-06-18T12:10Z"
+  scope:
+    first_run: true
+    sections_reviewed:
+      - definition
+      - construction
+      - booking_systems
+      - pricing_intuition
+      - worked_example
+      - reconciliation
+      - desk_view
+      - desk_shorthand
+    sections_skipped: []
+
+  summary:
+    total: 2
+    blocker: 0
+    major: 1
+    minor: 1
+
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "worked_example"
+      issue: "Bad scenario net return calculation should clarify that coupon is received regardless"
+      evidence: "Text states 'negative 31%' which correctly accounts for coupon (6.0M shares + 0.9M coupon = 6.9M, loss 3.1M = 31%) but could be clearer"
+      required_action: "Verified arithmetic is correct. No content change required — reclassified to MAJOR advisory."
+
+    - id: "QA-002"
+      severity: MINOR
+      location: "pricing_intuition"
+      issue: "Dividend yield effect stated as inverse relationship but mechanism not fully explained"
+      evidence: "Higher dividend yield reduces the forward price, which reduces put value — this is stated but could reference put-call parity"
+      required_action: "Advisory only — current level of detail is appropriate for desk bible"
+
+  gate: PASS
+  blocker_ids: []

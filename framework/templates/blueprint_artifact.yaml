@@ -1,0 +1,63 @@
+# Template: Blueprint Artifact (Stage 2 Output)
+# Path: outputs/blueprints/{PRODUCT_ID}.yaml
+# Purpose: Plan the content structure for each section of the product page.
+#          Consumed by stage 3 (writing). Think of this as an outline.
+
+blueprint:
+  product_id: "{PRODUCT_ID}"
+  product_name: "{Product Full Name}"
+  product_family: "{FAMILY}"
+  generated_at: "{ISO 8601 timestamp}"
+  source: "outputs/research/{PRODUCT_ID}.yaml"
+  memory_used: ["{terminology memory path}", "{booking map memory path}"]
+
+  sections:
+    s1_definition:
+      title: "Definition"
+      key_points:
+        - "{Main point 1}"
+        - "{Main point 2}"
+
+    s2_construction:
+      title: "Construction"
+      key_points:
+        - "{Step-by-step assembly point 1}"
+        - "{Step-by-step assembly point 2}"
+
+    s3_booking:
+      title: "Booking & Systems"
+      system: "{System framework name}"
+      key_points:
+        - "{System 1 role and critical fields}"
+        - "{System 2 role and critical fields}"
+
+    s4_pricing:
+      title: "Pricing Intuition"
+      key_points:
+        - "{Primary pricing driver explanation}"
+        - "{Secondary driver explanation}"
+
+    s5_worked_example:
+      title: "Worked Example"
+      parameters: {notional: "USD 10M"}
+      decomposition: "{coupon or premium breakdown formula}"
+      scenarios:
+        - "{Scenario 1 description}"
+        - "{Scenario 2 description}"
+        - "{Scenario 3 description}"
+
+    s6_reconciliation:
+      title: "Reconciliation"
+      key_points:
+        - "{What to check between systems}"
+        - "{What breaks if they disagree}"
+
+    s7_desk_view:
+      title: "Desk View"
+      key_points:
+        - "{How the trader thinks about this product}"
+        - "{Key risk to manage}"
+
+    s8_desk_shorthand:
+      title: "Desk Shorthand"
+      text: "{8 words or fewer, italicised}"

@@ -1,0 +1,72 @@
+blueprint:
+  product_id: ICN001
+  product_name: "Issuer Callable Note"
+  product_family: ELN
+  generated_at: "2026-06-18T19:02Z"
+  source: "outputs/research/ICN001.yaml"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+  sections:
+    definition:
+      content_nodes:
+        - "Above-market fixed coupon funded by issuer call right"
+        - "100% principal protection at maturity or call"
+        - "Primarily interest rate product, not equity"
+        - "Reinvestment risk is the investor's key trade"
+      writing_instruction: "Distinguish from autocallable (issuer-initiated vs market-triggered). Explain negative convexity."
+    construction:
+      primitives:
+        - instrument: "Fixed-coupon bond"
+          desk_direction: "long"
+        - instrument: "Bermudan call option (issuer)"
+          desk_direction: "short"
+      key_strikes: ["Coupon 5.5%", "Benchmark 3.0%", "Call at par"]
+      path_dependency: "None for coupon. Discrete call dates for early redemption."
+      writing_instruction: "Two components. Call premium funds coupon enhancement."
+    booking_systems:
+      system_mapping: {book_of_record: NEMO, risk_pnl: Sophis, legal_document: Termsheet, murex_legs: []}
+      content_nodes: ["Complete call schedule in NEMO", "Notification period operational", "Accrued coupon on call"]
+      writing_instruction: "Call schedule completeness is the unique operational risk."
+    pricing_intuition:
+      dominant_greeks: ["Rho (primary)", "Vega (rate vol)", "Duration (variable)"]
+      yield_drivers: ["Rate level", "Rate vol", "Credit spread", "Non-call period"]
+      model_dependency: "Hull-White short-rate model."
+      sensitivities: ["50 bps rate drop → call probability increases materially"]
+      writing_instruction: "Explain negative convexity and duration extension. Rate product, not equity."
+    worked_example:
+      notional: "USD 10M"
+      underlying: "Interest rates"
+      tenor: "3 years"
+      barriers: {coupon: "5.5%", benchmark: "3.0%", call: "par"}
+      decomposition: {call_premium: "1.8%", funding: "0.4%", ftp: "0.2%", margin: "0.1%", total_enhancement: "2.5%"}
+      ftp: "0.2%"
+      desk_margin: "0.1%"
+      headline_yield: "5.5% fixed coupon, callable after 1Y"
+      good_scenario: "Rates rise. No call. 3 years × 5.5% = 16.5% total coupon."
+      bad_scenario: "Rates fall. Called at 1Y. Only 5.5% earned. Reinvest at lower rates."
+      writing_instruction: "Three scenarios: rates fall (called), unchanged, rates rise (not called, duration extends)."
+    reconciliation:
+      critical_fields:
+        - {field: "Call schedule", failure_mode: "Missing dates — settlement failure"}
+        - {field: "First call date", failure_mode: "Non-call period violated"}
+        - {field: "Notification period", failure_mode: "Operational — call not processed in time"}
+        - {field: "Accrued on call", failure_mode: "Day count mismatch → P&L break"}
+      observation_type: "Discrete — call dates"
+      fixing_fallback: "Modified following for coupon payments"
+      writing_instruction: "Lead with call schedule completeness. Notification period is operational."
+    desk_view:
+      typical_buyer: "Income-focused: insurance, pension, private bank."
+      actual_risk: "Reinvestment risk on call. Duration extension if rates rise."
+      perceived_risk: "Safe — 100% principal protection."
+      when_appropriate: "Stable/rising rates. Income mandates."
+      when_not_appropriate: "Falling rates (high call probability). Need positive convexity."
+      writing_instruction: "Explain the asymmetric risk profile from negative convexity."
+    desk_shorthand: {text: "Enhanced coupon; callable by issuer, reinvestment risk.", source: "research"}
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

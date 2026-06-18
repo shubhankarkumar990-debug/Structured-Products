@@ -1,0 +1,21 @@
+{
+  "product_id": "DCFN001",
+  "product_name": "Digital Cap-Floor Note",
+  "family": "SRT",
+  "updated_at": "2026-06-18T21:35:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {"status": "complete", "at": "2026-06-18T21:20Z"},
+    "research": {"status": "complete", "at": "2026-06-18T21:20Z", "artifact": "outputs/research/DCFN001.yaml"},
+    "architecture": {"status": "complete", "at": "2026-06-18T21:22Z", "artifact": "outputs/blueprints/DCFN001.yaml"},
+    "content": {"status": "complete", "at": "2026-06-18T21:25Z", "artifact": "outputs/drafts/DCFN001.md"},
+    "booking": {"status": "complete", "at": "2026-06-18T21:25Z", "artifact": "outputs/booking/DCFN001.yaml"},
+    "qa": {"status": "complete", "at": "2026-06-18T21:30Z", "artifact": "outputs/reviews/DCFN001_qa.yaml"},
+    "style": {"status": "complete", "at": "2026-06-18T21:30Z", "artifact": "outputs/style/DCFN001_style.yaml"},
+    "crossref": {"status": "complete", "at": "2026-06-18T21:32Z", "artifact": "outputs/crossref/DCFN001_crossref.yaml"},
+    "publish": {"status": "complete", "at": "2026-06-18T21:35Z", "artifact": "outputs/publish/DCFN001_pubspec.yaml"}
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. 1 MAJOR advisory (illustrative figure in narrative). Final SRT product. Cross-family ref to DIGITAL001. Clean pipeline run.",
+  "section_hashes": {"definition": "1122334455660718", "construction": "2233445566770829", "booking_systems": "3344556677880939", "pricing_intuition": "4455667788991040", "worked_example": "5566778899002151", "reconciliation": "6677889900113262", "desk_view": "7788990011224373", "desk_shorthand": "8899001122335484"}
+}

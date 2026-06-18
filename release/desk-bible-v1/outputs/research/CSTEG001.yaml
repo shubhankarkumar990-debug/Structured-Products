@@ -1,0 +1,91 @@
+research:
+  product_id: CSTEG001
+  product_name: "Callable Steepener"
+  product_family: STEG
+  generated_at: "2026-06-19T10:35Z"
+  memory_consulted:
+    - memory/terminology/STEG.yaml
+    - memory/booking-maps/STEG_system_mapping.yaml
+    - memory/style-patterns/STEG.yaml
+
+  classification:
+    family: STEG
+    sub_family: "CMS spread — callable"
+    archetype: "Leveraged CMS spread coupon with issuer Bermudan call"
+    risk_profile: "Curve slope + correlation + convexity + callable (Bermudan)"
+    complexity: "High"
+    path_dependent: false
+    model: "Multi-factor rate model with CMS convexity adjustment, correlation calibration, and Bermudan swaption valuation"
+
+  structure:
+    components:
+      - instrument: "Fixed-rate bond (funding)"
+        desk_direction: "long"
+        purpose: "Provides par redemption and funding structure"
+      - instrument: "CMS spread coupon strip (leveraged)"
+        desk_direction: "long"
+        purpose: "Pays leveraged coupon linked to CMS 30Y − CMS 10Y spread"
+      - instrument: "CMS floor (embedded, 0%)"
+        desk_direction: "long"
+        purpose: "Prevents negative coupon when curve inverts"
+      - instrument: "CMS cap (embedded, 9%)"
+        desk_direction: "short"
+        purpose: "Caps maximum coupon"
+      - instrument: "Bermudan call (issuer)"
+        desk_direction: "short (from investor perspective)"
+        purpose: "Allows issuer to redeem at par on semi-annual call dates after year 2"
+    barriers: []
+    observation: "Semi-annual CMS fixing dates per schedule"
+    tenor: "10 years (callable after year 2)"
+    coupon: "5 × (CMS 30Y − CMS 10Y), floor 0%, cap 9%"
+    principal_protection: "100% at maturity or call date"
+
+  economics:
+    headline: "Leveraged CMS spread coupon with higher cap than VSTEG001, funded partly by the Bermudan call premium"
+    how_funded: "Investor sells Bermudan call right to issuer — giving up tenor certainty in exchange for a higher cap (9% vs 8%) and higher expected coupon"
+    investor_trade: "Higher coupon potential than VSTEG001, but with reinvestment risk from issuer call"
+    decomposition:
+      coupon_formula: "5 × (CMS 30Y − CMS 10Y), floor 0%, cap 9%"
+      leverage: "5x"
+      current_spread: "80 bps"
+      expected_coupon: "4.0% (5 × 0.80%)"
+      floor: "0%"
+      cap: "9%"
+      bermudan_call_premium: "0.8%"
+      convexity_adjustment: "~5 bps"
+      funding: "3.0%"
+      ftp: "0.4%"
+      desk_margin: "0.3%"
+    verification: "Expected coupon 4.0% = 5 × 0.80%. Economics: funding 3.0% + FTP 0.4% + margin 0.3% + CMS optionality 1.1% + call premium 0.8% = 5.6% total cost capacity. Higher cap (9% vs 8%) funded by call premium."
+
+  booking:
+    system_type: murex_four_leg
+    note_leg: ["CMS coupon formula", "Leverage 5x", "Floor 0%", "Cap 9%", "Call schedule (semi-annual after Y2)", "CMS fixing dates"]
+    hedge_leg: ["CMS cap/floor", "CMS spread option", "Bermudan swaption (matching call schedule)", "Convexity adjustment model", "Correlation"]
+    critical_fields: ["Call schedule consistency", "CMS fixing source match", "Convexity adjustment consistency", "Bermudan exercise dates"]
+    failure_modes:
+      - "Call schedule mismatch between note leg and Bermudan swaption"
+      - "CMS fixing source mismatch"
+      - "Convexity adjustment inconsistency"
+      - "Bermudan exercise notification period missing"
+
+  pricing:
+    dominant_greeks: ["Curve slope", "Correlation", "CMS convexity", "Bermudan swaption value", "Normal vol"]
+    key_sensitivities:
+      - "Curve steepening → higher coupon but also increases call probability (issuer calls if coupon too high)"
+      - "Rate decline → increases call probability (issuer refinances cheaper)"
+      - "Correlation → affects both spread distribution and Bermudan value"
+      - "Dual interaction: CMS spread exposure and callability are correlated — both driven by rate dynamics"
+    model_risk: "Very high — requires joint calibration of CMS spread dynamics and Bermudan exercise strategy. Dual optionality interaction."
+
+  reconciliation:
+    critical_fields:
+      - {field: "Call schedule", source: "Termsheet", check: "Semi-annual dates after year 2 matching Bermudan exercise dates"}
+      - {field: "Call notification period", source: "Termsheet", check: "Typically 10 business days — must be in both legs"}
+      - {field: "CMS fixing source", source: "Termsheet", check: "Same in both legs"}
+      - {field: "Convexity adjustment", source: "Model", check: "Same model in both legs"}
+    observation_type: "Semi-annual CMS fixing"
+    fixing_fallback: "ISDA CMS fallback"
+
+  desk_shorthand: "Callable curve bet; CMS spread, issuer call."
+  open_questions: []

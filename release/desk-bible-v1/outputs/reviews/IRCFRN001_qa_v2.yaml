@@ -1,0 +1,41 @@
+qa_review:
+  product_id: IRCFRN001
+  reviewed_at: "2026-06-18T14:06Z"
+  version: "v2 — post arithmetic verification protocol"
+  scope:
+    first_run: false
+    sections_reviewed:
+      - definition
+      - construction
+      - booking_systems
+      - pricing_intuition
+      - worked_example
+      - reconciliation
+      - desk_view
+      - desk_shorthand
+    sections_skipped: []
+
+  summary:
+    total: 2
+    blocker: 0
+    major: 1
+    minor: 1
+
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "worked_example"
+      issue: "Reinvestment loss is approximate (simple interest basis)"
+      evidence: "Arithmetic verification: swap rate 4.2% + swaption 0.8% + funding 0.3% + FTP 0.15% + margin 0.05% = 5.5%. CORRECT. Reinvestment loss: 2.5% x 10M x 7 = 1.75M. CORRECT on simple interest basis."
+      required_action: "Advisory — arithmetic verified correct; simple interest appropriate for illustration."
+      arithmetic_verification: "PASS — components sum correctly"
+
+    - id: "QA-002"
+      severity: MINOR
+      location: "construction"
+      issue: "Bermuda vs European swaption strip — technically a lower bound exists"
+      evidence: "Statement is directionally correct for desk bible"
+      required_action: "No action"
+
+  gate: PASS
+  blocker_ids: []

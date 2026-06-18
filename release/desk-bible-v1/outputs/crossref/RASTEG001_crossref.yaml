@@ -1,0 +1,30 @@
+crossref:
+  product_id: RASTEG001
+  product_name: "Range-Accrual Steepener"
+  product_family: STEG
+  generated_at: "2026-06-19T10:25Z"
+  source: "outputs/drafts/RASTEG001.md"
+
+  gate: PASS
+
+  references_found:
+    - ref_type: "explicit_comparison"
+      target: "VSTEG001"
+      target_family: STEG
+      context: "Comparison of linear leveraged coupon (VSTEG001) vs binary range-accrual coupon (RASTEG001)"
+      target_exists: true
+      validated: true
+    - ref_type: "cross_family_parallel"
+      target: "NCRA001"
+      target_family: SRT
+      context: "Range accrual on single rate (NCRA001) vs range accrual on CMS spread (RASTEG001)"
+      target_exists: true
+      validated: true
+
+  broken_references: 0
+  warnings: 0
+
+  cross_family_refs:
+    - {from: RASTEG001, from_family: STEG, to: NCRA001, to_family: SRT, type: "cross_family_parallel"}
+
+  summary: "2 references found: 1 intra-family (VSTEG001), 1 cross-family (NCRA001). Zero broken. Zero warnings. CrossRef gate PASS."

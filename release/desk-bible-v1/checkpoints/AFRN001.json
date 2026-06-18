@@ -1,0 +1,21 @@
+{
+  "product_id": "AFRN001",
+  "product_name": "Accreting Fixed Rate Note",
+  "family": "SRT",
+  "updated_at": "2026-06-18T20:35:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {"status": "complete", "at": "2026-06-18T20:20Z"},
+    "research": {"status": "complete", "at": "2026-06-18T20:20Z", "artifact": "outputs/research/AFRN001.yaml"},
+    "architecture": {"status": "complete", "at": "2026-06-18T20:22Z", "artifact": "outputs/blueprints/AFRN001.yaml"},
+    "content": {"status": "complete", "at": "2026-06-18T20:25Z", "artifact": "outputs/drafts/AFRN001.md"},
+    "booking": {"status": "complete", "at": "2026-06-18T20:25Z", "artifact": "outputs/booking/AFRN001.yaml"},
+    "qa": {"status": "complete", "at": "2026-06-18T20:30Z", "artifact": "outputs/reviews/AFRN001_qa.yaml"},
+    "style": {"status": "complete", "at": "2026-06-18T20:30Z", "artifact": "outputs/style/AFRN001_style.yaml"},
+    "crossref": {"status": "complete", "at": "2026-06-18T20:32Z", "artifact": "outputs/crossref/AFRN001_crossref.yaml"},
+    "publish": {"status": "complete", "at": "2026-06-18T20:35Z", "artifact": "outputs/publish/AFRN001_pubspec.yaml"}
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. 1 MAJOR advisory (WAL illustrative). Simplest SRT structure. Deterministic cash flows. Clean pipeline run.",
+  "section_hashes": {"definition": "ab12cd34ef560718", "construction": "bc23de45fa670829", "booking_systems": "cd34ef56ab78093a", "pricing_intuition": "de45fa67bc89104b", "worked_example": "ef56ab78cd90215c", "reconciliation": "fa67bc89de01326d", "desk_view": "ab78cd90ef12437e", "desk_shorthand": "bc89de01fa23548f"}
+}

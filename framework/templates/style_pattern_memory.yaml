@@ -1,0 +1,60 @@
+# Template: Style Pattern Memory
+# Path: memory/style-patterns/{FAMILY}.yaml
+# Purpose: Define heading format, currency notation, known false positives,
+#          approved patterns, and accepted conventions for a product family.
+#          Used by the style review gate (stage 6) to avoid false violations.
+#
+# Replace all {PLACEHOLDERS} with actual values.
+
+meta:
+  product_id: "{FAMILY}"
+  product_name: "{Family Long Name} (family)"
+  family: "{FAMILY}"
+  category: style-patterns
+  stored_at: "{ISO 8601 timestamp}"
+  source_stage: style
+  version: 1
+
+content:
+  heading_format: "Sentence case for H4 subsections"
+  currency_notation: "USD with international notation: 10M, 250k, 1.5bn"
+
+  # The canonical H4 section names for every product in this family.
+  # The style reviewer checks that drafts use exactly these names.
+  canonical_h4_names:
+    - "Definition"
+    - "Construction"
+    - "Booking & systems"
+    - "Pricing intuition"
+    - "Worked example (USD 10M)"
+    - "Reconciliation specifics"
+    - "Desk view"
+    - "Desk shorthand"
+
+  # Known false positives: rules that the style reviewer flags as violations
+  # but which are actually correct. List them here to suppress the FP.
+  known_false_positives:
+    - rule: "{Rule that triggers a false violation}"
+      reason: "{Why it is actually correct}"
+      applies_to: "{All products | specific product IDs}"
+    # Example:
+    # - rule: "H4 heading names flagged as non-canonical"
+    #   reason: "The canonical names ARE sentence case per the writer spec."
+    #   applies_to: "All products"
+
+  # Approved patterns: positive rules that MUST be followed.
+  approved_patterns:
+    - pattern: "USD prefix on all monetary figures"
+      note: "Bare '10M' without 'USD' prefix is a genuine style violation."
+    - pattern: "Desk shorthand in italic, 8 words or fewer"
+      note: "Count words literally."
+
+  # Accepted conventions: family-specific patterns that QA or style may flag
+  # as unusual but which are inherent to the product structure.
+  # Only add a convention after validating it across 2+ products in the family.
+  accepted_conventions: []
+  # Example:
+  # - convention: "CMS decomposition sums exceed expected coupon"
+  #   reason: "CMS spread level determines the expected coupon, which is a subset of
+  #            the total cost. The decomposition shows all cost components."
+  #   validated_across: ["VSTEG001", "RASTEG001", "CSTEG001", "TARN001"]

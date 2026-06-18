@@ -1,0 +1,74 @@
+blueprint:
+  product_id: RASTEG001
+  product_name: "Range-Accrual Steepener"
+  product_family: STEG
+  generated_at: "2026-06-19T10:05Z"
+  source: "outputs/research/RASTEG001.yaml"
+  memory_used:
+    - memory/terminology/STEG.yaml
+    - memory/booking-maps/STEG_system_mapping.yaml
+  sections:
+    definition:
+      content_nodes:
+        - "Coupon accrues only on days the CMS spread falls within a specified range"
+        - "Combines steepener exposure with range-accrual mechanism"
+        - "Higher headline coupon than vanilla steepener, offset by accrual risk"
+        - "Non-callable — pure curve slope + range exposure"
+      writing_instruction: "Contrast with VSTEG001 (vanilla steepener) and NCRA001 (SRT range accrual). This product merges both concepts."
+    construction:
+      primitives:
+        - instrument: "Fixed-rate bond (funding)"
+          desk_direction: "long"
+        - instrument: "CMS spread range-accrual coupon strip"
+          desk_direction: "long"
+        - instrument: "Digital CMS spread strip (embedded)"
+          desk_direction: "long"
+      key_strikes: ["Range [0, 150] bps", "Headline 6.0%", "CMS 30Y − CMS 10Y"]
+      path_dependency: "None at coupon level — each day's accrual is independent."
+      writing_instruction: "Three components. Show how the range accrual modifies the vanilla steepener. Cross-reference NCRA001 for the range-accrual pattern."
+    booking_systems:
+      system_mapping: {book_of_record: Murex, risk_pnl: Murex, legal_document: Termsheet, four_leg: true}
+      content_nodes: ["CMS spread range-accrual in note leg", "Digital CMS spread strip in hedge leg", "Range bounds consistency", "Daily observation schedule"]
+      writing_instruction: "Murex four-leg. Emphasise range bounds and observation schedule consistency across legs."
+    pricing_intuition:
+      dominant_greeks: ["Curve slope", "CMS spread volatility", "Correlation", "CMS convexity"]
+      yield_drivers: ["Spread level relative to range", "Spread volatility", "Digital sensitivity near boundaries"]
+      model_dependency: "High — digital strip requires accurate spread distribution."
+      sensitivities: ["Spread near boundary → high digital gamma", "Higher vol → lower accrual probability"]
+      writing_instruction: "Explain digital risk near range boundaries. Contrast with VSTEG001's linear payoff. Show why higher headline compensates for accrual risk."
+    worked_example:
+      notional: "USD 10M"
+      underlying: "CMS 30Y − CMS 10Y"
+      tenor: "10 years"
+      barriers: {range_lower: "0 bps", range_upper: "150 bps"}
+      decomposition: {headline: "6.0%", digital_strip: "1.5%", funding: "3.0%", ftp: "0.4%", margin: "0.3%", pickup: "0.8%"}
+      ftp: "0.4%"
+      desk_margin: "0.3%"
+      headline_yield: "6.0% headline × ~85% accrual = ~5.1% expected"
+      good_scenario: "Spread stays at 80 bps. 100% accrual. Full 6.0% coupon."
+      bad_scenario: "Spread widens to 180 bps. Days outside range earn 0%. Expected coupon drops."
+      writing_instruction: "Show daily accrual calculation. Three scenarios: in-range, near-boundary, out-of-range."
+    reconciliation:
+      critical_fields:
+        - {field: "Range bounds", failure_mode: "Mismatch between note and hedge legs"}
+        - {field: "Observation schedule", failure_mode: "Daily vs business days mismatch"}
+        - {field: "CMS fixing source", failure_mode: "Different CMS rate definitions between legs"}
+        - {field: "Convexity adjustment", failure_mode: "Different model between note and hedge"}
+      observation_type: "Daily CMS spread observation"
+      fixing_fallback: "ISDA CMS fallback"
+      writing_instruction: "Range bounds and observation schedule are the unique recon risks vs vanilla steepener."
+    desk_view:
+      typical_buyer: "Yield seekers with strong conviction that CMS spread stays in a moderate range."
+      actual_risk: "Binary outcome near range boundaries. Spread vol erodes expected coupon."
+      perceived_risk: "High-yielding curve product."
+      when_appropriate: "Stable curve slope view. Investor understands range accrual mechanics."
+      when_not_appropriate: "Volatile curve environment. Investor expects consistent income."
+      writing_instruction: "Contrast with VSTEG001: higher headline, lower certainty. Emphasise digital risk near boundaries."
+    desk_shorthand: {text: "Range coupon on curve slope; daily accrual, CMS spread.", source: "research"}
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

@@ -1,0 +1,15 @@
+crossref:
+  product_id: TRANCHE001
+  product_name: "Synthetic CDO Tranche"
+  product_family: CLN
+  generated_at: "2026-06-19T13:48Z"
+  source: "outputs/drafts/TRANCHE001.md"
+  gate: PASS
+  references_found:
+    - {ref_type: "explicit_comparison", target: "FTD001", target_family: CLN, context: "FTD as effectively a 0–first-loss tranche on a small basket", target_exists: true, validated: true}
+    - {ref_type: "explicit_comparison", target: "NTD001", target_family: CLN, context: "NTD as a mezzanine tranche on a small basket; TRANCHE generalises to large portfolio", target_exists: true, validated: true}
+    - {ref_type: "implicit_reference", target: "VCLN001", target_family: CLN, context: "Single-name CLN as the base case; TRANCHE is the portfolio-level extension", target_exists: true, validated: true}
+  broken_references: 0
+  warnings: 0
+  cross_family_refs: []
+  summary: "3 references: all intra-family CLN (FTD001, NTD001, VCLN001). Zero broken. CrossRef gate PASS. Completes CLN family arc: single-name → basket → portfolio."

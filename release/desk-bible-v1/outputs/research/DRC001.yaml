@@ -1,0 +1,95 @@
+research:
+  product_id: DRC001
+  chapter: "Discounted Reverse Convertible"
+  product_family: ELN
+  extracted_at: "2026-06-18T12:20Z"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+    - memory/style-patterns/ELN.yaml
+
+  definition:
+    client_payoff: "Note issued at discount to par; at maturity par if underlying >= strike, physical delivery or cash loss if underlying < strike"
+    capital_protection: "None — full principal at risk below strike"
+    conditional_coupon: false
+    autocall_feature: false
+    knock_in: false
+    knock_out: false
+    underlying_type: "Single equity or equity index"
+
+  construction:
+    components:
+      - zero-coupon bond (purchased at discount)
+      - short put (vanilla European, ATM or near-ATM)
+    desk_long:
+      - zero-coupon bond at issuer credit curve
+    desk_short:
+      - European put struck at 100% of initial fixing
+    key_strikes:
+      - "Put strike: 100% of initial fixing (ATM)"
+    path_dependency: "None — European exercise at maturity only"
+
+  systems:
+    book_of_record: NEMO
+    risk_and_pnl: Sophis
+    legal_document: Termsheet
+    murex_legs: []
+    no_murex: true
+
+  pricing:
+    dominant_greeks:
+      - "Short vega (sold put)"
+      - "Delta (directional exposure)"
+    yield_drivers:
+      - "Implied volatility (higher = larger discount)"
+      - "Tenor (longer = more time value = larger discount)"
+      - "Issuer funding spread"
+    model_sensitivity: "Black-Scholes — identical to base RC"
+    key_risks:
+      - "Full downside below strike — no barrier"
+      - "Tax treatment of discount may differ from coupon income"
+      - "Illiquidity — secondary market for discounted notes is thinner"
+
+  worked_example:
+    notional: "USD 10M par; purchase price USD 9.15M"
+    underlying: "Single stock, 25% implied volatility"
+    tenor: "1 year"
+    strikes_and_barriers:
+      put_strike: "100% of initial fixing"
+    decomposition:
+      put_premium: "5.5% of par"
+      issuer_funding: "2.0%"
+      ftp: "0.85%"
+      desk_margin: "0.5%"
+      discount: "8.5% (purchase price 91.5% of par)"
+    ftp_assumption: "0.85% per annum"
+    desk_margin: "0.5% per annum (USD 50K on USD 10M par)"
+    headline_yield_to_client: "9.3% total return if underlying >= strike at maturity"
+    bad_scenario: "Underlying at 60% — receives USD 6M of shares against USD 9.15M invested; loss USD 3.15M (34.4%)"
+
+  reconciliation:
+    primary_risk: "Issue price / redemption price mismatch — NEMO must carry both issue price and par separately"
+    critical_fields:
+      - "Issue price (discount amount)"
+      - "Par / redemption amount"
+      - "Put strike level"
+      - "Settlement type"
+      - "Accreted value schedule (for daily MTM)"
+    failure_modes:
+      - "Issue price not booked — NEMO defaults to par, overstating the position"
+      - "Accretion logic — Sophis may accrete from issue price to par linearly while NEMO carries no accretion"
+    termsheet_ambiguities:
+      - "Whether discount accretes for tax purposes (OID rules)"
+      - "Settlement type on physical delivery — delivered at par notional or at issue price equivalent?"
+    observation_type: "European (maturity only)"
+    fixing_fallback: "Same as base RC"
+
+  desk_view:
+    typical_buyer: "Tax-sensitive investors who prefer capital gain over income"
+    actual_risk_taken: "Identical to base RC — short put, full downside"
+    perceived_risk: "Lower perceived risk due to lower initial outlay"
+    when_appropriate: "Investor prefers capital gain treatment; same single-stock view as base RC"
+    desk_opinion: "Structurally identical to base RC but with different cash flow timing — the discount replaces the coupon"
+
+  desk_shorthand: "Discounted par; sold put, gain on redemption."
+  open_questions: []

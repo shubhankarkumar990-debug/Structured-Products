@@ -1,0 +1,47 @@
+booking:
+  product_id: CSTEG001
+  product_name: "Callable Steepener"
+  product_family: STEG
+  generated_at: "2026-06-19T10:48Z"
+  source: "outputs/blueprints/CSTEG001.yaml"
+  memory_used:
+    - memory/booking-maps/STEG_system_mapping.yaml
+
+  system_mapping:
+    book_of_record: Murex
+    risk_and_pnl: Murex
+    framework: murex_four_leg
+    legal_document: Termsheet
+
+  legs:
+    note_leg:
+      system: Murex
+      role: "Client-facing note — CMS spread coupon with call schedule"
+      fields:
+        - {name: "Notional", value: "USD 10M", critical: true}
+        - {name: "Coupon formula", value: "5 × (CMS 30Y − CMS 10Y), floor 0%, cap 9%", critical: true}
+        - {name: "Leverage factor", value: "5x", critical: true}
+        - {name: "Floor rate", value: "0%"}
+        - {name: "Cap rate", value: "9%"}
+        - {name: "Call schedule", value: "Semi-annual after Y2", critical: true}
+        - {name: "Call notification period", value: "10 business days", critical: true}
+        - {name: "CMS fixing source", value: "ISDA CMS rate definition", critical: true}
+        - {name: "CMS fixing dates", value: "Semi-annual schedule"}
+        - {name: "Maturity", value: "10 years"}
+    issuer_leg: {system: Murex, role: "Issuer internal funding", fields: [{name: "Funding rate", value: "3.0%"}, {name: "Funding curve", value: "Issuer senior unsecured"}]}
+    deposit_leg: {system: Murex, role: "Client collateral", fields: [{name: "Deposit rate", value: "Market rate"}, {name: "Rollover convention", value: "Standard"}]}
+    hedge_leg:
+      system: Murex
+      role: "Market risk hedge — CMS cap/floor + Bermudan swaption"
+      fields:
+        - {name: "Hedge instruments", value: "CMS cap (9%), CMS floor (0%), Bermudan swaption", critical: true}
+        - {name: "Bermudan exercise dates", value: "Semi-annual after Y2 — must match note call dates", critical: true}
+        - {name: "CMS tenor pair", value: "30Y / 10Y"}
+        - {name: "Convexity adjustment model", value: "Jointly calibrated with Bermudan", critical: true}
+        - {name: "Correlation assumption", value: "Calibrated", critical: true}
+
+  failure_modes:
+    - {mode: "Call schedule mismatch", severity: "HIGH", description: "Note call dates vs Bermudan exercise dates misaligned → unhedged call event"}
+    - {mode: "Notification period mismatch", severity: "MEDIUM", description: "Different notice periods → hedge may not cover valid call"}
+    - {mode: "CMS fixing source mismatch", severity: "HIGH", description: "Different CMS rate definitions between legs"}
+    - {mode: "Convexity-Bermudan inconsistency", severity: "HIGH", description: "CMS and Bermudan models not jointly calibrated → mispriced dual optionality"}

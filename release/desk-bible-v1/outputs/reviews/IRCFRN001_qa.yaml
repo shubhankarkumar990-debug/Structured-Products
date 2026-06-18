@@ -1,0 +1,39 @@
+qa_review:
+  product_id: IRCFRN001
+  reviewed_at: "2026-06-18T13:08Z"
+  scope:
+    first_run: true
+    sections_reviewed:
+      - definition
+      - construction
+      - booking_systems
+      - pricing_intuition
+      - worked_example
+      - reconciliation
+      - desk_view
+      - desk_shorthand
+    sections_skipped: []
+
+  summary:
+    total: 2
+    blocker: 0
+    major: 1
+    minor: 1
+
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "worked_example"
+      issue: "Bad scenario reinvestment loss calculation is approximate — 'approximately USD 1.75M in foregone coupon income' should be exact"
+      evidence: "2.5% x USD 10M x 7 years = USD 1.75M. This is exact on a simple interest basis but approximate on a present-value basis."
+      required_action: "Advisory — simple interest calculation is appropriate for desk bible illustration. Present-value adjustment would obscure the pedagogical point."
+
+    - id: "QA-002"
+      severity: MINOR
+      location: "construction"
+      issue: "States 'cannot be valued as a strip of European swaptions' — technically a lower bound can be obtained from a European strip, but the exact value requires a Bermuda model"
+      evidence: "Statement is directionally correct and appropriate for a desk bible"
+      required_action: "No action — nuance is beyond desk bible scope"
+
+  gate: PASS
+  blocker_ids: []

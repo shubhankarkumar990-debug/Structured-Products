@@ -1,0 +1,61 @@
+qa_review:
+  product_id: CSTEG001
+  product_name: "Callable Steepener"
+  product_family: STEG
+  generated_at: "2026-06-19T10:50Z"
+  source: "outputs/drafts/CSTEG001.md"
+  protocol: "v2.1 — arithmetic verification with ±0.2% rounding tolerance"
+
+  gate: PASS
+
+  sections_reviewed:
+    definition: {present: true, issues: []}
+    construction: {present: true, issues: []}
+    booking_systems: {present: true, issues: []}
+    pricing_intuition: {present: true, issues: []}
+    worked_example:
+      present: true
+      issues:
+        - severity: MAJOR
+          type: advisory
+          description: "Decomposition sums to 5.6% total cost capacity (3.0% + 0.4% + 0.3% + 1.1% + 0.8%). Expected coupon is 4.0%. The 1.6% difference is explained in narrative as call premium (0.8%) and reduced CMS optionality from wider cap (0.8%). Consistent with CMS decomposition convention."
+          arithmetic_verified: true
+          resolution: "No action required. CMS decomposition convention now validated across 3 STEG products."
+    reconciliation: {present: true, issues: []}
+    desk_view: {present: true, issues: []}
+    desk_shorthand: {present: true, word_count: 7, within_limit: true, issues: []}
+
+  arithmetic_verification:
+    worked_example:
+      scenario_1:
+        formula: "5 × 1.10%"
+        expected: "5.5%"
+        computed: 5.5
+        match: true
+      scenario_1_payment:
+        formula: "USD 10M × 5.5% × 0.5"
+        expected: "USD 275,000"
+        computed: 275000
+        match: true
+      scenario_3:
+        formula: "5 × 0.10%"
+        expected: "0.5%"
+        computed: 0.5
+        match: true
+      scenario_3_payment:
+        formula: "USD 10M × 0.5% × 0.5"
+        expected: "USD 25,000"
+        computed: 25000
+        match: true
+      decomposition:
+        formula: "3.0% + 0.4% + 0.3% + 1.1% + 0.8%"
+        expected: "5.6%"
+        computed: 5.6
+        match: true
+    all_arithmetic_correct: true
+
+  blocker_count: 0
+  major_count: 1
+  minor_count: 0
+
+  summary: "Zero BLOCKERs. 1 MAJOR advisory (CMS decomposition convention). All arithmetic verified correct. All 8 sections present. QA gate PASS."

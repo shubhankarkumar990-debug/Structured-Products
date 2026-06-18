@@ -1,0 +1,27 @@
+crossref_review:
+  product_id: DCFN001
+  reviewed_at: "2026-06-18T21:32Z"
+  input_file: "outputs/drafts/DCFN001.md"
+  summary:
+    total_refs: 5
+    validated: 4
+    broken: 0
+    warning: 1
+  broken_refs: []
+  warnings:
+    - id: "CW-001"
+      type: cross_family_ref
+      location: "Definition — 'SRT family's equivalent of the Digital / Exotic Coupon Note (DIGITAL001)'"
+      reference: "DIGITAL001"
+      reason: "Cross-family comparison to ELN digital. Product exists."
+  validated_refs:
+    - reference: "DIGITAL001 — Digital / Exotic Coupon Notes"
+      target: "outputs/drafts/DIGITAL001.md"
+    - reference: "NCRA001 — Non-Callable Range Accrual"
+      target: "outputs/drafts/NCRA001.md"
+    - reference: "Murex four-leg framework"
+      target: "memory/booking-maps/SRT_system_mapping.yaml"
+    - reference: "Termsheet"
+      target: "memory/booking-maps/SRT_system_mapping.yaml"
+  gate: PASS
+  broken_ids: []

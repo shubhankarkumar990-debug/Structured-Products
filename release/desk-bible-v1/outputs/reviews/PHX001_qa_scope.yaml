@@ -1,0 +1,31 @@
+qa_scope:
+  product_id: PHX001
+  first_run: true
+  total_sections: 8
+  changed_sections: 8
+  sections:
+    - name: "Definition"
+      hash: "04330dced59adfe6"
+      char_count: 1412
+    - name: "Construction"
+      hash: "3ad92ee9dd52a1fb"
+      char_count: 1225
+    - name: "Booking & systems"
+      hash: "2fe34f25da669726"
+      char_count: 788
+    - name: "Pricing intuition"
+      hash: "a1eedec0f230cfa3"
+      char_count: 1805
+    - name: "Worked example (USD 10M)"
+      hash: "059710bec688205c"
+      char_count: 2521
+    - name: "Reconciliation specifics"
+      hash: "e00015688c5410ec"
+      char_count: 2125
+    - name: "Desk view"
+      hash: "03919b17a9de9b99"
+      char_count: 1424
+    - name: "Desk shorthand"
+      hash: "d5fb81970750e481"
+      char_count: 63
+  unchanged_sections: []

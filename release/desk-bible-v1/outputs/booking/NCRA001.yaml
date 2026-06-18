@@ -1,0 +1,56 @@
+booking:
+  product_id: NCRA001
+  product_name: "Non-Callable Range Accrual"
+  generated_at: "2026-06-18T20:45Z"
+  system_type: murex_four_leg
+  murex_used: true
+  memory_consulted: "memory/booking-maps/SRT_system_mapping.yaml"
+
+  note_leg:
+    instrument_type: "Structured Note — Range Accrual"
+    fields:
+      - {name: "Product ID", value: "NCRA001"}
+      - {name: "Notional", value: "USD 10,000,000"}
+      - {name: "Headline coupon", value: "5.5% p.a.", critical: true}
+      - {name: "Range lower bound", value: "3.0% (SOFR)", critical: true}
+      - {name: "Range upper bound", value: "5.5% (SOFR)", critical: true}
+      - {name: "Reference rate", value: "SOFR", critical: true}
+      - {name: "Observation type", value: "Daily (each business day)", critical: true}
+      - {name: "Fixing source", value: "Per termsheet"}
+      - {name: "Boundary treatment", value: "At-or-above lower, strictly-below upper"}
+      - {name: "Coupon frequency", value: "Quarterly"}
+      - {name: "Day count", value: "ACT/360"}
+      - {name: "Maturity", value: "T + 3Y"}
+      - {name: "Callable", value: "No"}
+
+  issuer_leg:
+    fields:
+      - {name: "Funding rate", value: "3.0%"}
+      - {name: "Funding curve", value: "Issuer senior unsecured"}
+
+  deposit_leg:
+    fields:
+      - {name: "Deposit rate", value: "Per treasury"}
+      - {name: "Deposit tenor", value: "Rolling"}
+
+  hedge_leg:
+    instrument: "Daily digital caplet/floorlet strip replicating range condition"
+    fields:
+      - {name: "Lower digital", value: "Long digital floorlet at 3.0%"}
+      - {name: "Upper digital", value: "Short digital caplet at 5.5%"}
+      - {name: "Observation", value: "Daily (must match note leg)", critical: true}
+      - {name: "Model", value: "Normal (Bachelier) volatility"}
+      - {name: "Fixing source", value: "Must match note leg"}
+      - {name: "Maturity", value: "T + 3Y"}
+
+  reconciliation:
+    frequency: "Monthly (daily monitoring near boundaries)"
+    critical_checks:
+      - {field: "Range bounds", note_leg: "3.0% / 5.5%", hedge_leg: "3.0% / 5.5%", failure_mode: "Shifted accrual probability — compounds daily"}
+      - {field: "Observation type", note_leg: "Daily", hedge_leg: "Daily", failure_mode: "Period-end = fundamentally different product"}
+      - {field: "Fixing source", note_leg: "Per termsheet", hedge_leg: "Matching", failure_mode: "Different fixings near boundaries"}
+
+  failure_modes:
+    - "Range bounds entered incorrectly — cumulative accrual probability shift"
+    - "Observation type set to period-end instead of daily"
+    - "Fixing source mismatch between note and hedge legs"

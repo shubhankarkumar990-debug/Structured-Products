@@ -1,0 +1,65 @@
+{
+  "product_id": "IRCFRN001",
+  "product_name": "IR Callable Fixed Rate Note",
+  "family": "SRT",
+  "updated_at": "2026-06-18T13:12:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {
+      "status": "complete",
+      "at": "2026-06-18T12:55Z"
+    },
+    "research": {
+      "status": "complete",
+      "at": "2026-06-18T12:58Z",
+      "artifact": "outputs/research/IRCFRN001.yaml"
+    },
+    "architecture": {
+      "status": "complete",
+      "at": "2026-06-18T13:00Z",
+      "artifact": "outputs/blueprints/IRCFRN001.yaml"
+    },
+    "content": {
+      "status": "complete",
+      "at": "2026-06-18T13:05Z",
+      "artifact": "outputs/drafts/IRCFRN001.md"
+    },
+    "booking": {
+      "status": "complete",
+      "at": "2026-06-18T13:05Z",
+      "artifact": "outputs/booking/IRCFRN001.yaml"
+    },
+    "qa": {
+      "status": "complete",
+      "at": "2026-06-18T13:08Z",
+      "artifact": "outputs/reviews/IRCFRN001_qa.yaml"
+    },
+    "style": {
+      "status": "complete",
+      "at": "2026-06-18T13:10Z",
+      "artifact": "outputs/style/IRCFRN001_style.yaml"
+    },
+    "crossref": {
+      "status": "complete",
+      "at": "2026-06-18T13:11Z",
+      "artifact": "outputs/crossref/IRCFRN001_crossref.yaml"
+    },
+    "publish": {
+      "status": "complete",
+      "at": "2026-06-18T13:12Z",
+      "artifact": "outputs/publish/IRCFRN001_pubspec.yaml"
+    }
+  },
+  "open_issues": [],
+  "notes": "First SRT product. Murex four-leg booking spec. SRT memory artifacts created. Zero BLOCKERs. 1 MAJOR advisory (reinvestment loss approximation). Clean pipeline run.",
+  "section_hashes": {
+    "definition": "d0a2f543c8e16b97",
+    "construction": "e234c6d9a0f85b71",
+    "booking_systems": "8e6f04a2d1b73c59",
+    "pricing_intuition": "b1f9e3c7a5d20486",
+    "worked_example": "f7d5a1e3b9c40268",
+    "reconciliation": "4c8e2f6a0d931b75",
+    "desk_view": "a3f7d1b5e9c60248",
+    "desk_shorthand": "2e5b9f3d7a140c86"
+  }
+}

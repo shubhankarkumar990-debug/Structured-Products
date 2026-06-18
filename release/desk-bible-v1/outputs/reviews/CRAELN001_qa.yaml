@@ -1,0 +1,76 @@
+qa_review:
+  product_id: CRAELN001
+  reviewed_at: "2026-06-18T17:30Z"
+  scope:
+    first_run: true
+    sections_reviewed:
+      - definition
+      - construction
+      - booking_systems
+      - pricing_intuition
+      - worked_example
+      - reconciliation
+      - desk_view
+      - desk_shorthand
+    sections_skipped: []
+
+  arithmetic_verification:
+    decomposition_check:
+      components:
+        - "Range accrual strip: 3.5%"
+        - "Bermudan call: 0.8%"
+        - "Issuer funding: 1.5%"
+        - "FTP: 0.7%"
+        - "Desk margin: 0.5%"
+      expected_sum: "7.0%"
+      actual_sum: "7.0%"
+      tolerance: "±0.2%"
+      result: "PASS — arithmetic correct"
+    good_scenario_check:
+      max_coupon: "7.0% p.a."
+      accrual_pct: "100%"
+      effective_coupon: "7.0%"
+      annual_payment: "USD 700K"
+      two_year_total: "USD 1.4M"
+      total_return: "USD 11.4M"
+      result: "PASS"
+    moderate_scenario_check:
+      accrual_pct: "60%"
+      effective_coupon_stated: "4.2%"
+      effective_coupon_computed: "4.2% (7.0 × 0.60)"
+      annual_payment: "USD 420K"
+      two_year_total: "USD 840K"
+      total_return: "USD 10.84M"
+      result: "PASS"
+    bad_scenario_check:
+      accrual_pct: "30%"
+      effective_coupon_stated: "2.1%"
+      effective_coupon_computed: "2.1% (7.0 × 0.30)"
+      annual_payment: "USD 210K"
+      two_year_total: "USD 420K"
+      total_return: "USD 10.42M"
+      result: "PASS"
+
+  summary:
+    total: 2
+    blocker: 0
+    major: 1
+    minor: 1
+
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "Worked example — economic decomposition"
+      issue: "Presentation ambiguity in decomposition"
+      evidence: "Five-component decomposition sums correctly to 7.0%. Components presented as per-annum figures for a 2-year note. Total cost over 2 years is 14.0%. Presentation is clear but could note the per-annum convention more explicitly. Arithmetic verified correct."
+      required_action: "Advisory — per-annum presentation is industry standard for multi-year notes. No content change required."
+
+    - id: "QA-002"
+      severity: MINOR
+      location: "Reconciliation — boundary touch estimate"
+      issue: "Boundary touch frequency estimate is approximate"
+      evidence: "'approximately 15-25 times over 2 years' — reasonable range for 18-vol with 80/120 barriers over 504 business days. Acceptable for reconciliation guidance."
+      required_action: "Advisory — no content change required."
+
+  gate: PASS
+  blocker_ids: []

@@ -1,0 +1,82 @@
+research:
+  product_id: NTD001
+  product_name: "Nth-to-Default"
+  product_family: CLN
+  generated_at: "2026-06-19T13:00Z"
+  memory_consulted:
+    - memory/terminology/CLN.yaml
+    - memory/booking-maps/CLN_system_mapping.yaml
+    - memory/style-patterns/CLN.yaml
+
+  classification:
+    family: CLN
+    sub_family: "Basket credit — Nth-to-default"
+    archetype: "Credit-linked note triggered by the Nth credit event in a basket"
+    risk_profile: "Basket credit risk — higher attachment than FTD. Correlation-long."
+    complexity: "High"
+    path_dependent: false
+    model: "Copula-based default correlation model (Gaussian or t-copula)"
+
+  structure:
+    components:
+      - instrument: "Fixed-rate bond (funding)"
+        desk_direction: "long"
+        purpose: "Par redemption conditional on fewer than N credit events in the basket"
+      - instrument: "Nth-to-default basket CDS (embedded)"
+        desk_direction: "short (investor sells Nth-to-default protection)"
+        purpose: "Investor takes mezzanine credit risk — only the Nth default triggers the note. First (N-1) defaults do not affect the investor."
+    barriers: []
+    observation: "Continuous credit event monitoring on all basket names"
+    tenor: "5 years"
+    coupon: "Fixed coupon funded by Nth-to-default basket CDS spread"
+    principal_protection: "Conditional — lost on Nth credit event. Recovery from Nth defaulted entity."
+
+  economics:
+    headline: "Lower coupon than FTD001 but protected against the first (N-1) defaults in the basket"
+    how_funded: "Investor sells Nth-to-default protection. NTD spread is lower than FTD spread because the trigger requires N defaults, not just one."
+    investor_trade: "Lower coupon than FTD (6.2% vs 8.5%) in exchange for mezzanine attachment — protected against the first default"
+    decomposition:
+      coupon: "6.2% p.a."
+      benchmark: "3.0%"
+      enhancement: "3.2% (NTD basket spread)"
+      n_value: 2
+      basket_size: 5
+      individual_cds_spreads: ["Name 1: 120 bps", "Name 2: 150 bps", "Name 3: 180 bps", "Name 4: 200 bps", "Name 5: 250 bps"]
+      ftd_spread_comparison: "550 bps (FTD) vs 280 bps (2TD)"
+      funding: "3.0%"
+      ftp: "0.3%"
+      desk_margin: "0.2%"
+      ntd_spread: "2.7%"
+    verification: "Coupon 6.2% = funding 3.0% + FTP 0.3% + margin 0.2% + NTD spread 2.7%. 2TD spread (280 bps) = 51% of FTD spread (550 bps)."
+
+  booking:
+    system_type: nemo_sophis
+    nemo_fields: ["All 5 reference entities", "All 5 reference obligations", "Nth-to-default trigger logic (N=2)", "Default counter", "Credit event definitions per entity"]
+    sophis_fields: ["Basket CDS pricing (copula)", "Correlation matrix (5×5)", "Individual CDS curves (5)", "Joint default probability (2 or more)", "Loss allocation to Nth event"]
+    critical_fields: ["N value (2)", "Default counter logic", "Basket composition", "Correlation matrix"]
+    failure_modes:
+      - "N value wrong — booked as FTD (N=1) instead of 2TD"
+      - "Default counter does not track prior defaults correctly"
+      - "Basket composition mismatch"
+      - "Correlation not calibrated"
+
+  pricing:
+    dominant_greeks: ["Correlation (positive exposure — long correlation)", "Individual CS01 (5 names)", "Joint default probability (2+ defaults)"]
+    key_sensitivities:
+      - "Correlation: HIGHER correlation → HIGHER NTD spread (opposite to FTD)"
+      - "Correlation: at high correlation, defaults cluster → if one defaults, many default → NTD triggers"
+      - "This is the key insight: NTD investor is LONG correlation, FTD investor is SHORT correlation"
+      - "Spread widening in weakest names increases probability of reaching Nth default"
+    model_risk: "High — same copula model as FTD but with higher sensitivity to tail correlation. T-copula vs Gaussian copula matters more for NTD than FTD."
+
+  reconciliation:
+    critical_fields:
+      - {field: "N value", source: "Termsheet", check: "N=2 in NEMO trigger logic — not N=1 (FTD) or N=5 (last-to-default)"}
+      - {field: "Default counter", source: "NEMO", check: "Correctly counts and tracks credit events across basket"}
+      - {field: "Basket composition", source: "Termsheet", check: "All 5 entities match"}
+      - {field: "Correlation matrix", source: "Sophis", check: "Calibrated, not flat default"}
+    observation_type: "Continuous credit event monitoring"
+    fixing_fallback: "ISDA Credit Definitions per entity"
+
+  desk_shorthand: "Second loss on basket; long correlation, mezzanine."
+  open_questions: []

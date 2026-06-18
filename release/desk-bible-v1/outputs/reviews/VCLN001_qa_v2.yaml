@@ -1,0 +1,48 @@
+qa_review:
+  product_id: VCLN001
+  reviewed_at: "2026-06-18T14:04Z"
+  version: "v2 — post arithmetic verification protocol"
+  scope:
+    first_run: false
+    sections_reviewed:
+      - definition
+      - construction
+      - booking_systems
+      - pricing_intuition
+      - worked_example
+      - reconciliation
+      - desk_view
+      - desk_shorthand
+    sections_skipped: []
+
+  summary:
+    total: 3
+    blocker: 0
+    major: 2
+    minor: 1
+
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "worked_example"
+      issue: "Presentation ambiguity — issuer funding relationship to risk-free rate could be clearer"
+      evidence: "Arithmetic verification: risk-free 4.5% + CDS spread 1.5% - FTP 0.2% - desk margin 0.2% = 5.6%. CORRECT within tolerance."
+      required_action: "Advisory — arithmetic verified correct; consider clarifying presentation."
+      arithmetic_verification: "PASS — components sum correctly"
+
+    - id: "QA-002"
+      severity: MAJOR
+      location: "pricing_intuition"
+      issue: "Wrong-way risk paragraph is excellent but applies to all CLN products"
+      evidence: "Structural observation — will be reinforced in subsequent CLN sections"
+      required_action: "Advisory"
+
+    - id: "QA-003"
+      severity: MINOR
+      location: "definition"
+      issue: "Restructuring variants not listed in detail in definition"
+      evidence: "Reconciliation section covers variants in full detail"
+      required_action: "No action — definition should be accessible"
+
+  gate: PASS
+  blocker_ids: []

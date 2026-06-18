@@ -1,0 +1,82 @@
+meta:
+  product_id: STEG
+  product_name: "Steepener Notes (family)"
+  family: STEG
+  category: booking-maps
+  stored_at: "2026-06-18T20:00Z"
+  source_stage: booking
+  version: 1
+
+content:
+  system_type: murex_four_leg
+  book_of_record: Murex
+  murex_used: true
+  note: "All STEG products use the Murex four-leg framework, same as SRT. NEMO and Sophis are NOT used for STEG. STEG products are rate-curve products with CMS-linked coupons; the hedge leg typically contains CMS cap/floor structures or swaption straddles."
+
+  note_leg:
+    role: "Client-facing note — carries the structured CMS-spread coupon formula, leverage, floor, cap, and any callable or target features"
+    system: Murex
+    key_fields:
+      - notional
+      - currency
+      - coupon formula (e.g., "N × (CMS 30Y − CMS 10Y), floor 0%, cap X%")
+      - leverage factor
+      - floor rate
+      - cap rate (if any)
+      - CMS fixing dates
+      - call schedule (if callable)
+      - target level (if TARN)
+      - maturity date
+
+  issuer_leg:
+    role: "Issuer's funding — internal funding cost of the note"
+    system: Murex
+    key_fields:
+      - funding rate
+      - funding curve
+      - credit spread
+
+  deposit_leg:
+    role: "Collateral / deposit — cash placed by client"
+    system: Murex
+    key_fields:
+      - deposit rate
+      - deposit tenor
+      - rollover convention
+
+  hedge_leg:
+    role: "Market risk hedge — CMS cap/floor structures, CMS spread options, swaptions, or correlation swaps hedging the embedded CMS spread optionality"
+    system: Murex
+    key_fields:
+      - hedge instrument type (CMS cap, CMS floor, CMS spread option, swaption)
+      - CMS tenor pair (e.g., 30Y/10Y)
+      - strike
+      - leverage
+      - expiry schedule
+      - notional
+      - convexity adjustment model
+      - correlation assumption
+
+  ftp_summary:
+    role: "Funds transfer pricing between desk and treasury"
+    fields:
+      - ftp_rate
+      - ftp_curve
+      - ftp_method
+
+  discounting_logic:
+    role: "OIS discounting for collateralized trades; issuer curve for uncollateralized"
+    fields:
+      - discount_curve
+      - csa_terms
+
+  steg_specific_booking:
+    cms_fixing:
+      note: "CMS rates are fixed on observation dates per the schedule in the termsheet. The fixing source (e.g., ISDA CMS rate, Bloomberg CMS screen) must match between Murex note leg and hedge leg."
+      critical: true
+    convexity_adjustment:
+      note: "The convexity adjustment must be applied consistently in both the note leg valuation and the hedge leg pricing. A mismatch creates a systematic P&L leak."
+      critical: true
+    correlation:
+      note: "CMS tenor correlation (between the two CMS rates in the spread) is a key model input. It must be calibrated to market data (CMS spread options or historical correlation). Correlation is NOT directly observable — it is an implied/model parameter."
+      critical: true

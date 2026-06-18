@@ -1,0 +1,32 @@
+style_review:
+  product_id: SWAP001
+  reviewed_at: "2026-06-18T14:14Z"
+  version: "v2 — post accepted conventions expansion"
+  artifact_reviewed: "outputs/drafts/SWAP001.md"
+  memory_consulted: "memory/style-patterns/Swap.yaml"
+
+  summary:
+    total: 5
+    must_fix: 0
+    should_fix: 0
+    skipped_known_fp: 2
+    skipped_accepted_convention: 3
+
+  violations: []
+
+  known_false_positives_skipped:
+    - pattern: "H4 heading names"
+      reason: "Canonical names correct"
+    - pattern: "Murex mentioned for Swap"
+      reason: "Murex IS correct for Swap products"
+
+  accepted_conventions_skipped:
+    - convention: "ISDA Master Agreement as legal document"
+      reason: "Correct for bilateral swaps — accepted per Swap conventions"
+    - convention: "Indicative bid-offer ranges in pricing intuition"
+      reason: "'0.5–2.0 bps' — range in pricing intuition, not worked example — accepted"
+    - convention: "Approximate PV in decomposition"
+      reason: "'Approximately USD 22K' — PV depends on discount rate — accepted"
+
+  gate: PASS
+  must_fix_ids: []

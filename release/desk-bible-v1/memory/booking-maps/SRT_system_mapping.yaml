@@ -1,0 +1,64 @@
+meta:
+  product_id: SRT
+  product_name: "Structured Rate Trades (family)"
+  family: SRT
+  category: booking-maps
+  stored_at: "2026-06-18T12:55Z"
+  source_stage: booking
+  version: 1
+
+content:
+  system_type: murex_four_leg
+  book_of_record: Murex
+  murex_used: true
+  note: "All SRT products use Murex four-leg framework. NEMO and Sophis are NOT used for SRT."
+
+  note_leg:
+    role: "Client-facing note — carries the structured coupon, maturity, and any embedded optionality"
+    system: Murex
+    key_fields:
+      - notional
+      - currency
+      - coupon type (fixed / floating / structured)
+      - coupon rate or formula
+      - call schedule (if callable)
+      - maturity date
+
+  issuer_leg:
+    role: "Issuer's funding — internal funding cost of the note"
+    system: Murex
+    key_fields:
+      - funding rate
+      - funding curve
+      - credit spread
+
+  deposit_leg:
+    role: "Collateral / deposit — cash placed by client, generating risk-free return"
+    system: Murex
+    key_fields:
+      - deposit rate
+      - deposit tenor
+      - rollover convention
+
+  hedge_leg:
+    role: "Market risk hedge — swaptions, caps, floors, or other derivatives hedging the embedded optionality"
+    system: Murex
+    key_fields:
+      - hedge instrument type
+      - strike
+      - expiry schedule
+      - notional
+      - model (normal / lognormal)
+
+  ftp_summary:
+    role: "Funds transfer pricing between desk and treasury"
+    fields:
+      - ftp_rate
+      - ftp_curve
+      - ftp_method
+
+  discounting_logic:
+    role: "OIS discounting for collateralized trades; issuer curve for uncollateralized"
+    fields:
+      - discount_curve
+      - csa_terms

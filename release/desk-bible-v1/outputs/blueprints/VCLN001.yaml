@@ -1,0 +1,114 @@
+blueprint:
+  product_id: VCLN001
+  product_name: "Vanilla Credit-Linked Note"
+  product_family: CLN
+  generated_at: "2026-06-18T12:40Z"
+  source: "outputs/research/VCLN001.yaml"
+  memory_used:
+    - memory/terminology/CLN.yaml
+    - memory/booking-maps/CLN_system_mapping.yaml
+
+  sections:
+    definition:
+      content_nodes:
+        - "Funded credit derivative — structured note whose redemption is contingent on a reference entity's credit"
+        - "Coupon = risk-free rate + credit spread compensation"
+        - "If no credit event: par + coupon at maturity"
+        - "If credit event: recovery value (typically 30–50% for IG corporates)"
+        - "Binary outcome — no partial protection, no barrier"
+      writing_instruction: "Define as a funded format of a CDS. No system names in definition. Make clear the investor is selling credit protection in funded form."
+
+    construction:
+      primitives:
+        - instrument: "Risk-free zero-coupon bond (collateral)"
+          desk_direction: "Long"
+        - instrument: "Credit default swap (protection leg)"
+          desk_direction: "Short (investor sells protection)"
+      key_strikes: []
+      path_dependency: "None"
+      writing_instruction: "Two components: collateral + CDS. Explain how the CDS premium funds the coupon spread above risk-free. Contrast with unfunded CDS."
+
+    booking_systems:
+      system_mapping:
+        book_of_record: NEMO
+        risk_pnl: Sophis
+        legal_document: Termsheet
+        murex_legs: []
+      content_nodes:
+        - "NEMO: reference entity, credit event types, coupon schedule, maturity"
+        - "Sophis: CDS spread curve, CS01, jump-to-default, daily MTM"
+        - "Termsheet: ISDA Credit Definitions version, restructuring variant, recovery method"
+        - "Murex is not used"
+        - "Dominant risk: restructuring variant mismatch between Termsheet and NEMO"
+      writing_instruction: "Open with system mapping. Emphasise credit-specific fields — reference entity, credit event definitions, ISDA version."
+
+    pricing_intuition:
+      dominant_greeks:
+        - "CS01 (credit spread DV01)"
+        - "Jump-to-default"
+      yield_drivers:
+        - "CDS spread"
+        - "Recovery rate assumption"
+        - "Tenor"
+      model_dependency: "Hazard rate / reduced-form credit model"
+      sensitivities:
+        - "10 bps CDS spread widening ≈ 10 bps coupon increase"
+        - "Recovery rate 10pp lower ≈ 15 bps higher premium"
+      writing_instruction: "Lead with CS01 and jump-to-default. Explain the hazard rate model intuitively. Cover wrong-way risk."
+
+    worked_example:
+      notional: "USD 10M"
+      underlying: "Single-name IG corporate (BBB+), 150 bps CDS spread"
+      tenor: "5 years"
+      barriers: {}
+      decomposition:
+        cds_spread: "150 bps (USD 150K per annum)"
+        risk_free_rate: "4.5% (USD 450K per annum)"
+        issuer_funding: "0.3% (USD 30K per annum)"
+        ftp: "0.2% (USD 20K per annum)"
+        desk_margin: "0.2% (USD 20K per annum)"
+        headline_coupon: "5.6% (USD 560K per annum)"
+      ftp: "0.2% per annum"
+      desk_margin: "0.2% per annum (USD 20K)"
+      headline_yield: "5.6% per annum"
+      good_scenario: "No credit event — 5 annual coupons of USD 560K plus par returned = USD 12.8M on USD 10M"
+      bad_scenario: "Credit event in year 3 — recovery 40%, investor receives USD 4M plus 3 coupons (USD 1.68M) = USD 5.68M"
+      writing_instruction: "Show arithmetic: headline = risk-free + CDS spread net of FTP and desk margin. Two scenarios with specific cash flows."
+
+    reconciliation:
+      critical_fields:
+        - field: "Reference entity"
+          failure_mode: "Legal name mismatch between NEMO and Termsheet — successor events or mergers change the entity"
+        - field: "Credit event types"
+          failure_mode: "Restructuring variant (CR vs MR vs MMR) determines trigger scope — CR is broadest, MMR is narrowest"
+        - field: "Recovery determination method"
+          failure_mode: "Auction vs dealer poll vs fixed rate — different methods produce different recovery values"
+        - field: "Coupon accrual on credit event"
+          failure_mode: "Accrued coupon may or may not be paid — Termsheet must specify"
+        - field: "Settlement type"
+          failure_mode: "Physical (deliver bonds) vs cash (auction price) — operational requirements differ fundamentally"
+        - field: "ISDA Credit Definitions version"
+          failure_mode: "2003 vs 2014 definitions — different restructuring mechanics and successor event handling"
+      observation_type: "Continuous"
+      fixing_fallback: "ISDA Determinations Committee; auction protocol"
+      writing_instruction: "Bold field names. Credit-specific reconciliation — restructuring variant is the most dangerous mismatch."
+
+    desk_view:
+      typical_buyer: "Institutional or private bank client with credit view, unable or unwilling to trade unfunded CDS"
+      actual_risk: "Short credit protection — full principal loss on default (minus recovery)"
+      perceived_risk: "Enhanced-yield corporate bond"
+      when_appropriate: "Credit conviction; understands recovery uncertainty; funded format preferred"
+      when_not_appropriate: "Cannot absorb full principal loss; confuses CLN with corporate bond; wrong-way risk with issuer"
+      writing_instruction: "Be opinionated. CLN is a funded CDS, not a bond. Wrong-way risk is the key sophistication test."
+
+    desk_shorthand:
+      text: "Funded CDS; coupon for default risk."
+      source: "Research agent"
+
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

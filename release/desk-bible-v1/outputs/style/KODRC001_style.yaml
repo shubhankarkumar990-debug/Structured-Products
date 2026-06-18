@@ -1,0 +1,34 @@
+style_review:
+  product_id: KODRC001
+  reviewed_at: "2026-06-18T16:10Z"
+  artifact_reviewed: "outputs/drafts/KODRC001.md"
+  memory_consulted: "memory/style-patterns/ELN.yaml"
+
+  summary:
+    total: 5
+    must_fix: 0
+    should_fix: 1
+    skipped_known_fp: 3
+    skipped_accepted_convention: 1
+
+  violations:
+    - id: "S-001"
+      severity: SHOULD_FIX
+      rule: "Product naming consistency"
+      location: "Definition, first sentence"
+      violation: "Full product name 'Knock-Out Discounted Reverse Convertible' is long. Consider whether a standard abbreviation should be established."
+
+  known_false_positives_skipped:
+    - pattern: "H4 heading names"
+      reason: "Canonical names correct per writing standards"
+    - pattern: "Sophis casing"
+      reason: "Title case correct"
+    - pattern: "Termsheet casing"
+      reason: "One word, capitalised — correct per style guide"
+
+  accepted_conventions_skipped:
+    - convention: "Approximate IRR wording"
+      reason: "'Approximately 15.5%' for annualized return on fractional period — accepted per ELN conventions"
+
+  gate: PASS
+  must_fix_ids: []

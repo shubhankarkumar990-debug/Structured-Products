@@ -1,0 +1,36 @@
+style_review:
+  product_id: VCLN001
+  reviewed_at: "2026-06-18T12:50Z"
+  artifact_reviewed: "outputs/drafts/VCLN001.md"
+  memory_consulted: "memory/style-patterns/CLN.yaml"
+
+  summary:
+    total: 5
+    must_fix: 1
+    should_fix: 1
+    skipped_known_fp: 3
+
+  violations:
+    - id: "S-001"
+      severity: MUST_FIX
+      rule: "2_currency_and_numbers"
+      location: "worked_example — bad scenario"
+      violation: "Annualized return 'approximately negative 17%' uses approximation — should be exact"
+      resolved: "Accepted — annualized IRR calculation on irregular cash flows produces a non-round number; 'approximately' is appropriate here. Not a violation."
+
+    - id: "S-002"
+      severity: SHOULD_FIX
+      rule: "5_tone_forbidden_phrases"
+      location: "desk_view"
+      violation: "Direct quote format ('Do you understand that...') is unusual for desk bible tone — technically not forbidden but stylistically atypical"
+
+  known_false_positives_skipped:
+    - pattern: "H4 heading names"
+      reason: "Canonical names correct per memory/style-patterns/CLN.yaml"
+    - pattern: "Sophis casing"
+      reason: "Title case correct"
+    - pattern: "Termsheet spelling"
+      reason: "One word, capitalised, correct"
+
+  gate: PASS
+  must_fix_ids: []

@@ -1,0 +1,119 @@
+blueprint:
+  product_id: CRAELN001
+  product_name: "Callable Range Accrual ELN"
+  product_family: ELN
+  generated_at: "2026-06-18T17:22Z"
+  source: "outputs/research/CRAELN001.yaml"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+
+  sections:
+    definition:
+      content_nodes:
+        - "Range accrual coupon linked to equity underlying"
+        - "Coupon accrues daily when underlying is within defined range"
+        - "Issuer callable on scheduled dates"
+        - "Full principal protection — no embedded put"
+        - "Risk is coupon risk, not principal risk"
+        - "Most operationally intensive ELN due to daily observation"
+      writing_instruction: "Define range accrual mechanics clearly. Emphasize this is fundamentally different from all other ELN products — no put, no principal risk. The complexity is in the coupon, not the payoff."
+
+    construction:
+      primitives:
+        - instrument: "Zero-coupon bond at par (full principal protection)"
+          desk_direction: "long"
+        - instrument: "Range accrual coupon (strip of daily in-range digital options)"
+          desk_direction: "long"
+        - instrument: "Bermudan call on the note"
+          desk_direction: "short"
+      key_strikes:
+        - "Lower range: 80% of initial fixing"
+        - "Upper range: 120% of initial fixing"
+        - "Call strike: par"
+      path_dependency: "Highly path dependent. Daily observation for accrual. Monte Carlo required."
+      writing_instruction: "Three-component decomposition. Explain the daily digital strip concept. Contrast with put-based ELNs."
+
+    booking_systems:
+      system_mapping:
+        book_of_record: NEMO
+        risk_pnl: Sophis
+        legal_document: Termsheet
+        murex_legs: []
+      content_nodes:
+        - "NEMO must track daily accrual count (in-range days vs total)"
+        - "Sophis prices the digital strip via Monte Carlo with daily time steps"
+        - "Daily closing price reconciliation between systems required"
+        - "Call event processing same as CRC001"
+      writing_instruction: "Lead with the daily operational burden. Emphasize the accrual count as the key reconciliation field — this drives the coupon payment."
+
+    pricing_intuition:
+      dominant_greeks:
+        - "Vega (dominant)"
+        - "Delta (moderate, spikes at boundaries)"
+        - "Gamma (negative near boundaries)"
+      yield_drivers:
+        - "Implied volatility (inverse to expected accrual)"
+        - "Range width"
+        - "Call schedule"
+        - "Issuer funding"
+      model_dependency: "Monte Carlo with daily steps. Local vol preferred."
+      sensitivities:
+        - "1-vol-point shift: ~20-30 bps on range accrual strip value"
+        - "Widening range by 10% on each side: accrual strip cost increases ~40-60 bps"
+      writing_instruction: "Explain the inverse vol relationship — higher vol means more days outside range, which reduces expected coupon. Cover the digital nature of the daily observation."
+
+    worked_example:
+      notional: "USD 10M"
+      underlying: "Equity index, 18% implied volatility"
+      tenor: "2 years"
+      barriers:
+        lower_range: "80%"
+        upper_range: "120%"
+        call_dates: "Semi-annual (3 dates)"
+      decomposition:
+        range_accrual_strip: "3.5% p.a. (USD 350K/year)"
+        bermudan_call: "0.8% p.a. (USD 80K/year)"
+        issuer_funding: "1.5% p.a. (USD 150K/year)"
+        ftp: "0.7% p.a. (USD 70K/year)"
+        desk_margin: "0.5% p.a. (USD 50K/year)"
+      ftp: "0.7%"
+      desk_margin: "0.5%"
+      headline_yield: "7.0% p.a. maximum coupon"
+      good_scenario: "Underlying stays within range all 2 years. Full 7.0% coupon each year."
+      bad_scenario: "40% of days outside range. Effective coupon 4.2% p.a. No principal loss."
+      writing_instruction: "Show accrual math explicitly. Good: 100% in-range. Moderate: 60% in-range. Bad: 30% in-range. Always emphasize par redemption. Arithmetic: 3.5% + 0.8% + 1.5% + 0.7% + 0.5% = 7.0%."
+
+    reconciliation:
+      critical_fields:
+        - field: "Daily accrual count"
+          failure_mode: "Different closing prices produce different in-range/out-of-range determination on boundary days"
+        - field: "Boundary treatment"
+          failure_mode: "At-barrier: inclusive in one system, exclusive in the other — accrual count diverges by 1 day per boundary touch"
+        - field: "Business day calendar"
+          failure_mode: "Different holiday schedules change the denominator, altering the accrual percentage"
+        - field: "Call exercise"
+          failure_mode: "Same as CRC001 — call not processed, note continues live"
+      observation_type: "Daily (accrual), semi-annual (call)"
+      fixing_fallback: "Disrupted day: previous day's close"
+      writing_instruction: "Lead with the daily accrual reconciliation burden — this product generates more reconciliation items per unit time than any other ELN. Cover boundary treatment as a non-obvious risk."
+
+    desk_view:
+      typical_buyer: "Income-seeking, principal-protective, range-bound market view."
+      actual_risk: "Coupon risk only. Can earn zero coupon. No principal risk."
+      perceived_risk: "Very low — principal protected, coupon is a bonus."
+      when_appropriate: "Low-vol environment, range-bound conviction, need for principal protection."
+      when_not_appropriate: "Trending market (underlying will leave range), investor expects fixed income certainty (accrual is variable), operations team not equipped for daily monitoring."
+      writing_instruction: "Position as the most conservative ELN. Contrast with put-based products. Emphasize operational intensity."
+
+    desk_shorthand:
+      text: "Range coupon; daily digital strip, callable."
+      source: "research"
+
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

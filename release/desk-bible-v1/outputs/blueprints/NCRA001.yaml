@@ -1,0 +1,69 @@
+blueprint:
+  product_id: NCRA001
+  product_name: "Non-Callable Range Accrual"
+  product_family: SRT
+  generated_at: "2026-06-18T20:42Z"
+  source: "outputs/research/NCRA001.yaml"
+  memory_used:
+    - memory/terminology/SRT.yaml
+    - memory/booking-maps/SRT_system_mapping.yaml
+  sections:
+    definition:
+      content_nodes:
+        - "Coupon accrues daily when reference rate is within range"
+        - "100% principal protection"
+        - "Non-callable — no early redemption"
+        - "Headline coupon exceeds comparable fixed because accrual probability < 100%"
+      writing_instruction: "Explain daily accrual. Contrast with CRAELN001 (equity range accrual, callable)."
+    construction:
+      primitives:
+        - instrument: "Fixed-rate bond"
+          desk_direction: "long"
+        - instrument: "Daily digital option strip on SOFR"
+          desk_direction: "long"
+      key_strikes: ["Range lower 3.0%", "Range upper 5.5%", "Headline 5.5%"]
+      path_dependency: "Daily observation. Each business day is independent binary."
+      writing_instruction: "Two components. Explain range as long floor digital + short cap digital."
+    booking_systems:
+      system_mapping: {book_of_record: Murex, risk_pnl: Murex, legal_document: Termsheet, four_leg: true}
+      content_nodes: ["Range bounds in note leg", "Daily digital strip in hedge leg", "Fixing source consistency"]
+      writing_instruction: "Four-leg framework. Range bounds are the key risk."
+    pricing_intuition:
+      dominant_greeks: ["DV01 (through range probability)", "Vega (normal vol)", "Gamma (near boundaries)"]
+      yield_drivers: ["Rate level", "Rate vol", "Range width", "Mean reversion"]
+      model_dependency: "Normal vol model for rate digitals."
+      sensitivities: ["Rate near boundary → accrual probability drops"]
+      writing_instruction: "Explain range probability and how vol affects accrual."
+    worked_example:
+      notional: "USD 10M"
+      underlying: "SOFR"
+      tenor: "3 years"
+      barriers: {range_lower: "3.0%", range_upper: "5.5%"}
+      decomposition: {digital_strip: "1.8%", funding: "3.0%", ftp: "0.4%", margin: "0.3%"}
+      headline_yield: "5.5% (headline), ~4.675% (expected)"
+      good_scenario: "Rate stays in range all year. Full 5.5% earned."
+      bad_scenario: "Rate moves outside range for 40% of days. 5.5% × 60% = 3.3%."
+      writing_instruction: "Show accrual count table. Range probability scenarios."
+    reconciliation:
+      critical_fields:
+        - {field: "Range bounds", failure_mode: "Shifted accrual probability"}
+        - {field: "Observation type", failure_mode: "Period-end instead of daily"}
+        - {field: "Fixing source", failure_mode: "Note vs hedge use different sources"}
+      observation_type: "Daily"
+      fixing_fallback: "Previous business day"
+      writing_instruction: "Range bounds are the critical recon item."
+    desk_view:
+      typical_buyer: "Yield-seeking with rate view. Insurance companies."
+      actual_risk: "Coupon variability. Zero coupon on out-of-range days."
+      perceived_risk: "Enhanced fixed-rate product."
+      when_appropriate: "Stable rate environment. Wide range. Low vol."
+      when_not_appropriate: "Volatile rates. Narrow range. Income certainty required."
+      writing_instruction: "Explain that headline coupon ≠ expected coupon."
+    desk_shorthand: {text: "Range coupon; daily accrual, rate stays in band.", source: "research"}
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

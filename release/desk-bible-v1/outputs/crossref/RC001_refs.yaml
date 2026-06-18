@@ -1,0 +1,19 @@
+refs:
+  product_id: RC001
+  extracted_at: "2026-06-18T12:13Z"
+  source: "outputs/drafts/RC001.md"
+  total_lines: 56
+  matched_lines: 3
+
+  references:
+    - line: "Compared to a Phoenix Autocallable with a 60% downside barrier"
+      type: product
+      target: "Phoenix Autocallable (PHX001)"
+
+    - line: "conditional-coupon products such as the Phoenix Autocallable"
+      type: product
+      target: "Phoenix Autocallable (PHX001)"
+
+    - line: "Unlike the Phoenix Autocallable, there is no barrier"
+      type: product
+      target: "Phoenix Autocallable (PHX001)"

@@ -1,0 +1,116 @@
+blueprint:
+  product_id: KODRC001
+  product_name: "Knock-Out Discounted Reverse Convertible"
+  product_family: ELN
+  generated_at: "2026-06-18T16:02Z"
+  source: "outputs/research/KODRC001.yaml"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+
+  sections:
+    definition:
+      content_nodes:
+        - "Equity-linked note issued at discount to par with upside knock-out barrier"
+        - "No coupon — return is capital gain between issue price and par"
+        - "Knock-out barrier observed discretely (quarterly)"
+        - "If KO triggered: early par redemption, investor realizes discount immediately"
+        - "At maturity if no KO: standard put evaluation against strike"
+        - "Zero capital protection below put strike"
+      writing_instruction: "Open with the note's two defining features: discount issuance AND knock-out barrier. Contrast with base DRC001. Make clear the KO does NOT protect the downside."
+
+    construction:
+      primitives:
+        - instrument: "Zero-coupon bond at discount to par"
+          desk_direction: "long"
+        - instrument: "Up-and-out European put (strike 100%, KO barrier 120%)"
+          desk_direction: "short"
+      key_strikes:
+        - "Put strike: 100% of initial fixing"
+        - "Knock-out barrier: 120% of initial fixing"
+      path_dependency: "Discrete barrier observation (quarterly). Not closed-form — requires Monte Carlo or discrete barrier adjustment."
+      writing_instruction: "Emphasize the up-and-out put as the key difference from DRC001. Explain why the KO reduces the put premium (and therefore the discount). Mention Broadie-Glasserman correction for discrete barriers."
+
+    booking_systems:
+      system_mapping:
+        book_of_record: NEMO
+        risk_pnl: Sophis
+        legal_document: Termsheet
+        murex_legs: []
+      content_nodes:
+        - "NEMO carries issue price, par, barrier level, observation schedule, and knock-out status"
+        - "Sophis prices the up-and-out put with discrete barrier model"
+        - "Knock-out event must be synchronized between NEMO and Sophis"
+        - "Issue price omission risk identical to DRC001"
+      writing_instruction: "Lead with NEMO's additional fields vs DRC001 (barrier level, observation schedule, KO status flag). Emphasize the synchronization risk on knock-out events."
+
+    pricing_intuition:
+      dominant_greeks:
+        - "Delta (short, discontinuous near barrier)"
+        - "Vega (short, lower than vanilla put)"
+        - "Gamma (negative, spikes near barrier)"
+      yield_drivers:
+        - "Implied volatility"
+        - "Knock-out barrier level"
+        - "Observation frequency"
+        - "Issuer funding spread"
+      model_dependency: "Monte Carlo with discrete barrier adjustment or Broadie-Glasserman. Not Black-Scholes closed-form."
+      sensitivities:
+        - "1-vol-point shift moves the up-and-out put by ~15-25 bps (less than vanilla due to KO)"
+        - "Raising KO barrier from 120% to 130% reduces put premium by ~30-50 bps"
+        - "Switching from quarterly to monthly observation reduces put premium by ~20 bps"
+      writing_instruction: "Compare pricing to vanilla DRC001. Explain the intuition for why KO reduces the put premium. Cover barrier proximity effects on Greeks."
+
+    worked_example:
+      notional: "USD 10M"
+      underlying: "Single stock, 25% implied volatility"
+      tenor: "1 year"
+      barriers:
+        put_strike: "100%"
+        knock_out: "120%"
+        observation: "Quarterly"
+      decomposition:
+        up_and_out_put: "4.2% (USD 420K)"
+        issuer_funding: "2.0% (USD 200K)"
+        ftp: "0.6% (USD 60K)"
+        desk_margin: "0.4% (USD 40K)"
+      ftp: "0.6%"
+      desk_margin: "0.4%"
+      headline_yield: "7.2% discount (issue price 92.8%)"
+      good_scenario: "KO triggered at Q2 observation. Underlying at 125%. Investor receives par (USD 10M) on investment of USD 9.28M after 6 months. Annualized return: ~15.5%."
+      bad_scenario: "No KO triggered. Underlying at 60% at maturity. Physical delivery of shares worth USD 6M on investment of USD 9.28M. Loss: 35.3% of invested capital."
+      writing_instruction: "Show three scenarios: KO triggered mid-life, good maturity (no KO, above strike), bad maturity (below strike). Arithmetic check: 4.2% + 2.0% + 0.6% + 0.4% = 7.2%."
+
+    reconciliation:
+      critical_fields:
+        - field: "Knock-out barrier event"
+          failure_mode: "NEMO and Sophis disagree on whether KO was triggered due to different closing-price sources or observation-date conventions"
+        - field: "Issue price"
+          failure_mode: "NEMO defaults to par if issue price not entered; overstates notional"
+        - field: "Observation schedule"
+          failure_mode: "NEMO observation dates do not match Sophis barrier monitoring dates; KO event missed or spuriously triggered"
+        - field: "Settlement on early redemption"
+          failure_mode: "Termsheet specifies par on KO date+2, but NEMO books par on next coupon date"
+      observation_type: "Discrete barrier (quarterly)"
+      fixing_fallback: "Modified following for non-business-day observations"
+      writing_instruction: "Lead with the novel reconciliation risk (KO event synchronization). Then cover inherited DRC001 risks (issue price, accretion)."
+
+    desk_view:
+      typical_buyer: "Investor seeking discount to par with upside escape. Mildly bullish view."
+      actual_risk: "Short up-and-out put with full downside below strike. KO does not protect principal on downside."
+      perceived_risk: "Lower than DRC001 because KO provides early exit on rally."
+      when_appropriate: "Bullish bias, preference for capital gain, desire for early exit mechanism on upside."
+      when_not_appropriate: "Investor needs downside protection, or underlying has low expected volatility (KO unlikely to trigger, reducing the feature's value while compressing the discount)."
+      writing_instruction: "Compare directly to DRC001. Emphasize that KO is an upside feature, not a downside protection."
+
+    desk_shorthand:
+      text: "Discounted par; sold KO put, early exit on rally."
+      source: "research"
+
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

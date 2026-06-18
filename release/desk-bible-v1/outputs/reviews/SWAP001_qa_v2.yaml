@@ -1,0 +1,48 @@
+qa_review:
+  product_id: SWAP001
+  reviewed_at: "2026-06-18T14:08Z"
+  version: "v2 — post arithmetic verification protocol"
+  scope:
+    first_run: false
+    sections_reviewed:
+      - definition
+      - construction
+      - booking_systems
+      - pricing_intuition
+      - worked_example
+      - reconciliation
+      - desk_view
+      - desk_shorthand
+    sections_skipped: []
+
+  summary:
+    total: 3
+    blocker: 0
+    major: 2
+    minor: 1
+
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "worked_example"
+      issue: "Presentation ambiguity — PV of 5 bps spread stated as 'approximately USD 22K'"
+      evidence: "Arithmetic verification: PV of 5 bps annuity over 5y at 4.2%: 5,000 x annuity_factor(4.2%, 5) ≈ 5,000 x 4.44 = 22,200. CORRECT within tolerance. Approximation is appropriate for PV calculation."
+      required_action: "Advisory — arithmetic verified correct; consider clarifying presentation."
+      arithmetic_verification: "PASS — components sum correctly"
+
+    - id: "QA-002"
+      severity: MAJOR
+      location: "definition"
+      issue: "Building-block claim ('every structured rate product') is strong"
+      evidence: "Conceptually correct and standard in structured products pedagogy"
+      required_action: "Advisory"
+
+    - id: "QA-003"
+      severity: MINOR
+      location: "pricing_intuition"
+      issue: "DV01 estimate could specify 'per basis point' more prominently"
+      evidence: "Context is clear from preceding sentence"
+      required_action: "No action"
+
+  gate: PASS
+  blocker_ids: []

@@ -1,0 +1,40 @@
+style_review:
+  product_id: RASTEG001
+  product_name: "Range-Accrual Steepener"
+  product_family: STEG
+  generated_at: "2026-06-19T10:22Z"
+  source: "outputs/drafts/RASTEG001.md"
+  memory_used:
+    - memory/style-patterns/STEG.yaml
+    - memory/terminology/STEG.yaml
+
+  gate: PASS
+
+  checks:
+    heading_structure:
+      h3_present: true
+      h3_text: "Range-Accrual Steepener"
+      h4_count: 8
+      h4_names: ["Definition", "Construction", "Booking & systems", "Pricing intuition", "Worked example (USD 10M)", "Reconciliation specifics", "Desk view", "Desk shorthand"]
+      all_canonical: true
+      issues: []
+    currency_notation: {usd_prefix_consistent: true, bare_numbers_found: false, issues: []}
+    system_references: {murex_mentioned: true, murex_correct_for_steg: true, nemo_mentioned: false, sophis_mentioned: false, termsheet_casing: "Termsheet", termsheet_correct: true, issues: []}
+    desk_shorthand: {text: "Range coupon on curve slope; daily accrual, CMS spread.", italic: true, word_count: 8, under_8_words: true, issues: []}
+    forbidden_phrases: {scanned: true, found: []}
+    terminology: {cms_spread_notation: "CMS 30Y − CMS 10Y", correct_minus_sign: true, long_tenor_first: true, issues: []}
+
+  known_false_positives_applied:
+    - {rule: "H4 heading names flagged as non-canonical", result: "Suppressed"}
+    - {rule: "Murex mentioned for STEG products", result: "Suppressed"}
+    - {rule: "Termsheet casing flagged", result: "Suppressed"}
+
+  accepted_conventions_applied:
+    - {convention: "Termsheet as legal document", applied: true}
+    - {convention: "CMS spread in basis points", applied: true}
+    - {convention: "Approximate convexity adjustment", applied: true}
+
+  must_fix_count: 0
+  should_fix_count: 0
+
+  summary: "Zero violations. All 8 canonical sections. CMS notation correct. 3 known FPs suppressed. 3 conventions applied. Style gate PASS."

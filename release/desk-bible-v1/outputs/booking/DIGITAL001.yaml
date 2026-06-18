@@ -1,0 +1,47 @@
+booking:
+  product_id: DIGITAL001
+  product_name: "Digital / Exotic Coupon Notes"
+  generated_at: "2026-06-18T19:25Z"
+  system_type: nemo_sophis
+  murex_used: false
+  memory_consulted: "memory/booking-maps/ELN_system_mapping.yaml"
+
+  nemo:
+    instrument_type: "Structured Note — Digital Coupon"
+    fields:
+      - {name: "Product ID", value: "DIGITAL001"}
+      - {name: "Underlying", value: "Equity index"}
+      - {name: "Notional", value: "USD 10,000,000"}
+      - {name: "Trade date", value: "T"}
+      - {name: "Maturity", value: "T + 2Y"}
+      - {name: "Digital strike", value: "100% of initial", critical: true}
+      - {name: "Coupon rate (conditional)", value: "8.0% p.a. (2.0% per quarter)", critical: true}
+      - {name: "Coupon condition", value: "Above (or at-or-above per termsheet)", critical: true}
+      - {name: "Observation dates", value: "8 quarterly dates", critical: true}
+      - {name: "DI barrier (if applicable)", value: "65%"}
+      - {name: "Barrier observation", value: "European (maturity only)"}
+      - {name: "Settlement", value: "Cash"}
+      - {name: "Fixing source", value: "Per termsheet"}
+    validation: "Digital strike exact. ALL observation dates entered. Boundary condition specified."
+
+  sophis:
+    legs:
+      - {leg: 1, instrument: "Zero-coupon bond", direction: "long", notional: "USD 10,000,000", maturity: "T + 2Y"}
+      - {leg: 2, instrument: "Digital call strip (8 digitals)", direction: "long", strike: "100%", coupon_per_digital: "2.0%", model: "Call spread replication with skew"}
+      - {leg: 3, instrument: "European DI put (if barrier)", direction: "short", barrier: "65%", strike: "100%", observation: "European"}
+    hedging: "Delta hedge via equity. Active pin risk management on observation dates. Skew hedging via listed options."
+    greeks_monitored: ["Delta", "Gamma", "Vega (skew-adjusted)", "Theta"]
+    special_considerations: "Pin risk management protocol on observation dates. Call spread width calibration."
+
+  reconciliation:
+    frequency: "Monthly (daily monitoring on observation dates)"
+    critical_checks:
+      - {field: "Digital strike", nemo: "100% exact", sophis: "100% exact", failure_mode: "1 bp error can flip coupon outcome"}
+      - {field: "Observation dates", nemo: "8 dates", sophis: "8 dates", failure_mode: "Missing date — coupon missed or incorrectly paid"}
+      - {field: "Boundary condition", nemo: "Above / at-or-above", sophis: "Matching", failure_mode: "At-the-money fixing resolves differently"}
+      - {field: "Fixing source", nemo: "Per termsheet", sophis: "Per termsheet", failure_mode: "Different sources give different fixings"}
+
+  failure_modes:
+    - "Digital strike entered incorrectly — coupon flips on small fixing differences"
+    - "Observation dates missing — coupon not determined"
+    - "Boundary condition mismatch — disagreement on at-the-money fixing"

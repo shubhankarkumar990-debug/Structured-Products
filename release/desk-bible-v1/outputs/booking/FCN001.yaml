@@ -1,0 +1,107 @@
+booking_spec:
+  product_id: FCN001
+  product_name: "Fixed Coupon Note (FCN)"
+  product_family: ELN
+  generated_at: "2026-06-18T17:05Z"
+  spec_type: nemo_sophis
+  memory_used:
+    - memory/booking-maps/ELN_system_mapping.yaml
+
+  nemo_fields:
+    trade_id: ""
+    product_type: "Fixed Coupon Note (FCN)"
+    notional: ""
+    currency: ""
+    trade_date: ""
+    maturity_date: ""
+    underlying: ""
+    put_strike_pct: "100%"
+    put_strike_absolute: ""
+    knock_in_barrier_pct: "65%"
+    knock_in_barrier_absolute: ""
+    barrier_observation: "Discrete (quarterly) | Continuous"
+    barrier_breach_status: "Not breached | Breached on [date]"
+    autocall_strike_pct: "100%"
+    autocall_observation_schedule: "Quarterly"
+    autocall_dates: []
+    autocall_status: "Not triggered | Triggered on [date]"
+    settlement_type: "Physical | Cash"
+    coupon_rate: ""
+    coupon_frequency: "Quarterly"
+    coupon_on_autocall: "Full period | Pro-rata"
+    initial_fixing_date: ""
+    initial_fixing_level: ""
+    final_observation_date: ""
+    fixing_source: ""
+    day_count_convention: ""
+    dividend_treatment: "Pass-through | Embedded"
+    isin: ""
+
+  sophis_fields:
+    instrument_type: "Down-and-In Put + Autocall Option"
+    underlying_ticker: ""
+    put_strike_absolute: ""
+    knock_in_barrier_absolute: ""
+    autocall_strike_absolute: ""
+    barrier_type: "Discrete (quarterly)"
+    observation_dates: []
+    maturity: ""
+    volatility_surface: ""
+    dividend_yield_curve: ""
+    discount_curve: ""
+    model: "Monte Carlo (joint autocall + barrier simulation)"
+    paths: "50000+"
+    delta: ""
+    gamma: ""
+    vega: ""
+    theta: ""
+    daily_mtm: ""
+    settlement_assumption: "Cash equivalent"
+
+  reconciliation_checks:
+    daily:
+      - "Put strike: NEMO percentage vs Sophis absolute"
+      - "Barrier level: NEMO percentage vs Sophis absolute"
+      - "Autocall strike: NEMO percentage vs Sophis absolute"
+      - "MTM: Sophis daily P&L vs NEMO coupon accrual"
+      - "Delta: Sophis vs hedge position"
+      - "Autocall status: NEMO flag vs Sophis model"
+      - "Barrier breach status: NEMO flag vs Sophis model"
+    event_driven:
+      - "Autocall trigger: both systems record event on same date with same closing price"
+      - "Coupon on autocall: accrual convention matches Termsheet"
+      - "Barrier breach: if breached, both systems flag the event on the same date"
+      - "Hedge unwind: Sophis unwinds all positions on autocall event"
+      - "Maturity: verify final settlement including barrier-breach status"
+    termsheet_verification:
+      - "Put strike and autocall strike: percentages match NEMO and Sophis"
+      - "Barrier level: percentage matches NEMO and Sophis"
+      - "Barrier observation convention: discrete or continuous — explicitly stated"
+      - "Coupon on autocall: accrual convention explicitly stated"
+      - "Fixing source: single source for both autocall and barrier determination"
+
+  failure_modes:
+    - mode: "Autocall event not processed"
+      trigger: "Underlying breaches autocall strike but NEMO not updated"
+      consequence: "Note appears live; coupon accrues past redemption; hedge remains open"
+      detection: "Automated observation-date check against closing prices"
+    - mode: "Barrier observation mismatch"
+      trigger: "NEMO monitors continuously; Termsheet specifies discrete"
+      consequence: "Spurious barrier breach from intra-period dip"
+      detection: "Booking validation: confirm barrier observation type"
+    - mode: "Dual-event data loss"
+      trigger: "Barrier breached in one period, autocall in next; barrier flag cleared on autocall"
+      consequence: "Audit trail incomplete; dispute risk if autocall settlement is challenged"
+      detection: "Post-event: verify barrier-breach flag persists after autocall"
+    - mode: "Fixing source inconsistency"
+      trigger: "Autocall uses exchange close; barrier uses Bloomberg composite"
+      consequence: "Inconsistent determination on same observation date"
+      detection: "Booking validation: single fixing source for all observations"
+
+  validation:
+    correct_spec_type: true
+    all_fields_named: true
+    ftp_documented: true
+    discounting_documented: true
+    min_3_recon_checks: true
+    min_2_failure_modes: true

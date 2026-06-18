@@ -1,0 +1,8 @@
+insertion:
+  product_id: RC001
+  product_name: "Reverse Convertible"
+  insert_after: "3.1 Reverse Convertibles (section heading)"
+  insert_before: "Discounted Reverse Convertible (H3)"
+  part: "Part 3 — Equity-Linked Notes"
+  section: "3.1"
+  position: "First product in 3.1"

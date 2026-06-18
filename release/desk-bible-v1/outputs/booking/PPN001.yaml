@@ -1,0 +1,44 @@
+booking:
+  product_id: PPN001
+  product_name: "Principal Protected Note"
+  generated_at: "2026-06-18T18:25Z"
+  system_type: nemo_sophis
+  murex_used: false
+  memory_consulted: "memory/booking-maps/ELN_system_mapping.yaml"
+
+  nemo:
+    instrument_type: "Structured Note — Capital Protected"
+    fields:
+      - {name: "Product ID", value: "PPN001"}
+      - {name: "Underlying", value: "Equity index"}
+      - {name: "Notional", value: "USD 10,000,000"}
+      - {name: "Trade date", value: "T"}
+      - {name: "Maturity", value: "T + 3Y"}
+      - {name: "Strike", value: "100%"}
+      - {name: "Protection level", value: "100%", critical: true}
+      - {name: "Participation rate", value: "72.5% (gross) / 66.7% (net)", critical: true}
+      - {name: "Cap", value: "None (or as per termsheet)", critical: true}
+      - {name: "Coupon", value: "None"}
+      - {name: "Settlement", value: "Cash"}
+      - {name: "Observation", value: "European — maturity only"}
+    protection_flag: true
+    validation: "Protection flag MUST be set. Participation rate must match termsheet."
+
+  sophis:
+    legs:
+      - {leg: 1, instrument: "Zero-coupon bond", direction: "long", notional: "USD 10,000,000", maturity: "T + 3Y"}
+      - {leg: 2, instrument: "European call", direction: "long", notional: "USD 6,670,000 (net participation)", strike: "100%", maturity: "T + 3Y", model: "Black-Scholes with skew"}
+    hedging: "Delta hedge via equity futures or ETF. Vega managed via listed options where available."
+    greeks_monitored: ["Delta", "Vega", "Rho", "Gamma"]
+
+  reconciliation:
+    frequency: "Monthly"
+    critical_checks:
+      - {field: "Protection flag", nemo: "100% protection", sophis: "Bond leg = par", failure_mode: "Protection not flagged — at-risk classification"}
+      - {field: "Participation rate", nemo: "72.5% / 66.7%", sophis: "Call notional / note notional", failure_mode: "Hedge ratio mismatch"}
+      - {field: "Cap", nemo: "As per termsheet", sophis: "Capped call or call spread", failure_mode: "P&L leakage on extreme upside"}
+
+  failure_modes:
+    - "Protection flag not set in NEMO — note treated as at-risk, incorrect margin"
+    - "Participation rate gross/net confusion between NEMO and Sophis"
+    - "Cap present in termsheet but absent from system booking"

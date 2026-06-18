@@ -1,0 +1,21 @@
+{
+  "product_id": "SCLN001",
+  "product_name": "Skew CLN",
+  "family": "CLN",
+  "updated_at": "2026-06-19T11:58:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {"status": "complete", "at": "2026-06-19T11:35Z"},
+    "research": {"status": "complete", "at": "2026-06-19T11:35Z", "artifact": "outputs/research/SCLN001.yaml"},
+    "architecture": {"status": "complete", "at": "2026-06-19T11:38Z", "artifact": "outputs/blueprints/SCLN001.yaml"},
+    "content": {"status": "complete", "at": "2026-06-19T11:48Z", "artifact": "outputs/drafts/SCLN001.md"},
+    "booking": {"status": "complete", "at": "2026-06-19T11:48Z", "artifact": "outputs/booking/SCLN001.yaml"},
+    "qa": {"status": "complete", "at": "2026-06-19T11:50Z", "artifact": "outputs/reviews/SCLN001_qa.yaml"},
+    "style": {"status": "complete", "at": "2026-06-19T11:52Z", "artifact": "outputs/style/SCLN001_style.yaml"},
+    "crossref": {"status": "complete", "at": "2026-06-19T11:55Z", "artifact": "outputs/crossref/SCLN001_crossref.yaml"},
+    "publish": {"status": "complete", "at": "2026-06-19T11:58Z", "artifact": "outputs/publish/SCLN001_pubspec.yaml"}
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. First CLN memory reuse (3 artifacts). Restructuring variant pricing. NEMO + Sophis.",
+  "section_hashes": {"definition": "sc11bb22cc33dd01", "construction": "sc22cc33dd44ee02", "booking_systems": "sc33dd44ee55ff03", "pricing_intuition": "sc44ee55ff66aa04", "worked_example": "sc55ff66aa77bb05", "reconciliation": "sc66aa77bb88cc06", "desk_view": "sc77bb88cc99dd07", "desk_shorthand": "sc88cc99ddaabb08"}
+}

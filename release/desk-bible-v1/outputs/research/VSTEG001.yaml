@@ -1,0 +1,88 @@
+research:
+  product_id: VSTEG001
+  product_name: "Vanilla Steepener Note"
+  product_family: STEG
+  generated_at: "2026-06-19T09:00Z"
+  memory_consulted:
+    - memory/terminology/STEG.yaml
+    - memory/booking-maps/STEG_system_mapping.yaml
+    - memory/style-patterns/STEG.yaml
+
+  classification:
+    family: STEG
+    sub_family: "CMS spread"
+    archetype: "Leveraged CMS spread coupon with floor and cap"
+    risk_profile: "Curve slope + correlation + convexity. No callable feature."
+    complexity: "Medium-High"
+    path_dependent: false
+    model: "Multi-factor rate model with CMS convexity adjustment and correlation calibration"
+
+  structure:
+    components:
+      - instrument: "Fixed-rate bond (funding)"
+        desk_direction: "long"
+        purpose: "Provides par redemption and funding structure"
+      - instrument: "CMS spread coupon strip"
+        desk_direction: "long"
+        purpose: "Pays leveraged coupon linked to CMS 30Y − CMS 10Y spread"
+      - instrument: "CMS floor (embedded)"
+        desk_direction: "long"
+        purpose: "Prevents negative coupon when curve inverts — floor at 0%"
+      - instrument: "CMS cap (embedded)"
+        desk_direction: "short"
+        purpose: "Caps maximum coupon — limits issuer exposure to extreme steepening"
+    barriers: []
+    observation: "Semi-annual CMS fixing dates per schedule"
+    tenor: "10 years"
+    coupon: "5 × (CMS 30Y − CMS 10Y), floor 0%, cap 8%"
+    principal_protection: "100% at maturity (non-callable)"
+
+  economics:
+    headline: "Leveraged bet on curve steepness — pays well when the yield curve is steep, nothing when it inverts"
+    how_funded: "Investor sells CMS cap optionality (giving up upside beyond 8%) and accepts correlation/convexity model risk in exchange for leveraged CMS spread exposure"
+    investor_trade: "Higher expected coupon than vanilla fixed-rate bond, in exchange for exposure to curve flattening risk and coupon volatility"
+    decomposition:
+      coupon_formula: "5 × (CMS 30Y − CMS 10Y), floor 0%, cap 8%"
+      leverage: "5x"
+      current_spread: "80 bps (CMS 30Y − CMS 10Y)"
+      expected_coupon: "4.0% (5 × 0.80%)"
+      floor: "0%"
+      cap: "8%"
+      convexity_adjustment: "~5 bps per CMS rate (reduces effective spread)"
+      funding: "3.0%"
+      ftp: "0.4%"
+      desk_margin: "0.3%"
+      cms_spread_optionality: "1.3% (floor + cap + convexity)"
+    verification: "Expected coupon 4.0% = 5 × 0.80% spread. Economics: 4.0% = funding 3.0% + FTP 0.4% + margin 0.3% + investor pickup 0.3%"
+
+  booking:
+    system_type: murex_four_leg
+    note_leg: ["CMS coupon formula", "Leverage 5x", "Floor 0%", "Cap 8%", "CMS fixing dates", "Tenor pair 30Y/10Y"]
+    hedge_leg: ["CMS cap/floor structures", "CMS spread option", "Convexity adjustment model", "Correlation assumption"]
+    critical_fields: ["CMS fixing source consistency", "Convexity adjustment consistency between legs", "Correlation calibration"]
+    failure_modes:
+      - "CMS fixing source mismatch between note leg and hedge leg"
+      - "Convexity adjustment applied in hedge but not in note leg valuation (or vice versa)"
+      - "Correlation assumption not calibrated — default flat correlation creates systematic P&L leak"
+      - "Leverage factor wrong in either leg"
+
+  pricing:
+    dominant_greeks: ["Curve slope (CMS 30Y − CMS 10Y)", "Correlation (between CMS tenors)", "CMS convexity"]
+    key_sensitivities:
+      - "10 bps curve flattening → coupon drops by 50 bps (5x leverage)"
+      - "Convexity adjustment increases with rate level and volatility"
+      - "Correlation between CMS 30Y and CMS 10Y: higher correlation → lower spread volatility → lower option value"
+      - "Normal vol: 65 bps swaption vol affects both floor value and cap value"
+    model_risk: "High — convexity adjustment and correlation are model-dependent. Different models give materially different prices for the same CMS spread product."
+
+  reconciliation:
+    critical_fields:
+      - {field: "CMS fixing source", source: "Termsheet", check: "ISDA CMS rate definition matches in both Murex legs"}
+      - {field: "Leverage factor", source: "Termsheet", check: "5x in note leg coupon formula AND hedge notional"}
+      - {field: "Floor/cap", source: "Termsheet", check: "0% floor and 8% cap in both note and hedge legs"}
+      - {field: "Convexity adjustment", source: "Model calibration", check: "Same model and parameters in note valuation and hedge pricing"}
+    observation_type: "Semi-annual CMS fixing"
+    fixing_fallback: "ISDA CMS fallback provisions"
+
+  desk_shorthand: "Leveraged curve bet; CMS spread, floor zero, cap eight."
+  open_questions: []

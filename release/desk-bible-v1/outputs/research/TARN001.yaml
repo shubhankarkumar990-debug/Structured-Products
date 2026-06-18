@@ -1,0 +1,88 @@
+research:
+  product_id: TARN001
+  product_name: "Target Accrual Redemption Note"
+  product_family: STEG
+  generated_at: "2026-06-19T11:05Z"
+  memory_consulted:
+    - memory/terminology/STEG.yaml
+    - memory/booking-maps/STEG_system_mapping.yaml
+    - memory/style-patterns/STEG.yaml
+
+  classification:
+    family: STEG
+    sub_family: "CMS spread — target redemption"
+    archetype: "Leveraged CMS spread coupon with automatic redemption at cumulative coupon target"
+    risk_profile: "Curve slope + correlation + convexity + path-dependent auto-redemption"
+    complexity: "Very High"
+    path_dependent: true
+    model: "Multi-factor rate model with CMS convexity, correlation, and path-dependent target redemption logic"
+
+  structure:
+    components:
+      - instrument: "Fixed-rate bond (funding)"
+        desk_direction: "long"
+        purpose: "Provides par redemption at maturity or auto-redemption date"
+      - instrument: "CMS spread coupon strip (leveraged)"
+        desk_direction: "long"
+        purpose: "Pays leveraged coupon linked to CMS 30Y − CMS 10Y spread"
+      - instrument: "CMS floor (embedded, 0%)"
+        desk_direction: "long"
+        purpose: "Prevents negative coupon"
+      - instrument: "Target redemption feature (embedded)"
+        desk_direction: "short (from investor perspective)"
+        purpose: "Auto-redeems at par when cumulative coupons reach the target level. Last coupon is truncated to hit the target exactly."
+    barriers: []
+    observation: "Semi-annual CMS fixing dates"
+    tenor: "15 years (maximum — auto-redeems when target reached)"
+    coupon: "5 × (CMS 30Y − CMS 10Y), floor 0%, target 25%"
+    principal_protection: "100% at maturity or auto-redemption"
+
+  economics:
+    headline: "Leveraged CMS spread coupon that auto-redeems when cumulative coupons reach 25% — investor receives a guaranteed total return (target) but uncertain tenor"
+    how_funded: "Investor accepts path-dependent tenor risk. Longer maximum maturity (15Y) than other steepeners (10Y). Target feature reduces issuer's tail risk."
+    investor_trade: "Guaranteed minimum total coupon of 25% if curve ever steepens enough, but uncertain timing. If curve stays flat for 15 years, may never reach target."
+    decomposition:
+      coupon_formula: "5 × (CMS 30Y − CMS 10Y), floor 0%"
+      leverage: "5x"
+      target_level: "25%"
+      current_spread: "80 bps"
+      expected_coupon: "4.0% p.a. (5 × 0.80%)"
+      expected_target_hit: "~6.25 years (25% / 4.0% p.a.)"
+      no_cap: "No explicit cap — target replaces cap as the coupon limiter"
+      funding: "3.0%"
+      ftp: "0.4%"
+      desk_margin: "0.3%"
+      target_optionality: "1.3%"
+    verification: "Expected coupon 4.0% p.a. At constant 80 bps spread, target (25%) reached at ~year 6.25. Economics: 4.0% = funding 3.0% + FTP 0.4% + margin 0.3% + investor spread pickup 0.3%"
+
+  booking:
+    system_type: murex_four_leg
+    note_leg: ["CMS coupon formula", "Leverage 5x", "Floor 0%", "Target level 25%", "Target redemption logic", "CMS fixing dates", "Maximum maturity 15Y"]
+    hedge_leg: ["CMS spread options", "Path-dependent simulation", "Convexity adjustment", "Correlation", "Target barrier digital"]
+    critical_fields: ["Target level consistency", "Truncation logic (last coupon)", "CMS fixing source match", "Maximum maturity"]
+    failure_modes:
+      - "Target level mismatch between note and hedge legs"
+      - "Last coupon not truncated — investor receives more than target total"
+      - "Maximum maturity missing — note has no expiry if target never reached"
+      - "Path-dependent simulation inconsistency between legs"
+
+  pricing:
+    dominant_greeks: ["Curve slope", "Correlation", "CMS convexity", "Path-dependent expected life"]
+    key_sensitivities:
+      - "Steep curve → high coupon → early target hit → short tenor"
+      - "Flat curve → low/zero coupon → target never reached → 15-year tenor"
+      - "Expected life is highly sensitive to spread volatility"
+      - "Correlation affects both coupon and expected life distribution"
+    model_risk: "Very high — path-dependent expected life requires Monte Carlo simulation. Convexity, correlation, and spread dynamics all affect when (and whether) the target is reached."
+
+  reconciliation:
+    critical_fields:
+      - {field: "Target level", source: "Termsheet", check: "25% in both note and hedge legs"}
+      - {field: "Truncation logic", source: "Termsheet", check: "Last coupon truncated to hit target exactly"}
+      - {field: "Maximum maturity", source: "Termsheet", check: "15 years in both legs"}
+      - {field: "CMS fixing source", source: "Termsheet", check: "Same in both legs"}
+    observation_type: "Semi-annual CMS fixing"
+    fixing_fallback: "ISDA CMS fallback"
+
+  desk_shorthand: "Target coupon on curve slope; auto-redeem at cap."
+  open_questions: []

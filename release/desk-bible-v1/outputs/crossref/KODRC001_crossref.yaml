@@ -1,0 +1,32 @@
+crossref_review:
+  product_id: KODRC001
+  reviewed_at: "2026-06-18T16:12Z"
+  input_file: "outputs/drafts/KODRC001.md"
+
+  summary:
+    total_refs: 5
+    validated: 4
+    broken: 0
+    warning: 1
+
+  broken_refs: []
+
+  warnings:
+    - id: "CW-001"
+      type: forward_ref
+      location: "Definition — 'base Discounted Reverse Convertible'"
+      reference: "DRC001"
+      reason: "Implicit reference to DRC001 without formal cross-reference marker. Both products exist and are complete. Reader should be directed to DRC001 for the base structure."
+
+  validated_refs:
+    - reference: "Discounted Reverse Convertible (base DRC)"
+      target: "outputs/drafts/DRC001.md"
+    - reference: "NEMO booking system"
+      target: "ELN system mapping — memory/booking-maps/ELN_system_mapping.yaml"
+    - reference: "Sophis risk system"
+      target: "ELN system mapping — memory/booking-maps/ELN_system_mapping.yaml"
+    - reference: "Broadie-Glasserman correction"
+      target: "Industry standard methodology — no internal reference required"
+
+  gate: PASS
+  broken_ids: []

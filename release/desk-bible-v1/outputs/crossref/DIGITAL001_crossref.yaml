@@ -1,0 +1,27 @@
+crossref_review:
+  product_id: DIGITAL001
+  reviewed_at: "2026-06-18T19:32Z"
+  input_file: "outputs/drafts/DIGITAL001.md"
+  summary:
+    total_refs: 5
+    validated: 4
+    broken: 0
+    warning: 1
+  broken_refs: []
+  warnings:
+    - id: "CW-001"
+      type: forward_ref
+      location: "Definition — 'range accrual notes (CRAELN001)'"
+      reference: "CRAELN001"
+      reason: "Explicit reference to CRAELN001 for contrast. Product exists."
+  validated_refs:
+    - reference: "CRAELN001 — Callable Range Accrual ELN"
+      target: "outputs/drafts/CRAELN001.md"
+    - reference: "NEMO booking system"
+      target: "memory/booking-maps/ELN_system_mapping.yaml"
+    - reference: "Sophis risk system"
+      target: "memory/booking-maps/ELN_system_mapping.yaml"
+    - reference: "Digital option replication"
+      target: "Self-contained explanation in Construction section"
+  gate: PASS
+  broken_ids: []

@@ -1,0 +1,11 @@
+publish:
+  product_id: TARN001
+  product_name: "Target Accrual Redemption Note"
+  product_family: STEG
+  generated_at: "2026-06-19T11:28Z"
+  gate: READY
+  pre_publish_checks: {draft_exists: true, qa_gate: PASS, style_gate: PASS, crossref_gate: PASS, all_8_sections: true, blocking_issues: 0}
+  publish_metadata: {section: "7.2", family: STEG, family_position: "4 of 4 — completes STEG family", complexity: "Very High", desk_shorthand: "Target coupon on curve slope; auto-redeem at cap."}
+  quality_summary: {qa_blockers: 0, qa_majors: 1, style_must_fix: 0, crossref_broken: 0}
+  family_completion: {steg_total: 4, steg_complete: 4, steg_status: "COMPLETE"}
+  summary: "TARN001 READY. Closes STEG family (4/4). First path-dependent STEG product. Publishing gate READY."

@@ -1,0 +1,74 @@
+blueprint:
+  product_id: DIGITAL001
+  product_name: "Digital / Exotic Coupon Notes"
+  product_family: ELN
+  generated_at: "2026-06-18T19:22Z"
+  source: "outputs/research/DIGITAL001.yaml"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+  sections:
+    definition:
+      content_nodes:
+        - "All-or-nothing coupon conditional on digital strike"
+        - "Binary outcome — full coupon or zero per period"
+        - "Distinct from range accrual (proportional vs binary)"
+        - "Principal protection varies (100% or barrier-conditional)"
+      writing_instruction: "Contrast with CRAELN001 (proportional). Explain binary cliff."
+    construction:
+      primitives:
+        - instrument: "Fixed-rate bond (principal)"
+          desk_direction: "long"
+        - instrument: "Digital option strip"
+          desk_direction: "long"
+        - instrument: "DI put (optional)"
+          desk_direction: "short"
+      key_strikes: ["Digital strike 100%", "DI barrier 65% (optional)"]
+      path_dependency: "Discrete observation dates. Digital condition per period."
+      writing_instruction: "Two or three components. Explain call spread replication of digital."
+    booking_systems:
+      system_mapping: {book_of_record: NEMO, risk_pnl: Sophis, legal_document: Termsheet, murex_legs: []}
+      content_nodes: ["Digital strike precision critical", "All observation dates entered", "Boundary condition explicit"]
+      writing_instruction: "Emphasise that 1 bp error on digital strike can flip coupon."
+    pricing_intuition:
+      dominant_greeks: ["Delta (discontinuous)", "Gamma (extreme near strike)", "Vega (skew-dependent)"]
+      yield_drivers: ["Probability above strike", "Skew", "Pin risk"]
+      model_dependency: "Digital replication via call spread. Skew-adjusted."
+      sensitivities: ["Near strike: small spot move flips coupon 8%→0%"]
+      writing_instruction: "Explain pin risk, skew dominance, call spread replication."
+    worked_example:
+      notional: "USD 10M"
+      underlying: "Equity index, 20-vol"
+      tenor: "2 years"
+      barriers: {digital_strike: "100%", DI_barrier: "65%"}
+      decomposition: {digital_strip: "3.2%", funding: "2.0%", ftp: "0.6%", put_income: "2.0%", margin: "0.2%"}
+      ftp: "0.6%"
+      desk_margin: "0.2%"
+      headline_yield: "8.0% conditional digital coupon"
+      good_scenario: "Above strike all 8 dates. 16.0% total coupon."
+      bad_scenario: "60% final, barrier breached, 3/8 coupons. -34.0% net."
+      writing_instruction: "Three scenarios including partial coupon receipt. Emphasise binary nature."
+    reconciliation:
+      critical_fields:
+        - {field: "Digital strike", failure_mode: "1 bp error flips coupon"}
+        - {field: "Observation dates", failure_mode: "Missing date — coupon missed"}
+        - {field: "Boundary condition", failure_mode: "Above vs at-or-above disagreement"}
+        - {field: "Fixing source", failure_mode: "Different sources → different fixings"}
+      observation_type: "Discrete — coupon dates"
+      fixing_fallback: "Modified following"
+      writing_instruction: "Digital strike precision is the unique recon risk."
+    desk_view:
+      typical_buyer: "Directional conviction, yield-seeking."
+      actual_risk: "Binary coupon miss. Pin risk. Barrier principal loss (if present)."
+      perceived_risk: "High coupon product."
+      when_appropriate: "Strong conviction. Digital strike out-of-the-money. Low vol."
+      when_not_appropriate: "Income-dependent. High vol. Underlying near strike."
+      writing_instruction: "Warn about headline coupon vs expected return gap."
+    desk_shorthand: {text: "Binary coupon; digital strike, all or nothing.", source: "research"}
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

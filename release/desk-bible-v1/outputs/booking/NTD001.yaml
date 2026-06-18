@@ -1,0 +1,31 @@
+booking:
+  product_id: NTD001
+  product_name: "Nth-to-Default"
+  product_family: CLN
+  generated_at: "2026-06-19T13:15Z"
+  source: "outputs/blueprints/NTD001.yaml"
+  memory_used: [memory/booking-maps/CLN_system_mapping.yaml]
+  system_mapping: {book_of_record: NEMO, risk_and_pnl: Sophis, framework: nemo_sophis, legal_document: Termsheet}
+  legs:
+    nemo:
+      role: "Book of record — 5-name basket with Nth-to-default trigger"
+      fields:
+        - {name: "Reference entities (5)", value: "Per Termsheet", critical: true}
+        - {name: "N value", value: "2 (second-to-default)", critical: true}
+        - {name: "Default counter", value: "Tracks credit events across basket", critical: true}
+        - {name: "Credit event definitions", value: "Per entity, per ISDA", critical: true}
+        - {name: "Recovery determination", value: "Per Nth defaulting entity"}
+        - {name: "Maturity", value: "5 years"}
+    sophis:
+      role: "Risk and P&L — copula model with long-correlation NTD pricing"
+      fields:
+        - {name: "Copula model", value: "Gaussian or Student-t", critical: true}
+        - {name: "Correlation matrix", value: "5×5 pairwise, calibrated for long-correlation", critical: true}
+        - {name: "Individual CDS curves (5)", value: "Current", critical: true}
+        - {name: "Joint default probability (2+)", value: "Copula-based"}
+        - {name: "CS01 per name", value: "Computed"}
+  failure_modes:
+    - {mode: "N value wrong", severity: "HIGH", description: "N=1 instead of N=2 → FTD behavior, no first-loss protection"}
+    - {mode: "Default counter failure", severity: "HIGH", description: "Does not track events → triggers on wrong event number"}
+    - {mode: "Wrong basket entity", severity: "HIGH", description: "Wrong credit exposure"}
+    - {mode: "Correlation calibration wrong direction", severity: "MEDIUM", description: "Short-corr bias → mispriced long-corr NTD"}

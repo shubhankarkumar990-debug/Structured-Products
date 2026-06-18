@@ -1,0 +1,62 @@
+# Template: Booking Map Memory
+# Path: memory/booking-maps/{FAMILY}_system_mapping.yaml
+# Purpose: Define which operational system(s) book products in this family,
+#          what each system carries, and common reconciliation points.
+#          Created during family bootstrap. This is the most critical memory
+#          artifact — getting the system mapping wrong is the highest-severity error.
+#
+# Replace all {PLACEHOLDERS} with actual values.
+
+meta:
+  product_id: "{FAMILY}"
+  product_name: "{Family Long Name} (family)"
+  family: "{FAMILY}"
+  category: booking-maps
+  stored_at: "{ISO 8601 timestamp}"
+  source_stage: booking
+  version: 1
+
+content:
+  # Choose one: nemo_sophis | murex_four_leg | {custom}
+  system_type: "{system_type}"
+
+  book_of_record: "{SYSTEM_NAME}"
+  risk_pnl: "{SYSTEM_NAME}"
+  legal_document: "{e.g. Termsheet, Murex Confirm}"
+
+  # Explicit flag to prevent ambiguity
+  murex_used: true | false
+
+  note: "{One-sentence summary of the mapping and any important caveats}"
+
+  # List what the book-of-record system carries:
+  book_of_record_carries:
+    - "{field or lifecycle event}"
+    - "{field or lifecycle event}"
+    # Examples:
+    # - trade lifecycle
+    # - notional and currency
+    # - reference entity
+    # - coupon schedule
+    # - maturity date
+
+  # List what the risk/P&L system carries:
+  risk_pnl_carries:
+    - "{field or model input}"
+    - "{field or model input}"
+    # Examples:
+    # - pricing model
+    # - market data (curves, vols)
+    # - Greeks computation
+    # - P&L attribution
+
+  # If using a multi-leg framework (e.g., Murex four-leg):
+  # legs:
+  #   - name: "note leg"
+  #     purpose: "{description}"
+  #   - name: "issuer leg"
+  #     purpose: "{description}"
+  #   - name: "deposit leg"
+  #     purpose: "{description}"
+  #   - name: "hedge leg"
+  #     purpose: "{description}"

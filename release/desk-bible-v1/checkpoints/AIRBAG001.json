@@ -1,0 +1,65 @@
+{
+  "product_id": "AIRBAG001",
+  "product_name": "Airbag / Leveraged Reverse Convertible",
+  "family": "ELN",
+  "updated_at": "2026-06-18T16:55:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {
+      "status": "complete",
+      "at": "2026-06-18T16:40Z"
+    },
+    "research": {
+      "status": "complete",
+      "at": "2026-06-18T16:40Z",
+      "artifact": "outputs/research/AIRBAG001.yaml"
+    },
+    "architecture": {
+      "status": "complete",
+      "at": "2026-06-18T16:42Z",
+      "artifact": "outputs/blueprints/AIRBAG001.yaml"
+    },
+    "content": {
+      "status": "complete",
+      "at": "2026-06-18T16:45Z",
+      "artifact": "outputs/drafts/AIRBAG001.md"
+    },
+    "booking": {
+      "status": "complete",
+      "at": "2026-06-18T16:45Z",
+      "artifact": "outputs/booking/AIRBAG001.yaml"
+    },
+    "qa": {
+      "status": "complete",
+      "at": "2026-06-18T16:50Z",
+      "artifact": "outputs/reviews/AIRBAG001_qa.yaml"
+    },
+    "style": {
+      "status": "complete",
+      "at": "2026-06-18T16:50Z",
+      "artifact": "outputs/style/AIRBAG001_style.yaml"
+    },
+    "crossref": {
+      "status": "complete",
+      "at": "2026-06-18T16:52Z",
+      "artifact": "outputs/crossref/AIRBAG001_crossref.yaml"
+    },
+    "publish": {
+      "status": "complete",
+      "at": "2026-06-18T16:55Z",
+      "artifact": "outputs/publish/AIRBAG001_pubspec.yaml"
+    }
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. 1 MAJOR advisory (leverage benefit explanation). 1 MINOR (decimal precision). 3 style FPs skipped, 1 accepted convention. 1 crossref warning. Clean pipeline run.",
+  "section_hashes": {
+    "definition": "d5a3b1e7f9c20486",
+    "construction": "a8c0e2f4d6b71935",
+    "booking_systems": "3f1d5b9a7c8e2046",
+    "pricing_intuition": "e7b9d1f3a5c40268",
+    "worked_example": "b2d4f6a8c0e71935",
+    "reconciliation": "f4a6c8e0b2d71953",
+    "desk_view": "1c3e5a7f9b2d8046",
+    "desk_shorthand": "7a9c1e3f5d2b8064"
+  }
+}

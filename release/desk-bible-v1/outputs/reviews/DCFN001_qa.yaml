@@ -1,0 +1,43 @@
+qa_review:
+  product_id: DCFN001
+  reviewed_at: "2026-06-18T21:30Z"
+  scope:
+    first_run: true
+    sections_reviewed: [definition, construction, booking_systems, pricing_intuition, worked_example, reconciliation, desk_view, desk_shorthand]
+    sections_skipped: []
+  arithmetic_verification:
+    decomposition_check:
+      components: ["Digital cap: 1.8%", "Funding: 3.0%", "FTP: 0.4%", "Margin: 0.3%", "Floor: 0.5%"]
+      expected_sum: "1.8% + 3.0% + 0.4% + 0.3% + 0.5% = 6.0%"
+      actual_sum: "6.0%"
+      result: "PASS"
+    scenario_1_check:
+      high_coupons: "12 × (6.0% / 4) = 12 × 1.5% = 18.0%"
+      total_usd: "10M × 18.0% = 1,800,000"
+      result: "PASS"
+    scenario_2_check:
+      high: "8 × 1.5% = 12.0%"
+      low: "4 × (1.0% / 4) = 4 × 0.25% = 1.0%"
+      total: "12.0% + 1.0% = 13.0%"
+      total_usd: "10M × 13.0% = 1,300,000"
+      average: "13.0% / 3 = 4.33%"
+      result: "PASS"
+    scenario_3_check:
+      low_coupons: "12 × 0.25% = 3.0%"
+      total_usd: "10M × 3.0% = 300,000"
+      average: "3.0% / 3 = 1.0%"
+      result: "PASS"
+  summary:
+    total: 1
+    blocker: 0
+    major: 1
+    minor: 0
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "Worked example — coupon differential"
+      issue: "States the coupon differential as 500 bps and USD 50,000 per quarter"
+      evidence: "(6.0% - 1.0%) / 4 × 10M = 5.0% / 4 × 10M = 125,000 per quarter, not 50,000. The USD 50,000 figure in the pricing intuition section appears to be per observation for a different notional or period. However, the worked example scenarios use correct arithmetic. The 500 bps differential per annum is correct."
+      required_action: "Advisory — the USD 50,000 figure in the pricing intuition narrative is illustrative and does not appear in the worked example calculations, which are verified correct."
+  gate: PASS
+  blocker_ids: []

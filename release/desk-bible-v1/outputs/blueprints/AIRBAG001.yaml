@@ -1,0 +1,113 @@
+blueprint:
+  product_id: AIRBAG001
+  product_name: "Airbag / Leveraged Reverse Convertible"
+  product_family: ELN
+  generated_at: "2026-06-18T16:42Z"
+  source: "outputs/research/AIRBAG001.yaml"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+
+  sections:
+    definition:
+      content_nodes:
+        - "RC variant with conditional barrier protection and leveraged loss below barrier"
+        - "Fixed coupon paid regardless of underlying performance"
+        - "Above barrier at maturity: par + coupon"
+        - "Below barrier: leveraged principal loss — ratio of strike to barrier"
+        - "Leverage ratio = Strike / Barrier (e.g., 100%/70% = 1.4286x)"
+        - "No autocall, no conditional coupon, no knock-out"
+      writing_instruction: "Define the airbag structure clearly. Explain leverage mechanics. Note the misleading product name — airbag suggests cushioning, but the leverage amplifies losses."
+
+    construction:
+      primitives:
+        - instrument: "Zero-coupon bond at par"
+          desk_direction: "long"
+        - instrument: "Down-and-in put with leverage (strike 100%, KI barrier 70%, leverage 1.4286x)"
+          desk_direction: "short"
+      key_strikes:
+        - "Put strike: 100%"
+        - "Knock-in barrier: 70%"
+        - "Leverage ratio: 1.4286x"
+      path_dependency: "European barrier at maturity only. Closed-form pricing possible."
+      writing_instruction: "Explain the leveraged put construction. Show how the leverage ratio is derived from strike/barrier. Compare put premium to vanilla RC (cheaper due to barrier, but more expensive due to leverage)."
+
+    booking_systems:
+      system_mapping:
+        book_of_record: NEMO
+        risk_pnl: Sophis
+        legal_document: Termsheet
+        murex_legs: []
+      content_nodes:
+        - "NEMO must carry barrier level, leverage ratio, and the specific settlement formula"
+        - "Sophis must price the leveraged down-and-in put"
+        - "Critical: leverage formula consistency between NEMO settlement calculation and Sophis pricing model"
+      writing_instruction: "Lead with the leverage formula as the key booking field. Explain the settlement calculation explicitly."
+
+    pricing_intuition:
+      dominant_greeks:
+        - "Delta (short, discontinuous at barrier)"
+        - "Vega (short)"
+        - "Gamma (negative, spikes at barrier)"
+      yield_drivers:
+        - "Implied volatility"
+        - "Barrier level"
+        - "Leverage ratio"
+        - "Issuer funding spread"
+      model_dependency: "Black-Scholes with European barrier. Closed-form."
+      sensitivities:
+        - "Lowering barrier from 70% to 60%: put premium decreases ~80 bps, coupon decreases"
+        - "1-vol-point shift: ~20-30 bps on leveraged put"
+      writing_instruction: "Explain why the airbag coupon sits between the base RC and a standard barrier RC. Cover the leverage amplification mechanics on pricing."
+
+    worked_example:
+      notional: "USD 10M"
+      underlying: "Single stock, 25% implied volatility"
+      tenor: "1 year"
+      barriers:
+        put_strike: "100%"
+        knock_in: "70%"
+        leverage: "1.4286x"
+      decomposition:
+        leveraged_di_put: "4.8% (USD 480K)"
+        issuer_funding: "2.0% (USD 200K)"
+        ftp: "0.9% (USD 90K)"
+        desk_margin: "0.3% (USD 30K)"
+      ftp: "0.9%"
+      desk_margin: "0.3%"
+      headline_yield: "8.0% per annum fixed coupon"
+      good_scenario: "Underlying at 80% at maturity. Above 70% barrier. Put not activated. Investor receives par + coupon."
+      bad_scenario: "Underlying at 50%. Below 70% barrier. Leveraged loss: 1.4286 × 20% = 28.6%. Investor receives 71.4% of par + coupon."
+      writing_instruction: "Show three scenarios: above barrier (full protection), just below barrier (leverage kicks in), deep below barrier (amplified loss). Arithmetic: 4.8% + 2.0% + 0.9% + 0.3% = 8.0%."
+
+    reconciliation:
+      critical_fields:
+        - field: "Leverage ratio / settlement formula"
+          failure_mode: "NEMO applies 1:1 loss instead of leveraged formula — settlement amount incorrect"
+        - field: "Barrier level"
+          failure_mode: "NEMO and Sophis disagree on barrier; different knock-in determination"
+        - field: "Barrier observation convention"
+          failure_mode: "NEMO observes continuously; Termsheet specifies maturity-only — spurious knock-in"
+      observation_type: "European barrier at maturity"
+      fixing_fallback: "Modified following"
+      writing_instruction: "Lead with leverage formula consistency as the unique reconciliation risk. Then cover standard barrier risks."
+
+    desk_view:
+      typical_buyer: "Yield-seeking with moderate barrier comfort. Believes 70% buffer is adequate."
+      actual_risk: "Leveraged loss below barrier. Can lose 100% of principal before underlying reaches zero."
+      perceived_risk: "Investor focuses on 70% barrier cushion, underestimates leverage below."
+      when_appropriate: "Moderately bullish, comfortable with barrier concept, seeks higher coupon than standard barrier RC."
+      when_not_appropriate: "Investor confuses the 'airbag' name with protection, does not understand leverage amplification, or cannot absorb >100% directional loss."
+      writing_instruction: "Address the product name directly — airbag is misleading. Explain the payoff diagram asymmetry."
+
+    desk_shorthand:
+      text: "Barrier RC; leveraged loss below cushion."
+      source: "research"
+
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

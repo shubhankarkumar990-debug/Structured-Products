@@ -1,0 +1,24 @@
+crossref_review:
+  product_id: SWAP001
+  reviewed_at: "2026-06-18T13:31Z"
+  input_file: "outputs/crossref/SWAP001_refs.yaml"
+
+  summary:
+    total_refs: 1
+    validated: 0
+    broken: 0
+    warning: 1
+
+  broken_refs: []
+
+  warnings:
+    - id: "CW-001"
+      type: forward_ref
+      location: "definition, desk_view"
+      reference: "callable notes, range accruals, steepeners"
+      reason: "Forward references to product types not yet generated — acceptable as category references, not specific product cross-references"
+
+  validated_refs: []
+
+  gate: PASS
+  broken_ids: []

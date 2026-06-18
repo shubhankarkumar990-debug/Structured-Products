@@ -1,0 +1,24 @@
+style_review:
+  product_id: PPN001
+  reviewed_at: "2026-06-18T18:30Z"
+  artifact_reviewed: "outputs/drafts/PPN001.md"
+  memory_consulted: "memory/style-patterns/ELN.yaml"
+  summary:
+    total: 3
+    must_fix: 0
+    should_fix: 0
+    skipped_known_fp: 3
+    skipped_accepted_convention: 1
+  violations: []
+  known_false_positives_skipped:
+    - pattern: "H4 heading names"
+      reason: "Canonical names correct"
+    - pattern: "Sophis casing"
+      reason: "Title case correct"
+    - pattern: "Termsheet casing"
+      reason: "One word, capitalised"
+  accepted_conventions_applied:
+    - pattern: "per annum"
+      reason: "Standard financial usage, accepted in ELN style patterns"
+  gate: PASS
+  must_fix_ids: []

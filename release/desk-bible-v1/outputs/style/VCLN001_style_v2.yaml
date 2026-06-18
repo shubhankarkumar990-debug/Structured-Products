@@ -1,0 +1,37 @@
+style_review:
+  product_id: VCLN001
+  reviewed_at: "2026-06-18T14:12Z"
+  version: "v2 — post accepted conventions expansion"
+  artifact_reviewed: "outputs/drafts/VCLN001.md"
+  memory_consulted: "memory/style-patterns/CLN.yaml"
+
+  summary:
+    total: 6
+    must_fix: 0
+    should_fix: 1
+    skipped_known_fp: 3
+    skipped_accepted_convention: 2
+
+  violations:
+    - id: "S-001"
+      severity: SHOULD_FIX
+      rule: "5_tone_forbidden_phrases"
+      location: "desk_view"
+      violation: "Direct quote format is atypical — accepted per CLN conventions but noted"
+
+  known_false_positives_skipped:
+    - pattern: "H4 heading names"
+      reason: "Canonical names correct"
+    - pattern: "Sophis casing"
+      reason: "Title case correct"
+    - pattern: "Termsheet spelling"
+      reason: "One word, capitalised, correct"
+
+  accepted_conventions_skipped:
+    - convention: "Approximate IRR wording"
+      reason: "'Approximately negative 17%' — non-round IRR, accepted per CLN conventions"
+    - convention: "Direct quote in desk view"
+      reason: "Pedagogical emphasis on wrong-way risk — accepted per CLN conventions"
+
+  gate: PASS
+  must_fix_ids: []

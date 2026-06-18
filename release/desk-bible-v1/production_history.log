@@ -324,24 +324,3 @@ Cumulative:
 ================================================================================
 PROJECT COMPLETE — 28 of 28 products — 2026-06-19
 ================================================================================
-
---- Release Packaging ----------------------------------------------------------
-Date:           2026-06-19
-Tag created:    desk-bible-v1-release
-
-Deliverables:
-  Release package:          release/desk-bible-v1/ (assembled document, catalog,
-                            reports, memory, checkpoints, outputs, release notes)
-  Framework:                framework/ (README, bootstrap guide, 8 templates)
-  Retrospective:            reports/Project_Retrospective.md
-  Closeout report:          reports/Project_Closeout_Report.md
-  Maintenance guide:        reports/Maintenance_and_Governance_Guide.md
-
-Validation:
-  Release package:          PASS
-  Framework:                PASS
-  Retrospective:            PASS
-  Closeout report:          PASS
-
-Project status:             ARCHIVED / RELEASED / COMPLETE
---------------------------------------------------------------------------------

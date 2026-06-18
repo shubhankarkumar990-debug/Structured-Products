@@ -1,0 +1,10 @@
+publish:
+  product_id: TRANCHE001
+  product_name: "Synthetic CDO Tranche"
+  product_family: CLN
+  generated_at: "2026-06-19T13:50Z"
+  gate: READY
+  pre_publish_checks: {draft_exists: true, qa_gate: PASS, style_gate: PASS, crossref_gate: PASS, all_8_sections: true, blocking_issues: 0}
+  publish_metadata: {section: "6.3", family: CLN, family_position: "5 of 5", complexity: "Very High", system: "NEMO + Sophis", desk_shorthand: "Mezz tranche on CDX; long base correlation, leveraged credit."}
+  quality_summary: {qa_blockers: 0, qa_majors: 1, style_must_fix: 0, crossref_broken: 0}
+  summary: "TRANCHE001 READY. Completes CLN family (5/5). Most complex CLN product. Publishing gate READY."

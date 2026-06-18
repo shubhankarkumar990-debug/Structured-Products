@@ -1,0 +1,75 @@
+research:
+  product_id: ICN001
+  product_name: "Issuer Callable Note"
+  product_family: ELN
+  generated_at: "2026-06-18T19:00Z"
+  memory_consulted:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+    - memory/style-patterns/ELN.yaml
+
+  classification:
+    family: ELN
+    sub_family: "Callable income"
+    archetype: "Fixed coupon bond + short Bermudan call to issuer"
+    risk_profile: "Income with early termination risk"
+    complexity: "Medium"
+    path_dependent: false
+    model: "Bermudan swaption / callable bond analytics"
+
+  structure:
+    components:
+      - instrument: "Fixed-coupon bond"
+        desk_direction: "long"
+        purpose: "Pays above-market coupon to investor"
+      - instrument: "Bermudan call option (issuer's right to call)"
+        desk_direction: "short (investor sells call to issuer)"
+        purpose: "Call premium funds the enhanced coupon"
+    barriers: []
+    observation: "Discrete — call dates (typically quarterly or semi-annual)"
+    tenor: "3-5 years (callable after year 1)"
+    coupon: "Fixed, above market"
+    principal_protection: "100% at maturity (if not called). 100% at par on call."
+
+  economics:
+    headline: "Enhanced fixed coupon funded by issuer call right"
+    how_funded: "Investor sells the issuer a Bermudan call on the note. Call premium = coupon enhancement."
+    investor_trade: "Higher coupon in exchange for reinvestment risk (early call in falling rate environment)"
+    decomposition:
+      coupon: "5.5%"
+      benchmark_rate: "3.0%"
+      coupon_enhancement: "2.5%"
+      call_option_value: "1.8%"
+      funding_benefit: "0.4%"
+      ftp: "0.2%"
+      desk_margin: "0.1%"
+    verification: "Enhancement 2.5% = call 1.8% + funding 0.4% + FTP 0.2% + margin 0.1%"
+
+  booking:
+    system_type: nemo_sophis
+    nemo_carries: ["Coupon rate", "Call schedule", "Call price (par)", "First call date", "Maturity"]
+    sophis_carries: ["Bermudan call model", "Interest rate curve", "Vega (rate vol)", "Call exercise logic"]
+    critical_fields: ["Call schedule", "First call date", "Call notification period"]
+    failure_modes:
+      - "Call schedule dates misaligned between NEMO and Sophis"
+      - "First call date wrong — issuer calls when system expects non-call period"
+      - "Notification period not enforced — operational failure on call exercise"
+
+  pricing:
+    dominant_greeks: ["Rho (primary — interest rate sensitivity)", "Vega (rate vol)", "Duration (modified, to first call)"]
+    key_sensitivities:
+      - "50 bps rate drop → call probability increases significantly"
+      - "Rate vol up → call option more valuable → higher coupon achievable"
+      - "Duration extends if rates rise (call probability drops)"
+    model_risk: "Medium — Bermudan exercise boundary. Hull-White or similar short-rate model."
+
+  reconciliation:
+    critical_fields:
+      - {field: "Call schedule", source: "Termsheet", check: "All call dates in NEMO and Sophis"}
+      - {field: "First call date", source: "Termsheet", check: "Non-call period enforced"}
+      - {field: "Call notification period", source: "Termsheet", check: "Operational process exists"}
+    observation_type: "Discrete — call dates"
+    fixing_fallback: "Modified following for coupon payments"
+
+  desk_shorthand: "Enhanced coupon; callable by issuer, reinvestment risk."
+  open_questions: []

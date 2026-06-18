@@ -1,0 +1,34 @@
+style_review:
+  product_id: SWAP001
+  reviewed_at: "2026-06-18T13:30Z"
+  artifact_reviewed: "outputs/drafts/SWAP001.md"
+  memory_consulted: "memory/style-patterns/Swap.yaml"
+
+  summary:
+    total: 4
+    must_fix: 1
+    should_fix: 1
+    skipped_known_fp: 2
+
+  violations:
+    - id: "S-001"
+      severity: MUST_FIX
+      rule: "4_system_names"
+      location: "booking_systems"
+      violation: "'ISDA Master Agreement' referenced — should verify this is the correct legal document name for swaps (not 'Termsheet')"
+      resolved: "Accepted — for bilateral swaps the legal document IS the ISDA Master Agreement + Confirmation, not a Termsheet. The Termsheet field in the schema is for note-format products. Swap correctly uses ISDA documentation."
+
+    - id: "S-002"
+      severity: SHOULD_FIX
+      rule: "2_currency_and_numbers"
+      location: "pricing_intuition"
+      violation: "'0.5--2.0 bps' is a range — ranges are normally forbidden in worked examples but this appears in pricing intuition, where indicative ranges are permitted"
+
+  known_false_positives_skipped:
+    - pattern: "H4 heading names"
+      reason: "Canonical names correct per memory/style-patterns/Swap.yaml"
+    - pattern: "Murex mentioned for Swap"
+      reason: "Murex IS correct for Swap products"
+
+  gate: PASS
+  must_fix_ids: []

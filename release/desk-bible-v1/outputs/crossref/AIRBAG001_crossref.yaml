@@ -1,0 +1,32 @@
+crossref_review:
+  product_id: AIRBAG001
+  reviewed_at: "2026-06-18T16:52Z"
+  input_file: "outputs/drafts/AIRBAG001.md"
+
+  summary:
+    total_refs: 5
+    validated: 4
+    broken: 0
+    warning: 1
+
+  broken_refs: []
+
+  warnings:
+    - id: "CW-001"
+      type: forward_ref
+      location: "Construction — 'base Reverse Convertible' and 'barrier RCs'"
+      reference: "RC001"
+      reason: "Implicit references to RC001 and barrier RC concept. RC001 exists. Formal cross-reference would aid navigation."
+
+  validated_refs:
+    - reference: "Reverse Convertible (base RC)"
+      target: "outputs/drafts/RC001.md"
+    - reference: "Standard barrier RC concept"
+      target: "Conceptual — no separate product entry for non-leveraged barrier RC"
+    - reference: "NEMO booking system"
+      target: "ELN system mapping — memory/booking-maps/ELN_system_mapping.yaml"
+    - reference: "Sophis risk system"
+      target: "ELN system mapping — memory/booking-maps/ELN_system_mapping.yaml"
+
+  gate: PASS
+  broken_ids: []
