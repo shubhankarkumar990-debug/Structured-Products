@@ -1,0 +1,12 @@
+stage: 2
+name: architecture
+agent: sp-product-architect
+input:
+  - "outputs/research/{product_id}.yaml"
+  - "memory/components/{product_id}.yaml"
+  - "memory/booking-maps/{family}_system_mapping.yaml"
+  - "memory/examples/{product_id}.yaml"
+output: "outputs/blueprints/{product_id}.yaml"
+gate:
+  condition: "All 8 sections present, system mapping correct"
+  check: "definition, construction, booking_systems, pricing_intuition, worked_example, reconciliation, desk_view, desk_shorthand — all present with content nodes"

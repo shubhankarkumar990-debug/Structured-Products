@@ -1,0 +1,146 @@
+"In trading, what does it mean to be 'long' an asset?",Being 'long' an asset means you benefit if its value goes up.
+"If you are 'short' a stock, what market movement do you want to see?",You want the stock price to go down.
+"A _____ gives the right, but not the obligation, to buy an asset at a fixed price.",call option
+What financial instrument gives the right to sell an asset at a fixed price?,A put option.
+"According to the desk view, most structured products are a combination of a bond plus what?",Short puts and short calls.
+"In trading jargon, what is a 'spread' in its most basic sense?","A 'spread' is simply a difference between two things, such as two interest rates or prices."
+What does it mean when a trader says the 'yield curve shifted up'?,It means all interest rates across different maturities moved up together in a parallel movement.
+What is a 'knock-in' feature in a structured product?,It is a feature that activates only if a specific price level is breached.
+A feature that terminates a structured product if a certain price level is hit is known as a _____.,knock-out
+What is the primary function of a 'quanto' feature in a structured product?,It removes the foreign exchange (FX) risk for the investor by fixing the payoff in their home currency.
+"From a trader's perspective, what does the term 'quanto' imply about the product's cost?",It implies there is an embedded foreign exchange (FX) hedge that costs money and is priced into the product.
+"In trading, what does the term 'basis' represent?",'Basis' represents a gap or persistent mispricing between a theoretical value and a real market price for related instruments.
+What is the practical meaning of 'hedging' on a trading desk?,"Hedging is replacing one risk with another, more manageable or better-understood risk; it is not about eliminating risk completely."
+What is the difference between 'Price' and 'Value' from a desk's perspective?,"'Price' is what the market trades at right now, whereas 'Value' is what you believe the instrument is truly worth."
+Define 'Mark-to-Market' (MTM).,Mark-to-Market (MTM) is the unrealized profit or loss on a position if you were to close the trade today at the current market price.
+What is the key difference between 'realized P&L' and 'unrealized P&L'?,"Realized P&L is from closed trades where money has actually been made or lost, while unrealized P&L is the paper gain or loss on open trades."
+Margin calls are primarily concerned with which type of P&L?,Margin calls are concerned with unrealized P&L.
+"In finance, what does 'volatility' measure?","Volatility measures how violently prices move, not the direction in which they move."
+What is 'realized volatility'?,Realized volatility is the historical volatility measured from past price movements of an asset.
+"The market's expectation of future volatility, which is embedded in option prices, is known as _____.",implied volatility
+"From a desk's perspective, selling options is equivalent to selling what?",Selling options is equivalent to selling implied volatility.
+What does the Greek letter 'Delta' represent in options trading?,Delta indicates how much an option's price is expected to move for a small change in the underlying asset's price.
+"An equity swap, which provides pure directional exposure, is considered a _____ product.",pure delta
+What does 'Gamma' tell a trader about their position?,Gamma indicates how fast the delta of a position changes as the underlying asset's price moves.
+Yield-generating structured products are typically described as being 'short _____' due to their fragile and explosive risk profile in a crash.,gamma
+What is 'Theta' in the context of options?,Theta measures the rate of decline in the value of an option due to the passage of time.
+"If you are short options, you have _____ theta, meaning you collect 'rent' as time passes.",positive
+What does 'Vega' measure for an options position?,Vega measures the sensitivity of an option's price to changes in the implied volatility of the underlying asset.
+Products like autocallables are described as being massively 'short _____' because they benefit from calm markets and are hurt by panic.,vega
+"In finance, what does 'convexity' mean in simple terms?",Convexity means that gains accelerate faster than losses for a given market move.
+A financial product with a _____ payoff has its profit or loss change proportionally with the underlying asset's movement.,linear
+What is a 'forward' contract?,"A forward is a private agreement today to trade an asset at a later date for a fixed price, with no optionality."
+What is 'funding cost' in the context of holding a trading position?,"Funding cost is the expense incurred to finance and maintain a position, such as the financing leg of an equity swap."
+Term: Carry (Trading),"Definition: The income earned from holding a position, assuming no market prices change."
+What does 'liquidity' refer to in financial markets?,Liquidity refers to how easily an asset can be bought or sold without significantly affecting its market price.
+The gap between the 'bid' price (price to sell) and the 'offer' price (price to buy) is known as the _____.,bid–offer spread
+What is a 'margin call'?,A margin call is a demand from a broker for an investor to deposit additional money or securities to bring the margin account up to the minimum maintenance margin.
+What is 'leverage' in finance?,Leverage is the use of a small amount of capital to control a large financial exposure.
+"In the context of structured products, 'correlation going to 1' during a crisis is a major risk for which type of product?",Worst-of products.
+What is the 'recovery rate' in credit terminology?,The recovery rate is the percentage of a defaulted asset's value that is recovered by creditors after a default event.
+The extra yield an investor demands for taking on the risk of a borrower defaulting is called the _____.,credit spread
+What is 'tail risk'?,"Tail risk is the risk of a rare, extreme event occurring that leads to massive losses, far beyond what is normally expected."
+"When a financial model used for pricing or hedging fails to reflect reality, this is known as _____.",model risk
+"What is the final desk advice for analyzing a product, replacing 'What’s the yield?'",Always ask: 'What risk am I being paid to hold?'
+What is the core construction of a Reverse Convertible note?,It is constructed from a bond and a short put option sold by the investor.
+"In a Reverse Convertible, what is the source of the high coupon paid to the investor?",The coupon is funded by the premium received from the investor selling a put option (crash protection).
+What is the one-line mental model for a Reverse Convertible?,"A bond plus a short put, where the client is paid to insure against a market crash."
+"In the desk translation table, 'High coupon' in a brochure translates to what reality?",Short option.
+What is the key difference in construction between a standard Reverse Convertible and a Discounted Reverse Convertible (DRC)?,"A DRC uses a short put with a lower strike price, creating a 'discount' entry level for the downside risk."
+"In a Discounted Reverse Convertible, the 'discount' on the entry level comes at the cost of what?",The discount is paid for with a lower coupon compared to a plain Reverse Convertible.
+A Discounted Reverse Convertible is a product where the client gives up some _____ in exchange for a lower downside trigger.,income (coupon)
+What extra feature does a Knock-Out Discounted Reverse Convertible (KO DRC) have?,"It has a knock-out (autocall) feature, meaning the product ends early if the underlying performs well enough."
+"In a KO Discounted RC, the investor is selling a short put at a discounted strike and also a _____ with an early termination feature.",short call
+"In a Callable Reverse Convertible, who has the right to end the product early?",The issuer (the bank) has the right to end the product early.
+A Callable Reverse Convertible is equivalent to a standard RC plus what component sold by the client?,"An issuer call option, giving the bank control over early termination."
+How does a Leveraged (or Airbag) Reverse Convertible modify the investor's losses?,It absorbs a small initial portion of losses but then accelerates or multiplies them sharply once a certain barrier is breached.
+The 'airbag' feature in a Leveraged RC trades small-loss comfort for what?,Large-loss amplification.
+What are the three core components of a Phoenix Auto-callable Note?,"It combines yield generation (coupons), early redemption (autocall), and conditional downside protection (knock-in barrier)."
+"In a Phoenix note, the coupon is paid only if the underlying is above the _____; if not, the coupon is skipped.",coupon barrier
+What does the 'coupon memory' feature in a Phoenix note do?,It ensures that missed coupons are not lost forever but are paid later if the underlying's price recovers above the coupon barrier.
+"From a desk's perspective, what are the multiple risks a client sells in a Phoenix note?","The client sells downside risk, upside potential (via the autocall), and volatility."
+What is the key difference between a Phoenix Auto-callable and a Fixed Coupon Auto-callable Note?,"In a Fixed Coupon Auto-callable, the coupons are unconditional and do not depend on the underlying's level."
+A Callable Range Accrual Note pays an investor income only on days when what condition is met?,Income is paid only on days when the underlying asset stays within a predefined price range.
+A Callable Range Accrual Note is considered a pure _____ structure.,short-volatility
+What is the desk's one-line mental model for a Callable Range Accrual Note?,It is a product that pays you for calm markets and punishes you for trends.
+How do Enhanced Return Notes reshape an equity payoff?,They offer upside participation up to a cap and provide partial or conditional downside protection.
+What are the two core building blocks of a Principal Protected Note (PPN)?,A zero-coupon bond and a long call option on the underlying.
+"In a PPN, how is the principal protection at maturity created?",The majority of the investment is used to buy a zero-coupon bond that grows to 100% of the principal by maturity.
+The cost of principal protection in a PPN is paid for by giving up yield and accepting _____ upside participation.,partial or capped
+What is a warrant in simple terms?,"A warrant is a long-dated option, issued as a security, that gives the right to buy (call) or sell (put) an asset."
+"A digital option, often found in exotic notes, has what kind of payoff structure?",It has an 'all or nothing' (binary) payoff structure.
+"According to the final ELN map, 'short options' in a structured product are the source of _____, while 'long bonds' provide protection.",yield
+What is a 'swap' in finance at its most fundamental level?,"A swap is a private agreement between two parties to exchange cash flows over time, based on a notional amount."
+"In a swap, the _____ amount is a reference number used for calculations and is not actually exchanged.",notional
+"In a vanilla Interest Rate Swap (IRS), what are the two types of cash flows being exchanged?","One party pays a fixed interest rate, and the other party pays a floating interest rate."
+"In an IRS, if you 'pay fixed', you benefit if interest rates do what?",You benefit if interest rates go down.
+What is a Total Return Swap (TRS)?,"A TRS is a contract where one party receives the total return (price changes plus income) of an asset, while the other receives a financing payment."
+"A TRS provides _____ ownership, allowing a party to get exposure to an asset without holding it on their balance sheet.",synthetic
+What are the two legs of an Equity Swap?,"One leg is the return of an equity or index (the equity leg), and the other is a financing payment (the financing leg)."
+How do trading desks primarily use Equity Swaps?,Desks use them to hedge the equity exposure created by selling Equity Linked Notes (ELNs) to clients.
+What is the primary purpose of a Cross-Currency Swap (CCS)?,"A CCS allows parties to exchange principal and interest payments in different currencies, neutralizing long-term FX risk."
+"The persistent mispricing between currencies in the forward market, which is a key factor in pricing a CCS, is known as the _____.",cross-currency basis
+What is a Commodity Swap?,"A commodity swap is an agreement where one party pays a fixed price for a commodity and the other pays a floating market price, with no physical delivery."
+What is a Credit Default Swap (CDS)?,"A CDS is an insurance-like contract where a protection buyer pays a premium to a seller, who in turn agrees to pay out if a specific credit event (like default) occurs."
+"In a CDS transaction, the party that receives premiums and is long credit risk is known as the _____.",protection seller
+A _____ is an interest rate option that pays the holder if rates go above a certain level.,cap
+What is a swaption?,"A swaption is an option that gives the holder the right, but not the obligation, to enter into an interest rate swap at a future date."
+An IR Callable Fixed Rate Swap is equivalent to a vanilla IRS plus a short _____ sold by the client to the bank.,receiver swaption
+"In a callable swap, the higher fixed rate offered to the client is compensation for what?",It is compensation for selling the bank the option to terminate the swap early.
+"The bank will call a fixed-rate swap when interest rates have _____, making the swap expensive for them to maintain.",fallen
+What does 'accreting notional' mean in an IR Accreting Callable Swap?,It means the reference notional amount of the swap increases over time according to a predefined schedule.
+An IR Non-Callable Range Accrual trade is equivalent to a vanilla swap plus short daily _____ on the reference rate.,digital options
+"The key risk in a range accrual product is not the direction of rates, but rather their _____, as income collapses in volatile markets.",movement (or volatility)
+"A Digital Cap pays a fixed amount if a rate is _____ a level, ignoring how far it moves beyond that level.",above
+"From a desk's perspective, both ELNs and Structured Rate Trades are businesses centered on selling _____.",optionality
+"In the Mock Term Sheet, what is the 'Desk meaning' of 'Issuer: Global Bank AG'?",It means the investor is taking unsecured credit risk on the issuer for the duration of the note.
+The 'Autocall Level' on a term sheet is essentially _____ disguised as a client-friendly feature.,issuer callability
+"A 'Downside Barrier' at 60% means the investor is short a deep out-of-the-money _____, creating binary pain if breached.",put option
+"A key behavioral error of clients is that they think in levels and scenarios, while markets price in _____.",distributions and tails
+"The 'One Meta Rule' for cutting through jargon is to ask: 'What risk is being moved, and _____?'",who is holding it now
+An equity swap is considered 'pure delta' because it offers direct _____ exposure.,directional
+"The final desk decomposition of the Phoenix Auto-Callable note shows it is a long zero-coupon bond plus a short put, short digitals, and a _____.",short issuer call option
+"When a trader hears 'Discounted Reverse Convertible', they think: 'Client is short a _____ with a lower strike.'",put
+The desk's one-line mental model for a PPN is that it's a way to buy equity upside while outsourcing capital protection to a _____.,bond
+The protection in a Principal Protected Note (PPN) applies only at what point in time?,Only at maturity.
+"Unlike ELNs, a warrant is a pure _____ bet with no capital protection or coupon.",directional (or convexity)
+"In a swap, what does it mean if the floating rate leg is based on 'MIBOR'?",It means the rate resets periodically based on the Mumbai Interbank Offered Rate.
+"The desk's one-line mental model for TRS is: 'Owning an asset without owning it, and paying _____ for the privilege.'",rent
+A 'payer swaption' gives the holder the option to _____ fixed in a future swap.,pay
+"The desk rule for accreting, callable products is: if it pays well early, you are selling _____ cheaply.",future risk
+"According to the desk's view, a bank's hedging of structured products is a _____ process, not a static one.",continuous (or dynamic)
+The 'Desk Rule' for barriers is that they delay pain but do not _____ risk.,remove
+"What type of corporate events require adjustments to options, swaps, and structured notes?","Corporate actions like dividends, stock splits, mergers, and spin-offs."
+Why are equity swaps popular with banks for managing corporate actions?,Banks can avoid the mess of directly handling the mechanical adjustments for corporate actions.
+"A short position in a put option is a strategy for _____ generation, but it carries crash risk.",yield
+What is the desk reality behind a brochure that advertises a 'downside buffer'?,The product contains a knock-in put.
+"If a structured product brochure mentions 'capital protected', what is the likely underlying structure?",A bond plus a call option.
+"When a brochure advertises 'enhanced return', what is the typical trade-off for the investor?",The upside is capped.
+"An 'autocall' feature is, in reality, a short call with a _____ feature.",knock-out (KO)
+The universal desk rule states: 'There is no free yield. Only _____ that has not yet shown up.',risk
+What is the desk's one-line mental model for an IR Accreting Callable Swap?,"A swap that gets riskier every year, but only for the client."
+What is the key risk that 'digital' or binary payoff products are most sensitive to?,"Volatility, especially near the strike or barrier level."
+"Compared to Equity Linked Notes, structured rate trades are considered _____ products.",macro
+The desk mental shortcut for any structured product is to identify who is short volatility and who controls _____.,early termination
+A 'Worst-of' product has a payoff that depends on the _____ performer in a basket of assets.,worst
+What is the desk rule for warrants?,"Warrants reward timing, not patience."
+The 'yield curve' is a graph showing interest rates for different _____.,maturities
+What does a 'receiver swaption' grant the holder?,It grants the option to receive a fixed rate in a future swap.
+"The primary risk of selling a CDS is _____ risk, where a sudden default leads to catastrophic loss.",jump-to-default
+Why is an IR Callable Fixed Rate Swap considered to have 'negative convexity' for the client?,"Because if rates fall (good for the client), the swap is called away, but if rates rise (bad for the client), the swap continues."
+"In a Phoenix note, the 'Downside Barrier' being 'European' means what?","It means the barrier is only checked at maturity, not during the life of the note."
+"The core trading desk rule is: If you can’t answer 'What happens if this goes up?', you don’t know whether you’re _____ or _____.","long, short"
+"What is the one question that cuts through all financial jargon, according to the 'One Meta Rule'?","'What risk is being moved, and who is holding it now?'"
+"From a trading desk's perspective, what is the 'paycheck' in any trade?",The bid-offer spread.
+"According to the source, what kills more trades than bad ideas?",Margin calls.
+What is the key desk rule about callable products?,Assume it will be called at the worst possible time for the investor.
+The one-line mental model for an 'Airbag' RC is that it trades small-loss comfort for _____ amplification.,large-loss
+Why do banks like Phoenix Notes from a risk perspective?,"They allow the bank to sell downside risk, upside potential, volatility, and correlation all in one product."
+What is the desk's one-line mental model for a Fixed Coupon Auto-callable?,A simplified Phoenix note that trades conditional income for psychological comfort.
+"Principal protection is always paid for by giving up yield, giving up upside, or _____.",locking in time
+"In a currency swap, what is unique about the principal compared to other swaps?",The principal amounts in different currencies may actually be exchanged at the start and end of the swap.
+What is the desk's one-line mental model for a Commodity Swap?,A way to lock in prices for things that are expensive to store and move.
+An interest rate _____ pays you if rates go below a certain level.,floor
+The desk rule for digital payoffs is: Volatility matters more than being _____ right.,directionally
+Why do desks believe clients consistently misprice volatility?,"Clients think in levels, scenarios, and stories, while markets price in distributions, tails, and paths."
+The one-line mental model for a Phoenix Auto-callable is a machine that pays for believing crashes won't happen and ends the moment _____.,you're proven right

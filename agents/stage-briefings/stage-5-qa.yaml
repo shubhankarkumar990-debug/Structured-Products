@@ -1,0 +1,21 @@
+stage: 5
+name: qa
+agent: sp-qa-agent
+input:
+  - "outputs/drafts/{product_id}.md"
+  - "outputs/booking/{product_id}.yaml"
+  - "outputs/blueprints/{product_id}.yaml"
+  - "memory/examples/{product_id}.yaml"
+output: "outputs/reviews/{product_id}_qa.yaml"
+scope: "changed_sections_only"
+scope_protocol: |
+  Before spawning QA, the orchestrator must:
+  1. Read checkpoints/{product_id}.json for section_hashes.
+  2. Compute current hashes of each H4 section in the draft.
+  3. Compare against stored hashes.
+  4. Pass only changed section names and their content to QA.
+  5. If no prior hashes exist (first run), pass all sections.
+  On first run, all sections are in scope.
+gate:
+  condition: "Zero BLOCKER issues"
+  check: "qa_review.summary.blocker == 0"

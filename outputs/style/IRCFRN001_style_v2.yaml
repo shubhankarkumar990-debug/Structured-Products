@@ -1,0 +1,32 @@
+style_review:
+  product_id: IRCFRN001
+  reviewed_at: "2026-06-18T14:13Z"
+  version: "v2 — post accepted conventions expansion"
+  artifact_reviewed: "outputs/drafts/IRCFRN001.md"
+  memory_consulted: "memory/style-patterns/SRT.yaml"
+
+  summary:
+    total: 5
+    must_fix: 0
+    should_fix: 0
+    skipped_known_fp: 3
+    skipped_accepted_convention: 2
+
+  violations: []
+
+  known_false_positives_skipped:
+    - pattern: "H4 heading names"
+      reason: "Canonical names correct"
+    - pattern: "Murex mentioned for SRT"
+      reason: "Murex IS correct for SRT products"
+    - pattern: "Termsheet spelling"
+      reason: "One word, capitalised, correct"
+
+  accepted_conventions_skipped:
+    - convention: "Normal volatility in basis points"
+      reason: "'65 bps normal' — accepted per SRT conventions"
+    - convention: "Approximate reinvestment loss"
+      reason: "Simple interest basis acceptable — accepted per SRT conventions"
+
+  gate: PASS
+  must_fix_ids: []

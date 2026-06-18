@@ -1,0 +1,36 @@
+# Output schema for sp-crossref-agent
+# Write to: outputs/crossref/{product_id}_crossref.yaml
+
+crossref_review:
+  product_id: ""
+  reviewed_at: ""
+  input_file: "outputs/crossref/{product_id}_refs.yaml"
+
+  summary:
+    total_refs: 0
+    validated: 0
+    broken: 0
+    warning: 0
+
+  broken_refs:
+    - id: "CR-001"
+      type: section | appendix | product | framework
+      location: ""
+      reference: ""
+      status: "BROKEN"
+      reason: ""
+      action: ""
+
+  warnings:
+    - id: "CW-001"
+      type: forward_ref | circular | ambiguous
+      location: ""
+      reference: ""
+      reason: ""
+
+  validated_refs:
+    - reference: ""
+      target: ""
+
+  gate: PASS | FAIL
+  broken_ids: []

@@ -1,0 +1,67 @@
+# Output schema for sp-research-agent
+# Write to: outputs/research/{product_id}.yaml
+
+research:
+  product_id: ""
+  chapter: ""
+  product_family: ""
+  extracted_at: ""
+  memory_used: []            # List of memory files consulted
+
+  definition:
+    client_payoff: ""
+    capital_protection: ""
+    conditional_coupon: true|false
+    autocall_feature: true|false
+    knock_in: true|false
+    knock_out: true|false
+    underlying_type: ""
+
+  construction:
+    components: []
+    desk_long: []
+    desk_short: []
+    key_strikes: []
+    path_dependency: ""
+
+  systems:
+    book_of_record: ""
+    risk_and_pnl: ""
+    legal_document: ""
+    murex_legs: []
+    no_murex: true|false
+
+  pricing:
+    dominant_greeks: []
+    yield_drivers: []
+    model_sensitivity: ""
+    key_risks: []
+
+  worked_example:
+    notional: "USD 10M"
+    underlying: ""
+    tenor: ""
+    strikes_and_barriers: {}
+    decomposition: {}
+    ftp_assumption: ""
+    desk_margin: ""
+    headline_yield_to_client: ""
+    bad_scenario: ""
+
+  reconciliation:
+    primary_risk: ""
+    critical_fields: []
+    failure_modes: []
+    termsheet_ambiguities: []
+    observation_type: ""
+    fixing_fallback: ""
+
+  desk_view:
+    typical_buyer: ""
+    actual_risk_taken: ""
+    perceived_risk: ""
+    when_appropriate: ""
+    desk_opinion: ""
+
+  desk_shorthand: ""
+  open_questions: []

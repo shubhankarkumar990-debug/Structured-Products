@@ -1,0 +1,84 @@
+{
+  "product_id": "PHX001",
+  "product_name": "Phoenix Autocallable",
+  "family": "ELN",
+  "updated_at": "2026-06-18T08:07:24Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {
+      "status": "complete",
+      "at": "2026-06-18T10:00Z"
+    },
+    "research": {
+      "status": "complete",
+      "at": "2026-06-18T10:00Z",
+      "artifact": "outputs/research/PHX001.yaml"
+    },
+    "architecture": {
+      "status": "complete",
+      "at": "2026-06-18T10:05Z",
+      "artifact": "outputs/blueprints/PHX001.yaml"
+    },
+    "content": {
+      "status": "complete",
+      "at": "2026-06-18T10:15Z",
+      "artifact": "outputs/drafts/PHX001_content.md"
+    },
+    "example": {
+      "status": "complete",
+      "at": "2026-06-18T10:15Z",
+      "artifact": "outputs/examples/PHX001.md"
+    },
+    "reconciliation": {
+      "status": "complete",
+      "at": "2026-06-18T10:15Z",
+      "artifact": "outputs/reconciliation/PHX001.md"
+    },
+    "draft_merged": {
+      "status": "complete",
+      "at": "2026-06-18T10:15Z",
+      "artifact": "outputs/drafts/PHX001.md"
+    },
+    "booking": {
+      "status": "complete",
+      "at": "2026-06-18T10:25Z",
+      "artifact": "outputs/booking/PHX001.yaml"
+    },
+    "qa": {
+      "status": "complete",
+      "at": "2026-06-18T10:40Z",
+      "artifact": "outputs/reviews/PHX001_qa.yaml"
+    },
+    "style": {
+      "status": "complete",
+      "at": "2026-06-18T10:50Z",
+      "artifact": "outputs/style/PHX001_style.yaml"
+    },
+    "crossref": {
+      "status": "complete",
+      "at": "2026-06-18T10:55Z",
+      "artifact": "outputs/crossref/PHX001_crossref.yaml"
+    },
+    "publish": {
+      "status": "complete",
+      "at": "2026-06-18T11:05Z",
+      "artifact": "outputs/publish/PHX001_pubspec.yaml"
+    },
+    "docx_merge": {
+      "status": "complete",
+      "at": "2026-06-18T11:30Z"
+    }
+  },
+  "open_issues": [],
+  "notes": "Migrated from pipeline-logs/phoenix-autocallable.yaml. 3 QA BLOCKERs resolved. 8 of 12 style MUST FIX dismissed as false positives.",
+  "section_hashes": {
+    "definition": "04330dced59adfe6",
+    "construction": "3ad92ee9dd52a1fb",
+    "booking_systems": "2fe34f25da669726",
+    "pricing_intuition": "a1eedec0f230cfa3",
+    "worked_example": "059710bec688205c",
+    "reconciliation": "e00015688c5410ec",
+    "desk_view": "03919b17a9de9b99",
+    "desk_shorthand": "d5fb81970750e481"
+  }
+}

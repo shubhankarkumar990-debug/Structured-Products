@@ -1,0 +1,33 @@
+style_review:
+  product_id: DRC001
+  reviewed_at: "2026-06-18T14:11Z"
+  version: "v2 — post accepted conventions expansion"
+  artifact_reviewed: "outputs/drafts/DRC001.md"
+  memory_consulted: "memory/style-patterns/ELN.yaml"
+
+  summary:
+    total: 4
+    must_fix: 0
+    should_fix: 1
+    skipped_known_fp: 3
+    skipped_accepted_convention: 0
+
+  violations:
+    - id: "S-001"
+      severity: SHOULD_FIX
+      rule: "3_product_naming"
+      location: "definition, construction, desk_view"
+      violation: "References to 'base Reverse Convertible' — consider using RC001 or full product name"
+
+  known_false_positives_skipped:
+    - pattern: "H4 heading names"
+      reason: "Canonical names correct"
+    - pattern: "Sophis casing"
+      reason: "Title case correct"
+    - pattern: "Termsheet spelling"
+      reason: "One word, capitalised, correct"
+
+  accepted_conventions_skipped: []
+
+  gate: PASS
+  must_fix_ids: []

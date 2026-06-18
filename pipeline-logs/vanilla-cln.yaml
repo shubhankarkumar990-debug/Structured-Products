@@ -1,0 +1,37 @@
+chapter: "Vanilla Credit-Linked Note"
+slug: "vanilla-cln"
+initiated: "2026-06-18"
+stages:
+  research:
+    status: completed
+    completed_at: "2026-06-18T12:38Z"
+    notes: "Gate passed. First CLN product. New CLN memory artifacts created (terminology, booking maps, style patterns)."
+  architecture:
+    status: completed
+    completed_at: "2026-06-18T12:40Z"
+    notes: "Gate passed. All 8 sections. System mapping correct (NEMO/Sophis — no Murex). Credit-specific fields identified."
+  writing:
+    status: completed
+    completed_at: "2026-06-18T12:45Z"
+    notes: "Gate passed. All 8 subsections. Institutional tone. Wrong-way risk covered in desk view. Direct quote used for emphasis."
+  murex_mapping:
+    status: completed
+    completed_at: "2026-06-18T12:45Z"
+    notes: "Gate passed. NEMO+Sophis spec. Credit-specific fields: reference entity, credit event types, restructuring variant, ISDA version."
+  qa:
+    status: completed
+    completed_at: "2026-06-18T12:48Z"
+    notes: "1 BLOCKER resolved (arithmetic check issuer funding clarification). 1 MAJOR advisory. 1 MINOR. Gate passed."
+  style:
+    status: completed
+    completed_at: "2026-06-18T12:50Z"
+    notes: "Gate passed. 3 FPs skipped via CLN memory. 1 MUST_FIX accepted (approximation justified). 1 SHOULD_FIX advisory."
+  crossref:
+    status: completed
+    completed_at: "2026-06-18T12:51Z"
+    notes: "Gate passed. 1 warning (unfunded CDS reference — market concept, not a section). Zero broken refs."
+  publishing:
+    status: completed
+    completed_at: "2026-06-18T12:52Z"
+    notes: "Gate passed. First product in Part 6, section 6.1. Appendix C update for ISDA Credit Definitions. All checklist items passed."
+open_issues: []

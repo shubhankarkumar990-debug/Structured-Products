@@ -1,0 +1,22 @@
+stage: 7
+name: crossref
+agent: sp-crossref-agent
+input:
+  - "outputs/crossref/{product_id}_refs.yaml"
+output: "outputs/crossref/{product_id}_crossref.yaml"
+scope: "references_only"
+scope_protocol: |
+  Before spawning CrossRef, the orchestrator must:
+  1. Read outputs/drafts/{product_id}.md.
+  2. Extract only lines containing reference patterns:
+     - "Part [0-9]", "§[0-9]", "section [0-9]"
+     - "Appendix [A-Z]"
+     - "see the", "see §", "refer to", "described in"
+     - Product names from products/catalog.yaml (names only, not full catalog)
+     - "Four-Leg Framework", "diagnostic checklist"
+  3. Write extracted references to outputs/crossref/{product_id}_refs.yaml
+  4. Pass only the refs file to the CrossRef agent — not the full draft.
+  5. CrossRef agent validates refs against the canonical TOC in its own spec.
+gate:
+  condition: "Zero broken references"
+  check: "crossref_review.summary.broken == 0"

@@ -1,0 +1,56 @@
+# Style rules for sp-style-agent
+# 8 rule categories with severity levels.
+
+rules:
+
+  1_headings:
+    must_fix:
+      - H4 name not in the canonical eight
+      - H4 as bold Normal instead of Heading 4 style
+      - Missing em dash in Part title
+    should_fix:
+      - Inconsistent numbering depth
+
+  2_currency_and_numbers:
+    must_fix:
+      - '"$10,000,000" instead of "USD 10M"'
+      - Currency symbol without three-letter code
+    should_fix:
+      - Number as word when numeral is clearer
+
+  3_product_naming:
+    must_fix:
+      - Inconsistent capitalisation within a section
+      - Abbreviation without prior definition
+    should_fix:
+      - Abbreviation used before full name in section
+
+  4_system_names:
+    must_fix:
+      - 'Lowercase "nemo", "sophis", "murex"'
+      - '"term sheet" (two words)'
+      - Murex mentioned for ELN/CLN/Deposit
+    should_fix:
+      - '"in NEMO" vs "on NEMO" inconsistency'
+
+  5_tone_forbidden_phrases:
+    must_fix:
+      - Any occurrence of forbidden phrases (see terminology memory)
+
+  6_desk_shorthand:
+    must_fix:
+      - Over 8 words
+      - Not italic
+      - Extra text beyond one line
+      - Emoji
+
+  7_worked_example:
+    must_fix:
+      - Non-USD currency without instruction
+      - Ranges without anchor in worked example section specifically
+      - Decomposition that does not show summation
+
+  8_lists:
+    must_fix:
+      - Bullet list in Definition, Construction, or Desk View
+      - Numbered list in prose sections

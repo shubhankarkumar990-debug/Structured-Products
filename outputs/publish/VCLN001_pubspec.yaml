@@ -1,0 +1,61 @@
+pubspec:
+  product_id: VCLN001
+  product_name: "Vanilla Credit-Linked Note"
+  reviewed_at: "2026-06-18T12:52Z"
+  master_document: "Structured_Products_Desk_Bible_COMPLETE.docx"
+
+  insertion:
+    insert_after: "6.1 Vanilla CLN (section heading)"
+    insert_before: "6.2 Exotic CLN (section heading)"
+    part: "Part 6 — Credit-Linked Notes"
+    section: "6.1"
+    position: "First and only product in 6.1"
+
+  heading_hierarchy:
+    h3_present: true
+    h4_subsections:
+      definition: true
+      construction: true
+      booking_systems: true
+      pricing_intuition: true
+      worked_example: true
+      reconciliation: true
+      desk_view: true
+      desk_shorthand: true
+    no_h1_h2: true
+
+  toc_entry:
+    level_3: "Vanilla Credit-Linked Note"
+    level_4:
+      - Definition
+      - Construction
+      - "Booking & systems"
+      - Pricing intuition
+      - "Worked example (USD 10M)"
+      - Reconciliation specifics
+      - Desk view
+      - Desk shorthand
+
+  numbering:
+    no_manual_numbering: true
+    section_number: "6.1"
+    sequence_correct: true
+
+  page_structure:
+    break_before: true
+    break_after: false
+
+  appendix_updates:
+    - "Appendix B.4 — add Vanilla CLN to product index"
+    - "Appendix B.5 — add system mapping entry (NEMO/Sophis)"
+    - "Appendix C — add ISDA Credit Definitions reference"
+
+  checklist:
+    all_subsections_present: true
+    shorthand_italic: true
+    no_emoji: true
+    no_manual_page_numbers: true
+    self_contained: true
+
+  gate: READY
+  hold_reasons: []

@@ -1,0 +1,58 @@
+meta:
+  product_id: CLN
+  product_name: "Credit-Linked Notes (family)"
+  family: CLN
+  category: terminology
+  stored_at: "2026-06-18T12:35Z"
+  source_stage: style
+  version: 1
+
+content:
+  product_names:
+    - full: "Vanilla Credit-Linked Note"
+      abbreviation: "CLN"
+      first_mention_format: "Credit-Linked Note (CLN)"
+    - full: "Skew Credit-Linked Note"
+      abbreviation: null
+      first_mention_format: "Skew CLN"
+    - full: "First-to-Default"
+      abbreviation: "FTD"
+      first_mention_format: "First-to-Default (FTD)"
+    - full: "Nth-to-Default"
+      abbreviation: "NTD"
+      first_mention_format: "Nth-to-Default (NTD)"
+    - full: "Synthetic Tranche"
+      abbreviation: null
+      first_mention_format: "Synthetic Tranche"
+
+  system_names:
+    - name: NEMO
+      casing: "NEMO"
+    - name: Sophis
+      casing: "Sophis"
+    - name: Termsheet
+      casing: "Termsheet"
+      note: "One word, capitalised."
+
+  credit_terms:
+    - "Credit event"
+    - "Reference entity"
+    - "Reference obligation"
+    - "Recovery rate"
+    - "CDS spread"
+    - "ISDA Credit Definitions"
+    - "Credit Support Annex (CSA)"
+    - "Succession event"
+    - "Restructuring (CR / MR / MMR / Old-R)"
+    - "CS01 (credit spread sensitivity)"
+
+  forbidden_phrases:
+    - "It is important to note"
+    - "It is worth noting"
+    - "Please note"
+    - "As mentioned above"
+    - "deep dive"
+    - "unpack"
+    - "let's explore"
+    - "Importantly"
+    - "Crucially"

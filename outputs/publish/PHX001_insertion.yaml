@@ -1,0 +1,8 @@
+insertion:
+  product_id: PHX001
+  product_name: "Phoenix Autocallable"
+  insert_after: "3.2 Autocallables (H2 section heading)"
+  insert_before: "Fixed Coupon Autocallable (H3)"
+  part: "Part 3 — Equity-Linked Notes"
+  section: "3.2"
+  position: "First product"

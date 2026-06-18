@@ -1,0 +1,54 @@
+meta:
+  product_id: CLN
+  product_name: "Credit-Linked Notes (family)"
+  family: CLN
+  category: style-patterns
+  stored_at: "2026-06-18T12:35Z"
+  source_stage: style
+  version: 1
+
+content:
+  heading_format: "Sentence case for H4 subsections"
+  currency_notation: "USD with international notation: 10M, 250k, 1.5bn"
+
+  canonical_h4_names:
+    - "Definition"
+    - "Construction"
+    - "Booking & systems"
+    - "Pricing intuition"
+    - "Worked example (USD 10M)"
+    - "Reconciliation specifics"
+    - "Desk view"
+    - "Desk shorthand"
+
+  known_false_positives:
+    - rule: "H4 heading names flagged as non-canonical"
+      reason: "The canonical names ARE sentence case per author/writer specs."
+      applies_to: "All products"
+    - rule: "Sophis casing flagged as MUST FIX"
+      reason: "'Sophis' in title case is CORRECT."
+      applies_to: "All products"
+    - rule: "Termsheet flagged as incorrect"
+      reason: "'Termsheet' (one word, capitalised) is correct per style guide."
+      applies_to: "All products"
+
+  approved_patterns:
+    - pattern: "USD prefix on all monetary figures"
+      note: "Bare '10M' without 'USD' prefix is a genuine style violation."
+    - pattern: "Desk shorthand in italic, 8 words or fewer"
+      note: "Count words literally."
+    - pattern: "Credit event types capitalised as proper nouns when referencing ISDA definitions"
+      note: "Bankruptcy, Failure to Pay, Restructuring — capitalised when used as defined terms."
+
+  accepted_conventions:
+    - convention: "Approximate IRR wording"
+      reason: "'Approximately' is acceptable for annualized IRR on irregular cash flows (e.g., credit event mid-life). Not a style violation."
+      applies_to: "Worked example bad scenarios with early termination"
+
+    - convention: "Termsheet as legal document"
+      reason: "For CLN products, the legal document is the Termsheet. This is correct."
+      applies_to: "All CLN products"
+
+    - convention: "Direct quote in desk view"
+      reason: "A direct question format ('Do you understand that...') is acceptable in desk view for pedagogical emphasis on wrong-way risk."
+      applies_to: "All CLN products"

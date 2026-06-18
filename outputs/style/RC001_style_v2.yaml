@@ -1,0 +1,35 @@
+style_review:
+  product_id: RC001
+  reviewed_at: "2026-06-18T14:10Z"
+  version: "v2 — post accepted conventions expansion"
+  artifact_reviewed: "outputs/drafts/RC001.md"
+  memory_consulted: "memory/style-patterns/ELN.yaml"
+
+  summary:
+    total: 5
+    must_fix: 0
+    should_fix: 1
+    skipped_known_fp: 3
+    skipped_accepted_convention: 1
+
+  violations:
+    - id: "S-001"
+      severity: SHOULD_FIX
+      rule: "3_product_naming"
+      location: "definition"
+      violation: "Phoenix Autocallable referenced without section number — consider adding cross-reference"
+
+  known_false_positives_skipped:
+    - pattern: "H4 heading names"
+      reason: "Canonical names correct per memory"
+    - pattern: "Sophis casing"
+      reason: "Title case correct"
+    - pattern: "Termsheet spelling"
+      reason: "One word, capitalised, correct"
+
+  accepted_conventions_skipped:
+    - convention: "Per annum on single-period notes"
+      reason: "Industry quoting convention — accepted per ELN style-patterns"
+
+  gate: PASS
+  must_fix_ids: []

@@ -1,0 +1,106 @@
+research:
+  product_id: SWAP001
+  chapter: "Vanilla Interest Rate Swap"
+  product_family: Swap
+  extracted_at: "2026-06-18T13:18Z"
+  memory_used:
+    - memory/terminology/Swap.yaml
+    - memory/booking-maps/Swap_system_mapping.yaml
+
+  definition:
+    client_payoff: "Exchange fixed-rate cash flows for floating-rate cash flows (or vice versa) on a notional principal"
+    capital_protection: "N/A — no principal at risk (notional is not exchanged)"
+    conditional_coupon: false
+    autocall_feature: false
+    knock_in: false
+    knock_out: false
+    underlying_type: "Interest rates (SOFR, EURIBOR, or other reference rate)"
+
+  construction:
+    components:
+      - fixed leg (one party pays fixed rate)
+      - floating leg (other party pays floating rate)
+    desk_long:
+      - "Depends on direction: payer swap = long floating / short fixed"
+    desk_short:
+      - "Depends on direction: receiver swap = long fixed / short floating"
+    key_strikes:
+      - "Fixed rate (swap rate at inception for par swap)"
+    path_dependency: "None"
+
+  systems:
+    book_of_record: Murex
+    risk_and_pnl: Murex
+    legal_document: "ISDA Master Agreement + Confirmation"
+    murex_legs:
+      - fixed_leg
+      - floating_leg
+      - collateral_leg
+      - hedge_leg
+    no_murex: false
+
+  pricing:
+    dominant_greeks:
+      - "DV01 (interest rate sensitivity — primary risk)"
+      - "Gamma (convexity — rate of change of DV01)"
+      - "Theta (time decay — carry)"
+    yield_drivers:
+      - "Swap curve level"
+      - "Swap curve slope"
+      - "Bid-offer spread (desk revenue on client trades)"
+    model_sensitivity: "Deterministic — no optionality, no model risk. Discounting under OIS is the key assumption."
+    key_risks:
+      - "Interest rate risk (DV01)"
+      - "Counterparty credit risk (mitigated by CSA margin)"
+      - "Basis risk (OIS vs reference rate)"
+      - "Operational risk: reset fixing, payment netting, CSA margin calls"
+
+  worked_example:
+    notional: "USD 10M"
+    underlying: "5-year USD swap: pay fixed, receive 3M SOFR"
+    tenor: "5 years"
+    strikes_and_barriers:
+      fixed_rate: "4.25% per annum (semi-annual 30/360)"
+      floating_rate: "3M SOFR (quarterly actual/360)"
+    decomposition:
+      par_swap_rate: "4.20%"
+      bid_offer_spread: "0.5 bps each side"
+      client_pays: "4.25% (mid + 5 bps)"
+      desk_receives: "4.25% fixed"
+      desk_pays: "3M SOFR floating"
+      desk_margin: "5 bps running (USD 5K per annum)"
+    ftp_assumption: "OIS-based FTP"
+    desk_margin: "5 bps running spread (USD 5K per annum, USD 25K over 5 years)"
+    headline_yield_to_client: "N/A — swap is a hedge, not a yield product"
+    bad_scenario: "Rates fall 200 bps — client pays 4.25% fixed, receives ~2.25% floating; net cost 2.0% per annum (USD 200K per annum) for remaining life"
+
+  reconciliation:
+    primary_risk: "Reset fixing mismatch — wrong SOFR fixing applied to a reset date"
+    critical_fields:
+      - "Fixed rate"
+      - "Floating rate index and tenor"
+      - "Reset dates (fixing schedule)"
+      - "Payment dates and netting"
+      - "Day count conventions (fixed and floating)"
+      - "Business day convention"
+      - "CSA terms (margin frequency, threshold, eligible collateral)"
+    failure_modes:
+      - "SOFR fixing applied from wrong date (T vs T-1)"
+      - "Day count mismatch between fixed (30/360) and floating (actual/360) legs"
+      - "Payment netting not applied — gross payments instead of net"
+      - "CSA margin call calculated on wrong MTM"
+    termsheet_ambiguities:
+      - "Compounding convention for SOFR (in arrears, lookback)"
+      - "Fallback rate if SOFR unavailable"
+    observation_type: "Periodic resets on floating leg"
+    fixing_fallback: "ISDA fallback protocol; SOFR compounded in arrears with lookback"
+
+  desk_view:
+    typical_buyer: "Corporate hedging fixed-rate debt; institutional asset-liability management; speculative rate view"
+    actual_risk_taken: "Pure interest rate risk — DV01 exposure to the swap curve"
+    perceived_risk: "Correctly understood by most institutional clients"
+    when_appropriate: "Hedging a known interest rate exposure; expressing a rate view; asset-liability matching"
+    desk_opinion: "Foundational product — the building block for all structured rate trades"
+
+  desk_shorthand: "Pay fixed, receive float; pure rate bet."
+  open_questions: []

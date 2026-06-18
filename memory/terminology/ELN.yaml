@@ -1,0 +1,63 @@
+meta:
+  product_id: ELN
+  product_name: "Equity-Linked Notes (family)"
+  family: ELN
+  category: terminology
+  stored_at: "2026-06-18T11:30Z"
+  source_stage: style
+  version: 1
+
+content:
+  product_names:
+    - full: "Phoenix Autocallable"
+      abbreviation: null
+      first_mention_format: "Phoenix Autocallable"
+    - full: "Fixed Coupon Note"
+      abbreviation: "FCN"
+      first_mention_format: "Fixed Coupon Note (FCN)"
+    - full: "Reverse Convertible"
+      abbreviation: "RC"
+      first_mention_format: "Reverse Convertible (RC)"
+    - full: "Principal Protected Note"
+      abbreviation: "PPN"
+      first_mention_format: "Principal Protected Note (PPN)"
+    - full: "Credit-Linked Note"
+      abbreviation: "CLN"
+      first_mention_format: "Credit-Linked Note (CLN)"
+    - full: "Steepener Note"
+      abbreviation: "STEG"
+      first_mention_format: "Steepener Note (STEG)"
+
+  system_names:
+    - name: NEMO
+      casing: "NEMO"
+    - name: Sophis
+      casing: "Sophis"
+    - name: Murex
+      casing: "Murex"
+    - name: Termsheet
+      casing: "Termsheet"
+      note: "One word, capitalised. Not 'term sheet'."
+
+  greek_names:
+    - Delta
+    - Gamma
+    - Vega
+    - Theta
+    - Rho
+
+  forbidden_phrases:
+    - "It is important to note"
+    - "It is worth noting"
+    - "Please note"
+    - "As mentioned above"
+    - "As noted above"
+    - "In summary"
+    - "burn this in"
+    - "tattoo"
+    - "why juniors miss this"
+    - "deep dive"
+    - "unpack"
+    - "let's explore"
+    - "Importantly"
+    - "Crucially"

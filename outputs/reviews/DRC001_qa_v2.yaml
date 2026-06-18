@@ -1,0 +1,48 @@
+qa_review:
+  product_id: DRC001
+  reviewed_at: "2026-06-18T14:02Z"
+  version: "v2 — post arithmetic verification protocol"
+  scope:
+    first_run: false
+    sections_reviewed:
+      - definition
+      - construction
+      - booking_systems
+      - pricing_intuition
+      - worked_example
+      - reconciliation
+      - desk_view
+      - desk_shorthand
+    sections_skipped: []
+
+  summary:
+    total: 3
+    blocker: 0
+    major: 2
+    minor: 1
+
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "worked_example"
+      issue: "Presentation ambiguity — arithmetic check mixes investor and desk perspectives"
+      evidence: "Arithmetic verification: put premium 5.5% + issuer funding 2.0% + FTP 0.85% + rounding 0.15% = 8.5% discount. Investor return: (10.0M - 9.15M) / 9.15M = 9.3%. CORRECT within tolerance."
+      required_action: "Advisory — arithmetic verified correct; consider clarifying presentation."
+      arithmetic_verification: "PASS — components sum correctly"
+
+    - id: "QA-002"
+      severity: MAJOR
+      location: "reconciliation"
+      issue: "Settlement basis ambiguity (par vs invested amount) is material"
+      evidence: "USD 510K settlement difference correctly identified"
+      required_action: "Advisory — ordering is acceptable"
+
+    - id: "QA-003"
+      severity: MINOR
+      location: "pricing_intuition"
+      issue: "Tax treatment discussion appropriate but should note desk does not provide tax advice"
+      evidence: "Statement already present in text"
+      required_action: "No action"
+
+  gate: PASS
+  blocker_ids: []

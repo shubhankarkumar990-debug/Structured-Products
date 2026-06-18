@@ -1,0 +1,25 @@
+crossref_review:
+  product_id: RC001
+  reviewed_at: "2026-06-18T12:14Z"
+  input_file: "outputs/crossref/RC001_refs.yaml"
+
+  summary:
+    total_refs: 3
+    validated: 3
+    broken: 0
+    warning: 0
+
+  broken_refs: []
+
+  warnings: []
+
+  validated_refs:
+    - reference: "Phoenix Autocallable"
+      target: "PHX001 — exists in outputs/drafts/PHX001.md, section 3.2"
+    - reference: "Phoenix Autocallable (conditional coupon)"
+      target: "PHX001 — definition section confirms conditional coupon mechanism"
+    - reference: "Phoenix Autocallable (60% downside barrier)"
+      target: "PHX001 — worked example confirms 60% downside barrier"
+
+  gate: PASS
+  broken_ids: []

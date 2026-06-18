@@ -1,0 +1,12 @@
+stage: 4
+name: booking
+agent: sp-murex-mapping
+input:
+  - "outputs/drafts/{product_id}.md"
+  - "outputs/blueprints/{product_id}.yaml"
+  - "memory/booking-maps/{product_id}.yaml"
+  - "memory/booking-maps/{family}_system_mapping.yaml"
+output: "outputs/booking/{product_id}.yaml"
+gate:
+  condition: "Correct spec type, all fields named, FTP documented"
+  check: "spec_type matches family, no placeholder field names, ftp_documented=true, discounting_documented=true, min 3 recon checks, min 2 failure modes"

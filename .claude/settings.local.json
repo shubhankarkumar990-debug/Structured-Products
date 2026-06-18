@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(extract-text \"/Users/shubhankarkumar/Desktop/Structured Products/Structured_Products_Desk_Bible_COMPLETE.docx\")",
+      "Bash(python3 -c ' *)",
+      "Bash(python3 -c \"from docx import Document; print\\('ok'\\)\")",
+      "Bash(pip3 install *)",
+      "Bash(pandoc \"/Users/shubhankarkumar/Desktop/Structured Products/Structured_Products_Desk_Bible_COMPLETE.docx\" -t markdown --wrap=none)",
+      "Bash(ls -la /tmp/desk_bible_unpacked/word/)",
+      "Read(//Users/shubhankarkumar/Desktop/**)",
+      "Read(//Users/shubhankarkumar/Desktop/products/**)",
+      "Bash(python3)",
+      "mcp__visualize__read_me",
+      "mcp__visualize__show_widget",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}

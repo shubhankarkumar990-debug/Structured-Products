@@ -1,0 +1,37 @@
+# Output schema for sp-murex-mapping
+# Write to: outputs/booking/{product_id}.yaml
+
+booking_spec:
+  product_id: ""
+  product_name: ""
+  product_family: ""
+  generated_at: ""
+  spec_type: nemo_sophis | murex_four_leg
+  memory_used: []
+
+  # For nemo_sophis:
+  nemo_fields: {}
+  sophis_fields: {}
+
+  # For murex_four_leg:
+  note_leg: {}
+  issuer_leg: {}
+  deposit_leg: {}
+  hedge_leg: {}
+  ftp_summary: {}
+  discounting_logic: {}
+
+  reconciliation_checks:
+    daily: []
+    event_driven: []
+    termsheet_verification: []
+
+  failure_modes: []
+
+  validation:
+    correct_spec_type: true|false
+    all_fields_named: true|false
+    ftp_documented: true|false
+    discounting_documented: true|false
+    min_3_recon_checks: true|false
+    min_2_failure_modes: true|false

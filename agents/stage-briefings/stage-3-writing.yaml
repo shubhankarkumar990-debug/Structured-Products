@@ -1,0 +1,48 @@
+stage: 3
+name: writing
+parallel: true
+agents:
+  content:
+    agent: sp-content-writer
+    input:
+      - "outputs/blueprints/{product_id}.yaml"
+      - "memory/definitions/{product_id}.yaml"
+      - "memory/components/{product_id}.yaml"
+      - "memory/terminology/{family}.yaml"
+    output: "outputs/drafts/{product_id}_content.md"
+    sections: [Definition, Construction, Pricing intuition, Desk view, Desk shorthand]
+
+  example:
+    agent: sp-example-generator
+    input:
+      - "outputs/blueprints/{product_id}.yaml"
+      - "memory/examples/{product_id}.yaml"
+    output: "outputs/examples/{product_id}.md"
+    sections: [Worked example (USD 10M)]
+
+  reconciliation:
+    agent: sp-reconciliation-generator
+    input:
+      - "outputs/blueprints/{product_id}.yaml"
+      - "memory/booking-maps/{product_id}.yaml"
+      - "memory/booking-maps/{family}_system_mapping.yaml"
+      - "memory/reconciliation/{product_id}.yaml"
+    output: "outputs/reconciliation/{product_id}.md"
+    sections: [Booking & systems, Reconciliation specifics]
+
+merge:
+  output: "outputs/drafts/{product_id}.md"
+  order:
+    - "H3 product name (from content)"
+    - "Definition (content)"
+    - "Construction (content)"
+    - "Booking & systems (reconciliation)"
+    - "Pricing intuition (content)"
+    - "Worked example (example)"
+    - "Reconciliation specifics (reconciliation)"
+    - "Desk view (content)"
+    - "Desk shorthand (content)"
+
+gate:
+  condition: "All 8 subsections present in merged draft"
+  check: "H4 headings: Definition, Construction, Booking & systems, Pricing intuition, Worked example (USD 10M), Reconciliation specifics, Desk view, Desk shorthand"

@@ -1,0 +1,37 @@
+chapter: "Discounted Reverse Convertible"
+slug: "discounted-reverse-convertible"
+initiated: "2026-06-18"
+stages:
+  research:
+    status: completed
+    completed_at: "2026-06-18T12:20Z"
+    notes: "Gate passed. ELN memory artifacts reused. Research differentiated from RC001 on issue-price mechanics."
+  architecture:
+    status: completed
+    completed_at: "2026-06-18T12:22Z"
+    notes: "Gate passed. All 8 sections. Blueprint correctly highlights dual-price (issue vs par) as key difference."
+  writing:
+    status: completed
+    completed_at: "2026-06-18T12:25Z"
+    notes: "Gate passed. All 8 subsections. Institutional tone. Tax angle covered without providing advice."
+  murex_mapping:
+    status: completed
+    completed_at: "2026-06-18T12:25Z"
+    notes: "Gate passed. NEMO+Sophis spec. Issue price as additional critical field vs RC001."
+  qa:
+    status: completed
+    completed_at: "2026-06-18T12:28Z"
+    notes: "1 BLOCKER resolved (arithmetic check clarity). 1 MAJOR advisory. 1 MINOR (tax disclaimer already present). Gate passed."
+  style:
+    status: completed
+    completed_at: "2026-06-18T12:30Z"
+    notes: "Gate passed. 3 known FPs skipped via memory. 1 SHOULD_FIX advisory (product naming consistency)."
+  crossref:
+    status: completed
+    completed_at: "2026-06-18T12:31Z"
+    notes: "Gate passed. 2 refs validated (RC001, PHX001). 1 warning (implicit RC001 refs without section number)."
+  publishing:
+    status: completed
+    completed_at: "2026-06-18T12:32Z"
+    notes: "Gate passed. Insertion after RC001 in 3.1. All checklist items passed."
+open_issues: []

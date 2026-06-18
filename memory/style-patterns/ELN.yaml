@@ -1,0 +1,59 @@
+meta:
+  product_id: ELN
+  product_name: "Equity-Linked Notes (family)"
+  family: ELN
+  category: style-patterns
+  stored_at: "2026-06-18T11:30Z"
+  source_stage: style
+  version: 1
+
+content:
+  heading_format: "Sentence case for H4 subsections"
+  currency_notation: "USD with international notation: 10M, 250k, 1.5bn"
+
+  canonical_h4_names:
+    - "Definition"
+    - "Construction"
+    - "Booking & systems"
+    - "Pricing intuition"
+    - "Worked example (USD 10M)"
+    - "Reconciliation specifics"
+    - "Desk view"
+    - "Desk shorthand"
+
+  known_false_positives:
+    - rule: "H4 heading names flagged as non-canonical"
+      reason: "The canonical names ARE sentence case per author/writer specs. Style agent incorrectly flags them."
+      applies_to: "All products"
+
+    - rule: "Sophis casing flagged as MUST FIX"
+      reason: "'Sophis' in title case is CORRECT. Style rule only flags lowercase 'sophis'."
+      applies_to: "All products"
+
+    - rule: "Termsheet flagged as incorrect"
+      reason: "'Termsheet' (one word, capitalised) is correct per style guide."
+      applies_to: "All products"
+
+    - rule: "Pricing range in Pricing Intuition flagged"
+      reason: "Ranges are forbidden only in Worked Example section. Pricing Intuition may use indicative ranges."
+      applies_to: "All products"
+
+  approved_patterns:
+    - pattern: "USD prefix on all monetary figures"
+      note: "Bare '10M' without 'USD' prefix is a genuine style violation."
+
+    - pattern: "Desk shorthand in italic, 8 words or fewer"
+      note: "Count words literally. Compounds count as one word each."
+
+  accepted_conventions:
+    - convention: "Per annum on single-period notes"
+      reason: "'Per annum' is the industry quoting convention even for notes with a single coupon payment. Not a style violation."
+      applies_to: "All ELN products with tenor ≤ 1 year"
+
+    - convention: "Approximate IRR wording"
+      reason: "'Approximately' is acceptable for annualized IRR calculations on irregular cash flows where the result is non-round."
+      applies_to: "Worked example bad scenarios with early termination"
+
+    - convention: "Termsheet as legal document"
+      reason: "For all ELN products, the legal document is the Termsheet (one word, capitalised). This is correct and should not be flagged."
+      applies_to: "All ELN products"

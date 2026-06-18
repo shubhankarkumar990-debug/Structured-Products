@@ -1,0 +1,97 @@
+research:
+  product_id: RC001
+  chapter: "Reverse Convertible (base case)"
+  product_family: ELN
+  extracted_at: "2026-06-18T12:00Z"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+
+  definition:
+    client_payoff: "Above-market coupon; at maturity par if underlying >= strike, physical delivery or cash loss if underlying < strike"
+    capital_protection: "None — full principal at risk below strike"
+    conditional_coupon: false
+    autocall_feature: false
+    knock_in: false
+    knock_out: false
+    underlying_type: "Single equity or equity index"
+
+  construction:
+    components:
+      - zero-coupon bond (funding leg)
+      - short put (vanilla European, ATM or near-ATM)
+    desk_long:
+      - zero-coupon bond at issuer credit curve
+    desk_short:
+      - European put struck at 100% of initial fixing
+    key_strikes:
+      - "Put strike: 100% of initial fixing (ATM)"
+    path_dependency: "None — European exercise at maturity only"
+
+  systems:
+    book_of_record: NEMO
+    risk_and_pnl: Sophis
+    legal_document: Termsheet
+    murex_legs: []
+    no_murex: true
+
+  pricing:
+    dominant_greeks:
+      - "Short vega (sold put)"
+      - "Short skew (ATM put on steep skew surface)"
+      - "Delta (directional exposure through sold put)"
+    yield_drivers:
+      - "Implied volatility of underlying (higher vol = higher coupon)"
+      - "Tenor (longer = more time value = higher coupon)"
+      - "Dividend yield (higher divs = lower put value = lower coupon)"
+      - "Issuer funding spread"
+    model_sensitivity: "Black-Scholes sufficient for vanilla European put; no path dependency"
+    key_risks:
+      - "Client bears full downside below strike — no barrier protection"
+      - "Physical delivery risk: client may receive illiquid shares"
+      - "Early termination risk if issuer defaults"
+
+  worked_example:
+    notional: "USD 10M"
+    underlying: "Single stock, 25% implied volatility at inception"
+    tenor: "1 year"
+    strikes_and_barriers:
+      put_strike: "100% of initial fixing"
+    decomposition:
+      put_premium: "5.5% of notional"
+      issuer_funding: "2.0%"
+      ftp: "1.0%"
+      desk_margin: "0.5%"
+      headline_coupon: "9.0%"
+    ftp_assumption: "1.0% per annum"
+    desk_margin: "0.5% per annum (USD 50K on USD 10M)"
+    headline_yield_to_client: "9.0% per annum"
+    bad_scenario: "Underlying at 60% at maturity; client receives shares worth USD 6M; loss USD 4M (40%); net return after coupon: negative 31%"
+
+  reconciliation:
+    primary_risk: "Put strike representation — NEMO percentage vs Sophis absolute price level"
+    critical_fields:
+      - "Put strike level"
+      - "Settlement type (physical vs cash)"
+      - "Observation date (single European)"
+      - "Dividend treatment (pass-through vs embedded)"
+      - "Day count convention"
+    failure_modes:
+      - "Physical settlement creates delivery risk — NEMO must generate settlement instructions, Sophis assumes cash equivalent"
+      - "Dividend adjustment — ex-div between trade and maturity changes effective strike if not handled identically"
+      - "Put strike rounding — NEMO rounds to 4dp, Sophis to 6dp"
+    termsheet_ambiguities:
+      - "Settlement type not always explicit — default varies by jurisdiction"
+      - "Dividend pass-through language ambiguous on special dividends"
+    observation_type: "European (maturity only)"
+    fixing_fallback: "Disrupted-day postponement up to 8 business days, then dealer poll"
+
+  desk_view:
+    typical_buyer: "Retail / private bank client seeking enhanced yield on a single-stock view"
+    actual_risk_taken: "Client is short a put — full downside exposure below strike with no barrier cushion"
+    perceived_risk: "Client perceives an enhanced-yield deposit with equity upside"
+    when_appropriate: "Moderately bullish view, comfortable with physical delivery, can absorb full downside"
+    desk_opinion: "Simplest ELN structure; transparent risk/reward; suitable for clients who understand they are selling a put"
+
+  desk_shorthand: "Enhanced coupon; sold put, no floor."
+  open_questions: []

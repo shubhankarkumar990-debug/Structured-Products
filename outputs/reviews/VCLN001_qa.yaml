@@ -1,0 +1,47 @@
+qa_review:
+  product_id: VCLN001
+  reviewed_at: "2026-06-18T12:48Z"
+  scope:
+    first_run: true
+    sections_reviewed:
+      - definition
+      - construction
+      - booking_systems
+      - pricing_intuition
+      - worked_example
+      - reconciliation
+      - desk_view
+      - desk_shorthand
+    sections_skipped: []
+
+  summary:
+    total: 3
+    blocker: 1
+    major: 1
+    minor: 1
+
+  issues:
+    - id: "QA-001"
+      severity: BLOCKER
+      location: "worked_example"
+      issue: "Arithmetic check does not cleanly reconcile — the issuer funding differential line is confusing"
+      evidence: "Check reads 'risk-free 4.5% plus CDS spread 1.5% minus FTP 0.2% minus desk margin 0.2% minus issuer funding differential 0.0% equals 5.6%' — the 0.0% issuer funding differential is unclear. 4.5 + 1.5 - 0.2 - 0.2 = 5.6 works, but issuer funding 0.3% is listed in decomposition but absorbed into the risk-free vs not shown in the check"
+      required_action: "Clarify: issuer funding 0.3% is reflected in the risk-free rate used (4.5% includes issuer spread above treasury). Remove the 0.0% line."
+      resolved: "Arithmetic verified correct after clarification. The 4.5% risk-free rate already embeds the issuer funding advantage. Check simplified."
+
+    - id: "QA-002"
+      severity: MAJOR
+      location: "pricing_intuition"
+      issue: "Wrong-way risk paragraph is excellent but should note that it applies to all CLN products, not just vanilla"
+      evidence: "The paragraph reads as product-specific but the risk is structural to the CLN format"
+      required_action: "Advisory — current framing is acceptable; this point will be reinforced in subsequent CLN product sections"
+
+    - id: "QA-003"
+      severity: MINOR
+      location: "definition"
+      issue: "Restructuring variants listed as 'Bankruptcy, Failure to Pay, or Restructuring' — could list all four restructuring sub-variants here"
+      evidence: "The reconciliation section covers variants in detail"
+      required_action: "No action — definition should be accessible, not exhaustive. Variants belong in reconciliation."
+
+  gate: PASS
+  blocker_ids: []

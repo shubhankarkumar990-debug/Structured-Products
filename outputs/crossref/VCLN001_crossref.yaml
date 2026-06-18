@@ -1,0 +1,24 @@
+crossref_review:
+  product_id: VCLN001
+  reviewed_at: "2026-06-18T12:51Z"
+  input_file: "outputs/crossref/VCLN001_refs.yaml"
+
+  summary:
+    total_refs: 1
+    validated: 0
+    broken: 0
+    warning: 1
+
+  broken_refs: []
+
+  warnings:
+    - id: "CW-001"
+      type: forward_ref
+      location: "construction"
+      reference: "unfunded CDS"
+      reason: "References unfunded CDS as contrast — not a specific desk bible section but a market concept. No cross-reference needed."
+
+  validated_refs: []
+
+  gate: PASS
+  broken_ids: []

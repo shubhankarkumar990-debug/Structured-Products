@@ -1,0 +1,185 @@
+products:
+  # Part 3 — Equity-Linked Notes
+  # 3.1 Reverse Convertibles
+  - id: RC001
+    name: "Reverse Convertible (base case)"
+    family: ELN
+    section: "3.1"
+    status: complete
+
+  - id: DRC001
+    name: "Discounted Reverse Convertible"
+    family: ELN
+    section: "3.1"
+    status: complete
+
+  - id: KODRC001
+    name: "Knock-Out Discounted RC"
+    family: ELN
+    section: "3.1"
+    status: existing
+
+  - id: CRC001
+    name: "Callable Reverse Convertible"
+    family: ELN
+    section: "3.1"
+    status: existing
+
+  - id: AIRBAG001
+    name: "Airbag / Leveraged Reverse Convertible"
+    family: ELN
+    section: "3.1"
+    status: existing
+
+  # 3.2 Autocallables
+  - id: PHX001
+    name: "Phoenix Autocallable"
+    family: ELN
+    section: "3.2"
+    status: complete
+
+  - id: FCN001
+    name: "Fixed Coupon Note (FCN)"
+    family: ELN
+    section: "3.2"
+    status: existing
+
+  - id: CRAELN001
+    name: "Callable Range Accrual ELN"
+    family: ELN
+    section: "3.2"
+    status: existing
+
+  # 3.3 Other ELN structures
+  - id: BONUS001
+    name: "Bonus / Participation Note"
+    family: ELN
+    section: "3.3"
+    status: existing
+
+  - id: PPN001
+    name: "Principal Protected Note (PPN)"
+    family: ELN
+    section: "3.3"
+    status: existing
+
+  - id: WARRANT001
+    name: "Warrant / Turbo Certificate"
+    family: ELN
+    section: "3.3"
+    status: existing
+
+  - id: ICN001
+    name: "Issuer Callable Note"
+    family: ELN
+    section: "3.3"
+    status: existing
+
+  - id: DIGITAL001
+    name: "Digital / Exotic Coupon Notes"
+    family: ELN
+    section: "3.3"
+    status: existing
+
+  # Part 4 — Structured Rate Trades
+  - id: IRCFRN001
+    name: "IR Callable Fixed Rate Note"
+    family: SRT
+    section: "4.2"
+    status: complete
+
+  - id: AFRN001
+    name: "Accreting Fixed Rate Note"
+    family: SRT
+    section: "4.2"
+    status: existing
+
+  - id: NCRA001
+    name: "Non-Callable Range Accrual"
+    family: SRT
+    section: "4.2"
+    status: existing
+
+  - id: CRASRT001
+    name: "Callable Range Accrual SRT"
+    family: SRT
+    section: "4.2"
+    status: existing
+
+  - id: DCFN001
+    name: "Digital Cap-Floor Note"
+    family: SRT
+    section: "4.2"
+    status: existing
+
+  # Part 6 — Credit-Linked Notes
+  - id: VCLN001
+    name: "Vanilla CLN"
+    family: CLN
+    section: "6.1"
+    status: complete
+
+  - id: SCLN001
+    name: "Skew CLN"
+    family: CLN
+    section: "6.2"
+    status: existing
+
+  - id: FTD001
+    name: "First-to-Default (FTD)"
+    family: CLN
+    section: "6.2"
+    status: existing
+
+  - id: NTD001
+    name: "Nth-to-Default (NTD)"
+    family: CLN
+    section: "6.2"
+    status: existing
+
+  - id: TRANCHE001
+    name: "Synthetic Tranches"
+    family: CLN
+    section: "6.2"
+    status: existing
+
+  # Part 7 — STEG Notes
+  - id: VSTEG001
+    name: "Vanilla Steepener Note"
+    family: STEG
+    section: "7.2"
+    status: existing
+
+  - id: RASTEG001
+    name: "Range-Accrual Steepener"
+    family: STEG
+    section: "7.2"
+    status: existing
+
+  - id: CSTEG001
+    name: "Callable Steepener"
+    family: STEG
+    section: "7.2"
+    status: existing
+
+  - id: TARN001
+    name: "TARN"
+    family: STEG
+    section: "7.2"
+    status: existing
+
+  # Part 5 — Swaps
+  - id: SWAP001
+    name: "Vanilla Interest Rate Swap"
+    family: Swap
+    section: "5.1"
+    status: complete
+
+# Status values:
+#   stub     — listed in catalog, no pipeline work started
+#   existing — content exists in master DOCX but not yet pipeline-processed
+#   draft    — pipeline DRAFT mode complete
+#   review   — pipeline REVIEW mode complete
+#   complete — pipeline PUBLISH mode complete, merged to master
+
+# Family values: ELN | CLN | SRT | STEG | Swap | Deposit

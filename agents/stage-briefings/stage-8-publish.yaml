@@ -1,0 +1,24 @@
+stage: 8
+name: publish
+agent: sp-publisher
+input:
+  - "outputs/drafts/{product_id}.md"
+  - "outputs/booking/{product_id}.yaml"
+  - "checkpoints/{product_id}.json"
+output: "outputs/publish/{product_id}_pubspec.yaml"
+scope: "no_catalog"
+scope_protocol: |
+  The publisher does NOT read products/catalog.yaml.
+  Instead, the orchestrator passes insertion metadata inline:
+    insertion:
+      insert_after: "{preceding heading}"
+      insert_before: "{following heading}"
+      part: "{part number and name}"
+      section: "{section number}"
+      position: "{position within section}"
+  This metadata is derived by the orchestrator from the catalog
+  and checkpoint, and passed as a small YAML block (~100 tokens)
+  instead of the full 889-token catalog.
+gate:
+  condition: "Publication checklist passed"
+  check: "pubspec.gate == READY"

@@ -1,0 +1,51 @@
+# Shared writing standards for all content-producing agents.
+# Read by: sp-content-writer, sp-example-generator, sp-reconciliation-generator
+
+base:
+  - Institutional tone. Direct. Declarative.
+  - No conversational openers, motivational language, or AI phrasing.
+  - No emoji.
+  - "USD with international notation: 10M, 250k, 1.5bn."
+  - Mechanics before intuition. Always.
+  - "System names: NEMO, Sophis, Murex, Termsheet (capitalised)."
+
+content_writer_specific:
+  - Do not mention system names in Definition.
+  - Be opinionated in Desk View.
+
+example_generator_specific:
+  trade_parameters:
+    - "Notional: USD 10M (always)."
+    - 'Underlying: specific (single stock at 30-vol, not "an equity").'
+    - 'Tenor: specific (3 years, not "medium term").'
+    - All barriers as percentages of initial fixing.
+    - "All rates as specific numbers, not ranges."
+  economic_decomposition:
+    - Every component priced in % per annum AND absolute USD per annum.
+    - FTP stated explicitly.
+    - Desk margin stated explicitly.
+    - "Arithmetic reconciliation: components must sum to headline yield."
+    - Include an explicit arithmetic check line.
+  scenarios:
+    - "Good scenario: specific fixing level, specific cash flows, specific return to client."
+    - "Bad scenario: specific fixing level, specific loss, specific return."
+    - 'No vague outcomes ("the client may lose some capital").'
+  forbidden_constructions:
+    - 'Ranges without anchors: "approximately 8-12%" — use a specific number.'
+    - 'Vague decomposition: "the put is worth roughly X" — give the number.'
+    - "Missing arithmetic check: every decomposition must show that components sum to the headline yield."
+    - 'Assumptions stated without values: "assuming normal market conditions" — state the vol, the rate, the spread.'
+
+reconciliation_generator_specific:
+  booking_and_systems:
+    - "Open with the system mapping: book of record, risk/P&L, legal document."
+    - State what each system carries for this specific product.
+    - Close with the dominant operational risk.
+    - "For ELN/CLN/Deposit: NEMO + Sophis + Termsheet. State 'Murex is not used.'"
+    - "For STEG/SRT/Swap: Murex four-leg. State each leg's role."
+  reconciliation_specifics:
+    - Name each critical field with bold prefix.
+    - 'State the failure mode precisely: not "systems may differ" but what specifically differs and why.'
+    - Include observation type and fixing fallback.
+    - Minimum 5 reconciliation checks for any product.
+    - '"[Field] — [default A] vs [default B] — [consequence]."'

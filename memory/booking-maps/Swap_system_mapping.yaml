@@ -1,0 +1,43 @@
+meta:
+  product_id: Swap
+  product_name: "Swaps (family)"
+  family: Swap
+  category: booking-maps
+  stored_at: "2026-06-18T13:15Z"
+  source_stage: booking
+  version: 1
+
+content:
+  system_type: murex_four_leg
+  book_of_record: Murex
+  murex_used: true
+  note: "All Swap products use Murex. NEMO and Sophis are NOT used for Swaps."
+
+  note_leg:
+    role: "Fixed leg of the swap — the structured coupon or rate paid/received by the client"
+    system: Murex
+
+  issuer_leg:
+    role: "Not applicable for bilateral swaps — issuer leg is relevant only for note-wrapped products"
+    system: Murex
+
+  deposit_leg:
+    role: "Collateral leg — margin posted under CSA, tracked in Murex"
+    system: Murex
+
+  hedge_leg:
+    role: "Market risk hedges — offsetting swaps or futures in the hedge book"
+    system: Murex
+
+  ftp_summary:
+    role: "Funds transfer pricing between swap desk and treasury"
+    fields:
+      - ftp_rate
+      - ftp_curve
+
+  discounting_logic:
+    role: "OIS discounting for CSA-covered swaps; SOFR curve for USD"
+    fields:
+      - discount_curve
+      - csa_terms
+      - margin_frequency

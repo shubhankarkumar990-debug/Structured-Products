@@ -1,0 +1,60 @@
+pubspec:
+  product_id: RC001
+  product_name: "Reverse Convertible"
+  reviewed_at: "2026-06-18T12:15Z"
+  master_document: "Structured_Products_Desk_Bible_COMPLETE.docx"
+
+  insertion:
+    insert_after: "3.1 Reverse Convertibles (section heading)"
+    insert_before: "Discounted Reverse Convertible (H3)"
+    part: "Part 3 — Equity-Linked Notes"
+    section: "3.1"
+    position: "First product in 3.1"
+
+  heading_hierarchy:
+    h3_present: true
+    h4_subsections:
+      definition: true
+      construction: true
+      booking_systems: true
+      pricing_intuition: true
+      worked_example: true
+      reconciliation: true
+      desk_view: true
+      desk_shorthand: true
+    no_h1_h2: true
+
+  toc_entry:
+    level_3: "Reverse Convertible"
+    level_4:
+      - Definition
+      - Construction
+      - "Booking & systems"
+      - Pricing intuition
+      - "Worked example (USD 10M)"
+      - Reconciliation specifics
+      - Desk view
+      - Desk shorthand
+
+  numbering:
+    no_manual_numbering: true
+    section_number: "3.1"
+    sequence_correct: true
+
+  page_structure:
+    break_before: true
+    break_after: false
+
+  appendix_updates:
+    - "Appendix B.4 — add Reverse Convertible to product index"
+    - "Appendix B.5 — add system mapping entry (NEMO/Sophis)"
+
+  checklist:
+    all_subsections_present: true
+    shorthand_italic: true
+    no_emoji: true
+    no_manual_page_numbers: true
+    self_contained: true
+
+  gate: READY
+  hold_reasons: []

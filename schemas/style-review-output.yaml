@@ -1,0 +1,28 @@
+# Output schema for sp-style-agent
+# Write to: outputs/style/{product_id}_style.yaml
+
+style_review:
+  product_id: ""
+  reviewed_at: ""
+  artifact_reviewed: "outputs/drafts/{product_id}.md"
+  memory_consulted: "memory/style-patterns/{family}.yaml"
+
+  summary:
+    total: 0
+    must_fix: 0
+    should_fix: 0
+    skipped_known_fp: 0
+
+  violations:
+    - id: "S-001"
+      severity: MUST_FIX | SHOULD_FIX
+      rule: ""
+      location: ""
+      violation: ""
+
+  known_false_positives_skipped:
+    - pattern: ""
+      reason: ""
+
+  gate: PASS | FAIL
+  must_fix_ids: []

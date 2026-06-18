@@ -1,0 +1,37 @@
+chapter: "Reverse Convertible"
+slug: "reverse-convertible"
+initiated: "2026-06-18"
+stages:
+  research:
+    status: completed
+    completed_at: "2026-06-18T12:00Z"
+    notes: "Gate passed. All core fields present. ELN memory artifacts reused from PHX001."
+  architecture:
+    status: completed
+    completed_at: "2026-06-18T12:02Z"
+    notes: "Gate passed. All 8 sections present. System mapping correct (NEMO/Sophis). Validation checklist complete."
+  writing:
+    status: completed
+    completed_at: "2026-06-18T12:05Z"
+    notes: "Gate passed. All 8 subsections present. Prose matches blueprint. Institutional tone. No forbidden phrases."
+  murex_mapping:
+    status: completed
+    completed_at: "2026-06-18T12:05Z"
+    notes: "Gate passed. NEMO+Sophis spec. Settlement type as key reconciliation field. 3 failure modes documented."
+  qa:
+    status: completed
+    completed_at: "2026-06-18T12:10Z"
+    notes: "Gate passed. Zero BLOCKERs. 1 MAJOR advisory (arithmetic verified correct). 1 MINOR (dividend explanation depth)."
+  style:
+    status: completed
+    completed_at: "2026-06-18T12:12Z"
+    notes: "Gate passed. 3 known false positives skipped via memory. 1 MUST_FIX accepted (per annum convention). 1 SHOULD_FIX advisory."
+  crossref:
+    status: completed
+    completed_at: "2026-06-18T12:14Z"
+    notes: "Gate passed. 3 references to PHX001 validated. Zero broken refs. Zero warnings."
+  publishing:
+    status: completed
+    completed_at: "2026-06-18T12:15Z"
+    notes: "Gate passed. All checklist items passed. Insertion point: Part 3, 3.1, first product. Appendix B.4/B.5 updates required."
+open_issues: []

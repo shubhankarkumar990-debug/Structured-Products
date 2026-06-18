@@ -1,0 +1,37 @@
+chapter: "IR Callable Fixed Rate Note"
+slug: "ir-callable-fixed-rate-note"
+initiated: "2026-06-18"
+stages:
+  research:
+    status: completed
+    completed_at: "2026-06-18T12:58Z"
+    notes: "Gate passed. First SRT product. New SRT memory artifacts created. Murex four-leg system identified."
+  architecture:
+    status: completed
+    completed_at: "2026-06-18T13:00Z"
+    notes: "Gate passed. All 8 sections. Murex four-leg system mapping. Bermuda swaption decomposition."
+  writing:
+    status: completed
+    completed_at: "2026-06-18T13:05Z"
+    notes: "Gate passed. All 8 subsections. Institutional tone. Negative convexity and model risk (normal vs lognormal) covered."
+  murex_mapping:
+    status: completed
+    completed_at: "2026-06-18T13:05Z"
+    notes: "Gate passed. First Murex four-leg booking spec. All four legs documented. Model convention flagged."
+  qa:
+    status: completed
+    completed_at: "2026-06-18T13:08Z"
+    notes: "Zero BLOCKERs. 1 MAJOR advisory (reinvestment loss approximation acceptable). 1 MINOR. Gate passed."
+  style:
+    status: completed
+    completed_at: "2026-06-18T13:10Z"
+    notes: "Gate passed. 3 FPs skipped via SRT memory (including Murex-for-SRT FP). 1 SHOULD_FIX advisory."
+  crossref:
+    status: completed
+    completed_at: "2026-06-18T13:11Z"
+    notes: "Gate passed. 1 ref validated (RC001 analogy). Zero broken refs. Zero warnings."
+  publishing:
+    status: completed
+    completed_at: "2026-06-18T13:12Z"
+    notes: "Gate passed. First product in Part 4, section 4.2. All checklist items passed."
+open_issues: []

@@ -1,0 +1,115 @@
+blueprint:
+  product_id: RC001
+  product_name: "Reverse Convertible (base case)"
+  product_family: ELN
+  generated_at: "2026-06-18T12:02Z"
+  source: "outputs/research/RC001.yaml"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+
+  sections:
+    definition:
+      content_nodes:
+        - "Structured note paying above-market fixed coupon"
+        - "At maturity: par if underlying >= strike; physical delivery or cash loss if underlying < strike"
+        - "No barrier protection — client bears full downside"
+        - "European exercise — single observation at maturity"
+        - "Issued under ISDA or MTN wrapper"
+      writing_instruction: "Define the product in one paragraph. No system names. State the payoff asymmetry clearly — the client sells a put in exchange for enhanced yield."
+
+    construction:
+      primitives:
+        - instrument: "Zero-coupon bond"
+          desk_direction: "Long"
+        - instrument: "European put (vanilla, ATM)"
+          desk_direction: "Short"
+      key_strikes:
+        - "Put strike: 100% of initial fixing"
+      path_dependency: "None"
+      writing_instruction: "Decompose into two primitives. Explain how the put premium funds the enhanced coupon. Contrast with Phoenix (no barriers, no memory, no autocall)."
+
+    booking_systems:
+      system_mapping:
+        book_of_record: NEMO
+        risk_pnl: Sophis
+        legal_document: Termsheet
+        murex_legs: []
+      content_nodes:
+        - "NEMO carries: trade lifecycle, coupon schedule, put strike, settlement type"
+        - "Sophis carries: put pricing, Greeks, daily MTM"
+        - "Termsheet defines: strike, settlement type, observation convention, dividend treatment"
+        - "Murex is not used"
+        - "Dominant operational risk: settlement type mismatch (physical vs cash)"
+      writing_instruction: "Open with system mapping. State what each system carries. Close with dominant operational risk."
+
+    pricing_intuition:
+      dominant_greeks:
+        - "Short vega"
+        - "Short skew"
+        - "Delta"
+      yield_drivers:
+        - "Implied volatility"
+        - "Tenor"
+        - "Dividend yield (inverse)"
+        - "Issuer funding"
+      model_dependency: "Black-Scholes — no path dependency, no barriers"
+      sensitivities:
+        - "1-vol-point shift ≈ 25–40 bps on coupon"
+        - "Dividend yield increase reduces put value and coupon"
+      writing_instruction: "Lead with short vega / short skew. Explain why no Monte Carlo is needed (contrast with Phoenix). Cover yield levers."
+
+    worked_example:
+      notional: "USD 10M"
+      underlying: "Single stock, 25% implied vol"
+      tenor: "1 year"
+      barriers:
+        put_strike: "100% of initial fixing"
+      decomposition:
+        put_premium: "5.5% of notional"
+        issuer_funding: "2.0%"
+        ftp: "1.0%"
+        desk_margin: "0.5%"
+        headline_coupon: "9.0%"
+      ftp: "1.0% per annum"
+      desk_margin: "0.5% per annum (USD 50K)"
+      headline_yield: "9.0% per annum"
+      good_scenario: "Underlying at 110% at maturity — par returned plus 9% coupon"
+      bad_scenario: "Underlying at 60% at maturity — physical delivery worth USD 6M, net loss 31% after coupon"
+      writing_instruction: "Specific numbers throughout. Show arithmetic check. Two scenarios — good (above strike) and bad (well below strike). Compute net return including coupon."
+
+    reconciliation:
+      critical_fields:
+        - field: "Put strike"
+          failure_mode: "NEMO percentage vs Sophis absolute price — amendment requires manual recalculation in Sophis"
+        - field: "Settlement type"
+          failure_mode: "Physical vs cash — Termsheet may not specify; NEMO and Sophis may default differently"
+        - field: "Dividend treatment"
+          failure_mode: "Pass-through vs embedded — ex-div event changes effective economics if handled differently"
+        - field: "Observation date"
+          failure_mode: "Non-business-day convention — NEMO skip vs Sophis modified following"
+        - field: "Fixing source"
+          failure_mode: "Bloomberg vs exchange close — different timestamps may yield different prices"
+      observation_type: "European (maturity only)"
+      fixing_fallback: "Postponement up to 8 business days, then dealer poll"
+      writing_instruction: "Bold field names. State each failure mode precisely — what diverges and what breaks. Minimum 5 fields."
+
+    desk_view:
+      typical_buyer: "Retail / private bank client with single-stock conviction"
+      actual_risk: "Client is short a vanilla put — full downside, no barrier cushion"
+      perceived_risk: "Enhanced-yield deposit with equity participation"
+      when_appropriate: "Bullish view, comfortable with physical delivery, understands the put"
+      when_not_appropriate: "Cannot absorb full downside; no conviction on specific underlying; confused by physical delivery"
+      writing_instruction: "Be opinionated. State that this is the simplest, most transparent ELN. Compare risk profile to Phoenix — worse downside protection but cleaner structure."
+
+    desk_shorthand:
+      text: "Enhanced coupon; sold put, no floor."
+      source: "Research agent"
+
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

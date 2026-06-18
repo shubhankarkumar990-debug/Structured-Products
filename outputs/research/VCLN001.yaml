@@ -1,0 +1,97 @@
+research:
+  product_id: VCLN001
+  chapter: "Vanilla Credit-Linked Note"
+  product_family: CLN
+  extracted_at: "2026-06-18T12:38Z"
+  memory_used:
+    - memory/terminology/CLN.yaml
+    - memory/booking-maps/CLN_system_mapping.yaml
+
+  definition:
+    client_payoff: "Fixed coupon above risk-free; par at maturity if no credit event; recovery value if credit event occurs"
+    capital_protection: "None — full principal at risk on credit event"
+    conditional_coupon: false
+    autocall_feature: false
+    knock_in: false
+    knock_out: false
+    underlying_type: "Single-name corporate or sovereign credit"
+
+  construction:
+    components:
+      - risk-free zero-coupon bond (collateral)
+      - short credit default swap (investor sells credit protection)
+    desk_long:
+      - risk-free collateral (cash or government bond)
+    desk_short:
+      - credit default swap (protection sold by investor to desk)
+    key_strikes:
+      - "No strike — binary credit event trigger"
+    path_dependency: "None — credit event is binary, not path-dependent"
+
+  systems:
+    book_of_record: NEMO
+    risk_and_pnl: Sophis
+    legal_document: Termsheet
+    murex_legs: []
+    no_murex: true
+
+  pricing:
+    dominant_greeks:
+      - "CS01 (credit spread sensitivity)"
+      - "Jump-to-default risk"
+    yield_drivers:
+      - "CDS spread of reference entity (wider spread = higher coupon)"
+      - "Recovery rate assumption (lower recovery = higher premium = higher coupon)"
+      - "Tenor (longer = more credit exposure = higher coupon)"
+      - "Issuer funding spread"
+    model_sensitivity: "Hazard rate model — CDS spread implies default probability; recovery rate drives loss-given-default"
+    key_risks:
+      - "Full principal loss on credit event (minus recovery)"
+      - "Wrong-way risk if CLN issuer correlated with reference entity"
+      - "Restructuring definition ambiguity across ISDA versions"
+
+  worked_example:
+    notional: "USD 10M"
+    underlying: "Single-name investment-grade corporate (BBB+)"
+    tenor: "5 years"
+    strikes_and_barriers: {}
+    decomposition:
+      cds_spread: "150 bps per annum"
+      risk_free_rate: "4.5% per annum"
+      issuer_funding: "0.3%"
+      ftp: "0.2%"
+      desk_margin: "0.2%"
+      headline_coupon: "5.6% per annum"
+    ftp_assumption: "0.2% per annum"
+    desk_margin: "0.2% per annum (USD 20K per annum on USD 10M)"
+    headline_yield_to_client: "5.6% per annum (risk-free 4.5% + net credit spread component 1.1%)"
+    bad_scenario: "Credit event — reference entity defaults; recovery rate 40%; investor receives USD 4M; loss USD 6M (60%)"
+
+  reconciliation:
+    primary_risk: "Credit event definition mismatch between Termsheet and NEMO — restructuring variant (CR/MR/MMR) determines which events trigger settlement"
+    critical_fields:
+      - "Reference entity (legal name and identifier)"
+      - "Credit event types (Bankruptcy, Failure to Pay, Restructuring variant)"
+      - "Recovery determination method (auction, dealer poll, fixed)"
+      - "Settlement type (physical or cash/auction)"
+      - "ISDA Credit Definitions version"
+      - "Coupon accrual on credit event"
+    failure_modes:
+      - "Restructuring variant mismatch — CR triggers on broader events than MR/MMR"
+      - "Recovery method not specified — auction vs dealer poll produces different recovery values"
+      - "Coupon accrual — whether accrued coupon is paid on credit event varies by Termsheet"
+    termsheet_ambiguities:
+      - "Restructuring variant not always explicit — defaults vary by jurisdiction"
+      - "Successor event handling — corporate mergers or spin-offs may change reference entity"
+    observation_type: "Continuous — credit event can occur at any time"
+    fixing_fallback: "ISDA Determinations Committee decision; auction settlement per ISDA protocol"
+
+  desk_view:
+    typical_buyer: "Institutional investor or private bank client seeking yield enhancement on a credit view"
+    actual_risk_taken: "Client is selling credit protection — full principal at risk on default, recovery dependent"
+    perceived_risk: "Enhanced-yield bond; client perceives a senior lending position"
+    when_appropriate: "Conviction on credit quality of reference entity; comfortable with credit event risk; understands recovery mechanics"
+    desk_opinion: "Funded format of CDS — operationally simpler for investors who cannot trade unfunded derivatives"
+
+  desk_shorthand: "Funded CDS; coupon for default risk."
+  open_questions: []

@@ -1,0 +1,41 @@
+chapter: "Phoenix Autocallable"
+slug: "phoenix-autocallable"
+initiated: "2026-06-18"
+stages:
+  research:
+    status: completed
+    completed_at: "2026-06-18T10:00Z"
+    notes: "Gate passed. All core fields present. when_appropriate null — source silent."
+  architecture:
+    status: completed
+    completed_at: "2026-06-18T10:05Z"
+    notes: "Gate passed. All 8 sections present. System mapping correct. Validation checklist complete."
+  writing:
+    status: completed
+    completed_at: "2026-06-18T10:15Z"
+    notes: "Gate passed. All 8 subsections present. Prose matches blueprint. Institutional tone."
+  murex_mapping:
+    status: completed
+    completed_at: "2026-06-18T10:25Z"
+    notes: "Gate passed. NEMO+Sophis spec. 100+ fields. 7 recon checks. 4 failure modes. FTP documented."
+  qa:
+    status: completed
+    completed_at: "2026-06-18T10:40Z"
+    notes: "3 BLOCKERs resolved (worked example fixed). B-4 reclassified MINOR. M-2 dismissed (7 words). Gate passed."
+  style:
+    status: completed
+    completed_at: "2026-06-18T10:50Z"
+    notes: "Gate passed. 8 of 12 MUST FIX were false positives. 2 genuine fixes applied (USD prefix). SHOULD FIX acknowledged."
+  crossref:
+    status: completed
+    completed_at: "2026-06-18T10:55Z"
+    notes: "Gate passed. Zero broken refs. 3 warnings (implicit deps, structurally resolved). No explicit crossrefs in content."
+  publishing:
+    status: completed
+    completed_at: "2026-06-18T11:05Z"
+    notes: "Gate passed. All checklist items passed. Insertion point: Part 3, 3.2, first product. Appendix B.4/B.5 updates required."
+master_merge:
+  status: completed
+  merged_at: "2026-06-18T11:30Z"
+  notes: "28 paragraphs inserted at §3.2, first product position before FCN. All 8 H4 subsections present. Correct heading hierarchy and paragraph order verified."
+open_issues: []

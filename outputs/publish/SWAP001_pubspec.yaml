@@ -1,0 +1,61 @@
+pubspec:
+  product_id: SWAP001
+  product_name: "Vanilla Interest Rate Swap"
+  reviewed_at: "2026-06-18T13:32Z"
+  master_document: "Structured_Products_Desk_Bible_COMPLETE.docx"
+
+  insertion:
+    insert_after: "Part 5 — Swaps (part heading)"
+    insert_before: "Part 6 — Credit-Linked Notes (part heading)"
+    part: "Part 5 — Swaps"
+    section: "5.1"
+    position: "First and only product in Part 5"
+
+  heading_hierarchy:
+    h3_present: true
+    h4_subsections:
+      definition: true
+      construction: true
+      booking_systems: true
+      pricing_intuition: true
+      worked_example: true
+      reconciliation: true
+      desk_view: true
+      desk_shorthand: true
+    no_h1_h2: true
+
+  toc_entry:
+    level_3: "Vanilla Interest Rate Swap"
+    level_4:
+      - Definition
+      - Construction
+      - "Booking & systems"
+      - Pricing intuition
+      - "Worked example (USD 10M)"
+      - Reconciliation specifics
+      - Desk view
+      - Desk shorthand
+
+  numbering:
+    no_manual_numbering: true
+    section_number: "5.1"
+    sequence_correct: true
+
+  page_structure:
+    break_before: true
+    break_after: false
+
+  appendix_updates:
+    - "Appendix B.4 — add Vanilla IRS to product index"
+    - "Appendix B.5 — add system mapping entry (Murex)"
+    - "Appendix D — add ISDA Master Agreement reference"
+
+  checklist:
+    all_subsections_present: true
+    shorthand_italic: true
+    no_emoji: true
+    no_manual_page_numbers: true
+    self_contained: true
+
+  gate: READY
+  hold_reasons: []

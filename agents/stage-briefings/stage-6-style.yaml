@@ -1,0 +1,10 @@
+stage: 6
+name: style
+agent: sp-style-agent
+input:
+  - "outputs/drafts/{product_id}.md"
+  - "memory/style-patterns/{family}.yaml"
+output: "outputs/style/{product_id}_style.yaml"
+gate:
+  condition: "Zero MUST_FIX violations"
+  check: "style_review.summary.must_fix == 0"

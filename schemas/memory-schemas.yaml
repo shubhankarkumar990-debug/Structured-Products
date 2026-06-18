@@ -1,0 +1,91 @@
+# Memory file schemas for sp-memory-agent
+# All memory files use this envelope + a category-specific content block.
+
+# --- Envelope (every memory file) ---
+
+meta:
+  product_id: ""           # e.g., PHX001
+  product_name: ""         # e.g., Phoenix Autocallable
+  family: ""               # ELN | CLN | SRT | STEG | Swap | Deposit
+  category: ""             # definitions | components | terminology | examples | booking-maps | reconciliation | style-patterns
+  stored_at: ""            # ISO 8601
+  source_stage: ""         # research | architecture | writing | booking | qa | style
+  version: 1               # Increment on update
+
+content:
+  # Category-specific content below
+
+# --- Category: definitions/{product_id}.yaml ---
+
+# content:
+#   client_payoff: ""
+#   capital_protection: ""
+#   conditional_coupon: true|false
+#   autocall_feature: true|false
+#   knock_in: true|false
+#   knock_out: true|false
+#   underlying_type: ""
+#   canonical_definition: ""   # Approved one-paragraph definition
+
+# --- Category: components/{product_id}.yaml ---
+
+# content:
+#   primitives:
+#     - instrument: ""
+#       desk_direction: ""     # long | short
+#       role: ""               # What this component does in the structure
+#   path_dependency: ""
+#   barriers: []
+
+# --- Category: terminology/{family}.yaml ---
+
+# content:
+#   product_names:
+#     - full: ""
+#       abbreviation: ""
+#       first_mention_format: ""
+#   system_names:
+#     - name: ""
+#       casing: ""             # Exact casing to use
+#   greek_names: []
+#   forbidden_phrases: []
+
+# --- Category: examples/{product_id}.yaml ---
+
+# content:
+#   notional: ""
+#   underlying: ""
+#   tenor: ""
+#   barriers: {}
+#   decomposition: {}
+#   ftp: ""
+#   desk_margin: ""
+#   headline_yield: ""
+#   good_scenario: ""
+#   bad_scenario: ""
+
+# --- Category: booking-maps/{product_id}.yaml ---
+
+# content:
+#   system_type: ""            # nemo_sophis | murex_four_leg
+#   book_of_record: ""
+#   risk_pnl: ""
+#   legal_document: ""
+#   fields: {}                 # System-specific field specifications
+
+# --- Category: reconciliation/{product_id}.yaml ---
+
+# content:
+#   primary_risk: ""
+#   critical_fields: []
+#   failure_modes: []
+#   observation_type: ""
+#   fixing_fallback: ""
+
+# --- Category: style-patterns/{family}.yaml ---
+
+# content:
+#   heading_format: ""
+#   currency_notation: ""
+#   approved_patterns: []
+#   known_false_positives: []  # Patterns that reviewers incorrectly flag

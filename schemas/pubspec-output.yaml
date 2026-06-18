@@ -1,0 +1,53 @@
+# Output schema for sp-publisher
+# Write to: outputs/publish/{product_id}_pubspec.yaml
+
+pubspec:
+  product_id: ""
+  product_name: ""
+  reviewed_at: ""
+  master_document: "Structured_Products_Desk_Bible_COMPLETE.docx"
+
+  insertion:
+    insert_after: ""
+    insert_before: ""
+    part: ""
+    section: ""
+    position: ""
+
+  heading_hierarchy:
+    h3_present: true|false
+    h4_subsections:
+      definition: true|false
+      construction: true|false
+      booking_systems: true|false
+      pricing_intuition: true|false
+      worked_example: true|false
+      reconciliation: true|false
+      desk_view: true|false
+      desk_shorthand: true|false
+    no_h1_h2: true|false
+
+  toc_entry:
+    level_3: ""
+    level_4: []
+
+  numbering:
+    no_manual_numbering: true|false
+    section_number: ""
+    sequence_correct: true|false
+
+  page_structure:
+    break_before: true|false
+    break_after: true|false
+
+  appendix_updates: []
+
+  checklist:
+    all_subsections_present: true|false
+    shorthand_italic: true|false
+    no_emoji: true|false
+    no_manual_page_numbers: true|false
+    self_contained: true|false
+
+  gate: READY | HOLD
+  hold_reasons: []

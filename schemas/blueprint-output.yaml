@@ -1,0 +1,80 @@
+# Output schema for sp-product-architect
+# Write to: outputs/blueprints/{product_id}.yaml
+
+blueprint:
+  product_id: ""
+  product_name: ""
+  product_family: ""
+  generated_at: ""
+  source: "outputs/research/{product_id}.yaml"
+  memory_used: []
+
+  sections:
+    definition:
+      content_nodes: []
+      writing_instruction: ""
+
+    construction:
+      primitives:
+        - instrument: ""
+          desk_direction: ""
+      key_strikes: []
+      path_dependency: ""
+      writing_instruction: ""
+
+    booking_systems:
+      system_mapping:
+        book_of_record: ""
+        risk_pnl: ""
+        legal_document: ""
+        murex_legs: []
+      content_nodes: []
+      writing_instruction: ""
+
+    pricing_intuition:
+      dominant_greeks: []
+      yield_drivers: []
+      model_dependency: ""
+      sensitivities: []
+      writing_instruction: ""
+
+    worked_example:
+      notional: "USD 10M"
+      underlying: ""
+      tenor: ""
+      barriers: {}
+      decomposition: {}
+      ftp: ""
+      desk_margin: ""
+      headline_yield: ""
+      good_scenario: ""
+      bad_scenario: ""
+      writing_instruction: ""
+
+    reconciliation:
+      critical_fields:
+        - field: ""
+          failure_mode: ""
+      observation_type: ""
+      fixing_fallback: ""
+      writing_instruction: ""
+
+    desk_view:
+      typical_buyer: ""
+      actual_risk: ""
+      perceived_risk: ""
+      when_appropriate: ""
+      when_not_appropriate: ""
+      writing_instruction: ""
+
+    desk_shorthand:
+      text: ""
+      source: ""
+
+  validation:
+    all_8_sections: true|false
+    system_mapping_correct: true|false
+    decomposition_reconciles: true|false
+    min_2_recon_fields: true|false
+    shorthand_under_8_words: true|false
+    open_questions: []

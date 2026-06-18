@@ -1,0 +1,110 @@
+blueprint:
+  product_id: DRC001
+  product_name: "Discounted Reverse Convertible"
+  product_family: ELN
+  generated_at: "2026-06-18T12:22Z"
+  source: "outputs/research/DRC001.yaml"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+
+  sections:
+    definition:
+      content_nodes:
+        - "Issued at a discount to par rather than paying a coupon"
+        - "At maturity: par redemption if underlying >= strike (capital gain = discount)"
+        - "Physical delivery or cash loss if underlying < strike"
+        - "No barrier, no coupon, no autocall"
+        - "Economically equivalent to base RC — put premium expressed as discount rather than coupon"
+      writing_instruction: "Define the structure. Emphasise the key difference from base RC: discount replaces coupon. State that economic risk is identical."
+
+    construction:
+      primitives:
+        - instrument: "Zero-coupon bond (purchased at discount)"
+          desk_direction: "Long"
+        - instrument: "European put (vanilla, ATM)"
+          desk_direction: "Short"
+      key_strikes:
+        - "Put strike: 100% of initial fixing"
+      path_dependency: "None"
+      writing_instruction: "Same two primitives as base RC. Explain how the put premium is expressed as discount to par rather than coupon stream."
+
+    booking_systems:
+      system_mapping:
+        book_of_record: NEMO
+        risk_pnl: Sophis
+        legal_document: Termsheet
+        murex_legs: []
+      content_nodes:
+        - "NEMO must carry BOTH issue price and par redemption amount"
+        - "Sophis accretes from issue price to par over the life"
+        - "Dominant operational risk: issue price not booked, defaulting to par"
+      writing_instruction: "Highlight the additional booking complexity vs base RC: dual price (issue vs par). Cover accretion."
+
+    pricing_intuition:
+      dominant_greeks:
+        - "Short vega"
+        - "Delta"
+      yield_drivers:
+        - "Implied volatility"
+        - "Tenor"
+        - "Issuer funding"
+      model_dependency: "Black-Scholes — identical to base RC"
+      sensitivities:
+        - "Same as base RC — discount amount moves with put premium"
+      writing_instruction: "State that pricing is identical to base RC. The discount is the put premium expressed differently. Cover tax angle."
+
+    worked_example:
+      notional: "USD 10M par; issue price USD 9.15M"
+      underlying: "Single stock, 25% implied vol"
+      tenor: "1 year"
+      barriers:
+        put_strike: "100% of initial fixing"
+      decomposition:
+        put_premium: "5.5%"
+        issuer_funding: "2.0%"
+        ftp: "0.85%"
+        desk_margin: "0.5%"
+        discount: "8.5%"
+      ftp: "0.85% per annum"
+      desk_margin: "0.5% per annum"
+      headline_yield: "9.3% total return"
+      good_scenario: "Underlying at 110% — par returned (USD 10M) on USD 9.15M invested = 9.3% return"
+      bad_scenario: "Underlying at 60% — shares worth USD 6M on USD 9.15M invested = 34.4% loss"
+      writing_instruction: "Clearly distinguish par notional (USD 10M) from purchase price (USD 9.15M). Return calculated on purchase price, not par."
+
+    reconciliation:
+      critical_fields:
+        - field: "Issue price vs par"
+          failure_mode: "NEMO defaults to par if issue price not entered — overstates position notional"
+        - field: "Accretion schedule"
+          failure_mode: "Sophis accretes from issue to par; NEMO may not — daily MTM diverges"
+        - field: "Settlement on physical delivery"
+          failure_mode: "Shares delivered at par notional equivalent or issue price equivalent — Termsheet must specify"
+        - field: "Put strike"
+          failure_mode: "Same as base RC — percentage vs absolute"
+        - field: "Tax lot basis"
+          failure_mode: "OID (original issue discount) treatment varies by jurisdiction — affects accrued income recognition"
+      observation_type: "European"
+      fixing_fallback: "Same as base RC"
+      writing_instruction: "Lead with the issue-price vs par reconciliation risk — this is the key difference from base RC."
+
+    desk_view:
+      typical_buyer: "Tax-sensitive investor preferring capital gain over interest income"
+      actual_risk: "Identical to base RC — short put, full downside"
+      perceived_risk: "Lower perceived risk due to lower cash outlay"
+      when_appropriate: "Capital gain tax treatment preferred; same conviction as base RC"
+      when_not_appropriate: "Investor needs income stream; jurisdiction does not offer favourable capital gain treatment"
+      writing_instruction: "Be clear: economic risk is identical to base RC. The only difference is cash flow timing and tax treatment."
+
+    desk_shorthand:
+      text: "Discounted par; sold put, gain on redemption."
+      source: "Research agent"
+
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

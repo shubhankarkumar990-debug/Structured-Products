@@ -1,0 +1,43 @@
+meta:
+  product_id: CLN
+  product_name: "Credit-Linked Notes (family)"
+  family: CLN
+  category: booking-maps
+  stored_at: "2026-06-18T12:35Z"
+  source_stage: booking
+  version: 1
+
+content:
+  system_type: nemo_sophis
+  book_of_record: NEMO
+  risk_pnl: Sophis
+  legal_document: Termsheet
+  murex_used: false
+  note: "Murex is NOT used for any CLN product. CLN uses NEMO + Sophis + Termsheet, same as ELN family."
+
+  nemo_carries:
+    - trade lifecycle
+    - notional and currency
+    - reference entity
+    - reference obligation
+    - credit event definitions
+    - coupon schedule
+    - maturity date
+    - recovery determination method
+    - ISIN / reference
+
+  sophis_carries:
+    - CDS spread curve pricing
+    - CS01 computation
+    - jump-to-default risk
+    - daily mark-to-market
+    - recovery rate assumption
+    - P&L attribution (spread vs carry)
+
+  termsheet_defines:
+    - credit event types (bankruptcy, failure to pay, restructuring)
+    - restructuring variant (CR / MR / MMR / Old-R)
+    - reference entity and reference obligation
+    - recovery determination method
+    - settlement type (physical or cash/auction)
+    - ISDA Credit Definitions version

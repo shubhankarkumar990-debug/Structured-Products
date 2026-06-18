@@ -1,0 +1,83 @@
+booking_spec:
+  product_id: RC001
+  product_name: "Reverse Convertible (base case)"
+  product_family: ELN
+  generated_at: "2026-06-18T12:05Z"
+  spec_type: nemo_sophis
+  memory_used:
+    - memory/booking-maps/ELN_system_mapping.yaml
+
+  nemo_fields:
+    trade_id: ""
+    product_type: "Reverse Convertible"
+    notional: ""
+    currency: ""
+    trade_date: ""
+    maturity_date: ""
+    underlying: ""
+    put_strike_pct: "100%"
+    put_strike_absolute: ""
+    settlement_type: "Physical | Cash"
+    coupon_rate: ""
+    coupon_frequency: "At maturity"
+    initial_fixing_date: ""
+    initial_fixing_level: ""
+    final_observation_date: ""
+    fixing_source: ""
+    day_count_convention: ""
+    dividend_treatment: "Pass-through | Embedded"
+    isin: ""
+
+  sophis_fields:
+    instrument_type: "European Put"
+    underlying_ticker: ""
+    strike_absolute: ""
+    maturity: ""
+    volatility_surface: ""
+    dividend_yield_curve: ""
+    discount_curve: ""
+    model: "Black-Scholes"
+    delta: ""
+    gamma: ""
+    vega: ""
+    theta: ""
+    daily_mtm: ""
+    settlement_assumption: "Cash equivalent"
+
+  reconciliation_checks:
+    daily:
+      - "Put strike level: NEMO percentage vs Sophis absolute — verify consistency"
+      - "MTM: Sophis daily P&L vs NEMO accrued coupon"
+      - "Delta: Sophis Delta vs hedge position"
+    event_driven:
+      - "Maturity observation: verify fixing level matches across NEMO, Sophis, and Termsheet source"
+      - "Settlement: physical delivery instruction (NEMO) vs cash settlement assumption (Sophis)"
+      - "Ex-dividend: verify dividend treatment consistency between systems"
+      - "Fixing disruption: manual intervention required if disrupted-day fallback triggers"
+    termsheet_verification:
+      - "Strike: Termsheet percentage matches NEMO and Sophis absolute"
+      - "Settlement type: explicitly stated or default convention documented"
+      - "Fixing source: exchange close or composite specified"
+      - "Dividend treatment: pass-through or embedded specified"
+
+  failure_modes:
+    - mode: "Settlement mismatch"
+      trigger: "Physical delivery in NEMO, cash in Sophis"
+      consequence: "Settlement cash flow does not reconcile; desk faces unexpected delivery obligation"
+      detection: "Pre-maturity reconciliation check"
+    - mode: "Strike drift"
+      trigger: "Initial fixing amended post-trade; Sophis absolute not updated"
+      consequence: "Put exercise evaluated against stale strike; incorrect payoff calculation"
+      detection: "Amendment workflow triggers recalculation"
+    - mode: "Dividend divergence"
+      trigger: "Ex-div event; NEMO pass-through vs Sophis embedded"
+      consequence: "Effective strike diverges between systems; P&L break on ex-date"
+      detection: "Daily MTM reconciliation"
+
+  validation:
+    correct_spec_type: true
+    all_fields_named: true
+    ftp_documented: true
+    discounting_documented: true
+    min_3_recon_checks: true
+    min_2_failure_modes: true

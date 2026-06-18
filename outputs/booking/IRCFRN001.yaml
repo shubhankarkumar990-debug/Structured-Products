@@ -1,0 +1,87 @@
+booking_spec:
+  product_id: IRCFRN001
+  product_name: "IR Callable Fixed Rate Note"
+  product_family: SRT
+  generated_at: "2026-06-18T13:05Z"
+  spec_type: murex_four_leg
+  memory_used:
+    - memory/booking-maps/SRT_system_mapping.yaml
+
+  note_leg:
+    notional: ""
+    currency: ""
+    coupon_type: "Fixed"
+    coupon_rate: ""
+    coupon_frequency: "Semi-annual"
+    day_count: ""
+    maturity_date: ""
+    call_schedule: "Bermuda — annual after non-call period"
+    non_call_period: ""
+    call_notification_days: ""
+    call_price: "Par (clean or dirty per Termsheet)"
+
+  issuer_leg:
+    funding_rate: ""
+    funding_curve: ""
+    credit_spread: ""
+
+  deposit_leg:
+    deposit_rate: ""
+    deposit_tenor: ""
+    rollover_convention: ""
+
+  hedge_leg:
+    instrument_type: "Bermuda receiver swaption"
+    strike: "Note coupon rate"
+    exercise_dates: "Matching call schedule"
+    notional: "Note notional"
+    model: "Normal (Bachelier) or Lognormal (Black)"
+    volatility_surface: ""
+    delta_hedge: "Swap portfolio"
+
+  ftp_summary:
+    ftp_rate: ""
+    ftp_curve: ""
+    ftp_method: "Matched-maturity funding"
+
+  discounting_logic:
+    discount_curve: "OIS (if CSA) or Issuer curve (if uncollateralized)"
+    csa_terms: ""
+
+  reconciliation_checks:
+    daily:
+      - "DV01: hedge leg swap DV01 vs note leg DV01"
+      - "Vega: hedge swaption vega vs embedded swaption vega"
+      - "MTM: all four legs net to desk P&L"
+    event_driven:
+      - "Call exercise: verify notification period, clean/dirty call price"
+      - "Coupon payment: day count applied correctly"
+      - "Model change: normal vs lognormal convention consistent across legs"
+    termsheet_verification:
+      - "All call dates present in Murex"
+      - "Notification period specified"
+      - "Clean vs dirty call price specified"
+      - "Day count convention specified"
+      - "Volatility convention documented"
+
+  failure_modes:
+    - mode: "Missing call date"
+      trigger: "Call date omitted from Murex note leg"
+      consequence: "Bermuda swaption undervalued; vega unhedged on that date"
+      detection: "Call schedule reconciliation at booking"
+    - mode: "Model convention mismatch"
+      trigger: "Pricing uses normal vol; hedge uses lognormal"
+      consequence: "Vega hedge does not converge; unexplained P&L volatility"
+      detection: "Vega attribution analysis"
+    - mode: "Discount curve error"
+      trigger: "OIS applied to uncollateralized note"
+      consequence: "Systematic MTM bias for full note life"
+      detection: "Day 1 P&L review"
+
+  validation:
+    correct_spec_type: true
+    all_fields_named: true
+    ftp_documented: true
+    discounting_documented: true
+    min_3_recon_checks: true
+    min_2_failure_modes: true

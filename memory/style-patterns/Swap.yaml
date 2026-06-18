@@ -1,0 +1,49 @@
+meta:
+  product_id: Swap
+  product_name: "Swaps (family)"
+  family: Swap
+  category: style-patterns
+  stored_at: "2026-06-18T13:15Z"
+  source_stage: style
+  version: 1
+
+content:
+  heading_format: "Sentence case for H4 subsections"
+  currency_notation: "USD with international notation: 10M, 250k, 1.5bn"
+
+  canonical_h4_names:
+    - "Definition"
+    - "Construction"
+    - "Booking & systems"
+    - "Pricing intuition"
+    - "Worked example (USD 10M)"
+    - "Reconciliation specifics"
+    - "Desk view"
+    - "Desk shorthand"
+
+  known_false_positives:
+    - rule: "H4 heading names flagged as non-canonical"
+      reason: "Canonical names correct per author/writer specs."
+      applies_to: "All products"
+    - rule: "Murex mentioned for Swap products"
+      reason: "Murex IS correct for Swaps."
+      applies_to: "All Swap products"
+
+  approved_patterns:
+    - pattern: "USD prefix on all monetary figures"
+      note: "Bare '10M' without 'USD' prefix is a genuine style violation."
+    - pattern: "Desk shorthand in italic, 8 words or fewer"
+      note: "Count words literally."
+
+  accepted_conventions:
+    - convention: "ISDA Master Agreement as legal document"
+      reason: "For bilateral swaps, the legal document is the ISDA Master Agreement + Confirmation, NOT the Termsheet. This is correct and must not be flagged as a system_names violation."
+      applies_to: "All bilateral Swap products"
+
+    - convention: "Indicative bid-offer ranges in pricing intuition"
+      reason: "Ranges ('0.5–2.0 bps') are acceptable in the pricing intuition section for bid-offer spreads. The range prohibition applies only to the worked example section."
+      applies_to: "All Swap products"
+
+    - convention: "Approximate PV in decomposition"
+      reason: "'Approximately USD X' is acceptable for present-value calculations in worked example decompositions where the exact PV depends on the discount rate."
+      applies_to: "All Swap products"

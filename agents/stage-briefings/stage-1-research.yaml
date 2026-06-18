@@ -1,0 +1,12 @@
+stage: 1
+name: research
+agent: sp-research-agent
+input:
+  - "source material (provided by orchestrator)"
+  - "memory/definitions/{product_id}.yaml"
+  - "memory/components/{product_id}.yaml"
+  - "memory/booking-maps/{family}_system_mapping.yaml"
+output: "outputs/research/{product_id}.yaml"
+gate:
+  condition: "All mandatory fields present, no null core fields"
+  check: "definition, construction, systems, pricing, worked_example, reconciliation, desk_view, desk_shorthand — none null"

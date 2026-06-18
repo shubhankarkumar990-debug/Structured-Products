@@ -1,0 +1,47 @@
+qa_review:
+  product_id: SWAP001
+  reviewed_at: "2026-06-18T13:28Z"
+  scope:
+    first_run: true
+    sections_reviewed:
+      - definition
+      - construction
+      - booking_systems
+      - pricing_intuition
+      - worked_example
+      - reconciliation
+      - desk_view
+      - desk_shorthand
+    sections_skipped: []
+
+  summary:
+    total: 3
+    blocker: 1
+    major: 1
+    minor: 1
+
+  issues:
+    - id: "QA-001"
+      severity: BLOCKER
+      location: "worked_example"
+      issue: "Economic decomposition does not show a clean arithmetic check — the PV of 5 bps spread stated as 'approximately USD 22K' should be verified"
+      evidence: "PV of 5 bps annuity over 5 years at ~4.2% discount rate: 5 bps x 10M x annuity factor(4.2%, 5) ≈ 5,000 x 4.44 ≈ USD 22.2K. Calculation is correct."
+      required_action: "Arithmetic verified. BLOCKER resolved — no content change required."
+      resolved: "Verified correct"
+
+    - id: "QA-002"
+      severity: MAJOR
+      location: "definition"
+      issue: "Statement 'every structured rate product... can be decomposed into a combination of vanilla swaps and embedded options' is a strong claim"
+      evidence: "This is conceptually correct and is a standard characterization in structured products pedagogy"
+      required_action: "Advisory — statement is appropriate for a desk bible aimed at practitioners"
+
+    - id: "QA-003"
+      severity: MINOR
+      location: "pricing_intuition"
+      issue: "DV01 estimate of 'approximately USD 4,500' for USD 10M 5-year — should specify this is per basis point"
+      evidence: "Text defines DV01 earlier in the paragraph as 'change in swap MTM for a 1 basis point parallel shift' — the USD 4,500 figure is correctly contextualized"
+      required_action: "No action — context is clear"
+
+  gate: PASS
+  blocker_ids: []
