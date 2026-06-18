@@ -1,0 +1,100 @@
+research:
+  product_id: KODRC001
+  chapter: "3.1"
+  product_family: ELN
+  extracted_at: "2026-06-18T16:00Z"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+    - memory/style-patterns/ELN.yaml
+
+  definition:
+    client_payoff: "Investor purchases note at discount to par. If underlying breaches upside knock-out barrier at any observation, note redeems early at par. At maturity, if underlying is above put strike, par redemption. Below put strike, physical delivery or cash settlement at depreciated value."
+    capital_protection: "none"
+    conditional_coupon: false
+    autocall_feature: false
+    knock_in: false
+    knock_out: true
+    underlying_type: "single equity"
+
+  construction:
+    components:
+      - "Zero-coupon bond at discount to par"
+      - "Short up-and-out European put"
+    desk_long:
+      - "Zero-coupon bond funded at issuer credit curve"
+    desk_short:
+      - "Up-and-out put struck at 100% of initial fixing with knock-out barrier at 120%"
+    key_strikes:
+      - "Put strike: 100% of initial fixing"
+      - "Knock-out barrier: 120% of initial fixing"
+    path_dependency: "Discrete barrier observation — path dependent. The knock-out barrier is observed at scheduled dates (e.g., monthly or quarterly). Barrier is NOT continuously monitored."
+
+  systems:
+    book_of_record: NEMO
+    risk_and_pnl: Sophis
+    legal_document: Termsheet
+    murex_legs: []
+    no_murex: true
+
+  pricing:
+    dominant_greeks:
+      - "Delta (short via put)"
+      - "Vega (short — lower than vanilla put due to knock-out)"
+      - "Gamma (negative near barrier and strike)"
+    yield_drivers:
+      - "Implied volatility (higher vol → higher up-and-out put premium → larger discount)"
+      - "Knock-out barrier level (higher KO → more likely to knock out → lower put premium → smaller discount)"
+      - "Observation frequency (fewer observations → less likely to knock out → higher put premium → larger discount)"
+      - "Issuer funding spread"
+    model_sensitivity: "Black-Scholes with discrete barrier adjustment. Broadie-Glasserman correction for discrete vs continuous barrier pricing. Monte Carlo for discrete barrier observations."
+    key_risks:
+      - "Barrier proximity: Delta and Gamma spike near the knock-out level"
+      - "Discrete vs continuous barrier gap risk"
+      - "Pin risk at knock-out barrier on observation dates"
+
+  worked_example:
+    notional: "USD 10M"
+    underlying: "Single stock, 25% implied volatility"
+    tenor: "1 year"
+    strikes_and_barriers:
+      put_strike: "100% of initial fixing"
+      knock_out_barrier: "120% of initial fixing"
+      observation_frequency: "Quarterly (4 observations)"
+    decomposition:
+      up_and_out_put: "4.2% of par (USD 420K) — cheaper than vanilla put (5.5%) due to knock-out"
+      issuer_funding: "2.0% per annum (USD 200K)"
+      ftp: "0.6% (USD 60K)"
+      desk_margin: "0.4% (USD 40K)"
+    ftp_assumption: "0.6% per annum"
+    desk_margin: "0.4% per annum"
+    headline_yield_to_client: "7.2% discount to par (issue price 92.8% of par)"
+    bad_scenario: "Underlying closes at 60% at maturity, no knock-out triggered. Investor receives physical delivery worth USD 6M on investment of USD 9.28M. Loss: USD 3.28M or 35.3% of invested capital."
+
+  reconciliation:
+    primary_risk: "Knock-out barrier observation: NEMO and Sophis must agree on observation dates, closing prices, and whether the knock-out was triggered"
+    critical_fields:
+      - "Knock-out barrier level (120%)"
+      - "Observation dates and schedule"
+      - "Issue price vs par"
+      - "Settlement type"
+      - "Barrier observation convention (close-of-business vs intraday)"
+    failure_modes:
+      - "Barrier trigger mismatch: NEMO records knock-out triggered on a specific date but Sophis does not (or vice versa) due to different closing-price sources"
+      - "Issue price omission in NEMO (same as DRC001)"
+      - "Discrete barrier observation recorded as continuous in Sophis pricing model"
+    termsheet_ambiguities:
+      - "Observation convention: end-of-day close vs intraday high"
+      - "Settlement on knock-out: par paid on next business day or on scheduled payment date"
+    observation_type: "Discrete barrier (quarterly)"
+    fixing_fallback: "Modified following for non-business-day barrier observations"
+
+  desk_view:
+    typical_buyer: "Investor seeking discount structure with upside escape — if stock rallies, note redeems early at par, locking in the full discount as capital gain"
+    actual_risk_taken: "Short up-and-out put with full downside exposure below strike. Knock-out does not protect principal on the downside."
+    perceived_risk: "Lower than DRC001 because the knock-out provides a 'positive exit' if the stock rallies. In reality, the downside risk is identical to DRC001 if the knock-out is never triggered."
+    when_appropriate: "Investor has mildly bullish view and prefers capital gain over coupon. Knock-out provides a mechanism to realize the discount early if the underlying performs well."
+    desk_opinion: "Better product for volatile underlyings where the knock-out barrier is likely to be tested. The knock-out reduces the put premium, which reduces the discount — investor gives up some yield for the early exit feature."
+
+  desk_shorthand: "Discounted par; sold KO put, early exit on rally."
+  open_questions: []

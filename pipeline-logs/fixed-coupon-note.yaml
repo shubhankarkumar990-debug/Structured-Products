@@ -1,0 +1,37 @@
+chapter: "Fixed Coupon Note (FCN)"
+slug: "fixed-coupon-note"
+initiated: "2026-06-18"
+stages:
+  research:
+    status: completed
+    completed_at: "2026-06-18T17:00Z"
+    notes: "Gate passed. Three-component decomposition (DI put + autocall + bond). Phoenix comparison documented."
+  architecture:
+    status: completed
+    completed_at: "2026-06-18T17:02Z"
+    notes: "Gate passed. All 8 sections. Monte Carlo pricing. Fixed vs conditional coupon distinction."
+  writing:
+    status: completed
+    completed_at: "2026-06-18T17:05Z"
+    notes: "Gate passed. PHX001 comparison throughout. Asian market context. Institutional tone."
+  murex_mapping:
+    status: completed
+    completed_at: "2026-06-18T17:05Z"
+    notes: "Gate passed. NEMO+Sophis. Dual status flags (autocall + barrier). 4 failure modes."
+  qa:
+    status: completed
+    completed_at: "2026-06-18T17:10Z"
+    notes: "Gate passed. Zero BLOCKERs. Arithmetic verified (3.8+1.2+2.0+0.8+0.2=8.0). 1 MAJOR advisory."
+  style:
+    status: completed
+    completed_at: "2026-06-18T17:10Z"
+    notes: "Gate passed. Zero violations. 3 known FPs skipped. 1 accepted convention."
+  crossref:
+    status: completed
+    completed_at: "2026-06-18T17:12Z"
+    notes: "Gate passed. 5 refs validated incl PHX001 comparison. 1 warning (PHX001 forward ref)."
+  publishing:
+    status: completed
+    completed_at: "2026-06-18T17:15Z"
+    notes: "Gate passed. Second product in section 3.2, after PHX001."
+open_issues: []

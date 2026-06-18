@@ -1,0 +1,66 @@
+qa_review:
+  product_id: FCN001
+  reviewed_at: "2026-06-18T17:10Z"
+  scope:
+    first_run: true
+    sections_reviewed:
+      - definition
+      - construction
+      - booking_systems
+      - pricing_intuition
+      - worked_example
+      - reconciliation
+      - desk_view
+      - desk_shorthand
+    sections_skipped: []
+
+  arithmetic_verification:
+    decomposition_check:
+      components:
+        - "Down-and-in put: 3.8%"
+        - "Autocall option: 1.2%"
+        - "Issuer funding: 2.0%"
+        - "FTP: 0.8%"
+        - "Desk margin: 0.2%"
+      expected_sum: "8.0%"
+      actual_sum: "8.0%"
+      tolerance: "±0.2%"
+      result: "PASS — arithmetic correct"
+    autocalled_scenario_check:
+      par: "USD 10M"
+      coupon_2q: "USD 400K (2 × 2.0%)"
+      total: "USD 10.4M"
+      annualized_stated: "8.0%"
+      annualized_computed: "8.0% (400K/10M × 2 = 0.08)"
+      result: "PASS"
+    bad_scenario_check:
+      recovery: "USD 5M (shares)"
+      coupon: "USD 800K"
+      net: "USD 5.8M"
+      loss_stated: "42%"
+      loss_computed: "42% ((10M-5.8M)/10M)"
+      result: "PASS"
+
+  summary:
+    total: 2
+    blocker: 0
+    major: 1
+    minor: 1
+
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "Worked example — economic decomposition"
+      issue: "Presentation ambiguity in decomposition"
+      evidence: "Five-component decomposition sums correctly. FTP and desk margin presentation could be clearer regarding flow direction. Arithmetic verified correct."
+      required_action: "Advisory — no content change required."
+
+    - id: "QA-002"
+      severity: MINOR
+      location: "Definition — barrier observation convention"
+      issue: "Definition mentions two possible barrier conventions without defaulting"
+      evidence: "'if the underlying has never closed below the knock-in barrier on an observation date (or, depending on the Termsheet, if the underlying is above the barrier at maturity)' — the parenthetical covers both discrete and European observation. Acceptable for definition section."
+      required_action: "Advisory — the worked example uses discrete observation, which is the more common convention."
+
+  gate: PASS
+  blocker_ids: []

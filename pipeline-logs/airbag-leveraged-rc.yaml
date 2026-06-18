@@ -1,0 +1,37 @@
+chapter: "Airbag / Leveraged Reverse Convertible"
+slug: "airbag-leveraged-rc"
+initiated: "2026-06-18"
+stages:
+  research:
+    status: completed
+    completed_at: "2026-06-18T16:40Z"
+    notes: "Gate passed. Leveraged down-and-in put as key primitive. Leverage ratio 1.4286x derived from strike/barrier."
+  architecture:
+    status: completed
+    completed_at: "2026-06-18T16:42Z"
+    notes: "Gate passed. All 8 sections. European barrier. Closed-form pricing."
+  writing:
+    status: completed
+    completed_at: "2026-06-18T16:45Z"
+    notes: "Gate passed. Misleading product name addressed directly. Three scenarios (good, bad, severe). Institutional tone."
+  murex_mapping:
+    status: completed
+    completed_at: "2026-06-18T16:45Z"
+    notes: "Gate passed. NEMO+Sophis. Leverage formula as critical field. 4 failure modes documented."
+  qa:
+    status: completed
+    completed_at: "2026-06-18T16:50Z"
+    notes: "Gate passed. Zero BLOCKERs. All arithmetic verified including leverage formula. 1 MAJOR advisory."
+  style:
+    status: completed
+    completed_at: "2026-06-18T16:50Z"
+    notes: "Gate passed. Zero violations. 3 known FPs skipped. 1 accepted convention."
+  crossref:
+    status: completed
+    completed_at: "2026-06-18T16:52Z"
+    notes: "Gate passed. 4 refs validated. 1 warning (implicit RC001 ref). Zero broken."
+  publishing:
+    status: completed
+    completed_at: "2026-06-18T16:55Z"
+    notes: "Gate passed. Final product in section 3.1. Insertion after CRC001."
+open_issues: []

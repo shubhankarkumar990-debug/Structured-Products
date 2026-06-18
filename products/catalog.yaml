@@ -17,19 +17,19 @@ products:
     name: "Knock-Out Discounted RC"
     family: ELN
     section: "3.1"
-    status: existing
+    status: complete
 
   - id: CRC001
     name: "Callable Reverse Convertible"
     family: ELN
     section: "3.1"
-    status: existing
+    status: complete
 
   - id: AIRBAG001
     name: "Airbag / Leveraged Reverse Convertible"
     family: ELN
     section: "3.1"
-    status: existing
+    status: complete
 
   # 3.2 Autocallables
   - id: PHX001
@@ -42,13 +42,13 @@ products:
     name: "Fixed Coupon Note (FCN)"
     family: ELN
     section: "3.2"
-    status: existing
+    status: complete
 
   - id: CRAELN001
     name: "Callable Range Accrual ELN"
     family: ELN
     section: "3.2"
-    status: existing
+    status: complete
 
   # 3.3 Other ELN structures
   - id: BONUS001

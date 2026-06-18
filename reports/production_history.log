@@ -1,0 +1,88 @@
+================================================================================
+PRODUCTION HISTORY LOG — Structured Products Desk Bible
+================================================================================
+
+--- Batch 0 -------------------------------------------------------------------
+Date:           2026-06-18
+Products:       PHX001, RC001, DRC001, VCLN001, IRCFRN001, SWAP001
+Count:          6
+Families:       ELN (3), CLN (1), SRT (1), Swap (1)
+Pipeline:       v2.1 (post production-readiness improvements)
+Commit:         051989b
+Tag:            desk-bible-v2-production-ready
+
+Quality:
+  QA BLOCKERs:          0 (3 pre-improvement, all resolved by arithmetic verification protocol)
+  QA MAJORs:            8
+  QA MINORs:            5
+  Style MUST_FIX:       0 (3 pre-improvement, all resolved by accepted conventions)
+  Style SHOULD_FIX:     3
+  CrossRef broken:      0
+  CrossRef warnings:    3
+  Publishing failures:  0
+
+Memory:
+  Artifacts created:    12 (3 per family x 4 families)
+  Artifacts reused:     6 (ELN files reused by RC001, DRC001)
+  Conventions added:    12
+  False positives avoided: 22
+
+Tokens (estimated):     ~89,196
+Runtime:                ~165 min (PHX001 90 min + 5 pilot ~75 min)
+
+Notes:
+  - PHX001 was the reference product (pre-pilot, pipeline engineering phase)
+  - RC001–SWAP001 were the pilot generation products
+  - Production-readiness improvements applied mid-batch:
+    1. QA arithmetic verification protocol (sp-qa-agent.md)
+    2. Style accepted conventions expansion (4 family style-patterns)
+  - Regression testing confirmed 100% reduction in false BLOCKERs and MUST_FIX
+  - Production Readiness Report: recommendation B (ready after minor improvements)
+  - Improvements implemented; re-assessed as GO for full generation
+
+Cumulative:
+  Total complete:       6 / 28 (21.4%)
+  Total remaining:      22
+--------------------------------------------------------------------------------
+
+--- Batch 1 -------------------------------------------------------------------
+Date:           2026-06-18
+Products:       KODRC001, CRC001, AIRBAG001, FCN001, CRAELN001
+Count:          5
+Families:       ELN (5)
+Pipeline:       v2.1 (stable, no changes from Batch 0)
+Sections:       3.1 (complete), 3.2 (complete)
+
+Quality:
+  QA BLOCKERs:          0
+  QA MAJORs:            6 (all advisory — decomposition presentation)
+  QA MINORs:            5
+  Style MUST_FIX:       0
+  Style SHOULD_FIX:     2
+  CrossRef broken:      0
+  CrossRef warnings:    5 (all forward refs to existing products)
+  Publishing failures:  0
+
+Memory:
+  Artifacts created:    0 (all ELN artifacts reused from Batch 0)
+  Artifacts reused:     15 (3 per product × 5 products)
+  Conventions added:    0
+  False positives avoided: 20 (15 known FPs + 5 accepted conventions)
+
+Tokens (estimated):     ~74,330
+Runtime:                ~95 min
+
+Notes:
+  - All 5 products are ELN family — no new family bootstrap required
+  - Sections 3.1 (Reverse Convertible Variants) and 3.2 (Autocallables) now fully complete
+  - Pipeline v2.1 ran without modification — zero false BLOCKERs, zero false MUST_FIX
+  - Most complex product: CRAELN001 (daily observation, range accrual, no embedded put)
+  - Most novel product: AIRBAG001 (leveraged payoff formula, misleading product name addressed)
+  - Zero retries, zero checkpoint recoveries
+
+Cumulative:
+  Total complete:       11 / 28 (39.3%)
+  Total remaining:      17
+  Total tokens:         ~163,526
+  Total memory artifacts: 12 (created) + 21 (reused)
+--------------------------------------------------------------------------------

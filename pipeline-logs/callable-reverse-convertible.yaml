@@ -1,0 +1,37 @@
+chapter: "Callable Reverse Convertible"
+slug: "callable-reverse-convertible"
+initiated: "2026-06-18"
+stages:
+  research:
+    status: completed
+    completed_at: "2026-06-18T16:20Z"
+    notes: "Gate passed. Three-component decomposition (put + call + bond). ELN memory reused."
+  architecture:
+    status: completed
+    completed_at: "2026-06-18T16:22Z"
+    notes: "Gate passed. All 8 sections. Bermudan call pricing model specified."
+  writing:
+    status: completed
+    completed_at: "2026-06-18T16:25Z"
+    notes: "Gate passed. Negative convexity explained clearly. Issuer call vs autocall distinction made."
+  murex_mapping:
+    status: completed
+    completed_at: "2026-06-18T16:25Z"
+    notes: "Gate passed. NEMO+Sophis. Call schedule fields added. 4 failure modes documented."
+  qa:
+    status: completed
+    completed_at: "2026-06-18T16:30Z"
+    notes: "Gate passed. Zero BLOCKERs. Arithmetic verified (5.5+1.5+2.0+1.2+0.3=10.5). 1 MAJOR advisory."
+  style:
+    status: completed
+    completed_at: "2026-06-18T16:30Z"
+    notes: "Gate passed. 3 known FPs skipped. 1 accepted convention. 1 SHOULD_FIX (abbreviation)."
+  crossref:
+    status: completed
+    completed_at: "2026-06-18T16:32Z"
+    notes: "Gate passed. 4 refs validated incl autocall distinction to PHX001. 1 warning (RC001 forward ref)."
+  publishing:
+    status: completed
+    completed_at: "2026-06-18T16:35Z"
+    notes: "Gate passed. Insertion after KODRC001 in section 3.1."
+open_issues: []

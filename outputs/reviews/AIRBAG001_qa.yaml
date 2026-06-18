@@ -1,0 +1,75 @@
+qa_review:
+  product_id: AIRBAG001
+  reviewed_at: "2026-06-18T16:50Z"
+  scope:
+    first_run: true
+    sections_reviewed:
+      - definition
+      - construction
+      - booking_systems
+      - pricing_intuition
+      - worked_example
+      - reconciliation
+      - desk_view
+      - desk_shorthand
+    sections_skipped: []
+
+  arithmetic_verification:
+    decomposition_check:
+      components:
+        - "Leveraged DI put: 4.8%"
+        - "Issuer funding: 2.0%"
+        - "FTP: 0.9%"
+        - "Desk margin: 0.3%"
+      expected_sum: "8.0%"
+      actual_sum: "8.0%"
+      tolerance: "±0.2%"
+      result: "PASS — arithmetic correct"
+    good_scenario_check:
+      underlying: "80% (above 70% barrier)"
+      settlement: "Par (USD 10M)"
+      coupon: "USD 800K"
+      total: "USD 10.8M"
+      result: "PASS"
+    bad_scenario_check:
+      underlying: "50%"
+      leverage_formula: "10M × (50/70) = 10M × 0.7143 = USD 7.143M"
+      stated: "USD 7.143M"
+      coupon: "USD 800K"
+      net: "USD 7.943M"
+      loss_stated: "20.6%"
+      loss_computed: "20.57% ((10M - 7.943M)/10M)"
+      result: "PASS — within tolerance"
+    severe_scenario_check:
+      underlying: "30%"
+      leverage_formula: "10M × (30/70) = 10M × 0.4286 = USD 4.286M"
+      stated: "USD 4.286M"
+      coupon: "USD 800K"
+      net: "USD 5.086M"
+      loss_stated: "49.1%"
+      loss_computed: "49.14% ((10M - 5.086M)/10M)"
+      result: "PASS — within tolerance"
+
+  summary:
+    total: 2
+    blocker: 0
+    major: 1
+    minor: 1
+
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "Worked example — bad scenario"
+      issue: "Presentation ambiguity in leverage benefit explanation"
+      evidence: "The bad scenario states 'the leverage actually benefits the investor in this case because the settlement is calculated relative to the barrier, not the strike.' This is factually correct — at 50% underlying, the leveraged formula (par × 50/70 = 71.4%) gives a higher recovery than the standard formula (par × 50/100 = 50%). However, the phrasing may confuse readers who expect leverage to always hurt. Arithmetic verified correct."
+      required_action: "Advisory — the explanation is accurate and adds valuable insight. No content change required."
+
+    - id: "QA-002"
+      severity: MINOR
+      location: "Definition — leverage ratio"
+      issue: "Leverage ratio quoted to 4 decimal places"
+      evidence: "1.4286x — acceptable precision for worked example. Could simplify to '~1.43x' in definition for readability."
+      required_action: "Advisory — no content change required."
+
+  gate: PASS
+  blocker_ids: []

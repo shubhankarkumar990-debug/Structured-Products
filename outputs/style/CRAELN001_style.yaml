@@ -1,0 +1,29 @@
+style_review:
+  product_id: CRAELN001
+  reviewed_at: "2026-06-18T17:30Z"
+  artifact_reviewed: "outputs/drafts/CRAELN001.md"
+  memory_consulted: "memory/style-patterns/ELN.yaml"
+
+  summary:
+    total: 4
+    must_fix: 0
+    should_fix: 0
+    skipped_known_fp: 3
+    skipped_accepted_convention: 1
+
+  violations: []
+
+  known_false_positives_skipped:
+    - pattern: "H4 heading names"
+      reason: "Canonical names correct per writing standards"
+    - pattern: "Sophis casing"
+      reason: "Title case correct"
+    - pattern: "Termsheet casing"
+      reason: "One word, capitalised — correct per style guide"
+
+  accepted_conventions_skipped:
+    - convention: "Per annum on multi-year notes"
+      reason: "'7.0% per annum' — annual quoting convention for semi-annual coupon note — accepted per ELN conventions"
+
+  gate: PASS
+  must_fix_ids: []

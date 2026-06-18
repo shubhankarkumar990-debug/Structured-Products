@@ -1,0 +1,65 @@
+{
+  "product_id": "CRAELN001",
+  "product_name": "Callable Range Accrual ELN",
+  "family": "ELN",
+  "updated_at": "2026-06-18T17:35:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {
+      "status": "complete",
+      "at": "2026-06-18T17:20Z"
+    },
+    "research": {
+      "status": "complete",
+      "at": "2026-06-18T17:20Z",
+      "artifact": "outputs/research/CRAELN001.yaml"
+    },
+    "architecture": {
+      "status": "complete",
+      "at": "2026-06-18T17:22Z",
+      "artifact": "outputs/blueprints/CRAELN001.yaml"
+    },
+    "content": {
+      "status": "complete",
+      "at": "2026-06-18T17:25Z",
+      "artifact": "outputs/drafts/CRAELN001.md"
+    },
+    "booking": {
+      "status": "complete",
+      "at": "2026-06-18T17:25Z",
+      "artifact": "outputs/booking/CRAELN001.yaml"
+    },
+    "qa": {
+      "status": "complete",
+      "at": "2026-06-18T17:30Z",
+      "artifact": "outputs/reviews/CRAELN001_qa.yaml"
+    },
+    "style": {
+      "status": "complete",
+      "at": "2026-06-18T17:30Z",
+      "artifact": "outputs/style/CRAELN001_style.yaml"
+    },
+    "crossref": {
+      "status": "complete",
+      "at": "2026-06-18T17:32Z",
+      "artifact": "outputs/crossref/CRAELN001_crossref.yaml"
+    },
+    "publish": {
+      "status": "complete",
+      "at": "2026-06-18T17:35Z",
+      "artifact": "outputs/publish/CRAELN001_pubspec.yaml"
+    }
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. 1 MAJOR advisory (per-annum convention on 2-year note). 1 MINOR (boundary touch estimate). Zero style violations. 1 crossref warning (CRC001 forward ref). Most operationally intensive ELN product. Clean pipeline run.",
+  "section_hashes": {
+    "definition": "f7c9a1e3b5d20468",
+    "construction": "c0e2f4a6d8b71935",
+    "booking_systems": "5b7d9f1a3c8e2046",
+    "pricing_intuition": "a2c4e6f8d0b71953",
+    "worked_example": "d4f6a8c0e2b31975",
+    "reconciliation": "6e8a0c2f4d7b1935",
+    "desk_view": "b1d3f5a7c9e20468",
+    "desk_shorthand": "3f5a7c9e1b2d8046"
+  }
+}

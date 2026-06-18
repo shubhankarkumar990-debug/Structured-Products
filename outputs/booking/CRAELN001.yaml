@@ -1,0 +1,106 @@
+booking_spec:
+  product_id: CRAELN001
+  product_name: "Callable Range Accrual ELN"
+  product_family: ELN
+  generated_at: "2026-06-18T17:25Z"
+  spec_type: nemo_sophis
+  memory_used:
+    - memory/booking-maps/ELN_system_mapping.yaml
+
+  nemo_fields:
+    trade_id: ""
+    product_type: "Callable Range Accrual ELN"
+    notional: ""
+    currency: ""
+    trade_date: ""
+    maturity_date: ""
+    underlying: ""
+    lower_range_barrier_pct: "80%"
+    lower_range_barrier_absolute: ""
+    upper_range_barrier_pct: "120%"
+    upper_range_barrier_absolute: ""
+    boundary_treatment: "Inclusive | Exclusive"
+    max_coupon_rate: ""
+    coupon_frequency: "Semi-annual"
+    accrual_count_in_range: ""
+    accrual_count_total: ""
+    accrual_observation: "Daily (close-of-business)"
+    business_day_calendar: ""
+    call_schedule: "Semi-annual"
+    call_dates: []
+    call_notice_period: ""
+    call_exercise_status: "Not exercised | Exercised on [date]"
+    coupon_on_call: "Actual accrual | Minimum guaranteed"
+    initial_fixing_date: ""
+    initial_fixing_level: ""
+    fixing_source: ""
+    isin: ""
+
+  sophis_fields:
+    instrument_type: "Range Accrual Digital Strip + Bermudan Call"
+    underlying_ticker: ""
+    lower_barrier_absolute: ""
+    upper_barrier_absolute: ""
+    boundary_treatment: "Inclusive | Exclusive"
+    call_exercise_dates: []
+    maturity: ""
+    volatility_surface: ""
+    volatility_model: "Local volatility"
+    dividend_yield_curve: ""
+    discount_curve: ""
+    issuer_credit_curve: ""
+    model: "Monte Carlo (daily time steps)"
+    paths: "100000+"
+    accrual_model: "Daily digital strip"
+    vega: ""
+    delta: ""
+    gamma: ""
+    theta: ""
+    daily_mtm: ""
+
+  reconciliation_checks:
+    daily:
+      - "Closing price: NEMO source vs Sophis source — must match for boundary determination"
+      - "In-range determination: verify same in/out result for the day"
+      - "Cumulative accrual count: NEMO running total vs Sophis model"
+      - "MTM: Sophis daily P&L vs NEMO projected coupon liability"
+      - "Delta: Sophis vs hedge position"
+      - "Call status: NEMO flag vs Sophis call model"
+    event_driven:
+      - "Coupon payment: verify accrual count and coupon amount match between systems"
+      - "Call exercise: both systems process lifecycle termination on same date"
+      - "Coupon on call: verify accrual-to-date amount matches Termsheet convention"
+      - "Boundary touch: on days when close is within 0.5% of barrier, flag for manual verification"
+    termsheet_verification:
+      - "Range barriers: percentages match NEMO and Sophis absolutes"
+      - "Boundary treatment: inclusive or exclusive explicitly stated"
+      - "Business day calendar: specified and consistent"
+      - "Fixing source: single source for all daily observations"
+      - "Call schedule: dates and notice period match NEMO"
+      - "Coupon on call: convention explicitly stated"
+
+  failure_modes:
+    - mode: "Daily accrual count divergence"
+      trigger: "Different closing prices or boundary treatment between NEMO and Sophis"
+      consequence: "Cumulative coupon divergence; payment amount does not match pricing model"
+      detection: "Automated daily reconciliation of in-range determination"
+    - mode: "Boundary treatment mismatch"
+      trigger: "NEMO inclusive, Sophis exclusive (or vice versa); Termsheet silent"
+      consequence: "Accrual differs on every boundary-touch day (~15-25 times over 2 years)"
+      detection: "Pre-booking: verify boundary convention in both systems against Termsheet"
+    - mode: "Business day calendar mismatch"
+      trigger: "NEMO settlement calendar vs Sophis exchange calendar — different holidays"
+      consequence: "Different denominators; accrual ratio diverges even with identical in-range counts"
+      detection: "Pre-booking: align calendars; reconcile total-day counts quarterly"
+    - mode: "Call event not processed"
+      trigger: "Issuer calls but NEMO not updated"
+      consequence: "Daily accrual continues; coupon overpayment; hedge open"
+      detection: "Daily call-status reconciliation"
+
+  validation:
+    correct_spec_type: true
+    all_fields_named: true
+    ftp_documented: true
+    discounting_documented: true
+    min_3_recon_checks: true
+    min_2_failure_modes: true

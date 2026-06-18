@@ -1,0 +1,30 @@
+crossref_review:
+  product_id: CRAELN001
+  reviewed_at: "2026-06-18T17:32Z"
+  input_file: "outputs/drafts/CRAELN001.md"
+
+  summary:
+    total_refs: 4
+    validated: 3
+    broken: 0
+    warning: 1
+
+  broken_refs: []
+
+  warnings:
+    - id: "CW-001"
+      type: forward_ref
+      location: "Reconciliation — 'identical risk to the Callable Reverse Convertible'"
+      reference: "CRC001"
+      reason: "Implicit reference to CRC001 call-event processing. Both products are complete. Formal cross-reference would aid navigation."
+
+  validated_refs:
+    - reference: "Callable Reverse Convertible (call event processing)"
+      target: "outputs/drafts/CRC001.md"
+    - reference: "NEMO booking system"
+      target: "ELN system mapping — memory/booking-maps/ELN_system_mapping.yaml"
+    - reference: "Sophis risk system"
+      target: "ELN system mapping — memory/booking-maps/ELN_system_mapping.yaml"
+
+  gate: PASS
+  broken_ids: []

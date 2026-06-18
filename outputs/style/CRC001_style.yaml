@@ -1,0 +1,34 @@
+style_review:
+  product_id: CRC001
+  reviewed_at: "2026-06-18T16:30Z"
+  artifact_reviewed: "outputs/drafts/CRC001.md"
+  memory_consulted: "memory/style-patterns/ELN.yaml"
+
+  summary:
+    total: 5
+    must_fix: 0
+    should_fix: 1
+    skipped_known_fp: 3
+    skipped_accepted_convention: 1
+
+  violations:
+    - id: "S-001"
+      severity: SHOULD_FIX
+      rule: "Product naming first mention"
+      location: "Definition — abbreviation"
+      violation: "No abbreviation established for Callable Reverse Convertible. Consider introducing 'CRC' or 'Callable RC' as shorthand."
+
+  known_false_positives_skipped:
+    - pattern: "H4 heading names"
+      reason: "Canonical names correct per writing standards"
+    - pattern: "Sophis casing"
+      reason: "Title case correct"
+    - pattern: "Termsheet casing"
+      reason: "One word, capitalised — correct per style guide"
+
+  accepted_conventions_skipped:
+    - convention: "Per annum on single-period notes"
+      reason: "'10.5% per annum' — annual quoting convention for quarterly-paying note — accepted per ELN conventions"
+
+  gate: PASS
+  must_fix_ids: []

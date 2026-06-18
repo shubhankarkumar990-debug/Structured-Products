@@ -1,0 +1,66 @@
+qa_review:
+  product_id: CRC001
+  reviewed_at: "2026-06-18T16:30Z"
+  scope:
+    first_run: true
+    sections_reviewed:
+      - definition
+      - construction
+      - booking_systems
+      - pricing_intuition
+      - worked_example
+      - reconciliation
+      - desk_view
+      - desk_shorthand
+    sections_skipped: []
+
+  arithmetic_verification:
+    decomposition_check:
+      components:
+        - "European put: 5.5%"
+        - "Bermudan call: 1.5%"
+        - "Issuer funding: 2.0%"
+        - "FTP: 1.2%"
+        - "Desk margin: 0.3%"
+      expected_sum: "10.5%"
+      actual_sum: "10.5%"
+      tolerance: "±0.2%"
+      result: "PASS — arithmetic correct"
+    bad_scenario_check:
+      notional: "USD 10M"
+      recovery: "USD 5.5M (shares) + USD 1.05M (coupon) = USD 6.55M"
+      loss: "USD 3.45M"
+      loss_pct_stated: "34.5%"
+      loss_pct_computed: "34.5% (3.45/10 = 0.345)"
+      result: "PASS"
+    called_scenario_check:
+      par: "USD 10M"
+      coupon_2q: "USD 525K (2 × 2.625%)"
+      total: "USD 10.525M"
+      annualized_stated: "10.5%"
+      annualized_computed: "10.5% (525K/10M × 2 = 0.105)"
+      result: "PASS"
+
+  summary:
+    total: 2
+    blocker: 0
+    major: 1
+    minor: 1
+
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "Worked example — economic decomposition"
+      issue: "Presentation ambiguity in five-component decomposition"
+      evidence: "The decomposition lists put (5.5%) + call (1.5%) + funding (2.0%) + FTP (1.2%) + margin (0.3%) = 10.5%. Arithmetic is correct. The flow of FTP and margin could be clearer — both are issuer retention but are presented as additive components of the investor's coupon."
+      required_action: "Advisory — presentation is industry-standard. No content change required."
+
+    - id: "QA-002"
+      severity: MINOR
+      location: "Pricing intuition — call premium sensitivity"
+      issue: "Sensitivity ranges are approximate"
+      evidence: "'Adding one quarterly call date contributes approximately 15-25 bps' — range is broad. Acceptable for intuition section."
+      required_action: "Advisory — no content change required."
+
+  gate: PASS
+  blocker_ids: []

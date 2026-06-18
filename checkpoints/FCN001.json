@@ -1,0 +1,65 @@
+{
+  "product_id": "FCN001",
+  "product_name": "Fixed Coupon Note (FCN)",
+  "family": "ELN",
+  "updated_at": "2026-06-18T17:15:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {
+      "status": "complete",
+      "at": "2026-06-18T17:00Z"
+    },
+    "research": {
+      "status": "complete",
+      "at": "2026-06-18T17:00Z",
+      "artifact": "outputs/research/FCN001.yaml"
+    },
+    "architecture": {
+      "status": "complete",
+      "at": "2026-06-18T17:02Z",
+      "artifact": "outputs/blueprints/FCN001.yaml"
+    },
+    "content": {
+      "status": "complete",
+      "at": "2026-06-18T17:05Z",
+      "artifact": "outputs/drafts/FCN001.md"
+    },
+    "booking": {
+      "status": "complete",
+      "at": "2026-06-18T17:05Z",
+      "artifact": "outputs/booking/FCN001.yaml"
+    },
+    "qa": {
+      "status": "complete",
+      "at": "2026-06-18T17:10Z",
+      "artifact": "outputs/reviews/FCN001_qa.yaml"
+    },
+    "style": {
+      "status": "complete",
+      "at": "2026-06-18T17:10Z",
+      "artifact": "outputs/style/FCN001_style.yaml"
+    },
+    "crossref": {
+      "status": "complete",
+      "at": "2026-06-18T17:12Z",
+      "artifact": "outputs/crossref/FCN001_crossref.yaml"
+    },
+    "publish": {
+      "status": "complete",
+      "at": "2026-06-18T17:15Z",
+      "artifact": "outputs/publish/FCN001_pubspec.yaml"
+    }
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. 1 MAJOR advisory (decomposition presentation). 1 MINOR (barrier convention parenthetical). Zero style violations. 1 crossref warning (PHX001 forward ref). Clean pipeline run.",
+  "section_hashes": {
+    "definition": "e6b4d2f0a8c71935",
+    "construction": "b9d1f3a5c7e20468",
+    "booking_systems": "4a6c8e0f2b1d7953",
+    "pricing_intuition": "c8a0e2f4d6b31975",
+    "worked_example": "f3a5c7e9b1d40286",
+    "reconciliation": "1d3f5a7c9e2b8046",
+    "desk_view": "a5c7e9f1b3d20468",
+    "desk_shorthand": "8e0a2c4f6d7b1935"
+  }
+}

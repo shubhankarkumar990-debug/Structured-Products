@@ -1,0 +1,103 @@
+research:
+  product_id: CRC001
+  chapter: "3.1"
+  product_family: ELN
+  extracted_at: "2026-06-18T16:20Z"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+    - memory/style-patterns/ELN.yaml
+
+  definition:
+    client_payoff: "Fixed above-market coupon. Issuer has the right to call the note at par on scheduled call dates. At maturity, if not called, standard RC put evaluation applies. Coupon is higher than base RC to compensate the investor for call risk."
+    capital_protection: "none"
+    conditional_coupon: false
+    autocall_feature: false
+    knock_in: false
+    knock_out: false
+    underlying_type: "single equity"
+
+  construction:
+    components:
+      - "Zero-coupon bond at par"
+      - "Short European put (100% strike)"
+      - "Short Bermudan call on the note (issuer callable)"
+    desk_long:
+      - "Zero-coupon bond funded at issuer credit curve"
+    desk_short:
+      - "European put struck at 100% of initial fixing"
+      - "Bermudan call on the note — issuer can redeem at par on scheduled dates"
+    key_strikes:
+      - "Put strike: 100% of initial fixing"
+      - "Call strike: par (100%)"
+    path_dependency: "No path dependency on the put (European). The call is Bermudan — exercisable on discrete dates. The combination creates effective path dependency through issuer's optimal exercise strategy."
+
+  systems:
+    book_of_record: NEMO
+    risk_and_pnl: Sophis
+    legal_document: Termsheet
+    murex_legs: []
+    no_murex: true
+
+  pricing:
+    dominant_greeks:
+      - "Delta (short via put)"
+      - "Vega (short — put component; mixed on call component)"
+      - "Rho (call value sensitive to rates)"
+    yield_drivers:
+      - "Implied volatility (higher vol → higher put premium → higher coupon)"
+      - "Call schedule (more call dates → higher call value → more compensation → higher coupon)"
+      - "Interest rates (higher rates increase call probability → more compensation → higher coupon)"
+      - "Issuer funding spread"
+    model_sensitivity: "Black-Scholes for the put component. Bermudan exercise model (least-squares Monte Carlo or tree) for the call component."
+    key_risks:
+      - "Reinvestment risk on call — investor forced out of high-coupon position in a potentially lower-yield environment"
+      - "Issuer optimal exercise: issuer calls when the note is worth more than par to them, which is when it is worth less to the investor"
+      - "Negative convexity: investor's upside is capped at par (by the call) while downside is uncapped (by the put)"
+
+  worked_example:
+    notional: "USD 10M"
+    underlying: "Single stock, 25% implied volatility"
+    tenor: "1 year"
+    strikes_and_barriers:
+      put_strike: "100% of initial fixing"
+      call_dates: "Quarterly (Q1, Q2, Q3)"
+    decomposition:
+      european_put: "5.5% (USD 550K)"
+      bermudan_call: "1.5% (USD 150K)"
+      issuer_funding: "2.0% (USD 200K)"
+      ftp: "1.2% (USD 120K)"
+      desk_margin: "0.3% (USD 30K)"
+    ftp_assumption: "1.2% per annum"
+    desk_margin: "0.3% per annum"
+    headline_yield_to_client: "10.5% per annum fixed coupon"
+    bad_scenario: "Not called. Underlying at 55% at maturity. Physical delivery worth USD 5.5M. Net proceeds with coupon: USD 6.55M. Loss: USD 3.45M or 34.5% of par."
+
+  reconciliation:
+    primary_risk: "Call event processing — when issuer exercises the call, NEMO must terminate the note lifecycle, Sophis must unwind the hedges, and cash flow must settle at par on the correct date"
+    critical_fields:
+      - "Call schedule and notice period"
+      - "Call exercise status"
+      - "Coupon accrual on call (full period or pro-rata)"
+      - "Put strike level"
+      - "Settlement type"
+    failure_modes:
+      - "Call exercise not reflected in NEMO — note continues to accrue coupon and appear as live position after issuer has exercised"
+      - "Coupon accrual mismatch on call — Termsheet may specify full-period coupon or pro-rata to call date"
+      - "Sophis hedge unwind timing — if Sophis does not receive the call notification, Delta hedge persists past the call settlement"
+    termsheet_ambiguities:
+      - "Coupon on call: full period or accrued to call date"
+      - "Call notice period: days before call date that issuer must notify"
+      - "Call settlement: T+2 from call date or on next scheduled coupon date"
+    observation_type: "Bermudan (discrete call dates)"
+    fixing_fallback: "Modified following for call dates on non-business days"
+
+  desk_view:
+    typical_buyer: "Yield-seeking investor willing to accept call risk and downside equity exposure. Often in rising-rate environments where the higher coupon offsets reinvestment risk."
+    actual_risk_taken: "Short put (downside equity exposure) plus short call (issuer can terminate the position when most advantageous to them). Negative convexity."
+    perceived_risk: "Investor focuses on the high coupon and underestimates the reinvestment risk from early call."
+    when_appropriate: "Investor has strong single-stock conviction, is comfortable with potential early termination, and values the coupon premium over the base RC."
+    desk_opinion: "Higher coupon than base RC makes this easier to sell but harder to manage. The Bermudan call requires ongoing monitoring of the issuer's optimal exercise decision."
+
+  desk_shorthand: "Enhanced coupon; sold put and call, capped upside."
+  open_questions: []

@@ -1,0 +1,37 @@
+chapter: "Callable Range Accrual ELN"
+slug: "callable-range-accrual-eln"
+initiated: "2026-06-18"
+stages:
+  research:
+    status: completed
+    completed_at: "2026-06-18T17:20Z"
+    notes: "Gate passed. Three-component decomposition (bond + digital strip + call). No put — principal protected. Most path-dependent ELN."
+  architecture:
+    status: completed
+    completed_at: "2026-06-18T17:22Z"
+    notes: "Gate passed. All 8 sections. Daily time-step Monte Carlo. Local vol model."
+  writing:
+    status: completed
+    completed_at: "2026-06-18T17:25Z"
+    notes: "Gate passed. Three accrual scenarios (100%, 60%, 30%). Operational intensity emphasized. Institutional tone."
+  murex_mapping:
+    status: completed
+    completed_at: "2026-06-18T17:25Z"
+    notes: "Gate passed. NEMO+Sophis. Daily accrual fields. Boundary treatment as critical field. 4 failure modes."
+  qa:
+    status: completed
+    completed_at: "2026-06-18T17:30Z"
+    notes: "Gate passed. Zero BLOCKERs. Arithmetic verified for all three scenarios. 1 MAJOR advisory."
+  style:
+    status: completed
+    completed_at: "2026-06-18T17:30Z"
+    notes: "Gate passed. Zero violations. 3 known FPs skipped. 1 accepted convention."
+  crossref:
+    status: completed
+    completed_at: "2026-06-18T17:32Z"
+    notes: "Gate passed. 3 refs validated. 1 warning (CRC001 call-event forward ref). Zero broken."
+  publishing:
+    status: completed
+    completed_at: "2026-06-18T17:35Z"
+    notes: "Gate passed. Third and final product in section 3.2."
+open_issues: []

@@ -1,0 +1,37 @@
+chapter: "Knock-Out Discounted Reverse Convertible"
+slug: "knock-out-discounted-rc"
+initiated: "2026-06-18"
+stages:
+  research:
+    status: completed
+    completed_at: "2026-06-18T16:00Z"
+    notes: "Gate passed. All core fields present. ELN memory artifacts reused. Up-and-out put identified as key primitive."
+  architecture:
+    status: completed
+    completed_at: "2026-06-18T16:02Z"
+    notes: "Gate passed. All 8 sections present. System mapping correct (NEMO/Sophis). Discrete barrier pricing noted."
+  writing:
+    status: completed
+    completed_at: "2026-06-18T16:05Z"
+    notes: "Gate passed. All 8 subsections present. Prose compares to DRC001 base. Institutional tone. No forbidden phrases."
+  murex_mapping:
+    status: completed
+    completed_at: "2026-06-18T16:05Z"
+    notes: "Gate passed. NEMO+Sophis spec. KO barrier fields added vs DRC001. 4 failure modes documented."
+  qa:
+    status: completed
+    completed_at: "2026-06-18T16:10Z"
+    notes: "Gate passed. Zero BLOCKERs. 2 MAJOR advisories (presentation, model reference). Arithmetic verified correct."
+  style:
+    status: completed
+    completed_at: "2026-06-18T16:10Z"
+    notes: "Gate passed. 3 known FPs skipped. 1 accepted convention skipped. 1 SHOULD_FIX (product name length)."
+  crossref:
+    status: completed
+    completed_at: "2026-06-18T16:12Z"
+    notes: "Gate passed. 4 refs validated. 1 warning (implicit DRC001 forward ref). Zero broken refs."
+  publishing:
+    status: completed
+    completed_at: "2026-06-18T16:15Z"
+    notes: "Gate passed. All checklist items passed. Insertion after DRC001 in section 3.1."
+open_issues: []

@@ -1,0 +1,116 @@
+blueprint:
+  product_id: CRC001
+  product_name: "Callable Reverse Convertible"
+  product_family: ELN
+  generated_at: "2026-06-18T16:22Z"
+  source: "outputs/research/CRC001.yaml"
+  memory_used:
+    - memory/terminology/ELN.yaml
+    - memory/booking-maps/ELN_system_mapping.yaml
+
+  sections:
+    definition:
+      content_nodes:
+        - "RC with issuer call right — Bermudan callable on scheduled dates"
+        - "Fixed coupon higher than base RC to compensate for call risk"
+        - "If called: investor receives par plus accrued coupon, position terminates"
+        - "If not called at maturity: standard put evaluation"
+        - "No barrier protection, no autocall, no conditional coupon"
+        - "Negative convexity: upside capped by call, downside uncapped by put"
+      writing_instruction: "Define the callable feature clearly. Emphasize this is issuer-initiated (not autocall which is market-triggered). Contrast with base RC001."
+
+    construction:
+      primitives:
+        - instrument: "Zero-coupon bond at par"
+          desk_direction: "long"
+        - instrument: "European put (100% strike)"
+          desk_direction: "short"
+        - instrument: "Bermudan call on the note (quarterly exercise)"
+          desk_direction: "short"
+      key_strikes:
+        - "Put strike: 100% of initial fixing"
+        - "Call strike: par (100%)"
+      path_dependency: "Put is European (no path dependency). Call is Bermudan (discrete exercise dates). Combined creates effective path dependency through issuer exercise strategy."
+      writing_instruction: "Three-component decomposition. Explain why the call adds to the coupon — investor is selling the issuer an option, and the call premium funds additional coupon."
+
+    booking_systems:
+      system_mapping:
+        book_of_record: NEMO
+        risk_pnl: Sophis
+        legal_document: Termsheet
+        murex_legs: []
+      content_nodes:
+        - "NEMO carries call schedule, call exercise status, call notice period"
+        - "Sophis must price both the put and the Bermudan call"
+        - "Call exercise triggers lifecycle event in NEMO and hedge unwind in Sophis"
+        - "Critical: coupon accrual treatment on call (full period vs pro-rata)"
+      writing_instruction: "Lead with the call lifecycle management in NEMO. Emphasize the operational complexity of processing a call event across two systems."
+
+    pricing_intuition:
+      dominant_greeks:
+        - "Delta (short via put)"
+        - "Vega (mixed — short on put, directional on call)"
+        - "Rho (call value rate-sensitive)"
+      yield_drivers:
+        - "Implied volatility"
+        - "Call schedule density"
+        - "Interest rate level"
+        - "Issuer funding spread"
+      model_dependency: "Black-Scholes for put. Least-squares Monte Carlo or binomial tree for Bermudan call."
+      sensitivities:
+        - "1-vol-point shift: ~25-40 bps on put, ~5-10 bps on call value"
+        - "Adding one call date: ~15-25 bps additional coupon"
+        - "50 bps rate rise: increases call probability and call premium by ~10 bps"
+      writing_instruction: "Explain the negative convexity concept. Cover why the issuer calls (note worth > par to issuer) and what that means for the investor (forced reinvestment)."
+
+    worked_example:
+      notional: "USD 10M"
+      underlying: "Single stock, 25% implied volatility"
+      tenor: "1 year"
+      barriers: {}
+      decomposition:
+        european_put: "5.5% (USD 550K)"
+        bermudan_call: "1.5% (USD 150K)"
+        issuer_funding: "2.0% (USD 200K)"
+        ftp: "1.2% (USD 120K)"
+        desk_margin: "0.3% (USD 30K)"
+      ftp: "1.2%"
+      desk_margin: "0.3%"
+      headline_yield: "10.5% per annum fixed coupon"
+      good_scenario: "Not called, underlying at 115% at maturity. Put OTM. Investor receives par + coupon = USD 11.05M. Return: 10.5%."
+      bad_scenario: "Not called, underlying at 55% at maturity. Physical delivery worth USD 5.5M plus coupon USD 1.05M. Net: USD 6.55M. Loss: 34.5%."
+      writing_instruction: "Show three scenarios: called early (reinvestment risk), good maturity, bad maturity. Arithmetic: 5.5% + 1.5% + 2.0% + 1.2% + 0.3% = 10.5% but investor receives 10.5% as coupon while desk retains FTP and margin. Clarify: put (5.5%) + call (1.5%) + funding (2.0%) = 9.0% gross; plus FTP pass-through (1.2%) and margin (0.3%) rounds to 10.5% headline."
+
+    reconciliation:
+      critical_fields:
+        - field: "Call exercise event"
+          failure_mode: "NEMO not updated after call — note appears live, coupon continues accruing, hedge remains open"
+        - field: "Coupon accrual on call"
+          failure_mode: "Termsheet specifies pro-rata but NEMO pays full period — cash flow mismatch"
+        - field: "Put strike"
+          failure_mode: "NEMO percentage vs Sophis absolute — same as base RC"
+        - field: "Settlement type"
+          failure_mode: "Physical vs cash mismatch — same as base RC"
+      observation_type: "Bermudan call dates (quarterly)"
+      fixing_fallback: "Modified following for call dates on non-business days"
+      writing_instruction: "Lead with the call-event reconciliation risks (unique to this product). Then cover inherited RC001 risks."
+
+    desk_view:
+      typical_buyer: "Yield-seeking investor, comfortable with call risk and reinvestment uncertainty."
+      actual_risk: "Short put + short call = negative convexity. Upside capped, downside uncapped."
+      perceived_risk: "Investor focuses on the 10.5% coupon headline and underestimates reinvestment risk."
+      when_appropriate: "Strong single-stock conviction, preference for high current yield, acceptance of potential early termination."
+      when_not_appropriate: "Investor needs position certainty (term), is rate-sensitive (reinvestment risk), or does not understand issuer's optimal call strategy."
+      writing_instruction: "Explain negative convexity in plain terms. Cover why issuers call and what it means for the investor. Compare to base RC."
+
+    desk_shorthand:
+      text: "Enhanced coupon; sold put and call, capped upside."
+      source: "research"
+
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

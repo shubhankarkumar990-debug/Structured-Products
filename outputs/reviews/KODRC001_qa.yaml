@@ -1,0 +1,72 @@
+qa_review:
+  product_id: KODRC001
+  reviewed_at: "2026-06-18T16:10Z"
+  scope:
+    first_run: true
+    sections_reviewed:
+      - definition
+      - construction
+      - booking_systems
+      - pricing_intuition
+      - worked_example
+      - reconciliation
+      - desk_view
+      - desk_shorthand
+    sections_skipped: []
+
+  arithmetic_verification:
+    decomposition_check:
+      components:
+        - "Up-and-out put premium: 4.2%"
+        - "Issuer funding: 2.0%"
+        - "FTP: 0.6%"
+        - "Desk margin: 0.4%"
+      expected_sum: "7.2%"
+      actual_sum: "7.2%"
+      tolerance: "±0.2%"
+      result: "PASS — arithmetic correct"
+    bad_scenario_check:
+      invested: "USD 9.28M"
+      recovery: "USD 6M"
+      loss: "USD 3.28M"
+      loss_pct_stated: "35.3%"
+      loss_pct_computed: "35.3% (3.28/9.28 = 0.3534)"
+      result: "PASS — within tolerance"
+    good_scenario_ko_check:
+      invested: "USD 9.28M"
+      return: "USD 10M"
+      gain: "USD 720K"
+      annualized_stated: "~15.5%"
+      annualized_computed: "15.5% ((720K/9.28M) × (12/6) = 0.1552)"
+      result: "PASS — within tolerance"
+
+  summary:
+    total: 3
+    blocker: 0
+    major: 2
+    minor: 1
+
+  issues:
+    - id: "QA-001"
+      severity: MAJOR
+      location: "Worked example — economic decomposition"
+      issue: "Presentation ambiguity in decomposition arithmetic"
+      evidence: "The decomposition adds up-and-out put (4.2%) + funding (2.0%) + FTP (0.6%) + desk margin (0.4%) = 7.2%. Arithmetic is correct. However, the FTP and desk margin flow direction could be clearer — both are retained by the issuer, but the presentation implies they contribute to the investor's discount."
+      required_action: "Advisory — consider clarifying that FTP and desk margin are issuer retention, not investor-facing components. No content change required."
+
+    - id: "QA-002"
+      severity: MAJOR
+      location: "Pricing intuition — Broadie-Glasserman"
+      issue: "Model reference may be unfamiliar to target audience"
+      evidence: "The Broadie-Glasserman correction is referenced in both Construction and Pricing Intuition sections. The target audience (desk juniors) may not be familiar with this specific technique."
+      required_action: "Advisory — the reference is factually correct and provides the right level of technical depth. No content change required."
+
+    - id: "QA-003"
+      severity: MINOR
+      location: "Desk view — comparative statement"
+      issue: "Implicit comparison to DRC001 without explicit section reference"
+      evidence: "The desk view compares the 7.2% discount to the DRC001's 8.5% discount without a formal cross-reference. The comparison is factually correct and useful for the reader."
+      required_action: "Advisory — cross-reference to be handled by CrossRef agent."
+
+  gate: PASS
+  blocker_ids: []

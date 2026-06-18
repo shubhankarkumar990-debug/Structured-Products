@@ -1,0 +1,98 @@
+booking_spec:
+  product_id: AIRBAG001
+  product_name: "Airbag / Leveraged Reverse Convertible"
+  product_family: ELN
+  generated_at: "2026-06-18T16:45Z"
+  spec_type: nemo_sophis
+  memory_used:
+    - memory/booking-maps/ELN_system_mapping.yaml
+
+  nemo_fields:
+    trade_id: ""
+    product_type: "Airbag / Leveraged Reverse Convertible"
+    notional: ""
+    currency: ""
+    trade_date: ""
+    maturity_date: ""
+    underlying: ""
+    put_strike_pct: "100%"
+    put_strike_absolute: ""
+    knock_in_barrier_pct: "70%"
+    knock_in_barrier_absolute: ""
+    leverage_ratio: "1.4286 (100/70)"
+    settlement_formula: "Par × (Final Level / Barrier Level)"
+    barrier_observation: "European (maturity only)"
+    settlement_type: "Physical | Cash"
+    coupon_rate: ""
+    coupon_frequency: "At maturity"
+    initial_fixing_date: ""
+    initial_fixing_level: ""
+    final_observation_date: ""
+    fixing_source: ""
+    day_count_convention: ""
+    dividend_treatment: "Pass-through | Embedded"
+    isin: ""
+
+  sophis_fields:
+    instrument_type: "Leveraged Down-and-In Put"
+    underlying_ticker: ""
+    strike_absolute: ""
+    knock_in_barrier_absolute: ""
+    barrier_type: "European (maturity only)"
+    leverage_ratio: "1.4286"
+    maturity: ""
+    volatility_surface: ""
+    dividend_yield_curve: ""
+    discount_curve: ""
+    model: "Black-Scholes with European barrier adjustment"
+    delta: ""
+    gamma: ""
+    vega: ""
+    theta: ""
+    daily_mtm: ""
+    settlement_assumption: "Leveraged formula"
+
+  reconciliation_checks:
+    daily:
+      - "Put strike level: NEMO percentage vs Sophis absolute — verify consistency"
+      - "Barrier level: NEMO percentage vs Sophis absolute — verify consistency"
+      - "Leverage ratio: NEMO and Sophis use same ratio"
+      - "MTM: Sophis daily P&L vs NEMO accrued coupon"
+      - "Delta: Sophis Delta vs hedge position"
+    event_driven:
+      - "Maturity observation: verify underlying level, determine barrier breach"
+      - "Settlement calculation: if below barrier, verify leveraged formula applied correctly"
+      - "Share count (physical delivery): par / barrier price, not par / final price"
+      - "Ex-dividend: verify dividend treatment consistency"
+    termsheet_verification:
+      - "Put strike: Termsheet percentage matches NEMO and Sophis"
+      - "Barrier level: Termsheet percentage matches NEMO and Sophis"
+      - "Settlement formula: exact Termsheet wording matches NEMO encoding"
+      - "Barrier observation: European (maturity only) explicitly stated"
+      - "Fixing source: exchange close or composite specified"
+
+  failure_modes:
+    - mode: "Leverage formula mismatch"
+      trigger: "NEMO uses standard RC formula (par × Final/Strike) instead of leveraged formula (par × Final/Barrier)"
+      consequence: "Settlement differs by USD 2.143M in bad scenario (50% underlying, USD 10M note)"
+      detection: "Pre-booking: validate settlement formula encoding against Termsheet"
+    - mode: "Barrier observation mismatch"
+      trigger: "NEMO or Sophis monitors continuously; Termsheet specifies maturity-only"
+      consequence: "Spurious knock-in from mid-life barrier breach that recovers by maturity"
+      detection: "Booking validation: confirm barrier observation type"
+    - mode: "Physical delivery share count error"
+      trigger: "Share count calculated as par / final price instead of par / barrier price"
+      consequence: "Incorrect share delivery quantity"
+      detection: "Pre-settlement: verify share count formula"
+    - mode: "Barrier level drift"
+      trigger: "Initial fixing amended; Sophis barrier not updated"
+      consequence: "Barrier evaluated at stale level; incorrect knock-in determination"
+      detection: "Amendment workflow triggers recalculation"
+
+  validation:
+    correct_spec_type: true
+    all_fields_named: true
+    ftp_documented: true
+    discounting_documented: true
+    min_3_recon_checks: true
+    min_2_failure_modes: true
