@@ -1,0 +1,56 @@
+publish:
+  product_id: VSTEG001
+  product_name: "Vanilla Steepener Note"
+  product_family: STEG
+  generated_at: "2026-06-19T09:28Z"
+  source: "outputs/drafts/VSTEG001.md"
+
+  gate: READY
+
+  pre_publish_checks:
+    draft_exists: true
+    qa_gate: PASS
+    style_gate: PASS
+    crossref_gate: PASS
+    all_8_sections: true
+    blocking_issues: 0
+    open_questions: 0
+
+  publish_metadata:
+    section: "7.2"
+    family: STEG
+    family_position: "1 of 4 (bootstrap product)"
+    word_count_estimate: 1850
+    complexity: "Medium-High"
+    system: "Murex four-leg"
+    desk_shorthand: "Leveraged curve bet; CMS spread, floor zero, cap eight."
+
+  quality_summary:
+    qa_blockers: 0
+    qa_majors: 1
+    qa_majors_detail: ["Decomposition format (advisory — inherent to CMS spread structure)"]
+    qa_minors: 1
+    qa_minors_detail: ["Desk shorthand 9 words (1 over limit)"]
+    style_must_fix: 0
+    style_should_fix: 0
+    crossref_broken: 0
+    crossref_warnings: 2
+    crossref_warnings_detail: ["CSTEG001 forward ref", "TARN001 forward ref"]
+
+  steg_bootstrap_notes:
+    first_steg_product: true
+    memory_artifacts_used: ["STEG terminology", "STEG booking-maps", "STEG style-patterns"]
+    new_conventions_discovered:
+      - convention: "CMS spread decomposition format"
+        description: "Unlike fixed-rate or equity products where decomposition components sum to the headline coupon, CMS spread products decompose into cost components that sum to a total cost (5.0%), while the expected coupon (4.0%) is determined by the underlying spread. The difference represents net option/convexity cost."
+        action: "Document in STEG style-patterns as accepted convention if pattern holds for RASTEG001/CSTEG001."
+    memory_updates_required: false
+    memory_update_note: "No immediate updates needed. The CMS decomposition convention should be validated against RASTEG001 before adding to style-patterns."
+
+  family_status:
+    total_in_family: 4
+    complete: 1
+    remaining: 3
+    remaining_products: ["RASTEG001", "CSTEG001", "TARN001"]
+
+  summary: "VSTEG001 READY for publication. First STEG product. Zero blocking issues. All STEG memory artifacts used successfully. One new convention discovered (CMS decomposition format) — deferred for validation against next STEG product. Publishing gate READY."

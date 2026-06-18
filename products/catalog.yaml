@@ -148,7 +148,7 @@ products:
     name: "Vanilla Steepener Note"
     family: STEG
     section: "7.2"
-    status: existing
+    status: complete
 
   - id: RASTEG001
     name: "Range-Accrual Steepener"

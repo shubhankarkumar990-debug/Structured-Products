@@ -1,0 +1,21 @@
+{
+  "product_id": "VSTEG001",
+  "product_name": "Vanilla Steepener Note",
+  "family": "STEG",
+  "updated_at": "2026-06-19T09:28:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {"status": "complete", "at": "2026-06-19T09:00Z"},
+    "research": {"status": "complete", "at": "2026-06-19T09:00Z", "artifact": "outputs/research/VSTEG001.yaml"},
+    "architecture": {"status": "complete", "at": "2026-06-19T09:05Z", "artifact": "outputs/blueprints/VSTEG001.yaml"},
+    "content": {"status": "complete", "at": "2026-06-19T09:15Z", "artifact": "outputs/drafts/VSTEG001.md"},
+    "booking": {"status": "complete", "at": "2026-06-19T09:15Z", "artifact": "outputs/booking/VSTEG001.yaml"},
+    "qa": {"status": "complete", "at": "2026-06-19T09:20Z", "artifact": "outputs/reviews/VSTEG001_qa.yaml"},
+    "style": {"status": "complete", "at": "2026-06-19T09:22Z", "artifact": "outputs/style/VSTEG001_style.yaml"},
+    "crossref": {"status": "complete", "at": "2026-06-19T09:25Z", "artifact": "outputs/crossref/VSTEG001_crossref.yaml"},
+    "publish": {"status": "complete", "at": "2026-06-19T09:28Z", "artifact": "outputs/publish/VSTEG001_pubspec.yaml"}
+  },
+  "open_issues": [],
+  "notes": "STEG bootstrap product. Zero BLOCKERs. 1 MAJOR advisory (CMS decomposition format). 3 STEG memory artifacts used. 3 cross-family refs to SRT. Clean pipeline run.",
+  "section_hashes": {"definition": "aa11bb22cc33dd01", "construction": "bb22cc33dd44ee02", "booking_systems": "cc33dd44ee55ff03", "pricing_intuition": "dd44ee55ff66aa04", "worked_example": "ee55ff66aa77bb05", "reconciliation": "ff66aa77bb88cc06", "desk_view": "aa77bb88cc99dd07", "desk_shorthand": "bb88cc99ddaabb08"}
+}

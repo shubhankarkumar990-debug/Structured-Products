@@ -1,0 +1,61 @@
+crossref:
+  product_id: VSTEG001
+  product_name: "Vanilla Steepener Note"
+  product_family: STEG
+  generated_at: "2026-06-19T09:25Z"
+  source: "outputs/drafts/VSTEG001.md"
+
+  gate: PASS
+
+  references_found:
+    - ref_type: "concept_parallel"
+      target: "NCRA001"
+      target_family: SRT
+      context: "Range accrual products also use daily rate observation with digital payoff. VSTEG001 observes CMS spread semi-annually with leveraged linear payoff — different mechanism, same family of rate-contingent coupons."
+      target_exists: true
+      validated: true
+
+    - ref_type: "concept_parallel"
+      target: "CRASRT001"
+      target_family: SRT
+      context: "Callable Range Accrual SRT combines range accrual with callability. VSTEG001 is non-callable — the Callable Steepener (CSTEG001) will add callability to the STEG family."
+      target_exists: true
+      validated: true
+
+    - ref_type: "system_parallel"
+      target: "IRCFRN001"
+      target_family: SRT
+      context: "Both use Murex four-leg framework. IRCFRN001 established the SRT four-leg pattern; VSTEG001 extends it to CMS-linked products with additional CMS-specific booking items (convexity adjustment, correlation, CMS fixing source)."
+      target_exists: true
+      validated: true
+
+    - ref_type: "forward_ref"
+      target: "CSTEG001"
+      target_family: STEG
+      context: "Callable Steepener adds an issuer Bermudan call to the steepener structure. Referenced in desk view as the callable variant."
+      target_exists: false
+      target_status: "existing (in catalog, not yet generated)"
+      validated: true
+      note: "Forward reference to future STEG product. Expected."
+
+    - ref_type: "forward_ref"
+      target: "TARN001"
+      target_family: STEG
+      context: "TARN adds target redemption to the steepener structure. Referenced as the auto-redemption variant."
+      target_exists: false
+      target_status: "existing (in catalog, not yet generated)"
+      validated: true
+      note: "Forward reference to future STEG product. Expected."
+
+  broken_references: 0
+  warnings: 2
+  warning_details:
+    - "CSTEG001 referenced but not yet generated (forward ref — expected)"
+    - "TARN001 referenced but not yet generated (forward ref — expected)"
+
+  cross_family_refs:
+    - {from: VSTEG001, from_family: STEG, to: NCRA001, to_family: SRT, type: "concept_parallel"}
+    - {from: VSTEG001, from_family: STEG, to: CRASRT001, to_family: SRT, type: "concept_parallel"}
+    - {from: VSTEG001, from_family: STEG, to: IRCFRN001, to_family: SRT, type: "system_parallel"}
+
+  summary: "5 references found: 3 cross-family to SRT (all validated), 2 forward refs to future STEG products (expected). Zero broken references. 2 warnings (forward refs). CrossRef gate PASS."

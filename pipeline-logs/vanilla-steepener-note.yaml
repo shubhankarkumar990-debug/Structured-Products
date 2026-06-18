@@ -1,0 +1,13 @@
+chapter: "Vanilla Steepener Note"
+slug: "vanilla-steepener-note"
+initiated: "2026-06-19"
+stages:
+  research: {status: completed, completed_at: "2026-06-19T09:00Z", notes: "Gate passed. CMS spread coupon. 4 components. Convexity adjustment critical."}
+  architecture: {status: completed, completed_at: "2026-06-19T09:05Z", notes: "Gate passed. All 8 sections. STEG bootstrap product."}
+  writing: {status: completed, completed_at: "2026-06-19T09:15Z", notes: "Gate passed. Leveraged CMS spread. Floor/cap collar. Convexity adjustment explained."}
+  murex_mapping: {status: completed, completed_at: "2026-06-19T09:15Z", notes: "Gate passed. Murex four-leg. CMS-specific booking items: fixing, convexity, correlation."}
+  qa: {status: completed, completed_at: "2026-06-19T09:20Z", notes: "Gate passed. Zero BLOCKERs. 1 MAJOR advisory (CMS decomposition format). All arithmetic verified."}
+  style: {status: completed, completed_at: "2026-06-19T09:22Z", notes: "Gate passed. Zero violations. 3 known FPs, 4 accepted conventions."}
+  crossref: {status: completed, completed_at: "2026-06-19T09:25Z", notes: "Gate passed. 3 cross-family SRT refs. 2 forward STEG refs. Zero broken."}
+  publishing: {status: completed, completed_at: "2026-06-19T09:28Z", notes: "Gate passed. STEG bootstrap complete. 1 new convention discovered (deferred)."}
+open_issues: []

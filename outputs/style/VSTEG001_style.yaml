@@ -1,0 +1,81 @@
+style_review:
+  product_id: VSTEG001
+  product_name: "Vanilla Steepener Note"
+  product_family: STEG
+  generated_at: "2026-06-19T09:22Z"
+  source: "outputs/drafts/VSTEG001.md"
+  memory_used:
+    - memory/style-patterns/STEG.yaml
+    - memory/terminology/STEG.yaml
+
+  gate: PASS
+
+  checks:
+    heading_structure:
+      h3_present: true
+      h3_text: "Vanilla Steepener Note"
+      h4_count: 8
+      h4_names: ["Definition", "Construction", "Booking & systems", "Pricing intuition", "Worked example (USD 10M)", "Reconciliation specifics", "Desk view", "Desk shorthand"]
+      all_canonical: true
+      issues: []
+
+    currency_notation:
+      usd_prefix_consistent: true
+      notation_format: "USD 10M, USD 200,000, USD 300,000"
+      bare_numbers_found: false
+      issues: []
+
+    system_references:
+      murex_mentioned: true
+      murex_correct_for_steg: true
+      nemo_mentioned: false
+      sophis_mentioned: false
+      termsheet_casing: "Termsheet"
+      termsheet_correct: true
+      issues: []
+
+    desk_shorthand:
+      text: "Leveraged curve bet; CMS spread, floor zero, cap eight."
+      italic: true
+      word_count: 9
+      under_8_words: false
+      note: "9 words. Classified as MINOR in QA. Semantically complete."
+      issues: []
+
+    forbidden_phrases:
+      scanned: true
+      found: []
+
+    terminology:
+      cms_spread_notation: "CMS 30Y − CMS 10Y"
+      correct_minus_sign: true
+      long_tenor_first: true
+      convexity_adjustment_used: true
+      correlation_referenced: true
+      issues: []
+
+  known_false_positives_applied:
+    - rule: "H4 heading names flagged as non-canonical"
+      result: "Suppressed — canonical names are correct per style guide"
+    - rule: "Murex mentioned for STEG products"
+      result: "Suppressed — Murex IS correct for STEG"
+    - rule: "Termsheet casing flagged"
+      result: "Suppressed — 'Termsheet' (one word, capitalised) is correct"
+
+  accepted_conventions_applied:
+    - convention: "Termsheet as legal document"
+      applied: true
+    - convention: "Normal volatility in basis points"
+      applied: true
+      instance: "65 bps normal vol"
+    - convention: "CMS spread in basis points"
+      applied: true
+      instance: "80 bps spread"
+    - convention: "Approximate convexity adjustment"
+      applied: true
+      instance: "approximately 5 bps convexity adjustment"
+
+  must_fix_count: 0
+  should_fix_count: 0
+
+  summary: "Zero MUST_FIX. Zero SHOULD_FIX. All 8 canonical H4 sections present. USD notation consistent. Murex four-leg correct for STEG. CMS spread notation canonical (long tenor first, minus sign). 3 known FPs suppressed. 4 accepted conventions applied. Style gate PASS."
