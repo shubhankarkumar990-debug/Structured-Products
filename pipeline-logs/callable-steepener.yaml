@@ -1,0 +1,13 @@
+chapter: "Callable Steepener"
+slug: "callable-steepener"
+initiated: "2026-06-19"
+stages:
+  research: {status: completed, completed_at: "2026-06-19T10:35Z", notes: "Gate passed. 5 components. Dual optionality."}
+  architecture: {status: completed, completed_at: "2026-06-19T10:38Z", notes: "Gate passed. All 8 sections. CRASRT001 + ICN001 parallels."}
+  writing: {status: completed, completed_at: "2026-06-19T10:48Z", notes: "Gate passed. Negative convexity. Call decision logic."}
+  murex_mapping: {status: completed, completed_at: "2026-06-19T10:48Z", notes: "Gate passed. Murex four-leg + Bermudan swaption."}
+  qa: {status: completed, completed_at: "2026-06-19T10:50Z", notes: "Gate passed. Zero BLOCKERs. 1 MAJOR advisory."}
+  style: {status: completed, completed_at: "2026-06-19T10:52Z", notes: "Gate passed. Zero violations."}
+  crossref: {status: completed, completed_at: "2026-06-19T10:55Z", notes: "Gate passed. 2 cross-family refs (CRASRT001, ICN001)."}
+  publishing: {status: completed, completed_at: "2026-06-19T10:58Z", notes: "Gate passed. STEG 3/4 complete."}
+open_issues: []

@@ -123,13 +123,13 @@ products:
     name: "Skew CLN"
     family: CLN
     section: "6.2"
-    status: existing
+    status: complete
 
   - id: FTD001
     name: "First-to-Default (FTD)"
     family: CLN
     section: "6.2"
-    status: existing
+    status: complete
 
   - id: NTD001
     name: "Nth-to-Default (NTD)"
@@ -154,19 +154,19 @@ products:
     name: "Range-Accrual Steepener"
     family: STEG
     section: "7.2"
-    status: existing
+    status: complete
 
   - id: CSTEG001
     name: "Callable Steepener"
     family: STEG
     section: "7.2"
-    status: existing
+    status: complete
 
   - id: TARN001
     name: "TARN"
     family: STEG
     section: "7.2"
-    status: existing
+    status: complete
 
   # Part 5 — Swaps
   - id: SWAP001

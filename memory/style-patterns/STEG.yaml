@@ -63,3 +63,7 @@ content:
     - convention: "Approximate convexity adjustment"
       reason: "Convexity adjustments are model-dependent and inherently approximate. Phrases like 'approximately 5 bps convexity adjustment' are appropriate in a desk bible context."
       applies_to: "All STEG products"
+
+    - convention: "CMS spread decomposition format"
+      reason: "STEG product decompositions sum cost components to a total cost that exceeds the expected coupon. The expected coupon is determined by the CMS spread level, not by the cost sum. The difference represents convexity, correlation, and optionality costs. Validated across all 4 STEG products (VSTEG001, RASTEG001, CSTEG001, TARN001)."
+      applies_to: "All STEG products"

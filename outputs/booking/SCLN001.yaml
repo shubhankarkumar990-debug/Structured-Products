@@ -1,0 +1,41 @@
+booking:
+  product_id: SCLN001
+  product_name: "Skew CLN"
+  product_family: CLN
+  generated_at: "2026-06-19T11:48Z"
+  source: "outputs/blueprints/SCLN001.yaml"
+  memory_used:
+    - memory/booking-maps/CLN_system_mapping.yaml
+
+  system_mapping:
+    book_of_record: NEMO
+    risk_and_pnl: Sophis
+    framework: nemo_sophis
+    legal_document: Termsheet
+
+  legs:
+    nemo:
+      role: "Book of record — trade lifecycle and credit event definitions"
+      fields:
+        - {name: "Reference entity", value: "BBB-rated corporate", critical: true}
+        - {name: "Reference obligation", value: "Per Termsheet", critical: true}
+        - {name: "Restructuring variant", value: "MR (Modified Restructuring)", critical: true}
+        - {name: "Recovery determination method", value: "Auction / fixed 40%", critical: true}
+        - {name: "CDS spread", value: "250 bps (MR-adjusted)", critical: true}
+        - {name: "ISDA Credit Definitions", value: "2014", critical: true}
+        - {name: "Settlement type", value: "Cash (auction)"}
+        - {name: "Maturity", value: "5 years"}
+    sophis:
+      role: "Risk and P&L — CDS curve pricing and credit sensitivities"
+      fields:
+        - {name: "CDS curve", value: "Skew-adjusted (MR convention)", critical: true}
+        - {name: "CS01", value: "Computed on MR curve"}
+        - {name: "Recovery rate", value: "40%", critical: true}
+        - {name: "Jump-to-default", value: "Monitored"}
+        - {name: "P&L attribution", value: "Spread vs carry"}
+
+  failure_modes:
+    - {mode: "Wrong restructuring variant", severity: "HIGH", description: "CR in NEMO when Termsheet says MR → wrong credit event coverage"}
+    - {mode: "Standard CDS spread used", severity: "MEDIUM", description: "CR spread in Sophis instead of MR-adjusted → mispriced risk"}
+    - {mode: "Recovery rate mismatch", severity: "MEDIUM", description: "Different recovery in NEMO vs Sophis → inconsistent settlement and pricing"}
+    - {mode: "ISDA version mismatch", severity: "MEDIUM", description: "2003 vs 2014 definitions → different restructuring handling"}

@@ -1,0 +1,85 @@
+booking:
+  product_id: RASTEG001
+  product_name: "Range-Accrual Steepener"
+  product_family: STEG
+  generated_at: "2026-06-19T10:15Z"
+  source: "outputs/blueprints/RASTEG001.yaml"
+  memory_used:
+    - memory/booking-maps/STEG_system_mapping.yaml
+
+  system_mapping:
+    book_of_record: Murex
+    risk_and_pnl: Murex
+    framework: murex_four_leg
+    legal_document: Termsheet
+
+  legs:
+    note_leg:
+      system: Murex
+      role: "Client-facing note — CMS spread range-accrual coupon"
+      fields:
+        - {name: "Notional", value: "USD 10M", critical: true}
+        - {name: "Currency", value: "USD"}
+        - {name: "Coupon formula", value: "6.0% × (days in range / total days)", critical: true}
+        - {name: "Range lower bound", value: "0 bps", critical: true}
+        - {name: "Range upper bound", value: "150 bps", critical: true}
+        - {name: "CMS tenor pair", value: "30Y / 10Y"}
+        - {name: "CMS fixing source", value: "ISDA CMS rate definition", critical: true}
+        - {name: "Observation schedule", value: "Daily (business days)", critical: true}
+        - {name: "Day count", value: "30/360"}
+        - {name: "Maturity", value: "10 years"}
+        - {name: "Redemption", value: "100% of notional at maturity"}
+
+    issuer_leg:
+      system: Murex
+      role: "Issuer internal funding"
+      fields:
+        - {name: "Funding rate", value: "3.0%"}
+        - {name: "Funding curve", value: "Issuer senior unsecured"}
+        - {name: "Credit spread", value: "Per issuer curve"}
+
+    deposit_leg:
+      system: Murex
+      role: "Client collateral"
+      fields:
+        - {name: "Deposit rate", value: "Market rate"}
+        - {name: "Deposit tenor", value: "Rolling"}
+        - {name: "Rollover convention", value: "Standard"}
+
+    hedge_leg:
+      system: Murex
+      role: "Market risk hedge — digital CMS spread strip replicating daily range-accrual observations"
+      fields:
+        - {name: "Hedge instruments", value: "Digital CMS spread strip, CMS cap/floor for range bounds", critical: true}
+        - {name: "Digital strikes", value: "0 bps (lower) and 150 bps (upper)", critical: true}
+        - {name: "CMS tenor pair", value: "30Y / 10Y", critical: true}
+        - {name: "Expiry schedule", value: "Daily, matching observation dates"}
+        - {name: "Notional", value: "USD 10M"}
+        - {name: "Convexity adjustment model", value: "Replication-based or short-rate", critical: true}
+        - {name: "Correlation assumption", value: "Calibrated to CMS spread options or historical", critical: true}
+
+  ftp:
+    rate: "0.4%"
+    curve: "Internal FTP curve"
+    method: "Matched-maturity"
+
+  discounting:
+    curve: "OIS (collateralised), issuer curve (uncollateralised)"
+    csa_terms: "Per CSA agreement"
+
+  steg_specific_booking:
+    cms_fixing:
+      note: "CMS fixing source must match between legs. Amplified impact for range accrual — boundary-day mismatches compound."
+      critical: true
+    convexity_adjustment:
+      note: "Same model required in both legs. Convexity shifts the spread distribution relative to range bounds."
+      critical: true
+    correlation:
+      note: "Correlation affects the width of the CMS spread distribution and the probability of being in range."
+      critical: true
+
+  failure_modes:
+    - {mode: "Range bounds mismatch", severity: "HIGH", description: "1 bps error in range bounds → systematic accrual disagreement between legs"}
+    - {mode: "Observation schedule mismatch", severity: "HIGH", description: "Business days vs calendar days → different denominator in accrual fraction"}
+    - {mode: "CMS fixing source mismatch", severity: "HIGH", description: "Different CMS rate → boundary-day accrual conflicts"}
+    - {mode: "Convexity adjustment inconsistency", severity: "MEDIUM", description: "Different model → different in-range probability"}

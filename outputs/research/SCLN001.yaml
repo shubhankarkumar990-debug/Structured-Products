@@ -1,0 +1,79 @@
+research:
+  product_id: SCLN001
+  product_name: "Skew CLN"
+  product_family: CLN
+  generated_at: "2026-06-19T11:35Z"
+  memory_consulted:
+    - memory/terminology/CLN.yaml
+    - memory/booking-maps/CLN_system_mapping.yaml
+    - memory/style-patterns/CLN.yaml
+
+  classification:
+    family: CLN
+    sub_family: "Single-name credit — skew pricing"
+    archetype: "Credit-linked note with non-standard recovery assumption or restructuring variant"
+    risk_profile: "Single-name credit event risk with skew-adjusted CDS pricing"
+    complexity: "Medium"
+    path_dependent: false
+    model: "Hazard rate model with recovery assumption and restructuring variant pricing"
+
+  structure:
+    components:
+      - instrument: "Fixed-rate bond (funding)"
+        desk_direction: "long"
+        purpose: "Provides par redemption conditional on no credit event"
+      - instrument: "Credit default swap (embedded, single-name)"
+        desk_direction: "short (investor sells protection)"
+        purpose: "Investor takes single-name credit risk. CDS spread funds the enhanced coupon."
+    barriers: []
+    observation: "Continuous credit event monitoring"
+    tenor: "5 years"
+    coupon: "Fixed coupon funded by CDS spread with skew adjustment"
+    principal_protection: "Conditional — lost on credit event. Recovery rate determines loss."
+
+  economics:
+    headline: "Enhanced coupon funded by selling credit protection on a single name, with the CDS spread adjusted for a non-standard restructuring variant or recovery assumption"
+    how_funded: "Investor sells credit protection — the CDS spread (with skew adjustment) funds the enhanced coupon above the risk-free rate"
+    investor_trade: "Higher coupon than VCLN001 (vanilla CLN) in exchange for accepting a restructuring variant or recovery assumption that differs from the standard market convention"
+    decomposition:
+      coupon: "5.8% p.a."
+      benchmark: "3.0% (risk-free)"
+      enhancement: "2.8% (CDS spread with skew)"
+      standard_cds_spread: "250 bps (MR convention)"
+      skew_adjustment: "30 bps (from CR → MR restructuring adjustment)"
+      funding: "3.0%"
+      ftp: "0.3%"
+      desk_margin: "0.2%"
+      credit_spread: "2.3%"
+    verification: "Coupon 5.8% = funding 3.0% + FTP 0.3% + margin 0.2% + credit spread 2.3%. Credit spread 2.3% = standard CDS 2.5% − skew adjustment 0.3% + restructuring pickup 0.1%"
+
+  booking:
+    system_type: nemo_sophis
+    nemo_fields: ["Reference entity", "Reference obligation", "Restructuring variant (CR vs MR vs MMR)", "Recovery determination method", "CDS spread (skew-adjusted)", "ISDA Credit Definitions version"]
+    sophis_fields: ["CDS curve (skew-adjusted)", "CS01", "Recovery rate assumption", "Jump-to-default", "P&L attribution"]
+    critical_fields: ["Restructuring variant", "Recovery rate assumption", "CDS spread (standard vs skew-adjusted)"]
+    failure_modes:
+      - "Wrong restructuring variant in NEMO — CR when Termsheet says MR"
+      - "Standard CDS spread used instead of skew-adjusted spread in Sophis"
+      - "Recovery rate assumption mismatch between NEMO and Sophis"
+
+  pricing:
+    dominant_greeks: ["CS01 (credit spread)", "Jump-to-default risk", "Recovery rate sensitivity"]
+    key_sensitivities:
+      - "CS01: 1 bps spread widening → mark-to-market loss"
+      - "Recovery rate: lower recovery → higher loss given default → higher spread → higher coupon"
+      - "Restructuring variant: CR (broader) commands higher spread than MR (narrower)"
+      - "Skew: the difference between standard CDS spread and the CLN's effective spread"
+    model_risk: "Low-Medium — hazard rate model is standard. Skew adjustment requires understanding of restructuring variant pricing."
+
+  reconciliation:
+    critical_fields:
+      - {field: "Restructuring variant", source: "Termsheet", check: "CR/MR/MMR/Old-R matching in NEMO and Sophis"}
+      - {field: "Recovery rate assumption", source: "Termsheet", check: "Standard (40%) or non-standard — must match in pricing"}
+      - {field: "CDS spread basis", source: "Market", check: "Skew-adjusted spread in Sophis matches Termsheet economics"}
+      - {field: "Reference entity and obligation", source: "Termsheet", check: "Exact match in NEMO"}
+    observation_type: "Continuous credit event monitoring"
+    fixing_fallback: "ISDA Credit Definitions fallback"
+
+  desk_shorthand: "Skew-priced credit; restructuring variant, recovery adjusted."
+  open_questions: []

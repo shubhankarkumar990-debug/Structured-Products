@@ -1,0 +1,43 @@
+qa_review:
+  product_id: SCLN001
+  product_name: "Skew CLN"
+  product_family: CLN
+  generated_at: "2026-06-19T11:50Z"
+  source: "outputs/drafts/SCLN001.md"
+  protocol: "v2.1 — arithmetic verification with ±0.2% rounding tolerance"
+
+  gate: PASS
+
+  sections_reviewed:
+    definition: {present: true, issues: []}
+    construction: {present: true, issues: []}
+    booking_systems: {present: true, issues: []}
+    pricing_intuition: {present: true, issues: []}
+    worked_example:
+      present: true
+      issues:
+        - severity: MAJOR
+          type: advisory
+          description: "Decomposition sums correctly (3.0% + 0.3% + 0.2% + 2.3% = 5.8%). The credit spread component (2.3%) differs from the raw CDS spread (250 bps = 2.5%) — the 0.2% difference is the desk margin. This is the standard CLN decomposition format, consistent with VCLN001."
+          arithmetic_verified: true
+          resolution: "No action required. Decomposition format matches CLN convention."
+    reconciliation: {present: true, issues: []}
+    desk_view: {present: true, issues: []}
+    desk_shorthand: {present: true, word_count: 6, within_limit: true, issues: []}
+
+  arithmetic_verification:
+    worked_example:
+      decomposition: {formula: "3.0% + 0.3% + 0.2% + 2.3%", expected: "5.8%", computed: 5.8, match: true}
+      scenario_1_coupon: {formula: "USD 10M × 5.8% × 5", expected: "USD 2,900,000", computed: 2900000, match: true}
+      scenario_1_total: {formula: "USD 2,900,000 + USD 10,000,000", expected: "USD 12,900,000", computed: 12900000, match: true}
+      scenario_2_coupon: {formula: "USD 10M × 5.8% × 3", expected: "USD 1,740,000", computed: 1740000, match: true}
+      scenario_2_recovery: {formula: "USD 10M × 40%", expected: "USD 4,000,000", computed: 4000000, match: true}
+      scenario_2_total: {formula: "USD 1,740,000 + USD 4,000,000", expected: "USD 5,740,000", computed: 5740000, match: true}
+      scenario_2_loss: {formula: "USD 10,000,000 − USD 5,740,000", expected: "USD 4,260,000", computed: 4260000, match: true}
+      skew: {formula: "280 − 250", expected: "30 bps", computed: 30, match: true}
+    all_arithmetic_correct: true
+
+  blocker_count: 0
+  major_count: 1
+  minor_count: 0
+  summary: "Zero BLOCKERs. 1 MAJOR advisory (decomposition format — consistent with CLN convention). All arithmetic verified. QA gate PASS."

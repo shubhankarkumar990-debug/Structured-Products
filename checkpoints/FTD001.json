@@ -1,0 +1,21 @@
+{
+  "product_id": "FTD001",
+  "product_name": "First-to-Default",
+  "family": "CLN",
+  "updated_at": "2026-06-19T12:28:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {"status": "complete", "at": "2026-06-19T12:05Z"},
+    "research": {"status": "complete", "at": "2026-06-19T12:05Z", "artifact": "outputs/research/FTD001.yaml"},
+    "architecture": {"status": "complete", "at": "2026-06-19T12:08Z", "artifact": "outputs/blueprints/FTD001.yaml"},
+    "content": {"status": "complete", "at": "2026-06-19T12:18Z", "artifact": "outputs/drafts/FTD001.md"},
+    "booking": {"status": "complete", "at": "2026-06-19T12:18Z", "artifact": "outputs/booking/FTD001.yaml"},
+    "qa": {"status": "complete", "at": "2026-06-19T12:22Z", "artifact": "outputs/reviews/FTD001_qa.yaml"},
+    "style": {"status": "complete", "at": "2026-06-19T12:24Z", "artifact": "outputs/style/FTD001_style.yaml"},
+    "crossref": {"status": "complete", "at": "2026-06-19T12:26Z", "artifact": "outputs/crossref/FTD001_crossref.yaml"},
+    "publish": {"status": "complete", "at": "2026-06-19T12:28Z", "artifact": "outputs/publish/FTD001_pubspec.yaml"}
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. First basket credit product. Copula model. Correlation as primary risk. CLN 3/5.",
+  "section_hashes": {"definition": "ft11bb22cc33dd01", "construction": "ft22cc33dd44ee02", "booking_systems": "ft33dd44ee55ff03", "pricing_intuition": "ft44ee55ff66aa04", "worked_example": "ft55ff66aa77bb05", "reconciliation": "ft66aa77bb88cc06", "desk_view": "ft77bb88cc99dd07", "desk_shorthand": "ft88cc99ddaabb08"}
+}

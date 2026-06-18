@@ -1,0 +1,10 @@
+publish:
+  product_id: CSTEG001
+  product_name: "Callable Steepener"
+  product_family: STEG
+  generated_at: "2026-06-19T10:58Z"
+  gate: READY
+  pre_publish_checks: {draft_exists: true, qa_gate: PASS, style_gate: PASS, crossref_gate: PASS, all_8_sections: true, blocking_issues: 0}
+  publish_metadata: {section: "7.2", family: STEG, family_position: "3 of 4", complexity: "High", desk_shorthand: "Callable curve bet; CMS spread, issuer call."}
+  quality_summary: {qa_blockers: 0, qa_majors: 1, style_must_fix: 0, crossref_broken: 0}
+  summary: "CSTEG001 READY. Dual optionality (CMS spread + Bermudan call). Publishing gate READY."

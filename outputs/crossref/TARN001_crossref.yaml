@@ -1,0 +1,19 @@
+crossref:
+  product_id: TARN001
+  product_name: "Target Accrual Redemption Note"
+  product_family: STEG
+  generated_at: "2026-06-19T11:26Z"
+  source: "outputs/drafts/TARN001.md"
+
+  gate: PASS
+
+  references_found:
+    - {ref_type: "explicit_comparison", target: "VSTEG001", target_family: STEG, context: "Non-callable fixed-tenor vs target auto-redeem", target_exists: true, validated: true}
+    - {ref_type: "explicit_comparison", target: "CSTEG001", target_family: STEG, context: "Issuer-callable vs auto-redeem — different redemption triggers", target_exists: true, validated: true}
+    - {ref_type: "explicit_comparison", target: "RASTEG001", target_family: STEG, context: "Range accrual vs target accrual — different coupon modification mechanisms", target_exists: true, validated: true}
+
+  broken_references: 0
+  warnings: 0
+  cross_family_refs: []
+
+  summary: "3 intra-family references (VSTEG001, CSTEG001, RASTEG001). Zero cross-family. Zero broken. TARN completes the STEG family — all 4 products reference each other. CrossRef gate PASS."

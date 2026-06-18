@@ -225,3 +225,48 @@ Cumulative:
   Total tokens:         ~312,186
   Total memory artifacts: 15 (created) + 51 (reused)
 --------------------------------------------------------------------------------
+
+--- Batch 4 --------------------------------------------------------------------
+Date:           2026-06-19
+Products:       RASTEG001, CSTEG001, TARN001, SCLN001, FTD001
+Count:          5
+Families:       STEG (3), CLN (2)
+Pipeline:       v2.1 (stable, no changes)
+Sections:       7.2 (complete — STEG 4/4), 6.2 (started — CLN 3/5)
+Tag:            desk-bible-75-percent-complete (pre-batch), desk-bible-after-batch-4 (post)
+
+Quality:
+  QA BLOCKERs:          0
+  QA MAJORs:            5 (all advisory — CMS decomposition + CLN conventions)
+  QA MINORs:            0
+  Style MUST_FIX:       0
+  Style SHOULD_FIX:     0
+  CrossRef broken:      0
+  CrossRef warnings:    2 (forward refs: FTD001→NTD001, SCLN001→FTD001 resolved in-batch)
+  Publishing failures:  0
+
+Memory:
+  Artifacts created:    0
+  Artifacts reused:     12 (STEG 3×3 = 9, CLN 3×2 − 3 already counted = 6 net... total 15)
+  New conventions:      1 (CMS decomposition — now validated across 4 STEG products, added as accepted)
+  False positives avoided: 21
+
+Tokens (estimated):     ~74,330
+Runtime:                ~120 min
+
+Notes:
+  - First multi-family batch since Batch 0: 3 STEG + 2 CLN
+  - STEG family now COMPLETE (4/4) — all CMS-linked products generated
+  - STEG complexity progression: vanilla → range-accrual → callable → TARN (path-dependent)
+  - TARN001 is the most complex product in the bible (Very High complexity, path-dependent)
+  - FTD001 is the first basket credit product — copula model, correlation as primary risk
+  - CMS decomposition convention validated across all 4 STEG products — ready for accepted convention
+  - CLN memory reused for first time since Batch 0 (SCLN001, FTD001)
+  - Zero retries, zero checkpoint recoveries — 26 consecutive clean runs
+
+Cumulative:
+  Total complete:       26 / 28 (92.9%)
+  Total remaining:      2 (NTD001, TRANCHE001)
+  Total tokens:         ~386,516
+  Total memory artifacts: 15 (created) + 63 (reused)
+--------------------------------------------------------------------------------

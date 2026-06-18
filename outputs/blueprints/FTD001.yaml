@@ -1,0 +1,72 @@
+blueprint:
+  product_id: FTD001
+  product_name: "First-to-Default"
+  product_family: CLN
+  generated_at: "2026-06-19T12:08Z"
+  source: "outputs/research/FTD001.yaml"
+  memory_used:
+    - memory/terminology/CLN.yaml
+    - memory/booking-maps/CLN_system_mapping.yaml
+  sections:
+    definition:
+      content_nodes:
+        - "Basket credit product — first credit event among N names triggers the note"
+        - "Much higher coupon than single-name CLN — basket probability higher"
+        - "Investor is short correlation — low correlation = high FTD spread"
+        - "First basket product in the bible"
+      writing_instruction: "Explain basket concept. Contrast with VCLN001 and SCLN001 (single-name). Introduce default correlation."
+    construction:
+      primitives:
+        - instrument: "Fixed-rate bond (funding)"
+          desk_direction: "long"
+        - instrument: "First-to-default basket CDS (embedded)"
+          desk_direction: "short (investor sells FTD protection)"
+      key_strikes: ["5-name basket", "FTD spread 550 bps", "Individual spreads 120-250 bps"]
+      path_dependency: "None — first event triggers."
+      writing_instruction: "Two components (same as VCLN001 structurally). The CDS is now a basket CDS. Explain FTD as 'first loss on a portfolio.'"
+    booking_systems:
+      system_mapping: {book_of_record: NEMO, risk_pnl: Sophis, legal_document: Termsheet, four_leg: false}
+      content_nodes: ["All 5 reference entities in NEMO", "Copula model and correlation matrix in Sophis", "Per-name CDS curves", "FTD trigger logic"]
+      writing_instruction: "NEMO + Sophis. New complexity: 5 entities in NEMO, correlation matrix in Sophis."
+    pricing_intuition:
+      dominant_greeks: ["Correlation", "Individual CS01 (×5)", "Joint default probability"]
+      yield_drivers: ["Default correlation", "Basket composition", "Widest-spread name"]
+      model_dependency: "High — copula model choice affects tail probabilities."
+      sensitivities: ["Low correlation → high FTD spread", "High correlation → low FTD spread"]
+      writing_instruction: "Explain correlation intuition. Why is investor 'short correlation'? Show how FTD spread relates to sum of individual spreads."
+    worked_example:
+      notional: "USD 10M"
+      underlying: "5-name credit basket (BBB/BB-rated)"
+      tenor: "5 years"
+      barriers: {}
+      decomposition: {coupon: "8.5%", funding: "3.0%", ftp: "0.3%", margin: "0.2%", basket_spread: "5.0%"}
+      ftp: "0.3%"
+      desk_margin: "0.2%"
+      headline_yield: "8.5% (basket premium)"
+      good_scenario: "No credit event in any of 5 names. Full coupon for 5 years."
+      bad_scenario: "Weakest name defaults. Investor loses (1 − recovery) × notional."
+      writing_instruction: "Show FTD spread calculation. Correlation sensitivity table. Credit event scenario on weakest name."
+    reconciliation:
+      critical_fields:
+        - {field: "Basket composition", failure_mode: "Wrong reference entity → wrong credit risk exposure"}
+        - {field: "FTD trigger logic", failure_mode: "NEMO does not implement first-to-default → settlement fails"}
+        - {field: "Correlation matrix", failure_mode: "Not calibrated → mispriced basket"}
+        - {field: "Individual CDS curves", failure_mode: "Stale curves → stale basket valuation"}
+      observation_type: "Continuous (all 5 names)"
+      fixing_fallback: "ISDA per entity"
+      writing_instruction: "Basket composition and FTD trigger logic are the unique recon risks."
+    desk_view:
+      typical_buyer: "Yield-hungry investors willing to take diversified first-loss credit risk."
+      actual_risk: "Correlation bet. Weakest name dominates. First default in 5 is much more likely than any specific default."
+      perceived_risk: "Diversified credit product (misleading — first-to-default is concentrated risk)."
+      when_appropriate: "View that all 5 credits survive 5 years. Understanding of basket default probability."
+      when_not_appropriate: "Investor confuses FTD diversification with portfolio diversification. Credit cycle turning."
+      writing_instruction: "The biggest misconception: FTD is NOT diversification — it is concentration of first-loss risk."
+    desk_shorthand: {text: "First loss on basket; correlation bet, five names.", source: "research"}
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

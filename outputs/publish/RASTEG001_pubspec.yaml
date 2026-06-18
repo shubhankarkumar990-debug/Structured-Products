@@ -1,0 +1,30 @@
+publish:
+  product_id: RASTEG001
+  product_name: "Range-Accrual Steepener"
+  product_family: STEG
+  generated_at: "2026-06-19T10:28Z"
+  source: "outputs/drafts/RASTEG001.md"
+  gate: READY
+  pre_publish_checks:
+    draft_exists: true
+    qa_gate: PASS
+    style_gate: PASS
+    crossref_gate: PASS
+    all_8_sections: true
+    blocking_issues: 0
+    open_questions: 0
+  publish_metadata:
+    section: "7.2"
+    family: STEG
+    family_position: "2 of 4"
+    word_count_estimate: 1900
+    complexity: "High"
+    system: "Murex four-leg"
+    desk_shorthand: "Range coupon on curve slope; daily accrual, CMS spread."
+  quality_summary:
+    qa_blockers: 0
+    qa_majors: 1
+    qa_majors_detail: ["CMS decomposition convention (advisory — validated across 2 products)"]
+    style_must_fix: 0
+    crossref_broken: 0
+  summary: "RASTEG001 READY. CMS decomposition convention validated (VSTEG001 + RASTEG001). Publishing gate READY."

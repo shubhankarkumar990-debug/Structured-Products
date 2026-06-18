@@ -1,0 +1,84 @@
+research:
+  product_id: RASTEG001
+  product_name: "Range-Accrual Steepener"
+  product_family: STEG
+  generated_at: "2026-06-19T10:00Z"
+  memory_consulted:
+    - memory/terminology/STEG.yaml
+    - memory/booking-maps/STEG_system_mapping.yaml
+    - memory/style-patterns/STEG.yaml
+
+  classification:
+    family: STEG
+    sub_family: "CMS spread — range accrual"
+    archetype: "Daily digital observation on CMS spread with leveraged accrual coupon"
+    risk_profile: "Curve slope + correlation + convexity + range accrual (digital strip)"
+    complexity: "High"
+    path_dependent: false
+    model: "Multi-factor rate model with CMS convexity adjustment, correlation calibration, and digital strip valuation"
+
+  structure:
+    components:
+      - instrument: "Fixed-rate bond (funding)"
+        desk_direction: "long"
+        purpose: "Provides par redemption and funding structure"
+      - instrument: "CMS spread range-accrual coupon strip"
+        desk_direction: "long"
+        purpose: "Pays accrual coupon for each day CMS 30Y − CMS 10Y spread falls within a specified range"
+      - instrument: "Digital CMS spread strip (embedded)"
+        desk_direction: "long"
+        purpose: "Binary observation — counts days the spread is in range"
+    barriers: []
+    observation: "Daily CMS spread observation against range bounds"
+    tenor: "10 years"
+    coupon: "6.0% × (days in range / total days), range: CMS 30Y − CMS 10Y ∈ [0 bps, 150 bps]"
+    principal_protection: "100% at maturity (non-callable)"
+
+  economics:
+    headline: "Pays 6.0% coupon pro-rated by the fraction of days the CMS spread stays within a specified range"
+    how_funded: "Investor sells digital optionality — giving up full coupon certainty in exchange for a higher headline rate than a vanilla steepener"
+    investor_trade: "Higher headline coupon (6.0% vs VSTEG001's 4.0% expected) in exchange for accrual risk — days outside the range earn nothing"
+    decomposition:
+      coupon_formula: "6.0% × (days in range / total days)"
+      range_lower: "0 bps"
+      range_upper: "150 bps"
+      current_spread: "80 bps (well inside range)"
+      expected_accrual: "~85% (historical probability of spread in [0, 150] range)"
+      expected_coupon: "~5.1% (6.0% × 85%)"
+      digital_strip_cost: "1.5%"
+      funding: "3.0%"
+      ftp: "0.4%"
+      desk_margin: "0.3%"
+    verification: "Expected coupon ~5.1% = 6.0% × 85% accrual. Economics: 6.0% headline = digital strip 1.5% + funding 3.0% + FTP 0.4% + margin 0.3% + investor pickup 0.8%"
+
+  booking:
+    system_type: murex_four_leg
+    note_leg: ["CMS spread range-accrual formula", "Range bounds [0, 150] bps", "Daily observation schedule", "CMS tenor pair 30Y/10Y", "CMS fixing source"]
+    hedge_leg: ["Digital CMS spread strip", "CMS cap/floor", "Convexity adjustment model", "Correlation assumption"]
+    critical_fields: ["Range bounds consistency", "Daily observation schedule", "CMS fixing source match", "Convexity adjustment consistency"]
+    failure_modes:
+      - "Range bounds differ between note and hedge legs"
+      - "Observation schedule (daily vs business days) mismatch"
+      - "CMS fixing source mismatch between legs"
+      - "Convexity adjustment inconsistency"
+
+  pricing:
+    dominant_greeks: ["Curve slope", "CMS spread volatility (digital sensitivity)", "Correlation", "CMS convexity"]
+    key_sensitivities:
+      - "10 bps spread move toward range boundary → accelerating accrual risk"
+      - "Higher spread volatility → lower expected accrual → lower expected coupon"
+      - "Digital risk: all-or-nothing on boundary days"
+      - "Convexity adjustment reduces effective spread, shifting the distribution relative to range bounds"
+    model_risk: "High — digital strip valuation requires accurate spread distribution modeling. Convexity adjustment and correlation directly affect the probability of being in range."
+
+  reconciliation:
+    critical_fields:
+      - {field: "Range bounds", source: "Termsheet", check: "0 bps lower and 150 bps upper in both legs"}
+      - {field: "Observation schedule", source: "Termsheet", check: "Daily (or business days) matching between legs"}
+      - {field: "CMS fixing source", source: "Termsheet", check: "ISDA CMS rate definition matches in both legs"}
+      - {field: "Convexity adjustment", source: "Model calibration", check: "Same model in note and hedge legs"}
+    observation_type: "Daily CMS spread observation"
+    fixing_fallback: "ISDA CMS fallback provisions"
+
+  desk_shorthand: "Range coupon on curve slope; daily accrual, CMS spread."
+  open_questions: []

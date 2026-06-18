@@ -1,0 +1,21 @@
+crossref:
+  product_id: CSTEG001
+  product_name: "Callable Steepener"
+  product_family: STEG
+  generated_at: "2026-06-19T10:55Z"
+  source: "outputs/drafts/CSTEG001.md"
+
+  gate: PASS
+
+  references_found:
+    - {ref_type: "explicit_comparison", target: "VSTEG001", target_family: STEG, context: "Non-callable vs callable steepener", target_exists: true, validated: true}
+    - {ref_type: "cross_family_parallel", target: "CRASRT001", target_family: SRT, context: "Both combine rate coupon with Bermudan call — dual optionality interaction", target_exists: true, validated: true}
+    - {ref_type: "cross_family_parallel", target: "ICN001", target_family: ELN, context: "Both are issuer-callable — reinvestment risk pattern", target_exists: true, validated: true}
+
+  broken_references: 0
+  warnings: 0
+  cross_family_refs:
+    - {from: CSTEG001, from_family: STEG, to: CRASRT001, to_family: SRT, type: "cross_family_parallel"}
+    - {from: CSTEG001, from_family: STEG, to: ICN001, to_family: ELN, type: "cross_family_parallel"}
+
+  summary: "3 references: 1 intra-family (VSTEG001), 2 cross-family (CRASRT001, ICN001). Zero broken. CrossRef gate PASS."

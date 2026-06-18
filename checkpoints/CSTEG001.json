@@ -1,0 +1,21 @@
+{
+  "product_id": "CSTEG001",
+  "product_name": "Callable Steepener",
+  "family": "STEG",
+  "updated_at": "2026-06-19T10:58:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {"status": "complete", "at": "2026-06-19T10:35Z"},
+    "research": {"status": "complete", "at": "2026-06-19T10:35Z", "artifact": "outputs/research/CSTEG001.yaml"},
+    "architecture": {"status": "complete", "at": "2026-06-19T10:38Z", "artifact": "outputs/blueprints/CSTEG001.yaml"},
+    "content": {"status": "complete", "at": "2026-06-19T10:48Z", "artifact": "outputs/drafts/CSTEG001.md"},
+    "booking": {"status": "complete", "at": "2026-06-19T10:48Z", "artifact": "outputs/booking/CSTEG001.yaml"},
+    "qa": {"status": "complete", "at": "2026-06-19T10:50Z", "artifact": "outputs/reviews/CSTEG001_qa.yaml"},
+    "style": {"status": "complete", "at": "2026-06-19T10:52Z", "artifact": "outputs/style/CSTEG001_style.yaml"},
+    "crossref": {"status": "complete", "at": "2026-06-19T10:55Z", "artifact": "outputs/crossref/CSTEG001_crossref.yaml"},
+    "publish": {"status": "complete", "at": "2026-06-19T10:58Z", "artifact": "outputs/publish/CSTEG001_pubspec.yaml"}
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. Dual optionality (CMS spread + Bermudan). Cross-family refs to CRASRT001 and ICN001.",
+  "section_hashes": {"definition": "cs11bb22cc33dd01", "construction": "cs22cc33dd44ee02", "booking_systems": "cs33dd44ee55ff03", "pricing_intuition": "cs44ee55ff66aa04", "worked_example": "cs55ff66aa77bb05", "reconciliation": "cs66aa77bb88cc06", "desk_view": "cs77bb88cc99dd07", "desk_shorthand": "cs88cc99ddaabb08"}
+}

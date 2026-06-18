@@ -1,0 +1,47 @@
+booking:
+  product_id: TARN001
+  product_name: "Target Accrual Redemption Note"
+  product_family: STEG
+  generated_at: "2026-06-19T11:18Z"
+  source: "outputs/blueprints/TARN001.yaml"
+  memory_used:
+    - memory/booking-maps/STEG_system_mapping.yaml
+
+  system_mapping:
+    book_of_record: Murex
+    risk_and_pnl: Murex
+    framework: murex_four_leg
+    legal_document: Termsheet
+
+  legs:
+    note_leg:
+      system: Murex
+      role: "Client-facing note — CMS spread coupon with target auto-redemption"
+      fields:
+        - {name: "Notional", value: "USD 10M", critical: true}
+        - {name: "Coupon formula", value: "5 × (CMS 30Y − CMS 10Y), floor 0%", critical: true}
+        - {name: "Leverage factor", value: "5x", critical: true}
+        - {name: "Floor rate", value: "0%"}
+        - {name: "Target level", value: "25% cumulative", critical: true}
+        - {name: "Truncation rule", value: "Last coupon capped at target minus cumulative", critical: true}
+        - {name: "CMS fixing source", value: "ISDA CMS rate definition", critical: true}
+        - {name: "Maximum maturity", value: "15 years", critical: true}
+        - {name: "Auto-redemption", value: "Par on target-hit date"}
+    issuer_leg: {system: Murex, role: "Issuer funding (uncertain tenor)", fields: [{name: "Funding rate", value: "3.0%"}, {name: "Funding curve", value: "Issuer senior unsecured"}]}
+    deposit_leg: {system: Murex, role: "Client collateral", fields: [{name: "Deposit rate", value: "Market rate"}]}
+    hedge_leg:
+      system: Murex
+      role: "Path-dependent hedge — requires Monte Carlo simulation"
+      fields:
+        - {name: "Hedge strategy", value: "Dynamic / path-dependent simulation", critical: true}
+        - {name: "Target barrier", value: "25% cumulative", critical: true}
+        - {name: "CMS tenor pair", value: "30Y / 10Y"}
+        - {name: "Convexity adjustment model", value: "Jointly calibrated", critical: true}
+        - {name: "Correlation assumption", value: "Calibrated", critical: true}
+        - {name: "Maximum maturity", value: "15 years", critical: true}
+
+  failure_modes:
+    - {mode: "Target level mismatch", severity: "HIGH", description: "Different target between legs → hedge unwinds at wrong time"}
+    - {mode: "Truncation error", severity: "HIGH", description: "Last coupon not truncated → overpayment exceeding target"}
+    - {mode: "Maximum maturity missing", severity: "HIGH", description: "No expiry if target never reached → open-ended liability"}
+    - {mode: "Path simulation inconsistency", severity: "MEDIUM", description: "Different simulation parameters between note valuation and hedge"}

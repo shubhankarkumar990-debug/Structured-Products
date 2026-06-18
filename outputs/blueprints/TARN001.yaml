@@ -1,0 +1,76 @@
+blueprint:
+  product_id: TARN001
+  product_name: "Target Accrual Redemption Note"
+  product_family: STEG
+  generated_at: "2026-06-19T11:08Z"
+  source: "outputs/research/TARN001.yaml"
+  memory_used:
+    - memory/terminology/STEG.yaml
+    - memory/booking-maps/STEG_system_mapping.yaml
+  sections:
+    definition:
+      content_nodes:
+        - "Auto-redeems when cumulative coupons reach target level (25%)"
+        - "Path-dependent — first truly path-dependent STEG product"
+        - "Uncertain tenor: could redeem in 3 years (steep curve) or run full 15 years (flat curve)"
+        - "No explicit cap — target replaces cap as coupon limiter"
+      writing_instruction: "Explain target redemption concept. Contrast with VSTEG001 (fixed tenor, capped) and CSTEG001 (callable by issuer). Here, redemption is automatic and determined by cumulative coupon."
+    construction:
+      primitives:
+        - instrument: "Fixed-rate bond (funding)"
+          desk_direction: "long"
+        - instrument: "CMS spread coupon strip (leveraged)"
+          desk_direction: "long"
+        - instrument: "CMS floor (0%)"
+          desk_direction: "long"
+        - instrument: "Target redemption feature"
+          desk_direction: "short (investor perspective)"
+      key_strikes: ["Leverage 5x", "Floor 0%", "Target 25%", "Max maturity 15Y"]
+      path_dependency: "Yes — cumulative coupon is path-dependent. Each period's accrual affects when the target is reached."
+      writing_instruction: "Four components. Explain why target replaces cap. Show truncation of last coupon."
+    booking_systems:
+      system_mapping: {book_of_record: Murex, risk_pnl: Murex, legal_document: Termsheet, four_leg: true}
+      content_nodes: ["Target level in note leg", "Path-dependent simulation in hedge leg", "Truncation logic", "Maximum maturity"]
+      writing_instruction: "Murex four-leg. Target level and truncation logic are the critical new booking items."
+    pricing_intuition:
+      dominant_greeks: ["Curve slope", "Correlation", "CMS convexity", "Expected life"]
+      yield_drivers: ["Spread level", "Spread volatility", "Target level"]
+      model_dependency: "Very high — requires Monte Carlo simulation for expected life."
+      sensitivities: ["Steepening → early target hit → short tenor", "Flattening → late/never target hit → long tenor"]
+      writing_instruction: "Explain path-dependency and expected life calculation. Contrast with CSTEG001 where issuer decides call timing."
+    worked_example:
+      notional: "USD 10M"
+      underlying: "CMS 30Y − CMS 10Y"
+      tenor: "15 years (maximum)"
+      barriers: {target_level: "25%"}
+      decomposition: {expected_coupon: "4.0%", funding: "3.0%", ftp: "0.4%", margin: "0.3%", target_optionality: "1.3%"}
+      ftp: "0.4%"
+      desk_margin: "0.3%"
+      headline_yield: "4.0% expected, target 25% total"
+      good_scenario: "Curve steepens. Target reached in 4-5 years. High annualized return."
+      bad_scenario: "Curve flat for 15 years. Coupon near zero. Target never reached."
+      writing_instruction: "Show cumulative coupon table. Three scenarios: early target, normal, no target. Demonstrate truncation."
+    reconciliation:
+      critical_fields:
+        - {field: "Target level", failure_mode: "Mismatch between note and hedge → different redemption timing"}
+        - {field: "Truncation logic", failure_mode: "Last coupon not truncated → over-payment"}
+        - {field: "Maximum maturity", failure_mode: "Missing max maturity → no expiry if target never hit"}
+        - {field: "CMS fixing source", failure_mode: "Mismatch between legs"}
+      observation_type: "Semi-annual CMS fixing"
+      fixing_fallback: "ISDA CMS fallback"
+      writing_instruction: "Target level and truncation are the unique recon risks. Maximum maturity is an existence risk."
+    desk_view:
+      typical_buyer: "Investors who want a defined total return on a curve-steepening view."
+      actual_risk: "Path-dependent tenor. Could be locked in for 15 years earning near-zero."
+      perceived_risk: "Attractive total return product with guaranteed 25% if target reached."
+      when_appropriate: "Strong steepening view. Investor values total return certainty over tenor certainty."
+      when_not_appropriate: "Need for predictable investment horizon. Flat curve environment."
+      writing_instruction: "Emphasise the trade-off: guaranteed total return vs uncertain tenor. Compare with fixed-maturity alternatives."
+    desk_shorthand: {text: "Target coupon on curve slope; auto-redeem at cap.", source: "research"}
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

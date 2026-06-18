@@ -1,0 +1,19 @@
+crossref:
+  product_id: SCLN001
+  product_name: "Skew CLN"
+  product_family: CLN
+  generated_at: "2026-06-19T11:55Z"
+  source: "outputs/drafts/SCLN001.md"
+
+  gate: PASS
+
+  references_found:
+    - {ref_type: "explicit_comparison", target: "VCLN001", target_family: CLN, context: "Standard vs skew-adjusted CLN. Same structure, different pricing convention.", target_exists: true, validated: true}
+    - {ref_type: "forward_ref", target: "FTD001", target_family: CLN, context: "FTD extends CLN to basket credit. Referenced as next complexity level.", target_exists: false, target_status: "in pipeline (Batch 4)", validated: true}
+
+  broken_references: 0
+  warnings: 1
+  warning_details: ["FTD001 referenced but not yet generated (in current batch — expected)"]
+  cross_family_refs: []
+
+  summary: "2 references: 1 intra-family (VCLN001), 1 forward ref (FTD001 — in current batch). Zero broken. CrossRef gate PASS."

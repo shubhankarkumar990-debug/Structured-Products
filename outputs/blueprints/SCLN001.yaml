@@ -1,0 +1,71 @@
+blueprint:
+  product_id: SCLN001
+  product_name: "Skew CLN"
+  product_family: CLN
+  generated_at: "2026-06-19T11:38Z"
+  source: "outputs/research/SCLN001.yaml"
+  memory_used:
+    - memory/terminology/CLN.yaml
+    - memory/booking-maps/CLN_system_mapping.yaml
+  sections:
+    definition:
+      content_nodes:
+        - "CLN with non-standard restructuring variant or recovery assumption"
+        - "Skew = difference between standard CDS spread and note's effective spread"
+        - "Higher/lower coupon than VCLN001 depending on skew direction"
+        - "Same credit event mechanics — skew is a pricing concept, not a structural one"
+      writing_instruction: "Explain the skew concept. Contrast with VCLN001 (standard conventions). Show why restructuring variants create pricing differences."
+    construction:
+      primitives:
+        - instrument: "Fixed-rate bond (funding)"
+          desk_direction: "long"
+        - instrument: "Credit default swap (embedded, skew-adjusted)"
+          desk_direction: "short (investor sells protection)"
+      key_strikes: ["CDS spread 250 bps (MR)", "Skew adjustment 30 bps", "Recovery 40%"]
+      path_dependency: "None."
+      writing_instruction: "Two components (same as VCLN001). Explain the skew adjustment in the CDS spread."
+    booking_systems:
+      system_mapping: {book_of_record: NEMO, risk_pnl: Sophis, legal_document: Termsheet, four_leg: false}
+      content_nodes: ["Restructuring variant in NEMO", "Skew-adjusted CDS curve in Sophis", "Recovery rate consistency"]
+      writing_instruction: "NEMO + Sophis (same as VCLN001). Restructuring variant is the critical new field."
+    pricing_intuition:
+      dominant_greeks: ["CS01", "Jump-to-default", "Recovery rate sensitivity"]
+      yield_drivers: ["Credit spread level", "Restructuring variant", "Recovery assumption"]
+      model_dependency: "Low-Medium — standard hazard rate model with skew parameters."
+      sensitivities: ["Restructuring variant pricing", "Recovery rate changes", "CDS basis"]
+      writing_instruction: "Explain restructuring variants (CR/MR/MMR/Old-R) and why they command different spreads."
+    worked_example:
+      notional: "USD 10M"
+      underlying: "Single-name credit (BBB-rated corporate)"
+      tenor: "5 years"
+      barriers: {}
+      decomposition: {coupon: "5.8%", funding: "3.0%", ftp: "0.3%", margin: "0.2%", credit_spread: "2.3%"}
+      ftp: "0.3%"
+      desk_margin: "0.2%"
+      headline_yield: "5.8% (enhanced by restructuring skew)"
+      good_scenario: "No credit event. Investor earns 5.8% for 5 years."
+      bad_scenario: "Credit event. Investor loses (1 − recovery) × notional."
+      writing_instruction: "Show skew adjustment calculation. Compare to VCLN001 pricing. Credit event scenario."
+    reconciliation:
+      critical_fields:
+        - {field: "Restructuring variant", failure_mode: "CR in NEMO when Termsheet says MR → wrong CDS spread"}
+        - {field: "Recovery rate", failure_mode: "Mismatch between NEMO and Sophis → inconsistent pricing"}
+        - {field: "CDS spread basis", failure_mode: "Standard spread used instead of skew-adjusted"}
+      observation_type: "Continuous credit event monitoring"
+      fixing_fallback: "ISDA fallback"
+      writing_instruction: "Restructuring variant is the unique recon risk for Skew CLN."
+    desk_view:
+      typical_buyer: "Credit investors who understand restructuring variant pricing and want to exploit skew."
+      actual_risk: "Same credit risk as VCLN001 but with non-standard conventions that may complicate settlement."
+      perceived_risk: "Slightly higher yield on same credit."
+      when_appropriate: "Investor has strong view on restructuring variant pricing. Wants incremental yield."
+      when_not_appropriate: "Investor does not understand restructuring variants. Needs liquidity (skew CLNs are less liquid)."
+      writing_instruction: "Explain the trade-off: incremental yield from skew vs complexity and liquidity."
+    desk_shorthand: {text: "Skew-priced credit; restructuring variant, recovery adjusted.", source: "research"}
+  validation:
+    all_8_sections: true
+    system_mapping_correct: true
+    decomposition_reconciles: true
+    min_2_recon_fields: true
+    shorthand_under_8_words: true
+    open_questions: []

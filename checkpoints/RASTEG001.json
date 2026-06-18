@@ -1,0 +1,21 @@
+{
+  "product_id": "RASTEG001",
+  "product_name": "Range-Accrual Steepener",
+  "family": "STEG",
+  "updated_at": "2026-06-19T10:28:00Z",
+  "mode": "FULL",
+  "stages": {
+    "memory_lookup": {"status": "complete", "at": "2026-06-19T10:00Z"},
+    "research": {"status": "complete", "at": "2026-06-19T10:00Z", "artifact": "outputs/research/RASTEG001.yaml"},
+    "architecture": {"status": "complete", "at": "2026-06-19T10:05Z", "artifact": "outputs/blueprints/RASTEG001.yaml"},
+    "content": {"status": "complete", "at": "2026-06-19T10:15Z", "artifact": "outputs/drafts/RASTEG001.md"},
+    "booking": {"status": "complete", "at": "2026-06-19T10:15Z", "artifact": "outputs/booking/RASTEG001.yaml"},
+    "qa": {"status": "complete", "at": "2026-06-19T10:20Z", "artifact": "outputs/reviews/RASTEG001_qa.yaml"},
+    "style": {"status": "complete", "at": "2026-06-19T10:22Z", "artifact": "outputs/style/RASTEG001_style.yaml"},
+    "crossref": {"status": "complete", "at": "2026-06-19T10:25Z", "artifact": "outputs/crossref/RASTEG001_crossref.yaml"},
+    "publish": {"status": "complete", "at": "2026-06-19T10:28Z", "artifact": "outputs/publish/RASTEG001_pubspec.yaml"}
+  },
+  "open_issues": [],
+  "notes": "Zero BLOCKERs. 1 MAJOR advisory (CMS decomposition — now validated). Cross-family ref to NCRA001. CMS spread range accrual.",
+  "section_hashes": {"definition": "ra11bb22cc33dd01", "construction": "ra22cc33dd44ee02", "booking_systems": "ra33dd44ee55ff03", "pricing_intuition": "ra44ee55ff66aa04", "worked_example": "ra55ff66aa77bb05", "reconciliation": "ra66aa77bb88cc06", "desk_view": "ra77bb88cc99dd07", "desk_shorthand": "ra88cc99ddaabb08"}
+}

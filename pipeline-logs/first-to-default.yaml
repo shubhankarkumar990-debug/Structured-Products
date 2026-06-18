@@ -1,0 +1,13 @@
+chapter: "First-to-Default"
+slug: "first-to-default"
+initiated: "2026-06-19"
+stages:
+  research: {status: completed, completed_at: "2026-06-19T12:05Z", notes: "Gate passed. 5-name basket. Copula model. Correlation."}
+  architecture: {status: completed, completed_at: "2026-06-19T12:08Z", notes: "Gate passed. All 8 sections. First basket product."}
+  writing: {status: completed, completed_at: "2026-06-19T12:18Z", notes: "Gate passed. FTD spread/correlation table. Misconception flagged."}
+  murex_mapping: {status: completed, completed_at: "2026-06-19T12:18Z", notes: "Gate passed. NEMO + Sophis. 5 entities, copula model."}
+  qa: {status: completed, completed_at: "2026-06-19T12:22Z", notes: "Gate passed. Zero BLOCKERs. Survival probability verified."}
+  style: {status: completed, completed_at: "2026-06-19T12:24Z", notes: "Gate passed. Zero violations. FTD abbreviation correct."}
+  crossref: {status: completed, completed_at: "2026-06-19T12:26Z", notes: "Gate passed. VCLN001, SCLN001 intra-family. NTD001 forward."}
+  publishing: {status: completed, completed_at: "2026-06-19T12:28Z", notes: "Gate passed. CLN 3/5 complete. First basket product."}
+open_issues: []

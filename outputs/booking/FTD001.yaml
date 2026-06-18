@@ -1,0 +1,41 @@
+booking:
+  product_id: FTD001
+  product_name: "First-to-Default"
+  product_family: CLN
+  generated_at: "2026-06-19T12:18Z"
+  source: "outputs/blueprints/FTD001.yaml"
+  memory_used:
+    - memory/booking-maps/CLN_system_mapping.yaml
+
+  system_mapping:
+    book_of_record: NEMO
+    risk_and_pnl: Sophis
+    framework: nemo_sophis
+    legal_document: Termsheet
+
+  legs:
+    nemo:
+      role: "Book of record — 5-name basket, FTD trigger logic"
+      fields:
+        - {name: "Reference entities (5)", value: "Per Termsheet — all 5 must be entered", critical: true}
+        - {name: "Reference obligations (5)", value: "Per Termsheet — per entity", critical: true}
+        - {name: "FTD trigger logic", value: "First credit event triggers settlement", critical: true}
+        - {name: "Credit event definitions", value: "Per entity, per ISDA", critical: true}
+        - {name: "Recovery determination", value: "Auction / per defaulting entity"}
+        - {name: "Settlement type", value: "Cash (auction)"}
+        - {name: "Maturity", value: "5 years"}
+    sophis:
+      role: "Risk and P&L — copula model, correlation, per-name CDS curves"
+      fields:
+        - {name: "Copula model", value: "Gaussian (or Student-t)", critical: true}
+        - {name: "Correlation matrix", value: "5×5 pairwise, calibrated", critical: true}
+        - {name: "Individual CDS curves (5)", value: "Current market curves", critical: true}
+        - {name: "CS01 per name", value: "Computed from basket model"}
+        - {name: "Joint default probability", value: "Copula-based"}
+        - {name: "Jump-to-default per name", value: "Monitored"}
+
+  failure_modes:
+    - {mode: "Wrong entity in basket", severity: "HIGH", description: "Wrong reference entity → wrong credit exposure"}
+    - {mode: "FTD trigger logic incorrect", severity: "HIGH", description: "NEMO not implementing first-to-default → settlement failure"}
+    - {mode: "Correlation not calibrated", severity: "HIGH", description: "Flat correlation → mispriced basket (20-40% pricing error possible)"}
+    - {mode: "Stale CDS curve", severity: "MEDIUM", description: "One stale curve (esp. widest spread) distorts basket pricing"}

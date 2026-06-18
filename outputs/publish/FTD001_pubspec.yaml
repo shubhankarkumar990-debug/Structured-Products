@@ -1,0 +1,10 @@
+publish:
+  product_id: FTD001
+  product_name: "First-to-Default"
+  product_family: CLN
+  generated_at: "2026-06-19T12:28Z"
+  gate: READY
+  pre_publish_checks: {draft_exists: true, qa_gate: PASS, style_gate: PASS, crossref_gate: PASS, all_8_sections: true, blocking_issues: 0}
+  publish_metadata: {section: "6.2", family: CLN, family_position: "3 of 5", complexity: "High", system: "NEMO + Sophis", desk_shorthand: "First loss on basket; correlation bet, five names."}
+  quality_summary: {qa_blockers: 0, qa_majors: 1, style_must_fix: 0, crossref_broken: 0}
+  summary: "FTD001 READY. First basket credit product. Copula/correlation model. Publishing gate READY."

@@ -1,0 +1,82 @@
+research:
+  product_id: FTD001
+  product_name: "First-to-Default"
+  product_family: CLN
+  generated_at: "2026-06-19T12:05Z"
+  memory_consulted:
+    - memory/terminology/CLN.yaml
+    - memory/booking-maps/CLN_system_mapping.yaml
+    - memory/style-patterns/CLN.yaml
+
+  classification:
+    family: CLN
+    sub_family: "Basket credit — first-to-default"
+    archetype: "Credit-linked note on a basket of reference entities, triggered by the first credit event in the basket"
+    risk_profile: "Basket credit risk — correlation-dependent. Joint default probability."
+    complexity: "High"
+    path_dependent: false
+    model: "Copula-based default correlation model (Gaussian or t-copula)"
+
+  structure:
+    components:
+      - instrument: "Fixed-rate bond (funding)"
+        desk_direction: "long"
+        purpose: "Provides par redemption conditional on no credit event in the basket"
+      - instrument: "First-to-default basket CDS (embedded)"
+        desk_direction: "short (investor sells first-to-default protection)"
+        purpose: "Investor takes first-loss credit risk on a basket of N reference entities. The first entity to experience a credit event triggers the note."
+    barriers: []
+    observation: "Continuous credit event monitoring on all basket names"
+    tenor: "5 years"
+    coupon: "Fixed coupon funded by basket CDS spread"
+    principal_protection: "Conditional — lost on first credit event in basket. Recovery determined by the defaulted entity."
+
+  economics:
+    headline: "Very high coupon funded by selling first-to-default protection on a basket of 5 names — much higher spread than any single-name CLN"
+    how_funded: "Investor sells first-loss protection on the entire basket. The FTD spread is much higher than any individual CDS spread because the probability of at least one default in a basket is much higher than the probability of a specific single default."
+    investor_trade: "Very high coupon (8.5%) in exchange for first-loss risk on a 5-name basket. The investor is short correlation — low correlation means higher probability of at least one default."
+    decomposition:
+      coupon: "8.5% p.a."
+      benchmark: "3.0%"
+      enhancement: "5.5% (basket CDS spread)"
+      individual_cds_spreads: ["Name 1: 120 bps", "Name 2: 150 bps", "Name 3: 180 bps", "Name 4: 200 bps", "Name 5: 250 bps"]
+      sum_of_individual: "900 bps"
+      ftd_spread: "550 bps"
+      ftd_ratio: "61% of sum (correlation-dependent)"
+      funding: "3.0%"
+      ftp: "0.3%"
+      desk_margin: "0.2%"
+      basket_spread: "5.0%"
+    verification: "Coupon 8.5% = funding 3.0% + FTP 0.3% + margin 0.2% + basket spread 5.0%. FTD spread 550 bps = 61% of sum of individual spreads 900 bps (at ~30% pairwise correlation)."
+
+  booking:
+    system_type: nemo_sophis
+    nemo_fields: ["All 5 reference entities", "All 5 reference obligations", "First-to-default trigger logic", "Credit event definitions per entity", "Recovery determination per entity"]
+    sophis_fields: ["Basket CDS pricing (copula model)", "Correlation matrix (5×5)", "Individual CDS curves (5)", "CS01 per name", "Joint default probability", "Jump-to-default per name"]
+    critical_fields: ["Basket composition", "First-to-default trigger logic", "Correlation matrix", "Individual CDS curves"]
+    failure_modes:
+      - "Basket composition mismatch — wrong reference entity in NEMO"
+      - "Correlation matrix not calibrated — default flat correlation misprices the basket"
+      - "Individual CDS curves stale — spread changes not reflected in basket pricing"
+      - "FTD trigger logic incorrect — note does not trigger on first event"
+
+  pricing:
+    dominant_greeks: ["Correlation (pairwise default)", "Individual CS01 (5 names)", "Joint default probability", "Jump-to-default (per name)"]
+    key_sensitivities:
+      - "Correlation: lower correlation → higher FTD spread → higher coupon (more diversified defaults)"
+      - "Correlation: higher correlation → lower FTD spread → defaults tend to cluster (all or nothing)"
+      - "Widest-spread name dominates — Name 5 (250 bps) contributes most to FTD probability"
+      - "Adding a sixth name increases FTD probability (more chances for first default)"
+    model_risk: "High — copula model choice (Gaussian vs t) materially affects tail default probabilities. Correlation is not directly observable — calibrated from CDX/iTraxx tranches or historical data."
+
+  reconciliation:
+    critical_fields:
+      - {field: "Basket composition", source: "Termsheet", check: "All 5 reference entities match exactly in NEMO"}
+      - {field: "FTD trigger logic", source: "Termsheet", check: "First credit event triggers settlement — NEMO must implement first-to-default logic"}
+      - {field: "Correlation matrix", source: "Model calibration", check: "Pairwise correlations calibrated to market data in Sophis"}
+      - {field: "Individual CDS curves", source: "Market", check: "All 5 CDS curves current in Sophis"}
+    observation_type: "Continuous credit event monitoring on all basket names"
+    fixing_fallback: "ISDA Credit Definitions per entity"
+
+  desk_shorthand: "First loss on basket; correlation bet, five names."
+  open_questions: []
