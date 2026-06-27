@@ -126,4 +126,4 @@ Each chapter should aim for visuals across all three lenses:
 
 ---
 
-*Dual-Lens Authoring Standard | V2.1-DRAFT (adds visual + question-bank parity, §5) | 2026-06-27*
+*Dual-Lens Authoring Standard | V3.0-FINAL — applied to all 49 products + 18-generator library; see dual_lens_completion_record.md | 2026-06-28*

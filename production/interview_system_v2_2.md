@@ -355,7 +355,7 @@ The correlation mechanism: In a single-stock Phoenix, barrier breach probability
 
 The investor is **long** correlation (MTM convention): they benefit from high correlation (stocks move together, reducing worst-of risk) and lose from low correlation (independent moves increase the chance of one stock hitting the barrier). The investor is *structurally* short — they sold the correlation premium embedded in the worst-of basket coupon.
 
-Greeks: Same as Phoenix (short delta, short vega, short gamma near barriers) PLUS short correlation. Correlation is not directly observable and is the primary model risk. (See §6.8 for correlation modeling limitations.)
+Greeks (the desk's raw risk profile, the mirror of the investor): same as Phoenix (short delta, short vega, short gamma near barriers) PLUS short correlation on a **raw** basis — the desk's raw worst-of position is short correlation, while the investor is **long** correlation under the MTM convention (see the line above). After dispersion hedging the desk's net correlation is smaller. Correlation is not directly observable and is the primary model risk. (See §6.8 for correlation modeling limitations.)
 
 **Tier 3 — Desk (5 minutes)**
 Hedging: Single-stock hedges for each underlying PLUS correlation hedging. Correlation cannot be perfectly hedged — the desk manages it through portfolio construction, dispersion trades, and model reserves. If one stock drops sharply while others are unchanged, implied correlation drops and the WOAC position loses (the correlation risk materializes).
