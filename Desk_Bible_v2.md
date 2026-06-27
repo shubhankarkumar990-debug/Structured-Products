@@ -3622,30 +3622,23 @@ An operations analyst discovers that the system paid a coupon on Q3 even though 
 
 ---
 
-*This product is identical to the Reverse Convertible (5.1.2) you just learned, except the investor pays less than 100% of par instead of receiving periodic coupons. That single change transforms the return source from coupon income to a built-in purchase discount.*
-
+*This product is identical to the Reverse Convertible (5.1.2), except the investor pays less than 100% of par instead of receiving periodic coupons. That single change transforms the return source from coupon income to a built-in purchase discount. Like the RC chapter, it is read through two lenses: the **investor** and the **bank** (desk economics, 1st line; controls and reconciliation, 2nd line).*
 
 #### §1. Explain Like I'm New
 
-Maria is comparing two bank offers for a 1-year investment. The first pays her 8% in quarterly coupons on a $100,000 note. The second lets her buy the exact same note for $92,000 instead of $100,000 — no coupons, but she gets $100,000 back at maturity if all goes well.
+Maria is comparing two bank offers for a 1-year investment. The first pays 8% in quarterly coupons on a $100,000 note. The second lets her buy the same note for $92,000 instead of $100,000 — no coupons, but $100,000 back at maturity if all goes well. Both give roughly an 8% return; the difference is timing — periodic checks versus the return delivered upfront as a lower purchase price.
 
-Both offers give her roughly 8% return. The difference is timing: the first sends her checks throughout the year, while the second gives her the return upfront as a lower purchase price.
+That is a **Discounted Reverse Convertible**. Instead of periodic coupons, the investor buys the note at a discount to face value. The gap between the purchase price and the $100,000 redemption is the investor's return. As in a standard RC, the investor has sold a put option to the bank — but the put premium is packaged as a reduced purchase price rather than a coupon.
 
-That is a **Discounted Reverse Convertible**. Instead of receiving periodic coupon payments, the investor buys the note at a discount to its face value. The gap between the purchase price and the $100,000 redemption amount IS the investor's return. Like a standard RC, the investor has sold a put option to the bank — but instead of the put premium being packaged as a coupon, it is packaged as a reduced purchase price.
-
-The risk is identical: if the underlying stock falls below the capital barrier (the knock-in level), the investor's redemption at maturity is reduced based on the stock's decline — measured against the face value, not the purchase price.
-
+The risk is identical: if the underlying falls below the capital barrier (the knock-in level), the redemption at maturity is reduced based on the stock's decline — measured against face value, not the purchase price.
 
 #### §2. Real-World Analogy
 
 A Discounted RC is like buying a discounted gift card.
 
-You walk into a store and buy a $100 gift card for $90. The $10 discount is your return — you know exactly what you stand to gain at the moment of purchase. There are no monthly rewards, no loyalty points accumulating over time. Your profit is locked in upfront.
+A shopper buys a $100 gift card for $90. The $10 discount is the return — known exactly at the moment of purchase, with no monthly rewards accruing over time. The profit is locked in upfront. But there is a catch: if the store's financial health deteriorates badly (the stock drops below the barrier), the card may not be redeemable at full face value — a troubled store might honor only $60 of a $100 card. Having paid $90, the buyer loses $30.
 
-But there is a catch: if the store's financial health deteriorates badly (the stock drops below the barrier), your gift card may not be redeemable at full face value. A troubled store might only honor $60 of your $100 card. You paid $90, so you lose $30.
-
-The gift card discount is the put premium. The store's financial health is the stock price. The threshold at which redemption is reduced is the capital barrier. Just like a gift card buyer, the DRC investor gets their "interest" at the point of purchase rather than waiting for periodic payments.
-
+The gift-card discount is the put premium; the store's health is the stock price; the threshold at which redemption is reduced is the capital barrier. Like the gift-card buyer, the DRC investor takes their "interest" at purchase rather than waiting for periodic payments.
 
 #### §3. What Problem Does This Solve?
 
@@ -3653,10 +3646,9 @@ Some investors prefer simplicity over cash flow. A standard RC with quarterly co
 
 | Investor Need | Why Standard RC Is Imperfect | What the DRC Offers |
 |--------------|------------------------------|---------------------|
-| Simple return calculation | Must track 4 coupon payments | One number: (100 - purchase price) / purchase price |
+| Simple return calculation | Must track 4 coupon payments | One number: (100 − purchase price) / purchase price |
 | Tax efficiency | Coupons taxed as income in some jurisdictions | Discount may qualify as capital gains |
 | No reinvestment decisions | Must decide what to do with each coupon | Full return embedded at purchase |
-
 
 #### §4. Product DNA
 
@@ -3700,12 +3692,12 @@ Some investors prefer simplicity over cash flow. A standard RC with quarterly co
 
 | Role | Responsibility |
 |------|---------------|
-| **Structurer** | Designs Discounted Reverse Convertible terms: strike, barrier, coupon, maturity. Optimises structure for client and bank |
+| **Structurer** | Designs DRC terms: strike, barrier, discount, maturity. Optimises structure for client and bank |
 | **Trader** | Hedges embedded options. Manages Greeks (delta, gamma, vega). Prices secondary market |
-| **Sales** | Distributes Discounted Reverse Convertible to target clients. Explains payoff scenarios and risk-return profile |
+| **Sales** | Distributes DRC to target clients. Explains payoff scenarios and risk-return profile |
 | **Risk Management** | Monitors option Greeks, barrier proximity, concentration risk. Sets trading limits |
-| **Product Control** | Daily P&L attribution between note accrual and option MTM. Independent price verification |
-| **Operations** | Processes coupon payments and maturity settlement. Handles physical delivery if applicable |
+| **Product Control** | Daily P&L attribution between note accretion and option MTM. Independent price verification |
+| **Operations** | Processes maturity settlement. Handles physical delivery if applicable |
 | **Legal / Compliance** | Reviews term sheet for regulatory compliance. Ensures suitability for target investor base |
 | **Quantitative Analytics** | Prices embedded derivatives. Calibrates volatility surface. Provides model validation |
 
@@ -3714,144 +3706,83 @@ Some investors prefer simplicity over cash flow. A standard RC with quarterly co
 | Stage | Product | What Was Added | Why |
 |:-----:|---------|---------------|-----|
 | 1 | Plain vanilla bond | — (baseline) | Fixed coupon, full principal return |
-| 2 | Equity-linked note | Equity participation or option embedded | Market return exposure with note wrapper |
-| 3 | Discounted Reverse Convertible | Specific structural features added | Product-specific innovation: RC variant issued at discount. Lower entry price reduces break-even. Same put exposure |
+| 2 | Reverse Convertible | Short put option embedded | Higher return funded by put premium |
+| 3 | Discounted Reverse Convertible | Premium delivered as a discount, not a coupon | Zero-coupon packaging; lower entry price reduces break-even. Same put exposure |
 
-#### §7. How the Bank Makes Money
+---
 
-| Revenue Component | Detail |
-|------------------|--------|
-| **Structuring fee** | Embedded in note price at issuance (typically 1-3%) |
-| **Bid-offer spread** | Spread between option cost and terms offered to investor |
-| **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
-| **Funding advantage** | Issues note at sub-market effective funding rate |
+#### §7. THE INVESTOR LENS
 
-#### §8. Why This Product Exists (Client Perspective)
+**Why the investor buys it**
 
-1. **Upfront certainty.** The investor knows their maximum return at the moment of purchase — no dependency on future coupon schedules.
-2. **Tax structuring.** In certain jurisdictions, the discount may receive more favorable tax treatment than periodic coupon income.
-3. **Cash flow simplicity.** No coupons to track, reinvest, or report. One purchase, one redemption.
+1. **Upfront certainty.** The maximum return is known at purchase — no dependency on future coupon schedules.
+2. **Tax structuring.** In certain jurisdictions the discount may receive more favourable treatment than periodic coupon income.
+3. **Cash-flow simplicity.** No coupons to track, reinvest, or report — one purchase, one redemption.
 4. **Same risk, different packaging.** Investors who like the RC risk profile but prefer zero-coupon economics choose the DRC.
-5. **Psychological clarity.** Paying $92,000 for something worth $100,000 feels like a deal — more tangible than receiving 8% over time.
+5. **Psychological clarity.** Paying $92,000 for something worth $100,000 feels tangible.
 
+**Position taken**
 
-#### §9. The Three Scenarios
+Same as the RC: the investor holds a discounted (zero-coupon) bond and a **short** knock-in put sold to the bank. Net, the investor is **short volatility** and carries full equity downside below the strike, measured against face value. Single underlying → no correlation exposure.
 
-| Scenario | Market Condition | Outcome for Investor |
-|----------|-----------------|---------------------|
-| **Best case** | Underlying performs strongly | Maximum return captured (subject to any participation cap or barrier) |
-| **Base case** | Underlying is flat or moderately positive | Moderate return or coupon income depending on structure |
-| **Worst case** | Underlying declines significantly | Capital at risk if below protection level; coupon may partially offset |
+**Payoff & scenarios**
 
-*Detailed scenario analysis with specific numbers follows in §10.*
+Above the barrier at maturity the investor receives 100% of face value (return = the discount on invested capital). Below the barrier the redemption is face × (final/initial), so losses are measured against face value — slightly amplifying the percentage loss on the lower invested amount. The payoff shape is the RC's; only the flat level (discount return) and the loss base (face) differ.
 
-#### §10. What Happens When Markets Move
+![DRC Payoff at Maturity — Investor Lens](assets/drc/payoff_drc_maturity_01.svg)
 
-**Product:** 1-year DRC, $100,000 face value, purchase price $92,000 (8% discount), stock initial price $100, capital barrier (KI) at 70%, European observation.
+**Product:** 1-year DRC, $100,000 face value, purchase price $92,000 (8% discount), stock initial $100, capital barrier (KI) 70%, European observation.
 
-**Scenario 1 — Stock finishes at $115 (+15%):**
-Barrier not breached. Investor receives $100,000 face value. Paid $92,000. **Profit: $8,000 (8.7% return).** The stock's strong performance does not increase the payout — the return is capped at the discount.
+- **Stock finishes at $115 (+15%):** Barrier not breached. The investor receives $100,000 face. Paid $92,000. **Profit $8,000 (8.7%).** Strong performance does not increase the payout — return is capped at the discount.
+- **Stock finishes at $75 (−25%):** Above the 70% barrier. The investor receives $100,000. **Profit $8,000 (8.7%).** Same as above — the DRC investor is indifferent to performance above the barrier.
+- **Stock finishes at $60 (−40%):** Below the barrier. Knock-in. Redemption = $100,000 × ($60/$100) = $60,000. Paid $92,000. **Loss $32,000 (−34.8%).** The discount gave no meaningful cushion against a 40% decline.
+- **Stock finishes at exactly $70 (barrier):** European observation checks at maturity. At the barrier, the "below" vs "at or below" termsheet convention decides knock-in. **Always verify the convention.**
 
-**Scenario 2 — Stock finishes at $75 (-25%):**
-Above the 70% barrier. Investor receives $100,000. Paid $92,000. **Profit: $8,000 (8.7%).** Same outcome as Scenario 1. The DRC investor does not care how the stock performs as long as it stays above the barrier.
-
-**Scenario 3 — Stock finishes at $60 (-40%):**
-Below the 70% barrier. Knock-in triggered. Redemption = $100,000 × ($60 / $100) = $60,000. Paid $92,000. **Loss: $32,000 (-34.8%).** The discount provided no meaningful cushion against a 40% stock decline.
-
-**Scenario 4 — Stock finishes at exactly $70 (barrier level):**
-European observation — the barrier is checked at maturity. Stock is at the barrier. Depending on the termsheet convention ("below" vs "at or below"), this may or may not trigger knock-in. **Always verify the termsheet convention.**
-
-
-#### §11. Formal Definition
-
-A **Discounted Reverse Convertible (DRC)** is a structured product consisting of a zero-coupon bond purchased at a discount to par, plus a short knock-in put option. At maturity:
-
-- If the underlying has **not** breached the capital barrier: **Redemption = 100% of Face Value**
-- If the underlying **has** breached the capital barrier: **Redemption = Face Value × (Final Level / Initial Level)**
-
-The investor receives no periodic coupons. The return is the difference between the discounted purchase price and the face value redemption.
-
-**Key parameters:**
-- **Purchase price:** Typically 88-95% of face value
-- **Barrier:** Typically 60-80% of initial level
-- **Barrier observation:** European or American
-- **Underlying:** Single stock, index, or worst-of basket
-- **Maturity:** Typically 6 months to 2 years
-
-
-#### §12. Product Construction
-
-*Dependency: Builds on Section 2.2 (Decomposition) and Section 1.2 (Options).*
-
-| Component | What It Is | Economic Purpose |
-|-----------|-----------|-----------------|
-| Zero-coupon bond | Investor lends $92,000; bank returns $100,000 at maturity | The $8,000 gap includes bond interest + put premium |
-| Short knock-in put | Investor sells a put with KI barrier at 70% | Generates premium — packaged as the discount |
-
-**The discount decomposition (adapted from Section 2.2):**
-
-Discount = Bond yield + Put premium - Funds Transfer Pricing (FTP) - Desk margin
-
-For an 8% discount (purchase price 92%):
-- Bond yield (implied by zero-coupon structure): ~2.0%
-- Put premium (value of the KI put sold): ~7.5%
-- FTP (internal funding cost): -0.5%
-- Desk margin: -1.0%
-- **Net discount: 8.0%**
-
-The put premium is the same as in a standard RC — the only difference is how it reaches the investor: as a reduced purchase price instead of periodic cash payments.
-
-> **Professor Note:** If you remember only one thing from this chapter, remember this: a DRC and an RC with the same barrier and maturity have the same risk — the difference is whether you receive your return as quarterly checks or as a lower purchase price.
-
-
-#### §13. Lifecycle
-
-| Stage | Detail |
-|-------|--------|
-| **Trade date** | Terms agreed: underlying, strike/barrier, coupon, maturity. Pricing finalised |
-| **Issue date** | Note issued. Investor pays par (or discount). Bank establishes hedge |
-| **Coupon dates** | Periodic observations and coupon payments (if applicable). Barrier monitoring |
-| **Maturity** | Final observation. Settlement: cash (par or adjusted) or physical delivery. T+2 settlement |
-
-#### §14. Desk Reality
-
-```
-Investor
-Return (%)
-    |
-+8.7%|─────────────────────*  ← Discount return
-     |                     |
-   0%|─────────────────────|────────
-     |                     |
-     |                  ╱  |
-     |                ╱    |
-     |              ╱      |
-     |            ╱   Barrier breached:
-     |          ╱    face value reduced by
-     |        ╱      full stock decline
-     |      ╱
-     +───────────────|─────────────→
-                   70%            100%
-                (barrier)     (initial)
-           Underlying at Maturity (% of Initial)
-```
-
-The shape is nearly identical to the RC payoff. The only difference: the flat portion above the barrier shows +8.7% (discount return on invested capital) rather than the coupon return. Below the barrier, losses are calculated against face value, so the investor's percentage loss on invested capital is slightly amplified.
-
-
-#### §15. Risk Analysis
+**Risks to the investor**
 
 | Risk | Description | Severity |
 |------|------------|:--------:|
-| **Barrier breach** | If the stock falls below the capital barrier, redemption is reduced based on the stock's decline from initial level | High |
-| **Amplified loss percentage** | The investor paid less than face value but loses relative to face value. A 40% stock decline causes a 34.8% loss on a 92% purchase price | Medium |
-| **No coupon cushion** | In a standard RC, coupons received before a breach partially offset capital loss. In a DRC, the discount is embedded upfront — no ongoing income cushions a late-life decline | Medium |
-| **Issuer credit risk** | The investor is exposed to the bank's creditworthiness | Medium |
-| **Illiquidity** | Selling before maturity involves bid-offer spread and potential loss | Medium |
+| **Barrier breach** | Below the barrier, redemption is reduced by the stock's decline from initial | High |
+| **Amplified loss percentage** | Paid below face but loses against face: a 40% decline → 34.8% loss on a 92% price | Medium |
+| **No coupon cushion** | No interim income to offset a late-life decline (unlike the RC's coupons) | Medium |
+| **Issuer credit risk** | Exposure to the bank's creditworthiness | Medium |
+| **Illiquidity** | Selling before maturity involves a bid-offer spread and potential loss | Medium |
 | **Gap risk** | The stock may jump past the barrier without trading through it | High |
 
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
 
-#### §16. Booking and Systems
+**What the desk books**
+
+The mirror of the investor: the desk is **long** the embedded knock-in put (bought from the investor) and has issued a zero-coupon note below par. The investor's discount is, to the desk, the put premium plus bond yield returned via a lower issue price rather than coupons.
+
+**Greeks & hedging**
+
+Identical to the RC — the desk is long the KI put and delta-hedges by trading the underlying. Gamma spikes as the underlying approaches the barrier and hedging becomes expensive; this is where structuring margin is earned or lost. The zero-coupon structure simplifies the hedge book (no periodic cash flows) but does not change the Greeks.
+
+![DRC Desk Position & Hedge — Bank Lens (Desk Economics)](assets/drc/desk_drc_hedge_gamma_07.svg)
+
+**How the bank makes money**
+
+| Revenue Component | Detail |
+|------------------|--------|
+| **Structuring fee** | Embedded in the issue price (typically 1-3%) |
+| **Bid-offer spread** | Spread between option cost and terms offered to the investor |
+| **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
+| **Funding advantage** | Issues the note at a sub-market effective funding rate |
+
+**The discount decomposition (from Section 2.2):**
+
+Discount = Bond yield + Put premium − FTP − Desk margin. For an 8% discount (issue 92%): bond yield ~2.0%; put premium ~7.5%; FTP −0.5%; desk margin −1.0%; **net discount 8.0%**. The put premium is identical to a standard RC — only the delivery differs (lower price, not coupons).
+
+![DRC Discount Decomposition — Bank Lens (Desk Economics)](assets/drc/waterfall_drc_discount_09.svg)
+
+**P&L drivers**
+
+Realized-versus-implied vol on the delta hedge, moves near the barrier (gamma), funding, the put MTM, and the **accretion** of the discount toward face value over the life. Product Control attributes P&L between accretion and put MTM — simpler than the RC because there is no coupon accrual.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
 
 | Aspect | Detail |
 |--------|--------|
@@ -3863,98 +3794,114 @@ The shape is nearly identical to the RC payoff. The only difference: the flat po
 | **Coupon schedule** | None — zero-coupon structure |
 | **Barrier monitoring** | European: single check at maturity. American: continuous |
 
-**Lifecycle events:**
-- **Trade date:** Book in NEMO. Set face value, issue price, initial level, barrier, maturity.
-- **No coupon dates:** Unlike the RC, there are no periodic payment events.
-- **Barrier monitoring (American):** Daily check of underlying vs barrier level.
-- **Final observation:** Record closing price. Determine barrier breach.
-- **Maturity:** If no knock-in: return face value. If knocked in: return face value × (Final/Initial). Settle.
+**Reconciliation points**
 
-**Desk Perspective:**
+| Recon point | What must agree | DRC-specific break |
+|-------------|-----------------|--------------------|
+| **Trade economics** | Face value, issue price, barrier level & convention, maturity, underlying ID | Barrier applied to issue price instead of initial stock level |
+| **Issue price vs face** | Cash paid (issue) vs redemption base (face) | Issue price recorded as 100% — every P&L number then wrong |
+| **Discount accretion** | Book value accretes toward face over the life | Valuation model fails to accrete → mid-life MTM wrong |
+| **Observation type** | European vs American | American flagged but only daily closes monitored |
+| **Fixings** | Initial and final fixing source = termsheet | Vendor disagreement on the final close |
+| **Knock-in capture** | KI flag consistent across NEMO and Sophis | Intraday breach not flagged → redemption miscalculated |
+| **P&L attribution** | Accretion + put MTM = total | Unexplained P&L points to wrong accretion or stale vol |
+| **Settlement** | Redeem at **face** (not issue price); shares = face / strike | Settlement uses issue price → investor underpaid |
 
-| Role | What the DRC Means to Them |
-|------|---------------------------|
-| **Trader** | Same hedge as RC — long KI put, Delta hedge with stock. Zero-coupon structure means no periodic cash flow management, simplifying the hedge book. |
-| **Structurer** | Sets the discount and barrier. Clients seeking capital gains tax treatment over income tax are the primary audience. Must explain that economic risk is identical to a standard RC. |
-| **Product Control** | Verifies that the issue price reflects the correct put premium. No coupon accrual to track — simpler P&L than RC. Reconciles between NEMO and Sophis. |
-| **Risk** | Same barrier monitoring as RC. Zero-coupon structure does not change the risk profile — Delta and Gamma exposure near the barrier is identical. |
-| **Operations** | Simpler lifecycle than RC: no coupon payments. Only two cash events — initial purchase and maturity settlement. Must ensure issue price is correctly captured in NEMO. |
+![DRC Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/drc/controls_drc_recon_flow_08.svg)
 
+**Common breaks & red flags**
 
-#### §17. Red Flags
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Issue price recorded as 100% | NEMO shows par but the trade was at 92% — all P&L wrong | Verify issue price matches the termsheet in NEMO and Sophis |
+| Face value vs invested amount confusion | Notional $100,000 (face) but cash outlay $92,000 | Ensure reports state the base — invested capital or face |
+| Accretion not reflected in valuation | Discount accretes toward face over the life | Verify the model accretes correctly |
+| Barrier on wrong base | Barrier is 70% of initial stock, not 70% of issue price | Confirm barrier is calculated from the stock initial level |
+| Settlement uses issue price | On redemption without KI, the investor receives **face** ($100,000), not $92,000 | Verify settlement uses face as the redemption base |
 
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| Issue price recorded as 100% in one system | If NEMO shows 100% but the trade was done at 92%, all P&L calculations are wrong | Verify issue price matches the termsheet in both NEMO and Sophis |
-| Face value vs invested amount confusion | Notional is $100,000 (face value), but cash outlay was $92,000. Risk reports must clarify which base they use | Ensure reports state whether returns are on invested capital or face value |
-| Accrued discount not reflected in valuation | The discount accretes (increases in book value gradually toward face value) over the product's life. Mid-life valuation should reflect partial accretion | Verify that the valuation model accretes the discount correctly |
-| Barrier percentage applied to wrong base | Barrier is 70% of initial stock price, not 70% of issue price | Ensure barrier is calculated from stock initial level |
-| Settlement amount uses issue price instead of face value | On redemption without knock-in, the investor receives face value ($100,000), not purchase price ($92,000) | Verify settlement uses face value as the redemption base |
+**Control implication**
 
+The defining DRC control risk is the **issue-price / face-value distinction**. Because cash paid (92%) and the redemption base (100%) differ, any system that conflates them misstates P&L, the barrier base, or the settlement amount. The 2nd line must confirm both numbers are captured and used in the right place — invested capital for return/P&L, face for barrier and redemption.
 
-#### §18. Worked Example
+#### §10. Formal Definition
 
-**Product:** 1-year DRC on Samsung stock
-**Face value:** $500,000
-**Issue price:** 91% = $455,000 (9% discount)
-**Initial stock price:** $72
-**Capital barrier:** 65% = $46.80 (European observation)
-**Maturity:** 1 year
+A **Discounted Reverse Convertible (DRC)** is a zero-coupon bond purchased at a discount to par plus a short knock-in put. At maturity:
 
-**No coupon payments during the year.**
+- If the underlying has **not** breached the barrier: **Redemption = 100% of Face Value**
+- If the underlying **has** breached the barrier: **Redemption = Face Value × (Final Level / Initial Level)**
 
-**At maturity, Samsung closes at $68 (-5.6%):**
-Stock is above the barrier ($46.80). No knock-in. Investor receives $500,000 face value. Paid $455,000. **Profit: $45,000 (9.9% return on invested capital).**
+No periodic coupons are paid; the return is the gap between the discounted purchase price and the face-value redemption.
 
-**At maturity, Samsung closes at $40 (-44.4%):**
-Stock is below the barrier ($46.80). Knock-in triggered. Redemption = $500,000 × ($40 / $72) = **$277,778**. Paid $455,000. **Loss: $177,222 (-38.9%).** No coupon income to offset.
+**Key parameters:** purchase price typically 88-95% of face; barrier typically 60-80% of initial; observation European or American; underlying single stock, index, or worst-of basket; maturity 6 months to 2 years.
 
+#### §11. Lifecycle
 
-#### §19. Knowledge Check
+| Stage | Detail |
+|-------|--------|
+| **Trade date** | Terms agreed: underlying, strike/barrier, discount, maturity. Book in NEMO; set face value, issue price, initial level, barrier |
+| **Issue date** | Note issued below par. The investor pays the discounted price; the desk establishes the hedge |
+| **(No coupon dates)** | Zero-coupon — no periodic payment events. Barrier monitored (American) |
+| **Final observation** | Record the closing price from the termsheet source. Determine barrier breach |
+| **Maturity** | If no KI: redeem at face. If KI: redeem at face × (final/initial). Settle (T+2) |
 
-1. **How does a DRC differ from a standard RC in terms of investor return?**
-2. **Why might a DRC produce a slightly worse percentage loss than a standard RC when the barrier is breached?**
-3. **In what tax jurisdictions would a DRC be more attractive than a standard RC?**
-4. **Draw the payoff diagram for a DRC and identify where it differs from the RC diagram.**
-5. **A Product Control analyst sees that the DRC's notional is $1,000,000 but NEMO shows cash received as $910,000. Explain the discrepancy.**
+#### §12. Worked Example (both lenses)
 
+**Product:** 1-year DRC on Samsung. **Face value:** $500,000. **Issue price:** 91% = $455,000 (9% discount). **Initial:** $72. **Capital barrier:** 65% = $46.80 (European). **Maturity:** 1 year. No coupons.
+
+*Investor lens:*
+- **Samsung closes at $68 (−5.6%):** above the barrier ($46.80). No KI. The investor receives $500,000 face. Paid $455,000. **Profit $45,000 (9.9% on invested capital).**
+- **Samsung closes at $40 (−44.4%):** below the barrier. KI. Redemption = $500,000 × ($40/$72) = **$277,778**. Paid $455,000. **Loss $177,222 (−38.9%).** No coupon income to offset.
+
+*Bank lens:*
+- First scenario: the desk's long put expires worthless; it keeps structuring margin and net hedging P&L. Product Control confirms the discount has fully accreted to face and the put MTM rolls to zero.
+- Second scenario: the desk's long put is deep in the money; the investor delivers value (shares worth $277,778 against $500,000 face), offsetting the desk's payout. The 2nd line confirms the redemption uses **face** (not the $455,000 issue price), the share count (face / strike), and that NEMO and Sophis agree before settlement.
+
+#### §13. Knowledge Check
+
+1. *(Investor)* How does a DRC differ from a standard RC in terms of investor return?
+2. *(Investor)* Why might a DRC produce a slightly worse percentage loss than a standard RC when the barrier is breached?
+3. *(Investor)* In what tax jurisdictions would a DRC be more attractive than a standard RC?
+4. *(Investor)* Draw the payoff diagram for a DRC and identify where it differs from the RC diagram.
+5. *(Desk economics / 1LoD)* The investor is short the put; what does the desk hold, and how does the absence of coupons change the desk's hedge book versus an RC (and what stays the same)?
+6. *(Controls / 2LoD)* NEMO shows the DRC notional as $1,000,000 but cash received as $910,000. Explain the discrepancy and list every calculation that depends on getting it right.
 
 **Mental Models**
 
 | Concept | Mental Model |
 |---------|-------------|
-| Discounted RC | A discounted gift card — your return is locked in at purchase, not paid over time |
+| Discounted RC | A discounted gift card — the return is locked in at purchase, not paid over time |
 | Discount vs coupon | Same ingredients, different recipe — the put premium funds the discount instead of coupons |
 | Amplified loss | Paying $92 for a $100 card means losing $32 when it drops to $60 — a 34.8% loss on $92, not 32% |
-| Zero-coupon simplicity | No quarterly checks, no reinvestment decisions — one buy, one sell |
-| Issue price vs face value | You paid $92, but the card says $100 — these are different numbers and must not be confused |
-
+| Zero-coupon simplicity | No quarterly checks, no reinvestment — one buy, one sell |
+| Issue price vs face value | Paid $92, but the card says $100 — different numbers, never to be confused |
+| 2LoD reconciliation | The auditor checking that the price paid and the face redeemed are each used in the right calculation |
 
 **Key Takeaways**
 
-1. A DRC is a zero-coupon RC where the put premium is delivered as a purchase discount instead of periodic coupons.
-2. The risk profile is identical to a standard RC with the same barrier and maturity — only the return packaging differs.
-3. Losses on invested capital are slightly amplified because the investor paid less than face value but loses relative to face value.
-4. No coupon cushion exists — there are no interim cash flows to partially offset a late-life barrier breach.
-5. Operationally simpler than an RC: no coupon schedule, no periodic payment processing, just one purchase and one redemption.
+1. A DRC is a zero-coupon RC where the put premium is delivered as a purchase discount instead of coupons.
+2. The risk profile is identical to a standard RC with the same barrier and maturity — only the packaging differs.
+3. Losses on invested capital are slightly amplified because the investor paid below face but loses against face.
+4. No coupon cushion exists — no interim cash flows offset a late-life barrier breach.
+5. Operationally simpler than an RC for the desk (no coupon schedule), but the 2nd line gains a new control: issue price vs face.
+6. For the desk, the position and Greeks are the RC's; for the 2nd line, the dominant control is the issue-price/face distinction plus discount accretion.
 
+#### §14. Common Mistakes
 
-#### §20. Common Mistakes
-
-1. **"The DRC is safer because I pay less."** Wrong. Paying $92,000 instead of $100,000 does not reduce risk. The barrier and underlying are the same — the probability of loss is identical.
-2. **Confusing face value with invested amount.** The investor paid $92,000 but the note has a $100,000 face value. Barrier levels and redemption amounts are based on face value, not invested capital.
-3. **Assuming the discount equals the return.** A 9% discount does not mean a 9% return — the return on invested capital is 9/91 = 9.9%. The denominators differ.
-4. **Ignoring the lack of coupon cushion.** In a standard RC, if the barrier is breached at month 10, the investor has already received 3 coupon payments. In a DRC, no interim income offsets a late breach.
-5. **Reporting notional as the investment amount.** Operations must record both face value (for barrier and redemption) and issue price (for cash flow and P&L). Using only one leads to incorrect risk reports.
+1. **"The DRC is safer because I pay less."** Wrong. Paying $92,000 instead of $100,000 does not reduce risk — the barrier and underlying are the same, so the probability of loss is identical.
+2. **Confusing face value with invested amount.** The investor paid $92,000 but the note has $100,000 face. Barriers and redemptions are based on face, not invested capital.
+3. **Assuming the discount equals the return.** A 9% discount is not a 9% return — the return on invested capital is 9/91 = 9.9%. The denominators differ.
+4. **Ignoring the lack of coupon cushion.** In an RC, a month-10 breach still leaves coupons already received; in a DRC, no interim income offsets a late breach.
+5. **Reporting notional as the investment amount.** Operations must record both face (for barrier and redemption) and issue price (for cash flow and P&L). Using only one produces incorrect risk reports.
+6. **(Controls) Forgetting discount accretion.** Mid-life valuation must accrete the discount toward face; a model that holds book value flat understates value through the life.
 
 ### Knowledge Check
 
 **Review Questions:**
-1. What is the core structural difference between a DRC and a standard RC?
-2. Why is the return on invested capital higher than the discount percentage?
-3. What two systems book a DRC, and what role does each play?
-4. Why does a DRC have slightly amplified percentage losses compared to a standard RC?
-5. What is the booking significance of issue price vs face value?
+1. *(Investor)* What is the core structural difference between a DRC and a standard RC?
+2. *(Investor)* Why is the return on invested capital higher than the discount percentage?
+3. *(Controls / 2LoD)* What two systems book a DRC, what role does each play, and which two fields must never be conflated?
+4. *(Investor)* Why does a DRC have slightly amplified percentage losses compared to a standard RC?
+5. *(Desk economics / 1LoD)* The desk is long the put; how does the zero-coupon structure simplify the desk's P&L attribution versus an RC, and what new accretion term appears?
 
 **Scenario Questions:**
 1. An investor holds a 1-year DRC with a 70% European barrier. Issue price is 90%. The stock finishes at 65%. Calculate the redemption amount and the investor's return on invested capital.
@@ -3993,6 +3940,7 @@ A structurer is pitching a DRC to a client who currently holds a standard RC wit
 - **Caption:** "Discounted Reverse Convertible Payoff at Maturity"
 - **Diagram elements:** X-axis: underlying price. Y-axis: investor total return. Key levels marked (strike, barrier if applicable). Compare with unstructured alternative
 - **Reuse status:** Adapt from payoff template
+- **Production status:** `[generated — assets/drc/payoff_drc_maturity_01.svg]`
 **Visual 2: Discounted Reverse Convertible Product Construction**
 - **Asset filename:** construction_drc_components_02.svg
 - **Caption:** "Discounted Reverse Convertible Product Construction"
@@ -4018,6 +3966,24 @@ A structurer is pitching a DRC to a client who currently holds a standard RC wit
 - **Caption:** "Discounted Reverse Convertible Suitability Decision Tree"
 - **Diagram elements:** Decision tree guiding investor suitability. Key questions: risk tolerance, income need, market view, time horizon
 - **Reuse status:** Adapt from decision tree template
+**Visual 7: DRC Desk Position & Hedge (Bank Lens — Desk Economics)**
+- **Asset filename:** desk_drc_hedge_gamma_07.svg
+- **Caption:** "DRC Desk Position: Long the KI Put, Delta-Hedged"
+- **Diagram elements:** Desk long the embedded KI put (mirror of investor's short put), delta hedge in the underlying, gamma spiking near the barrier; zero-coupon means no coupon cash-flow management
+- **Reuse status:** New — desk-economics panel
+- **Production status:** `[generated — assets/drc/desk_drc_hedge_gamma_07.svg]`
+**Visual 8: DRC Reconciliation Flow (Bank Lens — Controls & 2LoD)**
+- **Asset filename:** controls_drc_recon_flow_08.svg
+- **Caption:** "DRC Reconciliation Flow: NEMO ↔ Sophis ↔ Downstream"
+- **Diagram elements:** Swimlane across book-of-record, risk, and settlement; eight recon points; the **issue price vs face value** distinction flagged as the most common break, with discount-accretion and settlement-at-face consequences
+- **Reuse status:** New — controls/reconciliation panel
+- **Production status:** `[generated — assets/drc/controls_drc_recon_flow_08.svg]`
+**Visual 9: DRC Discount Decomposition (Bank Lens — Desk Economics)**
+- **Asset filename:** waterfall_drc_discount_09.svg
+- **Caption:** "DRC Discount Decomposition: Bond Yield + Put Premium − FTP − Margin"
+- **Diagram elements:** Waterfall from bond yield (+2.0) and put premium (+7.5) net of FTP (−0.5) and desk margin (−1.0) to the 8.0 net discount
+- **Reuse status:** New — desk-economics panel
+- **Production status:** `[generated — assets/drc/waterfall_drc_discount_09.svg]`
 
 #### §22. Related Chapters / Dependency References
 
