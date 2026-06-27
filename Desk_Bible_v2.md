@@ -8668,7 +8668,7 @@ When a client cannot, should not, or prefers not to buy an asset outright — be
 2. **Market access.** The client accesses assets that are difficult to buy directly — foreign securities, restricted shares, illiquid bonds.
 3. **Balance sheet treatment.** The reference asset does not appear on the client's balance sheet, which may carry regulatory or accounting advantages.
 4. **Operational simplicity.** No custody, no settlement, no corporate-action processing — the bank handles all of it.
-5. **Short exposure.** A TRS can be structured so the client pays the total return (profiting from a decline) rather than receiving it.
+5. **Short exposure.** A TRS can be structured so the client takes the total-return *payer* side — paying the asset's return and profiting from a decline — rather than the receiver side.
 
 **Legs & position**
 
@@ -9173,7 +9173,7 @@ The equity swap is a total return swap where the reference asset is specifically
 |-------|--------|
 | **Trade date** | Terms agreed: notional, tenor, rate conventions, special features. ISDA documentation |
 | **Effective date** | Swap becomes active. First accrual period begins |
-| **Periodic payments** | Scheduled cash flow exchanges on payment dates. Netting applied |
+| **Reset dates** | Equity return and funding leg reset and netted; dividends passed through; corporate actions adjust terms |
 | **Maturity** | Final exchange of cash flows. Trade terminated. Collateral returned |
 
 #### §12. Worked Example (both lenses)
@@ -9556,7 +9556,7 @@ The payoff is **linear in variance** (which means it is **convex in volatility**
 |-------|--------|
 | **Trade date** | Terms agreed: notional, tenor, rate conventions, special features. ISDA documentation |
 | **Effective date** | Swap becomes active. First accrual period begins |
-| **Periodic payments** | Scheduled cash flow exchanges on payment dates. Netting applied |
+| **Observation & settlement** | Realized variance accrues from daily returns; a single net amount settles at maturity (no periodic exchange) |
 | **Maturity** | Final exchange of cash flows. Trade terminated. Collateral returned |
 
 #### §12. Worked Example (both lenses)
@@ -10617,7 +10617,7 @@ The Commodity Swap addresses the **commodity price risk** need:
 | **Abbreviation** | CommSwap |
 | **Family** | Swaps |
 | **Complexity Score** | 4 / 10 |
-| **Complexity Rationale** | Fixed-for-floating exchange on commodity price. Physical or financial settlement. Hedging tool for producers and consumers |
+| **Complexity Rationale** | Fixed-for-floating exchange on commodity price. Cash (financial) settlement — no physical delivery. Hedging tool for producers and consumers |
 | **Underlying Asset Class** | Commodities |
 | **Capital Protection** | N/A (swap — no principal exchanged) |
 | **Coupon Type** | Fixed vs floating commodity price |
@@ -11067,11 +11067,11 @@ The VLSP addresses the **interest rate risk management** need:
 
 | Field | Value |
 |-------|-------|
-| **Full Name** | Vanilla Swap Plus |
+| **Full Name** | Vanilla Swap |
 | **Abbreviation** | VLSP |
 | **Family** | Swaps |
 | **Complexity Score** | 2 / 10 |
-| **Complexity Rationale** | Enhanced IRS with additional features — spread compression, amortisation, or cap/floor. Intermediate between IRS and structured rate trades |
+| **Complexity Rationale** | Plain-vanilla fixed-vs-floating interest-rate swap; the most standardized and liquid swap, and the building block for structured rate products |
 | **Underlying Asset Class** | Rates |
 | **Capital Protection** | N/A (swap) |
 | **Coupon Type** | Fixed vs structured floating |
@@ -11081,13 +11081,13 @@ The VLSP addresses the **interest rate risk management** need:
 | **ISDA Required** | Yes — ISDA |
 
 **DNA Atlas Fields:**
-- Primary Risk: Same as IRS plus feature-specific risks — cap/floor gamma, amortisation scheduling, spread basis risk
+- Primary Risk: Interest-rate / DV01 risk on the net of the fixed and floating legs
 - Typical Buyer: Banks, corporates seeking customised rate hedges beyond vanilla IRS
 - Typical Use Case: Tailored rate hedge. Captures specific view on rate path that vanilla IRS cannot express
-- Building Blocks: IRS + one or more of: amortising notional, cap/floor, step-up/step-down, spread adjustment
-- Key Hedge: IRS hedge + feature-specific hedges (cap/floor options, amortisation schedule)
+- Building Blocks: Fixed leg + floating leg (SOFR)
+- Key Hedge: Offsetting vanilla swaps; bond / STIR futures
 - Similar Products: IRS (5.2.1 — vanilla), IR Callable (5.3.1 — callable), NCRA (5.3.3 — range accrual)
-- Most Important Greek: DV01 + Vega (if cap/floor embedded)
+- Most Important Greek: DV01
 
 **Comparison Matrix Fields:**
 - Complexity: 2
@@ -11096,7 +11096,7 @@ The VLSP addresses the **interest rate risk management** need:
 - Credit Exposure: Counterparty
 - Liquidity: OTC (less liquid than IRS)
 - Path Dependency: Depends on features
-- Volatility Sensitivity: Low to moderate (cap/floor adds vega)
+- Volatility Sensitivity: None (no embedded optionality)
 - Correlation Sensitivity: None
 - Client Type: Banks, Corporates
 - Market Environment: Used when vanilla IRS is too simple but structured rate trade is too complex
@@ -11105,14 +11105,14 @@ The VLSP addresses the **interest rate risk management** need:
 
 | Role | Responsibility |
 |------|---------------|
-| **Structurer** | Designs Vanilla Swap Plus terms: notional, tenor, fixing conventions, special features |
-| **Trader** | Manages Vanilla Swap Plus book. Delta-hedges primary risk. Manages portfolio Greeks |
-| **Sales** | Presents Vanilla Swap Plus to clients for hedging or investment. Explains risk-return trade-off |
-| **Risk Management** | Monitors counterparty exposure, MTM limits, Greek limits. Stress-tests Vanilla Swap Plus portfolio |
-| **Product Control** | Daily P&L attribution for Vanilla Swap Plus book. Independent price verification |
+| **Structurer** | Designs Vanilla Swap terms: notional, tenor, fixing conventions, special features |
+| **Trader** | Manages Vanilla Swap book. Delta-hedges primary risk. Manages portfolio Greeks |
+| **Sales** | Presents Vanilla Swap to clients for hedging or investment. Explains risk-return trade-off |
+| **Risk Management** | Monitors counterparty exposure, MTM limits, Greek limits. Stress-tests Vanilla Swap portfolio |
+| **Product Control** | Daily P&L attribution for Vanilla Swap book. Independent price verification |
 | **Operations** | Confirms trade details (ISDA). Processes periodic payments. Manages collateral (CSA) |
 | **Legal / Compliance** | ISDA Master Agreement and CSA negotiation. Trade reporting. Regulatory compliance |
-| **Quantitative Analytics** | Prices Vanilla Swap Plus and calibrates models. Develops risk analytics and sensitivities |
+| **Quantitative Analytics** | Prices Vanilla Swap and calibrates models. Develops risk analytics and sensitivities |
 
 #### §6. Product Evolution
 
@@ -11120,7 +11120,7 @@ The VLSP addresses the **interest rate risk management** need:
 |:-----:|---------|---------------|-----|
 | 1 | Loan / deposit | — (baseline) | Simple lending/borrowing relationship |
 | 2 | Interest rate swap | Periodic cash flow exchange | Transform rate exposure between fixed and floating |
-| 3 | Vanilla Swap Plus | Specific swap features added | Extended swap concept: Enhanced IRS with additional features — spread compression, amortisation, or cap/floor. Intermediate between IRS and structured rate trades |
+| 3 | Vanilla Swap | Standardized, centrally cleared | Plain-vanilla fixed-vs-floating swap; the market-standard building block for structured rate products |
 
 ---
 
@@ -11449,34 +11449,34 @@ The rates desk runs a $50B notional VLSP book. The desk is DV01-neutral but has 
 
 #### §21. Visual Specifications
 
-**Visual 1: Vanilla Swap Plus Cash Flow Diagram**
+**Visual 1: Vanilla Swap Cash Flow Diagram**
 - **Asset filename:** flow_vlsp_cash_flows_01.svg
-- **Caption:** "Vanilla Swap Plus Cash Flow Diagram"
+- **Caption:** "Vanilla Swap Cash Flow Diagram"
 - **Diagram elements:** Bilateral flow diagram showing periodic exchanges between two counterparties. Fixed vs floating legs clearly labelled. Payment dates marked on timeline
 - **Reuse status:** Adapt from swap flow template
-**Visual 2: Vanilla Swap Plus Component Structure**
+**Visual 2: Vanilla Swap Component Structure**
 - **Asset filename:** construction_vlsp_components_02.svg
-- **Caption:** "Vanilla Swap Plus Component Structure"
+- **Caption:** "Vanilla Swap Component Structure"
 - **Diagram elements:** Decomposition showing building blocks. Each component in separate box with arrows showing how they combine
 - **Reuse status:** Adapt from construction template
-**Visual 3: Vanilla Swap Plus Lifecycle Timeline**
+**Visual 3: Vanilla Swap Lifecycle Timeline**
 - **Asset filename:** lifecycle_vlsp_timeline_03.svg
-- **Caption:** "Vanilla Swap Plus Lifecycle Timeline"
+- **Caption:** "Vanilla Swap Lifecycle Timeline"
 - **Diagram elements:** Horizontal timeline from effective date to maturity. Key events marked: trade date, effective, payment dates, maturity
 - **Reuse status:** Adapt from lifecycle template
-**Visual 4: Vanilla Swap Plus Risk Heatmap**
+**Visual 4: Vanilla Swap Risk Heatmap**
 - **Asset filename:** risk_vlsp_heatmap_04.svg
-- **Caption:** "Vanilla Swap Plus Risk Heatmap"
-- **Diagram elements:** Grid: risk types (market, credit, liquidity, operational) vs severity. Colour-coded cells appropriate for Vanilla Swap Plus
+- **Caption:** "Vanilla Swap Risk Heatmap"
+- **Diagram elements:** Grid: risk types (market, credit, liquidity, operational) vs severity. Colour-coded cells appropriate for Vanilla Swap
 - **Reuse status:** Adapt from risk heatmap template
-**Visual 5: Vanilla Swap Plus vs Vanilla Alternative**
+**Visual 5: Vanilla Swap vs Vanilla Alternative**
 - **Asset filename:** comparison_vlsp_vs_vanilla_05.svg
-- **Caption:** "Vanilla Swap Plus vs Vanilla Alternative"
+- **Caption:** "Vanilla Swap vs Vanilla Alternative"
 - **Diagram elements:** Side-by-side comparison showing key differences from vanilla swap. Highlight unique features
 - **Reuse status:** New — comparison panel
-**Visual 6: Vanilla Swap Plus Scenario Analysis**
+**Visual 6: Vanilla Swap Scenario Analysis**
 - **Asset filename:** scenario_vlsp_rate_paths_06.svg
-- **Caption:** "Vanilla Swap Plus Scenario Analysis"
+- **Caption:** "Vanilla Swap Scenario Analysis"
 - **Diagram elements:** Three rate path scenarios (rates up, stable, down) showing P&L impact. Clearly labelled outcomes
 - **Reuse status:** Adapt from scenario template
 
