@@ -1,0 +1,217 @@
+{
+  "release_id": "SP-KE-V1.0",
+  "generated": "2026-06-27",
+  "hash_algorithm": "SHA-256",
+  "artifacts": {
+    "canonical_content": [
+      {
+        "filename": "Desk_Bible_v2.md",
+        "version": "1.0",
+        "type": "content",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 1758798,
+        "lines": 25764,
+        "sha256": "582a22da1106a1ac7cbdc02678b02a9039e4cfdde4aea7b5c6e55987cfd1c6a4",
+        "dependencies": ["framework_master_v1.3.1.md", "complexity_registry.yaml", "publication_taxonomy.yaml", "jargon_watchlist.md"]
+      },
+      {
+        "filename": "production/infrastructure_encyclopedia_v1.md",
+        "version": "1.0",
+        "type": "content",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 388478,
+        "lines": 4438,
+        "sha256": "2bc497720bae506f4807c6f72bbb98d94f672f9a3aaa893f053298623dc47878",
+        "dependencies": ["Desk_Bible_v2.md"]
+      },
+      {
+        "filename": "production/product_dna_atlas.md",
+        "version": "1.0",
+        "type": "content",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 118096,
+        "lines": 2098,
+        "sha256": "6fdc0958200e1173d848a3ffef290079f7401a54ac6633639120a6078b44ab66",
+        "dependencies": ["Desk_Bible_v2.md", "complexity_registry.yaml", "publication_taxonomy.yaml"]
+      },
+      {
+        "filename": "production/interview_system_v2_2.md",
+        "version": "2.2",
+        "type": "content",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 179406,
+        "lines": 2235,
+        "sha256": "0021218b1b643e7e1b302e08eb165bc23269b6cad2894fb3e27de72eb048e9e4",
+        "dependencies": ["Desk_Bible_v2.md", "infrastructure_encyclopedia_v1.md", "complexity_registry.yaml"],
+        "supersedes": ["interview_system.md", "interview_system_v2.md", "interview_system_v2_1.md"]
+      },
+      {
+        "filename": "production/solutions_manual.md",
+        "version": "1.0",
+        "type": "content",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 92560,
+        "lines": 2081,
+        "sha256": "bae1a6cf9371123cc36f58d8c848f06c3f4706e2bfd2be50551f43a704052f58",
+        "dependencies": ["Desk_Bible_v2.md", "complexity_registry.yaml"]
+      },
+      {
+        "filename": "production/framework_master_v1.3.1.md",
+        "version": "1.3.1",
+        "type": "content",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 70862,
+        "lines": 1269,
+        "sha256": "1121b17d108c436411c9605cf58af7b03d788f0653a85446d057955f184d156a",
+        "dependencies": [],
+        "supersedes": ["framework_master_v1.3.md"]
+      },
+      {
+        "filename": "production/product_universe_map.md",
+        "version": "1.0",
+        "type": "content",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 39224,
+        "lines": 873,
+        "sha256": "e89c6d494be183b8d9f016e52dd55d22f3425f7c5572326f89ed8b32286423ac",
+        "dependencies": ["product_dna_atlas.md", "learning_dependency_graph.md", "product_evolution_map.md", "product_comparison_matrix.md"]
+      },
+      {
+        "filename": "production/product_comparison_matrix.md",
+        "version": "1.0",
+        "type": "content",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 45370,
+        "lines": 816,
+        "sha256": "5c0ec8f0fac70ce61dcf45178419a930e04adbec0b2e1c645834243f986088c8",
+        "dependencies": ["product_dna_atlas.md", "complexity_registry.yaml", "publication_taxonomy.yaml"]
+      },
+      {
+        "filename": "production/learning_dependency_graph.md",
+        "version": "1.0",
+        "type": "content",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 21808,
+        "lines": 529,
+        "sha256": "087e1b15d288042e045037166fae7b08553921fee1547cfd55d737ce62bf38b5",
+        "dependencies": ["product_dna_atlas.md", "complexity_registry.yaml"]
+      },
+      {
+        "filename": "production/product_evolution_map.md",
+        "version": "1.0",
+        "type": "content",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 17501,
+        "lines": 483,
+        "sha256": "bf61a40ac4790b9d7c923ca676d40478ef011ed89ecc96d08ae6c68760d1d5a8",
+        "dependencies": ["product_dna_atlas.md", "publication_taxonomy.yaml"]
+      },
+      {
+        "filename": "production/complexity_registry.yaml",
+        "version": "1.0",
+        "type": "content",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 13676,
+        "lines": 352,
+        "sha256": "512771fc021e1310e11733548fc250482c51e6ea6d530bfc6787749bdcad1e98",
+        "dependencies": []
+      },
+      {
+        "filename": "production/publication_taxonomy.yaml",
+        "version": "1.0",
+        "type": "content",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 16976,
+        "lines": 370,
+        "sha256": "3a44a02128fc43830f40ba213aed815eb94e249fe85e522d7b1bb8bbcf7ed328",
+        "dependencies": []
+      },
+      {
+        "filename": "production/jargon_watchlist.md",
+        "version": "1.0",
+        "type": "content",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 8458,
+        "lines": 118,
+        "sha256": "8bf11c09bac0c743343b272993270603ae3a1f5eadcd2f5b3b8295af6b2d9abb",
+        "dependencies": []
+      }
+    ],
+    "governance": [
+      {
+        "filename": "production/framework_freeze_notice.md",
+        "version": "1.0",
+        "type": "governance",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 4319,
+        "lines": 104,
+        "sha256": "7c84cd09d5a31843d6e58c4deef534348e34d2d58ec19e526fd2f12254802366"
+      },
+      {
+        "filename": "production/framework_master_v1.3.1_validation.md",
+        "version": "1.0",
+        "type": "governance",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 11511,
+        "lines": 214,
+        "sha256": "0bb70a0ec3586236785de832452f57141cab6e94b64bb89bcdbaec329496d34c"
+      },
+      {
+        "filename": "production/visual_asset_master_registry.yaml",
+        "version": "1.0",
+        "type": "governance",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 58134,
+        "lines": 1645,
+        "sha256": "08380c2a64c025c5a0943fb08e0aafe0ba386e6a1de85c1944234bee57b9c4a1"
+      },
+      {
+        "filename": "production/publication_identifier_standard.md",
+        "version": "1.0",
+        "type": "governance",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 5437,
+        "lines": 198,
+        "sha256": "63f594e82f4cf49045b25fbf190f1aad7fcf10e50ada8c546e8354429f7e5192"
+      },
+      {
+        "filename": "production/question_identifier_standard.md",
+        "version": "1.0",
+        "type": "governance",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 4197,
+        "lines": 141,
+        "sha256": "99947dfb9908867489d62492008676b4d99291b49ac12e3fc5e909236f1b3636"
+      },
+      {
+        "filename": "production/review_workflow.md",
+        "version": "1.0",
+        "type": "governance",
+        "status": "FROZEN",
+        "classification": "KEEP",
+        "size_bytes": 21381,
+        "lines": 460,
+        "sha256": "7c3d58fd13e394225fde1cf53c237c1c9b2e4baea1dbbfa4056ca44779271d80"
+      }
+    ]
+  },
+  "verification_command": "python3 release/validate_release.py --verbose --json"
+}

@@ -1,0 +1,531 @@
+meta:
+  title: "Acronym Registry — Structured Products Desk Bible v2"
+  version: 1.0
+  date: "2026-06-19"
+  total_acronyms: 69
+  categories:
+    - Products
+    - Systems
+    - Rates & Benchmarks
+    - Risk & Greeks
+    - Credit
+    - Operations
+    - Industry Bodies
+    - General Finance
+
+acronyms:
+
+  # ============================================================
+  # PRODUCTS
+  # ============================================================
+
+  - acronym: "PPN"
+    full_form: "Principal Protected Note"
+    plain_english_meaning: "A structured product that guarantees the investor's principal at maturity while providing participation in market upside."
+    category: Products
+    first_use: "Section 0.10"
+    related_products: [PPN]
+
+  - acronym: "RC"
+    full_form: "Reverse Convertible"
+    plain_english_meaning: "A structured product paying an enhanced coupon in exchange for the investor selling a knock-in put — risk of loss if the underlying falls below the barrier."
+    category: Products
+    first_use: "Section 0.10"
+    related_products: [RC, DRC, KODRC, CRC, Airbag]
+
+  - acronym: "DRC"
+    full_form: "Discounted Reverse Convertible"
+    plain_english_meaning: "An RC variant where the investor buys at a discount to par instead of receiving coupons — the return is the discount itself."
+    category: Products
+    first_use: "Section 3.3"
+    related_products: [DRC, KODRC]
+
+  - acronym: "KODRC"
+    full_form: "Knock-Out Discounted Reverse Convertible"
+    plain_english_meaning: "A DRC with an additional knock-out barrier above — if the stock rises enough, the put is permanently extinguished."
+    category: Products
+    first_use: "Section 3.3"
+    related_products: [KODRC]
+
+  - acronym: "CRC"
+    full_form: "Callable Reverse Convertible"
+    plain_english_meaning: "An RC with a Bermudan call right allowing the issuer to redeem the product early — higher coupon compensates for reinvestment risk."
+    category: Products
+    first_use: "Section 3.3"
+    related_products: [CRC]
+
+  - acronym: "FCN"
+    full_form: "Fixed Coupon Note"
+    plain_english_meaning: "An autocallable structured product paying a guaranteed fixed coupon with a knock-in barrier for principal — like an RC with automatic early redemption."
+    category: Products
+    first_use: "Section 3.3"
+    related_products: [FCN]
+
+  - acronym: "ICN"
+    full_form: "Issuer Callable Note"
+    plain_english_meaning: "A fixed-coupon note with an issuer call right but no barrier or put — simpler than an RC."
+    category: Products
+    first_use: "Section 3.3"
+    related_products: [ICN]
+
+  - acronym: "ELN"
+    full_form: "Equity-Linked Note"
+    plain_english_meaning: "The family of structured products whose payoff depends on equity prices — includes 15 products from PPN to Warrants."
+    category: Products
+    first_use: "Section 3.1"
+    related_products: [PPN, RC, DRC, KODRC, CRC, Airbag, Bonus, FCN, Phoenix, ICN, Digital, Booster, Digital KI Put, Warrant, CRA ELN]
+
+  - acronym: "CLN"
+    full_form: "Credit-Linked Note"
+    plain_english_meaning: "A structured product where the investor sells credit protection and earns a CDS-like premium as a coupon — risk of loss if the reference entity defaults."
+    category: Products
+    first_use: "Section 3.1"
+    related_products: [Vanilla CLN, Skew CLN, FTD, NTD, Synthetic CDO]
+
+  - acronym: "SRT"
+    full_form: "Structured Rate Trade"
+    plain_english_meaning: "A family of structured products whose coupons depend on interest rate levels — booked in Murex with four legs."
+    category: Products
+    first_use: "Section 3.1"
+    related_products: [IR Callable, ZCL, NCRA, CRA SRT, Digital Cap-Floor]
+
+  - acronym: "STEG"
+    full_form: "Steepener Note"
+    plain_english_meaning: "A family of structured products whose coupons depend on the steepness of the yield curve (CMS30Y - CMS2Y)."
+    category: Products
+    first_use: "Section 3.1"
+    related_products: [Vanilla STEG, RA STEG, Callable STEG, TARN STEG]
+
+  - acronym: "IRS"
+    full_form: "Interest Rate Swap"
+    plain_english_meaning: "An agreement to exchange fixed-rate payments for floating-rate payments — the most traded derivative in the world."
+    category: Products
+    first_use: "Section 1.8"
+    related_products: [IRS, VLSP]
+
+  - acronym: "TRS"
+    full_form: "Total Return Swap"
+    plain_english_meaning: "A swap where one party receives the total return of an asset (price appreciation + income) without owning it."
+    category: Products
+    first_use: "Section 3.4"
+    related_products: [TRS]
+
+  - acronym: "CDS"
+    full_form: "Credit Default Swap"
+    plain_english_meaning: "Insurance on a loan — the protection buyer pays a regular fee, and the protection seller compensates if the borrower defaults."
+    category: Products
+    first_use: "Section 1.9"
+    related_products: [CDS, CLN, FTD, NTD]
+
+  - acronym: "CDO"
+    full_form: "Collateralized Debt Obligation"
+    plain_english_meaning: "A structured product that packages many credit exposures into slices (tranches) of risk — the most complex product in the universe."
+    category: Products
+    first_use: "Section 1.9"
+    related_products: [Synthetic CDO Tranche]
+
+  - acronym: "FTD"
+    full_form: "First-to-Default"
+    plain_english_meaning: "A basket CLN where the investor bears the loss on whichever company in the basket defaults first."
+    category: Products
+    first_use: "Section 3.7"
+    related_products: [FTD]
+
+  - acronym: "NTD"
+    full_form: "Nth-to-Default"
+    plain_english_meaning: "A basket CLN where the Nth default (e.g., second or third) triggers the loss — less risky than first-to-default."
+    category: Products
+    first_use: "Section 3.7"
+    related_products: [NTD]
+
+  - acronym: "VLSP"
+    full_form: "Vanilla Swap"
+    plain_english_meaning: "A standard interest rate swap with simplified terms — the plain version of an IRS."
+    category: Products
+    first_use: "Section 3.4"
+    related_products: [VLSP]
+
+  - acronym: "CRA"
+    full_form: "Callable Range Accrual"
+    plain_english_meaning: "A product where the coupon accrues day-by-day when a reference rate stays in a defined range, with an issuer call right."
+    category: Products
+    first_use: "Section 3.5"
+    related_products: [CRA SRT, CRA ELN]
+
+  - acronym: "NCRA"
+    full_form: "Non-Callable Range Accrual"
+    plain_english_meaning: "Same as CRA but runs to maturity — the issuer cannot redeem early."
+    category: Products
+    first_use: "Section 3.5"
+    related_products: [NCRA]
+
+  - acronym: "ZCL"
+    full_form: "Zero-Coupon Ladder / IR Accreting Callable"
+    plain_english_meaning: "A rate product with no periodic coupons — the notional grows over time and the investor receives the total at maturity."
+    category: Products
+    first_use: "Section 3.5"
+    related_products: [ZCL]
+
+  - acronym: "TARN"
+    full_form: "Target Accrual Redemption Note"
+    plain_english_meaning: "A product that terminates when total coupons paid reach a predefined lifetime cap — the target level."
+    category: Products
+    first_use: "Jargon Watchlist"
+    related_products: [TARN STEG]
+
+  - acronym: "SPV"
+    full_form: "Special Purpose Vehicle"
+    plain_english_meaning: "A legal entity set up by the bank specifically to issue structured products — separates the product from the bank's general obligations."
+    category: Products
+    first_use: "Section 2.3"
+    related_products: [All structured products]
+
+  # ============================================================
+  # SYSTEMS
+  # ============================================================
+
+  - acronym: "NEMO"
+    full_form: "NEMO (proper name — the desk's book of record system)"
+    plain_english_meaning: "The system where trades are officially entered and where the position record lives — answers 'what trades do we have?'"
+    category: Systems
+    first_use: "Section 2.8"
+    related_products: [All ELN, all CLN]
+
+  - acronym: "MtM"
+    full_form: "Mark-to-Market"
+    plain_english_meaning: "Revaluing every position at today's market price — the daily discipline for measuring P&L."
+    category: Systems
+    first_use: "Section 1.1"
+    related_products: [All]
+
+  - acronym: "CVA"
+    full_form: "Credit Valuation Adjustment"
+    plain_english_meaning: "An adjustment to the fair value of a trade to account for the counterparty's credit risk — the cost of the possibility they might default."
+    category: Systems
+    first_use: "Section 5.1.1 (PPN Reconciliation Red Flags)"
+    related_products: [All]
+
+  # ============================================================
+  # RATES & BENCHMARKS
+  # ============================================================
+
+  - acronym: "SOFR"
+    full_form: "Secured Overnight Financing Rate"
+    plain_english_meaning: "The US dollar benchmark rate that replaced LIBOR — based on actual overnight lending transactions secured by US Treasuries."
+    category: Rates & Benchmarks
+    first_use: "Section 1.8"
+    related_products: [IRS, all SRT, all STEG, all swaps]
+
+  - acronym: "EURIBOR"
+    full_form: "Euro Interbank Offered Rate"
+    plain_english_meaning: "The key benchmark rate for euro-denominated transactions — the rate at which European banks lend to each other."
+    category: Rates & Benchmarks
+    first_use: "Section 1.8"
+    related_products: [IRS (EUR), all SRT (EUR), all STEG (EUR)]
+
+  - acronym: "LIBOR"
+    full_form: "London Interbank Offered Rate"
+    plain_english_meaning: "The historical benchmark rate measuring interbank lending — phased out after 2021 due to manipulation scandals."
+    category: Rates & Benchmarks
+    first_use: "Section 1.8"
+    related_products: [Legacy contracts only]
+
+  - acronym: "CMS"
+    full_form: "Constant Maturity Swap"
+    plain_english_meaning: "Today's market rate for a swap of a specific maturity — like a real-time quote for a fixed-rate mortgage of a given length."
+    category: Rates & Benchmarks
+    first_use: "Section 1.8"
+    related_products: [All STEG products, some SRT products]
+
+  - acronym: "FTP"
+    full_form: "Funds Transfer Pricing"
+    plain_english_meaning: "The internal rate at which a bank's treasury lends money to its trading desks — the wholesale cost of money inside the bank."
+    category: Rates & Benchmarks
+    first_use: "Section 2.2"
+    related_products: [All]
+
+  - acronym: "FX"
+    full_form: "Foreign Exchange"
+    plain_english_meaning: "The market where currencies are bought and sold — relevant when structured products involve cross-currency components."
+    category: Rates & Benchmarks
+    first_use: "Section 0.1"
+    related_products: [Currency Swap, some ELN products]
+
+  # ============================================================
+  # RISK & GREEKS
+  # ============================================================
+
+  - acronym: "P&L"
+    full_form: "Profit and Loss"
+    plain_english_meaning: "How much money you made or lost on a position — the fundamental measure of trading performance."
+    category: Risk & Greeks
+    first_use: "Section 1.1"
+    related_products: [All]
+
+  - acronym: "NPV"
+    full_form: "Net Present Value"
+    plain_english_meaning: "The total present value of all future cash flows from a position, minus the initial investment — tells you whether a trade creates or destroys value."
+    category: Risk & Greeks
+    first_use: "Section 0.6 (implied)"
+    related_products: [All]
+
+  - acronym: "DV01"
+    full_form: "Dollar Value of One Basis Point"
+    plain_english_meaning: "How much a position's value changes when interest rates move by 1 basis point (0.01%) — a key risk measure for rate products."
+    category: Risk & Greeks
+    first_use: "Section 1.4 (Rho context)"
+    related_products: [IRS, all SRT, all STEG, all swaps]
+
+  - acronym: "VaR"
+    full_form: "Value at Risk"
+    plain_english_meaning: "The maximum expected loss over a given time period at a given confidence level — e.g., '95% VaR of $1M' means there is a 5% chance of losing more than $1M."
+    category: Risk & Greeks
+    first_use: "Section 2.7 (hedging context)"
+    related_products: [All]
+
+  - acronym: "ITM"
+    full_form: "In-the-Money"
+    plain_english_meaning: "An option with positive intrinsic value right now — a call is ITM when the stock is above the strike."
+    category: Risk & Greeks
+    first_use: "Section 1.2"
+    related_products: [All options-based products]
+
+  - acronym: "ATM"
+    full_form: "At-the-Money"
+    plain_english_meaning: "An option where the underlying price equals the strike price."
+    category: Risk & Greeks
+    first_use: "Section 1.2"
+    related_products: [All options-based products]
+
+  - acronym: "OTM"
+    full_form: "Out-of-the-Money"
+    plain_english_meaning: "An option with zero intrinsic value — a call is OTM when the stock is below the strike."
+    category: Risk & Greeks
+    first_use: "Section 1.2"
+    related_products: [All options-based products]
+
+  - acronym: "KI"
+    full_form: "Knock-In"
+    plain_english_meaning: "A barrier that activates an option when the underlying crosses it — like a tripwire that turns on an alarm."
+    category: Risk & Greeks
+    first_use: "Section 1.3"
+    related_products: [RC, DRC, KODRC, CRC, Airbag, Phoenix, FCN, Digital KI Put]
+
+  - acronym: "KO"
+    full_form: "Knock-Out"
+    plain_english_meaning: "A barrier that deactivates an option when the underlying crosses it — once triggered, the option is permanently extinguished."
+    category: Risk & Greeks
+    first_use: "Section 1.3"
+    related_products: [KODRC, Bonus, Accumulator, Decumulator]
+
+  # ============================================================
+  # CREDIT
+  # ============================================================
+
+  - acronym: "ISDA"
+    full_form: "International Swaps and Derivatives Association"
+    plain_english_meaning: "The industry body that standardizes derivative contracts, defines credit events, and administers the Determinations Committee."
+    category: Credit
+    first_use: "Section 1.9"
+    related_products: [CDS, CLN, FTD, NTD, all swaps]
+
+  - acronym: "CSA"
+    full_form: "Credit Support Annex"
+    plain_english_meaning: "The legal agreement governing collateral exchange between derivative counterparties — determines when and how much collateral must be posted."
+    category: Credit
+    first_use: "Section 2.7 (hedging context)"
+    related_products: [All OTC derivatives]
+
+  - acronym: "RED"
+    full_form: "Reference Entity Database"
+    plain_english_meaning: "A standardized identifier ensuring both systems reference the exact same legal entity when booking credit trades."
+    category: Credit
+    first_use: "Jargon Watchlist"
+    related_products: [CLN, CDS, FTD, NTD]
+
+  # ============================================================
+  # OPERATIONS
+  # ============================================================
+
+  - acronym: "ISIN"
+    full_form: "International Securities Identification Number"
+    plain_english_meaning: "The unique code assigned to every financial instrument — like a product's serial number."
+    category: Operations
+    first_use: "Jargon Watchlist"
+    related_products: [All]
+
+  - acronym: "LEI"
+    full_form: "Legal Entity Identifier"
+    plain_english_meaning: "The standardized code that identifies a company in financial transactions — ensures everyone refers to the same entity."
+    category: Operations
+    first_use: "Jargon Watchlist"
+    related_products: [All]
+
+  - acronym: "T+2"
+    full_form: "Trade Date Plus Two Business Days"
+    plain_english_meaning: "Settlement occurs two business days after the trade date — the standard settlement cycle for most securities."
+    category: Operations
+    first_use: "Jargon Watchlist"
+    related_products: [All]
+
+  - acronym: "T+5"
+    full_form: "Trade Date Plus Five Business Days"
+    plain_english_meaning: "Settlement occurs five business days after the trade date — used for some structured products."
+    category: Operations
+    first_use: "Jargon Watchlist"
+    related_products: [Some structured products]
+
+  - acronym: "FO"
+    full_form: "Front Office"
+    plain_english_meaning: "The revenue-generating part of the bank: Sales, Trading, and Structuring — the kitchen of the restaurant."
+    category: Operations
+    first_use: "Section 0.12"
+    related_products: [All]
+
+  - acronym: "MO"
+    full_form: "Middle Office"
+    plain_english_meaning: "The monitoring and control function: Risk Management, Product Control, and Compliance — the floor manager."
+    category: Operations
+    first_use: "Section 0.12"
+    related_products: [All]
+
+  - acronym: "BO"
+    full_form: "Back Office"
+    plain_english_meaning: "The processing and settlement function: Operations, Finance, and Technology — the dishwashers and accountants."
+    category: Operations
+    first_use: "Section 0.12"
+    related_products: [All]
+
+  - acronym: "IPO"
+    full_form: "Initial Public Offering"
+    plain_english_meaning: "When a company sells shares to the public for the first time — the event that creates publicly traded equity."
+    category: Operations
+    first_use: "Section 0.7"
+    related_products: []
+
+  # ============================================================
+  # INDUSTRY BODIES
+  # ============================================================
+
+  - acronym: "OTC"
+    full_form: "Over-the-Counter"
+    plain_english_meaning: "Trading conducted directly between two parties rather than through a centralized exchange."
+    category: Industry Bodies
+    first_use: "Section 0.1"
+    related_products: [All structured products]
+
+  - acronym: "S&P 500"
+    full_form: "Standard & Poor's 500"
+    plain_english_meaning: "A stock market index tracking the 500 largest publicly traded US companies — a common underlying for structured products."
+    category: Industry Bodies
+    first_use: "Section 0.8"
+    related_products: [PPN, various ELN products]
+
+  # ============================================================
+  # GENERAL FINANCE
+  # ============================================================
+
+  - acronym: "bp"
+    full_form: "Basis Point"
+    plain_english_meaning: "One hundredth of one percent (0.01%). So 100bp = 1%. Used universally for quoting credit spreads, CDS premiums, and rate changes."
+    category: General Finance
+    first_use: "Section 1.9"
+    related_products: [All rate products, CDS, CLN]
+
+  - acronym: "YTM"
+    full_form: "Yield to Maturity"
+    plain_english_meaning: "The total annualized return on a bond if held to maturity, assuming all coupon payments are reinvested at the same rate."
+    category: General Finance
+    first_use: "Section 0.5 (implied)"
+    related_products: [All bond-like products]
+
+  - acronym: "IR"
+    full_form: "Interest Rate"
+    plain_english_meaning: "The cost of borrowing money, expressed as an annual percentage."
+    category: General Finance
+    first_use: "Section 0.5"
+    related_products: [All]
+
+  - acronym: "ZCB"
+    full_form: "Zero-Coupon Bond"
+    plain_english_meaning: "A bond that pays no coupons — bought at a discount and returns face value at maturity."
+    category: General Finance
+    first_use: "Section 0.6"
+    related_products: [PPN, DRC, ZCL]
+
+  - acronym: "PV"
+    full_form: "Present Value"
+    plain_english_meaning: "What a future cash flow is worth today, after accounting for the time value of money."
+    category: General Finance
+    first_use: "Section 0.6"
+    related_products: [All]
+
+  - acronym: "FV"
+    full_form: "Future Value"
+    plain_english_meaning: "What today's money will be worth at a future date, accounting for compounding interest."
+    category: General Finance
+    first_use: "Section 0.6"
+    related_products: [All]
+
+  - acronym: "ACT/360"
+    full_form: "Actual/360 Day Count"
+    plain_english_meaning: "A day count convention that divides actual days by 360 — determines how interest accrues."
+    category: General Finance
+    first_use: "Jargon Watchlist"
+    related_products: [IRS, all SRT, all STEG]
+
+  - acronym: "ACT/365"
+    full_form: "Actual/365 Day Count"
+    plain_english_meaning: "A day count convention that divides actual days by 365."
+    category: General Finance
+    first_use: "Jargon Watchlist"
+    related_products: [Some bond products]
+
+  - acronym: "RA"
+    full_form: "Range Accrual"
+    plain_english_meaning: "A coupon mechanism where income accumulates only on days when a reference rate stays within a defined range."
+    category: General Finance
+    first_use: "Section 3.5"
+    related_products: [NCRA, CRA SRT, RA STEG, CRA ELN]
+
+  - acronym: "KI Put"
+    full_form: "Knock-In Put"
+    plain_english_meaning: "A put option that is dormant until the underlying breaches a barrier level — the core risk mechanism in most ELN products."
+    category: General Finance
+    first_use: "Section 1.3"
+    related_products: [RC, DRC, KODRC, CRC, Airbag, FCN, Phoenix]
+
+  - acronym: "FRN"
+    full_form: "Floating Rate Note"
+    plain_english_meaning: "A bond whose coupon adjusts periodically based on a benchmark rate (SOFR, EURIBOR) rather than being fixed."
+    category: General Finance
+    first_use: "Section 3.5 (SRT context)"
+    related_products: [IR Callable FRN]
+
+  - acronym: "ELO"
+    full_form: "Equity Linked Option"
+    plain_english_meaning: "A standalone option on an equity underlying without a bond wrapper — pure option exposure."
+    category: General Finance
+    first_use: "Section 3.8"
+    related_products: [ELO]
+
+  - acronym: "vol"
+    full_form: "Volatility"
+    plain_english_meaning: "Shorthand for volatility — how much an asset's price fluctuates. 'Implied vol' and 'realized vol' are the two types."
+    category: General Finance
+    first_use: "Section 1.5"
+    related_products: [All]
+
+  - acronym: "MTM"
+    full_form: "Mark-to-Market"
+    plain_english_meaning: "Revaluing positions at current market prices — same as MtM."
+    category: General Finance
+    first_use: "Section 1.1"
+    related_products: [All]
+
+  - acronym: "DC"
+    full_form: "Determinations Committee (ISDA)"
+    plain_english_meaning: "The ISDA body that officially rules on whether a credit event has occurred — the arbiter of CDS triggering."
+    category: General Finance
+    first_use: "Section 1.9"
+    related_products: [CDS, CLN, FTD, NTD]

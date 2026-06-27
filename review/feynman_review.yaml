@@ -1,0 +1,99 @@
+# Feynman Reviewer — Structured Products Desk Bible v2 (Parts 0-4)
+# Reviewer: Feynman Test Specialist
+# Date: 2026-06-19
+# Scope: Parts 0 through 4 (~2,183 lines)
+# Rule: Every section must be understandable by a motivated teenager.
+
+overall_feynman_score: 7.5
+
+section_assessments:
+
+  part_0:
+    score: 9.5
+    verdict: "PASS — exemplary"
+    detail: "Every section uses a real-world story before any technical language. The village marketplace, bakery, friend-lending, savings-vs-startup sequences are precisely calibrated for a zero-knowledge audience. A motivated 15-year-old would follow every section. The only deduction: Section 0.11 (Investment Banking Ecosystem) is slightly list-heavy and could benefit from a 'day in the life' narrative."
+
+  section_1_1:
+    score: 8.5
+    verdict: "PASS"
+    detail: "The lawnmower analogy for short-selling is effective and memorable. Seven concepts are introduced but each is self-contained. The village marketplace callback for bid/offer is a good continuity device."
+
+  section_1_2:
+    score: 9
+    verdict: "PASS — one of the strongest sections"
+    detail: "Restaurant reservation for calls and painting insurance for puts are precisely matched analogies. The payoff diagram explanation is clear and builds from the visual. The buyer-vs-seller table and the final twist (investors are usually sellers) are excellent teaching moments."
+
+  section_1_3:
+    score: 8.5
+    verdict: "PASS"
+    detail: "The tripwire analogy is vivid and accurate. The gym membership analogy for knock-out works. The European vs American comparison with a concrete stock price example ($100, barrier at $70) is effective."
+
+  section_1_4:
+    score: 6
+    verdict: "PARTIAL FAIL"
+    detail: "Each Greek has an analogy, and each analogy works in isolation. But a teenager reading this section would understand Delta and then face five more concepts with no connection between them. There is no worked example showing what happens when a stock moves: 'Delta is 0.5, so if the stock goes up $2, the option goes up $1. But now Delta has changed to 0.6 because of Gamma. And the option also lost $0.05 because of Theta.' Without this integrated example, the Greeks are memorizable but not usable."
+    failures:
+      - "No worked numerical example connecting multiple Greeks"
+      - "No hierarchy — reader does not know which Greeks matter most"
+      - "Gamma analogy (steering sensitivity) is abstract; a concrete example of Delta changing near a barrier would be more effective"
+      - "Convexity section reads like a textbook definition, not a Feynman explanation"
+
+  section_1_5:
+    score: 7
+    verdict: "PARTIAL FAIL"
+    detail: "The calm-seas/stormy-seas analogy is strong. Implied vs realized with weather forecast/yesterday's weather works well. The volatility term structure and skew diagrams are helpful. But the section makes an important claim — 'clients systematically underestimate large market moves' — without evidence. A teenager would ask 'how do you know?' and the text provides no answer. Also, variance is introduced in two sentences and feels tacked on."
+    failures:
+      - "No evidence for the 'clients misprice volatility' claim — needs historical data or a concrete example"
+      - "Variance explanation is too brief — the concept is mathematically abstract and gets no analogy"
+
+  section_1_6:
+    score: 8
+    verdict: "PASS"
+    detail: "The orchestra analogy for correlation is elegant. The worst-of example with Apple/Samsung/Toyota and specific percentages is concrete and convincing. Tail risk gets a clear one-paragraph explanation."
+
+  section_1_7:
+    score: 5
+    verdict: "FAIL"
+    detail: "The yield curve explanation and forward rate hotel-room analogy are fine. But from CMS rates onward, the section becomes a rapid-fire list of definitions. Caps get one analogy (maximum price guarantee), floors get one analogy (minimum income guarantee), swaptions get zero analogies — just a definition. A teenager would be lost by the time they reach swaptions. This section introduces nine distinct concepts but only provides real teaching depth for three of them (yield curves, spot rates, forward rates)."
+    failures:
+      - "CMS rates: defined but no analogy for why they matter or what 'constant maturity' means intuitively"
+      - "Caps and floors: one-sentence analogies each — too brief for first-time concepts"
+      - "Swaptions: definition-only, no analogy, no example. An option on a swap is a compound concept that requires careful building"
+      - "No worked example for any rate concept — not even a simple swap cash flow calculation"
+
+  section_1_8:
+    score: 7.5
+    verdict: "PASS with reservations"
+    detail: "The neighbor-lending analogy for credit risk is strong. The CDS insurance analogy is clear. But credit events (bankruptcy, failure to pay, restructuring) are listed without enough scenario context. A teenager would understand what a credit event is in theory but not be able to distinguish the three types in practice."
+
+  part_2:
+    score: 8
+    verdict: "PASS"
+    detail: "Sections 2.1-2.3 are excellent. The custom kitchen analogy, the coupon decomposition with exact arithmetic, and the Four-Leg Framework with a worked example all pass the Feynman test. Sections 2.5-2.6 are straightforward lifecycle descriptions that work fine. Section 2.7 (hedging) passes via the casino analogy. Section 2.8 (systems) is clean but reads as preparatory rather than educational."
+
+  part_3:
+    score: 5.5
+    verdict: "FAIL for beginners"
+    detail: "A teenager who has read Parts 0-2 could understand the concept of product families, but the ASCII family trees list 44 product names that the reader has never encountered. The trees are taxonomically correct but pedagogically unhelpful — listing 15 ELN variants when the reader has only been exposed to the Reverse Convertible (briefly, in Part 2) creates confusion, not understanding. The 'unifying theme' callouts are good but too brief to compensate."
+    failures:
+      - "Product names listed without one-sentence explanations of what makes each variant distinct"
+      - "No narrative explaining why products evolved into these families"
+      - "The reader encounters 44 unfamiliar product names in rapid succession"
+      - "No connection between the taxonomy and the reader's existing knowledge"
+
+  part_4:
+    score: 4.5
+    verdict: "FAIL for beginners"
+    detail: "These are pure reference tables. A teenager reading linearly would encounter dense matrices with no guidance on what to look at first, which columns matter most, or how to use the information. The tables serve experienced readers well but completely abandon the beginner audience that Parts 0-2 so carefully cultivated."
+    failures:
+      - "No worked scenario showing how to use a comparison matrix"
+      - "No guidance on which columns matter most or which differences are most important"
+      - "Tables assume familiarity with all product names — which haven't been taught yet"
+      - "The 'short volatility vs long volatility' distinction in Section 4.8 is an important concept buried in a table rather than taught"
+
+recommendations:
+  - "Add a worked example to Section 1.4 that shows all major Greeks changing together when a stock moves: Delta change → Gamma effect → Theta decay → Vega impact. Use specific numbers."
+  - "In Section 1.5, add a concrete historical example: 'In October 1987, the S&P 500 fell 20% in a single day. A normal distribution model said this event should occur once every 10,000 years. It happened in year one.' This proves the claim about mispricinq volatility."
+  - "Split Section 1.7 into two sections. Give each sub-concept a worked example with specific numbers."
+  - "In Part 3, add one sentence per product in the family trees explaining its distinctive feature. Example: 'DRC — like a Reverse Convertible, but instead of a coupon, the investor buys the note at a discount (e.g., pays $95 for something worth $100 at maturity).'"
+  - "In Part 4, add a brief worked scenario before at least the ELN master matrix: 'A client wants X. Looking at the table: Product A offers Y, Product B offers Z. Product A is better because...' This converts a reference table into a teaching tool."

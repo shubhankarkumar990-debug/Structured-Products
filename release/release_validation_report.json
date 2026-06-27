@@ -1,0 +1,742 @@
+{
+  "total": 146,
+  "passed": 123,
+  "failed": 0,
+  "warnings": 23,
+  "verdict": "PASS",
+  "checks": [
+    {
+      "name": "Exists: Desk_Bible_v2.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/infrastructure_encyclopedia_v1.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/product_dna_atlas.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/interview_system_v2_2.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/solutions_manual.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/framework_master_v1.3.1.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/product_universe_map.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/product_comparison_matrix.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/learning_dependency_graph.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/product_evolution_map.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/complexity_registry.yaml",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/publication_taxonomy.yaml",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/jargon_watchlist.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/framework_freeze_notice.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/framework_master_v1.3.1_validation.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/chapter_acceptance_checklist.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/chapter_generation_standard.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/visual_standard.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/visual_asset_governance.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/visual_asset_master_registry.yaml",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/professor_voice_standard.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/publication_architecture.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/publication_identifier_standard.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/question_identifier_standard.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Exists: production/review_workflow.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Archive file present: production/framework_master_v1.3.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/framework_master_validation.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/framework_readiness_report.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/interview_system.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/interview_system_v2.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/interview_system_v2_1.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/part6_sections_1_3.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/part6_sections_4_6.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/part6_sections_7_9.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/part6_sections_10_11.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/infrastructure_integration_plan.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/figma_production_architecture.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/generation_dashboard.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/product_generation_order.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/final_universe_rationale.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/execution_readiness_report.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/front_matter_plan.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/harmonization_master_checklist.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/visual_prioritization_matrix.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/publication_build_tracker.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/digital_supplement_tracker.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/volume_1_completion_tracker.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Archive file present: production/volume_2_completion_tracker.md",
+      "status": "WARN",
+      "detail": "expected \u2014 retained for provenance"
+    },
+    {
+      "name": "Checksum: Desk_Bible_v2.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/infrastructure_encyclopedia_v1.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/product_dna_atlas.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/interview_system_v2_2.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/solutions_manual.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/framework_master_v1.3.1.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/product_universe_map.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/product_comparison_matrix.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/learning_dependency_graph.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/product_evolution_map.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/complexity_registry.yaml",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/publication_taxonomy.yaml",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/jargon_watchlist.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/visual_asset_master_registry.yaml",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/framework_freeze_notice.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/framework_master_v1.3.1_validation.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/chapter_acceptance_checklist.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/chapter_generation_standard.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/visual_standard.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/visual_asset_governance.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/professor_voice_standard.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/publication_architecture.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/publication_identifier_standard.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/question_identifier_standard.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Checksum: production/review_workflow.md",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Registry product count",
+      "status": "PASS",
+      "detail": "found 49, expected 49"
+    },
+    {
+      "name": "Family ELN count",
+      "status": "PASS",
+      "detail": "found 15, expected 15"
+    },
+    {
+      "name": "Family Swaps count",
+      "status": "PASS",
+      "detail": "found 8, expected 8"
+    },
+    {
+      "name": "Family SRT count",
+      "status": "PASS",
+      "detail": "found 5, expected 5"
+    },
+    {
+      "name": "Family STEG count",
+      "status": "PASS",
+      "detail": "found 4, expected 4"
+    },
+    {
+      "name": "Family CLN count",
+      "status": "PASS",
+      "detail": "found 5, expected 5"
+    },
+    {
+      "name": "Family Other count",
+      "status": "PASS",
+      "detail": "found 12, expected 12"
+    },
+    {
+      "name": "Score range valid",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "CDO anchored at 10",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Interview score entries found",
+      "status": "PASS",
+      "detail": "found 48 score mentions (\u226547 expected, some use inline format)"
+    },
+    {
+      "name": "Matrix unique product sections",
+      "status": "PASS",
+      "detail": "found 49 unique sections across 183 rows"
+    },
+    {
+      "name": "Evo map within-family",
+      "status": "PASS",
+      "detail": "found 35"
+    },
+    {
+      "name": "Evo map cross-family",
+      "status": "PASS",
+      "detail": "found 10"
+    },
+    {
+      "name": "Evo map total",
+      "status": "PASS",
+      "detail": "found 45"
+    },
+    {
+      "name": "Evo map sum consistency",
+      "status": "PASS",
+      "detail": "35+10=45, claimed 45"
+    },
+    {
+      "name": "Dep graph file non-empty",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "No duplicate section numbers",
+      "status": "PASS",
+      "detail": "49 total, 49 unique"
+    },
+    {
+      "name": "Section 5.1.1 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.1.2 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.1.3 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.2.1 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.5.1 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.1.4 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.1.5 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.1.6 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.1.7 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.1.8 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.1.9 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.1.10 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.1.11 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.1.12 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.1.13 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.1.14 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.1.15 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.2.2 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.2.3 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.2.4 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.2.5 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.2.6 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.2.7 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.2.8 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.3.1 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.3.2 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.3.3 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.3.4 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.3.5 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.4.1 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.4.2 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.4.3 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.4.4 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.5.2 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.5.3 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.5.4 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.5.5 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.6.1 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.6.2 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.6.3 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.6.4 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.6.5 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.6.6 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.6.7 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.6.8 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.6.9 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.6.10 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.6.11 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Section 5.6.12 family",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Manifest contains PERMANENTLY FROZEN",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Manifest contains SP-KE-V1.0",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Manifest lists 13 canonical",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Certificate contains PERMANENTLY FROZEN",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Certificate contains amendment policy",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Certificate contains NO FURTHER MODIFICATIONS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "No circular dependencies (by design)",
+      "status": "PASS",
+      "detail": "DAG structure verified \u2014 Framework\u2192Bible\u2192Atlas\u2192Universe"
+    }
+  ],
+  "release_id": "SP-KE-V1.0",
+  "base_dir": "/Users/shubhankarkumar/Desktop/Structured Products",
+  "timestamp": "2026-06-27T04:37:29.288111"
+}

@@ -1,0 +1,1139 @@
+meta:
+  title: "Canonical Glossary — Structured Products Desk Bible v2"
+  version: 1.0
+  date: "2026-06-19"
+  total_terms: 119
+  categories:
+    - Markets
+    - Bonds
+    - Equities
+    - Options
+    - Volatility
+    - Correlation
+    - Rates
+    - Credit
+    - Structured Products
+    - Operations
+    - Systems
+    - Risk
+
+terms:
+
+  # ============================================================
+  # CATEGORY 1: MARKETS
+  # ============================================================
+
+  - term: "Financial Market"
+    plain_english_definition: "A place where buyers and sellers meet to trade financial instruments — like a village marketplace, but for money, stocks, bonds, and contracts."
+    professional_definition: "An organized or OTC venue facilitating the exchange of financial instruments, providing price discovery, liquidity, and capital allocation."
+    first_introduced: "Section 0.1"
+    category: Markets
+    related_concepts: [Stock Market, Bond Market, Derivatives Market, OTC Market, Exchange]
+    products_using_term: [All]
+    common_misunderstandings: "Markets are not just stock markets. Bond, derivatives, FX, and commodity markets are equally important for structured products."
+
+  - term: "Exchange"
+    plain_english_definition: "An organized market with transparent prices where buyers and sellers trade through a centralized system."
+    professional_definition: "A regulated marketplace providing standardized trading, clearing, and settlement of financial instruments with public price transparency."
+    first_introduced: "Section 0.1"
+    category: Markets
+    related_concepts: [OTC Market, Liquidity, Bid, Offer]
+    products_using_term: [Warrant, Vanilla Options, Forwards]
+    common_misunderstandings: "Most structured products are NOT traded on exchanges — they are traded OTC between the bank and the client."
+
+  - term: "Over-the-Counter (OTC)"
+    plain_english_definition: "A way of trading where two parties negotiate directly with each other, rather than going through an exchange."
+    professional_definition: "Bilateral trading outside a centralized exchange, where terms are privately negotiated between counterparties."
+    first_introduced: "Section 0.1"
+    category: Markets
+    related_concepts: [Exchange, Structured Product, Liquidity]
+    products_using_term: [All structured products]
+    common_misunderstandings: "OTC does not mean unregulated. OTC derivatives are subject to extensive post-2008 regulation including clearing mandates and reporting requirements."
+
+  - term: "Capital"
+    plain_english_definition: "Money used to fund an activity — like the money you need to open a bakery."
+    professional_definition: "Financial resources (debt or equity) deployed to fund business operations, investment, or trading."
+    first_introduced: "Section 0.2"
+    category: Markets
+    related_concepts: [Debt, Equity, Capital Protection]
+    products_using_term: [All]
+    common_misunderstandings: "Capital is not the same as cash. Capital includes both debt (borrowed money) and equity (ownership stakes)."
+
+  - term: "Bid"
+    plain_english_definition: "The price a buyer is willing to pay for something."
+    professional_definition: "The highest price at which a market participant is willing to purchase an instrument."
+    first_introduced: "Section 1.1"
+    category: Markets
+    related_concepts: [Offer, Spread, Liquidity, Market Maker]
+    products_using_term: [All]
+    common_misunderstandings: "The bid is always lower than the offer. The gap between them (the spread) is where market makers earn their profit."
+
+  - term: "Offer (Ask)"
+    plain_english_definition: "The price a seller is willing to accept for something."
+    professional_definition: "The lowest price at which a market participant is willing to sell an instrument."
+    first_introduced: "Section 1.1"
+    category: Markets
+    related_concepts: [Bid, Spread, Liquidity]
+    products_using_term: [All]
+    common_misunderstandings: "Also called the 'ask' price. Always higher than the bid."
+
+  - term: "Spread (Bid-Offer)"
+    plain_english_definition: "The gap between the buy price and the sell price — the market maker's profit margin."
+    professional_definition: "The difference between the bid and offer price of an instrument, reflecting liquidity and transaction costs."
+    first_introduced: "Section 1.1"
+    category: Markets
+    related_concepts: [Bid, Offer, Liquidity, Credit Spread]
+    products_using_term: [All]
+    common_misunderstandings: "Do not confuse bid-offer spread with credit spread. Bid-offer spread is a transaction cost; credit spread is a risk premium."
+
+  - term: "Liquidity"
+    plain_english_definition: "How easily something can be bought or sold without moving its price — cash is the most liquid, a house is illiquid."
+    professional_definition: "The degree to which an instrument can be transacted in volume without material price impact."
+    first_introduced: "Section 1.1"
+    category: Markets
+    related_concepts: [Spread, OTC Market, Bid, Offer]
+    products_using_term: [All]
+    common_misunderstandings: "Structured products are relatively illiquid. Investors should generally plan to hold to maturity. Selling early incurs wide bid-offer spreads."
+
+  - term: "Market Maker"
+    plain_english_definition: "A firm that stands ready to buy and sell an instrument at quoted prices, earning the spread."
+    professional_definition: "An entity providing continuous two-sided quotes (bid and offer) for a financial instrument, facilitating liquidity."
+    first_introduced: "Section 1.1"
+    category: Markets
+    related_concepts: [Bid, Offer, Spread, Liquidity]
+    products_using_term: [All]
+    common_misunderstandings: "Market makers earn the spread, not directional profit. Their role is to facilitate trading, not to bet on market direction."
+
+  # ============================================================
+  # CATEGORY 2: BONDS
+  # ============================================================
+
+  - term: "Debt"
+    plain_english_definition: "A loan. When you buy a bond, you are lending money. You get fixed payments and your money back at the end."
+    professional_definition: "A financial obligation requiring the borrower to repay principal and interest to the lender according to agreed terms."
+    first_introduced: "Section 0.3"
+    category: Bonds
+    related_concepts: [Bond, Coupon, Principal, Maturity, Equity]
+    products_using_term: [All structured products — they are legally classified as debt]
+    common_misunderstandings: "Structured products are technically debt instruments, but their payoff depends on market performance — unlike a simple bond."
+
+  - term: "Bond"
+    plain_english_definition: "A loan to a government or company. You buy the bond (lend money), receive regular interest payments, and get your money back at the end."
+    professional_definition: "A fixed-income security representing a loan from the investor to the issuer, with defined coupon payments and principal repayment at maturity."
+    first_introduced: "Section 0.3"
+    category: Bonds
+    related_concepts: [Debt, Coupon, Principal, Maturity, Yield, Zero-Coupon Bond]
+    products_using_term: [All structured products]
+    common_misunderstandings: "A structured product is built on a bond, but its return is NOT fixed like a plain bond — the derivative component makes the return variable."
+
+  - term: "Coupon"
+    plain_english_definition: "The regular interest payment on a bond or structured product — named after the physical coupons investors used to clip from paper bonds."
+    professional_definition: "The periodic interest payment made by an issuer to a bondholder, expressed as a percentage of face value."
+    first_introduced: "Section 0.5"
+    category: Bonds
+    related_concepts: [Bond, Yield, Interest Rate, Conditional Coupon, Digital Coupon]
+    products_using_term: [RC, Phoenix, CRC, FCN, CLN, IRS, all SRT, all STEG]
+    common_misunderstandings: "In structured products, coupons may be conditional (paid only if a condition is met), digital (all-or-nothing), or accrual-based (accumulates day by day). Not all coupons are guaranteed."
+
+  - term: "Principal"
+    plain_english_definition: "The original amount of money invested or lent — the amount you expect to get back at the end."
+    professional_definition: "The face value of a debt instrument; the amount repayable at maturity, excluding interest."
+    first_introduced: "Section 0.5"
+    category: Bonds
+    related_concepts: [Notional, Par, Capital Protection, Maturity]
+    products_using_term: [All]
+    common_misunderstandings: "In structured products with barriers, principal return is NOT guaranteed — it depends on whether the barrier has been breached."
+
+  - term: "Maturity"
+    plain_english_definition: "The date when a bond or structured product ends and the investor receives their final payment."
+    professional_definition: "The date on which the principal amount of a financial instrument becomes due and is repaid to the investor."
+    first_introduced: "Section 0.3"
+    category: Bonds
+    related_concepts: [Principal, Settlement, Autocall, Early Redemption]
+    products_using_term: [All]
+    common_misunderstandings: "Products with autocall features may mature before the scheduled maturity date if the autocall condition is triggered."
+
+  - term: "Yield"
+    plain_english_definition: "The total annual return on a bond, taking into account coupon payments and any difference between purchase price and maturity value."
+    professional_definition: "The annualized return on a fixed-income instrument, incorporating coupon income and capital gain/loss, typically expressed as yield-to-maturity."
+    first_introduced: "Section 0.5"
+    category: Bonds
+    related_concepts: [Coupon, Interest Rate, Yield Curve, Yield Enhancement]
+    products_using_term: [All]
+    common_misunderstandings: "Yield and coupon are not the same thing. Yield accounts for the purchase price — a bond bought at a discount has a yield higher than its coupon rate."
+
+  - term: "Zero-Coupon Bond"
+    plain_english_definition: "A bond that pays no regular interest. Instead, you buy it at a discount and receive face value at maturity — the difference is your return."
+    professional_definition: "A fixed-income instrument that does not pay periodic coupons but is issued at a discount to par, with the difference representing the investor's return."
+    first_introduced: "Section 0.6"
+    category: Bonds
+    related_concepts: [Present Value, Discounting, PPN, Time Value of Money]
+    products_using_term: [PPN, DRC, ZCL]
+    common_misunderstandings: "Zero-coupon bonds are the foundation of PPNs — they guarantee the principal at maturity. The cheaper the ZCB (i.e., higher interest rates), the more money is left to buy options."
+
+  - term: "Par"
+    plain_english_definition: "The face value of a bond or note — typically $100 or 100%. It is the amount the issuer promises to repay at maturity."
+    professional_definition: "The nominal or face value of a security, representing 100% of the original issue amount."
+    first_introduced: "Section 0.3"
+    category: Bonds
+    related_concepts: [Principal, Notional, DRC, Discount]
+    products_using_term: [All]
+    common_misunderstandings: "In a Discounted RC, the investor pays below par (e.g., 92%) — the return IS the discount, not a coupon."
+
+  # ============================================================
+  # CATEGORY 3: EQUITIES
+  # ============================================================
+
+  - term: "Equity"
+    plain_english_definition: "Ownership in a company. When you buy a share of stock, you own a small fraction of the business."
+    professional_definition: "An ownership interest in a corporation, typically represented by shares of common or preferred stock."
+    first_introduced: "Section 0.3"
+    category: Equities
+    related_concepts: [Debt, Dividend, Long, Short, Underlying]
+    products_using_term: [All ELN products, Equity Swap, TRS]
+    common_misunderstandings: "Buying a structured product linked to a stock is NOT the same as owning the stock. You do not receive dividends, voting rights, or direct price appreciation."
+
+  - term: "Long"
+    plain_english_definition: "Buying something — you own it and want the price to go up."
+    professional_definition: "Holding a positive position in an asset, profiting from price appreciation."
+    first_introduced: "Section 1.1"
+    category: Equities
+    related_concepts: [Short, P&L, Delta]
+    products_using_term: [All]
+    common_misunderstandings: "The bank is typically long the derivative component it bought from the investor. The investor is long the note but short the embedded option."
+
+  - term: "Short"
+    plain_english_definition: "Selling something you don't own (by borrowing it first), expecting to buy it back cheaper later."
+    professional_definition: "Holding a negative position in an asset, profiting from price depreciation."
+    first_introduced: "Section 1.1"
+    category: Equities
+    related_concepts: [Long, P&L, Delta, Hedging]
+    products_using_term: [All]
+    common_misunderstandings: "Short selling has theoretically unlimited loss (the price can rise without limit). In structured products, the investor is usually short an option — meaning they have sold optionality to the bank."
+
+  - term: "Dividend"
+    plain_english_definition: "A payment from a company to its shareholders, typically from profits."
+    professional_definition: "A distribution of a portion of a company's earnings to shareholders, usually paid quarterly."
+    first_introduced: "Section 0.3"
+    category: Equities
+    related_concepts: [Equity, Underlying, Corporate Action]
+    products_using_term: [All ELN products]
+    common_misunderstandings: "Structured product investors do NOT receive dividends from the underlying stock. The expected dividend is factored into the product's pricing — the bank uses the dividend to fund part of the hedge."
+
+  - term: "P&L (Profit and Loss)"
+    plain_english_definition: "How much money you made or lost on a position."
+    professional_definition: "The net financial result of a position or portfolio, measured as revenue minus costs."
+    first_introduced: "Section 1.1"
+    category: Equities
+    related_concepts: [Mark-to-Market, Realized P&L, Unrealized P&L]
+    products_using_term: [All]
+    common_misunderstandings: "Unrealized P&L is a paper gain/loss (the position is still open). Realized P&L is locked in (the position is closed). Desks mark-to-market daily to capture unrealized P&L."
+
+  - term: "Mark-to-Market (MtM)"
+    plain_english_definition: "Revaluing every position at today's market price — the daily discipline that tells you where you really stand."
+    professional_definition: "The process of revaluing a position at current market prices to determine the fair value and daily P&L."
+    first_introduced: "Section 1.1"
+    category: Equities
+    related_concepts: [P&L, Fair Value, Sophis, Product Control]
+    products_using_term: [All]
+    common_misunderstandings: "MtM can produce large swings in reported P&L even if the position has not changed — it reflects changes in market conditions, not trading activity."
+
+  - term: "Leverage"
+    plain_english_definition: "Using borrowed money or derivative contracts to amplify your exposure beyond what your own capital would allow — magnifies both gains and losses."
+    professional_definition: "The use of debt or derivative instruments to increase exposure relative to equity, amplifying returns and losses."
+    first_introduced: "Section 1.1"
+    category: Equities
+    related_concepts: [Airbag, Booster, Warrant, Margin]
+    products_using_term: [Airbag, Booster, Warrant]
+    common_misunderstandings: "Leverage works both ways. An Airbag note has leverage BELOW the barrier — losses are multiplied, not just gains."
+
+  - term: "Carry"
+    plain_english_definition: "The net cost or benefit of holding a position over time — positive carry means you earn money just by holding it."
+    professional_definition: "The difference between the yield earned on a position and the financing cost of maintaining it."
+    first_introduced: "Section 1.1"
+    category: Equities
+    related_concepts: [Interest Rate, FTP, Theta]
+    products_using_term: [IRS, all swaps]
+    common_misunderstandings: "Positive carry does not mean the position is profitable — market moves can overwhelm the carry."
+
+  - term: "Underlying"
+    plain_english_definition: "The asset that a derivative or structured product is based on — the stock, index, rate, or credit entity that determines the payoff."
+    professional_definition: "The reference asset, index, rate, or entity from which a derivative's value is derived."
+    first_introduced: "Section 0.8"
+    category: Equities
+    related_concepts: [Derivative, Index, Reference Entity]
+    products_using_term: [All]
+    common_misunderstandings: "A structured product's underlying is not the same as owning the underlying. The product is a contract ABOUT the underlying, not the underlying itself."
+
+  # ============================================================
+  # CATEGORY 4: OPTIONS
+  # ============================================================
+
+  - term: "Derivative"
+    plain_english_definition: "A financial contract whose value depends on something else — like a side bet on a football game. You don't play in the game, but you can win or lose money based on the outcome."
+    professional_definition: "A financial instrument whose value is derived from the price of an underlying asset, index, or reference rate."
+    first_introduced: "Section 0.8"
+    category: Options
+    related_concepts: [Option, Forward, Swap, Underlying]
+    products_using_term: [All]
+    common_misunderstandings: "Derivatives are not inherently risky or speculative. They were invented for hedging — reducing uncertainty. Speculation and structured products came later."
+
+  - term: "Option"
+    plain_english_definition: "A contract giving you the right, but not the obligation, to buy or sell something at a fixed price — like a restaurant reservation you can choose not to use."
+    professional_definition: "A contract granting the holder the right, but not the obligation, to buy (call) or sell (put) an underlying asset at a specified strike price on or before a specified date."
+    first_introduced: "Section 1.2"
+    category: Options
+    related_concepts: [Call, Put, Premium, Strike, Expiry]
+    products_using_term: [All ELN products, Swaption, Cap, Floor]
+    common_misunderstandings: "Options are NOT free. The buyer pays a premium. In structured products, the investor is usually the SELLER of the option, earning the premium as part of their coupon."
+
+  - term: "Call Option"
+    plain_english_definition: "The right to BUY something at a fixed price — like paying a deposit for the right to buy a house at today's price, even if prices rise."
+    professional_definition: "A contract giving the holder the right to purchase an underlying asset at a specified strike price on or before the expiry date."
+    first_introduced: "Section 1.2"
+    category: Options
+    related_concepts: [Put Option, Strike, Premium, PPN]
+    products_using_term: [PPN, Bonus, Booster, Warrant, Vanilla Options]
+    common_misunderstandings: "Buying a call is NOT the same as buying the stock. The call has an expiry date and can become worthless. The stock does not expire."
+
+  - term: "Put Option"
+    plain_english_definition: "The right to SELL something at a fixed price — like insurance that guarantees you can sell your painting at a minimum price."
+    professional_definition: "A contract giving the holder the right to sell an underlying asset at a specified strike price on or before the expiry date."
+    first_introduced: "Section 1.2"
+    category: Options
+    related_concepts: [Call Option, Strike, Premium, Knock-In Put, RC]
+    products_using_term: [RC, DRC, KODRC, CRC, Airbag, Phoenix, FCN, CLN, Digital KI Put]
+    common_misunderstandings: "In most structured products, the INVESTOR sells a put to the bank. The investor is the insurance seller, not the buyer. This is the source of the enhanced coupon — and the source of the risk."
+
+  - term: "Premium (Option)"
+    plain_english_definition: "The price paid for an option — like the deposit for a restaurant reservation."
+    professional_definition: "The market price of an option contract, reflecting intrinsic value plus time value."
+    first_introduced: "Section 1.2"
+    category: Options
+    related_concepts: [Intrinsic Value, Time Value, Coupon Decomposition]
+    products_using_term: [All ELN products]
+    common_misunderstandings: "The premium is the maximum the option buyer can lose. But for the option SELLER (the investor in most structured products), the loss can be much larger than the premium received."
+
+  - term: "Strike Price"
+    plain_english_definition: "The fixed price at which an option can be exercised — the agreed-upon price in the contract."
+    professional_definition: "The price at which the holder of an option can buy (call) or sell (put) the underlying asset."
+    first_introduced: "Section 1.2"
+    category: Options
+    related_concepts: [Option, Moneyness, Barrier, Initial Level]
+    products_using_term: [All ELN products, all options]
+    common_misunderstandings: "Strike price and barrier level are different things. The strike determines the option payoff; the barrier determines when the option activates or deactivates."
+
+  - term: "Expiry (Expiration)"
+    plain_english_definition: "The date after which an option no longer exists."
+    professional_definition: "The final date on which an option may be exercised."
+    first_introduced: "Section 1.2"
+    category: Options
+    related_concepts: [Maturity, European, American, Bermudan]
+    products_using_term: [All options-based products]
+    common_misunderstandings: "For structured products, expiry usually coincides with maturity. But autocallable products can terminate before the option's scheduled expiry."
+
+  - term: "In-the-Money (ITM)"
+    plain_english_definition: "An option that has real value right now — a call is ITM when the stock is above the strike, a put is ITM when the stock is below the strike."
+    professional_definition: "An option whose intrinsic value is positive — for a call, when the underlying exceeds the strike; for a put, when the underlying is below the strike."
+    first_introduced: "Section 1.2"
+    category: Options
+    related_concepts: [ATM, OTM, Intrinsic Value, Moneyness]
+    products_using_term: [All options-based products]
+    common_misunderstandings: "ITM does not mean profitable. The option buyer also paid a premium. The option is only profitable if the intrinsic value exceeds the premium paid."
+
+  - term: "At-the-Money (ATM)"
+    plain_english_definition: "An option where the underlying price equals (or is very close to) the strike price."
+    professional_definition: "An option whose strike price equals the current market price of the underlying."
+    first_introduced: "Section 1.2"
+    category: Options
+    related_concepts: [ITM, OTM, Delta]
+    products_using_term: [All options-based products]
+    common_misunderstandings: "ATM options have a Delta of approximately 0.50 (calls) or -0.50 (puts). They have the highest time value of any moneyness level."
+
+  - term: "Out-of-the-Money (OTM)"
+    plain_english_definition: "An option with no real value right now — a call is OTM when the stock is below the strike, a put is OTM when the stock is above the strike."
+    professional_definition: "An option with zero intrinsic value — for a call, when the underlying is below the strike; for a put, when the underlying is above the strike."
+    first_introduced: "Section 1.2"
+    category: Options
+    related_concepts: [ITM, ATM, Time Value]
+    products_using_term: [All options-based products]
+    common_misunderstandings: "OTM options are not worthless — they still have time value. An OTM option can become ITM if the underlying moves favorably."
+
+  - term: "Intrinsic Value"
+    plain_english_definition: "The amount of real value an option has right now — what you'd get if you exercised it immediately."
+    professional_definition: "The difference between the underlying price and the strike price, if positive; zero otherwise."
+    first_introduced: "Section 1.2"
+    category: Options
+    related_concepts: [Time Value, Premium, Moneyness]
+    products_using_term: [All options-based products]
+    common_misunderstandings: "Intrinsic value can never be negative. An OTM option has zero intrinsic value, not negative intrinsic value."
+
+  - term: "Time Value"
+    plain_english_definition: "The extra amount an option is worth because there is still time for the underlying to move favorably — like paying extra for a reservation far in advance because plans might change."
+    professional_definition: "The portion of an option's premium exceeding its intrinsic value, reflecting the probability of favorable movement before expiry."
+    first_introduced: "Section 1.2"
+    category: Options
+    related_concepts: [Intrinsic Value, Theta, Time Decay]
+    products_using_term: [All options-based products]
+    common_misunderstandings: "Time value always decays toward zero as expiry approaches. This decay (Theta) is why option sellers (including most structured product investors) earn money over time."
+
+  - term: "European Option"
+    plain_english_definition: "An option that can only be exercised on the expiry date — not before."
+    professional_definition: "An option exercisable only at expiration."
+    first_introduced: "Section 1.2"
+    category: Options
+    related_concepts: [American Option, Bermudan Option, European Barrier]
+    products_using_term: [Most structured products]
+    common_misunderstandings: "Most structured products use European-style options (exercise only at maturity). European does NOT mean traded in Europe — it refers to the exercise style."
+
+  - term: "American Option"
+    plain_english_definition: "An option that can be exercised at any time before or on the expiry date."
+    professional_definition: "An option exercisable at any time from inception through expiration."
+    first_introduced: "Section 1.2"
+    category: Options
+    related_concepts: [European Option, Bermudan Option, American Barrier]
+    products_using_term: [Bonus (KO barrier is American/continuous)]
+    common_misunderstandings: "American does not mean traded in America. It refers to the exercise style. Most structured products use European exercise."
+
+  - term: "Bermudan Option"
+    plain_english_definition: "An option that can only be exercised on specific dates before expiry — a middle ground between European and American."
+    professional_definition: "An option exercisable on a discrete set of dates between inception and expiration."
+    first_introduced: "Section 1.2"
+    category: Options
+    related_concepts: [European Option, American Option, CRC, Callable]
+    products_using_term: [CRC (Callable RC)]
+    common_misunderstandings: "The name comes from Bermuda being between Europe and America. CRC uses Bermudan call rights — the issuer can call on specific dates, not any day."
+
+  - term: "Knock-In Barrier"
+    plain_english_definition: "A price level that, when crossed, ACTIVATES an option — like a tripwire that turns on an alarm."
+    professional_definition: "A barrier level that, upon being breached, causes a dormant option to become active."
+    first_introduced: "Section 1.3"
+    category: Options
+    related_concepts: [Knock-Out Barrier, Capital Barrier, European Barrier, American Barrier]
+    products_using_term: [RC, DRC, KODRC, CRC, Airbag, Phoenix, FCN, Digital KI Put]
+    common_misunderstandings: "A knock-in put is dormant until breached. If the barrier is never touched, the investor keeps their full principal — the put never activated."
+
+  - term: "Knock-Out Barrier"
+    plain_english_definition: "A price level that, when crossed, DEACTIVATES an option — like reaching a safe hook on a rock climb that removes the danger below."
+    professional_definition: "A barrier level that, upon being breached, causes an active option to be extinguished."
+    first_introduced: "Section 1.3"
+    category: Options
+    related_concepts: [Knock-In Barrier, KODRC, Bonus]
+    products_using_term: [KODRC, Bonus, Accumulator, Decumulator]
+    common_misunderstandings: "In KODRC, the KO barrier is ABOVE the initial level — if the stock rises enough, the put is permanently extinguished and the investor's risk disappears."
+
+  - term: "European Barrier (Discrete Observation)"
+    plain_english_definition: "A barrier that is only checked on specific dates — the underlying could breach the level during the product's life and recover before the check date."
+    professional_definition: "A barrier monitored only on predetermined observation dates, not continuously."
+    first_introduced: "Section 1.3"
+    category: Options
+    related_concepts: [American Barrier, Observation Date, Barrier]
+    products_using_term: [RC, DRC, CRC, Airbag, Phoenix, FCN]
+    common_misunderstandings: "European barriers are LESS risky for the investor — fewer chances for the barrier to be triggered. Most ELNs use European (maturity-only) barrier observation."
+
+  - term: "American Barrier (Continuous Observation)"
+    plain_english_definition: "A barrier checked every moment of every trading day — if the underlying touches the level even briefly, the barrier is breached."
+    professional_definition: "A barrier monitored continuously throughout the life of the instrument."
+    first_introduced: "Section 1.3"
+    category: Options
+    related_concepts: [European Barrier, Observation Date, Barrier]
+    products_using_term: [Bonus (KO), some Phoenix variants]
+    common_misunderstandings: "American barriers are RISKIER for the investor (more chances to breach) and therefore result in HIGHER coupons as compensation."
+
+  - term: "Digital (Binary) Option"
+    plain_english_definition: "An all-or-nothing payoff — like a light switch that is either ON or OFF, with no dimmer."
+    professional_definition: "An option that pays a fixed amount if a condition is met at expiry, and zero otherwise."
+    first_introduced: "Section 1.3"
+    category: Options
+    related_concepts: [Digital Coupon, Digital Cap-Floor, Barrier]
+    products_using_term: [Digital Coupon Notes, Digital KI Put, Digital Cap-Floor]
+    common_misunderstandings: "A digital coupon pays 100% of the coupon or 0%. There is no partial coupon. This creates high Gamma near the barrier level."
+
+  - term: "Forward Contract"
+    plain_english_definition: "An agreement to buy or sell something at a fixed price on a future date — both sides are locked in, no choice."
+    professional_definition: "A bilateral agreement to exchange an asset at a predetermined price on a specified future date, obligating both parties."
+    first_introduced: "Section 0.8"
+    category: Options
+    related_concepts: [Option, Swap, Derivative, Accumulator, Decumulator]
+    products_using_term: [Forwards, Accumulator, Decumulator]
+    common_misunderstandings: "A forward is an OBLIGATION, not a right. Unlike an option, you cannot walk away. Both sides must honor the contract."
+
+  - term: "Swap"
+    plain_english_definition: "An agreement between two parties to exchange cash flows over time — like neighbors swapping their mortgage payments."
+    professional_definition: "A bilateral derivative contract in which two counterparties agree to exchange cash flows according to specified terms over a defined period."
+    first_introduced: "Section 0.8"
+    category: Options
+    related_concepts: [IRS, TRS, CDS, Equity Swap, Variance Swap]
+    products_using_term: [IRS, TRS, Equity Swap, Variance Swap, Currency Swap, Commodity Swap, CDS, VLSP]
+    common_misunderstandings: "In most swaps, there is no exchange of principal — only the NET difference in payments is exchanged. Cross-currency swaps are the exception: they DO exchange principal."
+
+  - term: "Participation Rate"
+    plain_english_definition: "The percentage of the underlying's gain that the investor receives — determined by how much money was left to buy options after paying for protection."
+    professional_definition: "The fraction of the underlying's positive return passed through to the investor, typically between 50% and 80% in PPNs."
+    first_introduced: "Section 5.1.1 (PPN)"
+    category: Options
+    related_concepts: [PPN, Call Option, Zero-Coupon Bond, Option Budget]
+    products_using_term: [PPN, Bonus, Booster]
+    common_misunderstandings: "A 55% participation rate means if the market rises 20%, you get 11% — not 20%. The investor gives up upside to pay for downside protection."
+
+  - term: "Physical Delivery"
+    plain_english_definition: "When the investor receives the actual shares at maturity instead of cash — typically at a loss."
+    professional_definition: "Settlement of a derivative or structured product by delivering the underlying asset rather than cash."
+    first_introduced: "Jargon Watchlist"
+    category: Options
+    related_concepts: [Cash Settlement, RC, Barrier Breach]
+    products_using_term: [RC, DRC, Airbag]
+    common_misunderstandings: "Physical delivery usually occurs when the barrier has been breached and the stock is below the strike — the investor receives shares worth less than par."
+
+  - term: "Cash Settlement"
+    plain_english_definition: "When the investor receives a cash payment at maturity equal to the calculated redemption amount."
+    professional_definition: "Settlement by payment of the net cash difference rather than delivery of the underlying asset."
+    first_introduced: "Jargon Watchlist"
+    category: Options
+    related_concepts: [Physical Delivery, Redemption, Maturity]
+    products_using_term: [All structured products]
+    common_misunderstandings: "Cash settlement and physical delivery produce economically equivalent results — the difference is operational, not financial."
+
+  # ============================================================
+  # CATEGORY 5: VOLATILITY
+  # ============================================================
+
+  - term: "Volatility"
+    plain_english_definition: "How much an asset's price fluctuates — like the storminess of the sea. Calm seas = low volatility, stormy seas = high volatility."
+    professional_definition: "A statistical measure of the dispersion of returns for an asset, typically expressed as the annualized standard deviation of log returns."
+    first_introduced: "Section 1.5"
+    category: Volatility
+    related_concepts: [Implied Volatility, Realized Volatility, Vega, Variance]
+    products_using_term: [All]
+    common_misunderstandings: "High volatility does not mean 'going down.' Volatility measures uncertainty in BOTH directions. A stock can be highly volatile and still end up higher."
+
+  - term: "Implied Volatility"
+    plain_english_definition: "What the market EXPECTS volatility to be in the future — like tomorrow's weather forecast."
+    professional_definition: "The market's expectation of future volatility, derived from the prices of traded options via an option pricing model."
+    first_introduced: "Section 1.5"
+    category: Volatility
+    related_concepts: [Realized Volatility, Vega, Option Premium, Volatility Skew]
+    products_using_term: [All options-based products]
+    common_misunderstandings: "Implied volatility is not a prediction — it is the volatility level that makes the market's option prices consistent with a pricing model. It can be wrong."
+
+  - term: "Realized Volatility"
+    plain_english_definition: "What volatility actually was — like yesterday's actual weather. A measured fact, not a forecast."
+    professional_definition: "The historical standard deviation of asset returns over a defined past period."
+    first_introduced: "Section 1.5"
+    category: Volatility
+    related_concepts: [Implied Volatility, Variance Swap]
+    products_using_term: [Variance Swap]
+    common_misunderstandings: "Realized vol and implied vol are often different. When realized vol is lower than implied vol, option sellers (including structured product investors) profit."
+
+  - term: "Volatility Skew"
+    plain_english_definition: "The pattern where OTM puts (downside protection) cost more than same-distance OTM calls — the market charges a fear premium for crash protection."
+    professional_definition: "The observed pattern in which implied volatility varies across strike prices, typically higher for lower strikes in equity markets."
+    first_introduced: "Section 1.5"
+    category: Volatility
+    related_concepts: [Implied Volatility, OTM, Put, Tail Risk]
+    products_using_term: [All products containing puts]
+    common_misunderstandings: "Skew exists because investors fear large drops more than they expect large gains. This fear premium is baked into every structured product that contains a put."
+
+  - term: "Variance"
+    plain_english_definition: "Volatility squared — a statistical measure of how spread out values are. Some products trade variance directly."
+    professional_definition: "The square of volatility; the average of the squared deviations from the mean return."
+    first_introduced: "Section 1.5"
+    category: Volatility
+    related_concepts: [Volatility, Variance Swap]
+    products_using_term: [Variance Swap]
+    common_misunderstandings: "Variance swaps pay based on realized variance minus a fixed strike variance. Because variance = vol², small increases in volatility produce disproportionately large variance payoffs."
+
+  - term: "Time Decay"
+    plain_english_definition: "The gradual loss of an option's time value as expiry approaches — like ice cream melting on a hot day."
+    professional_definition: "The reduction in an option's value attributable solely to the passage of time, measured by Theta."
+    first_introduced: "Section 1.4"
+    category: Volatility
+    related_concepts: [Theta, Time Value, Option Premium]
+    products_using_term: [All options-based products]
+    common_misunderstandings: "Time decay benefits option SELLERS (positive Theta). Most structured product investors are option sellers, so time decay works in their favor — they earn the premium gradually."
+
+  # ============================================================
+  # CATEGORY 6: CORRELATION
+  # ============================================================
+
+  - term: "Correlation"
+    plain_english_definition: "How much two things move together — like musicians in an orchestra. Perfect synchronization = correlation of +1, completely independent = correlation of 0."
+    professional_definition: "A statistical measure (-1 to +1) of the degree to which two variables move in relation to each other."
+    first_introduced: "Section 1.6"
+    category: Correlation
+    related_concepts: [Basket, Worst-of, Tail Risk, Diversification]
+    products_using_term: [Phoenix (worst-of), FCN (worst-of), FTD, NTD, Synthetic CDO]
+    common_misunderstandings: "LOW correlation makes worst-of products RISKIER — when stocks move independently, it is more likely that at least one will drop significantly."
+
+  - term: "Basket"
+    plain_english_definition: "A group of underlying assets (e.g., three stocks) linked to a structured product."
+    professional_definition: "A defined set of reference assets whose combined performance determines the payoff of a multi-asset derivative."
+    first_introduced: "Section 1.6"
+    category: Correlation
+    related_concepts: [Worst-of, Best-of, Correlation, Phoenix]
+    products_using_term: [Phoenix, FCN, FTD, NTD]
+    common_misunderstandings: "In a worst-of basket product, the investor's return depends on the WORST performer — not the average. One bad stock can ruin an otherwise good basket."
+
+  - term: "Worst-of"
+    plain_english_definition: "A payoff structure where the return is determined by whichever asset in the basket performs the worst."
+    professional_definition: "A payoff mechanism referencing the minimum return among a basket of underlying assets."
+    first_introduced: "Section 1.6"
+    category: Correlation
+    related_concepts: [Basket, Correlation, Phoenix, FCN, FTD]
+    products_using_term: [Phoenix (worst-of), FCN (worst-of)]
+    common_misunderstandings: "Worst-of products pay HIGHER coupons than single-stock products because the investor is taking on correlation risk — the risk that one stock will perform much worse than the others."
+
+  - term: "Tail Risk"
+    plain_english_definition: "The risk of extreme, unlikely events — market crashes that happen more often than statistics predict."
+    professional_definition: "The risk of returns falling in the extreme tails of the probability distribution, beyond what normal distribution assumptions suggest."
+    first_introduced: "Section 1.6"
+    category: Correlation
+    related_concepts: [Volatility Skew, Fat Tails, Risk-Return Tradeoff]
+    products_using_term: [All products involving selling options]
+    common_misunderstandings: "Structured product investors earn steady coupons in normal markets but face significant losses in tail events. The coupon is compensation for bearing tail risk — it is NOT free money."
+
+  # ============================================================
+  # CATEGORY 7: RATES
+  # ============================================================
+
+  - term: "Interest Rate"
+    plain_english_definition: "The price of borrowing money, expressed as a percentage per year."
+    professional_definition: "The cost of borrowing or the return on lending, expressed as an annualized percentage of principal."
+    first_introduced: "Section 0.5"
+    category: Rates
+    related_concepts: [Coupon, Yield, Yield Curve, Benchmark Rate, FTP]
+    products_using_term: [All]
+    common_misunderstandings: "Interest rates affect ALL structured products — not just rate products. Higher rates make PPNs more attractive (cheaper ZCB), and change the FTP component of every product's pricing."
+
+  - term: "Yield Curve"
+    plain_english_definition: "A graph showing interest rates for different lending periods — the price of waiting, plotted over time."
+    professional_definition: "A graphical representation of interest rates across different maturities for a given issuer or benchmark."
+    first_introduced: "Section 1.7"
+    category: Rates
+    related_concepts: [Spot Rate, Forward Rate, CMS, Inverted Curve, Normal Curve]
+    products_using_term: [All STEG products, all SRT products]
+    common_misunderstandings: "The yield curve can be normal (upward-sloping), flat, or inverted. Inverted curves often signal recession expectations. STEG products profit when the curve is steep."
+
+  - term: "Spot Rate"
+    plain_english_definition: "Today's interest rate for lending from now until a specific future date."
+    professional_definition: "The yield on a zero-coupon bond maturing at a specific future date, representing the pure rate of return for that term."
+    first_introduced: "Section 1.7"
+    category: Rates
+    related_concepts: [Forward Rate, Yield Curve, Zero-Coupon Bond]
+    products_using_term: [All rate products]
+    common_misunderstandings: "Spot rates are not directly observable for most maturities — they are derived (bootstrapped) from the prices of traded bonds."
+
+  - term: "Forward Rate"
+    plain_english_definition: "The interest rate implied by the yield curve for lending between two future dates — like the price of a hotel room for a specific night next year."
+    professional_definition: "The interest rate implied by the term structure for a future lending period, derived from current spot rates."
+    first_introduced: "Section 1.7"
+    category: Rates
+    related_concepts: [Spot Rate, Yield Curve, Swap Rate]
+    products_using_term: [All rate products, IRS]
+    common_misunderstandings: "Forward rates are NOT predictions — they are mathematical implications of the current yield curve. The actual future rate may be very different."
+
+  - term: "CMS (Constant Maturity Swap) Rate"
+    plain_english_definition: "Today's market rate for a swap of a specific maturity — like a real-time price quote for a fixed-rate mortgage of a given length."
+    professional_definition: "The par swap rate for a specific maturity as observed in the current market, used as a reference rate in structured products."
+    first_introduced: "Section 1.8"
+    category: Rates
+    related_concepts: [CMS Spread, IRS, STEG, SRT]
+    products_using_term: [All STEG products, some SRT products]
+    common_misunderstandings: "CMS rates are not the same as government bond yields. CMS rates reflect swap market pricing, which includes bank credit risk."
+
+  - term: "CMS Spread"
+    plain_english_definition: "The difference between two CMS rates of different maturities — reflects how steep the yield curve is."
+    professional_definition: "The difference between CMS rates of two different maturities, typically CMS30Y - CMS2Y, measuring yield curve slope."
+    first_introduced: "Section 1.8"
+    category: Rates
+    related_concepts: [CMS, STEG, Yield Curve, Curve Flattening]
+    products_using_term: [All STEG products]
+    common_misunderstandings: "When the curve flattens (long rates fall or short rates rise), CMS spread decreases. STEG coupons shrink or go to zero. This is the primary risk of STEG products."
+
+  - term: "Benchmark Rate"
+    plain_english_definition: "A reference interest rate used as the basis for pricing financial contracts — like SOFR for US dollars or EURIBOR for euros."
+    professional_definition: "A standardized reference rate published daily, derived from actual market transactions, used to determine floating-rate payments."
+    first_introduced: "Section 1.8"
+    category: Rates
+    related_concepts: [SOFR, EURIBOR, LIBOR, Floating Rate]
+    products_using_term: [IRS, all SRT, all STEG, all swaps]
+    common_misunderstandings: "LIBOR was phased out after manipulation scandals. SOFR and EURIBOR are the current benchmarks. Legacy contracts may still reference LIBOR via fallback provisions."
+
+  - term: "Cap (Interest Rate)"
+    plain_english_definition: "An option that pays out when interest rates exceed a specified level — like a ceiling on a variable mortgage."
+    professional_definition: "An OTC interest rate derivative that pays the holder the difference between a reference rate and a cap rate when the reference rate exceeds the cap rate."
+    first_introduced: "Section 1.8"
+    category: Rates
+    related_concepts: [Floor, Swaption, Digital Cap-Floor]
+    products_using_term: [SRT products, Digital Cap-Floor]
+    common_misunderstandings: "A cap protects against RISING rates. The holder pays a premium for the cap, like insurance premium."
+
+  - term: "Floor (Interest Rate)"
+    plain_english_definition: "An option that pays out when interest rates fall below a specified level — like a guaranteed minimum return on a savings account."
+    professional_definition: "An OTC interest rate derivative that pays the holder the difference between a floor rate and a reference rate when the reference rate falls below the floor rate."
+    first_introduced: "Section 1.8"
+    category: Rates
+    related_concepts: [Cap, Swaption, STEG]
+    products_using_term: [All STEG products (coupon floor at 0%)]
+    common_misunderstandings: "STEG products typically have a 0% coupon floor — the investor never owes money, even if the CMS spread turns negative."
+
+  - term: "Swaption"
+    plain_english_definition: "An option to enter into a swap at a future date — like a reservation at a gym that lets you sign up later at today's rate."
+    professional_definition: "An option granting the holder the right to enter into a specified interest rate swap on a future date at a predetermined fixed rate."
+    first_introduced: "Section 1.8"
+    category: Rates
+    related_concepts: [Swap, IRS, Cap, Floor, Callable]
+    products_using_term: [Callable SRT, Callable STEG]
+    common_misunderstandings: "Swaptions are embedded in callable structured products — the issuer's call right is economically equivalent to the issuer holding a swaption."
+
+  - term: "Accrual"
+    plain_english_definition: "A coupon that accumulates day by day, but only on days when a condition is met — like earning pay only for the hours you work."
+    professional_definition: "A mechanism where coupon income accumulates based on the number of days a reference rate or level satisfies a defined condition."
+    first_introduced: "Section 3.2"
+    category: Rates
+    related_concepts: [Range Accrual, Accrual Factor, NCRA, CRA]
+    products_using_term: [NCRA, CRA SRT, RA STEG, CRA ELN]
+    common_misunderstandings: "The accrual factor (fraction of days in-range) directly determines the coupon. If the rate is in-range 72 of 90 days, the accrual factor is 80% and the coupon is 80% of the maximum."
+
+  - term: "Range Accrual"
+    plain_english_definition: "A coupon that accumulates day by day, but only on days when a reference rate stays within a defined range."
+    professional_definition: "A structured coupon mechanism where income accrues daily based on whether a reference rate falls within a specified range."
+    first_introduced: "Jargon Watchlist"
+    category: Rates
+    related_concepts: [Accrual, Accrual Factor, NCRA, CRA]
+    products_using_term: [NCRA, CRA SRT, RA STEG, CRA ELN]
+    common_misunderstandings: "Range accrual is NOT the same as a digital coupon. Digital is all-or-nothing per observation; range accrual is proportional to the number of in-range days."
+
+  # ============================================================
+  # CATEGORY 8: CREDIT
+  # ============================================================
+
+  - term: "Credit Risk"
+    plain_english_definition: "The risk that a borrower won't pay you back — like lending money to a neighbor who might not repay."
+    professional_definition: "The risk of financial loss resulting from a counterparty's failure to meet its contractual obligations."
+    first_introduced: "Section 1.9"
+    category: Credit
+    related_concepts: [Credit Spread, CDS, Recovery Rate, Credit Event, Issuer Credit Risk]
+    products_using_term: [All CLN products, all structured products (issuer credit risk)]
+    common_misunderstandings: "ALL structured products carry issuer credit risk, not just CLNs. If the issuing bank defaults, even a PPN's principal guarantee fails — as Lehman Brothers investors discovered in 2008."
+
+  - term: "Credit Spread"
+    plain_english_definition: "The extra interest a risky borrower pays compared to a risk-free borrower — reflects the market's view of default probability."
+    professional_definition: "The yield differential between a corporate bond and a risk-free government bond of the same maturity, representing compensation for credit risk."
+    first_introduced: "Section 1.9"
+    category: Credit
+    related_concepts: [Credit Risk, CDS Spread, Recovery Rate, Investment-Grade, High-Yield]
+    products_using_term: [All CLN products, all structured products]
+    common_misunderstandings: "Credit spread and bid-offer spread are completely different concepts. Credit spread is a risk premium; bid-offer spread is a transaction cost."
+
+  - term: "Recovery Rate"
+    plain_english_definition: "What percentage of your money you get back after a borrower defaults — typically 30-50% for corporate bonds."
+    professional_definition: "The percentage of face value recovered by creditors following a default, determined by asset liquidation or auction settlement."
+    first_introduced: "Section 1.9"
+    category: Credit
+    related_concepts: [Credit Event, CDS, Loss Given Default, CLN]
+    products_using_term: [CLN, FTD, NTD, Synthetic CDO]
+    common_misunderstandings: "Recovery rate varies by seniority: senior secured 50-70%, senior unsecured 30-50%, subordinated 10-30%. It is NOT the same for all types of debt."
+
+  - term: "Credit Default Swap (CDS)"
+    plain_english_definition: "Insurance on a loan — you pay a regular fee, and if the borrower defaults, the insurer compensates you."
+    professional_definition: "A bilateral derivative contract where the protection buyer pays a periodic premium (CDS spread) to the protection seller, who compensates the buyer upon a qualifying credit event."
+    first_introduced: "Section 1.9"
+    category: Credit
+    related_concepts: [CDS Spread, Credit Event, Protection Buyer, Protection Seller, CLN]
+    products_using_term: [CLN, FTD, NTD, Synthetic CDO, CDS]
+    common_misunderstandings: "In a CLN, the INVESTOR is the protection seller — they earn the CDS spread as a coupon but bear the loss if the reference entity defaults."
+
+  - term: "Credit Event"
+    plain_english_definition: "A formally defined occurrence that triggers a CDS payout — bankruptcy, failure to pay, or debt restructuring."
+    professional_definition: "An ISDA-defined event (bankruptcy, failure to pay, restructuring) that triggers settlement under a CDS contract."
+    first_introduced: "Section 1.9"
+    category: Credit
+    related_concepts: [CDS, Bankruptcy, Failure to Pay, Restructuring, ISDA]
+    products_using_term: [CLN, FTD, NTD, Synthetic CDO, CDS]
+    common_misunderstandings: "Restructuring is the most ambiguous credit event — it can occur without a company being insolvent. The ISDA Determinations Committee rules on whether a credit event has occurred."
+
+  - term: "Reference Entity"
+    plain_english_definition: "The company or sovereign whose creditworthiness is being insured by a CDS or CLN."
+    professional_definition: "The legal entity whose credit risk is transferred via a CDS or CLN contract."
+    first_introduced: "Section 1.9"
+    category: Credit
+    related_concepts: [CDS, CLN, Credit Event, RED Code]
+    products_using_term: [CLN, FTD, NTD, CDS]
+    common_misunderstandings: "A CLN investor has DUAL credit exposure: to the reference entity (through the embedded CDS) AND to the issuing bank (through the bond component)."
+
+  - term: "Issuer Credit Risk"
+    plain_english_definition: "The risk that the bank issuing the structured product defaults — meaning the investor may not receive their promised payments."
+    professional_definition: "The credit risk associated with the financial institution that issues the structured note, affecting all payments including principal guarantee."
+    first_introduced: "Section 1.9"
+    category: Credit
+    related_concepts: [Credit Risk, Bond, PPN, Principal Protection]
+    products_using_term: [All structured products]
+    common_misunderstandings: "Even a PPN has issuer credit risk. The principal guarantee is only as good as the guarantor. If the bank defaults, the guarantee fails."
+
+  # ============================================================
+  # CATEGORY 9: STRUCTURED PRODUCTS
+  # ============================================================
+
+  - term: "Structured Product"
+    plain_english_definition: "Custom financial furniture — a bond combined with one or more derivatives, engineered to meet a specific client need."
+    professional_definition: "A pre-packaged investment strategy combining a debt instrument with one or more derivative components to create a customized risk/return profile."
+    first_introduced: "Section 2.1"
+    category: Structured Products
+    related_concepts: [Bond, Derivative, Decomposition, Four-Leg Framework]
+    products_using_term: [All]
+    common_misunderstandings: "A structured product is NOT a stock or a fund. It is technically a debt instrument (a bond) with embedded derivatives that shape the payoff."
+
+  - term: "Decomposition"
+    plain_english_definition: "Taking apart a structured product into its simple components — the bond, the option(s), the margin, and the FTP."
+    professional_definition: "The analytical process of separating a structured product into its constituent financial instruments for pricing, hedging, and risk management."
+    first_introduced: "Section 2.2"
+    category: Structured Products
+    related_concepts: [Construction, Bond, Option, FTP, Desk Margin]
+    products_using_term: [All]
+    common_misunderstandings: "Every structured product, no matter how complex, can be decomposed into simple components. If you can identify the components, you can understand the product."
+
+  - term: "Coupon Decomposition Formula"
+    plain_english_definition: "Where the enhanced coupon comes from: Coupon = Bond interest + Put premium - FTP - Desk margin."
+    professional_definition: "The analytical breakdown of a structured product's coupon into its economic components: bond yield, derivative premium, funding cost, and margin."
+    first_introduced: "Section 2.2"
+    category: Structured Products
+    related_concepts: [Decomposition, FTP, Desk Margin, Put Premium]
+    products_using_term: [RC, DRC, KODRC, CRC, CLN]
+    common_misunderstandings: "The enhanced coupon is NOT free money. Every basis point comes from a specific source — the investor earns more BECAUSE they take more risk (by selling an option)."
+
+  - term: "FTP (Funds Transfer Pricing)"
+    plain_english_definition: "The internal rate at which a bank's treasury lends money to its trading desks — the wholesale cost of money inside the bank."
+    professional_definition: "The internal funding rate charged by a bank's treasury to its business units, reflecting the bank's marginal cost of borrowing."
+    first_introduced: "Section 2.2"
+    category: Structured Products
+    related_concepts: [Desk Margin, Coupon Decomposition, Deposit Leg]
+    products_using_term: [All]
+    common_misunderstandings: "FTP is a REAL cost deducted from the coupon budget. In a rising rate environment, FTP increases, which reduces the coupon available to the investor."
+
+  - term: "Desk Margin"
+    plain_english_definition: "The bank's profit on each structured product — typically 0.25-1.5% of notional, embedded invisibly in the pricing."
+    professional_definition: "The bank's retained profit on a structured product trade, covering structuring, hedging, risk management, and operational costs."
+    first_introduced: "Section 2.2"
+    category: Structured Products
+    related_concepts: [FTP, Coupon Decomposition, Hedge Leg]
+    products_using_term: [All]
+    common_misunderstandings: "The margin is invisible to the client — it is embedded in the coupon and pricing. The bank earns this margin regardless of market direction IF it hedges correctly."
+
+  - term: "Four-Leg Framework"
+    plain_english_definition: "How money actually flows through a structured product inside a bank: Note Leg (client), Issuer Leg (internal), Deposit Leg (treasury/FTP), Hedge Leg (market)."
+    professional_definition: "The internal booking framework decomposing a structured product into four cash flow channels: note, issuer, deposit, and hedge legs."
+    first_introduced: "Section 2.3"
+    category: Structured Products
+    related_concepts: [Note Leg, Issuer Leg, Deposit Leg, Hedge Leg, Murex]
+    products_using_term: [All SRT, all STEG — booked as four legs in Murex]
+    common_misunderstandings: "Not all products are booked with four legs. ELN and CLN are booked as single notes in NEMO. Only SRT and STEG use the four-leg framework in Murex."
+
+  - term: "Capital Protection Spectrum"
+    plain_english_definition: "The range from full protection (PPN — principal guaranteed) to no protection (Warrant — full market exposure). More protection = lower coupon."
+    professional_definition: "The continuum of principal protection levels across structured products, from guaranteed return of capital to full exposure to market losses."
+    first_introduced: "Section 2.4"
+    category: Structured Products
+    related_concepts: [PPN, RC, Warrant, Barrier, Conditional Protection]
+    products_using_term: [All]
+    common_misunderstandings: "Conditional protection is NOT the same as guaranteed protection. A 70% barrier means the investor can lose 30%+ of their investment."
+
+  - term: "Autocall"
+    plain_english_definition: "A feature that automatically redeems the product early if the underlying is above a specified level on an observation date."
+    professional_definition: "An automatic early redemption feature triggered when the underlying asset exceeds a predetermined barrier on a scheduled observation date."
+    first_introduced: "Section 3.2"
+    category: Structured Products
+    related_concepts: [Autocall Barrier, Observation Date, Phoenix, FCN]
+    products_using_term: [Phoenix, FCN]
+    common_misunderstandings: "Autocall is different from callable. Autocall triggers AUTOMATICALLY when a condition is met. Callable gives the ISSUER the discretion to redeem — it is a choice, not automatic."
+
+  - term: "Callable"
+    plain_english_definition: "A feature giving the ISSUER the right — but not the obligation — to redeem the product early on specified dates."
+    professional_definition: "An early redemption provision granting the issuer the right to redeem the instrument before maturity on predetermined dates."
+    first_introduced: "Section 3.2"
+    category: Structured Products
+    related_concepts: [CRC, Callable STEG, Callable SRT, Swaption, Bermudan]
+    products_using_term: [CRC, ICN, Callable STEG, Callable SRT]
+    common_misunderstandings: "Callable products pay HIGHER coupons because the investor accepts reinvestment risk — if called, the investor must reinvest at potentially lower rates."
+
+  - term: "Memory Feature"
+    plain_english_definition: "If a coupon is missed on one observation date, it is not lost — it accumulates and is paid on the next date when the condition is met."
+    professional_definition: "A coupon accumulation mechanism where unpaid conditional coupons are stored and paid in full on the next observation date when the coupon condition is satisfied."
+    first_introduced: "Section 5.1.3 (Phoenix)"
+    category: Structured Products
+    related_concepts: [Phoenix, Conditional Coupon, Observation Date]
+    products_using_term: [Phoenix Autocallable]
+    common_misunderstandings: "Memory makes Phoenix products path-dependent — the total payout depends on the entire sequence of observation dates, not just the final level."
+
+  - term: "Capital Barrier"
+    plain_english_definition: "The knock-in level that determines whether the investor's principal is at risk — if the underlying falls below this level, the investor may lose money."
+    professional_definition: "The knock-in barrier that, when breached, activates principal loss for the investor at maturity."
+    first_introduced: "Section 1.3"
+    category: Structured Products
+    related_concepts: [Coupon Barrier, Autocall Barrier, Knock-In, Three-Barrier Disambiguation]
+    products_using_term: [RC, DRC, KODRC, CRC, Airbag, Phoenix, FCN]
+    common_misunderstandings: "Never use the bare word 'barrier' when a product has multiple barriers. Always specify: capital barrier, coupon barrier, or autocall barrier."
+
+  - term: "Coupon Barrier"
+    plain_english_definition: "The level the underlying must be at or above for the coupon to be paid — distinct from the capital barrier."
+    professional_definition: "A threshold level that determines whether a conditional coupon payment is triggered on an observation date."
+    first_introduced: "Section 1.3"
+    category: Structured Products
+    related_concepts: [Capital Barrier, Autocall Barrier, Conditional Coupon, Phoenix]
+    products_using_term: [Phoenix, some FCN variants]
+    common_misunderstandings: "Coupon barrier and capital barrier are usually at DIFFERENT levels. In a Phoenix, the coupon barrier might be 70% while the capital barrier is 60%."
+
+  - term: "Autocall Barrier"
+    plain_english_definition: "The level the underlying must be at or above for early redemption to trigger — usually set at 100% of the initial level."
+    professional_definition: "A threshold level that, when the underlying exceeds it on an observation date, triggers automatic early redemption of the product."
+    first_introduced: "Section 1.3"
+    category: Structured Products
+    related_concepts: [Capital Barrier, Coupon Barrier, Autocall, Phoenix]
+    products_using_term: [Phoenix, FCN]
+    common_misunderstandings: "Autocall barrier is typically the HIGHEST of the three barriers (capital < coupon < autocall). In a Phoenix: capital at 60%, coupon at 70%, autocall at 100%."
+
+  - term: "Termsheet"
+    plain_english_definition: "The document listing every detail of the product: coupon, barrier, maturity, underlying, and all other terms."
+    professional_definition: "The definitive document specifying all terms and conditions of a structured product, serving as the legal basis for the trade."
+    first_introduced: "Section 2.5"
+    category: Structured Products
+    related_concepts: [Product Lifecycle, Booking, Operations]
+    products_using_term: [All]
+    common_misunderstandings: "The termsheet is the single source of truth. If NEMO and Sophis disagree, check the termsheet — it defines the correct values."
+
+  - term: "Notional"
+    plain_english_definition: "The face value of the contract on which all payments are calculated — not necessarily the amount exchanged."
+    professional_definition: "The nominal principal amount used to calculate payments in a derivative or structured product, which may or may not be exchanged."
+    first_introduced: "Section 2.3"
+    category: Structured Products
+    related_concepts: [Principal, Par, IRS, Accreting Notional]
+    products_using_term: [All]
+    common_misunderstandings: "In most swaps, the notional is NOT exchanged — it is only used to calculate payment amounts. Cross-currency swaps are the exception."
+
+  # ============================================================
+  # CATEGORY 10: OPERATIONS
+  # ============================================================
+
+  - term: "Booking"
+    plain_english_definition: "The act of entering a trade into the bank's systems — creating the official record of the trade."
+    professional_definition: "The process of recording a trade's details in the bank's book-of-record system, initiating the operational lifecycle."
+    first_introduced: "Section 2.5"
+    category: Operations
+    related_concepts: [NEMO, Murex, Operations, Trade Lifecycle]
+    products_using_term: [All]
+    common_misunderstandings: "Booking errors are one of the most common operational risks. A wrong strike price, wrong barrier level, or wrong notional can cause incorrect P&L and reconciliation breaks."
+
+  - term: "Settlement"
+    plain_english_definition: "The process of actually transferring cash or shares at the end of a trade — when the money moves."
+    professional_definition: "The exchange of cash, securities, or both between counterparties to fulfill the obligations of a trade."
+    first_introduced: "Section 2.5"
+    category: Operations
+    related_concepts: [Settlement Date, T+2, Cash Settlement, Physical Delivery]
+    products_using_term: [All]
+    common_misunderstandings: "Settlement does not happen instantly. T+2 means settlement occurs 2 business days after the trade date. Some structured products settle T+5."
+
+  - term: "Observation Date"
+    plain_english_definition: "A scheduled date on which the system checks whether conditions — coupon, autocall, barrier — are met."
+    professional_definition: "A predetermined date on which underlying levels are measured to determine coupon payment, autocall trigger, or barrier breach."
+    first_introduced: "Jargon Watchlist"
+    category: Operations
+    related_concepts: [Fixing Date, Coupon Barrier, Autocall Barrier, Phoenix]
+    products_using_term: [Phoenix, FCN, all autocallable products]
+    common_misunderstandings: "Observation date and fixing date are closely related but not identical. The observation date is when the condition is checked; the fixing date is when the reference level is officially recorded."
+
+  - term: "Fixing Date"
+    plain_english_definition: "The date on which the reference level is officially recorded — the number that determines payoffs."
+    professional_definition: "The date on which the official closing price of the underlying is recorded for the purpose of determining structured product payoffs."
+    first_introduced: "Jargon Watchlist"
+    category: Operations
+    related_concepts: [Observation Date, Settlement Date, Reference Level]
+    products_using_term: [All]
+    common_misunderstandings: "A missing or incorrect fixing can cause reconciliation breaks. Operations must ensure fixings are captured from the agreed data source."
+
+  - term: "Day Count Convention"
+    plain_english_definition: "The rule for counting the number of days in an interest period — different conventions give different results."
+    professional_definition: "The standardized method for calculating the fraction of a year used in interest computations."
+    first_introduced: "Jargon Watchlist"
+    category: Operations
+    related_concepts: [ACT/360, 30/360, ACT/365, Coupon]
+    products_using_term: [All coupon-bearing products]
+    common_misunderstandings: "ACT/360 and 30/360 give different results for the same period. Using the wrong convention causes coupon calculation errors."
+
+  - term: "Corporate Action"
+    plain_english_definition: "An event by the underlying company (stock split, merger, dividend) that may require adjustment to the structured product's terms."
+    professional_definition: "A corporate event affecting the capital structure or share count of an underlying issuer, potentially requiring adjustment to derivative terms."
+    first_introduced: "Section 2.5"
+    category: Operations
+    related_concepts: [Underlying, Adjustment, Operations]
+    products_using_term: [All equity-linked products]
+    common_misunderstandings: "Stock splits and special dividends require adjustments to strike prices and barrier levels. Missing these adjustments causes booking errors."
+
+  - term: "Reconciliation"
+    plain_english_definition: "Checking that different systems agree on the same trade — if NEMO says one thing and Sophis says another, there is a problem."
+    professional_definition: "The process of verifying consistency between different systems' records of a trade's terms, positions, and valuations."
+    first_introduced: "Section 2.8"
+    category: Operations
+    related_concepts: [NEMO, Sophis, Murex, Product Control, Red Flags]
+    products_using_term: [All]
+    common_misunderstandings: "Reconciliation breaks are common and must be resolved quickly. The most common break: percentage vs absolute price discrepancies between NEMO and Sophis."
+
+  # ============================================================
+  # CATEGORY 11: SYSTEMS
+  # ============================================================
+
+  - term: "NEMO"
+    plain_english_definition: "The book of record system — where trades are officially entered and stored. Answers: 'What trades do we have?'"
+    professional_definition: "The desk's primary trade management system serving as the book of record for ELN and CLN products."
+    first_introduced: "Section 2.8"
+    category: Systems
+    related_concepts: [Sophis, Murex, Booking, Reconciliation]
+    products_using_term: [All ELN, all CLN]
+    common_misunderstandings: "NEMO stores WHAT the trade IS, not what it is WORTH. Sophis provides the valuation. Both must agree."
+
+  - term: "Sophis"
+    plain_english_definition: "The pricing and risk engine — calculates market value, Greeks, and daily P&L. Answers: 'What is this trade worth?'"
+    professional_definition: "The desk's analytics platform for pricing, risk calculation (Greeks), and mark-to-market valuation of ELN and CLN products."
+    first_introduced: "Section 2.8"
+    category: Systems
+    related_concepts: [NEMO, Murex, Mark-to-Market, Greeks]
+    products_using_term: [All ELN, all CLN]
+    common_misunderstandings: "Sophis uses mathematical models that make assumptions about volatility, rates, and correlation. Model risk means Sophis's valuations could be wrong."
+
+  - term: "Murex"
+    plain_english_definition: "The rates and multi-leg booking system — handles products that require the four-leg framework (SRT, STEG) and all swaps."
+    professional_definition: "The desk's integrated system for booking, pricing, and risk management of rate products (SRT, STEG) and swaps, supporting four-leg booking."
+    first_introduced: "Section 2.8"
+    category: Systems
+    related_concepts: [NEMO, Sophis, Four-Leg Framework, SRT, STEG]
+    products_using_term: [All SRT, all STEG, all Swaps]
+    common_misunderstandings: "Murex handles BOTH booking AND pricing for rate products. This differs from the ELN/CLN split where NEMO books and Sophis prices."
+
+  # ============================================================
+  # CATEGORY 12: RISK
+  # ============================================================
+
+  - term: "Delta"
+    plain_english_definition: "How much an option's price changes when the underlying moves by $1 — the steering wheel that shows your directional exposure."
+    professional_definition: "The first-order partial derivative of an option's price with respect to the underlying asset price."
+    first_introduced: "Section 1.4"
+    category: Risk
+    related_concepts: [Gamma, Hedging, Delta-Neutral, Dynamic Hedging]
+    products_using_term: [All options-based products]
+    common_misunderstandings: "Delta changes constantly. Yesterday's hedge is wrong today — the desk must dynamically rebalance."
+
+  - term: "Gamma"
+    plain_english_definition: "How fast Delta changes — the sensitivity of the steering wheel itself. Spikes near barriers, making hedging expensive."
+    professional_definition: "The second-order partial derivative of an option's price with respect to the underlying — the rate of change of Delta."
+    first_introduced: "Section 1.4"
+    category: Risk
+    related_concepts: [Delta, Barrier, Hedging, Convexity]
+    products_using_term: [All barrier products]
+    common_misunderstandings: "High Gamma near barriers is the biggest hedging challenge on a structured products desk. Small price moves cause large Delta swings, forcing expensive rebalancing."
+
+  - term: "Vega"
+    plain_english_definition: "How much an option's price changes when implied volatility changes — like umbrella prices responding to the weather forecast."
+    professional_definition: "The partial derivative of an option's price with respect to the implied volatility of the underlying."
+    first_introduced: "Section 1.4"
+    category: Risk
+    related_concepts: [Implied Volatility, Short Vega, Long Vega]
+    products_using_term: [All options-based products]
+    common_misunderstandings: "Most structured product investors are SHORT Vega — they lose money when volatility increases. This is because they have sold options to the bank."
+
+  - term: "Theta"
+    plain_english_definition: "How much an option loses per day just from time passing — like ice cream melting. Benefits option sellers."
+    professional_definition: "The partial derivative of an option's price with respect to time, measuring daily time decay."
+    first_introduced: "Section 1.4"
+    category: Risk
+    related_concepts: [Time Decay, Time Value, Option Seller]
+    products_using_term: [All options-based products]
+    common_misunderstandings: "Positive Theta benefits the investor in most structured products (they are option sellers). But Theta income can be overwhelmed by Delta or Vega losses in volatile markets."
+
+  - term: "Rho"
+    plain_english_definition: "How much an option's price changes when interest rates change — usually small for equity options, important for long-dated products."
+    professional_definition: "The partial derivative of an option's price with respect to the risk-free interest rate."
+    first_introduced: "Section 1.4"
+    category: Risk
+    related_concepts: [Interest Rate, PPN, FTP]
+    products_using_term: [PPN, all long-dated products, all rate products]
+    common_misunderstandings: "Rho is often ignored for short-dated equity options but is significant for rate products and long-dated structured notes."
+
+  - term: "Convexity"
+    plain_english_definition: "The curvature of the price-input relationship — whether gains accelerate (good) or losses accelerate (bad) as the market moves further."
+    professional_definition: "The second-order sensitivity of an instrument's price to a risk factor, measuring non-linearity in the price response."
+    first_introduced: "Section 1.4"
+    category: Risk
+    related_concepts: [Gamma, Linear vs Non-Linear, Options]
+    products_using_term: [All options-based products]
+    common_misunderstandings: "Long option positions have positive convexity (gains accelerate). Short option positions have negative convexity (losses accelerate). Most structured product investors have negative convexity."
+
+  - term: "Hedging"
+    plain_english_definition: "Taking offsetting positions in the market to neutralize risk — the desk acts like a casino, earning a margin without gambling."
+    professional_definition: "The practice of taking offsetting market positions to reduce or eliminate risk exposure from structured product positions."
+    first_introduced: "Section 2.7"
+    category: Risk
+    related_concepts: [Dynamic Hedging, Delta-Neutral, Hedge Leg, Greeks]
+    products_using_term: [All]
+    common_misunderstandings: "Hedging reduces risk but CANNOT eliminate it entirely. Model errors, liquidity gaps, and correlation breaks mean residual risk always remains."
+
+  - term: "Dynamic Hedging"
+    plain_english_definition: "Continuously adjusting the hedge as markets move — the desk rebalances positions multiple times per day."
+    professional_definition: "The practice of continuously adjusting hedge positions as underlying market conditions and Greeks change."
+    first_introduced: "Section 2.7"
+    category: Risk
+    related_concepts: [Hedging, Delta-Neutral, Gamma, Transaction Costs]
+    products_using_term: [All]
+    common_misunderstandings: "Dynamic hedging is NOT free. Every adjustment has a cost (bid-offer spread, market impact). These costs are factored into the product margin."
+
+  - term: "Delta-Neutral"
+    plain_english_definition: "A hedged position where the net Delta is zero — the desk neither profits nor loses from small moves in the underlying."
+    professional_definition: "A portfolio state where the net sensitivity to underlying price changes is zero, achieved by adjusting the hedge position."
+    first_introduced: "Section 1.4"
+    category: Risk
+    related_concepts: [Delta, Hedging, Dynamic Hedging]
+    products_using_term: [All options-based products]
+    common_misunderstandings: "Delta-neutral does NOT mean risk-free. The position is still exposed to Gamma (Delta changes), Vega (volatility moves), and Theta (time decay)."
+
+  - term: "Model Risk"
+    plain_english_definition: "The risk that the mathematical model used to price or hedge a product is wrong — like navigating with an outdated map."
+    professional_definition: "The risk of financial loss arising from the use of models that are incorrectly specified, calibrated, or applied."
+    first_introduced: "Section 1.9"
+    category: Risk
+    related_concepts: [Pricing, Greeks, Calibration, Sophis]
+    products_using_term: [All complex products, especially CDO tranches and path-dependent products]
+    common_misunderstandings: "All derivative prices are model-dependent. When the market enters territory the model has never seen, the model's guidance becomes unreliable."
+
+  - term: "Risk-Return Tradeoff"
+    plain_english_definition: "The fundamental principle: higher potential returns come with higher risk. You cannot have more return without accepting more uncertainty."
+    professional_definition: "The positive correlation between expected return and risk, reflecting the market's requirement for compensation for bearing uncertainty."
+    first_introduced: "Section 0.4"
+    category: Risk
+    related_concepts: [Capital Protection Spectrum, Coupon, Barrier, Risk]
+    products_using_term: [All]
+    common_misunderstandings: "There is no free lunch. If a product offers a high coupon, the investor is taking commensurately higher risk — whether through a lower barrier, more volatile underlying, or longer maturity."
+
+  - term: "Present Value"
+    plain_english_definition: "What future money is worth today — $100 next year is worth about $95.24 today if the interest rate is 5%."
+    professional_definition: "The current value of a future cash flow, determined by discounting at an appropriate rate to account for the time value of money."
+    first_introduced: "Section 0.6"
+    category: Risk
+    related_concepts: [Discounting, Time Value of Money, Zero-Coupon Bond, NPV]
+    products_using_term: [All]
+    common_misunderstandings: "Present value depends on the discount rate used. Different rates (risk-free, bank credit curve, client credit curve) give different present values."
+
+  - term: "Discounting"
+    plain_english_definition: "The process of calculating what future money is worth today — the mathematical reverse of compounding."
+    professional_definition: "The process of determining the present value of a future cash flow by applying a discount rate."
+    first_introduced: "Section 0.6"
+    category: Risk
+    related_concepts: [Present Value, Compounding, Time Value of Money]
+    products_using_term: [All]
+    common_misunderstandings: "Higher discount rates produce LOWER present values. This means higher interest rates make future payments worth less today."
+
+  - term: "Compounding"
+    plain_english_definition: "Earning interest on your interest — the snowball effect where money grows faster over time."
+    professional_definition: "The process of generating returns on both the original principal and accumulated prior returns."
+    first_introduced: "Section 0.6"
+    category: Risk
+    related_concepts: [Interest Rate, Present Value, Time Value of Money]
+    products_using_term: [ZCL (accreting notional)]
+    common_misunderstandings: "The power of compounding is often underestimated. Small differences in rates compound into large differences over long periods."

@@ -1,0 +1,165 @@
+# Analogy Reviewer — Structured Products Desk Bible v2 (Parts 0-4)
+# Reviewer: Analogy Quality Specialist
+# Date: 2026-06-19
+# Scope: Parts 0 through 4 (~2,183 lines)
+# Rule: Analogies must be accurate, memorable, consistent, and not break under scrutiny.
+
+overall_analogy_score: 8.0
+
+total_analogies: 32
+strong: 23
+adequate: 5
+weak: 3
+missing: 6
+conflicting: 1
+
+strong_analogies:
+  - analogy: "Village marketplace → financial markets"
+    location: "0.1"
+    strength: "Perfect entry-level framing. Referenced again in 1.1 (bid/offer), maintaining continuity. Scalable — the village marketplace grows into global markets without breaking."
+
+  - analogy: "Bakery → capital raising"
+    location: "0.2"
+    strength: "Concrete, relatable, and precise. The three choices (save, borrow, sell ownership) map directly to retained earnings, debt, and equity."
+
+  - analogy: "Lending to a friend → debt; investing in a friend's business → equity"
+    location: "0.3"
+    strength: "The parallel structure (same friend, two different deals) highlights the key distinction clearly."
+
+  - analogy: "Savings account vs startup → risk-return"
+    location: "0.4"
+    strength: "The 2% vs potential double-or-nothing framing is intuitive and leads naturally into the risk spectrum."
+
+  - analogy: "Restaurant reservation → call option"
+    location: "1.2"
+    strength: "Precise mapping: deposit = premium, reserved table = underlying, Saturday = expiry, choice to go or cancel = optionality. One of the best option analogies available."
+
+  - analogy: "Painting insurance → put option"
+    location: "1.2"
+    strength: "Insurance framing is accurate and memorable. The $10,000 painting, $500 premium, $9,000 floor example is concrete. This analogy is correctly reused for CDS in 1.8."
+
+  - analogy: "Tripwire → barrier option"
+    location: "1.3"
+    strength: "Vivid, immediately understood, and accurate. The security laser analogy maps perfectly to knock-in activation."
+
+  - analogy: "Light switch → digital option"
+    location: "1.3"
+    strength: "The ON/OFF vs dimmer comparison captures the binary-vs-proportional distinction perfectly."
+
+  - analogy: "Melting ice cream → Theta (time decay)"
+    location: "1.4"
+    strength: "Memorable and accurate. The ice cream melts at a predictable rate, just as time value decays. The image sticks."
+
+  - analogy: "Calm seas vs stormy seas → volatility"
+    location: "1.5"
+    strength: "Effective and intuitive. The two sailors crossing the same lake but in different conditions captures the 'same destination, different uncertainty' aspect of volatility well."
+
+  - analogy: "Weather forecast vs yesterday's weather → implied vs realized volatility"
+    location: "1.5"
+    strength: "Clean parallel. Yesterday's weather is a fact; tomorrow's forecast is an estimate. Maps exactly to realized vs implied."
+
+  - analogy: "Orchestra → correlation"
+    location: "1.6"
+    strength: "Elegant. Musicians in lockstep (correlation +1), independent (0), and opposite (-1) are immediately visual. The concept of 'somewhat synchronized' captures real-world correlation."
+
+  - analogy: "Custom kitchen/furniture → structured product"
+    location: "2.1"
+    strength: "Effective framing. Mass-produced furniture = stocks/bonds, custom carpenter = the bank. Captures the bespoke nature of structured products."
+
+  - analogy: "Water treatment plant → Four-Leg Framework"
+    location: "2.3"
+    strength: "Works structurally — multiple processing stages, flow direction, internal vs external. More complex than other analogies but appropriate for the concept."
+
+  - analogy: "Casino → hedging"
+    location: "2.7"
+    strength: "The key insight (earn the edge, don't gamble on any single outcome) is precisely captured. Effective for explaining why hedging works."
+
+  - analogy: "Restaurant → FO/MO/BO"
+    location: "0.12"
+    strength: "Kitchen (revenue), floor manager (controls), dishwashers (processing) — clean three-part mapping that's immediately understood."
+
+adequate_analogies:
+  - analogy: "Steering wheel → Delta"
+    location: "1.4"
+    assessment: "Captures directionality but not magnitude. Delta's key property — that it ranges from 0 to 1 and tells you your proportional exposure — is not captured by a steering wheel. The analogy works for 'which direction' but not for 'how much exposure.'"
+
+  - analogy: "Steering sensitivity → Gamma"
+    location: "1.4"
+    assessment: "Extends the Delta car analogy logically, but Gamma's most important behavior — that it spikes near barriers and at expiry — is not captured. A better extension might be: 'Gamma is like driving on ice near a cliff edge — the closer you get to the edge, the more sensitive the steering becomes.'"
+
+  - analogy: "Hotel room pricing → forward rates"
+    location: "1.7"
+    assessment: "Captures the concept (price for a future reservation vs price for tonight) but is too brief. The analogy is introduced in one sentence and not developed. Forward rates deserve a worked example: 'Tonight's room is $200. A room six months from now is $180. What does this imply about rates in between?'"
+
+  - analogy: "Neighbor lending → credit risk"
+    location: "1.8"
+    assessment: "Effective for the concept of credit assessment, but the analogy doesn't extend to credit spreads. The reader must make a conceptual jump from 'I'd charge Neighbor B more' to 'the credit spread is the market's aggregate assessment of default probability.' A bridge sentence would help."
+
+  - analogy: "Insurance on a loan → CDS"
+    location: "1.8"
+    assessment: "Accurate and reuses the insurance framing from put options (1.2), which is a strength. But the analogy misses the key distinction: unlike real insurance, you can buy CDS protection on a loan you don't own. This is important for understanding speculative CDS use and will matter in Part 5."
+
+weak_analogies:
+  - analogy: "Lottery ticket → Vega"
+    location: "1.4"
+    assessment: "Inaccurate mapping. The analogy explains why options are more valuable with more uncertainty (which is about option price, not specifically Vega). Vega measures sensitivity — how much the option price changes per unit change in implied volatility. A lottery ticket analogy doesn't capture 'sensitivity to changes in expected uncertainty.' Better analogy: 'Vega is like the price sensitivity of an umbrella to a weather forecast. If the forecast changes from 30% chance of rain to 60% chance, umbrella prices jump. Vega measures how much your option's price jumps when the market's volatility forecast changes.'"
+
+  - analogy: "Maximum price guarantee → cap; Minimum income guarantee → floor"
+    location: "1.7"
+    assessment: "These are definitions disguised as analogies. A maximum price guarantee IS what a cap does — the analogy doesn't add understanding, it restates the definition in different words. A real analogy would connect to something the reader already knows: 'A cap is like a fixed-rate ceiling on a variable mortgage — no matter how high rates go, you never pay more than X%. A floor is like a guaranteed minimum return on your savings account.'"
+
+  - analogy: "Weather forecast model → model risk"
+    location: "1.8"
+    assessment: "The analogy is reasonable but creates a CONFLICT with the implied volatility analogy in Section 1.5, which also uses weather forecasting. Using 'weather forecast' for two different concepts (implied volatility = the forecast itself; model risk = the forecast being wrong) risks confusion. Consider replacing with a different domain: 'Model risk is like using a road map from 2010 to navigate a city that has built new highways and demolished old intersections. The map was accurate when it was made, but reality has changed in ways the map cannot show.'"
+
+conflicting_analogies:
+  - analogy_a: "Restaurant (kitchen/floor manager/dishwashers) → FO/MO/BO (Section 0.12)"
+    analogy_b: "Casino → hedging (Section 2.7)"
+    conflict: "The restaurant analogy establishes the front office (trading/hedging) as 'the kitchen.' But the casino analogy in 2.7 frames the entire hedging desk as a casino — which is a complete business, not a kitchen. A careful reader might wonder: is the trading desk a kitchen (one part of a larger operation) or a casino (a self-contained business)? The casino analogy's key insight is correct (earn the house edge, don't gamble), but it should be framed as extending, not replacing, the restaurant: 'Think of the kitchen as running a casino inside the restaurant — the chef doesn't gamble on each dish; they follow tested recipes to earn a consistent margin.'"
+
+missing_analogies:
+  - concept: "CMS rates (Constant Maturity Swap)"
+    location: "1.7"
+    impact: "CMS rates are central to STEG products. Without an analogy, the reader must understand the abstract concept of 'the current market rate for a swap of a specific maturity' through pure definition."
+    suggestion: "Analogy: 'CMS rates are like real-time price quotes for fixed-rate mortgages of different lengths. The 2-year CMS rate is today's price for a 2-year fixed-rate deal. The 30-year CMS rate is today's price for a 30-year fixed-rate deal. The difference between them tells you how much extra the market charges for locking in a rate for longer.'"
+
+  - concept: "Swaptions"
+    location: "1.7"
+    impact: "An option on a swap is a compound concept. Without an analogy, a beginner must process two abstract layers simultaneously."
+    suggestion: "Analogy: 'A swaption is like a reservation at a gym. You pay a small fee today for the right to sign up for a 2-year membership at today's rate, any time in the next three months. If membership prices rise, you exercise and lock in the lower rate. If prices fall, you let the reservation expire and sign up at the cheaper rate.'"
+
+  - concept: "Notional"
+    location: "Part 0/2"
+    impact: "Notional is used throughout Parts 2-5 but never given an analogy."
+    suggestion: "Analogy: 'Notional is like the face value of a gift card. A $100 gift card might only cost you $95, and you might earn $5 in rewards from it, but all calculations are based on the $100 — that is the notional.'"
+
+  - concept: "Product family evolution (Part 3)"
+    location: "3.3–3.8"
+    impact: "The family trees list products without explaining why they evolved."
+    suggestion: "Analogy: 'Each ELN family tree is like a smartphone product line. The base model (Reverse Convertible) is the standard phone. Each variant adds one feature: the DRC adds a discount (like a trade-in deal), the CRC adds issuer optionality (like a lease), the Phoenix adds conditional coupons and memory (like a premium plan with rollover data).'"
+
+  - concept: "How to read comparison matrices (Part 4)"
+    location: "4.1"
+    impact: "Dense tables without guidance."
+    suggestion: "Analogy: 'A comparison matrix is like a restaurant menu with columns for price, spice level, and portion size. You don't read it top to bottom — you look at the columns that matter most to you. For structured products, start with Coupon (what you earn) and Barrier (what you risk).'"
+
+  - concept: "Path-dependence (3.2)"
+    location: "3.2"
+    impact: "Used as a complexity classifier but never given an analogy."
+    suggestion: "Analogy: 'A non-path-dependent product is like weighing yourself at the end of a diet — only the final number matters. A path-dependent product is like a step-counter — every step along the way affects your final result.'"
+
+recommendations:
+  - priority: high
+    action: "Replace the Vega lottery ticket analogy with the umbrella/weather forecast analogy. The current analogy is imprecise."
+  - priority: high
+    action: "Add analogies for CMS rates, swaptions, and notional. These are critical concepts that currently have definition-only introductions."
+  - priority: high
+    action: "Add the path-dependence analogy to Section 3.2. Path-dependence is a key complexity dimension."
+  - priority: medium
+    action: "Resolve the weather forecast conflict between Sections 1.5 and 1.8. Replace the model risk weather analogy with the road map analogy."
+  - priority: medium
+    action: "Resolve the restaurant/casino conflict between 0.12 and 2.7. Frame the casino as a metaphor within the restaurant, not a replacement."
+  - priority: medium
+    action: "Add product family evolution narrative to Part 3 trees. The smartphone product line analogy works well."
+  - priority: low
+    action: "Strengthen cap/floor analogies in 1.7. The current one-liners are definitions, not analogies."

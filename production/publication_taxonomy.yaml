@@ -1,0 +1,370 @@
+# Publication Taxonomy — Desk Bible v2
+# Version: 1.0
+# Date: 2026-06-22
+# Purpose: Canonical categorical values for Comparison Matrix fields.
+#           Maps all manuscript variants into standardized categories.
+#
+# GOVERNANCE:
+#   1. This file defines the allowed values for 6 CM dimensions.
+#   2. Each dimension has 3-6 canonical categories.
+#   3. Each category lists the manuscript variants that map to it.
+#   4. DNA Atlas and Comparison Matrix generators must use canonical values.
+#   5. Frozen after Publication Metadata Freeze.
+
+dimensions:
+
+  # ================================================================
+  # CREDIT EXPOSURE
+  # ================================================================
+  credit_exposure:
+    categories:
+      - canonical: "Issuer"
+        description: "Investor bears issuer/bank credit risk. Note format."
+        variants:
+          - "Issuer"
+          - "Issuer (note format)"
+          - "Issuer (bank)"
+          - "Issuer (deposit, not OTC)"
+          - "Issuer (mitigated by deposit insurance)"
+        sections: ["5.1.1","5.1.2","5.1.3","5.1.4","5.1.5","5.1.6","5.1.7","5.1.8","5.1.9","5.1.10","5.1.11","5.1.12","5.1.13","5.1.14","5.3.2","5.3.3","5.3.5","5.4.1","5.4.2","5.4.3","5.4.4","5.6.1","5.6.4","5.6.5","5.6.8","5.6.9","5.6.11"]
+
+      - canonical: "Counterparty"
+        description: "Bilateral OTC — investor bears counterparty credit risk."
+        variants:
+          - "Counterparty"
+          - "Counterparty (bilateral)"
+          - "Counterparty (bilateral OTC)"
+          - "Counterparty (bilateral, mitigated by CSA)"
+          - "Counterparty (bilateral swap)"
+        sections: ["5.2.1","5.2.2","5.2.3","5.2.4","5.2.6","5.2.7","5.2.8","5.3.1","5.6.2","5.6.6","5.6.7"]
+
+      - canonical: "Counterparty + Reference"
+        description: "Counterparty risk plus credit exposure to reference entity."
+        variants:
+          - "Counterparty + reference entity"
+        sections: ["5.2.5"]
+
+      - canonical: "Reference Entity + Issuer"
+        description: "Credit-linked — exposed to reference entity default AND issuer."
+        variants:
+          - "Reference entity + Issuer (dual credit)"
+          - "Reference entity + issuer"
+          - "Basket reference entities + issuer"
+        sections: ["5.5.1","5.5.2","5.5.3","5.5.4"]
+
+      - canonical: "Portfolio"
+        description: "Exposure to portfolio of reference entities. Tranched loss allocation."
+        variants:
+          - "Portfolio of 50-125 reference entities"
+        sections: ["5.5.5"]
+
+      - canonical: "Exchange"
+        description: "Exchange-traded — clearing house as counterparty."
+        variants:
+          - "Exchange counterparty"
+          - "Exchange: clearing house. OTC: counterparty"
+        sections: ["5.1.15","5.6.3"]
+
+      - canonical: "Issuer or Counterparty"
+        description: "Depends on wrapper (note vs OTC derivative)."
+        variants:
+          - "Issuer or counterparty"
+        sections: ["5.3.4","5.6.10","5.6.12"]
+
+  # ================================================================
+  # LIQUIDITY
+  # ================================================================
+  liquidity:
+    categories:
+      - canonical: "Exchange-Traded"
+        description: "Listed on exchange. Continuous pricing. High liquidity."
+        variants:
+          - "Exchange-traded (high)"
+          - "Exchange: high. OTC: negotiated"
+        sections: ["5.1.15","5.6.3"]
+
+      - canonical: "Secondary Market"
+        description: "Dealer-quoted secondary market. Bid-offer spread applies."
+        variants:
+          - "Secondary market"
+          - "Secondary market (limited)"
+          - "Secondary market (duration-dependent pricing)"
+          - "Secondary market (model-dependent)"
+        sections: ["5.1.1","5.1.2","5.1.3","5.1.4","5.1.5","5.1.6","5.1.7","5.1.8","5.1.9","5.1.10","5.1.11","5.1.12","5.1.13","5.1.14","5.3.2","5.3.3","5.3.5","5.4.1","5.5.1","5.6.9","5.6.11"]
+
+      - canonical: "OTC — Liquid"
+        description: "OTC bilateral market with good liquidity for standard tenors."
+        variants:
+          - "OTC (very liquid)"
+          - "OTC"
+          - "OTC (index tenors liquid)"
+          - "OTC (5Y IG liquid, HY less so)"
+          - "OTC (major pairs liquid)"
+          - "OTC (varies by commodity)"
+          - "OTC (less liquid than IRS)"
+          - "OTC negotiated"
+        sections: ["5.2.1","5.2.2","5.2.3","5.2.4","5.2.5","5.2.6","5.2.7","5.2.8","5.6.2"]
+
+      - canonical: "OTC — Model-Dependent"
+        description: "OTC with model-driven pricing. Wide bid-offer. Limited dealer interest."
+        variants:
+          - "OTC — model-dependent"
+          - "OTC — model-dependent, index tranches more liquid"
+          - "OTC — unwind at MTM"
+          - "OTC / model-dependent"
+          - "OTC / limited"
+        sections: ["5.3.1","5.3.4","5.4.2","5.4.3","5.4.4","5.5.2","5.5.3","5.5.4","5.5.5","5.6.10","5.6.12"]
+
+      - canonical: "Very Limited"
+        description: "Minimal secondary market. Hold-to-maturity expected."
+        variants:
+          - "Very limited"
+          - "Limited (early redemption at bank's discretion)"
+          - "Hold-to-maturity"
+          - "Maturity only"
+        sections: ["5.6.1","5.6.4","5.6.5","5.6.6","5.6.7","5.6.8"]
+
+  # ================================================================
+  # CLIENT TYPE
+  # ================================================================
+  client_type:
+    categories:
+      - canonical: "Retail"
+        description: "Mass-market retail investors. Simple products."
+        variants:
+          - "Retail"
+          - "Retail / Active traders"
+        sections: ["5.1.15","5.6.1"]
+
+      - canonical: "Retail / Private Banking"
+        description: "Retail and private banking clients. Moderate complexity."
+        variants:
+          - "Retail / Private banking"
+          - "Retail / Institutional (pension, foundation)"
+          - "Retail / Institutional"
+          - "Private banking / Retail"
+        sections: ["5.1.1","5.1.8","5.1.12","5.1.13","5.6.4","5.6.12"]
+
+      - canonical: "Private Banking"
+        description: "High-net-worth and wealth management. Core structured products."
+        variants:
+          - "Private banking"
+          - "Private banking / High-net-worth"
+          - "Private banking / Wealth management"
+          - "Private banking / Institutional"
+          - "Private banking (especially APAC)"
+          - "Private banking (Asia) / Institutional"
+          - "Private banking / Corporate"
+          - "Private banking / Conservative institutional"
+        sections: ["5.1.2","5.1.3","5.1.4","5.1.5","5.1.6","5.1.9","5.1.11","5.1.14","5.6.8","5.6.9","5.6.10","5.6.11"]
+
+      - canonical: "Institutional"
+        description: "Banks, insurance, pension funds, asset managers."
+        variants:
+          - "Institutional"
+          - "Institutional (insurance, pension)"
+          - "Institutional (pension, insurance)"
+          - "Institutional / Private banking"
+          - "Institutional / Corporate"
+          - "Institutional / Hedge funds"
+          - "Banks, Corporates, Institutional"
+          - "Banks, Corporates"
+          - "Banks, Hedge funds, Insurance"
+          - "Corporates, Banks, Sovereigns"
+          - "Producers, Consumers, Trading firms"
+          - "Institutional credit investors"
+          - "Institutional credit"
+          - "All"
+        sections: ["5.1.7","5.1.10","5.2.1","5.2.2","5.2.3","5.2.5","5.2.6","5.2.7","5.2.8","5.3.1","5.3.2","5.3.3","5.3.5","5.4.1","5.4.3","5.5.1","5.5.2","5.5.3","5.5.5","5.6.2","5.6.3"]
+
+      - canonical: "Sophisticated Institutional"
+        description: "Hedge funds, specialist desks, structured credit investors."
+        variants:
+          - "Sophisticated institutional"
+          - "Sophisticated institutional credit"
+          - "Hedge funds, Dealers, Sophisticated institutional"
+          - "Sophisticated retail / Institutional"
+          - "High-net-worth / Institutional"
+          - "High-net-worth / Institutional / Corporate"
+        sections: ["5.2.4","5.3.4","5.4.2","5.4.4","5.5.4","5.6.5","5.6.6","5.6.7"]
+
+  # ================================================================
+  # PATH DEPENDENCY
+  # ================================================================
+  path_dependency:
+    categories:
+      - canonical: "None"
+        description: "No path dependency. Payoff determined by final state only."
+        variants:
+          - "No"
+          - "No (European observation at maturity only)"
+          - "No (European put, maturity observation only)"
+          - "No (European observation at maturity)"
+          - "No (European-style call)"
+          - "No (or European observation)"
+          - "None"
+          - "None (European)"
+          - "None (European). Low (American — early exercise)"
+          - "None (single observation at maturity)"
+          - "No (credit event is binary)"
+          - "No (first default is binary)"
+          - "No (counting defaults, not timing)"
+          - "Depends on features"
+        sections: ["5.1.1","5.1.2","5.1.4","5.1.7","5.1.13","5.2.1","5.2.2","5.2.3","5.2.5","5.2.6","5.2.7","5.2.8","5.3.1","5.3.2","5.5.1","5.5.2","5.5.3","5.5.4","5.6.1","5.6.2","5.6.3","5.6.4","5.6.5","5.6.8"]
+
+      - canonical: "Low"
+        description: "Limited path dependency. Discrete observation dates (call, autocall)."
+        variants:
+          - "Yes (call observation dates)"
+          - "Yes (periodic observation dates)"
+          - "Yes (autocall dates + maturity barrier)"
+          - "No (European) or Yes (Turbo with barrier)"
+          - "Low (European option on RC)"
+          - "Yes (periodic coupon observations)"
+          - "Yes (coupon observation + call dates)"
+          - "Yes (observation dates)"
+        sections: ["5.1.6","5.1.9","5.1.11","5.1.12","5.1.15","5.3.5","5.4.1","5.4.3"]
+
+      - canonical: "Moderate"
+        description: "Barrier monitoring or periodic observation affecting payoff."
+        variants:
+          - "Yes (periodic barrier observation + autocall dates)"
+          - "Yes (continuous or discrete barrier observation)"
+          - "Yes (continuous barrier observation)"
+          - "Yes (digital observation + barrier monitoring)"
+          - "Yes (autocall observations, barrier monitoring)"
+          - "Yes (daily realised vol observation)"
+          - "Yes (daily observation within range)"
+          - "Yes (daily range observation + call dates)"
+          - "Yes (daily range + call dates)"
+          - "Yes (daily range + periodic curve observation)"
+          - "Yes (loss accumulation through portfolio)"
+          - "Yes (continuous barrier observation)"
+        sections: ["5.1.3","5.1.5","5.1.8","5.1.10","5.1.14","5.2.4","5.3.3","5.3.4","5.4.2","5.5.5","5.6.9","5.6.12"]
+
+      - canonical: "High"
+        description: "Entire path history determines payoff. Daily observations with gearing."
+        variants:
+          - "High (daily observations, knock-out, gearing)"
+          - "Very high (accumulated coupon determines termination)"
+          - "Very high — cumulative coupon depends on entire path"
+          - "Very high — periodic returns, not final level, determine payoff"
+        sections: ["5.4.4","5.6.6","5.6.7","5.6.10","5.6.11"]
+
+  # ================================================================
+  # CORRELATION SENSITIVITY
+  # ================================================================
+  correlation_sensitivity:
+    categories:
+      - canonical: "None"
+        description: "Single underlying. No correlation exposure."
+        variants:
+          - "None"
+          - "None (single underlying)"
+          - "None (single index)"
+          - "None (single stock)"
+          - "None (single reference entity)"
+          - "None (single name)"
+          - "None (single underlying variance)"
+          - "None (single currency pair)"
+          - "None or low (single underlying)"
+          - "None (single) or Low (basket)"
+          - "None unless basket"
+          - "None (single stock) or moderate (basket)"
+          - "None for single-underlying version; high for basket version"
+          - "Low unless worst-of variant"
+        sections: ["5.1.1","5.1.2","5.1.3","5.1.4","5.1.5","5.1.6","5.1.7","5.1.8","5.1.9","5.1.10","5.1.11","5.1.12","5.1.13","5.1.14","5.1.15","5.2.1","5.2.2","5.2.3","5.2.4","5.2.5","5.2.7","5.2.8","5.3.1","5.3.2","5.3.3","5.3.4","5.3.5","5.5.1","5.5.2","5.6.1","5.6.2","5.6.3","5.6.4","5.6.5","5.6.6","5.6.7","5.6.8","5.6.9","5.6.10","5.6.11"]
+
+      - canonical: "Moderate"
+        description: "Rate correlation or cross-asset basis. CMS spread products."
+        variants:
+          - "CMS rate correlation (long-short rate correlation)"
+          - "CMS rate correlation"
+          - "Cross-currency basis correlation"
+        sections: ["5.2.6","5.4.1","5.4.2","5.4.3","5.4.4"]
+
+      - canonical: "High"
+        description: "Credit correlation or multi-asset worst-of. Drives pricing."
+        variants:
+          - "Very high — low correlation increases FTD risk"
+          - "Very high — reversed from FTD (high correlation increases NTD risk)"
+          - "Very high. Low correlation = higher risk, higher coupon. High correlat"
+        sections: ["5.5.3","5.5.4","5.6.12"]
+
+      - canonical: "Extreme"
+        description: "Correlation IS the primary risk factor. Portfolio-level products."
+        variants:
+          - "Extreme — correlation drives all tranche pricing. Highest of any produ"
+        sections: ["5.5.5"]
+
+  # ================================================================
+  # VOLATILITY SENSITIVITY
+  # ================================================================
+  volatility_sensitivity:
+    categories:
+      - canonical: "None"
+        description: "Linear payoff. No optionality."
+        variants:
+          - "None (linear payoff, no optionality)"
+          - "Low (linear product)"
+          - "Low (no embedded options)"
+        sections: ["5.2.1","5.3.2","5.6.2"]
+
+      - canonical: "Low"
+        description: "Minimal vega. Credit-driven or simple structure."
+        variants:
+          - "Low"
+          - "Low (credit, not vol)"
+          - "Low (credit, not vol, driven)"
+          - "Low to moderate (cap/floor adds vega)"
+          - "Depends on reference asset"
+        sections: ["5.2.2","5.2.5","5.2.8","5.5.1","5.5.2","5.5.3","5.5.4","5.5.5"]
+
+      - canonical: "Long Vega"
+        description: "Investor benefits from rising volatility. Long option positions."
+        variants:
+          - "Long vega (long call option)"
+          - "Long vega (leveraged call spread)"
+          - "Long vega (long option)"
+          - "Long vega on CMS spread"
+          - "Long vega (long forward-starting options). Forward vol curve matters"
+          - "Long vol (higher vol = higher option value at inception)"
+          - "High (vega is the defining characteristic)"
+          - "High (long vega)"
+          - "Full equity vol exposure"
+          - "Full commodity vol exposure"
+        sections: ["5.1.1","5.1.13","5.1.15","5.2.3","5.2.7","5.4.1","5.6.1","5.6.3","5.6.4","5.6.11"]
+
+      - canonical: "Short Vega"
+        description: "Investor loses from rising volatility. Sold option positions."
+        variants:
+          - "Short vega"
+          - "Short vega (investor sold put)"
+          - "Short vega (sold call)"
+          - "Short vega (sold digital options)"
+          - "Short vega (sold digital + put)"
+          - "Short vega (sold both put and call)"
+          - "Short vega near barrier"
+          - "Short vega (sold swaption)"
+          - "Short vega on reference rate"
+          - "Short vega (both digital and swaption)"
+          - "Short vega (short options via autocall and barrier)"
+          - "Short vega (short options via barrier and autocall). Each stock's vol "
+          - "Short vega (higher vol = higher coupon but higher conversion risk)"
+        sections: ["5.1.2","5.1.4","5.1.6","5.1.9","5.1.10","5.1.11","5.1.14","5.1.8","5.3.1","5.3.3","5.3.4","5.4.3","5.6.8","5.6.10","5.6.12"]
+
+      - canonical: "Complex"
+        description: "Mixed vega exposure. Depends on spot relative to barrier/strike."
+        variants:
+          - "Short vega below barrier, long vega above"
+          - "Concentrated near barrier"
+          - "Concentrated near digital strike"
+          - "Complex (long call vega + short put spread vega)"
+          - "Complex (vol affects both option layer and RC layer oppositely)"
+          - "Complex (affects path to target)"
+          - "Short vega (range) + long vega (curve)"
+          - "Mixed — higher vol increases barrier breach probability but also makes"
+          - "Moderate (both rate and FX vol)"
+          - "Maximum — this is a pure vol instrument"
+          - "High (knock-out barrier + gearing sensitivity)"
+        sections: ["5.1.3","5.1.5","5.1.7","5.1.12","5.2.4","5.2.6","5.3.5","5.4.2","5.4.4","5.6.5","5.6.6","5.6.7","5.6.9"]

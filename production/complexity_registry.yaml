@@ -1,0 +1,352 @@
+# Complexity Registry — Desk Bible v2
+# Version: 1.0
+# Date: 2026-06-20
+# Authority: Framework Master v1.3.1
+# Purpose: Single authoritative complexity scale for all 49 products.
+#           Every product receives a Complexity Score (1-10) and rationale.
+#
+# GOVERNANCE RULES:
+#   1. Scores are assigned during chapter generation (in §4 Product DNA).
+#   2. Scores must be calibrated against the full product universe, not just
+#      the current batch. Use the scale definition below.
+#   3. Once a score is assigned and the chapter is accepted, the score is frozen.
+#      It may only change during the Template Harmonization Pass (after 49/49).
+#   4. If a score conflict is identified during batch review, the batch review
+#      must resolve it before acceptance.
+#   5. This file is the canonical registry. The §4 Product DNA in each chapter
+#      must match this file. If they disagree, this file is authoritative.
+#
+# SCALE DEFINITION:
+#   1-2: Vanilla. Standard, liquid, well-understood. One or zero embedded features.
+#        Examples: PPN, VLSP, Vanilla CLN, Structured Deposit.
+#   3-4: Standard structured. One embedded feature or one conditional element.
+#        Examples: RC, DRC, IRS, Bonus Note, Forward Contract.
+#   5-6: Moderate complexity. Multiple features, conditions, or observation dates.
+#        Examples: Phoenix, CRA ELN, TRS, CDS, Equity Swap, Cross-Currency Swap.
+#   7-8: Complex. Path-dependent, multi-barrier, multi-asset, or nonlinear payoff.
+#        Examples: Digital Coupon Knock-In Put, Variance Swap, FTD, Accumulator, TARN STEG.
+#   9-10: Highly complex. Requires specialist knowledge; multiple interacting
+#         risk factors; correlation-dependent or portfolio-level.
+#         Examples: Synthetic CDO Tranche, NTD.
+#
+# SCORING GUIDANCE:
+#   - Number of embedded options or features
+#   - Path dependency (does history matter?)
+#   - Number of observation dates
+#   - Number of barriers or conditional triggers
+#   - Number of underlying assets
+#   - Correlation dependency
+#   - Settlement complexity
+#   - Hedging difficulty
+#   - Operational complexity
+#
+# MAINTENANCE RULES:
+#   - Updated during chapter generation (new products)
+#   - Reviewed during family-level reviews (calibration within family)
+#   - Frozen after Template Harmonization Pass
+
+products:
+  # === BATCH 0 — PILOT ===
+  - section: "5.1.1"
+    name: "PPN"
+    family: "ELN"
+    score: 2
+    rationale: "Bond + call option. No barriers, no conditionality. Simplest ELN."
+
+  - section: "5.1.2"
+    name: "RC"
+    family: "ELN"
+    score: 3
+    rationale: "Bond + short put. One barrier (KI). Single observation at maturity."
+
+  - section: "5.1.3"
+    name: "Phoenix"
+    family: "ELN"
+    score: 6
+    rationale: "Multiple observation dates, conditional coupon, memory feature, autocall, KI barrier. Path-dependent."
+
+  - section: "5.2.1"
+    name: "IRS"
+    family: "Swaps"
+    score: 3
+    rationale: "Fixed vs floating. No optionality. Standard swap structure."
+
+  - section: "5.5.1"
+    name: "CLN"
+    family: "CLN"
+    score: 4
+    rationale: "Bond + credit default swap. One credit event trigger. Single reference entity."
+
+  # === BATCH 1 — ELN RC FAMILY ===
+  - section: "5.1.4"
+    name: "DRC"
+    family: "ELN"
+    score: 3
+    rationale: "RC variant. Discount replaces coupon. One barrier. Single observation."
+
+  - section: "5.1.5"
+    name: "KODRC"
+    family: "ELN"
+    score: 4
+    rationale: "DRC + knock-out barrier. Two barriers (KI + KO). Continuous monitoring."
+
+  - section: "5.1.6"
+    name: "CRC"
+    family: "ELN"
+    score: 5
+    rationale: "RC + issuer call right. Bermudan exercise. Multiple observation dates."
+
+  - section: "5.1.7"
+    name: "Airbag"
+    family: "ELN"
+    score: 4
+    rationale: "RC variant with wider barrier and leveraged downside. One barrier, one leverage factor."
+
+  - section: "5.1.8"
+    name: "Bonus Note"
+    family: "ELN"
+    score: 4
+    rationale: "Conditional bonus + down-and-out barrier. One barrier, one bonus level."
+
+  # === BATCH 2 — ELN AUTOCALL + OTHER ===
+  - section: "5.1.9"
+    name: "FCN"
+    family: "ELN"
+    score: 6
+    rationale: "Fixed coupon, autocall, KI barrier. Step-down autocall adds path dependency. Multiple observation dates."
+
+  - section: "5.1.10"
+    name: "CRA ELN"
+    family: "ELN"
+    score: 6
+    rationale: "Range accrual mechanism. Daily observation. Coupon depends on days-in-range. Multiple conditional elements."
+
+  - section: "5.1.11"
+    name: "ICN"
+    family: "ELN"
+    score: 3
+    rationale: "Issuer callable note. Simple callable bond economics. One call feature."
+
+  - section: "5.1.12"
+    name: "Digital Coupon Note"
+    family: "ELN"
+    score: 4
+    rationale: "Binary payoff at observation. One barrier, digital (all-or-nothing) coupon."
+
+  - section: "5.1.13"
+    name: "Booster"
+    family: "ELN"
+    score: 4
+    rationale: "Leveraged upside participation, full downside. One leverage factor, no barrier protection."
+
+  # === BATCH 3 — ELN COMPLEX + STANDALONE ===
+  - section: "5.1.14"
+    name: "Digital Coupon Knock-In Put"
+    family: "ELN"
+    score: 7
+    rationale: "Three barriers (autocall, coupon, KI). Digital coupon + path dependency + KI capital risk. Most complex ELN."
+
+  - section: "5.1.15"
+    name: "Warrant"
+    family: "ELN"
+    score: 3
+    rationale: "Standalone option certificate. One strike, one expiry. Turbo variant adds KO barrier (score 4)."
+
+  # === BATCH 4 — SWAPS CORE ===
+  - section: "5.2.2"
+    name: "TRS"
+    family: "Swaps"
+    score: 5
+    rationale: "Total return exchange. Two legs with different risk factors. Synthetic ownership adds complexity."
+
+  - section: "5.2.3"
+    name: "Equity Swap"
+    family: "Swaps"
+    score: 5
+    rationale: "TRS specialized to equity. Dividend treatment (gross/net) and quanto risk add nuance."
+
+  - section: "5.2.4"
+    name: "Variance Swap"
+    family: "Swaps"
+    score: 7
+    rationale: "Nonlinear payoff (linear in variance, convex in volatility). Realized variance calculation. Vega notional vs variance notional."
+
+  - section: "5.2.5"
+    name: "CDS"
+    family: "Swaps"
+    score: 5
+    rationale: "Credit event triggers (3 types). Settlement complexity (physical/cash/auction). ISDA Determinations Committee."
+
+  # === BATCH 5 — SWAPS REMAINING ===
+  - section: "5.2.6"
+    name: "Cross-Currency Swap"
+    family: "Swaps"
+    score: 5
+    rationale: "Principal exchange in two currencies. Cross-currency basis. Settlement risk (Herstatt). Two-currency operations."
+
+  - section: "5.2.7"
+    name: "Commodity Swap"
+    family: "Swaps"
+    score: 4
+    rationale: "Fixed vs floating commodity price. Asian averaging. Basis risk. Simpler than credit/currency swaps."
+
+  - section: "5.2.8"
+    name: "VLSP"
+    family: "Swaps"
+    score: 2
+    rationale: "Plain vanilla IRS. Most standardized, most liquid. Central clearing. Building block for SRT/STEG."
+
+  # === BATCH 6 — SRT ===
+  - section: "5.3.1"
+    name: "IR Callable"
+    family: "SRT"
+    score: 5
+    rationale: "Fixed coupon + embedded receiver swaption (call right). Four-leg SRT booking. Bermudan exercise. Moderate complexity — standard callable structure."
+
+  - section: "5.3.2"
+    name: "ZCL"
+    family: "SRT"
+    score: 4
+    rationale: "Zero-coupon accretion. No periodic cash flows. Four-leg SRT. Single maturity payment. Simpler than callable — no embedded optionality."
+
+  - section: "5.3.3"
+    name: "NCRA"
+    family: "SRT"
+    score: 6
+    rationale: "Conditional coupon via daily range accrual. Strip of digital options (cap + floor). Daily observation mechanism. Four-leg SRT. No call right but high monitoring complexity."
+
+  - section: "5.3.4"
+    name: "Callable Range Accrual SRT"
+    family: "SRT"
+    score: 7
+    rationale: "Combines range accrual + callable. Dual embedded options (digital strip + swaption). Correlation risk between range and call. Four-leg SRT. Most complex SRT product."
+
+  - section: "5.3.5"
+    name: "Digital Cap-Floor Note"
+    family: "SRT"
+    score: 5
+    rationale: "Strip of digital caplets. Binary payoff at each observation. Four-leg SRT. Digital gamma near strike. Moderate complexity — simpler than range accrual but discontinuous payoff."
+
+  # === BATCH 7 — STEG ===
+  - section: "5.4.1"
+    name: "Vanilla STEG"
+    family: "STEG"
+    score: 5
+    rationale: "Leveraged CMS spread coupon (CMS30Y - CMS2Y). Floor, cap. CMS convexity adjustment. Four-leg Murex. Moderate complexity — standard leveraged spread structure."
+
+  - section: "5.4.2"
+    name: "RA STEG"
+    family: "STEG"
+    score: 7
+    rationale: "Range accrual on CMS spread (not single rate). Daily observation of two CMS rates. Digital spread option strip. Correlation between CMS30Y and CMS2Y. Four-leg Murex. Complex — dual-boundary spread accrual."
+
+  - section: "5.4.3"
+    name: "Callable STEG"
+    family: "STEG"
+    score: 6
+    rationale: "Leveraged CMS spread + Bermudan call right. CMS convexity × swaption interaction. Four-leg Murex. Moderate-to-complex — dual embedded option structure."
+
+  - section: "5.4.4"
+    name: "TARN STEG"
+    family: "STEG"
+    score: 8
+    rationale: "Leveraged CMS spread with target accumulation and automatic redemption. Path-dependent — order of coupons matters. Truncated final coupon. Monte Carlo pricing required. Four-leg Murex. Complex — path dependency and target trigger."
+
+  # === BATCH 8 — CLN REMAINING ===
+  - section: "5.5.2"
+    name: "Skew CLN"
+    family: "CLN"
+    score: 5
+    rationale: "Vanilla CLN (4) + modified recovery mechanism adds one structural dimension. Single reference entity. No basket. No new conceptual framework required. Comparable to CRC (5) — adds one variant to a simpler base product."
+
+  - section: "5.5.3"
+    name: "FTD"
+    family: "CLN"
+    score: 7
+    rationale: "Single-name CLN (4) + basket mechanics + credit correlation + first-default trigger. Multiple interacting risk factors. Introduces credit correlation bridged from equity correlation (1.6). Comparable to Digital KI Put (7) and CRA SRT (7) — multi-factor products with non-obvious risk profiles."
+
+  - section: "5.5.4"
+    name: "NTD"
+    family: "CLN"
+    score: 8
+    rationale: "FTD (7) + Nth-default threshold + correlation reversal effect. Non-monotonic correlation sensitivity at extreme levels makes risk assessment fundamentally harder. Comparable to TARN STEG (8) — path-dependent behavior with non-obvious outcomes."
+
+  - section: "5.5.5"
+    name: "Synthetic CDO Tranche"
+    family: "CLN"
+    score: 10
+    rationale: "NTD (8) + tranching + attachment/detachment points + portfolio-level modeling + copula dependency + 2008 financial crisis context. Most complex product in the universe. Introduces entirely new framework (loss allocation waterfall). Framework explicitly anchors the scale at CDO=10."
+
+  # === BATCH 9 — OTHER ===
+  - section: "5.6.1"
+    name: "Structured Deposit"
+    family: "Other"
+    score: 2
+    rationale: "PPN mechanics in deposit wrapper. No additional structural features. Deposit insurance adds legal distinction but no complexity."
+
+  - section: "5.6.2"
+    name: "Forward Contract"
+    family: "Other"
+    score: 2
+    rationale: "Linear payoff. No optionality. No barriers. Single settlement. Foundation derivative."
+
+  - section: "5.6.3"
+    name: "Vanilla Option"
+    family: "Other"
+    score: 3
+    rationale: "Single strike, single expiry. No exotic features. Building block of all structured products."
+
+  - section: "5.6.4"
+    name: "ELO"
+    family: "Other"
+    score: 3
+    rationale: "Vanilla option in retail wrapper. No additional structural features beyond packaging and distribution margin."
+
+  - section: "5.6.5"
+    name: "Option on Reverse Convertible"
+    family: "Other"
+    score: 5
+    rationale: "Compound option: option layer (3) on RC layer (3). Two-layer structure. Compound Greeks. Vol-of-vol considerations."
+
+  - section: "5.6.6"
+    name: "Accumulator"
+    family: "Other"
+    score: 6
+    rationale: "Periodic accumulation with daily observations. Knock-out barrier. Gearing below strike doubles exposure. Path-dependent. Complex hedging due to compounding delta."
+
+  - section: "5.6.7"
+    name: "Decumulator"
+    family: "Other"
+    score: 6
+    rationale: "Mirror of Accumulator. Periodic selling with daily observations. Down knock-out. Gearing above strike. Same complexity mechanisms reversed."
+
+  # === BATCH 10 — OTHER (EXPANSION) ===
+  - section: "5.6.8"
+    name: "DCI"
+    family: "Other"
+    score: 3
+    rationale: "Deposit + single FX option. One strike, one observation. Simple two-currency mechanics."
+
+  - section: "5.6.9"
+    name: "Shark Fin Note"
+    family: "Other"
+    score: 4
+    rationale: "Capital protected + single up-and-out barrier. One barrier, one rebate level. PPN variant with barrier mechanic."
+
+  - section: "5.6.10"
+    name: "Snowball Autocallable Note"
+    family: "Other"
+    score: 7
+    rationale: "Autocall + conditional coupon + cumulative accumulation. Path-dependent — coupon amount depends on entire history of missed coupons. Multiple observation dates."
+
+  - section: "5.6.11"
+    name: "Cliquet Note"
+    family: "Other"
+    score: 7
+    rationale: "Serial forward-starting options. Multiple reset periods. Local + global caps/floors. Path-dependent — total return depends on sequence of periodic returns."
+
+  - section: "5.6.12"
+    name: "Worst-of Autocallable Note"
+    family: "Other"
+    score: 8
+    rationale: "Phoenix mechanics applied to multi-asset basket. Correlation-dependent pricing. Worst-of observation across 3-5 stocks. Quanto adjustment for cross-listed baskets. All Phoenix complexity plus correlation dimension."

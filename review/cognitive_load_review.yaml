@@ -1,0 +1,132 @@
+# Cognitive Load Reviewer — Structured Products Desk Bible v2 (Parts 0-4)
+# Reviewer: Cognitive Load Specialist
+# Date: 2026-06-19
+# Scope: Parts 0 through 4 (~2,183 lines)
+# Rule: Build mental models, not information dumps. Reinforce before advancing.
+
+overall_cognitive_load_score: 7.5
+
+load_map:
+  - section: "Part 0 (0.1–0.12)"
+    load: LOW
+    concepts_per_section: "1-2"
+    reinforcement: "Strong — each section ends with Mental Model and 'Why This Matters' bridge"
+    verdict: "Model section for cognitive load management. One concept per section, consistent pattern, immediate reinforcement."
+
+  - section: "1.1 Core Trading"
+    load: LOW-MODERATE
+    concepts: 7
+    reinforcement: "Adequate — each concept is self-contained with its own example"
+    verdict: "Seven concepts is borderline, but each is simple (1-2 sentences to define) and the section reads as a reference glossary. Acceptable."
+
+  - section: "1.2 Options From Zero"
+    load: MODERATE
+    concepts: 10
+    reinforcement: "Strong — payoff diagrams, tables, and the buyer-vs-seller comparison anchor learning"
+    verdict: "Dense but well-structured. The visual payoff diagrams and the moneyness example with $90/$100/$110 strikes provide concrete reinforcement. The section earns its length."
+
+  - section: "1.3 Barriers and Digitals"
+    load: LOW
+    concepts: 4
+    reinforcement: "Strong — vivid analogies, concrete stock price example"
+    verdict: "Well-managed. Four concepts with clear analogies and a practical example."
+
+  - section: "1.4 Greeks"
+    load: HIGH
+    concepts: 8
+    reinforcement: "WEAK — each Greek has an analogy but no worked example, no practice, no integration"
+    verdict: "OVERLOADED. Eight abstract risk measures (Delta, Gamma, Vega, Theta, Rho, Convexity, linear vs non-linear) in one section. Each gets one analogy but no numerical example. The reader must absorb eight new abstract concepts with no reinforcement between them. Compare to Section 1.2, which teaches a similar number of concepts but includes diagrams, tables, and worked examples."
+    fix: "Add a single integrated worked example after Theta that shows: 'You sold a put with Delta -0.50, Gamma 0.03, Theta -$5/day, Vega $2 per vol point. The stock drops $2. Your new Delta is -0.56. Your P&L from Delta: -$1.00. Your P&L from Theta (one day passed): +$5.00. Net: +$4.00.' This makes all the Greeks concrete simultaneously."
+
+  - section: "1.5 Volatility"
+    load: MODERATE-HIGH
+    concepts: 6
+    reinforcement: "Moderate — diagrams help, but variance section is underexplained"
+    verdict: "The implied-vs-realized distinction and the skew diagram are well-taught. The term structure diagram helps. But the jump from 'storminess of the sea' to volatility skew mathematics is large. The variance subsection feels tacked on — two sentences for a concept that will underpin Variance Swaps in Part 5."
+
+  - section: "1.6 Correlation and Baskets"
+    load: MODERATE
+    concepts: 4
+    reinforcement: "Strong — orchestra analogy, specific worst-of example with named stocks"
+    verdict: "Well-managed. The worst-of example with Apple/Samsung/Toyota and specific percentages is an effective reinforcement device."
+
+  - section: "1.7 Rates and Yield Curves"
+    load: VERY HIGH
+    concepts: 9
+    reinforcement: "WEAK — hotel analogy for forward rates, cap/floor analogies are one-liners, swaptions get no analogy"
+    verdict: "CRITICALLY OVERLOADED. Nine distinct concepts: yield curves, spot rates, forward rates, SOFR, EURIBOR, LIBOR transition, CMS rates, CMS spreads, swaps, caps, floors, swaptions. The first three are well-taught. From CMS onward, the section becomes a definition list. Caps, floors, and swaptions each receive ~2 sentences. The reader encounters six new financial instruments (SOFR, EURIBOR, CMS, cap, floor, swaption) with minimal reinforcement. This is the most overloaded section in the document."
+    fix: "Split into two sections. 1.7a: Yield Curves, Spot Rates, Forward Rates (with worked numerical example of discounting). 1.7b: Benchmark Rates, CMS, Swaps, Caps/Floors/Swaptions (with at least one worked swap cash flow example)."
+
+  - section: "1.8 Credit Risk"
+    load: MODERATE-HIGH
+    concepts: 6
+    reinforcement: "Moderate — neighbor analogy is strong, CDS diagram helps, but credit events are listed without enough context"
+    verdict: "Six concepts is manageable. The neighbor analogy and the CDS protection buyer/seller diagram are effective anchors. Credit events section is list-heavy but acceptable given ISDA's inherently definitional nature. Model risk at the end feels misplaced — it applies to all derivatives, not just credit."
+
+  - section: "Part 2 (2.1–2.8)"
+    load: MODERATE
+    concepts_per_section: "2-4"
+    reinforcement: "Strong — Professor Notes, Desk Perspective tables, Common Mistakes, worked examples"
+    verdict: "Well-managed overall. The coupon decomposition (2.2) and Four-Leg worked example (2.3) are excellent reinforcement devices. Sections 2.5-2.6 (product/trade lifecycle) are lighter and provide a cognitive rest between denser material. Part 2 demonstrates that dense material can be well-taught when supported by examples and reinforcement."
+
+  - section: "Part 3 (3.1–3.8)"
+    load: LOW per section, HIGH cumulatively
+    concepts_per_section: "1 family tree"
+    reinforcement: "WEAK — trees presented without context, minimal narrative"
+    verdict: "Each individual section is simple — one family tree. But cumulatively, the reader encounters 44 unfamiliar product names across 6 trees with minimal explanation. The cognitive load is not from complexity but from volume without anchoring. The 'unifying theme' callouts partially address this but appear on only 3 of 6 trees."
+    fix: "Add unifying theme callouts to all 6 family trees. Add one sentence per product explaining its distinctive feature. Add a 'you have encountered' prefix listing which products the reader already knows from Parts 0-2."
+
+  - section: "Part 4 (4.1–4.8)"
+    load: HIGH
+    concepts_per_section: "10-15 data points per table"
+    reinforcement: "VERY WEAK — no worked examples, no narrative, no guidance"
+    verdict: "Dense reference tables with no teaching support. Each table contains 8-15 products across 6-8 columns. A reader processing these linearly faces information overload. The Professor Note in 4.8 about short-volatility vs long-volatility is the only teaching moment in the entire Part."
+    fix: "Add a narrative introduction to each major matrix. Add at least one worked scenario per Part 4 section. Add reading guidance: 'Focus first on the Coupon and Barrier columns — they tell you what the investor earns and how much risk they take.'"
+
+high_load_sections_ranked:
+  - rank: 1
+    section: "1.7 Rates and Yield Curves"
+    concepts: 9
+    fix: "Split into two sections with worked examples"
+  - rank: 2
+    section: "Part 4 (all matrices)"
+    concepts: "50+ data points"
+    fix: "Add narrative introductions and worked scenarios"
+  - rank: 3
+    section: "1.4 Greeks"
+    concepts: 8
+    fix: "Add integrated worked example showing multiple Greeks interacting"
+  - rank: 4
+    section: "Part 3 (cumulative)"
+    concepts: "44 product names"
+    fix: "Add one-sentence product descriptions and unifying themes to all trees"
+
+reinforcement_pattern_analysis:
+  strong_patterns:
+    - "Mental Model blockquotes at section ends (consistent across all Parts)"
+    - "Knowledge Checks with review + scenario + desk questions (present after each Part)"
+    - "'Why This Matters for Structured Products' closings (Part 0 — excellent)"
+    - "Professor Notes (Part 2 — effective)"
+    - "Common Mistakes sections (Part 2, selective Part 3 — high value)"
+    - "Desk Perspective tables (Part 2 — good for role-based reinforcement)"
+
+  weak_patterns:
+    - "'Why This Matters' closings disappear after Part 0"
+    - "Common Mistakes sections are inconsistent — present in some Part 2/3 sections but not others"
+    - "Desk Perspective tables appear only in Part 2"
+    - "No reinforcement exercises mid-section (only at end-of-Part)"
+    - "Parts 3-4 have no reinforcement devices except the combined Knowledge Check"
+
+recommendations:
+  - priority: critical
+    action: "Split Section 1.7 into two sections. This is the single highest-impact change for cognitive load."
+  - priority: high
+    action: "Add worked numerical examples to Sections 1.4 and 1.7 (or 1.7a/1.7b after split)."
+  - priority: high
+    action: "Add narrative introductions and at least one worked scenario to Part 4 matrices."
+  - priority: medium
+    action: "Standardize Common Mistakes and Desk Perspective sections across all Parts 1-4."
+  - priority: medium
+    action: "Add one-sentence product descriptions to Part 3 family trees."
+  - priority: low
+    action: "Consider mini Knowledge Checks mid-Part-1 (after Section 1.3 and after Section 1.6) to provide reinforcement breaks."

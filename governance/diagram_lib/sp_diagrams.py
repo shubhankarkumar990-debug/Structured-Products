@@ -156,6 +156,99 @@ def payoff_barrier_note(
 
 
 # --------------------------------------------------------------------------- #
+# 1b. Geared / airbag payoff (Airbag family) — buffered, leveraged downside
+# --------------------------------------------------------------------------- #
+def payoff_geared_note(
+    out_svg: str | Path,
+    *,
+    barrier_pct: float,
+    coupon_pct: float,
+    gearing: float,
+    title: str = "Payoff at Maturity",
+    lens: str = LENS_INVESTOR,
+    x_max: float = 140.0,
+    preview: bool = True,
+) -> str:
+    """Airbag payoff: above barrier flat at +coupon; below barrier the redemption
+    is Principal x (final / barrier), giving a geared loss line that is continuous
+    at the barrier. `gearing` ~ initial/barrier is annotated."""
+    _apply_style()
+    fig, ax = plt.subplots(figsize=(7.2, 4.4))
+    x_above = np.linspace(barrier_pct, x_max, 200)
+    ax.plot(x_above, np.full_like(x_above, coupon_pct), color=GREEN, lw=2.6,
+            label="Above barrier: par + coupon")
+    x_below = np.linspace(0, barrier_pct, 200)
+    y_below = (x_below / barrier_pct - 1.0) * 100 + coupon_pct
+    ax.plot(x_below, y_below, color=ACCENT, lw=2.6,
+            label="Below barrier: geared loss (final/barrier)")
+    # reference: ungeared 1:1 from initial for comparison
+    x_ref = np.linspace(0, barrier_pct, 200)
+    ax.plot(x_ref, (x_ref - 100) + coupon_pct, color=GREY, lw=1.2, ls=(0, (4, 3)),
+            label="(1:1 from initial, for comparison)")
+    ax.axhline(0, color=SLATE, lw=0.8)
+    ax.axvline(100, color=GREY, lw=0.8, ls=":")
+    ax.axvline(barrier_pct, color=GREY, lw=0.8, ls=(0, (2, 2)))
+    ax.text(barrier_pct - 1, coupon_pct + 4, f"Barrier {barrier_pct:g}%", fontsize=8,
+            color=GREY, ha="right")
+    ax.annotate(f"Gearing ~{gearing:g}x\n(loss vs barrier, not initial)",
+                xy=(barrier_pct * 0.55, (0.55 - 1) * 100 + coupon_pct),
+                xytext=(8, -32), fontsize=9, color=ACCENT,
+                arrowprops=dict(arrowstyle="->", color=GREY))
+    ax.set_xlabel("Underlying final level (% of initial)")
+    ax.set_ylabel("Investor total return (%)")
+    ax.set_title(f"{title} — {lens}", color=NAVY, fontsize=13, fontweight="bold", loc="left")
+    ax.set_xlim(0, x_max)
+    ax.set_ylim(min(-60, coupon_pct - 70), max(20, coupon_pct + 12))
+    ax.legend(loc="lower right", frameon=False, fontsize=8.5)
+    ax.grid(True, color=LIGHT, lw=1)
+    ax.set_axisbelow(True)
+    return _finish(fig, out_svg, preview)
+
+
+# --------------------------------------------------------------------------- #
+# 1c. Participation / bonus payoff (Bonus / Participation Note)
+# --------------------------------------------------------------------------- #
+def payoff_participation(
+    out_svg: str | Path,
+    *,
+    bonus_pct: float,
+    participation: float,
+    barrier_pct: float,
+    title: str = "Payoff at Maturity",
+    lens: str = LENS_INVESTOR,
+    x_max: float = 160.0,
+    preview: bool = True,
+) -> str:
+    """Bonus / participation note: if the KO barrier stays intact, redemption =
+    max(bonus_pct, 100 + participation*(final-100)); if breached, tracks the
+    underlying (final-100). Two lines drawn: intact vs barrier-breached."""
+    _apply_style()
+    fig, ax = plt.subplots(figsize=(7.2, 4.4))
+    x = np.linspace(0, x_max, 400)
+    intact = np.maximum(bonus_pct, 100 + participation * (x - 100)) - 100
+    breached = x - 100
+    ax.plot(x, intact, color=GREEN, lw=2.6, label="Barrier intact: max(bonus, participation)")
+    ax.plot(x, breached, color=ACCENT, lw=2.0, ls=(0, (5, 3)),
+            label="Barrier breached: tracks underlying")
+    ax.axhline(0, color=SLATE, lw=0.8)
+    ax.axhline(bonus_pct - 100, color=GOLD, lw=1.0, ls=":")
+    ax.text(2, bonus_pct - 100 + 2, f"Bonus floor {bonus_pct:g}%", fontsize=8, color=GOLD)
+    ax.axvline(100, color=GREY, lw=0.8, ls=":")
+    ax.axvline(barrier_pct, color=ACCENT, lw=1.2, ls=(0, (4, 3)))
+    ax.text(barrier_pct + 1, ax.get_ylim()[1] if False else (bonus_pct - 100) + 14,
+            f"KO {barrier_pct:g}%", fontsize=8, color=ACCENT)
+    ax.set_xlabel("Underlying final level (% of initial)")
+    ax.set_ylabel("Investor total return (%)")
+    ax.set_title(f"{title} — {lens}", color=NAVY, fontsize=13, fontweight="bold", loc="left")
+    ax.set_xlim(0, x_max)
+    ax.set_ylim(-70, 60)
+    ax.legend(loc="upper left", frameon=False, fontsize=8.5)
+    ax.grid(True, color=LIGHT, lw=1)
+    ax.set_axisbelow(True)
+    return _finish(fig, out_svg, preview)
+
+
+# --------------------------------------------------------------------------- #
 # 2. Desk gamma / hedge profile (Bank Lens — Desk Economics)
 # --------------------------------------------------------------------------- #
 def desk_gamma_profile(

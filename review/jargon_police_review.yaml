@@ -1,0 +1,97 @@
+# Jargon Police Review — Structured Products Desk Bible v2 (Parts 0-4)
+# Reviewer: Jargon Police (Terminology Compliance Specialist)
+# Date: 2026-06-19
+# Scope: Parts 0 through 4 (~2,183 lines)
+# Rule: No Unexplained Terminology — a reader must never encounter a term not already explained.
+
+overall_compliance: 92%
+
+violations:
+  - term: "IPO"
+    location: "Section 0.7, line 362"
+    context: "'Managing an IPO or a bond issuance'"
+    severity: minor
+    fix: "Expand to 'an IPO (Initial Public Offering — when a company sells shares to the public for the first time)' or replace with 'a public share offering.'"
+
+  - term: "CDO"
+    location: "Section 1.8, line 1388"
+    context: "'Complex credit products (like CDO tranches) where correlation assumptions have an enormous impact'"
+    severity: moderate
+    fix: "CDO (Collateralized Debt Obligation) is not defined until Part 3.7. Either add a parenthetical definition ('CDO — Collateralized Debt Obligation, a product that packages many credit exposures into slices of risk') or replace with 'complex portfolio credit products.'"
+
+  - term: "closed-form pricing"
+    location: "Section 3.2, line 1892"
+    context: "'Simple — closed-form pricing, 1-2 components'"
+    severity: moderate
+    fix: "Define in context: 'closed-form pricing (meaning a direct formula gives you the price, rather than requiring a simulation).'"
+
+  - term: "simulation"
+    location: "Section 3.2, line 1893"
+    context: "'Medium — requires simulation, 3-4 components'"
+    severity: minor
+    fix: "Add brief clarification: 'requires simulation (running thousands of random price paths through a computer to estimate the price).'"
+
+  - term: "path-dependent"
+    location: "Section 3.2, line 1894"
+    context: "'Complex — path-dependent, multi-observation, correlation-dependent'"
+    severity: moderate
+    fix: "Path-dependence is a critical concept for structured products. It should be briefly defined here: 'path-dependent (the payoff depends not just on where the price ends up, but on the entire path it took to get there).'"
+
+  - term: "notional"
+    location: "First significant use Section 2.3, line 1594"
+    context: "'1-year Reverse Convertible with $1,000,000 notional'"
+    severity: minor
+    fix: "The curriculum lists notional as a Part 0 term, but it is never formally defined in Part 0. Add to Part 0 or define on first use: 'notional (the face value of the contract — the amount on which payments are calculated).'"
+
+  - term: "termsheet"
+    location: "Section 2.5, line 1678"
+    context: "'The client receives a termsheet showing the final terms.'"
+    severity: minor
+    fix: "Add parenthetical: 'a termsheet (the document that lists every detail of the product — coupon, barrier, maturity, underlying, and all other terms).'"
+
+  - term: "MTN"
+    location: "Curriculum lists as Part 2 terminology, not defined in text"
+    context: "Not found in Parts 0-4 text"
+    severity: informational
+    fix: "MTN (Medium-Term Note) is listed in the curriculum as Part 2 terminology but does not appear in the text. If it will appear in Part 5, no action needed now. If it should appear in Part 2, add it to Section 2.1 or 2.5."
+
+  - term: "SPV"
+    location: "Section 2.3, line 1558"
+    context: "'often a Special Purpose Vehicle, or SPV, set up by the bank'"
+    severity: clean
+    fix: "Correctly introduced with full expansion. No action needed."
+
+near_misses:
+  - term: "basis points"
+    location: "Section 1.8, line 1327"
+    assessment: "Introduced correctly with definition: 'a basis point is 1/100th of a percent.' Good."
+
+  - term: "ISDA"
+    location: "Section 1.8, line 1369"
+    assessment: "Expanded on first use to 'ISDA (International Swaps and Derivatives Association).' Clean."
+
+  - term: "FTP"
+    location: "Section 2.2, line 1507"
+    assessment: "Expanded on first use: 'FTP (Funds Transfer Pricing).' Defined with analogy ('wholesale price of money'). Clean."
+
+  - term: "mark-to-market"
+    location: "Section 1.1, line 726"
+    assessment: "Defined on first use with abbreviation MtM. Clean."
+
+abbreviation_consistency:
+  - "RC/DRC/KODRC/CRC — used in Part 4 tables without re-expansion. These are introduced in Section 3.3 family tree. Acceptable for reference tables, but consider a legend at the top of Section 4.1."
+  - "KI/KO — used extensively in Part 4 without re-expansion. Introduced in Section 1.3. Consider a one-line reminder at the top of Part 4."
+  - "ITM/ATM/OTM — used in Part 4. Introduced in Section 1.2. Clean."
+
+terminology_strengths:
+  - "Part 0 is exemplary. Every term is bolded on first use, immediately followed by a plain-English definition or analogy. The pattern is consistent across all 12 sections."
+  - "The terminology lists at the end of Parts 0 and 1 in the curriculum design are comprehensive and correctly ordered."
+  - "The mental model summaries serve as implicit glossaries — each table reinforces the definition of key terms."
+
+recommendations:
+  - priority: high
+    action: "Fix the 5 moderate-severity violations (CDO, closed-form pricing, path-dependent, notional, termsheet). These are concepts a beginner will encounter and not understand."
+  - priority: medium
+    action: "Add a brief legend to the top of Part 4 reminding readers of key abbreviations: KI = knock-in, KO = knock-out, RC = Reverse Convertible, etc."
+  - priority: low
+    action: "Fix the 3 minor-severity violations (IPO, simulation, MTN check). These are less likely to block understanding but still violate the rule."
