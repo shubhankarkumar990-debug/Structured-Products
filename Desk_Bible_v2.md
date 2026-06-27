@@ -11838,7 +11838,7 @@ A ZCL is like a wine barrel aging in a cellar. The barrel is bought today and le
 | **Complexity Score** | 4 / 10 |
 | **Complexity Rationale** | Zero-coupon accretion. No periodic cash flows. Four-leg SRT. Single embedded swap |
 | **Underlying Asset Class** | Rates (SOFR / EURIBOR) |
-| **Capital Protection** | 100% at maturity (ZCB structure) |
+| **Capital Protection** | 100% at maturity, subject to issuer credit (ZCB structure) |
 | **Coupon Type** | None — return via discount accretion (zero coupon) |
 | **Maturity** | 10–30 years (long duration to match liability profiles) |
 | **Liquidity** | Secondary market (duration-dependent pricing) |
@@ -11857,7 +11857,7 @@ A ZCL is like a wine barrel aging in a cellar. The barrel is bought today and le
 **Comparison Matrix Fields:**
 - Complexity: 4
 - Yield Potential: Moderate (locked-in accretion rate)
-- Capital Protection: 100% at maturity (ZCB structure)
+- Capital Protection: 100% at maturity, subject to issuer credit (ZCB structure)
 - Credit Exposure: Issuer (note format)
 - Liquidity: Secondary market (duration-dependent pricing)
 - Path Dependency: No
@@ -12055,7 +12055,7 @@ A **Zero-Coupon Linked Note (ZCL)** is a structured rate product that pays no pe
 *Note: Each year's growth is larger than the previous year because the accretion is compounding on a growing base — year 7 growth ($1,403,076) is 24.7% larger than year 1 growth ($1,125,000).*
 
 *Investor lens:*
-The investor invests $30M and receives $38,818,432 at maturity — a total return of 29.4% over 7 years (3.75% annually compounded). If the same capital had bought a 7-year government zero at 2.80%, the terminal value would have been $36,297,685 — $2.5M less. The redemption is entirely embedded: no cash arrives for 7 years, and the predictable terminal value eliminates reinvestment risk. The trade-off is duration risk — the MTM moves sharply with rates even though the terminal value is fixed.
+The investor invests $30M and receives $38,818,432 at maturity — a total return of 29.4% over 7 years (3.75% annually compounded). If the same capital had bought a 7-year government zero at 2.80%, the terminal value would have been $36,399,420 — about $2.4M less. The redemption is entirely embedded: no cash arrives for 7 years, and the predictable terminal value eliminates reinvestment risk. The trade-off is duration risk — the MTM moves sharply with rates even though the terminal value is fixed.
 
 *Bank lens:*
 The desk books the four legs in Murex, warehouses the accreting Note-leg duration, and hedges it with a duration-matched zero-coupon swap or bond strip. The 5bp gap between the "fair" 3.80% and the client's 3.75% accretion rate is the structuring margin, accumulating over 7 years. The 2nd line must confirm the accreted notional matches (1+r)^n on each anniversary, that the final redemption reconciles to $38,818,432, that the Deposit leg stays locked, and that the credit limit is set on the accreted notional (which reaches $36.1M by year 5) rather than the initial $30M.
