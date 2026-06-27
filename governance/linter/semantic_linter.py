@@ -250,8 +250,11 @@ def lnt_cor_06(doc, n):
                    "Change to 'long correlation' (MTM) or add 'structurally'.",
                    "REG-COR-01")
     # Table-row form: "| FTD (N=1) | ... | Short correlation ... |"
+    # Guard: a comparison line like "FTD is long correlation; the NTD is short
+    # correlation" is correct — the 'short' belongs to the NTD, not the FTD.
     if re.search(r"\|\s*FTD\b.*\bshort correlation", line, re.IGNORECASE) \
-            and not STRUCTURALLY.search(line):
+            and not STRUCTURALLY.search(line) \
+            and not re.search(r"FTD\b[^|]*\blong correlation", line, re.IGNORECASE):
         return _mk(doc, n, "LNT-COR-06", "S1",
                    "FTD table row labeled 'short correlation' (MTM: FTD is long correlation)",
                    "Change to 'long correlation' (MTM).",
@@ -265,7 +268,17 @@ def lnt_cor_07(doc, n):
     # NTD products (N>=2) must never be labeled long correlation.
     for m in re.finditer(r"\b([2-9]TD|NTD|nth-to-default)\b", line, re.IGNORECASE):
         seg = line[m.start(): m.start() + 100]
-        if re.search(r"long correlation", seg, re.IGNORECASE):
+        mlong = re.search(r"long correlation", seg, re.IGNORECASE)
+        if mlong:
+            pre = seg[: mlong.start()]
+            # Guard: skip (a) comparison sentences where FTD owns the 'long' label,
+            # (b) where the NTD is already correctly labeled 'short' before it, and
+            # (c) desk/bank raw-or-net position statements ("the desk is long
+            # correlation where the investor is short") — those are POS-rule territory.
+            if re.search(r"\bFTD\b", pre, re.IGNORECASE) or \
+               re.search(r"short correlation", pre, re.IGNORECASE) or \
+               re.search(r"\b(desk|bank|dealer|raw|net|hedged)\b", pre, re.IGNORECASE):
+                continue
             return _mk(doc, n, "LNT-COR-07", "S1",
                        f"{m.group(1)} labeled 'long correlation' — NTD (N>=2) is short correlation under MTM",
                        "Change to 'short correlation'.",

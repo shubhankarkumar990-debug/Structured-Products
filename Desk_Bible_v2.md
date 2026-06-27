@@ -14498,21 +14498,21 @@ The desk holds the four legs and is short the CMS spread (CMS30Y receiver + CMS2
 
 ---
 
+*A Vanilla Credit-Linked Note is a single-name funded credit derivative. The investor lends principal to an issuer and, through the same note, sells credit protection on one reference entity — an embedded single-name CDS. In exchange the investor receives an enhanced coupon: the reference entity's CDS spread on top of the bond yield. If that one name suffers a credit event, the investor's principal is reduced to its recovery value. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Imagine you are a wealthy individual with $1 million to invest. A friend approaches you with a proposition: "I will pay you 5% per year — much higher than any bank account. All you have to do is agree that if Company X goes bankrupt, you will absorb the loss."
+Consider a wealthy individual with $1 million to invest. A counterparty offers a proposition: pay the investor 5% per year — well above a bank deposit — on the single condition that, if Company X goes bankrupt, the investor absorbs the loss.
 
-You know Company X — it is a large, established corporation. Bankruptcy seems unlikely. You think: "I am being paid 5% per year for a risk that will almost certainly never happen. This is easy money."
+Company X is a large, established corporation. Bankruptcy seems unlikely. The investor reasons that 5% per year is being paid for a risk that will almost certainly never occur — apparently easy income.
 
-This is, in essence, what a **Credit-Linked Note (CLN)** does. The investor lends money to a bank (like a bond) and simultaneously sells credit protection on a reference entity (a company or government). The investor earns the CDS spread — the insurance premium — as an enhanced coupon. But if the reference entity defaults, the investor absorbs the loss.
+This is, in essence, what a **Credit-Linked Note (CLN)** does. The investor lends money to a bank (like a bond) and simultaneously sells credit protection on a single reference entity (a company or government). The investor earns the CDS spread — the insurance premium — as an enhanced coupon. But if the reference entity defaults, the investor absorbs the loss.
 
-The CLN combines two things the investor already understands from earlier chapters:
-- A **bond** (Section 0.3 — you are lending money)
-- A **Credit Default Swap** (Section 1.9 — you are selling insurance on a loan)
+The CLN combines two things introduced in earlier chapters:
+- A **bond** (Section 0.3 — lending money to the issuer)
+- A **Credit Default Swap** (Section 1.9 — selling insurance on a single name)
 
 The CLN wraps these into a single product: Bond + Short CDS = CLN.
-
 
 #### §2. Real-World Analogy
 
@@ -14524,10 +14524,9 @@ In a CLN:
 - The **bail money** is the investor's principal.
 - The **fee** is the enhanced coupon (the CDS spread).
 - The **defendant showing up** is the reference entity not defaulting.
-- The **defendant skipping town** is the credit event — the investor loses part or all of their principal.
+- The **defendant skipping town** is the credit event — the investor loses part or all of the principal.
 
-Just like a bail bondsman, the CLN investor earns a regular income for taking on the risk that someone else will not meet their obligations.
-
+Like a bail bondsman, the CLN investor earns a regular income for taking on the risk that one named party will not meet its obligations.
 
 #### §3. What Problem Does This Solve?
 
@@ -14535,14 +14534,13 @@ CLNs solve the **credit access** problem.
 
 Many investors want to earn credit spreads — the premium paid for taking default risk — but cannot easily access the CDS market. The CDS market is an over-the-counter institutional market that requires ISDA documentation, collateral agreements, and significant infrastructure. Most investors (especially retail and smaller institutional investors) are excluded.
 
-A CLN packages CDS exposure into a note format that any investor can buy, just like buying a bond. The bank acts as intermediary: it enters the CDS market on its own behalf and passes the economics to the investor via the note.
+A CLN packages single-name CDS exposure into a note format that any investor can buy, just like buying a bond. The bank acts as intermediary: it enters the CDS market on its own behalf and passes the economics to the investor via the note.
 
 | Investor Need | Why Direct CDS Doesn't Work | What the CLN Offers |
 |--------------|--------------------------|-------------------|
 | Earn credit spread income | CDS requires ISDA, CSA, margin calls | CLN is a note — buy it like a bond, earn the spread |
 | Take a view on corporate credit | CDS minimum trade sizes are large ($5-10M) | CLN can be issued in smaller denominations |
 | Express credit conviction | CDS market has bilateral counterparty risk | CLN has unilateral risk (investor risk to issuer, not bilateral) |
-
 
 #### §4. Product DNA
 
@@ -14552,7 +14550,7 @@ A CLN packages CDS exposure into a note format that any investor can buy, just l
 | **Abbreviation** | CLN |
 | **Family** | Credit-Linked Notes |
 | **Complexity Score** | 4 / 10 |
-| **Complexity Rationale** | Funded credit derivative — combines note with embedded CDS. Investor sells credit protection through note purchase |
+| **Complexity Rationale** | Funded credit derivative — combines note with embedded single-name CDS. Investor sells credit protection through note purchase |
 | **Underlying Asset Class** | Credit |
 | **Capital Protection** | Conditional (principal at risk on credit event) |
 | **Coupon Type** | Fixed coupon (includes CDS spread) |
@@ -14562,11 +14560,11 @@ A CLN packages CDS exposure into a note format that any investor can buy, just l
 | **ISDA Required** | No — issued as note |
 
 **DNA Atlas Fields:**
-- Primary Risk: Credit event of reference entity causes principal loss. Dual credit exposure: reference entity AND issuer. Recovery rate uncertainty
-- Typical Buyer: Yield-seeking investors wanting credit spread exposure in funded format
+- Primary Risk: Credit event of the single reference entity causes principal loss. Dual credit exposure: reference entity AND issuer. Recovery rate uncertainty
+- Typical Buyer: Yield-seeking investors wanting single-name credit spread exposure in funded format
 - Typical Use Case: Access to CDS-like exposure without ISDA agreement. Funded format suits investors who cannot enter OTC derivatives
-- Building Blocks: Fixed-rate note + embedded CDS (investor is protection seller)
-- Key Hedge: CDS on reference entity, credit index hedge
+- Building Blocks: Fixed-rate note + embedded single-name CDS (investor is protection seller)
+- Key Hedge: Single-name CDS on the reference entity, credit index hedge
 - Similar Products: CDS (5.2.5 — unfunded version), Skew CLN (5.5.2 — recovery skew), FTD (5.5.3 — basket credit)
 - Most Important Greek: Credit spread delta (Credit Spread Sensitivity (CS01))
 
@@ -14580,20 +14578,20 @@ A CLN packages CDS exposure into a note format that any investor can buy, just l
 - Volatility Sensitivity: Low
 - Correlation Sensitivity: None (single reference entity)
 - Client Type: Institutional credit investors
-- Market Environment: Best when credit spread adequately compensates for default risk
+- Market Environment: Best when the credit spread adequately compensates for default risk
 
 #### §5. Who Touches This Product
 
 | Role | Responsibility |
 |------|---------------|
-| **Structurer** | Designs Vanilla Credit-Linked Note terms: strike, barrier, coupon, maturity. Optimises structure for client and bank |
-| **Trader** | Hedges embedded options. Manages Greeks (delta, gamma, vega). Prices secondary market |
-| **Sales** | Distributes Vanilla Credit-Linked Note to target clients. Explains payoff scenarios and risk-return profile |
-| **Risk Management** | Monitors option Greeks, barrier proximity, concentration risk. Sets trading limits |
-| **Product Control** | Daily P&L attribution between note accrual and option MTM. Independent price verification |
-| **Operations** | Processes coupon payments and maturity settlement. Handles physical delivery if applicable |
-| **Legal / Compliance** | Reviews term sheet for regulatory compliance. Ensures suitability for target investor base |
-| **Quantitative Analytics** | Prices embedded derivatives. Calibrates volatility surface. Provides model validation |
+| **Structurer** | Designs Vanilla Credit-Linked Note terms: reference entity, coupon, maturity. Optimises structure for client and bank |
+| **Trader** | Hedges the embedded single-name CDS. Manages credit spread sensitivity (CS01). Prices secondary market |
+| **Sales** | Distributes the Vanilla Credit-Linked Note to target clients. Explains payoff scenarios and risk-return profile |
+| **Risk Management** | Monitors single-name credit exposure, concentration risk, and wrong-way risk. Sets trading limits |
+| **Product Control** | Daily P&L attribution between note accrual and CDS MTM. Independent price verification of the CDS curve |
+| **Operations** | Processes coupon payments and maturity settlement. Handles credit-event settlement if applicable |
+| **Legal / Compliance** | Reviews term sheet for regulatory compliance. Ensures suitability for the target investor base |
+| **Quantitative Analytics** | Prices the embedded CDS. Calibrates the credit curve. Provides model validation |
 
 #### §6. Product Evolution
 
@@ -14601,249 +14599,213 @@ A CLN packages CDS exposure into a note format that any investor can buy, just l
 |:-----:|---------|---------------|-----|
 | 1 | Plain vanilla bond | — (baseline) | Fixed coupon, full principal return |
 | 2 | Equity-linked note | Equity participation or option embedded | Market return exposure with note wrapper |
-| 3 | Vanilla Credit-Linked Note | Specific structural features added | Product-specific innovation: Funded credit derivative — combines note with embedded CDS. Investor sells credit protection through note purchase |
+| 3 | Vanilla Credit-Linked Note | Embedded single-name CDS added | Funded credit derivative — combines note with embedded CDS. Investor sells single-name credit protection through note purchase |
 
-#### §7. How the Bank Makes Money
+---
 
-| Revenue Component | Detail |
-|------------------|--------|
-| **Structuring fee** | Embedded in note price at issuance (typically 1-3%) |
-| **Bid-offer spread** | Spread between option cost and terms offered to investor |
-| **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
-| **Funding advantage** | Issues note at sub-market effective funding rate |
+#### §7. THE INVESTOR LENS
 
-#### §8. Why This Product Exists (Client Perspective)
+**Why the investor buys it**
 
 1. **Enhanced yield.** CLN coupons include the CDS spread, which adds 1-5% above bond yields depending on the reference entity's creditworthiness.
-2. **Credit exposure without CDS infrastructure.** Investors can access credit markets through a familiar bond-like instrument.
-3. **View expression.** An investor who believes a company will not default can monetize that view by earning the CDS spread.
+2. **Credit exposure without CDS infrastructure.** The investor accesses credit markets through a familiar bond-like instrument, with no ISDA or CSA to negotiate.
+3. **View expression.** An investor who believes one company will not default can monetize that view by earning the CDS spread.
 4. **Diversification.** Credit risk is a different risk factor from equity or interest rate risk. CLNs add diversification to a portfolio.
-5. **Defined exposure.** The investor knows exactly which company's default risk they are taking — unlike a bond fund where credit risk is spread across many names.
+5. **Defined exposure.** The investor knows exactly which single company's default risk is being taken — unlike a bond fund where credit risk is spread across many names.
 
+**Position taken**
 
-#### §9. The Three Scenarios
+The investor simultaneously holds a long bond (lends principal to the issuer) and a **short** single-name CDS (sells credit protection on the reference entity to the bank). Net, the investor is **short credit on one name** — the investor has sold protection and is hurt if that reference entity's creditworthiness deteriorates or it defaults. Because there is a single reference entity, the position carries no correlation exposure; the investor's exposure is to one name's default and recovery.
 
-| Scenario | Market Condition | Outcome for Investor |
-|----------|-----------------|---------------------|
-| **Best case** | Underlying performs strongly | Maximum return captured (subject to any participation cap or barrier) |
-| **Base case** | Underlying is flat or moderately positive | Moderate return or coupon income depending on structure |
-| **Worst case** | Underlying declines significantly | Capital at risk if below protection level; coupon may partially offset |
+**Payoff & scenarios**
 
-*Detailed scenario analysis with specific numbers follows in §10.*
+The CLN payoff is **binary at the credit-event level:** either the reference entity defaults (large loss) or it does not (full return). There is no in-between — unlike equity-linked products where the loss is proportional to a price decline. The **mark-to-market** value, however, fluctuates continuously with the reference entity's CDS spread: wider spreads reduce the CLN's value even without an actual default.
 
-#### §10. What Happens When Markets Move
+**Product:** 3-year CLN on Reference Entity "Acme Corp". **Notional:** $500,000. **Coupon:** 5.5% per year (= risk-free rate 2.5% + CDS spread 3.0%). **Recovery rate assumption:** 40%.
 
-**Product:** 3-year CLN on Reference Entity "Acme Corp"
-**Notional:** $500,000
-**Coupon:** 5.5% per year (= risk-free rate 2.5% + CDS spread 3.0%)
-**Recovery rate assumption:** 40%
+- **Scenario 1 — No credit event (most likely):** Acme Corp does not default. The investor receives 3 years of coupons ($27,500 per year = $82,500 total) and full principal at maturity ($500,000). **Total: $582,500.** The investor earned 5.5% per year with no loss.
+- **Scenario 2 — Credit event in Year 2 (Acme Corp defaults):** Recovery rate is 40%, meaning bondholders recover $0.40 per dollar. The CLN settles: the investor receives $500,000 × 40% = **$200,000** (recovery amount), plus coupons already received (2 × $27,500 = $55,000). **Total received: $255,000.** Net loss: **$245,000** (-49%). The 5.5% coupon earned over two years ($55,000) is a small fraction of the $300,000 capital loss — the CDS spread is not "free money" but compensation for a real risk of significant loss.
+- **Scenario 3 — Credit event with low recovery (20%):** Acme Corp defaults with only 20% recovery. The investor receives $500,000 × 20% = $100,000 + coupons. **Much larger loss.**
+- **Scenario 4 — Near-miss (credit spreads widen but no default):** Acme Corp faces financial difficulty and its CDS spread widens from 300bp to 800bp, but it does not default. The CLN's mark-to-market value drops significantly (the market is pricing in a higher probability of default). Held to maturity with no default, the investor still receives full principal + coupons. But selling before maturity realizes a loss.
 
-**Scenario 1 — No credit event (most likely):**
-Acme Corp does not default. Investor receives 3 years of coupons ($27,500 per year = $82,500 total) and full principal at maturity ($500,000). **Total: $582,500.** The investor earned 5.5% per year with no loss.
-
-**Scenario 2 — Credit event in Year 2 (Acme Corp defaults):**
-Acme Corp defaults. Recovery rate is 40%, meaning bondholders recover $0.40 per dollar. The CLN settles:
-- Investor receives: $500,000 × 40% = **$200,000** (recovery amount)
-- Plus coupons already received: 2 × $27,500 = $55,000
-- **Total received: $255,000.** Net loss: **$245,000** (-49%).
-
-The 5.5% coupon earned over two years ($55,000) is a small fraction of the $300,000 capital loss. This illustrates why the CDS spread is not "free money" — it is compensation for a real risk of significant loss.
-
-**Scenario 3 — Credit event with low recovery (20%):**
-Acme Corp defaults with only 20% recovery. Investor receives $500,000 × 20% = $100,000 + coupons. **Much larger loss.**
-
-**Scenario 4 — Near-miss (credit spreads widen but no default):**
-Acme Corp faces financial difficulty and its CDS spread widens from 300bp to 800bp, but it does not default. The CLN's mark-to-market value drops significantly (the market is pricing in a higher probability of default). If the investor holds to maturity and no default occurs, they still receive full principal + coupons. But if they must sell before maturity, they will realize a loss.
-
-
-#### §11. Formal Definition
-
-A **Credit-Linked Note (CLN)** is a structured product in which the investor lends money to the issuer and simultaneously sells credit protection on a reference entity. At maturity:
-
-- **If no credit event occurs:** Redemption = 100% of Principal. Coupons are paid throughout.
-- **If a credit event occurs:** Redemption = Principal × Recovery Rate. Remaining coupons are cancelled.
-
-**Key terms:**
-- **Reference entity:** The company or government whose default risk the investor bears.
-- **Credit event:** A formally defined occurrence (bankruptcy, failure to pay, restructuring) that triggers settlement.
-- **Recovery rate:** The fraction of the principal that is recovered after default (typically 30-60% for senior debt).
-- **CDS spread:** The annual premium for credit protection, expressed in basis points. This funds the enhanced coupon.
-- **ISDA definitions:** Credit events are defined under ISDA standards (Section 1.9).
-
-
-#### §12. Product Construction
-
-*Dependency: Builds on Section 1.9 (Credit Risk) and Section 2.2 (Decomposition).*
-
-| Component | What It Is | Purpose |
-|-----------|-----------|---------|
-| Bond | Investor lends principal to issuer | Provides funding, pays base interest |
-| Short CDS | Investor sells credit protection on reference entity | Generates CDS spread as enhanced coupon |
-
-**Coupon decomposition:**
-
-Coupon = Bond interest (risk-free + issuer spread) + CDS spread - Bank margin
-
-For a 5.5% coupon:
-- Risk-free rate: ~2.5%
-- CDS spread on Acme Corp: ~3.5%
-- Bank margin: -0.5%
-- **Net coupon: 5.5%**
-
-**The dual credit exposure:** The CLN investor is exposed to two credit risks:
-1. **Reference entity default risk** — if Acme Corp defaults, the investor loses principal.
-2. **Issuer credit risk** — if the issuing bank defaults, the investor may not receive coupons or principal regardless of what happens to Acme Corp.
-
-This dual exposure is important and frequently overlooked. The investor is simultaneously lending to the bank and insuring Acme Corp.
-
-
-#### §13. Lifecycle
-
-| Stage | Detail |
-|-------|--------|
-| **Trade date** | Terms agreed: underlying, strike/barrier, coupon, maturity. Pricing finalised |
-| **Issue date** | Note issued. Investor pays par (or discount). Bank establishes hedge |
-| **Coupon dates** | Periodic observations and coupon payments (if applicable). Barrier monitoring |
-| **Maturity** | Final observation. Settlement: cash (par or adjusted) or physical delivery. T+2 settlement |
-
-#### §14. Desk Reality
-
-```
-Investor
-Return
-    |
-+5.5%|────────────────────────── ← If no credit event: full coupon, full principal
-    |
-  0% |──────────────────────────
-    |
-    |
--60% |        ●                  ← If credit event (40% recovery): lose 60% of principal
-    |
-    +─────────────────────────→ Time
-                              Maturity
-```
-
-The CLN payoff is **binary at the credit event level:** either the reference entity defaults (large loss) or it does not (full return). There is no in-between — unlike equity-linked products where the loss is proportional to the stock decline.
-
-However, the **mark-to-market** value fluctuates continuously based on the reference entity's CDS spread. If the market perceives higher default risk (wider CDS spreads), the CLN loses value even without an actual default.
-
-
-#### §15. Risk Analysis
+**Risks to the investor**
 
 | Risk | Description | Severity |
 |------|------------|:--------:|
-| **Reference entity default** | If the reference entity defaults, the investor loses (1 - Recovery Rate) × Principal. This can be 50-80% of the investment. | High |
+| **Reference entity default** | If the reference entity defaults, the investor loses (1 − Recovery Rate) × Principal. This can be 50-80% of the investment. | High |
 | **Recovery rate uncertainty** | The actual recovery rate is unknown until after default. The assumed recovery in pricing may differ from realized recovery. | Medium |
-| **Dual credit exposure** | The investor is exposed to both the reference entity AND the issuing bank. If either defaults, the investor suffers. | Medium |
+| **Dual (double) credit exposure** | The investor is exposed to BOTH the reference entity AND the issuing bank. If either defaults, the investor suffers — the investor is simultaneously insuring the reference entity and lending to the issuer. | Medium |
 | **Spread widening (MTM risk)** | If the reference entity's creditworthiness deteriorates, the CLN loses mark-to-market value even without a default. | Medium |
 | **Illiquidity** | CLNs are less liquid than bonds. Selling before maturity may involve a significant bid-offer spread. | Medium |
-| **Wrong-way risk** | If the issuer and reference entity are correlated (e.g., both are banks in the same country), a credit crisis could trigger both defaults simultaneously. | High |
+| **Wrong-way risk** | If the issuer and reference entity are correlated (e.g., both are banks in the same country), a credit crisis could trigger both defaults simultaneously, compounding the double credit exposure. | High |
 
+![Vanilla CLN Cashflow Legs — Investor Lens](assets/cln/legs_cln_01.svg)
 
-#### §16. Booking and Systems
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk's position is the mirror image of the investor's. Where the investor is short the single-name CDS, the desk is **long** credit protection on the reference entity (bought from the investor via the note); alongside it the desk has issued a note, which is a funding liability. The investor's enhanced coupon is, to the desk, the cost of the CDS spread plus funding, returned to the client.
+
+**Credit risk & hedging**
+
+The desk is long single-name CDS protection on the reference entity and hedges by **selling CDS on that same name in the interbank market**, offsetting the protection it bought from the investor. The residual exposure the desk manages is credit spread sensitivity (CS01) and the CDS basis — the difference between the CLN-implied spread and the market CDS spread. Because the reference entity is a single name, the desk runs no correlation book on this trade; the risk it warehouses and lays off is the one name's spread and default risk.
+
+**How the bank makes money**
+
+| Revenue Component | Detail |
+|------------------|--------|
+| **Structuring fee** | Embedded in the note price at issuance (typically 1-3%) |
+| **Bid-offer spread** | Spread between the CDS rate embedded in the note and the market CDS rate |
+| **Hedging P&L** | Captured on laying off the single-name CDS and managing the basis |
+| **Funding advantage** | Issues the note at a sub-market effective funding rate |
+
+**The coupon decomposition (from Section 2.2):**
+
+Coupon = Bond interest (risk-free + issuer spread) + CDS spread − Bank margin
+
+For a 5.5% coupon: risk-free rate ~2.5%; CDS spread on Acme Corp ~3.5%; bank margin −0.5%; **net coupon 5.5%**. The CDS spread is the key component — it is the premium the investor earns for selling single-name protection, and the margin between the spread embedded in the note and the spread the desk pays to lay off the risk is where the desk's structuring P&L sits.
+
+![Vanilla CLN Coupon Decomposition — Bank Lens (Desk Economics)](assets/cln/waterfall_cln_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by moves in the reference entity's CDS spread (CS01), the CDS basis between the note-implied and market spread, funding, and the mark-to-market of the embedded single-name CDS. Product Control attributes P&L between fixed-coupon accrual and CDS MTM, and performs Independent Price Verification (IPV) of the CDS curve.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
 
 | Aspect | Detail |
 |--------|--------|
 | **Book of record** | NEMO |
 | **Pricing/Risk system** | Sophis |
-| **Booking structure** | Single note with embedded CDS |
+| **Booking structure** | Single note with embedded single-name CDS |
 | **Four-leg framework?** | No |
-| **Key booking fields** | Notional, reference entity, coupon rate, maturity, credit event definitions, recovery rate assumption, ISDA version |
+| **Key booking fields** | Notional, reference entity (RED code), coupon rate, maturity, credit event definitions, recovery rate assumption, ISDA version |
 | **Coupon schedule** | Regular fixed payments (quarterly or semi-annually) |
-| **Credit event monitoring** | Ongoing — requires monitoring of ISDA credit event determinations |
+| **Credit event monitoring** | Ongoing — requires monitoring of ISDA credit event determinations on the reference entity |
 
-**Lifecycle events:**
-- **Trade date:** Book in NEMO. Record reference entity, coupon schedule, credit event definitions.
-- **Coupon dates:** Process regular coupon payments.
-- **Credit event monitoring:** Watch for ISDA credit event determinations on the reference entity. Sources: ISDA Determinations Committee (the industry body that officially rules on whether a credit event has occurred) announcements, market news.
-- **If credit event occurs:** Cease coupon payments. Determine recovery rate (through ISDA auction process). Calculate settlement: Investor receives notional × recovery rate. Remaining coupons cancelled.
-- **Maturity (if no credit event):** Return 100% of principal.
+**Reconciliation points**
 
+| Recon point | What must agree | CLN-specific break |
+|-------------|-----------------|--------------------|
+| **ISDA credit definitions** | The ISDA version and credit-event definitions (bankruptcy, failure to pay, restructuring) match the termsheet across systems | NEMO and Sophis reference different ISDA versions → a disputed "restructuring" event treated inconsistently |
+| **Reference entity (RED code)** | NEMO and Sophis reference the exact same legal entity via the RED code (Reference Entity Database identifier) | Systems reference different legal entities (parent vs subsidiary) → protection bought on the wrong name |
+| **Recovery rate assumption** | The recovery rate used for pricing matches across systems and the entity's seniority | Sophis uses 40%, NEMO uses 35% → valuation and settlement diverge |
+| **Credit-event / auction recovery** | A determined credit event is captured and the auction-set recovery is applied; coupons cease | ISDA determined a credit event but the system has not processed settlement → stale valuation, coupons still paid |
+| **CDS curve / spread** | The internal CDS curve used for pricing matches market quotes | Stale internal curve → incorrect valuation and CS01 |
+| **Coupon lifecycle** | Coupon schedule, day-count, and cessation on a credit event | Coupon paid on a date after the credit event → overpayment |
+| **Double credit exposure** | Both legs of the exposure (reference entity AND issuer) are captured and limits monitored | Only reference-entity exposure booked → issuer leg and wrong-way risk understated |
+| **Settlement** | Cash vs physical; recovery amount = notional × recovery rate; delivery-versus-payment; T+2 | Wrong recovery applied, or settlement booked against the wrong leg |
 
-#### §17. Red Flags
+![CLN Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/cln/controls_cln_recon_08.svg)
 
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| Reference entity mismatch | NEMO and Sophis reference different legal entities (e.g., parent vs subsidiary) | Verify RED code (Reference Entity Database — a standardized identifier that ensures both systems reference the exact same legal entity) matches in both systems |
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Reference entity mismatch | NEMO and Sophis reference different legal entities (e.g., parent vs subsidiary) | Verify the RED code (Reference Entity Database — a standardized identifier ensuring both systems reference the exact same legal entity) matches in both systems |
 | Recovery rate assumption differs | Sophis uses 40% for pricing, NEMO uses 35% | Align to the market-standard recovery rate for the entity's seniority |
 | Credit event triggered but note not settled | ISDA determined a credit event, but the system has not processed the settlement | Investigate — may be a timing issue or a failure to monitor ISDA determinations |
 | CDS spread used for pricing differs from market | Internal CDS curve differs from market quotes | Recalibrate the CDS curve; stale curves lead to incorrect valuations |
 | Coupon paid after credit event | System paid a coupon on a date after the credit event | Reverse the payment; investigate why the credit event flag was not set |
+| Issuer leg of exposure not captured | Only the reference entity is monitored, ignoring issuer credit risk | Confirm the double credit exposure (reference entity + issuer) is booked and limited |
 
+**Control implication**
 
-#### §18. Worked Example
+The dominant 2nd-line controls for a CLN are **reference-entity identification** and the **double credit exposure**. A RED-code mismatch means the bank has bought protection on the wrong legal entity — the investor's redemption on a credit event would be calculated against a name the trade does not actually reference. The double credit exposure means the 2nd line must confirm that BOTH the reference-entity leg and the issuer leg are captured, limited, and monitored for wrong-way correlation; capturing only one understates the investor's true risk and the desk's concentration. A credit-event/auction-recovery break drives both valuation and settlement at once. The reconciliation exists to catch these inconsistencies before settlement crystallises them.
 
-**Product:** 5-year CLN on "BankCorp" (a large commercial bank)
-**Notional:** $2,000,000
-**Coupon:** 4.8% per year (risk-free 2.0% + CDS spread 3.2% - margin 0.4%)
-**Payment frequency:** Semi-annual
-**Recovery rate assumption:** 45%
+#### §10. Formal Definition
 
-**No credit event — full term:**
-- Semi-annual coupon: $2,000,000 × 4.8% / 2 = $48,000 per period
-- Total coupons over 5 years: 10 × $48,000 = $480,000
-- Principal at maturity: $2,000,000
-- **Total return: $2,480,000 (+24% over 5 years, 4.8% annualized)**
+A **Credit-Linked Note (CLN)** is a structured product in which the investor lends money to the issuer and simultaneously sells credit protection on a single reference entity. At maturity:
 
-**Credit event in Year 3 (BankCorp defaults, 45% recovery):**
-- Coupons received (6 semi-annual periods): 6 × $48,000 = $288,000
-- Recovery on principal: $2,000,000 × 45% = $900,000
-- **Total received: $1,188,000.** Net loss: **$812,000** (-40.6%).
-- The 3 years of 4.8% coupon ($288,000) covered less than a third of the capital loss ($1,100,000).
+- **If no credit event occurs:** Redemption = 100% of Principal. Coupons are paid throughout.
+- **If a credit event occurs:** Redemption = Principal × Recovery Rate. Remaining coupons are cancelled.
 
+**Key terms:**
+- **Reference entity:** The single company or government whose default risk the investor bears.
+- **Credit event:** A formally defined occurrence (bankruptcy, failure to pay, restructuring) that triggers settlement.
+- **Recovery rate:** The fraction of the principal recovered after default (typically 30-60% for senior debt).
+- **CDS spread:** The annual premium for credit protection, in basis points. This funds the enhanced coupon.
+- **ISDA definitions:** Credit events are defined under ISDA standards (Section 1.9).
 
-#### §19. Knowledge Check
+#### §11. Lifecycle
 
-1. **What is a CLN? Explain it in terms of its two components.**
+| Stage | Detail |
+|-------|--------|
+| **Trade date** | Terms agreed: reference entity (RED code), coupon, maturity, credit event definitions, recovery assumption. Book in NEMO; pricing finalised |
+| **Issue date** | Note issued. Investor pays par (or discount). The bank establishes the single-name CDS hedge |
+| **Coupon dates** | Regular fixed coupon payments. Ongoing credit event monitoring |
+| **Credit event monitoring** | Watch for ISDA Determinations Committee rulings on the reference entity. Sources: ISDA Determinations Committee announcements, market news |
+| **If credit event occurs** | Cease coupon payments. Determine recovery rate via the ISDA auction process. Settlement: investor receives notional × recovery rate. Remaining coupons cancelled |
+| **Maturity (if no credit event)** | Return 100% of principal. Final settlement T+2 |
+
+#### §12. Worked Example (both lenses)
+
+**Product:** 5-year CLN on "BankCorp" (a large commercial bank). **Notional:** $2,000,000. **Coupon:** 4.8% per year (risk-free 2.0% + CDS spread 3.2% − margin 0.4%). **Payment frequency:** Semi-annual. **Recovery rate assumption:** 45%.
+
+*Investor lens:*
+
+- **No credit event — full term:**
+  - Semi-annual coupon: $2,000,000 × 4.8% / 2 = $48,000 per period
+  - Total coupons over 5 years: 10 × $48,000 = $480,000
+  - Principal at maturity: $2,000,000
+  - **Total return: $2,480,000 (+24% over 5 years, 4.8% annualized)**
+- **Credit event in Year 3 (BankCorp defaults, 45% recovery):**
+  - Coupons received (6 semi-annual periods): 6 × $48,000 = $288,000
+  - Recovery on principal: $2,000,000 × 45% = $900,000
+  - **Total received: $1,188,000.** Net loss: **$812,000** (−40.6%).
+  - The 3 years of 4.8% coupon ($288,000) covered less than a third of the capital loss ($1,100,000).
+
+*Bank lens:*
+
+- In the no-credit-event case the desk's long protection expires worthless against the investor's sold protection; the desk keeps its structuring margin and the net of its hedge, having funded the $480,000 of coupons. Product Control confirms the CDS MTM rolls to zero and the coupon accrual closes out.
+- On the Year-3 credit event the desk's long single-name protection pays out: the investor absorbs the (1 − 45%) shortfall, delivering value that offsets the desk's redemption obligation, while the desk's interbank CDS hedge is settled through the same ISDA auction recovery of 45%. The 2nd line must confirm the recovery applied (45%, auction-set), the settlement amount (notional × recovery = $900,000), and that NEMO and Sophis agree on the reference entity (RED code) before settlement.
+
+#### §13. Knowledge Check
+
+1. **What is a CLN? Explain it in terms of its two components.** (Answer: a bond plus a short single-name CDS — lending principal and selling credit protection on one reference entity.)
 2. **Where does the enhanced coupon on a CLN come from?**
-3. **What is "dual credit exposure" in a CLN, and why does it matter?**
+3. **What is "dual (double) credit exposure" in a CLN, and why does it matter?**
 4. **A CLN on Company X has a coupon of 6%. The risk-free rate is 2.5%. What does the 3.5% excess coupon represent?**
 5. **What is wrong-way risk, and give an example involving a CLN.**
-6. **The CDS spread on the reference entity widens from 200bp to 500bp. The entity has not defaulted. What happens to the CLN's mark-to-market value?**
+6. **The CDS spread on the reference entity widens from 200bp to 500bp with no default. What happens to the CLN's mark-to-market value?**
 7. **Compare the risk profile of a CLN to a corporate bond issued by the reference entity. What is similar? What is different?**
-
+8. **(Desk economics / 1LoD)** What position does the desk hold against the investor, and how does it lay that risk off? Where does the desk's margin on the CDS spread come from?
+9. **(Controls / 2LoD)** Name three reconciliation breaks specific to a CLN — including the reference-entity RED code and the double credit exposure — and the consequence of each for the investor's redemption.
 
 **Mental Models**
 
 | Concept | Mental Model |
 |---------|-------------|
 | CLN | Bail bondsman — earn a fee for posting bail; lose the bail money if the defendant skips town |
-| CDS spread as coupon | The insurance premium the investor earns for taking default risk |
+| CDS spread as coupon | The insurance premium the investor earns for taking single-name default risk |
 | Credit event | The defendant skipping town — a formally defined trigger event |
-| Recovery rate | What you recover from the wreckage — typically 30-60 cents on the dollar |
-| Dual credit exposure | Two padlocks on the same chain — if either one breaks, you lose |
-| Spread widening without default | The defendant starts acting suspiciously — the market gets nervous, your position loses value, but the bail has not been forfeited yet |
-
+| Recovery rate | What is recovered from the wreckage — typically 30-60 cents on the dollar, set by the ISDA auction |
+| Dual credit exposure | Two padlocks on the same chain — if either one (reference entity or issuer) breaks, the investor loses |
+| Spread widening without default | The defendant starts acting suspiciously — the market gets nervous, the position loses value, but the bail has not been forfeited yet |
+| 2LoD reconciliation | The clerk confirming the bail bond names the right defendant — verifies the RED code and both credit legs before anyone pays out |
 
 **Key Takeaways**
 
-1. A CLN = Bond + Short CDS. The investor earns the CDS spread as an enhanced coupon.
+1. A CLN = Bond + Short single-name CDS. The investor earns the CDS spread as an enhanced coupon.
 2. If no credit event occurs, the investor receives full coupons and principal — a bond-like return.
-3. If a credit event occurs, the investor loses (1 - Recovery Rate) × Principal. Losses are typically 50-70% of the investment.
-4. The investor faces dual credit exposure: reference entity default risk AND issuer credit risk.
-5. CLNs provide access to credit markets without requiring CDS infrastructure.
+3. If a credit event occurs, the investor loses (1 − Recovery Rate) × Principal. Losses are typically 50-70% of the investment.
+4. The investor faces dual (double) credit exposure: reference entity default risk AND issuer credit risk.
+5. CLNs provide access to single-name credit markets without requiring CDS infrastructure.
 6. The mark-to-market value fluctuates with CDS spreads, even without a credit event.
-7. CLNs are booked in NEMO and priced in Sophis, not Murex.
+7. The desk is long single-name protection (bought from the investor) and lays it off in the interbank CDS market; its margin is the spread between the note-embedded CDS rate and the market rate.
+8. For the 2nd line, the dominant control risks are the reference-entity RED code and the double credit exposure — a mismatch on either misstates the investor's redemption or understates true risk.
 
+#### §14. Common Mistakes
 
-#### §20. Common Mistakes
-
-1. **Treating the coupon as free income.** The enhanced coupon is the CDS spread — it is compensation for bearing the risk that the reference entity defaults. It is insurance premium, not a gift.
+1. **Treating the coupon as free income.** The enhanced coupon is the CDS spread — compensation for bearing the risk that the reference entity defaults. It is insurance premium, not a gift.
 2. **Ignoring issuer credit risk.** The investor is exposed to two credit risks: the reference entity AND the issuing bank. If the issuer defaults, the investor loses regardless of the reference entity's health.
 3. **Underestimating tail risk.** Defaults are rare but devastating. Earning 5% per year for 4 years ($200,000 on $1M) and then losing 60% of principal ($600,000) in year 5 produces a net loss of $400,000.
 4. **Ignoring recovery rate uncertainty.** CLNs are priced assuming a recovery rate (e.g., 40%). Actual recovery rates vary widely — Lehman Brothers' senior debt recovered only ~28 cents on the dollar.
 5. **Assuming credit events are obvious.** "Restructuring" credit events can be ambiguous and disputed. The ISDA Determinations Committee process can take weeks, during which the CLN's fate is uncertain.
-
-### Desk Perspective
-
-| Role | What the CLN Means to Them |
-|------|--------------------------|
-| **Trader** | The desk is long CDS protection (bought from the investor via the note). It hedges by selling CDS in the interbank market. The margin is earned from the spread between the CDS rate embedded in the note and the market CDS rate. |
-| **Structurer** | Selects the reference entity, sets the coupon (CDS spread minus margin), and ensures the product meets client suitability requirements. Reference entity selection is critical — clients want names they recognize and can assess. |
-| **Product Control** | Verifies CDS curve calibration, monitors credit event determinations, and reconciles CLN valuations between NEMO and Sophis. |
-| **Risk** | Monitors credit exposure concentration (many CLNs on the same reference entity or industry), wrong-way risk (issuer-reference correlation), and CDS basis (difference between CLN-implied spread and market CDS spread). |
-| **Operations** | Monitors ISDA credit event determinations. If a credit event occurs, processes the settlement: calculate recovery amount, reverse any post-event coupon accruals, and settle the note. |
-
+6. **(Controls) Trusting a single system's reference-entity field.** Because a CLN names one legal entity, the 2nd line must reconcile the RED code across NEMO and Sophis rather than assume they agree — a parent/subsidiary mismatch means protection was bought on the wrong name.
 ### Knowledge Check
 
 **Review Questions:**
@@ -14853,6 +14815,10 @@ However, the **mark-to-market** value fluctuates continuously based on the refer
 4. What happens to the investor's principal if the reference entity defaults with a 40% recovery rate?
 5. Why are CLNs booked in NEMO/Sophis rather than Murex?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor (raw correlation/credit position), and how is it hedged?
+- *(Controls / 2LoD)* Which credit-event / basket / model-input fields must reconcile, and which is the most common break?
 **Scenario Questions:**
 1. An investor holds a CLN on a bank that is in the same country as the issuing bank. Why might a risk manager flag this as a concern?
 2. The CDS spread on the reference entity narrows from 300bp to 100bp after purchase. No credit event occurred. How does this affect the CLN's mark-to-market value? Would the investor benefit from selling early?
@@ -14916,6 +14882,11 @@ A credit event occurs on a reference entity. The ISDA Determinations Committee d
 - **Diagram elements:** Decision tree guiding investor suitability. Key questions: risk tolerance, income need, market view, time horizon
 - **Reuse status:** Adapt from decision tree template
 
+
+**Dual-lens visuals (generated):**
+- `assets/cln/controls_cln_recon_08.svg` `[generated]`
+- `assets/cln/legs_cln_01.svg` `[generated]`
+- `assets/cln/waterfall_cln_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -14929,53 +14900,39 @@ A credit event occurs on a reference entity. The ISDA Determinations Committee d
 
 ---
 
-*The Vanilla CLN (Section 5.5.1) had a fixed recovery rate assumption — if the reference entity defaulted, the investor's loss was calculated using a predetermined recovery rate. The Skew CLN makes recovery dynamic: the actual recovery rate at the time of default determines the investor's loss. This introduces credit curve exposure and makes the product more sensitive to the market's view of expected recovery.*
+*The Vanilla CLN (Section 5.5.1) carried a fixed recovery-rate assumption — on a credit event, the investor's loss was computed using a predetermined recovery rate. The Skew CLN reshapes that recovery leg: instead of settling at whatever the market recovery rate turns out to be, it applies a predetermined or formula-based recovery (a fixed rate, zero recovery, or a digital threshold). This introduces explicit recovery-rate exposure — the "skew" of the product is in its recovery terms, not in its default trigger. The reference is a single credit entity, so the product carries no portfolio or tranche correlation exposure. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Meet Priya, a portfolio manager at a Singapore-based insurance company. She has been investing in Vanilla CLNs for three years and understands the basic trade: lend money, earn an enhanced coupon, and absorb the loss if the reference company defaults.
+A bank advisor offers a credit investor two notes on the same reference company: a standard CLN paying 5.5% per year, or a modified note paying 7.5% per year for the same maturity. The natural question is: where does the extra 2% come from?
 
-But Priya has noticed something. When defaults happen, the recovery rate — how much investors get back — varies enormously. For investment-grade companies, recovery is typically 40-60%. For distressed or subordinated debt, recovery can be as low as 10-20%. The standard CLN treats recovery as a single number. Priya wants a product that explicitly accounts for this variation.
+The answer is that the extra coupon pays for a specific change to the recovery terms. In a **Skew CLN**, the investor still lends principal and still sells credit protection on a single reference entity — but the recovery the investor receives after a default is fixed by contract rather than set by the market. In the zero-recovery variant, the investor receives nothing back on a default; in a fixed-recovery variant, the investor receives a predetermined percentage; in a digital variant, the investor receives a binary amount depending on whether actual recovery crosses a threshold.
 
-A **Skew CLN** modifies the standard CLN by changing how recovery is calculated or applied after a credit event. Instead of settling at whatever the market recovery rate turns out to be, the Skew CLN applies a predetermined recovery formula — sometimes a fixed recovery rate, sometimes a leveraged or modified recovery that amplifies or dampens the loss.
-
-Think of it this way: a Vanilla CLN is standard car insurance where the insurer pays whatever the repair bill is. A **Skew CLN** is car insurance with a modified deductible structure — perhaps you absorb the first $5,000 of damage regardless, or perhaps the payout is capped at 50% of the car's value. The insurance still works the same way, but the terms of the payout are skewed.
+The tradeoff: in exchange for the higher coupon, the investor gives up the market recovery they would have received under a Vanilla CLN. If the reference entity never defaults, the investor keeps the enhanced coupon and full principal. If it defaults, the investor's loss is governed by the contractual recovery formula — which may be far worse than the actual market recovery would have been. The investor is paid an enhanced coupon to take a precise view on recovery, not merely on default.
 
 #### §2. Real-World Analogy
 
-A Skew CLN is like **car insurance with tiered deductible levels**.
+A Skew CLN is like car insurance with a modified, contractually fixed deductible structure.
 
-With standard car insurance, if your car is damaged, the insurer assesses the damage and pays the repair cost minus your deductible. Simple.
+With standard car insurance, if the car is damaged, the insurer assesses the actual repair bill and pays it minus a deductible — the payout tracks reality. With a modified-deductible policy, the payout is fixed in advance regardless of the actual damage: perhaps the policyholder absorbs the first portion of any loss no matter what, or the payout is capped at a set fraction of the car's value.
 
-With a tiered deductible policy, the payout depends on the severity of the damage:
-- **Minor damage (< $2,000):** You pay everything — no claim.
-- **Moderate damage ($2,000-$10,000):** Insurer pays 50% of the cost above $2,000.
-- **Major damage (> $10,000):** Insurer pays 80% of the cost above $2,000.
-
-In a Skew CLN:
-- The **car** is the reference entity's debt.
-- The **damage** is the credit event.
-- The **tiered payout structure** is the modified recovery mechanism.
-- The **premium you pay** (higher than standard insurance) reflects the modified terms.
-
-Just as tiered insurance changes *how much* you receive after an accident without changing *whether* you are insured, a Skew CLN changes *how much* recovery the investor receives after a credit event without changing the basic CLN structure.
+In a Skew CLN: the car is the reference entity's debt; the damage is the credit event; the contractually fixed payout structure is the modified recovery mechanism; and the higher premium reflects the modified terms. Just as a modified-deductible policy changes *how much* is paid after an accident without changing *whether* cover applies, a Skew CLN changes *how much* recovery the investor receives after a credit event without changing the basic CLN structure. Because the policy covers one named car — one reference entity — there is no question of correlation between several insured assets.
 
 #### §3. What Problem Does This Solve?
 
-Skew CLNs solve the **recovery uncertainty problem**.
+Skew CLNs solve the **recovery-uncertainty problem**.
 
-In a Vanilla CLN, the investor's loss after a credit event depends entirely on the market-determined recovery rate. This rate is unknown in advance and can vary from 10% to 80% depending on the reference entity's assets, seniority, and circumstances. The investor has no control over this outcome.
+In a Vanilla CLN, the investor's loss after a credit event depends entirely on the market-determined recovery rate. That rate is unknown in advance and can range from roughly 10% to 80% depending on the reference entity's assets, seniority, and circumstances. The investor has no control over the outcome and cannot size a worst case precisely.
 
-A Skew CLN allows the investor (or the structurer) to modify the recovery terms:
+A Skew CLN lets the investor (or the structurer) fix the recovery terms, expressing a view on the recovery distribution rather than accepting it.
 
-| Investor Need | Why Vanilla CLN Falls Short | What Skew CLN Offers |
+| Investor Need | Why Vanilla CLN Falls Short | What the Skew CLN Offers |
 |--------------|---------------------------|---------------------|
-| Predictable worst-case loss | Recovery rate is unknown until after default | Fixed recovery variant: investor knows exact loss if default occurs |
-| Higher coupon for more risk | Vanilla CLN recovery is market-standard | Zero-recovery variant: investor absorbs 100% loss, earns highest coupon |
-| Reduced loss severity | Vanilla CLN applies full market recovery | Digital recovery variant: investor receives fixed amount (e.g., 50%) regardless of actual recovery |
+| Predictable worst-case loss | Recovery rate is unknown until after default | Fixed-recovery variant: the investor knows the exact loss if default occurs |
+| Higher coupon for more risk | Vanilla CLN recovery is market-standard | Zero-recovery variant: the investor absorbs a 100% loss and earns the highest coupon |
+| Reduced loss severity / precise view | Vanilla CLN applies full market recovery | Digital-recovery variant: the investor receives a fixed amount (e.g. 50%) regardless of actual recovery |
 
 #### §4. Product DNA
-
 
 | **Field** | **Value** |
 |---|---|
@@ -14992,13 +14949,12 @@ A Skew CLN allows the investor (or the structurer) to modify the recovery terms:
 | **Primary System** | NEMO (primary), Sophis (risk) |
 | **ISDA Required** | No — issued as note |
 
-
 **DNA Atlas Fields:**
-- Primary Risk: Credit default of reference entity. Non-linear recovery exposure — loss depends on actual recovery rate vs assumed
-- Typical Buyer: Credit investors with specific recovery rate views
-- Typical Use Case: Express view on recovery rate distribution, not just default probability
+- Primary Risk: Credit default of the reference entity. Non-linear recovery exposure — loss depends on actual recovery rate vs assumed
+- Typical Buyer: Credit investors with specific recovery-rate views
+- Typical Use Case: Express a view on the recovery-rate distribution, not just default probability
 - Building Blocks: CLN + digital/barrier recovery payoff
-- Key Hedge: CDS + recovery rate swaps
+- Key Hedge: CDS + recovery-rate swaps
 - Similar Products: Vanilla CLN (5.5.1 — standard recovery), FTD (5.5.3 — basket credit), CDS (5.2.5)
 - Most Important Greek: Recovery delta (sensitivity to assumed recovery rate)
 
@@ -15012,45 +14968,79 @@ A Skew CLN allows the investor (or the structurer) to modify the recovery terms:
 - Volatility Sensitivity: Low (credit, not vol, driven)
 - Correlation Sensitivity: None (single reference entity)
 - Client Type: Institutional credit investors
-- Market Environment: Best when credit spread compensates for default risk
+- Market Environment: Best when the credit spread compensates for default risk
 
 #### §5. Who Touches This Product
 
-| Role | What They Do |
+| Role | Responsibility |
 |------|-------------|
 | **Structurer** | Designs the recovery modification to match client risk appetite. Calibrates the coupon enhancement against the modified recovery terms |
 | **Trader** | Hedges with CDS and recovery swaps. Manages the recovery basis risk between the structured terms and market recovery |
-| **Sales** | Explains the recovery modification to clients. Must clearly articulate how the modified recovery changes the risk/return profile vs Vanilla CLN |
+| **Sales** | Explains the recovery modification to clients. Must clearly articulate how the modified recovery changes the risk/return profile vs the Vanilla CLN |
 | **Quant** | Models the recovery distribution and prices the modification. Recovery assumptions directly affect the premium |
 | **Risk Manager** | Monitors recovery basis risk. Stress-tests under extreme recovery scenarios (very low and very high) |
-| **Operations** | Processes credit event settlement under modified terms. Must apply the correct recovery formula, not the standard market recovery |
-| **Compliance** | Verifies client suitability for modified recovery products. Ensures disclosure documents clearly explain the non-standard recovery terms |
+| **Operations** | Processes credit-event settlement under modified terms. Must apply the correct recovery formula, not the standard market recovery |
+| **Compliance** | Verifies client suitability for modified-recovery products. Ensures disclosure documents clearly explain the non-standard recovery terms |
 | **Product Control** | Marks the position using the structured recovery terms. Reconciles against standard CDS recovery assumptions |
 
 #### §6. Product Evolution
 
-**Ancestor:** Vanilla CLN (5.5.1)
+| Stage | Product | What Was Added | Why |
+|:-----:|---------|---------------|-----|
+| 1 | Vanilla CLN (5.5.1) | — (baseline) | Bond + short CDS = enhanced coupon. Investor receives market recovery rate after default |
+| 2 | Skew CLN | Modified recovery mechanism | Investor receives a predetermined or formula-based recovery amount, expressing a view on recovery |
 
-The Vanilla CLN established the CLN framework: bond + short CDS = enhanced coupon with credit event risk. The Skew CLN evolved from investor demand for more precise control over recovery outcomes.
+The Vanilla CLN established the CLN framework: bond + short CDS = enhanced coupon with credit-event risk. The Skew CLN evolved from investor demand for more precise control over recovery outcomes. Investors who want maximum yield accept zero or reduced recovery (higher coupon); investors who want a predictable worst case accept fixed recovery (slightly lower coupon, but known downside). The bank benefits because modified recovery terms can be hedged more precisely using recovery swaps.
 
-**Evolution path:**
-1. **Vanilla CLN** — Standard recovery: investor receives market recovery rate after default
-2. **Skew CLN** — Modified recovery: investor receives a predetermined or formula-based recovery amount
+---
 
-**Why the modification exists:**
-- Investors who want maximum yield accept zero or reduced recovery (higher coupon)
-- Investors who want predictable worst-case accept fixed recovery (slightly lower coupon, but known downside)
-- Banks benefit because modified recovery terms can be hedged more precisely using recovery swaps
+#### §7. THE INVESTOR LENS
 
-#### §7. How the Bank Makes Money
+**Why the investor buys it**
 
-The bank earns money from the Skew CLN through three channels:
+1. **Enhanced yield.** The coupon is meaningfully higher than a comparable Vanilla CLN — for example 7.5% vs 5.5% on the same reference entity — because the investor accepts modified (often worse) recovery terms.
+2. **Predictable worst-case loss.** A fixed-recovery variant lets the investor size the exact loss-given-default in advance, which a Vanilla CLN cannot — useful for capital modelling.
+3. **View expression on recovery.** An investor who believes actual recovery on a name will be very low can lock in a fixed recovery and be paid for that view, separately from the default-probability view.
+4. **Tailored loss-given-default.** Portfolios that require specific loss-given-default assumptions can match them contractually rather than accept the market's uncertain recovery.
 
-1. **Structuring fee.** The recovery modification is a customization that the bank prices. The bank's model determines the fair value of the modification, and the bank retains a margin between the fair value and the terms offered to the investor.
+**Position & correlation direction**
 
-2. **CDS spread arbitrage.** The bank sells standard CDS protection in the market and buys modified-recovery protection from the investor. The difference in pricing reflects the recovery modification value.
+The investor simultaneously holds a long bond (lends principal to the issuer) and a **short** CDS position on a single reference entity with a modified recovery leg (credit protection sold to the bank). Net, the investor is **long credit** (hurt by spread widening and by default) and carries the reference entity's default risk plus issuer credit risk. The defining sensitivity is **recovery delta** — exposure to the assumed recovery rate. Because the reference is a single credit entity, **the product carries no portfolio or tranche correlation exposure; there is no long/short correlation position to label.** The "skew" in the name is recovery-term skew, not correlation skew.
 
-3. **Recovery swap margin.** When hedging, the bank may use recovery swaps (derivatives that exchange fixed recovery for actual recovery). The bank earns the bid-offer spread on these hedges.
+**Payoff & scenarios**
+
+The investor's payoff has two zones. **No credit event:** the investor receives 100% of principal plus all coupons. **Credit event:** the investor receives the contractual recovery — 0% under the zero-recovery variant, the predetermined rate under the fixed-recovery variant, or the binary amount under the digital variant — and remaining coupons are cancelled. Critically, the redemption is governed by the **contractual** recovery formula and is **independent of the actual market recovery rate**: under a zero-recovery variant, the investor receives $0 even if the market recovery turns out to be 70%.
+
+![Skew CLN Three-Party Cashflow Legs (Investor / Bank / Reference Entity) — Investor Lens](assets/skewcln/legs_skewcln_01.svg)
+
+**Product:** 3-year Skew CLN on "GlobalCorp" with **zero-recovery** modification. **Notional:** $500,000. **Coupon:** 7.5% per year (vs 5.5% for a Vanilla CLN on the same reference entity). **Recovery modification:** Fixed at 0% (the investor absorbs a 100% loss on default).
+
+- **No credit event (most likely):** GlobalCorp does not default. The investor receives 3 years of coupons ($37,500/year = $112,500 total) and full principal ($500,000). **Total: $612,500.** The investor earned 7.5% per year — 2% more than the Vanilla CLN — because the investor accepted zero-recovery terms.
+- **Credit event in Year 2:** GlobalCorp defaults. Under standard recovery (40%) a Vanilla CLN investor would receive $200,000 back. Under zero-recovery terms the Skew CLN investor receives **$0** of principal, plus coupons already received: 2 × $37,500 = $75,000. **Total received: $75,000. Net loss: $425,000 (−85%).** The higher coupon provided only $20,000 more than the Vanilla CLN coupons ($55,000), but the additional loss from zero recovery is $200,000.
+- **Credit event with high actual recovery (70%):** GlobalCorp defaults but actual market recovery is 70%. A Vanilla CLN investor receives $350,000. The Skew CLN investor still receives **$0** — the zero-recovery modification applies regardless of actual recovery. The investor gave up $350,000 of recovery for an extra 2% annual coupon.
+
+**Risks to the investor**
+
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Credit event risk** | The reference entity defaults; the investor loses principal under the contractual recovery formula. | High |
+| **Recovery basis risk (to the investor's outcome)** | The contractual recovery may be far worse than the actual market recovery the investor would otherwise have received — a fixed give-up crystallised on default. | High |
+| **Issuer credit risk** | The investor is exposed to the issuing bank. If the issuer defaults, the investor may not receive coupons or principal. | Medium |
+| **MTM volatility** | Spread moves affect value more than for a Vanilla CLN because the higher loss-given-default amplifies spread sensitivity. | Medium |
+| **Liquidity** | Modified CLNs are less liquid than standard CLNs; non-standard recovery terms widen bid-offer. | Medium |
+| **Model risk** | Pricing depends on recovery-distribution assumptions; the investor's mark depends on a model input they do not control. | Medium |
+
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk's position is the mirror image of the investor's. Where the investor is short the modified-recovery CDS, the desk is **long** that protection (bought from the investor); alongside it the desk has issued a note, which is a funding liability. The investor's enhanced coupon is, to the desk, the cost of the credit-protection premium plus funding, returned to the client. The recovery override sits in the CDS leg, not the bond leg.
+
+**Recovery / skew risk & hedging**
+
+The desk's defining exposure is **recovery basis**, not correlation. The desk sells standard CDS protection in the market (settling at standard market recovery) and buys modified-recovery protection from the investor. On a credit event, the desk must pay out at standard recovery in the CDS market but receives zero (or fixed) recovery from the CLN — this mismatch is the recovery basis and must be hedged separately, usually with **recovery swaps** (which exchange fixed recovery for actual recovery). The most important sensitivity is **recovery delta** — the position's response to a change in the assumed recovery rate — which the desk manages alongside credit spread (CS01) exposure. Recovery swaps are illiquid for most reference entities, so the desk often carries unhedged recovery basis as a model-dependent P&L item.
+
+**How the bank makes money**
 
 | Revenue Source | Mechanism | Typical Size |
 |---------------|-----------|:------------:|
@@ -15058,291 +15048,195 @@ The bank earns money from the Skew CLN through three channels:
 | CDS spread differential | Standard CDS vs modified-recovery CDS pricing | 10-30bp per annum |
 | Recovery swap bid-offer | Hedging the recovery modification | 5-15bp per annum |
 
-#### §8. Why This Product Exists (Client Perspective)
+The bank prices the recovery modification with its model, retains a margin between the modelled fair value and the terms offered, captures the pricing differential between standard and modified-recovery CDS, and earns the bid-offer on any recovery-swap hedges.
 
-**When it makes sense:**
-- Investor has a strong credit view and wants to maximize yield: zero-recovery Skew CLN pays the highest coupon
-- Investor wants predictable worst-case: fixed-recovery Skew CLN provides known maximum loss
-- Investor portfolio requires specific loss-given-default assumptions for capital modeling
+**The coupon decomposition (from Section 2.2):**
 
-**When it is a poor choice:**
-- Investor does not understand the recovery modification and treats it as a standard CLN
-- Investor cannot absorb the potentially larger loss under zero-recovery terms
-- Reference entity has highly uncertain recovery prospects (e.g., emerging market sovereign with unpredictable asset base)
+Skew CLN Coupon = Vanilla CLN Coupon + Recovery Modification Premium
 
-#### §9. The Three Scenarios
+For the zero-recovery variant: standard CLN coupon 5.5% = bond interest 2.5% + CDS spread 3.5% − margin 0.5%; recovery modification premium +2.0%; **net Skew CLN coupon 7.5%.** The additional 2.0% compensates the investor for accepting zero recovery instead of the expected 40% market recovery. The bank calculates this premium based on (Expected Recovery Rate) × (Default Probability) × (Time to Maturity).
 
-**Product:** 3-year Skew CLN on "GlobalCorp" with **zero recovery** modification
-**Notional:** $500,000
-**Coupon:** 7.5% per year (vs 5.5% for Vanilla CLN on same reference entity)
-**Recovery modification:** Fixed at 0% (investor absorbs 100% loss on default)
+![Skew CLN Coupon Decomposition — Bank Lens (Desk Economics)](assets/skewcln/waterfall_skewcln_09.svg)
 
-**Scenario 1 — No credit event (most likely):**
-GlobalCorp does not default. Investor receives 3 years of coupons ($37,500/year = $112,500 total) and full principal ($500,000). **Total: $612,500.** The investor earned 7.5% per year — 2% more than the Vanilla CLN — because they accepted zero recovery terms.
+**P&L drivers**
 
-**Scenario 2 — Credit event occurs (Year 2):**
-GlobalCorp defaults. Under standard recovery (40%), a Vanilla CLN investor would receive $200,000 back. Under zero-recovery terms, the Skew CLN investor receives **$0** of principal. Plus coupons already received: 2 × $37,500 = $75,000. **Total received: $75,000. Net loss: $425,000 (-85%).** The higher coupon provided only $20,000 more than the Vanilla CLN coupons ($55,000), but the additional loss from zero recovery is $200,000.
+Day to day, desk P&L is driven by moves in the reference entity's credit spread (CS01), shifts in the assumed recovery rate (recovery delta), the basis between contractual and market recovery, recovery-swap marks where they exist, funding, and the mark-to-market of the embedded modified-recovery CDS. Product Control attributes P&L between coupon accrual and credit-leg MTM and reconciles the position's recovery assumptions against standard CDS recovery.
 
-**Scenario 3 — Credit event with high actual recovery (70%):**
-GlobalCorp defaults but actual market recovery is 70%. A Vanilla CLN investor receives $350,000. The Skew CLN investor still receives **$0** — the zero-recovery modification applies regardless of actual recovery. This scenario illustrates the downside of the modification: the investor gave up $350,000 of recovery for an extra 2% annual coupon.
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
 
-#### §10. What Happens When Markets Move
+**Booking & systems**
 
-| Market Condition | Impact on Skew CLN | Why |
-|-----------------|-------------------|-----|
-| Credit spreads widen sharply | MTM drops more than Vanilla CLN | Zero-recovery means total loss on default — higher loss-given-default amplifies spread sensitivity |
-| Credit spreads tighten | MTM rises, but less than expected | Recovery modification has less value when default probability is low |
-| Recovery rate expectations rise | Skew CLN becomes less attractive | Investor is locked into zero recovery while market expects higher recovery |
-| Recovery rate expectations fall | Skew CLN becomes more attractive | Fixed recovery (even zero) may be better than very low uncertain recovery |
+| Aspect | Detail |
+|--------|--------|
+| **Book of record** | NEMO |
+| **Pricing/Risk system** | Sophis |
+| **Booking structure** | Single note with embedded short CDS plus a recovery override on the credit leg |
+| **ISDA Required** | No — issued as note; ISDA Credit Definitions still govern the credit-event determination |
+| **Key booking fields** | Notional, reference entity, CDS spread, coupon rate & frequency, maturity, **recovery override** (contractual recovery rate), credit-event definition set |
+| **Recovery field** | Must be populated with the contractual recovery; if left at the default ("market"), P&L and risk are wrong |
+| **Settlement basis** | Contractual recovery applied on credit event — NOT the ISDA auction / market recovery |
 
-#### §11. Formal Definition
+**Reconciliation points**
 
-A **Skew Credit-Linked Note (Skew CLN)** is a credit-linked note in which the recovery mechanism upon a credit event is modified from the standard market recovery rate.
+| Recon point | What must agree | Skew-CLN-specific break |
+|-------------|-----------------|-------------------|
+| **ISDA Credit Definitions** | Credit-event set and Determinations Committee reference consistent across systems and termsheet | A credit event recognised under one definition set but not another → settlement triggered incorrectly |
+| **Reference portfolio / entity** | Single reference entity identifier matches across NEMO, Sophis and the termsheet | Wrong reference entity mapped → protection on the incorrect name |
+| **Base-correlation / skew model inputs** | Recovery-distribution / recovery-skew model inputs match between front office and risk | Recovery-skew input stale or divergent between systems → MTM and risk diverge |
+| **Recovery override** | Contractual recovery rate in NEMO equals the value used in Sophis and on the termsheet | Recovery field shows "market" instead of the fixed value → P&L is wrong |
+| **Credit-event / recovery determination** | On a credit event, contractual recovery applied — not the ISDA auction recovery | Operations applies market/auction recovery instead of contractual recovery |
+| **Coupon lifecycle** | Coupon schedule, day-count, cancellation of remaining coupons on a credit event | Coupon paid (or accrued) after a credit event that should have stopped it |
+| **P&L attribution** | Coupon accrual + credit-leg MTM reconciles to total | Unexplained P&L points to a recovery-model or recovery-basis mismatch |
+| **Settlement** | Cash settlement amount = notional × contractual recovery; delivery-versus-payment | Settlement computed on market recovery, or wrong recovery applied |
+
+![SKEWCLN Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/skewcln/controls_skewcln_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Recovery field shows "market" instead of fixed value | Booking error — modified recovery not entered | Correct immediately; P&L and risk are wrong |
+| MTM moves opposite to CDS spread direction | Recovery assumption mismatch in the model | Check recovery-model inputs across NEMO and Sophis |
+| Investor queries "expected recovery" after a credit event | Investor may expect market recovery, not contractual zero/fixed | Escalate to Sales and Compliance |
+| Recovery swap hedge absent | Unhedged recovery basis risk | Escalate to Risk Manager |
+| Settlement uses ISDA auction recovery | Operations applied market, not contractual, recovery | Halt settlement; apply contractual recovery per termsheet |
+
+**Control implication**
+
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. A recovery-override error (field left at "market") misstates both the redemption the investor receives on default and the desk's P&L and risk simultaneously. A settlement computed on ISDA auction recovery instead of the contractual recovery pays the investor the wrong amount on the single event that matters most. A stale recovery-skew model input diverging between NEMO and Sophis breaks valuation and risk together. The reconciliation exists precisely to catch these inconsistencies before a credit event or settlement crystallises them.
+
+#### §10. Formal Definition
+
+A **Skew Credit-Linked Note (Skew CLN)** is a credit-linked note on a single reference entity in which the recovery mechanism upon a credit event is modified from the standard market recovery rate to a predetermined or formula-based recovery.
 
 **Common modifications:**
 
 | Variant | Recovery on Default | Coupon Impact | Investor Use Case |
 |---------|:-------------------:|:-------------:|-------------------|
 | Zero-recovery CLN | 0% (investor loses 100%) | Highest coupon | Maximize yield, accept full loss risk |
-| Fixed-recovery CLN | Predetermined rate (e.g., 30%, 50%) | Moderate enhancement | Predictable worst-case scenario |
-| Digital-recovery CLN | Binary: 0% or 100% depending on recovery threshold | Variable | Precise view on recovery outcome |
+| Fixed-recovery CLN | Predetermined rate (e.g. 30%, 50%) | Moderate enhancement | Predictable worst-case scenario |
+| Digital-recovery CLN | Binary: 0% or 100% depending on a recovery threshold | Variable | Precise view on the recovery outcome |
 
-**Formal payoff:**
-
-At maturity:
+**Formal payoff** at maturity:
 - **No credit event:** Redemption = 100% of Principal. All coupons paid.
 - **Credit event (zero-recovery variant):** Redemption = 0%. Remaining coupons cancelled.
 - **Credit event (fixed-recovery variant):** Redemption = Fixed Recovery Rate × Principal. Remaining coupons cancelled.
 
-**Coupon formula:**
-Skew CLN Coupon = Vanilla CLN Coupon + Recovery Modification Premium
+**Coupon formula:** Skew CLN Coupon = Vanilla CLN Coupon + Recovery Modification Premium. For zero recovery, the Recovery Modification Premium compensates the investor for giving up recovery rights and depends on the expected recovery rate and default probability.
 
-For zero-recovery: the Recovery Modification Premium compensates the investor for giving up recovery rights. This premium depends on the expected recovery rate and default probability.
+#### §11. Lifecycle
 
-#### §12. Product Construction
-
-*Dependency: Builds on Vanilla CLN (5.5.1 §7) and CDS (5.2.5).*
-
-| Component | What It Is | Purpose |
-|-----------|-----------|---------|
-| Bond | Investor lends principal to issuer | Provides funding |
-| Short CDS (modified) | Investor sells credit protection with modified recovery | Generates enhanced coupon |
-| Recovery modification | Contractual override of standard recovery | Changes the loss-given-default |
-
-**Construction waterfall (zero-recovery variant):**
-
-Standard CLN coupon (5.5%): Bond interest (2.5%) + CDS spread (3.5%) − Margin (0.5%)
-Recovery modification premium: +2.0%
-**Skew CLN coupon: 7.5%**
-
-The additional 2.0% compensates the investor for accepting zero recovery instead of the expected 40% market recovery. The bank calculates this premium based on: (Expected Recovery Rate) × (Default Probability) × (Time to Maturity).
-
-#### §13. Lifecycle
-
-| Stage | What Happens | Key Actions |
-|-------|-------------|-------------|
-| **Pre-trade** | Structurer designs recovery modification. Credit analysis performed on reference entity. Investor reviews modified terms | Credit approval, documentation review |
-| **Trade date** | CLN issued. Investor pays principal. Bank enters offsetting CDS position | Booking in NEMO, risk setup in Sophis |
+| Stage | Detail | Key Actions |
+|-------|--------|-------------|
+| **Pre-trade** | Structurer designs the recovery modification. Credit analysis performed on the reference entity. Investor reviews modified terms | Credit approval, documentation review |
+| **Trade date** | CLN issued. Investor pays principal. Bank enters the offsetting CDS position | Booking in NEMO (with recovery override), risk setup in Sophis |
 | **During life** | Coupons paid. Credit monitored. MTM calculated using modified recovery assumptions | Coupon processing, daily P&L, credit monitoring |
-| **Maturity / Credit event** | If no default: principal returned. If default: modified recovery applied | Settlement using contractual recovery terms, NOT market recovery |
+| **Maturity / Credit event** | If no default: principal returned. If default: contractual recovery applied | Settlement using contractual recovery terms, NOT market/auction recovery |
 
-#### §14. Desk Reality
+#### §12. Worked Example (both lenses)
 
-**What textbooks don't tell you:**
-
-The hardest part of Skew CLNs is hedging the recovery basis. The bank sells standard CDS protection (with standard recovery) and buys modified-recovery protection from the investor. If a credit event occurs, the bank must pay out at standard recovery in the CDS market but receives zero (or fixed) recovery from the CLN. This mismatch — the **recovery basis** — must be hedged separately, usually with recovery swaps.
-
-Recovery swaps are illiquid for most reference entities. This means the bank often carries unhedged recovery basis risk, which appears as a model-dependent P&L item. Traders watch recovery swap markets closely, but many names simply don't trade in recovery swap form.
-
-The second desk reality: investors sometimes do not fully understand the zero-recovery modification. A 2% coupon enhancement seems attractive, but the investor is giving up potentially $200,000+ of recovery on a $500,000 note. Sales must ensure clients understand this asymmetry.
-
-#### §15. Risk Analysis
-
-| Risk | Description | Severity | Unique to Skew CLN? |
-|------|------------|:--------:|:--------------------:|
-| Credit event risk | Reference entity defaults | High | No (shared with Vanilla CLN) |
-| Recovery basis risk | Difference between contractual and market recovery | High | YES — the defining risk |
-| Issuer credit risk | Issuing bank defaults | Medium | No (shared with Vanilla CLN) |
-| MTM volatility | Spread changes affect value more due to higher LGD | Medium | YES — amplified by zero recovery |
-| Liquidity risk | Modified CLNs are less liquid than standard CLNs | Medium | YES — non-standard terms |
-| Model risk | Recovery distribution assumptions affect pricing | Medium | YES — recovery model dependency |
-
-#### §16. Booking and Systems
-
-| System | Role |
-|--------|------|
-| NEMO | Primary booking — records the CLN with modified recovery terms |
-| Sophis | Risk and P&L — calculates Greeks using modified recovery assumptions |
-
-**Key booking difference from Vanilla CLN:** The recovery override field must be populated. If left at the default (market recovery), the P&L will be incorrect. This is a common booking error flagged by Product Control.
-
-#### §17. Red Flags
-
-| Red Flag | What It Means | Action |
-|----------|-------------|--------|
-| Recovery field shows "market" instead of fixed value | Booking error — modified recovery not entered | Correct immediately; P&L is wrong |
-| MTM moves opposite to CDS spread direction | Recovery assumption mismatch in model | Check recovery model inputs |
-| Investor queries on "expected recovery" after credit event | Investor may expect market recovery, not contractual zero | Escalate to Sales and Compliance |
-| Recovery swap hedge is absent | Unhedged recovery basis risk | Escalate to Risk Manager |
-
-#### §18. Worked Example
-
-**Product:** 3-year Skew CLN (zero-recovery) on "MegaBank Corp"
-**Notional:** $1,000,000
-**Coupon:** 7.00% per year
-**Recovery modification:** Fixed at 0%
-**Comparable Vanilla CLN coupon:** 4.80%
-**Reference entity CDS spread:** 250bp
+**Product:** 3-year Skew CLN (zero-recovery) on "MegaBank Corp". **Notional:** $1,000,000. **Coupon:** 7.00% per year. **Recovery modification:** Fixed at 0%. **Comparable Vanilla CLN coupon:** 4.80%. **Reference entity CDS spread:** 250bp.
 
 **Year 1:** No credit event. Coupon paid: $1,000,000 × 7.00% = $70,000.
 **Year 2:** No credit event. Coupon paid: $70,000. Cumulative coupons: $140,000.
 **Year 3 (Month 2):** Credit event — MegaBank Corp declared bankruptcy.
 
+*Investor lens:*
+
 **Settlement under zero-recovery terms:**
 - Principal returned: $1,000,000 × 0% = **$0**
 - Accrued coupon (2 months of Year 3): $70,000 × (2/12) = $11,667 (cancelled — no accrued coupon after credit event)
 - **Total received:** $140,000 (coupons from Years 1-2)
-- **Net loss:** $860,000 (-86%)
+- **Net loss:** $860,000 (−86%)
 
-**Comparison with Vanilla CLN (40% recovery):**
+**Comparison with a Vanilla CLN (40% recovery):**
 - Principal returned: $1,000,000 × 40% = $400,000
 - Coupons received: 2 × $48,000 = $96,000
 - **Total received:** $496,000
-- **Net loss:** $504,000 (-50.4%)
+- **Net loss:** $504,000 (−50.4%)
 
 **The extra coupon earned ($44,000 more over 2 years) does not compensate for the extra loss ($356,000 more).**
 
-#### §19. Knowledge Check
+*Bank lens:*
+- Through Years 1-2 the desk funds the $70,000/year coupons and carries the long modified-recovery protection; Product Control confirms the coupon accrual and the credit-leg MTM reconcile, and that the recovery override (0%) used in Sophis matches NEMO and the termsheet.
+- On the Year-3 credit event, the desk receives $0 contractual recovery from the CLN but must settle its market CDS hedge at the prevailing market/auction recovery — the recovery basis crystallises here. The 2nd line must confirm settlement is computed on the contractual 0% recovery (notional × 0% = $0 to the investor), that remaining coupons are cancelled, and that NEMO and Sophis agree before settlement.
 
-**Review Questions:**
-1. What distinguishes a Skew CLN from a Vanilla CLN?
-2. Name three common recovery modification variants.
-3. Why does a zero-recovery Skew CLN pay a higher coupon than a Vanilla CLN?
-4. What is recovery basis risk, and why is it unique to Skew CLNs?
-5. Which booking field must be overridden when entering a Skew CLN in NEMO?
+#### §13. Knowledge Check
 
-**Scenario Questions:**
-1. An investor holds a zero-recovery Skew CLN earning 7% and a Vanilla CLN earning 5% on the same reference entity. The reference entity defaults with 60% recovery. Compare the outcomes.
-2. A structurer is designing a Skew CLN for a client who wants "predictable worst-case loss." Which recovery variant should they recommend, and why?
-3. Credit spreads on the reference entity tighten from 250bp to 80bp. The Skew CLN has 2 years remaining. Should the investor consider selling? Why or why not?
+1. **What distinguishes a Skew CLN from a Vanilla CLN?** (Answer: the recovery mechanism is modified from market recovery to a predetermined or formula-based recovery.)
+2. **Name three common recovery-modification variants.** (Zero-recovery, fixed-recovery, digital-recovery.)
+3. **Why does a zero-recovery Skew CLN pay a higher coupon than a Vanilla CLN?** Decompose it.
+4. **Is a single-name Skew CLN exposed to portfolio/tranche correlation? Explain.** (Answer: no — the reference is a single entity; the "skew" is in the recovery terms, not in correlation.)
+5. **Credit spreads on the reference entity tighten from 250bp to 80bp with 2 years remaining. Should the investor consider selling? Why or why not?**
+6. **(Desk economics / 1LoD)** What position does the desk hold against the investor, what is the recovery basis, and why can it leave the desk with model-dependent, unhedged P&L?
+7. **(Controls / 2LoD)** A credit event has occurred on a zero-recovery Skew CLN and the ISDA Determinations Committee sets market recovery at 55%. Operations receives settlement instructions. What recovery rate is applied, how does this differ from standard CLN settlement, and what reconciliation steps does Product Control perform?
 
-**Desk Question:**
-A credit event has occurred on a Skew CLN with zero-recovery terms. The ISDA Determinations Committee sets market recovery at 55%. Operations receives settlement instructions. Walk through the process: what recovery rate is applied, how does this differ from the standard CLN settlement process, and what reconciliation steps does Product Control perform?
+**Mental Models**
 
-#### §20. Common Mistakes
+| Concept | Mental Model |
+|---------|-------------|
+| Skew CLN | Car insurance with a contractually fixed deductible — the payout is set in advance, not assessed against the actual damage |
+| Recovery modification | Not free money — the enhanced coupon is the price for giving up market recovery on default |
+| Recovery basis | The gap between what the desk pays out (market recovery) and what it receives (contractual recovery) on a credit event |
+| Single-name credit | One insured car — no correlation between assets to manage |
+| Recovery delta | The dial that measures how much the position moves when the assumed recovery rate changes |
+| 2LoD reconciliation | The claims auditor — confirms the contractual recovery, not the market recovery, is the one applied before anyone pays out |
+
+**Key Takeaways**
+
+1. A Skew CLN is a single-name CLN (bond + short modified-recovery CDS) whose recovery leg is fixed by contract rather than set by the market.
+2. The enhanced coupon is the Recovery Modification Premium — payment for the recovery the investor gives up on default.
+3. If there is no credit event, the investor keeps full principal plus coupons. On a credit event, redemption follows the contractual recovery and remaining coupons are cancelled.
+4. The defining risk is recovery basis — contractual recovery can be far worse than the market recovery the investor would otherwise have received.
+5. The product is single-name: it carries no portfolio or tranche correlation exposure, and no long/short correlation position is taken.
+6. The desk is long the modified-recovery protection; its recovery basis is often unhedged because recovery swaps are illiquid.
+7. For the 2nd line, the dominant control risks are the recovery override field, the credit-event/recovery determination, the recovery-skew model inputs, and settlement — each can misstate the investor's redemption or the desk's P&L.
+
+#### §14. Common Mistakes
 
 1. **Confusing contractual recovery with market recovery.** The Skew CLN's recovery is determined by the contract, not by the ISDA auction. Operations must apply the contractual terms.
-2. **Underestimating the recovery give-up.** A 2% coupon enhancement over 3 years = $60,000 on $1M. Zero recovery vs 40% recovery = $400,000 difference. The math is heavily asymmetric.
-3. **Failing to book the recovery override.** If the NEMO recovery field defaults to "market," all P&L and risk calculations are wrong.
-4. **Assuming recovery basis can always be hedged.** Recovery swaps are illiquid for most names. The bank may carry unhedged recovery basis risk.
+2. **Underestimating the recovery give-up.** A 2% coupon enhancement over 3 years is ~$60,000 on $1M; zero recovery vs 40% recovery is a $400,000 difference. The math is heavily asymmetric.
+3. **Treating the product as correlation-driven.** This is a single-name CLN — the "skew" is in the recovery terms, not in portfolio or tranche correlation. There is no correlation position to label long or short.
+4. **Assuming recovery basis can always be hedged.** Recovery swaps are illiquid for most names; the bank may carry unhedged recovery basis risk.
+5. **(Controls) Failing to book the recovery override.** If the NEMO recovery field defaults to "market," all P&L and risk calculations are wrong — verify it is populated with the contractual rate and that Sophis agrees.
 
-#### §21. Visual Specifications
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor (raw correlation/credit position), and how is it hedged?
+- *(Controls / 2LoD)* Which credit-event / basket / model-input fields must reconcile, and which is the most common break?
 
-**Visual 1: Recovery Comparison Payoff**
-- **Figure:** Figure 5.5.2-01
-- **Visual ID:** VIS-SKCLN-01
-- **Type:** Payoff Diagram
-- **Priority:** P1
-- **Caption:** "Investor payout comparison: Vanilla CLN (market recovery) vs Zero-Recovery Skew CLN vs Fixed-Recovery Skew CLN across recovery rate outcomes"
-- **X-axis:** Actual market recovery rate (0% to 80%)
-- **Y-axis:** Investor total payout (% of notional)
-- **Diagram elements:** Three lines — Vanilla CLN (diagonal, payout = recovery), Zero-recovery (flat at 0%), Fixed-recovery at 30% (flat at 30%). Shaded area between Vanilla and Zero shows the "recovery give-up"
-- **Data source:** Worked example parameters
-- **Reuse status:** Adapt from Vanilla CLN payoff template
-- **Asset filename:** payoff_skew_cln_recovery_comparison_01.svg
-
-**Visual 2: Three-Party Structure with Skewed Recovery**
-- **Figure:** Figure 5.5.2-02
-- **Visual ID:** VIS-SKCLN-02
-- **Type:** Cash Flow Diagram
-- **Priority:** P1
-- **Caption:** "Skew CLN three-party structure showing modified recovery path after credit event"
-- **Diagram elements:** Investor → Bank → Reference Entity. Normal flows: principal in, enhanced coupon out. Credit event flows: modified recovery (not market recovery) returned to investor. Highlight the modification point
-- **Reuse status:** Adapt from Vanilla CLN 3-party template
-- **Asset filename:** flow_skew_cln_three_party_02.svg
-
-**Visual 3: Coupon Decomposition Waterfall**
-- **Figure:** Figure 5.5.2-03
-- **Visual ID:** VIS-SKCLN-03
-- **Type:** Waterfall Diagram
-- **Priority:** P2
-- **Caption:** "Skew CLN coupon construction: how the recovery modification premium enhances the coupon above Vanilla CLN levels"
-- **Diagram elements:** Stacked bars: Bond interest (2.5%) + CDS spread (3.5%) − Margin (0.5%) = Vanilla coupon (5.5%) + Recovery modification premium (2.0%) = Skew coupon (7.5%)
-- **Reuse status:** Adapt from CLN construction waterfall
-- **Asset filename:** waterfall_skew_cln_coupon_03.svg
-
-**Visual 4: Scenario Comparison**
-- **Figure:** Figure 5.5.2-04
-- **Visual ID:** VIS-SKCLN-04
-- **Type:** Comparison Chart
-- **Priority:** P2
-- **Caption:** "P&L comparison across three outcomes: no default, default with 40% market recovery, default with 70% market recovery — Vanilla CLN vs Zero-Recovery Skew CLN"
-- **Diagram elements:** Grouped bar chart. Three scenario groups. Each group: Vanilla CLN bar and Skew CLN bar. Shows total return (coupons + recovery). Annotation showing the asymmetry
-- **Reuse status:** New variant — scenario comparison
-- **Asset filename:** comparison_skew_cln_scenarios_04.svg
-
-**Visual 5: Lifecycle Timeline**
-- **Figure:** Figure 5.5.2-05
-- **Visual ID:** VIS-SKCLN-05
-- **Type:** Lifecycle Diagram
-- **Priority:** P3
-- **Caption:** "Skew CLN lifecycle: from structuring through settlement, highlighting the modified recovery decision point"
-- **Diagram elements:** Timeline: Pre-trade (design recovery mod) → Trade date (booking with recovery override) → During life (monitoring + coupons) → Maturity/Credit event (apply contractual recovery, NOT market)
-- **Reuse status:** Reuse lifecycle template
-- **Asset filename:** lifecycle_skew_cln_05.svg
-
-**Visual 6: Decision Tree**
-- **Figure:** Figure 5.5.2-06
-- **Visual ID:** VIS-SKCLN-06
-- **Type:** Decision Tree
-- **Priority:** P3
-- **Caption:** "Credit event settlement decision tree: standard CLN path vs Skew CLN modified recovery path"
-- **Diagram elements:** Diamond: Credit event? → No: full principal + coupons. Yes → Diamond: Standard or Skew? → Standard: apply ISDA auction recovery → Skew: apply contractual recovery (0% / fixed %). Terminal nodes show investor payout
-- **Reuse status:** Adapt from CDS decision tree
-- **Asset filename:** decision_skew_cln_settlement_06.svg
-
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Credit risk, credit spread, recovery rate | Section 1.9 (Credit Risk) |
-| CDS mechanics, credit events, ISDA | CDS (5.2.5) — canonical source for credit event definitions |
-| CLN structure, coupon decomposition, dual credit exposure | Vanilla CLN (5.5.1) |
-| Product decomposition, Funds Transfer Pricing (FTP), margin | Section 2.2 (Product Construction) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
-| CLN family positioning | Section 3.7 (CLN Family Tree) |
-
----
-
+**Dual-lens visuals (generated):**
+- `assets/skewcln/controls_skewcln_recon_08.svg` `[generated]`
+- `assets/skewcln/legs_skewcln_01.svg` `[generated]`
+- `assets/skewcln/waterfall_skewcln_09.svg` `[generated]`
 ### 5.5.3 First-to-Default Note (FTD)
 
 ---
 
-*The Vanilla CLN (Section 5.5.1) referenced a single credit. The First-to-Default Note references a basket of credits — typically 5 to 10 names — and triggers a loss when the first entity in the basket defaults. The investor earns a higher coupon because the probability of at least one default in a basket exceeds the probability of any single name defaulting.*
+*The Vanilla CLN (Section 5.5.1) referenced a single credit. The First-to-Default Note references a basket of credits — typically 5 to 10 names — and triggers a loss when the first entity in the basket defaults. The investor earns a higher coupon because the probability of at least one default in a basket exceeds the probability of any single name defaulting. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Meet Tomás, a fixed-income portfolio manager at a Mexican pension fund. Tomás has been investing in Vanilla CLNs — single-name credit-linked notes — for several years. He earns 5-6% coupons by taking default risk on individual companies. But Tomás wants higher yield without moving to lower-quality reference entities.
+A fixed-income portfolio manager at a pension fund has been investing in Vanilla CLNs — single-name credit-linked notes — for several years, earning 5-6% coupons by taking default risk on individual companies. The manager wants higher yield without moving to lower-quality reference entities.
 
-His structurer proposes: "Instead of selling protection on one company, sell protection on a **basket** of five investment-grade companies. You will earn a much higher coupon. The catch: if **any one** of the five defaults, you absorb the loss."
+The structurer proposes an alternative: instead of selling protection on one company, the investor sells protection on a **basket** of five investment-grade companies and earns a much higher coupon. The catch is that if **any one** of the five defaults, the investor absorbs the loss.
 
-This is a **First-to-Default Note (FTD)**. The investor sells credit protection on a basket of reference entities — typically 5 to 10 companies. The investor earns a significantly enhanced coupon because the probability that *at least one* company in the basket defaults is much higher than the probability that any *specific* company defaults. But the investor only loses on the *first* default — not on all subsequent defaults.
+This is a **First-to-Default Note (FTD)**. The investor sells credit protection on a basket of reference entities — typically 5 to 10 companies — and earns a significantly enhanced coupon because the probability that *at least one* company in the basket defaults is much higher than the probability that any *specific* company defaults. The investor only loses on the *first* default — not on all subsequent defaults.
 
-In Section 1.6, you learned that correlation measures how synchronized assets are. You learned this in the context of equity baskets: when stocks in a worst-of product have low correlation, the investor faces more risk because one stock can fall while others rise.
+In Section 1.6, correlation was introduced as a measure of how synchronized assets are, in the context of equity baskets: when stocks in a worst-of product have low correlation, the investor faces more risk because one stock can fall while others rise.
 
-**The same principle applies to credit baskets, but with defaults instead of stock prices.** When companies in an FTD basket have low default correlation, the probability that *at least one* defaults is high — even if each individual company is safe. This is the key insight: **FTD investors are long credit correlation** — they benefit when default correlation is high (defaults either all happen or none do, reducing the probability of an isolated first default). The investor is *structurally* short correlation in the sense of having sold the correlation premium, but the economic sensitivity is long: rising correlation helps the FTD position. See the Correlation Convention Framework for the distinction between structural and MTM conventions.
+**The same principle applies to credit baskets, but with defaults instead of stock prices.** When companies in an FTD basket have low default correlation, the probability that *at least one* defaults is high — even if each individual company is safe. This is the key insight: the FTD investor is **long correlation (under the MTM convention)** — benefiting when default correlation is high (defaults either all happen or none do, reducing the probability of an isolated first default). The investor is *structurally* short correlation in the sense of having sold the first-default premium, but the economic (MTM) sensitivity is long: rising correlation helps the FTD position. See the Correlation Convention Framework for the distinction between structural and MTM conventions.
 
 #### §2. Real-World Analogy
 
 An FTD is like a **domino chain**.
 
-Imagine five dominoes standing in a row. Each domino represents a company. You place a bet: "If any domino falls, I lose." A friend bets you $50 per month that all five will stay standing. If any single domino topples — regardless of which one — you lose your $500 stake.
+Imagine five dominoes standing in a row, each representing a company. A bet is placed: "If any domino falls, the bettor loses." A counterparty pays $50 per month so long as all five stay standing. If any single domino topples — regardless of which one — the bettor loses the $500 stake.
 
 In an FTD:
 - The **five dominoes** are the five reference entities in the basket.
 - The **monthly $50** is the enhanced coupon.
 - **Any domino falling** is the first credit event in the basket.
-- Your **$500 stake** is the principal at risk.
+- The **$500 stake** is the principal at risk.
 - The **stability of each domino** is the creditworthiness of each reference entity.
 
 The crucial insight: five dominoes are harder to keep standing than one. Even if each domino has only a 2% chance of falling, the probability that *at least one* falls is much higher — roughly 10% (minus a correction for correlation). That is why the FTD coupon is much higher than a single-name CLN coupon.
@@ -15363,7 +15257,6 @@ The FTD allows investors to earn high-yield-level coupons (7-12%) while referenc
 
 #### §4. Product DNA
 
-
 | **Field** | **Value** |
 |---|---|
 | **Full Name** | First-to-Default Note |
@@ -15377,8 +15270,7 @@ The FTD allows investors to earn high-yield-level coupons (7-12%) while referenc
 | **Maturity** | 3–5 years |
 | **Liquidity** | OTC — model-dependent |
 | **Primary System** | NEMO (primary), Sophis (risk) |
-| **ISDA Required** | No — issued as note |
-
+| **ISDA Required** | No — issued as note (basket references governed by ISDA Credit Definitions) |
 
 **DNA Atlas Fields:**
 - Primary Risk: First default in basket triggers full loss. Probability driven by correlation — low correlation = higher risk
@@ -15397,7 +15289,7 @@ The FTD allows investors to earn high-yield-level coupons (7-12%) while referenc
 - Liquidity: OTC — model-dependent
 - Path Dependency: No (first default is binary)
 - Volatility Sensitivity: Low
-- Correlation Sensitivity: Very high — low correlation increases FTD risk
+- Correlation Sensitivity: Very high — the FTD investor is long correlation (MTM); low correlation increases FTD risk
 - Client Type: Institutional credit
 - Market Environment: Best when all basket constituents are investment-grade with tight spreads
 
@@ -15407,11 +15299,11 @@ The FTD allows investors to earn high-yield-level coupons (7-12%) while referenc
 |------|-------------|
 | **Structurer** | Selects basket composition, calibrates coupon against basket default probability and correlation |
 | **Trader** | Hedges with individual CDS on each basket name. Manages correlation exposure — the hardest hedging challenge |
-| **Sales** | Explains basket mechanics and correlation risk. Must ensure client understands that *any* default triggers loss, not just the "weakest" name |
+| **Sales** | Explains basket mechanics and correlation risk. Must ensure the investor understands that *any* default triggers loss, not just the "weakest" name |
 | **Quant** | Models basket default probabilities using copula models. Correlation assumptions are the primary pricing input |
 | **Risk Manager** | Monitors individual name credit quality AND basket correlation. Stress-tests correlation scenarios |
 | **Operations** | Monitors all basket names for credit events. Must determine *which* name defaulted first and apply correct settlement |
-| **Compliance** | Verifies suitability for basket credit products. Ensures investor understands multi-name exposure |
+| **Compliance** | Verifies suitability for basket credit products. Ensures the investor understands multi-name exposure |
 | **Product Control** | Marks the position using correlated default model. Validates correlation inputs against market data |
 
 #### §6. Product Evolution
@@ -15426,65 +15318,125 @@ The FTD allows investors to earn high-yield-level coupons (7-12%) while referenc
 
 **Why FTDs were created:** Banks discovered that investors would accept basket default risk for significantly higher coupons. The key innovation was applying **credit correlation modeling** — borrowed from the equity world (Section 1.6) — to credit baskets. This created a new source of yield without requiring lower credit quality.
 
-#### §7. How the Bank Makes Money
+---
+
+#### §7. THE INVESTOR LENS
+
+**Why the investor buys it**
+
+1. **Enhanced yield.** The coupon is significantly higher than comparable single-name CLNs — typically 7-12% vs 3-5% — without dropping below investment grade.
+2. **Yield within mandate.** The investor can earn high-yield-level income while referencing only investment-grade names, staying inside a credit quality mandate.
+3. **View expression.** An investor who believes all basket names will survive — that defaults will not cluster — can monetize that view efficiently through the first-default premium.
+4. **Diversified reference exposure.** The note references 5-10 names rather than one, expressing a view on a sector or the broader credit environment.
+5. **Behavioral fit.** A high, visible coupon on a basket of recognizable investment-grade names feels safer than a single-name CLN, even though the first-default trigger concentrates the loss.
+
+**Position & correlation direction**
+
+The investor simultaneously holds a long bond (lends principal to the issuer) and sells first-to-default protection on the basket (a short basket CDS). Net, the investor is **long correlation under the MTM convention**: the position gains value when default correlation rises (defaults cluster — names default together or not at all — so the probability of an isolated first default falls) and loses value when correlation falls (independent defaults make a first default highly likely). The investor is *structurally* short correlation — having sold the first-default premium — but the economic (MTM) sensitivity is long. The investor also carries full first-default credit risk on the basket and is short the basket default probability.
+
+**Payoff & scenarios**
+
+The investor's payoff has two outcomes. If no name in the basket defaults over the life of the note: the investor receives 100% principal plus all coupons. If any one name defaults first: the note settles on that defaulted entity at its recovery rate — redemption = Principal × Recovery Rate — remaining coupons are cancelled, and subsequent defaults are irrelevant. The loss depends on the recovery of the *first* defaulted name, not on which name it is.
+
+**Product:** 5-year FTD on basket of 5 IG companies. **Basket:** Company A (200bp), Company B (180bp), Company C (250bp), Company D (150bp), Company E (220bp). **Notional:** $1,000,000. **Coupon:** 9.5% per year (vs 4.5% for single-name CLN on any individual name). **Recovery rate:** 40% (standard).
+
+- **No credit event in basket (most likely):** All five companies survive to maturity. The investor receives 5 years of coupons ($95,000/year = $475,000) and full principal ($1,000,000). **Total: $1,475,000.** The investor earned 9.5% per year — more than double the single-name CLN coupon.
+- **Company C defaults in Year 3:** Company C (the widest spread in the basket) defaults. Recovery rate: 40%. Principal returned: $1,000,000 × 40% = $400,000. Coupons received: 3 × $95,000 = $285,000. **Total received: $685,000. Net loss: $315,000 (-31.5%).** Companies A, B, D, E may be perfectly healthy — the investor loses on the *first* default regardless.
+- **Two defaults (Company C in Year 2, Company D in Year 4):** Company C defaults first (Year 2). The FTD settles on the first default. Principal returned: $1,000,000 × 40% = $400,000. Coupons received: 2 × $95,000 = $190,000. **Total received: $590,000. Net loss: $410,000 (-41%).** Company D's subsequent default in Year 4 does not affect the FTD investor — the note already settled on the first default.
+
+**Risks to the investor**
+
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **First-default risk** | Any single name's default triggers full loss — the basket amplifies default probability relative to a single name. | High |
+| **Credit correlation risk** | The FTD investor is long correlation (MTM). Falling default correlation raises the first-default probability and reduces MTM. | High |
+| **Concentration / contagion risk** | A sector-concentrated basket (e.g. five banks) means a single stress event can cascade across names. | High |
+| **Recovery risk** | Loss on the first default depends on the realized auction recovery rate, which is uncertain until the credit event is settled. | Medium-High |
+| **Individual name spread risk** | Widening of any single name's spread reduces MTM — the "weakest link" drives the basket. | Medium |
+| **Issuer credit risk** | The investor is exposed to the issuing bank. If the issuer defaults, coupons or principal may not be received. | Medium |
+| **Model / liquidity risk** | Copula correlation assumptions drive pricing; FTDs trade in a thin, model-dependent secondary market. | Medium |
+
+![FTD Risk vs Default Correlation — Investor Lens](assets/ftd/payoff_ftd_01.svg)
+
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk's position is the mirror image of the investor's. Where the investor sells first-to-default protection on the basket, the desk **buys** that first-default protection from the investor; alongside it the desk has issued a note, which is a funding liability. In raw correlation terms the desk is therefore **short correlation** (the mirror of the investor's long-correlation MTM position): the desk's raw book loses value when correlation rises and gains when correlation falls. After the desk lays off single-name and dispersion risk (below), the net correlation position is smaller and may even invert — desk correlation is always qualified as raw versus net.
+
+**Credit/correlation risk & hedging**
+
+The desk hedges individual name risk by buying or selling CDS on each basket name to neutralize single-name credit spread delta. But the *correlation* risk — the joint probability of defaults — cannot be hedged with single-name CDS, because correlation is a portfolio-level factor. The desk manages it through a "correlation book": a portfolio of FTDs and NTDs in which long and short correlation positions partially offset, supplemented by dispersion trades. As any single name's spread approaches a distressed level, the FTD behaves more like a single-name CLN on that name and the per-name spread sensitivity sharpens — this is where the hedge must be rebalanced and where structuring margin is earned or lost.
+
+**How the bank makes money**
 
 | Revenue Source | Mechanism | Typical Size |
 |---------------|-----------|:------------:|
 | Structuring fee | Embedded in coupon — bank retains margin between modeled fair coupon and offered coupon | 30-80bp per annum |
-| Correlation trading | Bank buys individual CDS hedges (uncorrelated) and sells correlated basket protection to investor. The correlation premium is the bank's edge | 20-50bp per annum |
+| Correlation trading | Bank buys individual CDS hedges (uncorrelated) and buys correlated basket protection from the investor. The correlation premium is the bank's edge | 20-50bp per annum |
 | Bid-offer on hedges | Bank crosses individual CDS at bid-offer spread | 5-15bp per name |
 
 The correlation premium is the primary profit driver. The bank's model assigns a value to the correlation exposure; the market price of individual CDS hedges reflects uncorrelated default probabilities. The difference is the bank's compensation for warehousing correlation risk.
 
-#### §8. Why This Product Exists (Client Perspective)
+**The coupon decomposition:**
 
-**When it makes sense:**
-- Investor believes all five basket names will survive — FTD is the most efficient way to monetize that view
-- Investor needs yield above single-name CLN levels but cannot invest in high-yield credits
-- Investor has a view that credit correlation will remain high (defaults won't cluster)
+FTD Coupon is LESS than the sum of all individual CDS spreads but MORE than any single CDS spread. For a basket of 5 names with individual CDS spreads of 150-250bp:
+- Sum of all CDS spreads: ~1,000bp (if five separate CDS were sold)
+- FTD coupon: ~550-700bp (loss occurs only on the *first* default, not all five)
+- Single-name CLN coupon: ~200bp (only one name's risk)
 
-**When it is a poor choice:**
-- Investor does not understand that *any* single default triggers full loss
-- Investor treats FTD coupon as "free money" — the coupon compensates for real basket default risk
-- Sector-concentrated basket (e.g., five banks) — contagion risk means a single stress event could cascade
-- Investor cannot distinguish between individual credit risk and correlation risk
+The FTD coupon sits between single-name and sum-of-all because the investor takes *first*-default risk but not *all*-default risk.
 
-#### §9. The Three Scenarios
+![FTD Coupon Decomposition — Bank Lens (Desk Economics)](assets/ftd/waterfall_ftd_09.svg)
 
-**Product:** 5-year FTD on basket of 5 IG companies
-**Basket:** Company A (200bp), Company B (180bp), Company C (250bp), Company D (150bp), Company E (220bp)
-**Notional:** $1,000,000
-**Coupon:** 9.5% per year (vs 4.5% for single-name CLN on any individual name)
-**Recovery rate:** 40% (standard)
+**P&L drivers**
 
-**Scenario 1 — No credit event in basket (most likely):**
-All five companies survive to maturity. Investor receives 5 years of coupons ($95,000/year = $475,000) and full principal ($1,000,000). **Total: $1,475,000.** The investor earned 9.5% per year — more than double the single-name CLN coupon.
+Day to day, desk P&L is driven by moves in each basket name's CDS spread (per-name credit delta on the hedges), changes in the modeled default correlation (the raw short-correlation position), the carry on the correlation premium, and the mark-to-market of the basket protection under the copula model. Product Control marks the position using the correlated default model and validates the correlation inputs against market data.
 
-**Scenario 2 — Company C defaults in Year 3:**
-Company C (the widest spread in the basket) defaults. Recovery rate: 40%.
-- Principal returned: $1,000,000 × 40% = $400,000
-- Coupons received: 3 × $95,000 = $285,000
-- **Total received: $685,000. Net loss: $315,000 (-31.5%).**
-- Note: Companies A, B, D, E may be perfectly healthy. The investor loses on the *first* default regardless.
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
 
-**Scenario 3 — Two defaults (Company C in Year 2, Company D in Year 4):**
-Company C defaults first (Year 2). The FTD settles on the first default:
-- Principal returned: $1,000,000 × 40% = $400,000
-- Coupons received: 2 × $95,000 = $190,000
-- **Total received: $590,000. Net loss: $410,000 (-41%).**
-- Company D's subsequent default in Year 4 does not affect the FTD investor — the note already settled on the first default.
+**Booking & systems**
 
-#### §10. What Happens When Markets Move
+| Aspect | Detail |
+|--------|--------|
+| **Book of record** | NEMO |
+| **Pricing/Risk system** | Sophis |
+| **Booking structure** | Single note with embedded first-to-default basket CDS |
+| **First-default trigger?** | Yes — must be specified as first-default, not sum-of-defaults |
+| **Key booking fields** | Notional, all N reference entities & weights, individual CDS spreads, first-default trigger flag, recovery convention, correlation model inputs, coupon rate & frequency, maturity |
+| **Credit monitoring** | All N basket names monitored simultaneously for credit events |
 
-| Market Condition | Impact on FTD | Why |
-|-----------------|--------------|-----|
-| One basket name's spread widens dramatically | FTD MTM drops sharply | The "weakest link" drives the basket — any single deterioration matters |
-| All basket names tighten together | FTD MTM rises | Lower basket default probability → higher value |
-| Credit correlation increases | FTD MTM rises, coupon seems excessive | Higher correlation = defaults cluster → but *first* default probability drops because names move together |
-| Credit correlation decreases | FTD MTM drops | Lower correlation = defaults are independent → higher probability that *at least one* defaults |
-| Sector-wide stress (e.g., banking crisis) | FTD at severe risk | Contagion can cause multiple defaults — the first one triggers loss, and the investor may have picked a correlated basket |
+**Reconciliation points**
 
-#### §11. Formal Definition
+| Recon point | What must agree | FTD-specific break |
+|-------------|-----------------|--------------------|
+| **ISDA Credit Definitions** | Credit event types (bankruptcy, failure to pay, restructuring) and governing ISDA terms match the termsheet | Restructuring clause differs between termsheet and booked CDS terms — wrong events trigger or fail to trigger |
+| **Basket reference names** | All N entities individually entered, matching legal reference obligations | One reference entity entered with the wrong legal name / RED code — credit event missed or misattributed |
+| **Basket weights** | Per-name notional weights in NEMO match the model in Sophis | Equal-weight assumed in one system, custom weights in another — recovery and MTM miscalculated |
+| **Credit-event determination & auction recovery** | First-defaulted name identified correctly; recovery = ISDA auction result | Recovery hard-coded at 40% when the auction settled at a different level — redemption misstated |
+| **Correlation model inputs** | Copula correlation parameters in Sophis match the calibration of record | Stale or mismatched correlation input — MTM and risk diverge from market |
+| **First-default trigger flag** | Trigger booked as first-default, not Nth-default or sum-of-defaults | Trigger mis-booked — loss recognized on the wrong event |
+| **Coupon lifecycle** | Coupon schedule, day-count, and cancellation on first default agree | Coupon paid after a credit event that should have terminated the note |
+| **Settlement** | Cash vs physical; redemption = Principal × recovery; hedge unwind on surviving names | Physical settlement booked as cash, or surviving-name hedges not unwound |
+
+![FTD Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/ftd/controls_ftd_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| One basket name's spread exceeds 500bp | FTD dominated by a single weak name | Alert Risk Manager — basket may need restructuring |
+| Correlation model shows extreme values (<0.1 or >0.9) | Model may be miscalibrated | Validate correlation inputs against market data |
+| Basket names are in the same sector/country | Contagion risk not captured by correlation model | Stress-test with a sector-wide credit event |
+| MTM changes don't match single-name CDS moves | Correlation model may be stale | Update correlation inputs, recalibrate |
+| Recovery rate hard-coded rather than from auction | Redemption may be misstated at settlement | Confirm recovery = ISDA auction result before settling |
+| Operations does not monitor all basket names | A credit event could be missed | Ensure alerts are set for all N names |
+
+**Control implication**
+
+Each break has a direct consequence the 2nd line must size before it reaches the books or the investor. A wrong ISDA restructuring clause changes whether an event triggers at all. A mis-entered reference name or RED code means a real default is missed or attributed to the wrong entity — driving the wrong redemption. A hard-coded recovery rate that ignores the auction result misstates the investor's payout and the desk's hedge offset simultaneously. A stale correlation input misstates both MTM and the desk's raw correlation risk at once. The reconciliation exists precisely to catch these inconsistencies before settlement crystallises them.
+
+#### §10. Formal Definition
 
 A **First-to-Default Note (FTD)** is a credit-linked note referencing a basket of N reference entities (typically 5-10) in which the investor sells credit protection triggered by the **first** credit event in the basket.
 
@@ -15502,88 +15454,21 @@ The FTD coupon depends critically on **default correlation** — the tendency fo
 | **Medium** (0.3-0.6) | Moderate probability → MODERATE coupon | Some clustering. Defaults are partially linked but not fully synchronized |
 | **High** (0.7-0.9) | Low first-default probability → LOW coupon | Companies default together or not at all. The basket behaves almost like a single name. If one defaults, all likely default — but the probability of *any* default is lower |
 
-**Key insight:** FTD investors are **long correlation** (under the MTM sensitivity convention). They profit when correlation is high (defaults are rare because companies move together) and lose when correlation is low (independent defaults make the first default highly probable). Note: the investor *structurally sold* the first-default premium, which some practitioners describe as "selling correlation." V1.0.1 uses the MTM convention — see Correlation Convention Framework.
+**Key insight:** The FTD investor is **long correlation (under the MTM sensitivity convention)** — profiting when correlation is high (defaults are rare because companies move together) and losing when correlation is low (independent defaults make the first default highly probable). The investor *structurally sold* the first-default premium, which some practitioners describe as "selling correlation"; V1.0.1 uses the MTM convention as the headline label — see Correlation Convention Framework. This parallels worst-of equity products (Section 1.6): worst-of investors are also long correlation (MTM convention) — they profit when stocks move together and lose when stocks move independently. Like FTD investors, worst-of investors *structurally sold* the correlation premium, but the economic sensitivity is long: rising correlation reduces worst-of risk.
 
-This parallels worst-of equity products (Section 1.6): worst-of investors are also long correlation (MTM convention) — they profit when stocks move together and lose when stocks move independently. Like FTD investors, worst-of investors *structurally sold* the correlation premium, but the economic sensitivity is long: rising correlation reduces worst-of risk.
-
-#### §12. Product Construction
-
-*Dependency: Builds on Vanilla CLN (5.5.1 §7) and CDS (5.2.5).*
-
-| Component | What It Is | Purpose |
-|-----------|-----------|---------|
-| Bond | Investor lends principal to issuer | Provides funding |
-| Short basket CDS | Investor sells first-to-default protection on N names | Generates basket premium as enhanced coupon |
-
-**Coupon decomposition:**
-
-FTD Coupon > Sum of individual CDS spreads? **No.** FTD coupon is LESS than the sum of all individual CDS spreads but MORE than any single CDS spread.
-
-For a basket of 5 names with individual CDS spreads of 150-250bp:
-- Sum of all CDS spreads: ~1,000bp (if you sold 5 separate CDS)
-- FTD coupon: ~550-700bp (you only lose on the *first* default, not all five)
-- Single-name CLN coupon: ~200bp (you only have one name's risk)
-
-The FTD coupon sits between single-name and sum-of-all because the investor takes *first*-default risk but not *all*-default risk.
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | What Happens | Key Actions |
 |-------|-------------|-------------|
 | **Pre-trade** | Structurer selects basket. Quant models default correlation. Investor reviews basket composition and coupon | Basket approval, credit analysis on all N names |
 | **Trade date** | FTD issued. Investor pays principal. Bank enters N individual CDS hedges | Booking in NEMO, risk setup in Sophis with basket model |
 | **During life** | Coupons paid. All N names monitored for credit events. MTM reflects correlation model | Continuous credit monitoring, correlation updates |
-| **First default** | ISDA Determinations Committee confirms credit event. FTD settles on defaulted entity | Settlement at defaulted entity's recovery rate. Note terminated |
+| **First default** | ISDA Determinations Committee confirms credit event. FTD settles on defaulted entity | Settlement at defaulted entity's auction recovery rate. Note terminated |
 | **Post-settlement** | Remaining N-1 names are irrelevant to the FTD investor. Bank's CDS hedges on surviving names are unwound | Hedge unwind, P&L recognition |
 
-#### §14. Desk Reality
+#### §12. Worked Example (both lenses)
 
-**What textbooks don't tell you:**
-
-**Correlation hedging is the hardest part.** The bank hedges individual name risk with CDS on each basket name. But the *correlation* risk — the joint probability of defaults — cannot be hedged with single-name CDS. Correlation is a portfolio-level risk factor. Traders manage it by maintaining a "correlation book" — a portfolio of FTDs and NTDs where long and short correlation positions partially offset.
-
-**Basket selection is an art.** The structurer must balance: (1) names that investors recognize and accept, (2) names with sufficient CDS liquidity for hedging, (3) names with moderate correlation (too high = low coupon, too low = investor complaint when one defaults). The most common mistake is sector-concentrated baskets (e.g., 5 European banks) where a single event can trigger contagion.
-
-**The "weakest link" problem.** FTD investors focus excessively on the weakest credit in the basket. If one name's CDS spread is 500bp and the others are 150bp, the FTD behaves almost like a single-name CLN on the weak name. Good basket design avoids extreme outliers.
-
-#### §15. Risk Analysis
-
-| Risk | Description | Severity | Unique to FTD? |
-|------|------------|:--------:|:--------------:|
-| First-default risk | Any single name's default triggers loss | High | YES — basket amplifies default probability |
-| Credit correlation risk | Changes in default correlation affect pricing | High | YES — the defining risk factor |
-| Concentration risk | Sector-concentrated basket amplifies contagion | High | YES — basket composition matters |
-| Individual name spread risk | Widening of any name's spread reduces MTM | Medium | Amplified in FTD (weakest link) |
-| Issuer credit risk | Issuing bank defaults | Medium | No (shared with all CLNs) |
-| Model risk | Copula model assumptions drive pricing | Medium | YES — correlation model dependency |
-| Liquidity risk | FTDs are less liquid than single-name CLNs | Medium | YES — basket + correlation = complex secondary market |
-
-#### §16. Booking and Systems
-
-| System | Role |
-|--------|------|
-| NEMO | Primary booking — records FTD with basket definition and first-default trigger |
-| Sophis | Risk — runs basket correlation model, calculates spread sensitivity per name |
-
-**Key booking requirements:**
-- All N reference entities must be individually entered
-- First-default trigger must be specified (not sum-of-defaults)
-- Correlation model inputs must be maintained and updated
-- Credit event monitoring must cover ALL basket names simultaneously
-
-#### §17. Red Flags
-
-| Red Flag | What It Means | Action |
-|----------|-------------|--------|
-| One basket name's spread exceeds 500bp | FTD dominated by single weak name | Alert Risk Manager — basket may need restructuring |
-| Correlation model shows extreme values (<0.1 or >0.9) | Model may be miscalibrated | Validate correlation inputs against market data |
-| Basket names are in same sector/country | Contagion risk not captured by correlation model | Stress-test with sector-wide credit event |
-| MTM changes don't match single-name CDS moves | Correlation model may be stale | Update correlation inputs, recalibrate |
-| Operations doesn't monitor all basket names | A credit event could be missed | Ensure alerts are set for all N names |
-
-#### §18. Worked Example
-
-**Product:** 5-year FTD on 5 investment-grade companies
+**Product:** 5-year FTD on 5 investment-grade companies.
 **Basket:**
 
 | Company | Sector | CDS Spread | Individual Default Probability (5yr) |
@@ -15594,179 +15479,122 @@ The FTD coupon sits between single-name and sum-of-all because the investor take
 | DeltaEnergy | Energy | 250bp | 5.0% |
 | EpsilonRetail | Consumer | 200bp | 4.0% |
 
-**Notional:** $1,000,000
-**Basket default correlation:** 0.30
-**FTD coupon:** 9.50% per year
+**Notional:** $1,000,000. **Basket default correlation:** 0.30. **FTD coupon:** 9.50% per year.
 
-**Step 1 — Individual default probabilities:**
-Sum of individual default probabilities (independent): 1 − (1−0.036)(1−0.044)(1−0.030)(1−0.050)(1−0.040) = 1 − 0.964 × 0.956 × 0.970 × 0.950 × 0.960 = 1 − 0.8117 = **18.83%**
+*Investor lens:*
 
-**Step 2 — Correlation adjustment:**
-With correlation at 0.30, defaults are partially clustered. The effective first-default probability is reduced from the independent case but still much higher than any single name. Modeled first-default probability: approximately **14.5%** (correlation reduces the probability because defaults tend to happen together or not at all).
+**Step 1 — Individual default probabilities:** Sum of individual default probabilities (independent): 1 − (1−0.036)(1−0.044)(1−0.030)(1−0.050)(1−0.040) = 1 − 0.964 × 0.956 × 0.970 × 0.950 × 0.960 = 1 − 0.8117 = **18.83%**
 
-**Step 3 — Coupon justification:**
-- Sum of all 5 CDS spreads: 1,000bp = 10.0%
-- FTD coupon: 950bp = 9.5%
-- Any single name: 150-250bp = 1.5-2.5%
-- FTD coupon is 4-6× any single name but below the sum of all five
+**Step 2 — Correlation adjustment:** With correlation at 0.30, defaults are partially clustered. The effective first-default probability is reduced from the independent case but still much higher than any single name. Modeled first-default probability: approximately **14.5%** (correlation reduces the probability because defaults tend to happen together or not at all). This is the long-correlation (MTM) effect: higher correlation lowers the first-default probability and helps the investor.
 
-**Step 4 — Default scenario:**
-Year 3: DeltaEnergy defaults. Recovery rate: 35%.
-- Principal returned: $1,000,000 × 35% = $350,000
-- Coupons received: 3 × $95,000 = $285,000
-- **Total received: $635,000. Net loss: $365,000 (-36.5%).**
-- AlphaTech, BetaBank, GammaPharma, EpsilonRetail are irrelevant post-settlement.
+**Step 3 — Coupon justification:** Sum of all 5 CDS spreads: 1,000bp = 10.0%. FTD coupon: 950bp = 9.5%. Any single name: 150-250bp = 1.5-2.5%. The FTD coupon is 4-6× any single name but below the sum of all five.
 
-#### §19. Knowledge Check
+**Step 4 — Default scenario:** Year 3: DeltaEnergy defaults. Recovery rate: 35%. Principal returned: $1,000,000 × 35% = $350,000. Coupons received: 3 × $95,000 = $285,000. **Total received: $635,000. Net loss: $365,000 (-36.5%).** AlphaTech, BetaBank, GammaPharma, EpsilonRetail are irrelevant post-settlement.
 
-**Review Questions:**
-1. How does an FTD differ from a Vanilla CLN in terms of the trigger mechanism?
-2. Why is the FTD coupon higher than a single-name CLN but lower than the sum of all individual CDS spreads?
-3. Explain how default correlation affects FTD pricing. What happens when correlation is low?
-4. FTD investors are long correlation under the MTM convention, yet are sometimes described as *structurally* short correlation. Explain the distinction between these two conventions.
-5. How does the bank hedge an FTD position?
+*Bank lens:*
+- In the no-default case the desk's bought first-default protection expires worthless; the desk keeps its structuring margin and net correlation carry, having funded the coupons, and unwinds the N CDS hedges at maturity. Product Control confirms the basket protection MTM rolls to zero.
+- In the DeltaEnergy default the desk's bought protection pays out against its redemption obligation, and the CDS hedge on DeltaEnergy offsets the loss on that name; the four surviving-name hedges are unwound. The 2nd line must confirm the defaulted entity was correctly identified, that the 35% recovery matches the ISDA auction result (not a hard-coded 40%), and that NEMO and Sophis agree before settlement.
 
-**Scenario Questions:**
-1. An FTD basket contains 5 technology companies. A global chip shortage causes stress across the sector. Why is this basket construction problematic for the investor?
-2. Two FTDs have identical baskets, but FTD A was priced when correlation was 0.5 and FTD B when correlation was 0.2. Which has the higher coupon, and why?
-3. After purchase, one basket name's CDS spread widens from 200bp to 600bp while the others remain stable. How does this affect the FTD's MTM value? Does it still behave like a "basket" product?
+#### §13. Knowledge Check
 
-**Desk Question:**
-A credit event is confirmed on one of five basket names. Operations must settle the FTD. Walk through: How is the defaulted entity identified? What determines the recovery rate? What happens to the CDS hedges on the four surviving names? What P&L entries does the desk record?
+1. **What is the investor really doing when they buy an FTD?** (Answer: lending principal and selling first-to-default protection on a basket of names.)
+2. **Why is the FTD coupon higher than a single-name CLN but lower than the sum of all individual CDS spreads?**
+3. **Explain how default correlation affects FTD pricing. Which way is the FTD investor positioned under the MTM convention, and what happens when correlation is low?**
+4. **FTD investors are long correlation under the MTM convention, yet are sometimes described as *structurally* short correlation. Explain the distinction between these two conventions.**
+5. **An investor says: "I hold a basket of 5 names, so my risk is diversified." Is this correct for an FTD?** Explain.
+6. **Why is a sector-concentrated basket particularly dangerous for an FTD investor?**
+7. **(Desk economics / 1LoD)** What position does the desk hold against the investor (in raw correlation terms), how does it hedge single-name versus correlation risk, and where is the structuring margin made or lost?
+8. **(Controls / 2LoD)** Name three reconciliation breaks specific to an FTD — including the recovery-rate source — and the consequence of each for the investor's redemption.
 
-#### §20. Common Mistakes
+**Mental Models**
 
-1. **Treating FTD coupon as "free money."** The coupon compensates for basket default risk, which is substantially higher than single-name risk.
-2. **Ignoring correlation.** A sector-concentrated basket with high correlation behaves almost like a single-name CLN — the "basket" provides no real diversification of risk.
-3. **Focusing only on the weakest name.** While the weakest name is most likely to default first, the FTD coupon reflects *all* names' contributions. A basket of four strong names and one weak name is not the same as a single-name CLN on the weak name.
-4. **Confusing FTD with portfolio diversification.** FTDs give investors exposure to more names, but the first-to-default trigger *concentrates* loss — the investor loses on a single event, not a portfolio average.
+| Concept | Mental Model |
+|---------|-------------|
+| First-to-Default Note | A bet that five dominoes all stay standing — premium collected monthly, full stake lost if any one topples |
+| Enhanced coupon | Not free money — the price paid to the investor for selling first-default protection on the basket |
+| First-default trigger | The first domino to fall ends the bet; subsequent falls are irrelevant |
+| Long correlation (MTM) | The investor wins when defaults cluster (all or none) and loses when they are independent (a first default becomes likely) |
+| Structurally short vs MTM long | The investor sold the premium (structurally short) but gains as correlation rises (MTM long) |
+| Desk raw short correlation | The desk holds the mirror position; after dispersion hedging the net may differ — always qualify raw vs net |
+| 2LoD reconciliation | The settlement referee — confirms the ISDA terms, the defaulted name, and the auction recovery match before anyone pays out |
 
-#### §21. Visual Specifications
+**Key Takeaways**
 
-**Visual 1: Basket Default Visualization**
-- **Figure:** Figure 5.5.3-01
-- **Visual ID:** VIS-FTD-01
-- **Type:** Portfolio Loss Diagram
-- **Priority:** P1
-- **Caption:** "Five reference entities in basket — first default triggers loss; surviving entities become irrelevant"
-- **Diagram elements:** 5 company icons in a row. One highlighted red (defaulted). Arrow from red icon to "Loss = Notional × (1 − Recovery)." Remaining 4 greyed out with label "Irrelevant post-default." Annotation: "ANY one default triggers — not the worst, not the weakest, just the FIRST"
-- **Reuse status:** NEW template — basket default
-- **Asset filename:** portfolio_ftd_basket_default_01.svg
+1. An FTD is a bond + a short first-to-default basket CDS. The investor earns an enhanced coupon by selling first-default protection on a basket of names.
+2. The coupon is not free — it is the premium for the first-default protection the investor has sold, and it sits between any single name and the sum of all names.
+3. If no name defaults, the investor keeps full principal plus coupons. On the first default the note settles at that name's recovery rate and terminates; subsequent defaults are irrelevant.
+4. The FTD investor is **long correlation under the MTM convention** — helped when correlation rises (defaults cluster) and hurt when it falls (independent defaults make a first default likely). The investor is only *structurally* short correlation.
+5. The defining risk is credit correlation, amplified by sector concentration and contagion; loss-given-default depends on the auction recovery of the *first* defaulted name.
+6. The desk's raw position is short correlation (the mirror); after single-name CDS and dispersion hedging the net correlation position is smaller and may invert — always qualified raw vs net.
+7. For the 2nd line, the dominant control risks are ISDA credit definitions, basket names and weights, credit-event/auction recovery, and correlation model inputs — each can misstate the redemption or the MTM.
 
-**Visual 2: Credit Correlation Impact**
-- **Figure:** Figure 5.5.3-02
-- **Visual ID:** VIS-FTD-02
-- **Type:** Correlation Illustration
-- **Priority:** P1
-- **Caption:** "How default correlation affects first-default probability: low correlation increases risk, high correlation decreases risk"
-- **Diagram elements:** Three panels: Low correlation (ρ=0.1) — 5 independent dots, high P(first default), high coupon. Medium (ρ=0.4) — partially clustered dots, moderate P, moderate coupon. High (ρ=0.8) — tightly clustered dots, low P, low coupon. Bar chart below showing FTD coupon for each
-- **Reuse status:** NEW template — credit correlation
-- **Asset filename:** correlation_ftd_default_impact_02.svg
+#### §14. Common Mistakes
 
-**Visual 3: FTD Cash Flow Structure**
-- **Figure:** Figure 5.5.3-03
-- **Visual ID:** VIS-FTD-03
-- **Type:** Cash Flow Diagram
-- **Priority:** P2
-- **Caption:** "FTD cash flow: investor sells basket protection, bank hedges with individual CDS on each name"
-- **Diagram elements:** Investor → Bank (principal, coupons). Bank → 5 individual CDS positions (hedges). On default: Bank pays investor recovery, CDS on defaulted name pays bank, remaining 4 CDS unwound
-- **Reuse status:** Adapt from CLN 3-party template
-- **Asset filename:** flow_ftd_basket_structure_03.svg
+1. **Treating the FTD coupon as "free money."** The coupon compensates for basket default risk, which is substantially higher than single-name risk.
+2. **Calling the FTD investor "short correlation" without qualification.** The investor is *structurally* short (sold the premium) but **long correlation under the MTM convention** — rising correlation reduces first-default risk and helps the position. Never state the bare "short" claim.
+3. **Ignoring correlation.** A sector-concentrated basket with high correlation behaves almost like a single-name CLN — the "basket" provides no real diversification of risk.
+4. **Focusing only on the weakest name.** While the weakest name is most likely to default first, the FTD coupon reflects *all* names' contributions. A basket of four strong names and one weak name is not the same as a single-name CLN on the weak name.
+5. **Confusing FTD with portfolio diversification.** FTDs give exposure to more names, but the first-to-default trigger *concentrates* loss — the investor loses on a single event, not a portfolio average.
+6. **(Controls) Hard-coding the recovery rate.** Redemption uses the ISDA auction recovery of the first defaulted name, not a standing 40% assumption. The 2nd line must reconcile the booked recovery against the auction result before settlement.
 
-**Visual 4: FTD vs Vanilla CLN Comparison**
-- **Figure:** Figure 5.5.3-04
-- **Visual ID:** VIS-FTD-04
-- **Type:** Comparison Chart
-- **Priority:** P2
-- **Caption:** "Risk-return profile: single-name CLN vs FTD — higher coupon comes from basket default probability, not lower credit quality"
-- **Diagram elements:** Grouped bars. Coupon comparison (CLN ~4.5% vs FTD ~9.5%). Default probability comparison (CLN ~4% vs FTD ~14.5%). Loss-given-default identical (both 60% at 40% recovery). Risk/reward ratio annotation
-- **Reuse status:** Adapt from family comparison template
-- **Asset filename:** comparison_ftd_vs_vanilla_cln_04.svg
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor (raw correlation/credit position), and how is it hedged?
+- *(Controls / 2LoD)* Which credit-event / basket / model-input fields must reconcile, and which is the most common break?
 
-**Visual 5: Lifecycle Timeline**
-- **Figure:** Figure 5.5.3-05
-- **Visual ID:** VIS-FTD-05
-- **Type:** Lifecycle Diagram
-- **Priority:** P3
-- **Caption:** "FTD lifecycle: basket monitoring period, first-default trigger, settlement, and hedge unwind"
-- **Diagram elements:** Timeline: Pre-trade (basket selection) → Trade date (N CDS hedges) → During life (monitor ALL names) → First default (settlement at recovery) → Post-settlement (unwind remaining hedges)
-- **Reuse status:** Reuse lifecycle template
-- **Asset filename:** lifecycle_ftd_05.svg
-
-**Visual 6: Default Sequence Timeline**
-- **Figure:** Figure 5.5.3-06
-- **Visual ID:** VIS-FTD-06
-- **Type:** Timeline
-- **Priority:** P3
-- **Caption:** "Which company defaults first? Timeline showing credit event trigger point and irrelevance of subsequent defaults"
-- **Diagram elements:** Horizontal timeline (5 years). 5 company labels above. Company C defaults at Year 3 (red marker). Company D defaults at Year 4 (grey marker — "too late, FTD already settled"). Annotation: "First = Only"
-- **Reuse status:** NEW template — default sequence
-- **Asset filename:** timeline_ftd_default_sequence_06.svg
-
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Credit risk, credit spread, recovery rate | Section 1.9 (Credit Risk) |
-| CDS mechanics, credit events, ISDA | CDS (5.2.5) — canonical source |
-| CLN structure, dual credit exposure | Vanilla CLN (5.5.1) |
-| Correlation, baskets, worst-of | Section 1.6 (Correlation and Baskets) — equity correlation bridged to credit correlation in this chapter |
-| Product decomposition, Funds Transfer Pricing (FTP) | Section 2.2 (Product Construction) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
-
----
-
+**Dual-lens visuals (generated):**
+- `assets/ftd/controls_ftd_recon_08.svg` `[generated]`
+- `assets/ftd/payoff_ftd_01.svg` `[generated]`
+- `assets/ftd/waterfall_ftd_09.svg` `[generated]`
 ### 5.5.4 Nth-to-Default Note (NTD)
 
 ---
 
-*The First-to-Default Note (Section 5.5.3) triggered on the first default in a basket. The Nth-to-Default Note moves the trigger deeper: the investor is protected against the first (N-1) defaults and only takes a loss on the Nth. This provides more protection than FTD but less coupon, creating a spectrum of credit risk tranching within a single basket.*
+*The First-to-Default Note (Section 5.5.3) triggered on the first default in a basket. The Nth-to-Default Note moves the trigger deeper: the investor is protected against the first (N-1) defaults and only takes a loss on the Nth. This provides more protection than FTD but less coupon, creating a spectrum of credit risk tranching within a single basket. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Meet Kenji, a credit strategist at a Japanese insurance company. Kenji has studied the FTD (5.5.3) and understands that the investor loses when the *first* company in the basket defaults. But Kenji has a different view: he believes that isolated, one-off defaults are likely — a single company might fail due to company-specific problems. What he thinks is *unlikely* is that *multiple* companies default — because that would require a systemic crisis affecting the entire sector.
+A credit strategist at an insurance company has studied the FTD (5.5.3) and understands that the investor loses when the *first* company in the basket defaults. But the strategist holds a different view: isolated, one-off defaults are plausible — a single company might fail due to company-specific problems. What is considered *unlikely* is that *multiple* companies default at once, because that would require a systemic crisis affecting the entire sector.
 
-Kenji's structurer offers him a solution: "Instead of losing on the *first* default, what if you only lose on the *second* default? Or the *third*?" This way, Kenji is protected against isolated failures and only loses if defaults start clustering — which he considers unlikely.
+The structurer offers a solution: instead of losing on the *first* default, the investor only loses on the *second* default — or the *third*. This way, the investor is protected against isolated failures and only takes a loss if defaults start clustering, which the strategist considers unlikely.
 
-This is an **Nth-to-Default Note (NTD)**. The "N" refers to which default number triggers the loss. A 2nd-to-default (2TD) triggers on the second default. A 3rd-to-default (3TD) triggers on the third. The higher N is, the lower the risk (more defaults needed before the investor loses) and the lower the coupon.
+This is an **Nth-to-Default Note (NTD)**. The "N" refers to which default number triggers the loss. A 2nd-to-default (2TD) triggers on the second default. A 3rd-to-default (3TD) triggers on the third. The higher N is, the lower the risk (more defaults needed before the investor takes a loss) and the lower the coupon.
 
-If FTD is a domino chain where the first falling domino triggers the alarm, NTD is a **fire alarm system with a threshold**: the alarm doesn't sound until N sensors detect smoke. A single sensor tripping (isolated fire) doesn't trigger evacuation — only when multiple sensors activate (widespread fire) does the alarm go off.
+If FTD is a domino chain where the first falling domino triggers the alarm, NTD is a **fire alarm system with a threshold**: the alarm does not sound until N sensors detect smoke. A single sensor tripping (an isolated fire) does not trigger evacuation — only when multiple sensors activate (a widespread fire) does the alarm go off.
 
 #### §2. Real-World Analogy
 
 An NTD is like a **fire alarm system with a multi-sensor threshold**.
 
-In a building, each floor has a smoke sensor. A standard fire alarm (like an FTD) triggers when *any single* sensor detects smoke — even if it's just burnt toast on the third floor. False alarms are frequent and disruptive.
+In a building, each floor has a smoke sensor. A standard fire alarm (like an FTD) triggers when *any single* sensor detects smoke — even if it is just burnt toast on the third floor. False alarms are frequent and disruptive.
 
 A multi-sensor alarm system (like an NTD) requires N sensors to trip before the evacuation alarm sounds:
 - **1-sensor threshold (FTD):** Any smoke anywhere → alarm. Most sensitive. Most false alarms.
 - **2-sensor threshold (2TD):** Smoke on two floors → alarm. Filters out isolated incidents.
-- **3-sensor threshold (3TD):** Smoke on three floors → alarm. Only triggers for building-wide fire.
+- **3-sensor threshold (3TD):** Smoke on three floors → alarm. Only triggers for a building-wide fire.
 - **5-sensor threshold (5TD in a 5-name basket):** Every sensor must trip → alarm. Only triggers for total catastrophe.
 
 In an NTD:
 - Each **sensor** is a reference entity.
 - **Smoke** is a credit event (default).
-- The **threshold (N)** determines how many defaults trigger investor loss.
+- The **threshold (N)** determines how many defaults trigger the investor's loss.
 - A **higher threshold** means less risk, lower premium, and fewer false alarms.
 
-The building owner pays less for a 3-sensor alarm system than a 1-sensor system because the 3-sensor system is less likely to trigger.
+The building owner pays less for a 3-sensor alarm system than a 1-sensor system because the 3-sensor system is less likely to trigger. In this analogy the investor is the alarm provider — collecting premium and bearing the cost when the threshold is reached — while the bank is the building owner, paying premium to be protected against the Nth default.
 
 #### §3. What Problem Does This Solve?
 
 NTDs solve the **precision credit view expression** problem.
 
-FTDs give investors a binary choice: take first-default risk (high coupon, high risk) or don't invest at all. NTDs allow investors to express a more nuanced view: "I believe isolated defaults may happen, but systematic defaults are unlikely."
+FTDs give investors a binary choice: take first-default risk (high coupon, high risk) or do not invest at all. NTDs allow investors to express a more nuanced view: isolated defaults may happen, but systematic defaults are unlikely.
 
 | Investor Need | Why FTD Falls Short | What NTD Offers |
 |--------------|-------------------|----------------|
-| Protection against isolated defaults | FTD triggers on first default — no protection | NTD skips the first N-1 defaults |
+| Protection against isolated defaults | FTD triggers on the first default — no protection | NTD skips the first N-1 defaults |
 | Nuanced credit view | FTD is binary: all-or-nothing basket risk | NTD allows calibrated risk: 2TD, 3TD, 4TD, etc. |
 | Lower cost for credit exposure | FTD coupon is high because first-default risk is high | NTD coupon scales inversely with N — 3TD is much cheaper than 1TD |
-| Systemic risk position | FTD doesn't distinguish idiosyncratic from systemic | NTD inherently separates them: low N = idiosyncratic risk, high N = systemic risk |
+| Systemic risk position | FTD does not distinguish idiosyncratic from systemic | NTD inherently separates them: low N = idiosyncratic risk, high N = systemic risk |
 
 #### §4. Product DNA
-
 
 | **Field** | **Value** |
 |---|---|
@@ -15774,24 +15602,23 @@ FTDs give investors a binary choice: take first-default risk (high coupon, high 
 | **Abbreviation** | NTD |
 | **Family** | Credit-Linked Notes |
 | **Complexity Score** | 8 / 10 |
-| **Complexity Rationale** | FTD (7) + Nth-default threshold + correlation reversal effect. Nonlinear correlation sensitivity |
+| **Complexity Rationale** | FTD (7) + Nth-default threshold + correlation-direction reversal between FTD and NTD. Nonlinear correlation sensitivity |
 | **Underlying Asset Class** | Credit (basket of 5–10 reference entities) |
 | **Capital Protection** | Conditional (protected if fewer than N defaults) |
 | **Coupon Type** | Fixed |
 | **Maturity** | 3–5 years |
 | **Liquidity** | OTC — model-dependent |
-| **Primary System** | NEMO (primary), Sophis (risk) |
+| **Primary System** | Murex (booking), NEMO (primary), Sophis (risk) |
 | **ISDA Required** | No — issued as note |
 
-
 **DNA Atlas Fields:**
-- Primary Risk: Nth default in basket. Correlation reversal — high correlation INCREASES NTD risk (opposite of FTD). All-or-nothing default threshold
+- Primary Risk: Nth default in basket. Correlation direction reverses from FTD to NTD — for the NTD (N≥2), high correlation INCREASES risk (the opposite of FTD). All-or-nothing default threshold
 - Typical Buyer: Institutional credit investors seeking specific correlation exposure
-- Typical Use Case: Tail credit risk exposure — protected against first N-1 defaults, exposed to Nth
-- Building Blocks: CLN + Nth-to-default CDS on basket
+- Typical Use Case: Tail credit risk exposure — protected against the first N-1 defaults, exposed to the Nth
+- Building Blocks: CLN + short Nth-to-default CDS on basket
 - Key Hedge: Individual CDS + correlation-dependent basket hedges
 - Similar Products: FTD (5.5.3 — first default), Synthetic CDO (5.5.5 — tranched), CLN (5.5.1)
-- Most Important Greek: Credit spread delta + correlation (reversed from FTD)
+- Most Important Greek: Credit spread delta + correlation (direction reversed from FTD)
 
 **Comparison Matrix Fields:**
 - Complexity: 8
@@ -15801,7 +15628,7 @@ FTDs give investors a binary choice: take first-default risk (high coupon, high 
 - Liquidity: OTC — model-dependent
 - Path Dependency: No (counting defaults, not timing)
 - Volatility Sensitivity: Low
-- Correlation Sensitivity: Very high — reversed from FTD (high correlation increases NTD risk)
+- Correlation Sensitivity: Very high — direction reversed from FTD (for the NTD, high correlation increases risk)
 - Client Type: Sophisticated institutional credit
 - Market Environment: Best for precise correlation views
 
@@ -15809,14 +15636,14 @@ FTDs give investors a binary choice: take first-default risk (high coupon, high 
 
 | Role | What They Do |
 |------|-------------|
-| **Structurer** | Selects N and basket composition. Must explain the correlation reversal effect to clients and internal stakeholders |
-| **Trader** | Hedges with individual CDS and manages correlation book. NTD correlation exposure is opposite to FTD at certain correlation levels — critical for portfolio management |
-| **Sales** | Explains the N-threshold and correlation reversal. Must ensure client understands why 2TD may actually become *riskier* at very high correlation |
-| **Quant** | Models basket default probabilities with Nth-default trigger. Correlation sensitivity analysis is essential — the non-monotonic behavior requires careful calibration |
-| **Risk Manager** | Monitors correlation exposure direction (long or short?). Stress-tests the correlation reversal threshold |
-| **Operations** | Tracks cumulative defaults in basket. Must count defaults accurately — the Nth default triggers settlement |
-| **Compliance** | Verifies suitability for complex correlation products. NTD correlation reversal makes suitability assessment harder |
-| **Product Control** | Validates Nth-default model inputs. Checks that correlation sensitivity has correct sign |
+| **Structurer** | Selects N and basket composition. Must explain the FTD-vs-NTD correlation-direction reversal to clients and internal stakeholders |
+| **Trader** | Hedges with individual CDS and manages the correlation book. NTD correlation exposure is opposite in direction to FTD — critical for portfolio management |
+| **Sales** | Explains the N-threshold and the correlation-direction reversal. Must ensure the client understands why the NTD is short correlation while the FTD is long |
+| **Quant** | Models basket default probabilities with the Nth-default trigger. Correlation sensitivity analysis is essential — the non-monotonic behavior requires careful calibration |
+| **Risk Manager** | Monitors correlation exposure direction (raw vs net). Stress-tests the correlation profile |
+| **Operations** | Tracks cumulative defaults in the basket. Must count defaults accurately — the Nth default triggers settlement |
+| **Compliance** | Verifies suitability for complex correlation products. The NTD's short-correlation direction makes suitability assessment harder |
+| **Product Control** | Validates Nth-default model inputs. Checks that correlation sensitivity has the correct sign |
 
 #### §6. Product Evolution
 
@@ -15832,173 +15659,184 @@ FTDs give investors a binary choice: take first-default risk (high coupon, high 
 | NTD | N | Nth default triggers loss |
 | Last-to-default | 5 (in 5-name basket) | All must default before loss |
 
-**The generalization from FTD to NTD is mathematically clean but introduces a fundamentally new risk behavior: correlation reversal.**
+The generalization from FTD to NTD is mathematically clean but introduces a fundamentally new risk behavior: the correlation direction reverses between the FTD (N=1, long correlation) and the NTD (N≥2, short correlation).
 
-#### §7. How the Bank Makes Money
+---
 
-Revenue sources are similar to FTD but with an additional dimension:
+#### §7. THE INVESTOR LENS
+
+**Why the investor buys it**
+
+1. **Lower-cost credit exposure.** The NTD coupon is lower than FTD on the same basket, in exchange for the protection buffer of the first N-1 defaults.
+2. **Protection against isolated defaults.** A single idiosyncratic default does not trigger a loss — the investor is protected through default N-1.
+3. **View expression.** An investor who believes isolated defaults are possible but systemic clustering is unlikely can monetize that view by selling Nth-default protection.
+4. **Calibrated risk.** The investor can dial risk up or down by choosing N (2TD, 3TD, 4TD, 5TD), trading coupon for protection.
+5. **Correlation positioning.** The investor takes a specific, deliberate position on credit correlation — short correlation for any NTD with N≥2.
+
+**Position & correlation direction**
+
+The investor simultaneously holds a long bond (lends principal to the issuer) and a **short** Nth-to-default CDS (sells Nth-default protection on the basket to the bank). The premium on that protection funds the enhanced coupon.
+
+Under the MTM convention, the NTD (N≥2) is **short correlation**: the investor's risk **rises as default correlation rises**, because high correlation makes defaults cluster, and clustered defaults are more likely to reach the Nth trigger. The NTD benefits from **low** correlation, where independent defaults rarely accumulate to N.
+
+This is the **direction reversal** from the FTD. The FTD (N=1) is **long correlation** under the MTM convention — its risk falls as correlation rises, because clustering produces fewer total first-default events. The direction flips from FTD (N=1, long) to NTD (N≥2, short). The 5TD (last-to-default) is the extreme short-correlation case — economically equivalent to a CDO super-senior tranche, where losses only reach the senior level when defaults cluster at high correlation.
+
+**Payoff & scenarios**
+
+The investor receives fixed coupons and full principal unless the Nth default occurs. Defaults 1 through N-1 are absorbed without loss; the Nth default triggers settlement, and principal is reduced to the recovery on the Nth defaulted name.
+
+**Product:** 5-year 2nd-to-Default (2TD) on a 5-name basket.
+**Basket:** AlphaTech (180bp), BetaBank (220bp), GammaPharma (150bp), DeltaEnergy (250bp), EpsilonRetail (200bp).
+**Notional:** $1,000,000.
+**Coupon:** 5.0% per year (vs 9.5% for FTD on the same basket).
+**Recovery rate:** 40%.
+
+- **Scenario 1 — No defaults or only one default:** Zero or one company defaults during the 5-year term. The 2TD does NOT trigger.
+  - If zero defaults: full coupons + principal. **Total: $1,250,000.**
+  - If one default (e.g. DeltaEnergy in Year 3): the 2TD investor is unaffected — still receives coupons and full principal. **Total: $1,250,000.** (The FTD investor would have lost $315,000 in this scenario.)
+- **Scenario 2 — Two defaults (Year 3 and Year 4):** DeltaEnergy defaults in Year 3 (first default — no trigger). BetaBank defaults in Year 4 (second default — triggers the 2TD).
+  - Principal returned: $1,000,000 × 40% = $400,000
+  - Coupons received: 4 × $50,000 = $200,000
+  - **Total received: $600,000. Net loss: $400,000 (-40%).**
+- **Scenario 3 — Rapid clustering (two defaults in Year 1):** A systemic crisis causes DeltaEnergy and BetaBank to default within months of each other in Year 1. The second default triggers the 2TD.
+  - Principal returned: $1,000,000 × 40% = $400,000
+  - Coupons received: 1 × $50,000 = $50,000
+  - **Total received: $450,000. Net loss: $550,000 (-55%).**
+  - The 2TD investor loses *more* than in Scenario 2 because fewer coupons were collected before the trigger.
+
+![NTD Risk vs Default Correlation — Investor Lens](assets/ntd/payoff_ntd_01.svg)
+
+**Risks to the investor**
+
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Nth-default trigger risk** | Multiple defaults are needed — lower probability, but catastrophic if reached. After N-1 defaults the buffer is gone and the next default crystallises a loss. | High |
+| **Correlation risk (short correlation)** | The NTD (N≥2) is short correlation — its risk *rises* as default correlation rises, because clustering makes the Nth default more likely. High-correlation regimes are the adverse case. | Very High |
+| **Default clustering risk** | Multiple defaults in rapid succession consume the N-1 buffer faster and cut short the coupon stream collected before the trigger. | High |
+| **Recovery risk** | Loss severity depends on the recovery rate of the Nth defaulted name, set at credit-event auction — a low recovery means a larger principal loss. | High |
+| **Model risk** | A copula model drives pricing; the non-monotonic correlation behavior is model-dependent and hard to calibrate. | High |
+| **Issuer credit risk** | The investor is exposed to the issuing bank's creditworthiness; if the issuer defaults, coupons or principal may not be received. | Medium |
+
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk's raw position is the mirror image of the investor's. Where the investor sells Nth-default protection (short the Nth-to-default CDS), the desk **buys** that Nth-default protection on the basket; alongside it the desk has issued a note, which is a funding liability. The investor's enhanced coupon is, to the desk, the cost of the Nth-default protection premium plus funding, returned to the client. The trade is booked in Murex.
+
+**Credit/correlation risk & hedging**
+
+The desk hedges with individual single-name CDS on the basket constituents and with correlation-dependent basket hedges. Because the NTD's correlation direction is the reverse of the FTD's, the desk's correlation book must be managed carefully: a desk that is short correlation on a raw basis from one product is not automatically hedged by the other. On a **raw** basis the desk's NTD position is the mirror of the investor's (the desk is long correlation where the investor is short); the **net** correlation exposure depends on the rest of the book, and the desk monitors the direction (raw vs net) continuously. The Nth-default sensitivity is non-monotonic in correlation, so the desk watches for the level at which the sensitivity changes magnitude or sign.
+
+**How the bank makes money**
 
 | Revenue Source | Mechanism | Typical Size |
 |---------------|-----------|:------------:|
 | Structuring fee | Embedded in coupon | 20-60bp per annum |
-| Correlation trading | NTD correlation exposure can be opposite to FTD — bank uses NTD to hedge FTD book | 15-40bp per annum |
-| Model edge | Correlation reversal behavior is complex — bank's superior modeling creates pricing advantage | 10-30bp per annum |
+| Correlation trading | NTD correlation exposure is opposite in direction to FTD — the desk uses NTD positions to offset FTD correlation risk | 15-40bp per annum |
+| Model edge | The correlation-direction behavior is complex — the bank's superior modeling creates a pricing advantage | 10-30bp per annum |
 
-The key difference from FTD: NTDs are valuable to the bank's correlation book because they provide *offsetting* correlation exposure. A bank that is short correlation from FTDs can go long correlation through NTDs, reducing net correlation risk.
+The key difference from FTD: NTDs are valuable to the bank's correlation book because they provide *offsetting* correlation exposure. A desk that is short correlation on a raw basis from selling FTD protection can lean the other way through NTD positions, reducing net correlation risk.
 
-#### §8. Why This Product Exists (Client Perspective)
+**The coupon decomposition:**
 
-**When it makes sense:**
-- Investor believes isolated (idiosyncratic) defaults are possible but systemic defaults are unlikely
-- Investor wants basket credit exposure at a lower coupon than FTD
-- Investor wants to express a specific view on credit correlation
+Coupon = Nth-default protection premium − Funds Transfer Pricing (FTP) − Desk margin
 
-**When it is a poor choice:**
-- Investor does not understand the correlation reversal effect
-- Investor assumes "higher N = always less risk" — this is approximately true but breaks down at extreme correlation levels
-- Reference entities in the basket have high contagion risk (e.g., banks that lend to each other)
+The source does not publish a per-component breakdown of the 5.0% 2TD coupon. Inferring from the FTD decomposition pattern and the revenue table above, a representative split for the 5.0% coupon is: Nth-default protection premium ~6.0%; FTP (internal funding cost) −0.5%; desk margin −0.5%; **net coupon 5.0%**. The premium is lower than the FTD's because the first N-1 defaults must occur before the protection is called, so the protection sold is worth less.
 
-#### §9. The Three Scenarios
+![NTD Coupon Decomposition — Bank Lens (Desk Economics)](assets/ntd/waterfall_ntd_09.svg)
 
-**Product:** 5-year 2nd-to-Default (2TD) on same basket as FTD example
-**Basket:** AlphaTech (180bp), BetaBank (220bp), GammaPharma (150bp), DeltaEnergy (250bp), EpsilonRetail (200bp)
-**Notional:** $1,000,000
-**Coupon:** 5.0% per year (vs 9.5% for FTD on same basket)
-**Recovery rate:** 40%
+**P&L drivers**
 
-**Scenario 1 — No defaults or only one default:**
-Zero or one company defaults during the 5-year term. The 2TD does NOT trigger.
-- If zero defaults: Full coupons + principal. **Total: $1,250,000.**
-- If one default (e.g., DeltaEnergy in Year 3): 2TD investor is unaffected — still receives coupons and full principal. **Total: $1,250,000.** (The FTD investor would have lost $315,000 in this scenario.)
+Day to day, desk P&L is driven by single-name credit-spread moves on the basket constituents, the mark-to-market of the correlation position, the correlation model's calibration, and recovery-rate assumptions on the basket names. Product Control attributes P&L between coupon accrual and the Nth-default CDS MTM, and validates the correlation model inputs and the sign of the correlation sensitivity.
 
-**Scenario 2 — Two defaults (Year 3 and Year 4):**
-DeltaEnergy defaults in Year 3 (first default — no trigger). BetaBank defaults in Year 4 (second default — triggers 2TD).
-- Principal returned: $1,000,000 × 40% = $400,000
-- Coupons received: 4 × $50,000 = $200,000
-- **Total received: $600,000. Net loss: $400,000 (-40%).**
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
 
-**Scenario 3 — Rapid clustering (two defaults in Year 1):**
-Systemic crisis causes DeltaEnergy and BetaBank to default within months of each other in Year 1. Second default triggers 2TD.
-- Principal returned: $1,000,000 × 40% = $400,000
-- Coupons received: 1 × $50,000 = $50,000
-- **Total received: $450,000. Net loss: $550,000 (-55%).**
-- The 2TD investor loses *more* than Scenario 2 because fewer coupons were collected before trigger.
+**Booking & systems**
 
-#### §10. What Happens When Markets Move
+| Aspect | Detail |
+|--------|--------|
+| **Booking system** | Murex |
+| **Book of record** | NEMO — records the NTD with the N parameter and basket definition |
+| **Pricing/Risk system** | Sophis — runs the Nth-default correlation model and tracks the default counter |
+| **Booking structure** | Single note with embedded short Nth-to-default CDS on the basket |
+| **Key booking fields** | Notional, N parameter (trigger threshold), basket names & weights, coupon rate & frequency, maturity, recovery convention |
+| **Default counter** | Cumulative confirmed defaults maintained against N; N-1 defaults do not trigger |
 
-| Market Condition | Impact on 2TD | Comparison to FTD |
-|-----------------|--------------|-------------------|
-| One name's spread widens | Limited MTM impact | FTD impact much larger — single name drives FTD |
-| Two names' spreads widen | Significant MTM drop | FTD already triggered — 2TD now at risk |
-| All spreads widen together | Moderate impact | FTD impact proportionally larger |
-| Correlation increases (moderate) | 2TD MTM generally rises | FTD MTM also rises — same direction |
-| Correlation increases (extreme, >0.85) | **2TD MTM may DROP** — correlation reversal | FTD MTM continues rising — this is the key difference |
-| Correlation decreases | 2TD MTM generally drops | FTD MTM drops more — same direction, larger magnitude |
+**Key booking difference from FTD:** the N parameter (trigger threshold) must be correctly specified. A 2TD booked as an FTD (N=1) would settle on the wrong default event — a critical booking error.
 
-#### §11. Formal Definition
+**Reconciliation points**
+
+| Recon point | What must agree | NTD-specific break |
+|-------------|-----------------|--------------------|
+| **ISDA credit definitions** | The credit-event definitions (bankruptcy, failure to pay, restructuring) and Determinations Committee process applied to each name | A restructuring counted as a default before ISDA DC confirmation, or a confirmed event not recorded |
+| **Basket names & weights** | The reference entities and their weights match the termsheet across Murex, NEMO, and Sophis | A name substituted or re-weighted in one system but not another |
+| **Default counter** | The cumulative count of confirmed defaults vs N agrees across systems | Counter not incremented after a confirmed credit event → the next default triggers unexpectedly |
+| **N parameter (trigger threshold)** | The N specified in booking matches the termsheet (2TD = 2, 3TD = 3, …) | 2TD booked as N=1 → settles on the wrong default event |
+| **Credit-event / auction recovery** | The recovery rate on the Nth defaulted name matches the credit-event auction result | Recovery taken from a stale assumption rather than the auction print |
+| **Correlation model inputs** | The correlation matrix and copula parameters used in Sophis match the approved calibration | Wrong correlation inputs → wrong MTM and wrong sensitivity sign |
+| **P&L attribution** | Coupon accrual + Nth-default CDS MTM reconciles to total | Unexplained P&L points to a stale correlation surface or a wrong recovery |
+| **Settlement** | Cash settlement at the Nth name's recovery; note terminates on the Nth default | Settlement triggered on the wrong default number, or on an unconfirmed event |
+
+![NTD Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/ntd/controls_ntd_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| N parameter is 1 in a product sold as 2TD | Booking error — the product is actually an FTD | Correct immediately |
+| Default counter not updated after a confirmed credit event | The next default may trigger settlement unexpectedly | Update the counter; verify against ISDA determinations |
+| Correlation model shows NTD sensitivity changing magnitude or sign | The non-monotonic correlation region is near the current market level | Alert the trader — risk magnitude may shift |
+| Multiple basket names in the same industry / geography | Clustering risk is high — the N-1 buffer may be insufficient | Stress-test with sector-wide defaults |
+| Recovery taken from assumption, not the auction print | Loss severity on the Nth name is misstated | Use the credit-event auction recovery |
+
+**Control implication**
+
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. The signature control for the NTD is **accurate capture of the default counter**: after N-1 confirmed defaults, the NTD effectively becomes a single-name CLN on the next-weakest credit, and the very next confirmed default crystallises the loss. A counter that is not incremented after a confirmed credit event understates how close the note is to settlement and can let the Nth default trigger unexpectedly. A mis-booked N parameter settles on the wrong event entirely; a wrong auction recovery misstates the loss severity. The reconciliation exists precisely to catch these inconsistencies before settlement crystallises them.
+
+#### §10. Formal Definition
 
 An **Nth-to-Default Note (NTD)** is a credit-linked note referencing a basket of reference entities in which the investor sells credit protection triggered by the **Nth** credit event in the basket. Defaults 1 through N-1 do not trigger any loss to the investor.
 
-**The Correlation Reversal Effect — Highest-Priority Educational Risk:**
+**The correlation-direction reversal between FTD and NTD:**
 
-For FTD (N=1), the relationship between correlation and risk is straightforward: higher correlation → lower first-default probability → lower risk.
+For the FTD (N=1), the relationship between correlation and risk is straightforward: higher correlation → lower first-default probability → lower risk (long correlation).
 
-For NTD (N≥2), the relationship becomes **non-monotonic** at extreme correlation levels:
+For the NTD (N≥2), the direction reverses to short correlation, and the relationship becomes **non-monotonic** in the level of correlation:
 
 | Correlation | FTD (N=1) Risk | 2TD (N=2) Risk | 3TD (N=3) Risk |
 |:-----------:|:--------------:|:--------------:|:--------------:|
 | **Low (0.1)** | HIGH — many independent defaults likely | LOW — two independent defaults unlikely | VERY LOW — three independent defaults very unlikely |
 | **Medium (0.4)** | MODERATE | MODERATE | LOW |
 | **High (0.8)** | LOW — defaults cluster, so all-or-nothing | **MODERATE-HIGH — if defaults cluster, multiple defaults occur together** | MODERATE — clustering makes 3+ defaults possible |
-| **Very High (0.95)** | VERY LOW — almost acts like single name | **HIGH — if one defaults, all default together, so 2nd default is almost certain** | HIGH — same clustering logic |
+| **Very High (0.95)** | VERY LOW — almost acts like a single name | **HIGH — if one defaults, all default together, so the 2nd default is almost certain** | HIGH — same clustering logic |
 
-**Why the reversal happens:** At very high correlation, defaults either all happen or none happen. If *any* default occurs, it's likely that *multiple* defaults follow immediately (contagion, systemic crisis). For FTD, this means fewer total default events (good for FTD). For NTD, this means *when* the first default occurs, the Nth default follows quickly (bad for NTD).
+**Why the NTD is short correlation:** at very high correlation, defaults either all happen or none happen. If *any* default occurs, it is likely that *multiple* defaults follow immediately (contagion, systemic crisis). For the FTD this means fewer total default events (good for the FTD — long correlation). For the NTD this means that *when* the first default occurs, the Nth default follows quickly (bad for the NTD — short correlation). The 5TD (last-to-default) is the extreme case, economically equivalent to a CDO super-senior tranche.
 
-**Intuition:** Imagine correlation = 1.0 (perfect). Either all 5 companies default or none do. FTD risk = probability of the single event "all default" = very low. 2TD risk = also the probability of "all default" = same as FTD. At perfect correlation, FTD and 2TD have **identical** risk. But between moderate and perfect correlation, 2TD risk *increases* as correlation rises — this is the reversal.
-
-#### §12. Product Construction
-
-*Dependency: Builds on FTD (5.5.3 §12).*
-
-| Component | What It Is | Purpose |
-|-----------|-----------|---------|
-| Bond | Investor lends principal to issuer | Provides funding |
-| Short Nth-to-default CDS | Investor sells Nth-default protection on basket | Generates Nth-default premium as coupon |
-
-**Coupon scaling (same basket, same tenor):**
-
-| Product | Coupon | Risk | Correlation Sensitivity |
-|---------|:------:|:----:|:----------------------:|
-| FTD (N=1) | 9.5% | Highest | Long correlation (MTM: risk falls as ρ rises) |
-| 2TD (N=2) | 5.0% | Medium | Short correlation (reversed from FTD: high ρ → clustered defaults → higher NTD risk) |
-| 3TD (N=3) | 2.5% | Lower | Short correlation (reversal from FTD amplified at moderate ρ) |
-| 4TD (N=4) | 1.0% | Low | Short correlation (high ρ → if defaults cluster, 4th-default threshold breached) |
-| 5TD (N=5) | 0.3% | Lowest | Short correlation (high ρ → all-or-nothing → if one defaults, all do → 5TD triggered; ≈ CDO super-senior) |
-
-Coupon decreases with N because more defaults are needed to trigger loss. At N=5 (last-to-default), the coupon is minimal because *all* companies must default.
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | What Happens | Key Actions |
 |-------|-------------|-------------|
-| **Pre-trade** | Structurer selects N and basket. Correlation reversal analysis performed | Basket approval, correlation stress testing |
-| **Trade date** | NTD issued. Bank enters individual CDS hedges and correlation hedges | Booking in NEMO with Nth trigger, Sophis with correlation model |
+| **Pre-trade** | Structurer selects N and basket. Correlation analysis performed | Basket approval, correlation stress testing |
+| **Trade date** | NTD issued. Desk enters individual CDS hedges and correlation hedges | Booking in Murex / NEMO with the Nth trigger; Sophis with the correlation model |
 | **During life** | Coupons paid. Default counter maintained. N-1 defaults do not trigger | Default counting, continuous credit monitoring |
-| **Defaults 1 to N-1** | Each default is recorded but does NOT trigger settlement. Coupon continues | Default counter updated, recovery on defaulted name is irrelevant to NTD |
-| **Nth default** | Settlement triggered. Recovery applied on Nth defaulted entity | Settlement at Nth entity's recovery rate. Note terminated |
+| **Defaults 1 to N-1** | Each default is recorded but does NOT trigger settlement. Coupon continues | Default counter updated; recovery on the defaulted name is irrelevant to the NTD until the Nth |
+| **Nth default** | Settlement triggered. Recovery applied on the Nth defaulted entity | Cash settlement at the Nth entity's auction recovery rate. Note terminated |
 
-#### §14. Desk Reality
+#### §12. Worked Example (both lenses)
 
-**What textbooks don't tell you:**
+**Product:** 5-year 2nd-to-Default (2TD) on a 5-name basket.
+**Same basket as FTD example:** AlphaTech (180bp), BetaBank (220bp), GammaPharma (150bp), DeltaEnergy (250bp), EpsilonRetail (200bp).
+**Notional:** $1,000,000.
+**Coupon:** 5.0% per year.
+**Default correlation:** 0.30.
 
-**The correlation reversal is real and traders know it.** A bank whose raw position is short correlation from selling FTDs cannot simply buy NTDs as a "hedge" without understanding the reversal. At very high correlation, both FTD and NTD can lose money simultaneously. The correlation reversal means that NTD is NOT always a clean hedge for FTD.
+**Timeline:**
+- **Year 1:** No defaults. Coupon: $50,000.
+- **Year 2:** DeltaEnergy defaults (credit event confirmed by ISDA). This is Default #1. The 2TD does NOT trigger. The investor continues receiving coupons. Default counter: 1 of 2 needed.
+- **Year 3:** No additional defaults. Coupon: $50,000. Cumulative coupons: $150,000.
+- **Year 4:** BetaBank defaults. This is Default #2. **The 2TD triggers.**
 
-**Default counting is operationally non-trivial.** In a crisis, credit events can be disputed, partially resolved, or trigger cascading effects. Operations must maintain a definitive count of confirmed defaults. A restructuring event on Company A that is later resolved does not count as a "default" unless the ISDA Determinations Committee confirms it.
-
-**NTD investors often underestimate clustering risk.** A 2TD investor who thinks "one default is fine" may not realize that in a crisis, the first and second defaults can occur within days of each other. The protection provided by the "first default buffer" evaporates in systemic events.
-
-#### §15. Risk Analysis
-
-| Risk | Description | Severity | Unique to NTD? |
-|------|------------|:--------:|:--------------:|
-| Nth-default trigger risk | Multiple defaults needed — lower probability but catastrophic if reached | High | YES |
-| Correlation reversal risk | At high correlation, NTD becomes riskier instead of safer | Very High | YES — the signature risk |
-| Default clustering risk | Multiple defaults occurring in rapid succession | High | Amplified in NTD |
-| Individual name spread risk | Spread widening on any name | Medium | Less than FTD — buffered by N threshold |
-| Model risk | Copula model drives pricing; correlation reversal is model-dependent | High | YES — non-monotonic sensitivity is hard to model |
-| Issuer credit risk | Issuing bank defaults | Medium | No (shared with all CLNs) |
-
-#### §16. Booking and Systems
-
-| System | Role |
-|--------|------|
-| NEMO | Primary booking — records NTD with N parameter and basket definition |
-| Sophis | Risk — runs Nth-default correlation model, tracks default counter |
-
-**Key booking difference from FTD:** The N parameter (trigger threshold) must be correctly specified. A 2TD booked as FTD (N=1) would settle on the wrong default event. This is a critical booking error.
-
-#### §17. Red Flags
-
-| Red Flag | What It Means | Action |
-|----------|-------------|--------|
-| N parameter is 1 in a product sold as 2TD | Booking error — product is actually an FTD | Correct immediately |
-| Default counter not updated after confirmed credit event | Next default may trigger unexpectedly | Update counter, verify with ISDA determinations |
-| Correlation model shows NTD sensitivity changing sign | Correlation reversal threshold is near current market level | Alert trader — risk direction may flip |
-| Multiple basket names in same industry/geography | Clustering risk is high — N-1 buffer may be insufficient | Stress-test with sector-wide defaults |
-
-#### §18. Worked Example
-
-**Product:** 5-year 2nd-to-Default (2TD) on 5-name basket
-**Same basket as FTD example:**
-AlphaTech (180bp), BetaBank (220bp), GammaPharma (150bp), DeltaEnergy (250bp), EpsilonRetail (200bp)
-**Notional:** $1,000,000
-**Coupon:** 5.0% per year
-**Default correlation:** 0.30
-
-**Year 1:** No defaults. Coupon: $50,000.
-**Year 2:** DeltaEnergy defaults (credit event confirmed by ISDA). This is Default #1. The 2TD does NOT trigger. Investor continues receiving coupons. Default counter: 1 of 2 needed.
-**Year 3:** No additional defaults. Coupon: $50,000. Cumulative coupons: $150,000.
-**Year 4:** BetaBank defaults. This is Default #2. **The 2TD triggers.**
+*Investor lens:*
 
 **Settlement:**
 - Recovery rate on BetaBank (the Nth defaulter): 45%
@@ -16018,132 +15856,94 @@ AlphaTech (180bp), BetaBank (220bp), GammaPharma (150bp), DeltaEnergy (250bp), E
 
 The 2TD investor collected 2 extra years of coupons and had a different recovery rate. Despite lower annual coupons, the 2TD delivered a better outcome in this scenario.
 
-#### §19. Knowledge Check
+*Bank lens:*
+- The desk bought 2nd-to-default protection on the basket and hedged with single-name CDS and correlation hedges. Through Year 2, DeltaEnergy's default (Default #1) does not trigger the NTD; the desk maintains the default counter at 1 of 2 and continues funding the $50,000 coupons. At the Year 4 BetaBank default (Default #2), the desk's bought protection is called: it receives the protection payout that offsets the note's redemption shortfall.
+- The 2nd line must confirm the default counter incremented correctly to 2, that the N parameter is booked as 2 (not 1), that BetaBank's 45% recovery matches the credit-event auction print, and that Murex, NEMO, and Sophis agree on basket and settlement before the note is terminated.
+
+#### §13. Knowledge Check
 
 **Review Questions:**
-1. What does the "N" in NTD represent?
-2. How does the coupon change as N increases? Why?
-3. Explain the correlation reversal effect for 2TD. At what correlation level does the reversal occur?
-4. Why is NTD complexity rated 8/10 while FTD is 7/10?
-5. What operational challenge does default counting present?
+1. *(Investor)* What does the "N" in NTD represent?
+2. *(Investor)* How does the coupon change as N increases? Why?
+3. *(Investor)* Is the NTD (N≥2) long or short correlation under the MTM convention, and how does its direction compare to the FTD?
+4. *(Investor)* Why is NTD complexity rated 8/10 while FTD is 7/10?
+5. *(Desk economics / 1LoD)* The desk buys Nth-default protection against the investor. On a raw basis, which way does the desk's correlation position point relative to the investor, and how does the desk use NTD positions against an FTD book?
+6. *(Controls / 2LoD)* A 2TD has experienced one confirmed default. Which reconciliation point is now the most critical to capture, and what is the consequence if it is wrong?
 
 **Scenario Questions:**
 1. An investor holds a 3TD on a 5-name basket. Two defaults have occurred. The investor says "I have one default buffer left, I'm safe." What risk is the investor ignoring?
-2. A correlation regime shift moves market correlation from 0.3 to 0.8. How does this affect the risk of a 2TD compared to an FTD?
+2. A correlation regime shift moves market correlation from 0.3 to 0.8. How does this affect the risk of a 2TD (short correlation) compared to an FTD (long correlation)?
 3. A 2TD basket has had one default (Default #1). The investor wants to sell the note in the secondary market. What factors determine the sale price?
 
-**Desk Question:**
-A 2TD has experienced one confirmed default. The correlation model shows that the 2TD's sensitivity to correlation has flipped from negative (like FTD) to positive. Explain what happened, why it matters for hedging, and what the trader should do.
+**Mental Models**
 
-#### §20. Common Mistakes
+| Concept | Mental Model |
+|---------|-------------|
+| Nth-to-Default Note | A fire alarm with an N-sensor threshold — the alarm only sounds when N sensors detect smoke |
+| The N threshold | The number of defaults that must occur before the investor takes a loss; the first N-1 are absorbed |
+| Coupon scaling | Each step up in N removes the most likely default trigger, so the coupon falls (FTD 9.5% → 5TD 0.3%) |
+| Correlation direction | FTD is long correlation; the NTD (N≥2) is short correlation — high clustering reaches the Nth trigger |
+| 5TD ≈ CDO super-senior | Losses only reach the senior level when defaults cluster at high correlation — short correlation |
+| Default counter | The score in the game — once it reaches N-1, the next default ends the note |
+| 2LoD reconciliation | The auditor confirming the count, the N parameter, and the recovery all agree before settlement |
 
-1. **Assuming NTD is always safer than FTD.** At extreme correlation levels, NTD can be *riskier* due to the correlation reversal effect.
+**Key Takeaways**
+
+1. An NTD is a basket credit-linked note: the investor sells Nth-to-default protection on a basket, earns a coupon, and loses principal only after the Nth name defaults.
+2. The coupon scales inversely with N (FTD 9.5% → 2TD 5.0% → 3TD 2.5% → 4TD 1.0% → 5TD 0.3%) because more defaults are needed to trigger a loss.
+3. The NTD (N≥2) is **short correlation** under the MTM convention — its risk rises as correlation rises, because clustering makes the Nth default more likely. Only the FTD (N=1) is long correlation; the direction reverses.
+4. The investor is protected through default N-1; once the counter reaches N-1, the NTD behaves like a single-name CLN on the next-weakest credit.
+5. The 5TD (last-to-default) is the extreme short-correlation case, economically equivalent to a CDO super-senior tranche.
+6. The desk buys Nth-default protection (mirror of the investor) and uses NTD positions to offset FTD correlation risk; net correlation exposure must be qualified raw vs net.
+7. For the 2nd line, the dominant control is accurate capture of the default counter, the N parameter, and the auction recovery — each can misstate whether and how much the note settles.
+
+#### §14. Common Mistakes
+
+1. **Assuming an NTD is always safer than an FTD.** At high correlation, the NTD (short correlation) becomes *riskier*, while the FTD (long correlation) becomes safer — the directions are opposite.
 2. **Ignoring the default counter.** After N-1 defaults, the NTD effectively becomes a single-name CLN on the next-weakest credit. The "basket protection" has been consumed.
-3. **Using NTD as a simple FTD hedge.** The correlation reversal means NTD is not always a clean offset for FTD positions — at high correlation, both can lose money.
-4. **Mislabeling NTD correlation direction.** Under the MTM convention, all NTD tranches (N≥2) are short correlation — their risk rises as ρ rises (high correlation → defaults cluster → the Nth default becomes more likely). Only the FTD (N=1) is long correlation. Do not carry the FTD's long-correlation intuition over to higher-N tranches; the direction reverses at N≥2.
-
-#### §21. Visual Specifications
-
-**Visual 1: Nth-Default Trigger Mechanism**
-- **Figure:** Figure 5.5.4-01
-- **Visual ID:** VIS-NTD-01
-- **Type:** Portfolio Loss Diagram
-- **Priority:** P1
-- **Caption:** "Nth-to-default mechanism: defaults 1 through N-1 are absorbed without triggering loss; the Nth default triggers settlement"
-- **Diagram elements:** 5 company icons. Sequential defaults labeled #1, #2, ... #N. Defaults before N shown in amber (absorbed). Default #N shown in red (triggers settlement). Investor protected zone (defaults 1 to N-1) and loss zone (default N+) clearly demarcated
-- **Reuse status:** Adapt from FTD basket default template
-- **Asset filename:** portfolio_ntd_nth_trigger_01.svg
-
-**Visual 2: Correlation Reversal**
-- **Figure:** Figure 5.5.4-02
-- **Visual ID:** VIS-NTD-02
-- **Type:** Correlation Illustration
-- **Priority:** P1
-- **Caption:** "Correlation reversal: FTD risk decreases monotonically with correlation, but 2TD risk reverses at high correlation — the defining feature of NTD"
-- **X-axis:** Default correlation (0 to 1.0)
-- **Y-axis:** Default probability / Risk level
-- **Diagram elements:** Two curves. FTD curve: monotonically decreasing (high risk at low ρ, low risk at high ρ). 2TD curve: decreasing from low ρ to moderate ρ, then INCREASING from moderate ρ to high ρ. Reversal point clearly labeled. Optional 3TD curve showing earlier reversal
-- **Reuse status:** Adapt from FTD credit correlation template
-- **Asset filename:** correlation_ntd_reversal_02.svg
-
-**Visual 3: FTD vs NTD Comparison**
-- **Figure:** Figure 5.5.4-03
-- **Visual ID:** VIS-NTD-03
-- **Type:** Comparison Chart
-- **Priority:** P2
-- **Caption:** "FTD vs 2TD vs 3TD: coupon, risk, and correlation sensitivity comparison for the same 5-name basket"
-- **Diagram elements:** Table/chart comparing FTD, 2TD, 3TD across: coupon level, default trigger, correlation sensitivity direction, worked example outcome. Clear color coding
-- **Reuse status:** Adapt from family comparison template
-- **Asset filename:** comparison_ntd_ftd_family_03.svg
-
-**Visual 4: Default Sequence with Threshold**
-- **Figure:** Figure 5.5.4-04
-- **Visual ID:** VIS-NTD-04
-- **Type:** Timeline
-- **Priority:** P2
-- **Caption:** "Default sequence timeline for 2TD: first default is absorbed (amber), second default triggers settlement (red)"
-- **Diagram elements:** Horizontal timeline (5 years). Default #1 at Year 2 (amber marker, "Absorbed — no trigger"). Default #2 at Year 4 (red marker, "2TD triggered — settlement"). Coupon payments shown as green ticks continuing through Default #1 and stopping at Default #2
-- **Reuse status:** Adapt from FTD default sequence template
-- **Asset filename:** timeline_ntd_default_sequence_04.svg
-
-**Visual 5: Lifecycle Timeline**
-- **Figure:** Figure 5.5.4-05
-- **Visual ID:** VIS-NTD-05
-- **Type:** Lifecycle Diagram
-- **Priority:** P3
-- **Caption:** "NTD lifecycle: basket monitoring, default counting, Nth trigger, and settlement"
-- **Diagram elements:** Timeline: Pre-trade → Trade date → During life (with default counter overlay showing 0/N, 1/N, ..., N/N) → Nth default trigger → Settlement
-- **Reuse status:** Reuse lifecycle template
-- **Asset filename:** lifecycle_ntd_05.svg
-
-**Visual 6: Premium vs N Curve**
-- **Figure:** Figure 5.5.4-06
-- **Visual ID:** VIS-NTD-06
-- **Type:** Payoff Diagram
-- **Priority:** P3
-- **Caption:** "NTD coupon scaling: how coupon decreases as N increases, for a 5-name basket at correlation = 0.30"
-- **X-axis:** N (1=FTD, 2=2TD, 3=3TD, 4=4TD, 5=5TD/Last-to-Default)
-- **Y-axis:** Annual coupon (%)
-- **Diagram elements:** Descending curve: FTD 9.5% → 2TD 5.0% → 3TD 2.5% → 4TD 1.0% → 5TD 0.3%. Annotation: "Each step removes the most likely default trigger"
-- **Reuse status:** New variant — premium scaling
-- **Asset filename:** payoff_ntd_premium_vs_n_06.svg
-
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Credit risk, credit spread, recovery rate | Section 1.9 (Credit Risk) |
-| CDS mechanics, credit events, ISDA | CDS (5.2.5) — canonical source |
-| CLN structure, dual credit exposure | Vanilla CLN (5.5.1) |
-| Basket credit defaults, first-default trigger | FTD (5.5.3) — direct prerequisite |
-| Correlation, baskets, worst-of | Section 1.6 (Correlation and Baskets) |
-| Credit correlation bridge | FTD (5.5.3 §11) — equity-to-credit correlation |
-| Product decomposition, Funds Transfer Pricing (FTP) | Section 2.2 (Product Construction) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
+3. **Mislabeling NTD correlation direction.** Under the MTM convention, all NTD tranches (N≥2) are short correlation — their risk rises as ρ rises (high correlation → defaults cluster → the Nth default becomes more likely). Only the FTD (N=1) is long correlation. Do not carry the FTD's long-correlation intuition over to higher-N tranches; the direction reverses at N≥2.
+4. **Treating the NTD as a clean FTD hedge without qualification.** Because the correlation directions are opposite, an NTD can offset an FTD book, but the net position must be sized — at extreme correlation both can move adversely depending on the book.
+5. **(Controls) Trusting the booked N parameter or default count without reconciliation.** A 2TD mis-booked as N=1 settles on the wrong default, and an un-incremented default counter hides how close the note is to triggering. The 2nd line must reconcile the N parameter, the default counter, and the auction recovery across Murex, NEMO, and Sophis before settlement.
 
 ---
 
+*Coupon scaling reference (same basket, same tenor):*
+
+| Product | Coupon | Risk | Correlation Sensitivity |
+|---------|:------:|:----:|:----------------------:|
+| FTD (N=1) | 9.5% | Highest | Long correlation (MTM: risk falls as ρ rises) |
+| 2TD (N=2) | 5.0% | Medium | Short correlation (reversed from FTD: high ρ → clustered defaults → higher NTD risk) |
+| 3TD (N=3) | 2.5% | Lower | Short correlation (high ρ → clustering reaches the 3rd-default threshold) |
+| 4TD (N=4) | 1.0% | Low | Short correlation (high ρ → if defaults cluster, the 4th-default threshold is breached) |
+| 5TD (N=5) | 0.3% | Lowest | Short correlation (high ρ → all-or-nothing → if one defaults, all do → 5TD triggered; ≈ CDO super-senior) |
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor (raw correlation/credit position), and how is it hedged?
+- *(Controls / 2LoD)* Which credit-event / basket / model-input fields must reconcile, and which is the most common break?
+
+**Dual-lens visuals (generated):**
+- `assets/ntd/controls_ntd_recon_08.svg` `[generated]`
+- `assets/ntd/payoff_ntd_01.svg` `[generated]`
+- `assets/ntd/waterfall_ntd_09.svg` `[generated]`
 ### 5.5.5 Synthetic CDO Tranche
 
 ---
 
-*Previous CLNs (Sections 5.5.1–5.5.4) referenced single credits or small baskets. The Synthetic CDO Tranche references a large portfolio (50–125 credits) and slices the aggregate loss into tranches — equity, mezzanine, senior — each absorbing losses in sequence. This is the most complex credit structure in the Bible, combining portfolio credit risk, tranche mechanics, and correlation sensitivity.*
+*The CLNs (Sections 5.5.1–5.5.4) referenced single credits or small baskets. The Synthetic CDO Tranche references a large portfolio (50–125 credits) and slices the aggregate loss into tranches — equity, mezzanine, senior, super-senior — each absorbing losses in sequence. This is the most complex credit structure in the Bible, combining portfolio credit risk, tranche mechanics, and correlation sensitivity. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Meet Aliyah, a senior credit analyst at a large European asset management firm. Aliyah has progressed through the CLN family: she understands single-name CLNs, Skew CLNs, FTDs, and NTDs. Each of these products references a small basket of 5-10 companies. But the credit market is much larger — banks hold portfolios of hundreds or thousands of credit exposures.
+The credit market is much larger than a single name or a small basket. Banks hold portfolios of hundreds or thousands of credit exposures. A structurer reframes the problem this way: imagine a portfolio of 100 corporate credit exposures. Some of these companies will default over the next 5 years. The questions are *how many* will default, and *how much* total loss the portfolio will suffer. That total loss can be divided into **slices** — called **tranches** — and each slice sold to a different investor according to risk appetite.
 
-Aliyah's structurer explains: "Imagine a portfolio of 100 corporate credit exposures. Some of these companies will default over the next 5 years. The question is: *how many* will default, and *how much* total loss will the portfolio suffer? We can divide the portfolio's total loss into **slices** — called **tranches** — and sell each slice to a different investor based on their risk appetite."
-
-This is a **Synthetic CDO Tranche**. "CDO" stands for Collateralized Debt Obligation. "Synthetic" means the portfolio is constructed using CDS contracts (synthetic credit exposure) rather than actual bonds or loans. "Tranche" means the investor buys a specific *slice* of the portfolio's total credit risk.
+This is a **Synthetic CDO Tranche**. "CDO" stands for Collateralized Debt Obligation. "Synthetic" means the portfolio is constructed using CDS contracts (synthetic credit exposure) rather than actual bonds or loans. "Tranche" means the investor buys a specific *slice* of the portfolio's total credit risk: the investor sells protection on a band of the portfolio's losses (between an attachment and a detachment point), receives a coupon for doing so, and suffers a principal hit only when cumulative portfolio losses enter that band.
 
 Think of it as a **highrise building in a flood zone**:
 - The **ground floor** (the equity tranche) absorbs the first losses — the first few feet of floodwater. The ground-floor tenant pays the lowest rent but faces the most risk.
-- The **middle floors** (mezzanine tranches) are affected only after the ground floor is completely flooded. Higher risk than top floors, but protected from small floods.
-- The **top floors** (senior tranches) are only affected in catastrophic floods that submerge the entire building. These tenants pay the highest rent (or in CDO terms, *receive* the lowest coupon) because they are safest.
+- The **middle floors** (mezzanine tranches) are affected only after the ground floor is completely flooded. Higher risk than the top floors, but protected from small floods.
+- The **top floors** (senior tranches) are only affected in catastrophic floods that submerge the entire building. These tenants pay the highest rent (in CDO terms, *receive* the lowest coupon) because they are safest.
 - The **penthouse** (super-senior tranche) is only affected if the flood exceeds all previous records. Almost never happens — almost zero coupon, almost zero risk.
 
-The key innovation: the **same portfolio** of credit risk is divided into layers with completely different risk profiles. An investor who wants high risk and high return takes the equity tranche. An investor who wants low risk takes the senior tranche. Both are exposed to the same portfolio — just different slices of it.
+The key innovation: the **same portfolio** of credit risk is divided into layers with completely different risk profiles. An investor wanting high risk and high return takes the equity tranche; an investor wanting low risk takes the senior tranche. Both are exposed to the same portfolio — just different slices of it.
 
 #### §2. Real-World Analogy
 
@@ -16179,7 +15979,6 @@ Banks hold large portfolios of credit risk from their lending and trading activi
 
 #### §4. Product DNA
 
-
 | **Field** | **Value** |
 |---|---|
 | **Full Name** | Synthetic CDO Tranche |
@@ -16194,7 +15993,6 @@ Banks hold large portfolios of credit risk from their lending and trading activi
 | **Liquidity** | OTC — model-dependent, index tranches more liquid |
 | **Primary System** | NEMO (primary), Sophis (risk) |
 | **ISDA Required** | Yes — ISDA Credit Definitions (unfunded tranches) |
-
 
 **DNA Atlas Fields:**
 - Primary Risk: Portfolio credit losses reaching tranche attachment point. Equity tranche = first loss. Senior tranche = protected but catastrophic loss scenario
@@ -16243,42 +16041,42 @@ Banks hold large portfolios of credit risk from their lending and trading activi
 
 Synthetic CDOs were widely used in the early 2000s. Before the 2007-2008 financial crisis, CDO issuance grew rapidly. The Gaussian copula model, introduced by David Li in 2000, provided a tractable way to price correlation in large credit portfolios. Banks used this model to price and trade CDO tranches.
 
-**What happened in 2008:** The Gaussian copula model assumed a specific, constant correlation structure. In reality, default correlations spiked dramatically during the crisis. Companies that the model predicted would default independently instead defaulted together — contagion effects that the model underestimated. Losses on equity and mezzanine tranches were far larger than the model predicted. Some senior tranches that were rated AAA also suffered losses.
+**What happened in 2008:** The Gaussian copula model assumed a specific, constant correlation structure. In reality, default correlations spiked dramatically during the crisis. Companies the model predicted would default independently instead defaulted together — contagion effects the model underestimated. Losses on equity and mezzanine tranches were far larger than the model predicted. Some senior tranches rated AAA also suffered losses.
 
 **Post-crisis evolution:** The CDO market contracted significantly. Models were enhanced to incorporate stochastic correlation, jump-to-default risk, and tail dependence. Regulation tightened. Modern synthetic CDOs are traded primarily among sophisticated institutional investors with explicit model risk awareness.
 
 **Mechanical lesson:** The 2008 crisis demonstrated that correlation assumptions are the most critical and least stable input in portfolio credit models. When these assumptions fail, the damage is concentrated in the tranches that assumed they were protected.
 
-#### §7. How the Bank Makes Money
+---
 
-| Revenue Source | Mechanism | Typical Size |
-|---------------|-----------|:------------:|
-| Structuring fee | Complex structuring = large fee. Multiple tranches = multiple investor relationships | 50-200bp upfront |
-| Correlation trading | Bank warehouses correlation risk between different tranches. The "correlation smile" creates arbitrage opportunities | 20-80bp per annum |
-| Index-tranche basis | Bank trades index CDS and tranche CDS at different correlation assumptions | 10-40bp per annum |
-| Capital relief | If the bank is transferring its own credit portfolio risk, regulatory capital savings are significant | Variable, substantial |
+#### §7. THE INVESTOR LENS
 
-The CDO structuring business is among the most profitable in investment banking — and among the most model-dependent. The bank's edge is its ability to model, price, and hedge correlation risk across a large portfolio.
+**Why the investor buys it**
 
-#### §8. Why This Product Exists (Client Perspective)
+1. **Tailored credit exposure.** A single portfolio of 100+ names can be sliced so that each investor takes precisely the risk layer that matches their appetite — equity (leveraged, high coupon) through super-senior (minimal coupon, maximal protection).
+2. **Yield enhancement.** The equity and mezzanine tranches pay coupons far above comparable bonds, funded by the protection the investor sells on the loss band.
+3. **Spread pickup with protection.** A senior-tranche investor earns a spread over government bonds while sitting behind multiple layers of subordination — only catastrophic losses reach the attachment point.
+4. **View expression.** An investor with a specific view on default clustering (correlation) or on portfolio loss can monetize it by selecting the tranche whose correlation and loss sensitivity match that view.
+5. **Regulatory or balance-sheet motivation.** A bank investor may take a tranche to achieve concentrated capital relief on its own portfolio.
 
-**When it makes sense:**
-- Sophisticated institutional investor seeking leveraged credit exposure (equity tranche)
-- Insurance company or pension fund seeking protected credit exposure with yield above government bonds (senior tranche)
-- Bank seeking regulatory capital relief by transferring portfolio credit risk
-- Hedge fund seeking specific correlation exposure for relative value strategies
+**Tranche & correlation direction**
 
-**When it is a poor choice:**
-- Investor does not understand tranche mechanics, attachment/detachment points, or correlation effects
-- Investor treats the credit rating of a tranche as sufficient analysis (the 2008 crisis showed that ratings were inadequate)
-- Investor cannot independently assess the underlying portfolio quality
-- Investor cannot absorb total loss on equity tranche
+Each tranche investor sells protection on a band of portfolio losses and is, in effect, **long credit** on that slice. The correlation direction depends on which tranche is held (this convention is canonical and is checked by the semantic linter):
 
-#### §9. The Three Scenarios
+| Tranche | Position | Correlation direction |
+|---------|----------|----------------------|
+| **Equity (0-3%, first-loss)** | Sold first-loss protection | **LONG correlation** — at high correlation losses cluster, so the probability of the equity tranche being wiped falls relative to low correlation; the equity-tranche investor benefits from high correlation |
+| **Mezzanine (3-7%)** | Sold protection on the middle band | **Correlation-sign ambiguous** — the sign depends on attachment/detachment and base correlation; in the worked structure the mezzanine behaves short-correlation at most levels (clustered defaults blow through the equity tranche into the mezzanine) |
+| **Senior / super-senior (7-15% / 15-100%)** | Sold protection on the top band | **SHORT correlation** — high correlation makes extreme clustered losses (those that reach the senior attachment) more likely; the senior-tranche investor is hurt by high correlation. This mirrors the 5th-to-default ≈ super-senior = SHORT relationship |
 
-**Product:** 5-year Synthetic CDO on portfolio of 100 investment-grade CDS
-**Portfolio notional:** $1,000,000,000 ($1 billion)
-**Average CDS spread:** 100bp
+Aliyah's fund in the worked example holds the **Mezzanine tranche (3-7%)**: long the middle credit band, correlation-sign ambiguous (short-correlation at most levels for this structure). The investor never benefits from rising volatility — the sensitivity is to credit spreads, default clustering (correlation), and realized portfolio losses, not equity vol.
+
+**Payoff & scenarios**
+
+For a tranche with attachment A and detachment D, the investor's loss is zero until cumulative portfolio loss reaches A, rises linearly as loss runs from A to D, and is total (100%) once loss reaches D. Coupons are paid on *surviving* notional, so once losses enter the band the coupon base shrinks.
+
+**Product:** 5-year Synthetic CDO on portfolio of 100 investment-grade CDS. **Portfolio notional:** $1,000,000,000 ($1 billion). **Average CDS spread:** 100bp.
+
 **Tranche structure:**
 
 | Tranche | Attachment | Detachment | Notional | Coupon |
@@ -16292,16 +16090,16 @@ The CDO structuring business is among the most profitable in investment banking 
 
 **Scenario 1 — Moderate defaults (portfolio loss = 2%):**
 Over 5 years, 4 out of 100 companies default. Portfolio losses total $20M (2% of $1B). All losses are absorbed by the equity tranche (0-3% band). The mezzanine tranche is untouched.
-- Aliyah receives 5 years of coupons: 5 × ($40M × 8%) = $16M
+- The investor receives 5 years of coupons: 5 × ($40M × 8%) = $16M
 - Full principal returned: $40M
 - **Total: $56M. No loss.**
-- Equity tranche: absorbed $20M of losses out of $30M notional. Equity investor lost 67%.
+- Equity tranche: absorbed $20M of losses out of $30M notional. The equity investor lost 67%.
 
 **Scenario 2 — Elevated defaults (portfolio loss = 5%):**
 Over 5 years, 10 companies default. Portfolio losses total $50M (5% of $1B).
 - First $30M (0-3%): absorbed by equity tranche → equity tranche wiped out (100% loss)
 - Next $20M (3-5%): absorbed by mezzanine tranche → mezzanine loses $20M out of $40M notional
-- Aliyah's mezzanine position: notional reduced from $40M to $20M
+- The investor's mezzanine position: notional reduced from $40M to $20M
 - Coupons received (on declining notional): approximately $14M
 - Principal returned: $20M
 - **Total: $34M out of $40M invested. Net loss: $6M (-15%).**
@@ -16312,26 +16110,101 @@ Severe economic crisis. 25 companies default. Portfolio losses total $120M (12% 
 - 0-3%: equity tranche wiped out ($30M loss, 100%)
 - 3-7%: mezzanine tranche wiped out ($40M loss, 100%)
 - 7-12%: senior tranche absorbs $50M of $80M notional
-- Aliyah's mezzanine position: **total loss of $40M principal (-100%).** Coupons received before wipeout provide partial recovery.
+- The investor's mezzanine position: **total loss of $40M principal (-100%).** Coupons received before wipeout provide partial recovery.
 - Senior tranche: 62.5% loss
 - Super-senior: untouched (losses stopped at 12%, below 15% attachment)
 
-#### §10. What Happens When Markets Move
+![CDO Tranche Risk vs Correlation — Investor Lens](assets/cdo/payoff_cdo_01.svg)
 
-| Market Condition | Impact on Equity Tranche | Impact on Mezzanine | Impact on Senior |
-|-----------------|------------------------|--------------------:|-----------------|
-| Portfolio spreads widen 50bp | Large MTM loss | Moderate MTM loss | Small MTM loss |
-| Portfolio spreads tighten 50bp | Large MTM gain | Moderate MTM gain | Small MTM gain |
-| Correlation increases | MTM RISES (equity benefits from clustering — all-or-nothing) | MTM DROPS (mezz suffers — if defaults cluster, they blow through equity into mezz) | MTM RISES (senior benefits — clustering means fewer total loss events) |
-| Correlation decreases | MTM DROPS (more independent defaults eat into equity) | MTM RISES (mezz benefits — independent defaults stop in equity) | MTM DROPS (more spread-out losses more likely to reach senior) |
-| 5 defaults cluster rapidly | Equity may be wiped out; mezz at risk | Depends on total loss vs attachment | Likely untouched |
-| Single large default (5% LGD) | Equity absorbs most/all | Small or no impact | No impact |
+**Risks to the investor**
 
-**Critical insight:** Equity and senior tranches have *opposite* correlation sensitivities. Equity is *long* correlation (benefits when defaults cluster). Senior is also *long* correlation at moderate levels. Mezzanine has the most complex correlation profile — it is *short* correlation at most levels (it gets hurt by clustering because clustered defaults blow through equity into mezzanine).
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Portfolio credit loss reaching the attachment** | Defaults in the 100+ name portfolio accumulate until they reach the tranche's attachment point and begin eroding principal | High |
+| **Tranche position risk** | Equity absorbs first, senior last. The investor's place in the loss waterfall is the defining structural risk | Very High |
+| **Correlation risk** | Changes in default correlation shift value between tranches; the sign depends on the tranche held (equity long, senior short, mezzanine ambiguous) | Very High |
+| **Recovery risk** | Loss = (1 − Recovery) × defaulted notional; lower recoveries mean larger losses entering the waterfall sooner | High |
+| **Issuer / counterparty credit risk** | The investor relies on the issuing bank's creditworthiness for coupons and principal | Medium |
+| **Model risk** | Tranche marks depend on the Gaussian copula (or successors); models underestimate tail dependence (the 2008 lesson) | Very High |
+| **Liquidity risk** | Bespoke tranches have minimal secondary market; index tranches are more liquid | High |
 
-#### §11. Formal Definition
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
 
-A **Synthetic CDO (Collateralized Debt Obligation)** is a structured product that references a portfolio of credit exposures (typically 100+ CDS contracts) and divides the portfolio's credit losses into **tranches** — sequential layers defined by attachment and detachment points.
+**What the desk books**
+
+The desk's position is the mirror image of the investor's. Where the tranche investor sells protection on a loss band, the desk has **bought** that tranche protection (or runs a correlation book that warehouses tranche risk across the structure). Each tranche is booked as a separate position in NEMO with its own attachment and detachment points; the portfolio of 100+ reference CDS sits behind the structure, with the risk model run in Sophis. The investor's coupon is, to the desk, the cost of the protection it has purchased on that band.
+
+**Correlation/credit risk & hedging**
+
+The desk hedges with index CDS (e.g. CDX, iTraxx) and single-name CDS to neutralize spread (credit delta) across the portfolio, and trades correlation using a base-correlation / copula framework. Correlation is not a single number but a *surface*: equity, mezzanine, and senior tranches trade at different implied correlations — the **correlation smile** (or skew). The desk must manage a surface of correlation exposures, with each tranche carrying its own correlation sign (equity long, senior short, mezzanine ambiguous). The equity tranche is the "canary": its mark-to-market moves the fastest and is watched as an early-warning indicator for the whole portfolio.
+
+**How the bank makes money**
+
+| Revenue Source | Mechanism | Typical Size |
+|---------------|-----------|:------------:|
+| Structuring fee | Complex structuring = large fee. Multiple tranches = multiple investor relationships | 50-200bp upfront |
+| Correlation trading | The desk warehouses correlation risk between different tranches. The "correlation smile" creates arbitrage opportunities | 20-80bp per annum |
+| Index-tranche basis | The desk trades index CDS and tranche CDS at different correlation assumptions | 10-40bp per annum |
+| Capital relief | If the bank is transferring its own credit portfolio risk, regulatory capital savings are significant | Variable, substantial |
+
+The CDO structuring business is among the most profitable in investment banking — and among the most model-dependent. The bank's edge is its ability to model, price, and hedge correlation risk across a large portfolio.
+
+**The coupon decomposition:**
+
+The mezzanine coupon paid to the investor is built from the protection premium the desk collects on the loss band, net of the cost of hedges and desk margin. The source quotes the structure's coupons directly (equity 25.0%, mezzanine 8.0%, senior 2.5%, super-senior 0.15%) but does not break a single tranche coupon into its sub-components. *Inferred decomposition (not in source — illustrative for the 8.0% mezzanine coupon):* portfolio CDS premium attributable to the band ≈ 9.0%, less index/single-name hedge cost ≈ −0.6%, less correlation-hedge carry ≈ −0.2%, less desk margin ≈ −0.2%, **net coupon 8.0%**. The premium is high because the investor sells meaningful protection on a band that a moderate portfolio stress can reach.
+
+![CDO Tranche Coupon Decomposition — Bank Lens (Desk Economics)](assets/cdo/waterfall_cdo_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by: portfolio credit-spread moves (credit delta across the index and single names), changes in base correlation across the tranche surface, realized credit events and the recovery achieved at auction, notional depletion as defaults accumulate, and the mark-to-market of each tranche against traded index-tranche prices. Product Control marks tranches using the correlation-dependent model and validates outputs against market-traded tranche prices.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
+
+| Aspect | Detail |
+|--------|--------|
+| **Book of record** | NEMO — records each tranche as a separate position with attachment/detachment |
+| **Pricing/Risk system** | Sophis — runs the portfolio correlation model, calculates tranche sensitivities, tracks loss allocation |
+| **Booking structure** | One position per tranche over a shared reference portfolio (100+ CDS) |
+| **Key booking fields** | Portfolio definition (all 100+ reference entities and weights), attachment point, detachment point, tranche notional, coupon rate & frequency, base-correlation inputs, maturity |
+| **Loss allocation engine** | Must correctly waterfall losses from equity upward |
+| **Notional depletion tracking** | Surviving notional must be updated after each credit event; coupons paid on surviving notional only |
+
+**Reconciliation points**
+
+| Recon point | What must agree | CDO-specific break |
+|-------------|-----------------|-------------------|
+| **ISDA Credit Definitions** | Credit-event types, succession, settlement method per the ISDA Credit Definitions | Event type recognized in NEMO not matching the confirmed ISDA determination |
+| **Reference portfolio & weights** | All 100+ reference entities and their notionals/weights identical across NEMO and Sophis | A name or weight missing/mismatched → wrong portfolio loss base |
+| **Attachment / detachment points** | Each tranche's A and D agree across systems and the termsheet | Attachment stored as 3% in one system, an absolute amount in another |
+| **Base-correlation / copula inputs** | Correlation surface and copula parameters used to mark each tranche | Stale or mismatched base correlation → tranche marks diverge from traded prices |
+| **Credit-event / recovery** | Loss = (1 − Recovery) × defaulted notional; recovery from the auction | Auction recovery not propagated → loss amount wrong → wrong tranche depletion |
+| **Loss waterfall / default counter** | Cumulative loss and the count of credit events allocated equity-upward | Loss allocated to the wrong tranche, or default counter out of sync |
+| **Settlement** | Notional reduction on affected tranches; surviving notional returned at maturity | Settlement booked on original rather than surviving notional |
+| **Coupon lifecycle** | Coupon recalculated on surviving notional after each event | Coupon paid on original notional → income overstated |
+
+![CDO Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/cdo/controls_cdo_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Equity tranche notional declining rapidly | Portfolio defaults exceeding expectations | Alert Risk Manager — mezzanine may be at risk |
+| Correlation model shows extreme implied correlation | Market stress or model miscalibration | Validate model, compare to traded tranche prices |
+| Portfolio concentrated in one sector (>25%) | Contagion risk amplified | Stress-test with a sector-wide default scenario |
+| Mezzanine coupon calculated on original notional | Booking error — coupon should use surviving notional | Correct immediately; P&L is overstated |
+| Implied correlation differs significantly from historical | Model-market disconnect | Investigate — may indicate mispricing or regime change |
+| Multiple credit events in short period | Portfolio stress — losses may accelerate | Review tranche subordination adequacy |
+
+**Control implication**
+
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. A wrong attachment/detachment point misstates which tranche absorbs a loss — driving the wrong depletion and the wrong investor payout. A missed or mismatched auction recovery feeds a wrong loss amount into the waterfall, depleting the wrong notional. A coupon paid on original rather than surviving notional overstates income on every period after a default. A stale base correlation breaks every tranche mark at once. The reconciliation exists precisely to catch these inconsistencies before settlement crystallises them across 100+ names and four tranches.
+
+#### §10. Formal Definition
+
+A **Synthetic CDO (Collateralized Debt Obligation)** is a structured product that references a portfolio of credit exposures (typically 100+ CDS contracts) and divides the portfolio's credit losses into **tranches** — sequential layers defined by attachment and detachment points. A tranche investor sells protection on one band of the portfolio's losses, receives a coupon, and suffers a principal reduction only when cumulative portfolio losses enter that band.
 
 **Key terms:**
 
@@ -16376,102 +16249,21 @@ For a tranche with attachment A and detachment D:
 - Portfolio loss = 5%: Mezzanine loss = (5% − 3%) / (7% − 3%) = 50%
 - Portfolio loss = 8%: Mezzanine loss = 100% (above 7% detachment)
 
-#### §12. Product Construction
-
-*Dependency: Builds on NTD (5.5.4), FTD (5.5.3), CDS (5.2.5).*
-
-| Component | What It Is | Purpose |
-|-----------|-----------|---------|
-| Reference portfolio | 100+ CDS contracts on different entities | Defines the credit risk universe |
-| Loss allocation rules | Attachment/detachment points per tranche | Determines which losses hit which investor |
-| Funded structure | Investor deposits principal (collateral) | Funds the tranche — investor has cash at risk |
-| Coupon mechanism | Spread income from portfolio CDS minus losses | Compensates investor based on tranche risk |
-
-**Construction differs fundamentally from single-name CLN:**
-
-In a CLN, one investor takes one company's credit risk. In a CDO, the *same portfolio* of risk is divided into layers. The structurer's key decision is where to place the attachment and detachment points. These boundaries determine:
-- How much protection each tranche has (subordination)
-- The coupon each tranche earns (risk-based pricing)
-- The correlation sensitivity of each tranche
-
-**Standard tranche structure (CDX/iTraxx indices):**
-
-| Tranche | Attachment | Detachment | Risk Profile |
-|---------|:----------:|:----------:|-------------|
-| Equity | 0% | 3% | First loss. Highest coupon. Leveraged exposure to portfolio spread moves |
-| Mezzanine Junior | 3% | 7% | Protected by equity. Exposed to moderate portfolio stress |
-| Mezzanine Senior | 7% | 10% | Protected by equity + junior mezz. Exposed to significant stress |
-| Senior | 10% | 15% | Multiple layers of subordination. Exposed only to severe stress |
-| Super-Senior | 15% | 30% (or 100%) | Maximum subordination. Exposed only to catastrophic stress |
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | What Happens | Key Actions |
 |-------|-------------|-------------|
 | **Pre-trade** | Structurer designs portfolio and tranche structure. Quant models portfolio loss distribution using correlation assumptions. Legal documents prepared | Portfolio approval, tranche pricing, model validation, legal documentation |
-| **Trade date** | CDO issued. Investors purchase specific tranches. Bank enters portfolio CDS positions | Booking all tranches in NEMO, risk setup in Sophis with portfolio model |
-| **During life** | Coupons paid on surviving notional. Portfolio monitored for credit events. Losses allocated to tranches per waterfall | Credit event monitoring (100+ names), notional depletion tracking, coupon recalculation |
-| **Credit events** | ISDA confirms default. Loss = (1 − Recovery) × Defaulted notional. Loss allocated starting from equity tranche upward | Tranche notional reduction, coupon recalculation on reduced notional |
+| **Trade date** | CDO issued. Investors purchase specific tranches. The desk enters portfolio CDS positions | Booking all tranches in NEMO, risk setup in Sophis with the portfolio model |
+| **During life** | Coupons paid on surviving notional. Portfolio monitored for credit events. Losses allocated to tranches per the waterfall | Credit event monitoring (100+ names), notional depletion tracking, coupon recalculation |
+| **Credit events** | ISDA confirms default. Loss = (1 − Recovery) × Defaulted notional. Loss allocated starting from the equity tranche upward | Tranche notional reduction, coupon recalculation on reduced notional |
 | **Maturity** | Surviving tranche notional returned to investors. All CDS positions expire | Final settlement, P&L recognition |
 
-#### §14. Desk Reality
+#### §12. Worked Example (both lenses)
 
-**What textbooks don't tell you:**
+**Product:** 5-year Synthetic CDO Mezzanine Tranche (3-7%). **Portfolio:** 100 investment-grade CDS, each $10M notional = $1B total. **Average CDS spread:** 100bp. **Portfolio default correlation:** 0.25. **Mezzanine tranche notional:** $40M (= $1B × 4%). **Mezzanine coupon:** 8.0% per year.
 
-**Correlation is not a number — it's a surface.** The Gaussian copula uses a single correlation parameter. In practice, the market prices different tranches at different "implied correlations." This creates the **correlation smile** (or skew): equity tranches trade at one implied correlation, mezzanine at another, senior at another. The bank must manage a *surface* of correlation exposures, not a single number.
-
-**Model risk is not hypothetical — it materialized.** The 2008 crisis proved that the Gaussian copula model systematically underestimated tail dependence (the tendency for defaults to cluster in extreme scenarios). Modern models incorporate stochastic correlation and jump-to-default, but the fundamental lesson remains: all CDO prices are model-dependent, and models are wrong at the extremes.
-
-**The equity tranche is the canary.** The equity tranche is the first to absorb losses and the most sensitive to portfolio deterioration. Its mark-to-market moves the fastest and the most. Traders watch equity tranche prices as an early-warning indicator for the entire portfolio.
-
-**Notional depletion creates operational complexity.** As defaults occur, tranche notionals decline. Coupons are paid on the *surviving* notional, not the original. Operations must track the cumulative loss, determine which tranches are affected, and recalculate coupons every time a credit event is confirmed.
-
-#### §15. Risk Analysis
-
-| Risk | Description | Severity | Unique to CDO? |
-|------|------------|:--------:|:--------------:|
-| Portfolio credit loss | Defaults in 100+ name portfolio | High | Scale is unique — magnitude of portfolio matters |
-| Tranche position risk | Equity absorbs first, senior last | Very High | YES — the defining structural risk |
-| Correlation risk | Changes in default correlation shift value between tranches | Very High | YES — correlation is the primary pricing input |
-| Model risk | Gaussian copula (or successors) may fail to capture tail dependence | Very High | YES — most model-dependent product in the book |
-| Concentration risk | Portfolio overweight in sector/geography | High | Amplified at portfolio scale |
-| Systemic risk | Economy-wide defaults exceed model expectations | Very High | 2008 demonstrated this risk |
-| Liquidity risk | Tranches, especially off-the-run, can be highly illiquid | High | YES — bespoke tranches have minimal secondary market |
-| Notional depletion risk | As losses accumulate, tranche notionals decline, changing risk profile | Medium | YES — dynamic risk profile |
-
-#### §16. Booking and Systems
-
-| System | Role |
-|--------|------|
-| NEMO | Primary booking — records each tranche as a separate position with attachment/detachment |
-| Sophis | Risk — runs portfolio correlation model, calculates tranche sensitivities, tracks loss allocation |
-
-**Key booking requirements:**
-- Portfolio definition: all 100+ reference entities must be entered
-- Tranche definition: attachment point, detachment point, notional
-- Loss allocation engine: must correctly waterfall losses from equity upward
-- Notional depletion tracking: surviving notional must be updated after each credit event
-- Coupon recalculation: coupons paid on surviving notional only
-
-#### §17. Red Flags
-
-| Red Flag | What It Means | Action |
-|----------|-------------|--------|
-| Equity tranche notional declining rapidly | Portfolio defaults exceeding expectations | Alert Risk Manager — mezzanine may be at risk |
-| Correlation model shows extreme implied correlation | Market stress or model miscalibration | Validate model, compare to traded tranche prices |
-| Portfolio concentrated in one sector (>25%) | Contagion risk amplified | Stress-test with sector-wide default scenario |
-| Mezzanine coupon calculated on original notional | Booking error — coupon should use surviving notional | Correct immediately; P&L is overstated |
-| Implied correlation differs significantly from historical | Model-market disconnect | Investigate — may indicate mispricing or regime change |
-| Multiple credit events in short period | Portfolio stress — losses may accelerate | Review tranche subordination adequacy |
-
-#### §18. Worked Example
-
-**Product:** 5-year Synthetic CDO Mezzanine Tranche (3-7%)
-**Portfolio:** 100 investment-grade CDS, each $10M notional = $1B total
-**Average CDS spread:** 100bp
-**Portfolio default correlation:** 0.25
-**Mezzanine tranche notional:** $40M (= $1B × 4%)
-**Mezzanine coupon:** 8.0% per year
+*Investor lens:*
 
 **Year 1:** No defaults. Coupon: $40M × 8% = $3,200,000.
 
@@ -16490,7 +16282,7 @@ Cumulative portfolio loss = ($6M + $13M + $18.5M) / $1B = **3.75%**.
 
 Now losses have breached the 3% attachment point:
 → Equity tranche absorbs up to 3%: equity takes an additional $11M (its remaining notional). **Equity is wiped out (100% loss).**
-→ Remaining loss above 3%: $18.5M − $11M = $7.5M. Wait — cumulative loss is $37.5M = 3.75% of $1B. Loss in the 3-7% band = (3.75% − 3%) / 4% × $40M = **$7.5M**.
+→ Loss in the 3-7% band = (3.75% − 3%) / 4% × $40M = **$7.5M**.
 → Mezzanine notional: $40M − $7.5M = **$32.5M**.
 → Coupon for Year 4 (on average surviving notional ≈ $36.25M): approximately **$2,900,000**.
 
@@ -16515,112 +16307,62 @@ Now losses have breached the 3% attachment point:
 
 **Key observation:** The same 5.2% portfolio loss produces wildly different outcomes: equity loses 63%, mezzanine loses 19%, senior gains 12.5%, super-senior gains 0.75%. This is the power of tranching — and its danger.
 
-#### §19. Knowledge Check
+*Bank lens:*
+- The desk has bought protection on (or warehoused) the tranches; it marks each against the base-correlation surface and validates against traded index-tranche prices. As Companies #47, #12, #83, #5, #29, #61 and the two Year-5 names default, Product Control feeds each ISDA-confirmed recovery (40%, 35%, 35%, 40%, 30%, 45%) into the loss waterfall, depleting the equity tranche first and then the mezzanine band.
+- The 2nd line must confirm at each event that the loss amount = (1 − Recovery) × defaulted notional, that the cumulative loss (0.6% → 1.9% → 3.75% → 5.2%) is allocated equity-upward, and that the mezzanine coupon recalculates on surviving notional ($40M → $32.5M → $18M) before each payment. NEMO and Sophis must agree on attachment/detachment, recovery, and surviving notional before settlement of the final $18M.
+
+#### §13. Knowledge Check
 
 **Review Questions:**
-1. What do attachment and detachment points define?
-2. How does the loss allocation waterfall work? Which tranche absorbs losses first?
-3. What is subordination, and how does it protect higher tranches?
-4. Why is the equity tranche called "first loss"?
-5. What role does default correlation play in CDO pricing? Which tranche is most sensitive to correlation?
-6. What happened to Synthetic CDO pricing during the 2008 financial crisis, and what was the primary model failure?
+1. *(Investor)* What do attachment and detachment points define?
+2. *(Investor)* How does the loss allocation waterfall work? Which tranche absorbs losses first?
+3. *(Investor)* What is subordination, and how does it protect higher tranches?
+4. *(Investor)* Why is the equity tranche called "first loss," and why is the equity-tranche investor **long correlation** while the senior-tranche investor is **short correlation**?
+5. *(Investor)* What role does default correlation play in CDO pricing? Which tranche is most sensitive to correlation?
+6. *(Investor)* What happened to Synthetic CDO pricing during the 2008 financial crisis, and what was the primary model failure?
+7. **(Desk economics / 1LoD)** The investor sells protection on a tranche band; what does the desk hold against that position, how does it hedge spread and correlation (index/single-name CDS plus base-correlation/copula), and where does its structuring margin come from?
+8. **(Controls / 2LoD)** Three defaults occur in the same month. The cumulative portfolio loss moves from 2.5% to 4.8%. Walk through which tranche absorbs losses first, how equity depletion is calculated, when the mezzanine starts absorbing, how the auction recovery feeds the loss waterfall, and how the mezzanine coupon is recalculated on surviving notional. Name the reconciliation points (ISDA defs, portfolio & weights, attachment/detachment, base correlation, recovery, waterfall/default counter, settlement) that must agree.
 
-**Scenario Questions:**
-1. A portfolio has 100 CDS at $10M each. After 3 years, cumulative defaults have caused 4.5% portfolio losses. Calculate the loss absorbed by each tranche (0-3%, 3-7%, 7-15%, 15-100%).
-2. Default correlation increases from 0.25 to 0.50. How does this affect the equity tranche vs the mezzanine tranche? Why do they move in opposite directions?
-3. An investor holds the senior tranche (7-15%). The equity tranche has been wiped out and the mezzanine is 60% depleted. What is the effective subordination remaining for the senior tranche?
+**Mental Models**
 
-**Desk Question:**
-Three defaults occur in the same month. Operations must allocate losses across tranches. The cumulative portfolio loss moves from 2.5% to 4.8%. Walk through: which tranche absorbs losses first, how the equity tranche depletion is calculated, when the mezzanine starts absorbing, and how coupon payments on the mezzanine are recalculated for the next period.
+| Concept | Mental Model |
+|---------|-------------|
+| Synthetic CDO Tranche | A highrise in a flood zone — each floor (tranche) floods in sequence as the water (portfolio loss) rises |
+| Attachment / detachment | The floor height where flooding starts (attachment) and where the floor is fully submerged (detachment) |
+| Equity tranche | The ground floor — cheapest rent, first to flood; the investor is long correlation (benefits when losses cluster) |
+| Senior / super-senior tranche | The top floors / penthouse — premium rent, flood only in catastrophe; the investor is short correlation |
+| Mezzanine tranche | A middle floor — correlation-sign ambiguous; clustered defaults can blow through equity into the mezzanine |
+| Correlation smile | The water never rises uniformly — each floor implies a different correlation; the desk manages a surface, not a number |
+| 2LoD reconciliation | The building inspector — confirms portfolio, attachment points, recovery, and surviving notional agree before anyone pays out |
 
-#### §20. Common Mistakes
+**Key Takeaways**
+
+1. A Synthetic CDO Tranche has the investor sell protection on a band (attachment–detachment) of a 100+ name portfolio's losses, earning a coupon and taking a principal hit only when cumulative losses enter the band.
+2. The loss waterfall runs equity → mezzanine → senior → super-senior; subordination is the protection sitting below a tranche.
+3. Correlation direction is tranche-specific: equity is **long** correlation, senior/super-senior is **short** correlation, mezzanine is correlation-sign **ambiguous** (short at most levels in the worked structure).
+4. The same portfolio loss produces opposite outcomes across tranches — the power and the danger of tranching.
+5. Model risk is dominant: all tranche prices are model-dependent, and the Gaussian copula underestimated tail dependence in 2008.
+6. Coupons are paid on *surviving* notional — notional depletion must be tracked after every credit event.
+7. For the 2nd line, the dominant control risks are the reference portfolio & weights, attachment/detachment points, base-correlation inputs, credit-event recovery, and the loss waterfall / default counter — each can misstate which tranche absorbs a loss and the resulting payout.
+
+#### §14. Common Mistakes
 
 1. **Trusting ratings over analysis.** Pre-2008, many senior tranches received AAA ratings based on models that underestimated correlation. The lesson: tranche risk depends on correlation assumptions, which change.
-2. **Ignoring correlation sensitivity.** Equity and senior tranches have *opposite* correlation sensitivities. Treating them as similar because they reference the same portfolio is a fundamental error.
+2. **Ignoring correlation sensitivity / mislabeling its sign.** Equity and senior tranches have *opposite* correlation sensitivities — equity is long correlation, senior is short. Treating them as similar because they reference the same portfolio, or labeling equity as short and senior as long, is a fundamental error.
 3. **Confusing portfolio diversification with tranche safety.** A portfolio of 100 names is diversified at the portfolio level. But the equity tranche concentrates the first 3% of losses — it can be wiped out by just a few defaults.
 4. **Forgetting notional depletion.** After defaults, tranche notionals decline. Coupons are paid on surviving notional, not original. Failing to track depletion overstates income.
 5. **Assuming constant correlation.** Correlation is not a constant — it increases during stress (defaults cluster). The model that works in calm markets may fail spectacularly in crisis.
 6. **Treating super-senior as risk-free.** Super-senior tranches suffered losses in 2008. No tranche is risk-free when correlation assumptions break down.
+7. **(Controls) Trusting a single system's tranche definition.** Because attachment/detachment, recovery, and surviving notional drive which tranche absorbs a loss, the 2nd line must reconcile portfolio, attachment/detachment, base correlation, and recovery across NEMO and Sophis rather than assume they agree.
 
-#### §21. Visual Specifications
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor (raw correlation/credit position), and how is it hedged?
+- *(Controls / 2LoD)* Which credit-event / basket / model-input fields must reconcile, and which is the most common break?
 
-**Visual 1: Tranche Waterfall**
-- **Figure:** Figure 5.5.5-01
-- **Visual ID:** VIS-SCDO-01
-- **Type:** Waterfall Diagram
-- **Priority:** P1
-- **Caption:** "Portfolio loss allocation waterfall: losses flow from equity tranche upward through mezzanine, senior, and super-senior"
-- **Diagram elements:** Vertical waterfall with 4 layers (equity 0-3%, mezz 3-7%, senior 7-15%, super-senior 15-100%). Portfolio loss shown as rising water level. Color intensity increases with loss severity. At 5% loss: equity flooded, mezz partially flooded, senior/super-senior dry. Labels: "First Loss," "Second Loss," "Third Loss," "Catastrophic Only"
-- **Reuse status:** NEW template — tranche waterfall
-- **Asset filename:** waterfall_scdo_tranche_loss_01.svg
-
-**Visual 2: Attachment/Detachment Bands**
-- **Figure:** Figure 5.5.5-02
-- **Visual ID:** VIS-SCDO-02
-- **Type:** Tranche Diagram
-- **Priority:** P1
-- **Caption:** "Tranche bands showing attachment points, detachment points, notionals, and coupons for a standard synthetic CDO structure"
-- **Diagram elements:** Horizontal stacked bar representing 0-100% portfolio loss axis. Four colored bands: Equity (0-3%, red), Mezzanine (3-7%, orange), Senior (7-15%, yellow), Super-Senior (15-100%, green). Each band labeled with: attachment %, detachment %, notional, coupon. Annotation: "Attachment = where losses START affecting this tranche. Detachment = where this tranche is WIPED OUT"
-- **Reuse status:** NEW template — tranche bands
-- **Asset filename:** tranche_scdo_attachment_detachment_02.svg
-
-**Visual 3: Portfolio Loss Distribution**
-- **Figure:** Figure 5.5.5-03
-- **Visual ID:** VIS-SCDO-03
-- **Type:** Portfolio Loss Diagram
-- **Priority:** P2
-- **Caption:** "Portfolio loss distribution with tranche overlays: the probability that losses reach each tranche level"
-- **Diagram elements:** Bell-curve-like loss distribution (x-axis: portfolio loss %, y-axis: probability). Fat left tail. Tranche boundaries overlaid as vertical lines at 3%, 7%, 15%. Shaded areas under the curve for each tranche region. Labels: "High probability — equity absorbs," "Medium probability — mezz at risk," "Low probability — senior affected," "Tail risk — super-senior"
-- **Reuse status:** NEW template — portfolio loss distribution
-- **Asset filename:** distribution_scdo_portfolio_loss_03.svg
-
-**Visual 4: Correlation Effect on Tranches**
-- **Figure:** Figure 5.5.5-04
-- **Visual ID:** VIS-SCDO-04
-- **Type:** Correlation Illustration
-- **Priority:** P2
-- **Caption:** "How default correlation affects tranche values: equity benefits from high correlation while mezzanine suffers — opposite sensitivities to the same risk factor"
-- **Diagram elements:** Two-panel chart. Panel 1: X-axis = correlation (0 to 1), Y-axis = tranche value. Equity curve rising, mezz curve falling, senior curve slightly rising. Panel 2: Intuition boxes — Low correlation: "many small independent defaults → eat through equity" vs High correlation: "few but large clustered defaults → either no loss or massive loss → blow through into mezz/senior"
-- **Reuse status:** Adapt from FTD/NTD correlation template
-- **Asset filename:** correlation_scdo_tranche_sensitivity_04.svg
-
-**Visual 5: CDO Structure Flow**
-- **Figure:** Figure 5.5.5-05
-- **Visual ID:** VIS-SCDO-05
-- **Type:** Cash Flow Diagram
-- **Priority:** P3
-- **Caption:** "Synthetic CDO structure: 100+ reference entity CDS portfolio, loss allocation through SPV to tranche investors"
-- **Diagram elements:** Left: 100+ CDS contracts (represented as grid of small squares). Center: Portfolio/SPV box aggregating losses. Right: four tranche investors (equity, mezz, senior, super-senior) receiving coupons and absorbing losses in order. Arrows showing premium flows in, loss flows out
-- **Reuse status:** NEW template — CDO structure flow
-- **Asset filename:** flow_scdo_structure_05.svg
-
-**Visual 6: Worked Example Default Timeline**
-- **Figure:** Figure 5.5.5-06
-- **Visual ID:** VIS-SCDO-06
-- **Type:** Timeline
-- **Priority:** P3
-- **Caption:** "Five-year default timeline showing cumulative portfolio loss and tranche impact at each stage"
-- **Diagram elements:** Horizontal timeline (5 years). Default events marked at Years 2, 3, 4, 5. Running cumulative loss bar below (0.6% → 1.9% → 3.75% → 5.2%). Tranche status indicators: equity (green → amber → red → WIPED), mezz (green → green → amber → partially depleted)
-- **Reuse status:** Adapt from default sequence template
-- **Asset filename:** timeline_scdo_default_sequence_06.svg
-
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Credit risk, credit spread, recovery rate | Section 1.9 (Credit Risk) |
-| CDS mechanics, credit events, ISDA | CDS (5.2.5) — canonical source |
-| CLN structure, dual credit exposure | Vanilla CLN (5.5.1) |
-| Basket credit defaults, first-default trigger | FTD (5.5.3) |
-| Nth-default trigger, correlation reversal | NTD (5.5.4) |
-| Correlation, baskets | Section 1.6 (Correlation and Baskets) |
-| Credit correlation bridge | FTD (5.5.3 §11) — equity-to-credit correlation |
-| Model risk | Section 1.9 (Model Risk) |
-| Product decomposition | Section 2.2 (Product Construction) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
-
----
-
+**Dual-lens visuals (generated):**
+- `assets/cdo/controls_cdo_recon_08.svg` `[generated]`
+- `assets/cdo/payoff_cdo_01.svg` `[generated]`
+- `assets/cdo/waterfall_cdo_09.svg` `[generated]`
 ## 5.6 OTHER STRUCTURED PRODUCTS
 
 ### 5.6.1 Structured Deposit

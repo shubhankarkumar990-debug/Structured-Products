@@ -592,6 +592,54 @@ def payoff_steepener(
     return _finish(fig, out_svg, preview)
 
 
+# (linter rules live in governance/linter/semantic_linter.py; this is the diagram lib)
+# --------------------------------------------------------------------------- #
+# 1l. Correlation sensitivity (FTD / NTD / CDO tranche)
+# --------------------------------------------------------------------------- #
+def payoff_correlation(
+    out_svg: str | Path,
+    *,
+    direction: str,
+    title: str = "Position Risk vs Default Correlation",
+    lens: str = LENS_INVESTOR,
+    preview: bool = True,
+) -> str:
+    """Position risk / expected loss vs default correlation ρ.
+    direction='long'  → LONG correlation: risk FALLS as ρ rises (FTD, equity tranche)
+    direction='short' → SHORT correlation: risk RISES as ρ rises (NTD N≥2, senior)
+    direction='neutral' → sign-ambiguous (mezzanine): non-monotone."""
+    _apply_style()
+    rho = np.linspace(0, 1, 200)
+    fig, ax = plt.subplots(figsize=(7.2, 4.4))
+    d = direction.lower()
+    if d == "long":
+        y = 0.15 + 0.80 * (1 - rho)
+        lbl = "LONG correlation — risk falls as ρ rises"
+        col = GREEN
+    elif d == "short":
+        y = 0.15 + 0.80 * rho
+        lbl = "SHORT correlation — risk rises as ρ rises"
+        col = ACCENT
+    else:
+        y = 0.45 + 0.35 * np.sin(np.pi * rho)  # gentle hump
+        lbl = "Sign-ambiguous (mezzanine) — depends on attachment"
+        col = GOLD
+    ax.plot(rho, y, color=col, lw=2.8, label=lbl)
+    ax.fill_between(rho, y, color=col, alpha=0.10)
+    ax.annotate("", xy=(0.92, y[int(0.92 * 199)]), xytext=(0.62, y[int(0.62 * 199)]),
+                arrowprops=dict(arrowstyle="->", color=col, lw=1.6))
+    ax.set_xlabel("Default correlation  ρ")
+    ax.set_ylabel("Position risk / expected loss (relative)")
+    ax.set_title(f"{title} — {lens}", color=NAVY, fontsize=13, fontweight="bold", loc="left")
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1.1)
+    ax.set_xticks([0, 0.25, 0.5, 0.75, 1.0])
+    ax.grid(True, color=LIGHT, lw=1)
+    ax.set_axisbelow(True)
+    ax.legend(loc="upper center", frameon=False, fontsize=9)
+    return _finish(fig, out_svg, preview)
+
+
 # --------------------------------------------------------------------------- #
 # 2. Desk gamma / hedge profile (Bank Lens — Desk Economics)
 # --------------------------------------------------------------------------- #

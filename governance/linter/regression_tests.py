@@ -113,7 +113,7 @@ def test(test_id: str, severity: str, objective: str):
 def t_cor_01(repo):
     defect = "This is the key insight: FTD investors are short credit correlation, just as worst-of equity investors are short equity correlation."
     neg = fires(defect, "LNT-COR-06")
-    pos = repo.contains("Desk_Bible_v2.md", "FTD investors are long credit correlation")
+    pos = repo.contains("Desk_Bible_v2.md", "the FTD investor is **long correlation (under the MTM convention)**")
     clean = not repo.contains("Desk_Bible_v2.md", "FTD investors are short credit correlation")
     return (neg and pos and clean,
             f"linter_flags_defect={neg} corpus_has_fix={pos} defect_absent={clean}")
@@ -124,7 +124,7 @@ def t_cor_02(repo):
     defect = "Key insight: FTD investors are short correlation. They profit when correlation is high (defaults are rare)."
     neg = fires(defect, "LNT-COR-02")
     pos = repo.contains("Desk_Bible_v2.md",
-                        "FTD investors are **long correlation** (under the MTM sensitivity convention)")
+                        "The FTD investor is **long correlation (under the MTM sensitivity convention)**")
     clean = not repo.contains("Desk_Bible_v2.md",
                               "FTD investors are **short correlation**. They profit when correlation is high")
     return (neg and pos and clean,
@@ -305,7 +305,7 @@ def t_sgn_04(repo):
 # ---- CROSS-ARTIFACT ---------------------------------------------------------
 @test("REG-XAR-01", "S1", "Interview System FTD matches Desk Bible (both long)")
 def t_xar_01(repo):
-    db_long = repo.contains("Desk_Bible_v2.md", "FTD investors are long credit correlation")
+    db_long = repo.contains("Desk_Bible_v2.md", "the FTD investor is **long correlation (under the MTM convention)**")
     # Use the linter's FTD rule (keys on text FOLLOWING 'FTD') rather than a crude
     # substring scan — so "NTD is SHORT correlation (opposite of FTD)" is not a hit.
     iv_doc = next((d for d in repo.canonical_docs() if d.name == "interview_system_v2_2.md"), None)
