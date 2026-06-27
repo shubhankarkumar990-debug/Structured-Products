@@ -11494,25 +11494,26 @@ The rates desk runs a $50B notional VLSP book. The desk is DV01-neutral but has 
 
 ---
 
+*An IR Callable Fixed Rate Swap is a Structured Rate Trade booked in Murex with the four-leg structure (Note, Issuer, Deposit, Hedge). It is a fixed-rate swap, packaged as a note, in which the issuing bank holds the right to terminate the trade early on predetermined call dates. The investor receives an enhanced fixed coupon — above vanilla swap levels — in exchange for granting the bank that call right. Economically the investor is short a swaption (the call), and the bank's desk is long it. This chapter reads the product through two lenses: what it means for **the investor** (the note/swap holder who receives the enhanced fixed rate), and what it means for **the bank** — the latter split into the desk's rate economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+
 #### §1. Explain Like I'm New
 
-Tomoko manages treasury at a regional Japanese bank with ¥50 billion in floating-rate deposits. Every quarter, her funding cost bounces with SOFR — last year it swung from 3.8% to 5.1%, making her budget projections unreliable. She wants to lock in a fixed rate, but she doesn't want to be trapped for five years if rates drop sharply after year one. The IR Callable offers her exactly this: a fixed coupon of 4.25% per year, paid quarterly, with the bank's right to terminate the swap after the first year. In exchange for accepting the bank's call right, Tomoko receives a higher fixed rate than a plain vanilla swap would offer — perhaps 30 basis points more. She is essentially selling the bank an option on the swap's early termination, and the premium for that option is embedded in her higher coupon.
+Consider a treasurer managing a regional Japanese bank with ¥50 billion in floating-rate deposits. Every quarter, the funding cost bounces with SOFR — over the last year it swung from 3.8% to 5.1%, making budget projections unreliable. The treasurer wants to lock in a fixed rate, but does not want to be trapped for five years if rates drop sharply after year one. The IR Callable offers exactly this: a fixed coupon of 4.25% per year, paid quarterly, with the bank's right to terminate the swap after the first year. In exchange for accepting the bank's call right, the investor receives a higher fixed rate than a plain vanilla swap would offer — perhaps 30 basis points more. The investor is essentially selling the bank an option on the swap's early termination, and the premium for that option is embedded in the higher coupon.
 
 #### §2. Core Analogy
 
-Think of a fixed-rent apartment with a landlord's break clause. You sign a five-year lease at $2,000 per month — above the market rate of $1,800 — because the landlord reserves the right to terminate your lease after the first year. As long as rents stay high, the landlord keeps you as a tenant and you enjoy above-market stability. But if rents crash to $1,400, the landlord terminates your lease and re-lets to a new tenant at the lower rate. You earned above-market rent while it lasted, but your tenancy was never guaranteed for the full term.
+An IR Callable resembles a fixed-rent apartment with a landlord's break clause. A tenant signs a five-year lease at $2,000 per month — above the market rate of $1,800 — because the landlord reserves the right to terminate the lease after the first year. As long as rents stay high, the landlord keeps the tenant and the tenant enjoys above-market stability. But if rents crash to $1,400, the landlord terminates the lease and re-lets to a new tenant at the lower rate. The tenant earned above-market rent while it lasted, but the tenancy was never guaranteed for the full term. The landlord holds the break right; the tenant has granted it.
 
 #### §3. What Problem Does It Solve
 
-| Client Need | How the Product Delivers |
+| Investor Need | How the Product Delivers |
 |------------|------------------------|
-| Lock in a fixed rate above current market levels | Coupon includes an embedded option premium — the client earns more than a vanilla swap |
+| Lock in a fixed rate above current market levels | Coupon includes an embedded option premium — the investor earns more than a vanilla swap |
 | Budget certainty for near-term planning | Fixed quarterly coupons eliminate rate uncertainty during the non-call period |
-| Flexibility to accept early termination risk | Call right means the client accepts reinvestment risk in exchange for a higher rate |
-| Access structured rate exposure without derivatives expertise | Product is packaged as a note — no ISDA required from the client's perspective |
+| Flexibility to accept early termination risk | Call right means the investor accepts reinvestment risk in exchange for a higher rate |
+| Access structured rate exposure without derivatives expertise | Product is packaged as a note — no ISDA required from the investor's perspective |
 
 #### §4. Product DNA
-
 
 | **Field** | **Value** |
 |---|---|
@@ -11528,7 +11529,6 @@ Think of a fixed-rent apartment with a landlord's break clause. You sign a five-
 | **Liquidity** | OTC — unwind at MTM |
 | **Primary System** | Murex (primary, four-leg structure), Sophis (risk) |
 | **ISDA Required** | No — issued as note (no derivatives documentation from client) |
-
 
 **DNA Atlas Fields:**
 - Primary Risk: Interest rate risk. Bank exercises call when rates move against investor. Reinvestment risk on early termination
@@ -11557,7 +11557,7 @@ Think of a fixed-rent apartment with a landlord's break clause. You sign a five-
 Rates
 └── Structured Rate Trades (SRT)
     └── Fixed Rate Products
-        └── IR Callable Fixed Rate Swap  ← You are here
+        └── IR Callable Fixed Rate Swap  ← chapter focus
 ```
 
 #### §6. Product Evolution
@@ -11568,65 +11568,30 @@ Rates
 | 2 | Callable IRS | Issuer's right to terminate early | Banks wanted to capture falling-rate scenarios without locking capital for the full term |
 | 3 | IR Callable SRT (Murex 4-leg) | Four-leg booking structure (Note, Issuer, Deposit, Hedge) | Operational infrastructure needed for structured note issuance and risk management |
 
-#### §7. Why The Market Invented This Product
+In the early 2000s, banks held large portfolios of fixed-rate assets funded by floating-rate deposits. A vanilla swap could fix the rate, but trapped the bank if rates fell significantly — the swap had negative mark-to-market and could not be easily unwound. The callable structure solved this by giving the issuing bank the right to terminate when rates dropped below the fixed coupon, effectively embedding a receiver swaption. Investors accepted the call risk because the embedded option premium boosted their coupon 20-40 basis points above vanilla swap levels. The product became a staple of bank treasury desks worldwide, particularly in Japan and Europe where low-rate environments made the incremental yield attractive.
 
-In the early 2000s, banks held large portfolios of fixed-rate assets funded by floating-rate deposits. A vanilla swap could fix the rate, but trapped the bank if rates fell significantly — the swap had negative mark-to-market and could not be easily unwound. The callable structure solved this by giving the issuing bank the right to terminate when rates dropped below the fixed coupon, effectively embedding a receiver swaption. Clients accepted the call risk because the embedded option premium boosted their coupon 20-40 basis points above vanilla swap levels. The product became a staple of bank treasury desks worldwide, particularly in Japan and Europe where low-rate environments made the incremental yield attractive.
+---
 
-#### §8. Why Clients Buy It
+#### §7. THE INVESTOR LENS
 
-1. **Higher coupon** — the embedded option premium adds 20-40bp over vanilla swap rates for a 5-year non-call-1 structure
-2. **Near-term certainty** — fixed payments during the non-call period provide budget stability
-3. **View expression** — clients who believe rates will stay elevated earn the call premium without being called
-4. **Simplicity** — packaged as a note, requiring no derivatives documentation from the investor
-5. **Liquid secondary market** — standard callable structures trade actively in the interdealer market
+**Why the investor enters it**
 
-#### §9. Why This Product Exists
+1. **Higher coupon** — the embedded option premium adds 20-40bp over vanilla swap rates for a 5-year non-call-1 structure.
+2. **Near-term certainty** — fixed payments during the non-call period provide budget stability.
+3. **View expression** — investors who believe rates will stay elevated earn the call premium without being called.
+4. **Simplicity** — packaged as a note, requiring no derivatives documentation from the investor.
+5. **Liquid secondary market** — standard callable structures trade actively in the interdealer market.
 
-**Typical Buyer:** Regional banks and insurance companies with floating-rate liabilities seeking fixed-rate income with yield enhancement. Typically institutional, $500M+ AUM, moderate derivatives sophistication.
+The product suits investors with a view that rates will remain stable or rise moderately, who want above-market fixed income, and who can tolerate reinvestment risk if the swap is called early. It is a poor choice for investors who need guaranteed fixed income for the full term (a vanilla swap fits better), and unsuitable when the yield curve is flat — the option premium is small, making the coupon uplift minimal relative to the reinvestment risk.
 
-**Problem Being Solved:** Yield enhancement and income generation. Clients want a fixed rate above vanilla swap levels and are willing to accept early termination risk.
+**Legs & position**
 
-**How The Client Makes Money:** If SOFR stays above 4.25% for the full 5-year term, the client earns $10,625,000 in total coupons on a $50M notional — more than a vanilla swap would have paid. Best case: rates rise further and the swap is never called, locking in above-market fixed income for the full term.
+The IR Callable is built from two components from the investor's perspective:
 
-**How The Bank Makes Money:**
+1. **Vanilla fixed-rate swap** — the investor receives 3.95% fixed, pays SOFR floating.
+2. **Short receiver swaption** — the investor sells the bank the right to cancel the swap.
 
-| Area | Detail |
-|------|--------|
-| **Client economics** | Client receives 4.25% fixed, pays SOFR floating. The 4.25% includes an embedded option premium — the "fair" swap rate might be 3.95%, so the client is paid ~30bp for selling the call option |
-| **Bank economics** | The bank captures the structuring spread (5-10bp) between the embedded swaption value and the coupon premium paid to the client. Additional revenue from bid-offer on the swaption hedge |
-| **Hedging economics** | Rates desk hedges the fixed leg with vanilla swaps and the call option with a receiver swaption. Residual risk: swaption volatility (vega), correlation between rates and call exercise |
-| **Distribution economics** | Sales credit 3-5bp on notional. Strong repeat business — treasurers roll callable structures at maturity |
-
-The bank prefers structuring over holding the risk: the embedded swaption is hedged immediately, leaving only the structuring spread as retained profit.
-
-**Market Conditions Where Demand Increases:** Demand rises when the yield curve is steep (more premium for selling optionality), when implied swaption volatility is high (larger option premium = higher coupon), and when central bank policy is expected to be stable (clients believe rates won't trigger the call).
-
-**When This Product Makes Sense:** For investors with a view that rates will remain stable or rise moderately, who want above-market fixed income, and who can tolerate reinvestment risk if the swap is called early.
-
-**When This Product Is Usually A Poor Choice:** For investors who need guaranteed fixed income for the full term (use a vanilla swap instead). Also unsuitable when the yield curve is flat — the option premium is small, making the coupon uplift minimal relative to the reinvestment risk.
-
-#### §10. What Happens If...
-
-**Scenario A — Rates rise to 5.50%:** The swap is deep in-the-money for the client. The bank does not call. Client earns the full 4.25% for 5 years. Total coupons: $10,625,000. Best outcome.
-
-**Scenario B — Rates stay at 4.00%:** Swap is close to at-the-money. Bank may or may not call depending on swaption economics. If held, client earns 4.25% with slight positive carry over SOFR.
-
-**Scenario C — Rates drop to 2.50% after year 1:** Bank calls the swap immediately after the non-call period. Client has earned 4 quarterly coupons of $531,250 = $2,125,000 total. Now must reinvest at 2.50% — significantly below the original 4.25%.
-
-**Scenario D — Rates spike to 6.00% then crash to 2.00%:** Client enjoys high-coupon payments while rates are elevated. When rates crash, the bank calls. Client captured above-market income during the volatile period but loses the fixed rate going forward.
-
-#### §11. Formal Definition
-
-An IR Callable Fixed Rate Swap is a structured rate product in which the investor receives a fixed coupon above vanilla swap levels in exchange for granting the issuing bank the right to terminate the trade on predetermined call dates. The fixed coupon includes an embedded option premium — specifically, the client is implicitly selling a receiver swaption to the bank. The product is booked in Murex with four legs: Note (client-facing fixed coupon), Issuer (funding), Deposit (collateral), and Hedge (rates desk's offsetting swap and swaption positions). Callable structures are described as "Non-Call N" where N is the lockout period in years (e.g., NC1 = callable after 1 year). Call dates are typically quarterly or semi-annual after the non-call period expires.
-
-#### §12. Product Construction
-
-The IR Callable is built from two components:
-
-1. **Vanilla fixed-rate swap** — client receives 3.95% fixed, pays SOFR floating
-2. **Short receiver swaption** — client sells the bank the right to cancel the swap
-
-The swaption premium (worth approximately 30bp annualized) is added to the vanilla swap rate:
+The investor is therefore **short the call** (short a receiver swaption): the bank holds the right to terminate, and the investor has granted it. The swaption premium (worth approximately 30bp annualized) is added to the vanilla swap rate:
 
 ```
 Vanilla swap rate:          3.95%
@@ -11635,58 +11600,80 @@ Vanilla swap rate:          3.95%
 IR Callable coupon:         4.25%
 ```
 
-> **Professor Note:** If you remember only one thing from this chapter, remember this: the extra coupon in a callable swap is not free money — it is the premium you earn for selling the bank an option to terminate the trade when rates move in their favor.
+The investor's position is thus: long the underlying fixed-rate swap (receive enhanced fixed, pay floating), short the bank's call right. Because the investor is short optionality, the investor is **short vega** — a rise in implied swaption volatility lowers the mark-to-market value of the position for the investor. The extra coupon is not free money: it is the premium the investor earns for selling the bank an option to terminate the trade when rates move in the bank's favour.
 
-(See Figure 5.3.1-01)
+**Cashflows & scenarios**
 
-#### §13. Product Lifecycle
+The investor's return depends entirely on how long the swap survives. Each period the investor receives $50M × 4.25% / 4 = $531,250. If held to maturity (20 periods), total return = $10,625,000. If called after N periods, total return = $531,250 × N.
 
-| Stage | What Happens | Who Is Involved | What Can Go Wrong |
-|:-----:|-------------|----------------|-------------------|
-| **Pre-trade** | Structurer prices the embedded swaption using the bank's vol surface. Sales presents the coupon uplift vs vanilla swap | Structurer, Sales, Client | Mispricing the swaption → coupon too high (bank loses) or too low (client walks) |
-| **Trade date** | All four legs booked in Murex: Note leg (fixed coupon to client), Issuer leg (bank funding), Deposit leg (client collateral), Hedge leg (vanilla swap + swaption) | Operations, Trader | Booking the four legs with mismatched notionals or dates |
-| **During life** | Quarterly coupon payments calculated and settled. On each call date after the non-call period, the bank decides whether to exercise the call | Trader (call decision), Product Control (valuation), Operations (settlements) | Missing a call date decision. Incorrect day-count fraction on coupon |
-| **Termination** | If called: all four legs close on the call date. If matured: final coupon paid, deposit returned, legs unwound | Operations, Product Control | Settlement timing mismatch between the four legs |
+- **Scenario A — Rates rise to 5.50%:** The swap is deep in-the-money for the investor. The bank does not call. The investor earns the full 4.25% for 5 years. Total coupons: $10,625,000. Best outcome.
+- **Scenario B — Rates stay at 4.00%:** Swap is close to at-the-money. The bank may or may not call depending on swaption economics. If held, the investor earns 4.25% with slight positive carry over SOFR.
+- **Scenario C — Rates drop to 2.50% after year 1:** The bank calls the swap immediately after the non-call period. The investor has earned 4 quarterly coupons of $531,250 = $2,125,000 total. The investor must now reinvest at 2.50% — significantly below the original 4.25%.
+- **Scenario D — Rates spike to 6.00% then crash to 2.00%:** The investor enjoys high-coupon payments while rates are elevated. When rates crash, the bank calls. The investor captured above-market income during the volatile period but loses the fixed rate going forward.
 
-(See Figure 5.3.1-02)
-
-#### §14. Payoff Logic
-
-The client's return depends entirely on how long the swap survives:
-
-```
-P&L ($)
-  │
-  │    ╱ Not called (full 5yr)
-  │   ╱  
-  │  ╱   
-  │ ╱    
-  │╱─────────── Called after NC period
-  │
-  ├──────────────────────── Time
-  │
-```
-*Caption: IR Callable payoff — client earns fixed coupon until call or maturity. Call truncates the income stream.*
-
-**Payoff formula:**
-- Each period: Client receives $50M × 4.25% / 4 = $531,250
-- If called after N periods: total return = $531,250 × N
-- If held to maturity (20 periods): total return = $10,625,000
-
-(See Figure 5.3.1-03)
-
-#### §15. Risks
+**Risks**
 
 | Risk | Description | Severity |
 |------|------------|:--------:|
-| **Reinvestment risk** | If the swap is called, the client must reinvest at prevailing (likely lower) rates | High |
+| **Reinvestment risk** | If the swap is called, the investor must reinvest at prevailing (likely lower) rates | High |
 | **Interest rate risk (DV01)** | The swap's mark-to-market changes with rate movements — unfavorable for the fixed-rate receiver if rates rise sharply before a call | Medium |
-| **Swaption volatility (vega)** | Changes in implied volatility affect the value of the embedded option, impacting MTM | Medium |
-| **Call timing risk** | The bank exercises the call at the time most favorable to itself, which is the time least favorable to the client | Medium |
+| **Swaption volatility (vega)** | Changes in implied volatility affect the value of the embedded option, impacting MTM; the investor is short vega | Medium |
+| **Call timing risk** | The bank exercises the call at the time most favorable to itself, which is the time least favorable to the investor | Medium |
 | **Credit risk** | Counterparty default risk on the bank paying the fixed coupon | Low |
 | **Liquidity risk** | Secondary market may be thin for non-standard tenors or non-call periods | Low |
 
-#### §16. Booking And Systems
+![IR Callable Fixed Swap Cashflow Legs — Investor Lens](assets/ircallable/legs_ircallable_01.svg)
+
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The trade is booked in Murex with four legs, and the desk takes the offsetting side of the investor's position:
+
+- **Note leg** — the client-facing fixed coupon: $50M, 4.25% quarterly, Act/360.
+- **Issuer leg** — bank funding: SOFR + spread.
+- **Deposit leg** — client collateral: $50M cash deposit.
+- **Hedge leg** — the rates desk's offsetting positions: a vanilla swap (receive fixed, pay floating) plus a **short receiver swaption** position that the desk warehouses against the call.
+
+Where the investor is short the call (short the receiver swaption), the desk is **long the call** — it holds the right to terminate the swap when rates drop below the fixed coupon. Economically the desk is long a Bermudan swaption (the call schedule has multiple exercise dates), and it hedges that optionality rather than holding the raw rate risk.
+
+**Rate/vol risk & hedging**
+
+The rates desk hedges the fixed leg with vanilla swaps and the call right with a receiver swaption. The residual risks are swaption volatility (vega) and the correlation between rates and call exercise. Because the desk is long the embedded swaption, it is **long vega** — its position gains value when implied volatility rises. A NC1 quarterly callable has up to 16 call dates, so the hedge must be a Bermudan swaption (or a strip matched to the call schedule), not a single European swaption. The desk monitors DV01 (rate sensitivity) and vega (vol sensitivity) across the callable book; a 3-point vol move on a $500M callable book can generate $2-3M of P&L. The bank prefers structuring over holding the risk: the embedded swaption is hedged immediately, leaving only the structuring spread as retained profit.
+
+**How the bank makes money**
+
+| Area | Detail |
+|------|--------|
+| **Client economics** | The investor receives 4.25% fixed, pays SOFR floating. The 4.25% includes an embedded option premium — the "fair" swap rate might be 3.95%, so the investor is paid ~30bp for selling the call option |
+| **Bank economics** | The bank captures the structuring spread (5-10bp) between the embedded swaption value and the coupon premium paid to the investor. Additional revenue from bid-offer on the swaption hedge |
+| **Hedging economics** | Rates desk hedges the fixed leg with vanilla swaps and the call option with a receiver swaption. Residual risk: swaption volatility (vega), correlation between rates and call exercise |
+| **Distribution economics** | Sales credit 3-5bp on notional. Strong repeat business — treasurers roll callable structures at maturity |
+
+Demand rises when the yield curve is steep (more premium for selling optionality), when implied swaption volatility is high (larger option premium = higher coupon), and when central bank policy is expected to be stable (investors believe rates won't trigger the call).
+
+**Rate enhancement decomposition**
+
+The investor's enhanced 4.25% coupon decomposes into the fair vanilla swap rate plus the swaption premium the investor pays for selling the call:
+
+```
+Vanilla swap rate:          3.95%
++ Swaption premium (ann.):  0.30%
+─────────────────────────────────
+IR Callable coupon:         4.25%
+```
+
+Within the 0.30% swaption premium the investor grants, the bank retains a structuring spread of roughly 5-10bp and passes the remainder back to the investor as coupon uplift; sales credit of 3-5bp on notional is taken on distribution. (The source quotes the 30bp premium and the 5-10bp structuring spread and 3-5bp sales credit; the precise split of the 30bp into retained-versus-passed-through is inferred from those ranges, not stated verbatim.)
+
+![IR Callable Rate Enhancement Decomposition — Bank Lens (Desk Economics)](assets/ircallable/waterfall_ircallable_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by: moves in the yield curve against the warehoused DV01 on the hedge swaps; changes in implied swaption volatility against the long-vega position embedded in the call (vega is the most important driver — the value of the swaption can swing dramatically with vol even when rates do not move); the realized call schedule versus the modelled one as rates approach the strike; and the structuring spread and bid-offer captured at inception. A portfolio of 200+ callable trades approaching their first call dates simultaneously is the desk's main concentration concern — if rates drop overnight, the entire book may need to be called and the swaption portfolio restructured in a single session.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
 
 | Field | Value |
 |-------|-------|
@@ -11702,7 +11689,24 @@ P&L ($)
 | **Payment frequency** | Quarterly |
 | **Call dates** | Quarterly after non-call period (NC1 = after year 1) |
 
-#### §17. Red Flags
+All four legs are booked in Murex as a single structured note. The 2nd line's first concern is that the four legs are booked net and consistent — matching notionals and dates — and that the Hedge leg genuinely offsets the client-facing Note leg.
+
+**Reconciliation points**
+
+| Recon point | What must agree | IR-Callable-specific break |
+|-------------|-----------------|----------------------------|
+| **Four-leg net (Note vs Issuer vs Deposit vs Hedge)** | All four legs booked with matching notional, dates, and conventions; legs net to the intended structured position | Legs booked asynchronously with a notional error — e.g. Deposit leg shows a different notional than the Note leg |
+| **Call schedule** | The call dates and non-call period in Murex match the trade confirmation (NC1 = callable quarterly after year 1) | Call schedule mis-booked — wrong non-call period or missing call dates |
+| **Call notice & exercise capture** | Each call decision is recorded by call date + 2 business days; exercise/notice within the contractual window | Call decision not recorded by call date + 2 business days — bank may have auto-exercised or defaulted to hold; call window may close |
+| **Rate fixing** | Floating SOFR fixing source and date convention match the termsheet; coupon uses the correct rate | Wrong fixing source/date misstates the floating leg and the net payment |
+| **Day-count** | Act/360 (USD) / 30/360 (EUR) applied correctly to each coupon | Day-count fraction error — coupon payment differs from $531,250 by more than $100 |
+| **Swaption hedge parameters** | Swaption vol surface, expiry, and Bermudan/European exercise match the call schedule | Swaption hedge shows large vega P&L on a calm day — wrong vol surface or wrong expiry; European booked instead of Bermudan |
+| **Hedge offset (Note vs Hedge P&L)** | Hedge leg P&L offsets Note leg P&L within tolerance | Hedge leg P&L diverges from Note leg P&L by > 5% — hedge tenors/notionals do not match the structured note |
+| **Collateral / four-leg settlement** | On a call date all four legs settle simultaneously; deposit released when Note leg terminates | Settlement timing mismatch between the four legs — Note leg terminated but Deposit leg not released, trapping client cash |
+
+![IRCALLABLE Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/ircallable/controls_ircallable_recon_08.svg)
+
+**Common breaks & red flags**
 
 | Red Flag | What It Means | Action |
 |----------|--------------|--------|
@@ -11712,7 +11716,24 @@ P&L ($)
 | Deposit leg shows different notional than Note leg | Legs were booked asynchronously with a notional error | Reconcile all four leg notionals to trade confirmation |
 | Hedge leg P&L diverges from Note leg P&L by > 5% | Hedge is not properly offsetting the client-facing position | Check that hedge tenors and notionals match the structured note |
 
-#### §18. Worked Example
+**Control implication**
+
+For an IR Callable the dominant 2nd-line controls are the **four-leg net** and the **call-exercise capture**. The four legs (Note, Issuer, Deposit, Hedge) must be booked with matching notionals and dates so that they net to the intended structured position and the Hedge leg genuinely offsets the client-facing Note leg — a notional or date mismatch on any leg breaks the net P&L and can trap client cash on a call date. The call schedule and each call notice/exercise must be captured within the contractual window: a missed or unrecorded call decision (by call date + 2 business days) can let the call window close or trigger an unintended default to hold, with direct P&L and client consequences. Around these, the rate fixing, day-count, and collateral/settlement checks ensure each quarterly coupon and the final four-leg settlement are correct. The reconciliation exists precisely to catch these inconsistencies before a coupon settles or a call date passes.
+
+#### §10. Formal Definition
+
+An **IR Callable Fixed Rate Swap** is a structured rate product in which the investor receives a fixed coupon above vanilla swap levels in exchange for granting the issuing bank the right to terminate the trade on predetermined call dates. The fixed coupon includes an embedded option premium — specifically, the investor is implicitly selling a receiver swaption to the bank (the investor is short the call; the bank's desk is long it). The product is booked in Murex with four legs: Note (client-facing fixed coupon), Issuer (funding), Deposit (collateral), and Hedge (rates desk's offsetting swap and swaption positions). Callable structures are described as "Non-Call N" where N is the lockout period in years (e.g., NC1 = callable after 1 year). Call dates are typically quarterly or semi-annual after the non-call period expires.
+
+#### §11. Lifecycle
+
+| Stage | What Happens | Who Is Involved | What Can Go Wrong |
+|:-----:|-------------|----------------|-------------------|
+| **Pre-trade** | Structurer prices the embedded swaption using the bank's vol surface. Sales presents the coupon uplift vs vanilla swap | Structurer, Sales, Client | Mispricing the swaption → coupon too high (bank loses) or too low (client walks) |
+| **Trade date** | All four legs booked in Murex: Note leg (fixed coupon to client), Issuer leg (bank funding), Deposit leg (client collateral), Hedge leg (vanilla swap + swaption) | Operations, Trader | Booking the four legs with mismatched notionals or dates |
+| **During life** | Quarterly coupon payments calculated and settled. On each call date after the non-call period, the bank decides whether to exercise the call | Trader (call decision), Product Control (valuation), Operations (settlements) | Missing a call date decision. Incorrect day-count fraction on coupon |
+| **Termination** | If called: all four legs close on the call date. If matured: final coupon paid, deposit returned, legs unwound | Operations, Product Control | Settlement timing mismatch between the four legs |
+
+#### §12. Worked Example (both lenses)
 
 **Terms:** $50M notional, 5-year, fixed 4.25% quarterly (Act/360), non-call 1 year, callable quarterly thereafter.
 
@@ -11723,253 +11744,91 @@ P&L ($)
 | Q3 | Sep-Dec 2025 | 91/360 | $537,153 | $1,617,361 |
 | Q4 | Dec-Mar 2026 | 90/360 | $531,250 | $2,148,611 |
 
-*Note: Using Act/360, each quarter's coupon = $50M × 4.25% × (actual days / 360). The table above shows exact day-count-sensitive amounts. For simplicity in scenario analysis, we use the approximate quarterly amount of $531,250 ($50M × 4.25% / 4).*
+*Note: Using Act/360, each quarter's coupon = $50M × 4.25% × (actual days / 360). The table above shows exact day-count-sensitive amounts. For simplicity in scenario analysis, the approximate quarterly amount of $531,250 ($50M × 4.25% / 4) is used.*
 
-**Call scenario:** If the bank calls after Q4 (year 1), the client receives $2,148,611 total and must reinvest $50M at prevailing rates. If 3-year SOFR swaps are now at 3.00%, the client's reinvestment return falls by ~125bp annually.
+*Investor lens:*
+If the bank calls after Q4 (year 1), the investor receives $2,148,611 total and must reinvest $50M at prevailing rates. If 3-year SOFR swaps are now at 3.00%, the investor's reinvestment return falls by ~125bp annually. If never called, the investor receives approximately $10,625,000 over 20 quarters — an annualized return of 4.25%. The enhanced coupon was the premium for selling the bank the call; being called early is the reinvestment risk that premium compensated.
 
-**Hold scenario:** If never called, the client receives approximately $10,625,000 over 20 quarters — an annualized return of 4.25%.
+*Bank lens:*
+The desk holds the four legs and is long the call (the Bermudan receiver swaption), hedged with the offsetting vanilla swap and swaption. It retains the structuring spread (5-10bp of the ~30bp embedded premium) and the bid-offer on the swaption hedge; if rates fall to the 3.00% reinvestment level, the desk exercises the call after Q4 and unwinds all four legs simultaneously. The 2nd line must confirm each quarter's coupon against the Act/360 day count (the $537,153 / $543,056 / $531,250 amounts), that the call decision at Q4 was captured within the window, and that all four legs settled together on the call date.
 
-(See Figure 5.3.1-04)
+#### §13. Knowledge Check
 
-#### §19. Interview Questions
-
-1. What is the vanilla swap rate equivalent if the IR Callable pays 4.25% with a non-call-1 structure?
-2. How are the four legs of an SRT trade structured in Murex?
-3. If implied swaption volatility doubles, what happens to the value of an existing IR Callable for the client?
-4. A treasurer holds an IR Callable paying 4.50% NC2. Rates drop to 2.00% just before the first call date. Should she expect to be called? What should she prepare?
-5. Your desk has 200 IR Callable trades outstanding. Rates have dropped 150bp. The Trader asks you to model the expected call schedule. What factors beyond the rate level affect the call decision?
-
+1. What type of option is the investor implicitly selling in an IR Callable, and who holds the call right? *(Investor)*
+2. How does the non-call period affect the callable swap's coupon? *(Investor)*
+3. Why does the bank call the swap when rates drop significantly? *(Investor)*
+4. What is the difference between a 5NC1 and a 5NC3 callable? *(Investor)*
+5. A client holds a $100M IR Callable at 4.50% NC1. After 6 months, 5-year SOFR swaps drop from 4.20% to 2.80%. What should the investor expect at the first call date, and what is the reinvestment risk? *(Investor)*
+6. Implied swaption volatility has risen 4 points since trade inception, with no change in the rate level. How does this affect the MTM of the callable from the investor's perspective, and why? *(Investor)*
+7. **(Desk economics / 1LoD)** When the investor enters an IR Callable, what position does the desk take in the embedded option (long or short the call), what is its dominant Greek, and how does the desk hedge a NC1 quarterly callable with up to 16 call dates? Where does the desk's retained profit come from?
+8. **(Controls / 2LoD)** Name three reconciliation breaks specific to an IR Callable — covering the four-leg net, the call notice/exercise capture, and the day-count — and the consequence of each for the net payment, the call decision, or trapped client cash.
 
 **Mental Models**
 
 | Concept | Mental Model |
 |---------|-------------|
 | IR Callable | Fixed-rent apartment with a landlord's break clause — above-market rent, but no guarantee of full tenancy |
-| Embedded swaption | Insurance premium paid to the landlord — embedded in the higher rent |
+| Embedded swaption | Insurance premium the tenant pays the landlord — embedded in the higher rent |
 | Non-call period | Lease lock-in — guaranteed tenancy before the break clause activates |
-| Call exercise | Landlord terminates when market rents drop below your rent |
+| Call exercise | Landlord (the bank) terminates when market rents drop below the tenant's rent |
 | Reinvestment risk | Finding a new apartment after eviction — likely at a lower quality/price ratio |
 | Four-leg structure | Four interconnected gears — Note, Issuer, Deposit, Hedge — all must turn together |
-
+| Investor short the call / desk long it | The tenant grants the break right; the landlord holds it |
 
 **Key Takeaways**
 
-1. An IR Callable is a fixed-rate swap where the bank can terminate early, compensating the client with an above-market coupon.
+1. An IR Callable is a fixed-rate swap where the bank can terminate early, compensating the investor with an above-market coupon.
 2. Regional banks and corporate treasurers buy it for yield enhancement when they believe rates will remain stable.
 3. Reinvestment risk is the core danger — being called when rates are low forces reinvestment at inferior levels.
-4. The higher coupon is the annualized premium from an embedded receiver swaption sold by the client to the bank.
+4. The higher coupon is the annualized premium from an embedded receiver swaption sold by the investor to the bank: the investor is short the call, the desk is long it.
 5. All SRT products are booked in Murex with four legs: Note, Issuer, Deposit, and Hedge.
+6. The desk warehouses the long call (a Bermudan swaption), hedges rate (DV01) and vol (long vega) risk, and retains the structuring spread (5-10bp) plus the swaption-hedge bid-offer.
+7. For the 2nd line, the dominant control risks are the four-leg net (matching notionals/dates so the Hedge offsets the Note) and the call notice/exercise capture (recording each call decision within the window), supported by rate-fixing, day-count, and four-leg collateral/settlement checks — each can misstate a coupon, miss a call decision, or trap client cash.
 
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
-**1. Treating the extra coupon as "free yield."** The coupon uplift is compensation for selling an option. The client is taking on reinvestment risk — the premium can be fully consumed if the swap is called at the worst time.
+**1. Treating the extra coupon as "free yield."** The coupon uplift is compensation for selling an option. The investor is taking on reinvestment risk — the premium can be fully consumed if the swap is called at the worst time.
 
 **2. Ignoring the non-call period when comparing products.** A 5NC1 (callable after 1 year) has very different risk from a 5NC3 (callable after 3 years). Longer non-call periods provide more income certainty but lower coupon uplift.
 
-**3. Confusing the client's call right with the bank's call right.** In an IR Callable, the BANK calls, not the client. The client has no right to terminate early. This is the opposite of a puttable swap.
+**3. Confusing the investor's position with the bank's call right.** In an IR Callable, the BANK calls, not the investor. The investor is short the call and has no right to terminate early; the desk is long the call. This is the opposite of a puttable swap.
 
 **4. Booking the hedge leg with the wrong swaption expiry.** The swaption hedge must match the call dates exactly — a NC1 quarterly callable has up to 16 call dates, each requiring a separate swaption (or a Bermudan swaption).
 
-**5. Forgetting that all four legs must settle simultaneously on a call date.** If the Note leg is terminated but the Deposit leg is not released, the client's cash is trapped. All four legs must be coordinated.
+**5. (Controls) Forgetting that all four legs must settle simultaneously on a call date.** If the Note leg is terminated but the Deposit leg is not released, the investor's cash is trapped. All four legs must be coordinated, and the 2nd line must confirm the four-leg net settlement and that the call exercise was captured within the contractual window.
 
----
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book across the four legs, and what is its primary rate/vol risk and hedge?
+- *(Controls / 2LoD)* Which four-leg / fixing / accrual fields must reconcile, and which is the most common break?
 
-**Who Touches This Product**
-
-| Role | Responsibility | Primary Concern | Typical Question |
-|------|---------------|----------------|-----------------|
-| **Trader** | Manages the swaption book, decides whether to exercise the call on each call date | "Is the swap deep enough out-of-the-money to justify calling?" | "What is the breakeven rate for calling this trade vs holding to next call date?" |
-| **Structurer** | Prices the embedded swaption, sets the coupon uplift, designs the non-call structure | "Is the vol surface correctly calibrated for Bermudan swaptions?" | "Can I offer 5bp more coupon by extending the non-call period from 1 year to 2 years?" |
-| **Sales** | Presents the yield enhancement story to treasury clients, manages reinvestment expectations | "Will the client understand that being called is not a loss event?" | "How does this 5NC1 compare to the 3-year vanilla swap the client is also considering?" |
-| **Risk** | Monitors DV01, vega, and the callable book's overall Greeks | "What is the aggregate vega exposure across all outstanding callables?" | "If vol spikes 5 points, what is the P&L impact on the callable book?" |
-| **Product Control** | Values all four legs daily, verifies P&L attribution between rate and vol components | "Are the four legs producing offsetting P&L or is there a break?" | "Why does the Note leg P&L not match the Hedge leg P&L this month?" |
-| **Operations** | Settles coupon payments, processes call exercises, ensures four-leg coordination | "Did we receive the call notice within the contractual window?" | "The call was exercised yesterday — when should I expect the deposit leg to release?" |
-| **Legal** | Reviews the note documentation, ensures call mechanics are clearly specified | "Are the call notification requirements consistent with market standard?" | "If we miss the call notification deadline, does the call right extend to the next date?" |
-| **Model Validation** | Validates the swaption pricing model, verifies Bermudan swaption calibration | "Does the model correctly price the co-terminal swaption smile?" | "What is the model risk on a 5NC1 Bermudan vs. a strip of European swaptions?" |
-
----
-
-**Desk Reality**
-
-**What keeps traders awake:** A portfolio of 200+ callable trades approaching their first call dates simultaneously — if rates drop overnight, the entire book may need to be called and the swaption portfolio restructured in a single session.
-
-**Most important risk:** Vega — the value of the embedded swaption can swing dramatically with changes in implied volatility, even when rates don't move. A 3-point vol move on a $500M callable book can generate $2-3M of P&L.
-
-**Typical junior mistake:** Booking the hedge swaption with European exercise instead of Bermudan — a NC1 callable has multiple exercise dates, not just one. The hedge must match the call schedule.
-
-**Hardest operational issue:** Coordinating the simultaneous settlement of all four legs on a call date, especially when the deposit leg requires cash transfer across different custodians or time zones.
-
-**Most misunderstood concept:** The relationship between the non-call period and the coupon uplift. A longer non-call period means the client has more guaranteed income, so the coupon uplift for selling the call should be *lower*, not higher — the bank's option is worth less when it can't be exercised for longer.
-
----
-
-**Knowledge Check**
-
-*Review Questions:*
-1. What are the four legs of an SRT product in Murex?
-2. How does the non-call period affect the callable swap's coupon?
-3. What type of option is the client implicitly selling in an IR Callable?
-4. Why does the bank call the swap when rates drop significantly?
-5. What is the difference between a 5NC1 and a 5NC3 callable?
-
-*Scenario Questions:*
-6. A client holds a $100M IR Callable at 4.50% NC1. After 6 months, 5-year SOFR swaps drop from 4.20% to 2.80%. What should the client expect at the first call date? What is their reinvestment risk?
-7. Implied swaption volatility has risen 4 points since trade inception. The rate level hasn't changed. How does this affect the MTM of the callable from the client's perspective?
-8. You are asked to price a 7NC2 callable in EUR. The 7-year EUR swap rate is 3.10%. Implied Bermudan swaption vol is 55bp. How would you estimate the coupon uplift?
-
-*Desk Question:*
-9. Your callable book has $2B outstanding with staggered call dates. Rates dropped 100bp overnight. Walk through your first-morning priorities: which trades to evaluate, what data to gather, and how to communicate call decisions.
-
----
-
-#### §21. Visual Specifications
-
-**Visual 1:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.1-01 |
-| **Visual ID** | FLOW_IR_CALLABLE_01 |
-| **Type** | Cash Flow Diagram |
-| **Priority** | P1 |
-| **Purpose** | Show the four-leg structure of the IR Callable SRT |
-| **Visual Description** | Four-panel diagram showing the Note leg (fixed coupon to client), Issuer leg (bank funding), Deposit leg (client collateral), and Hedge leg (vanilla swap + swaption). Arrows show cash flows between the four legs and external counterparties. Dashed line indicates the call option overlay |
-| **Diagram Elements** | Four boxes (Note, Issuer, Deposit, Hedge), client box, bank box, coupon arrows, funding arrows, collateral arrows, hedge arrows, call option dashed overlay |
-| **Axis Definitions** | N/A (flow diagram) |
-| **Caption** | IR Callable SRT: four-leg structure showing Note, Issuer, Deposit, and Hedge interconnections |
-| **Location** | §12 |
-| **Reuse Potential** | High — template for all SRT products |
-| **Future Asset Filename** | flow_ir_callable_01.svg |
-
-**Visual 2:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.1-02 |
-| **Visual ID** | LIFECYCLE_IR_CALLABLE_01 |
-| **Type** | Lifecycle Diagram |
-| **Priority** | P1 |
-| **Purpose** | Show the product lifecycle from pre-trade through call or maturity |
-| **Visual Description** | Horizontal timeline with four stages (pre-trade, trade date, during life, termination). Call dates marked after the non-call period. Branch point at each call date: "Called" exits the timeline; "Not called" continues to next call date or maturity |
-| **Diagram Elements** | Timeline axis, stage markers, non-call period shading, call date decision diamonds, "Called"/"Not Called" branches, maturity endpoint |
-| **Axis Definitions** | X: Time (years), annotated with call dates |
-| **Caption** | IR Callable lifecycle: non-call period followed by quarterly call decisions until maturity |
-| **Location** | §13 |
-| **Reuse Potential** | High — callable lifecycle template for CRA SRT, Callable STEG |
-| **Future Asset Filename** | lifecycle_ir_callable_01.svg |
-
-**Visual 3:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.1-03 |
-| **Visual ID** | PAYOFF_IR_CALLABLE_01 |
-| **Type** | Payoff Diagram |
-| **Priority** | P2 |
-| **Purpose** | Show the client's cumulative return under call and hold scenarios |
-| **Visual Description** | Two-line chart: one line shows cumulative coupon income if held to maturity (straight line to $10.6M), other line shows truncated income if called after year 1 (line stops at $2.1M, with reinvestment at lower rate shown as dashed continuation). Gap between the lines represents reinvestment risk |
-| **Diagram Elements** | X-axis (Time/years), Y-axis (Cumulative P&L), two scenario lines, call point marker, reinvestment gap shading |
-| **Axis Definitions** | Y: Cumulative P&L ($), X: Time (years) |
-| **Caption** | IR Callable: cumulative income under hold-to-maturity vs called-after-year-1 scenarios |
-| **Location** | §14 |
-| **Reuse Potential** | Medium — callable cumulative income template |
-| **Future Asset Filename** | payoff_ir_callable_01.svg |
-
-**Visual 4:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.1-04 |
-| **Visual ID** | TIMELINE_IR_CALLABLE_01 |
-| **Type** | Timeline |
-| **Priority** | P2 |
-| **Purpose** | Show the worked example cash flows quarter by quarter |
-| **Visual Description** | Horizontal timeline showing 20 quarterly periods. Fixed coupon arrows pointing up at each period. Non-call period (Q1-Q4) shaded. Call dates (Q5 onward) marked with decision diamonds. Worked example amounts labeled at key periods |
-| **Diagram Elements** | Timeline axis, 20 quarterly markers, upward coupon arrows with amounts, non-call shading, call decision diamonds |
-| **Axis Definitions** | X: Time (quarters), annotations at Q1, Q4, Q8, Q20 |
-| **Caption** | IR Callable worked example: $50M notional, 4.25% quarterly, quarterly call after year 1 |
-| **Location** | §18 |
-| **Reuse Potential** | Medium — periodic coupon timeline |
-| **Future Asset Filename** | timeline_ir_callable_01.svg |
-
-**Visual 5:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.1-05 |
-| **Visual ID** | DIAGRAM_IR_CALLABLE_01 |
-| **Type** | Comparison Chart |
-| **Priority** | P3 |
-| **Purpose** | Compare coupon levels across different non-call periods |
-| **Visual Description** | Bar chart comparing coupon rates for 5NC1, 5NC2, 5NC3, and 5-year vanilla swap. Bars decrease in height from NC1 (highest coupon) to vanilla (lowest). Annotation: "Longer non-call = lower coupon uplift" |
-| **Diagram Elements** | X-axis (product type), Y-axis (coupon rate %), four bars, annotation text, vanilla swap reference line |
-| **Axis Definitions** | Y: Coupon Rate (%), X: Product Structure |
-| **Caption** | Coupon uplift decreases as the non-call period lengthens — the bank's option is worth less |
-| **Location** | §9 |
-| **Reuse Potential** | Low — specific to callable coupon comparison |
-| **Future Asset Filename** | diagram_ir_callable_01.svg |
-
-**Visual 6:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.1-06 |
-| **Visual ID** | WATERFALL_IR_CALLABLE_01 |
-| **Type** | Waterfall Diagram |
-| **Priority** | P3 |
-| **Purpose** | Show the construction decomposition: vanilla swap rate + swaption premium = callable coupon |
-| **Visual Description** | Three-step waterfall: starting at 3.95% (vanilla swap rate), adding 0.30% (swaption premium), arriving at 4.25% (IR Callable coupon). Each step labeled with the component and its source |
-| **Diagram Elements** | Three waterfall bars, labels, connecting arrows, final total bar |
-| **Axis Definitions** | Y: Rate (%), X: Component |
-| **Caption** | IR Callable construction: vanilla swap rate plus embedded swaption premium equals the callable coupon |
-| **Location** | §12 |
-| **Reuse Potential** | Medium — construction waterfall for rate products |
-| **Future Asset Filename** | waterfall_ir_callable_01.svg |
-
----
-
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Interest rate swap mechanics | Section 5.2.1 (IRS) |
-| VLSP as the simplest swap | Section 5.2.8 (VLSP) |
-| SOFR, EURIBOR, benchmark rates | Section 1.8 (Benchmark Rates) |
-| Yield curves, forward rates, discount factors | Section 1.7 (Yield Curves) |
-| Swaptions, caps, floors | Section 1.8 (Caps, Floors, Swaptions) |
-| Callable concept (issuer call right) | Section 5.1.6 (CRC) |
-| Four-leg structure | Section 2.7 (The Four-Leg Structure) |
-| Counterparty risk, ISDA/CSA | Section 5.2.1 (IRS), Section 1.9 (Credit Risk) |
-| Murex booking | Section 2.8 (Systems Primer) |
-| DV01, curve risk | Section 5.2.8 (VLSP) |
-
----
-
+**Dual-lens visuals (generated):**
+- `assets/ircallable/controls_ircallable_recon_08.svg` `[generated]`
+- `assets/ircallable/legs_ircallable_01.svg` `[generated]`
+- `assets/ircallable/waterfall_ircallable_09.svg` `[generated]`
 ### 5.3.2 Zero-Coupon Linked Note (ZCL)
 
 ---
 
-*The IR Callable paid a fixed quarterly coupon, with the bank's right to terminate early. The Zero-Coupon Linked Note eliminates periodic coupons entirely. Instead, the investor's return accretes inside the note — no cash is paid until maturity. That single change converts the product from an income instrument to a capital appreciation instrument, appealing to clients who want to lock in a total return without reinvestment decisions along the way.*
+*Where an IR Callable pays a fixed quarterly coupon with the bank's right to terminate early, the Zero-Coupon Linked Note eliminates periodic coupons entirely. Instead, the return accretes inside the note — no cash is paid until maturity. That single change converts the product from an income instrument into a capital-appreciation instrument, appealing to clients who want to lock in a total return without reinvestment decisions along the way. This chapter reads the product through two lenses: what it means for **the investor** (the note holder), and what it means for **the bank** — the latter split into the desk's rate economics (1st line of defence) and the controls and reconciliation that surround the four-leg booking (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Henrik is a pension fund manager in Stockholm responsible for matching long-dated liabilities 20 years into the future. He doesn't need quarterly income — his liabilities don't pay out for decades. What he needs is a guaranteed total return at maturity with no reinvestment risk. The Zero-Coupon Linked Note gives him exactly this: he invests $30 million today, receives nothing for 7 years, and at maturity collects $38.8 million — a locked-in 29.4% total return. There are no coupon decisions, no reinvestment headaches, and no cash flow management. His return is fixed from day one, accreting inside the note like compound interest in a savings account he cannot touch.
+Consider a pension fund manager in Stockholm responsible for matching long-dated liabilities 20 years into the future. The fund does not need quarterly income — its liabilities do not pay out for decades. What it needs is a guaranteed total return at maturity with no reinvestment risk. The Zero-Coupon Linked Note provides exactly this: the investor invests $30 million today, receives nothing for 7 years, and at maturity collects $38.8 million — a locked-in 29.4% total return. There are no coupon decisions, no reinvestment headaches, and no cash-flow management. The return is fixed from day one, accreting inside the note like compound interest in a savings account that cannot be touched.
 
-#### §2. Core Analogy
+#### §2. Real-World Analogy
 
-Think of a wine barrel aging in a cellar. You buy the barrel today and leave it untouched for seven years. No one drinks from it, no one bottles it early. Each year, the wine improves in value — not because anyone adds to it, but because time itself does the work. At the end, you open the barrel and sell wine worth far more than the original grape juice. The ZCL works the same way: your investment accretes value silently, and you collect the full aged amount only at maturity.
+A ZCL is like a wine barrel aging in a cellar. The barrel is bought today and left untouched for seven years. No one drinks from it, no one bottles it early. Each year, the wine improves in value — not because anyone adds to it, but because time itself does the work. At the end, the barrel is opened and the wine is worth far more than the original grape juice. The ZCL works the same way: the investment accretes value silently, and the holder collects the full aged amount only at maturity.
 
-#### §3. What Problem Does It Solve
+#### §3. What Problem Does This Solve?
 
-| Client Need | How the Product Delivers |
+| Investor Need | How the Product Delivers |
 |------------|------------------------|
 | Match long-dated liabilities without reinvestment risk | No coupons to reinvest — total return is locked in at inception |
-| Avoid cash flow management complexity | Zero periodic payments means no reinvestment decisions |
+| Avoid cash-flow management complexity | Zero periodic payments means no reinvestment decisions |
 | Tax-efficient accumulation | Many jurisdictions tax coupon income annually but defer tax on accretion until maturity |
 | Duration matching for pension liabilities | Long-dated maturity with predictable terminal value matches liability cash flows |
 
 #### §4. Product DNA
-
 
 | **Field** | **Value** |
 |---|---|
@@ -11985,7 +11844,6 @@ Think of a wine barrel aging in a cellar. You buy the barrel today and leave it 
 | **Liquidity** | Secondary market (duration-dependent pricing) |
 | **Primary System** | Murex (primary, four-leg structure), Sophis (risk) |
 | **ISDA Required** | No — issued as note |
-
 
 **DNA Atlas Fields:**
 - Primary Risk: Duration risk (long-dated ZCB sensitivity). Issuer credit risk over multi-year term
@@ -12008,14 +11866,18 @@ Think of a wine barrel aging in a cellar. You buy the barrel today and leave it 
 - Client Type: Institutional (pension, insurance)
 - Market Environment: Best when locking in attractive long-term rates
 
-#### §5. Family Position
+#### §5. Who Touches This Product
 
-```
-Rates
-└── Structured Rate Trades (SRT)
-    └── Zero-Coupon Products
-        └── Zero-Coupon Linked Note (ZCL)  ← You are here
-```
+| Role | Responsibility |
+|------|---------------|
+| **Structurer** | Prices the accretion rate using the zero-coupon swap curve; compares to government zero yields |
+| **Trader** | Manages the zero-coupon swap hedge; monitors duration exposure and portfolio DV01 |
+| **Sales** | Presents the ZCL as a liability-matching tool; explains the terminal-value guarantee and duration risk |
+| **Risk Management** | Monitors duration, issuer credit exposure (growing with accretion), and concentration risk |
+| **Product Control** | Values the accreting note daily; verifies the accretion schedule matches the booking |
+| **Operations** | Processes the annual accretion update; prepares for the single maturity payment |
+| **Legal / Compliance** | Reviews note documentation for accretion mechanics and default provisions |
+| **Model Validation** | Validates the zero-coupon pricing model and accretion methodology |
 
 #### §6. Product Evolution
 
@@ -12025,61 +11887,23 @@ Rates
 | 2 | Zero-coupon corporate note | Credit risk of the issuer | Higher yield than government bonds for accepting credit risk |
 | 3 | Zero-Coupon Linked Note (ZCL) | Structured rate exposure, accreting notional, four-leg SRT booking | Customizable terminal value, embedded rate view, operational infrastructure for banks |
 
-#### §7. Why The Market Invented This Product
+---
 
-Pension funds and insurance companies faced a structural mismatch: their liabilities were long-dated and predictable, but available fixed-income instruments either paid coupons (creating reinvestment risk) or were too short-dated. Government zero-coupon bonds existed but offered low yields. The ZCL solved this by combining the zero-coupon structure with structured rate exposure — embedding a swap inside the note that allowed customization of the accretion rate above government bond yields. The four-leg Murex booking infrastructure made it operationally feasible for bank balance sheets. Adoption accelerated in Europe and Japan where low base rates made the accretion premium attractive for liability-driven investors.
+#### §7. THE INVESTOR LENS
 
-#### §8. Why Clients Buy It
+**Why the investor buys it**
 
-1. **Zero reinvestment risk** — no coupons to reinvest at unknown future rates
-2. **Predictable terminal value** — the exact maturity amount is known at trade inception
-3. **Tax efficiency** — accretion may be taxed at maturity rather than annually in certain jurisdictions
-4. **Duration match** — long tenor matches pension and insurance liabilities naturally
-5. **Higher yield than government zeros** — the embedded rate structure provides a premium over risk-free accretion
+1. **Zero reinvestment risk** — no coupons to reinvest at unknown future rates.
+2. **Predictable terminal value** — the exact maturity amount is known at trade inception.
+3. **Tax efficiency** — accretion may be taxed at maturity rather than annually in certain jurisdictions.
+4. **Duration match** — the long tenor matches pension and insurance liabilities naturally.
+5. **Higher yield than government zeros** — the embedded rate structure provides a premium over risk-free accretion.
 
-#### §9. Why This Product Exists
+The product suits an investor who has no need for periodic income, wants a guaranteed terminal value, and is willing to accept credit risk on the issuing bank for the full tenor. It is usually a poor choice for an investor who needs periodic cash flow, has a short horizon, or cannot tolerate the mark-to-market volatility of a long-duration zero-coupon instrument.
 
-**Typical Buyer:** Pension funds and insurance companies with long-dated, predictable liabilities. Typically institutional, $1B+ AUM, high derivatives sophistication. Served by institutional sales desks.
+**Position & redemption linkage**
 
-**Problem Being Solved:** Liability management and yield enhancement. Clients need a guaranteed terminal value that exceeds government bond yields without creating reinvestment obligations.
-
-**How The Client Makes Money:** Henrik invests $30M and receives $38,818,432 at maturity — a total return of 29.4% over 7 years (3.75% annually compounded). If he had bought a 7-year government zero at 2.80%, his terminal value would have been $36,297,685 — $2.5M less.
-
-**How The Bank Makes Money:**
-
-| Area | Detail |
-|------|--------|
-| **Client economics** | Client buys the note at par ($30M), receives accreted value at maturity ($38.8M). No periodic cash flows |
-| **Bank economics** | Structuring spread: 5-8bp embedded in the accretion rate. The "fair" accretion rate might be 3.80%, but the client receives 3.75% — the 5bp difference accumulates over 7 years |
-| **Hedging economics** | Rates desk hedges with a zero-coupon swap or strip of government bonds. Residual risk: curve risk between the hedge tenor and the ZCL maturity |
-| **Distribution economics** | Sales credit 3-5bp on notional. Pension fund relationships are long-term — one ZCL sale often leads to a portfolio of structured rate products |
-
-**Market Conditions Where Demand Increases:** Demand rises when the yield curve is steep (long-end rates create attractive accretion), when pension fund deficits widen (driving liability-matching purchases), and when tax law favors accretion over income (deferred taxation).
-
-**When This Product Makes Sense:** For investors who have no need for periodic income, want a guaranteed terminal value, and are willing to accept credit risk on the issuing bank for the full tenor.
-
-**When This Product Is Usually A Poor Choice:** For investors who need periodic cash flow, have short investment horizons, or cannot tolerate the mark-to-market volatility of a long-duration zero-coupon instrument.
-
-#### §10. What Happens If...
-
-**Scenario A — Rates drop 100bp after inception:** The ZCL's market value increases significantly (long duration = high rate sensitivity). Henrik could sell at a premium if he needs liquidity. Terminal value unchanged — $38.8M at maturity.
-
-**Scenario B — Rates rise 150bp:** Market value drops sharply. If Henrik holds to maturity, he still receives $38.8M — but the opportunity cost is real. He could have invested at a higher accretion rate.
-
-**Scenario C — Issuer defaults in year 5:** Henrik loses the accreted value. His claim in bankruptcy is for the accreted notional at the time of default ($36.1M), not the original $30M investment. Recovery depends on the bank's seniority and resolution proceedings.
-
-**Scenario D — Rates stay unchanged:** Henrik earns exactly 3.75% compounded annually. Terminal value: $38,818,432. This is the base case — no surprises, no reinvestment decisions.
-
-#### §11. Formal Definition
-
-A Zero-Coupon Linked Note (ZCL) is a structured rate product that pays no periodic coupons. Instead, the investor's return accretes within the note at a fixed annual rate, compounding until maturity. The accreted notional at maturity equals the original investment multiplied by (1 + accretion rate) raised to the power of the number of years. The product is booked in Murex with four legs: Note (accreting zero-coupon obligation to client), Issuer (bank funding), Deposit (client's initial investment held as collateral), and Hedge (zero-coupon swap or bond strip matching the accretion profile). The ZCL has higher duration than a coupon-paying note of the same maturity because all cash flows are concentrated at a single point.
-
-#### §12. Product Construction
-
-The ZCL is built from two components:
-
-1. **Zero-coupon bond** — client pays $30M today, receives the accreted value at maturity
-2. **Accretion swap** — embedded rate structure that sets the accretion rate above government bond yields
+The investor holds the note and takes no periodic cash flows. The entire return is embedded in a single redemption at maturity, linked to a fixed accretion rate set against the zero-coupon swap curve at inception. The accreted notional at maturity equals the original investment multiplied by (1 + accretion rate) raised to the power of the number of years:
 
 ```
 Client investment:          $30,000,000
@@ -12088,49 +11912,22 @@ Client investment:          $30,000,000
 Total return at maturity:   $8,818,432 (29.4%)
 ```
 
-> **Professor Note:** If you remember only one thing from this chapter, remember this: a zero-coupon note trades reinvestment risk for duration risk — you eliminate the problem of reinvesting coupons but amplify your sensitivity to rate changes because all your cash flows arrive at a single point in the future.
+Because all cash flows are concentrated at a single point, a 7-year ZCL has duration of approximately 7 years (versus roughly 5.5 years for a 7-year coupon bond). The investor's rate risk is measured by **DV01** / duration: the change in the note's mark-to-market value for a 1 basis point move in rates. The investor trades reinvestment risk for duration risk — eliminating the problem of reinvesting coupons but amplifying sensitivity to rate changes.
 
-(See Figure 5.3.2-01)
+**Payoff & scenarios**
 
-#### §13. Product Lifecycle
-
-| Stage | What Happens | Who Is Involved | What Can Go Wrong |
-|:-----:|-------------|----------------|-------------------|
-| **Pre-trade** | Structurer prices the accretion rate using the zero-coupon swap curve. Sales presents the terminal value and yield comparison vs government zeros | Structurer, Sales, Client | Accretion rate set too low relative to government zeros — client walks |
-| **Trade date** | Four legs booked in Murex: Note leg (accreting zero-coupon), Issuer leg (funding), Deposit leg (client's $30M), Hedge leg (zero-coupon swap or bond strip) | Operations, Trader | Accreting schedule not correctly entered — notional grows at the wrong rate |
-| **During life** | No coupon payments. Daily valuation reflects rate moves and accreted notional. The accreted notional increases on each anniversary | Product Control (valuation), Risk (duration monitoring) | Model incorrectly computes accreted notional. Duration risk underestimated as maturity approaches |
-| **Maturity** | Final payment of $38,818,432 to the client. All four legs closed. Deposit released | Operations, Product Control | Settlement amount mismatch between accreted notional and payment instruction |
-
-(See Figure 5.3.2-02)
-
-#### §14. Payoff Logic
-
-The ZCL has no intermediate payoffs — all return is concentrated at maturity:
-
-```
-P&L ($)
-  │
-  │                              * $38.8M (maturity)
-  │                           ╱
-  │                        ╱
-  │                     ╱
-  │                  ╱
-  │               ╱
-  │            ╱
-  │         ╱
-  │      ╱
-  │   ╱
-  │╱ $30M (inception)
-  ├──────────────────────────── Time
-  0   1   2   3   4   5   6   7 years
-```
-*Caption: ZCL accretion curve — notional grows at 3.75% compounded annually with no intermediate cash flows.*
+The ZCL has no intermediate payoffs — all return is concentrated at maturity. The accreted notional grows on each anniversary and is paid as a single lump sum:
 
 **Payoff formula:** Terminal value = $30M × (1.0375)^7 = $38,818,432
 
-(See Figure 5.3.2-03)
+- **Scenario A — Rates drop 100bp after inception:** The note's market value increases significantly (long duration = high rate sensitivity). The investor could sell at a premium if liquidity is needed. Terminal value unchanged — $38.8M at maturity.
+- **Scenario B — Rates rise 150bp:** Market value drops sharply. If held to maturity, the investor still receives $38.8M — but the opportunity cost is real; the capital could have been invested at a higher accretion rate.
+- **Scenario C — Issuer defaults in year 5:** The investor loses the accreted value. The claim in bankruptcy is for the accreted notional at the time of default ($36.1M), not the original $30M investment. Recovery depends on the bank's seniority and resolution proceedings.
+- **Scenario D — Rates stay unchanged:** The investor earns exactly 3.75% compounded annually. Terminal value: $38,818,432. This is the base case — no surprises, no reinvestment decisions.
 
-#### §15. Risks
+![ZCL Structure (Zero-Coupon, Rate-Linked Redemption) — Investor Lens](assets/zcl/legs_zcl_01.svg)
+
+**Risks to the investor**
 
 | Risk | Description | Severity |
 |------|------------|:--------:|
@@ -12140,32 +11937,104 @@ P&L ($)
 | **Opportunity cost** | If rates rise after inception, the locked-in accretion rate may be below market | Medium |
 | **Mark-to-market volatility** | High duration means larger MTM swings than coupon-paying instruments of the same maturity | Medium |
 
-#### §16. Booking And Systems
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The trade is booked in **Murex with four legs**, with no principal exchanged beyond the deposit collateral:
+
+| Leg | Detail |
+|-----|--------|
+| **Note leg** | Accreting zero-coupon obligation to the client: $30M initial, 3.75% annual accretion, 7-year |
+| **Issuer leg** | Bank funding: SOFR + spread |
+| **Deposit leg** | Client collateral: $30M cash held for the full term |
+| **Hedge leg** | Zero-coupon swap or strip of government bonds matching the accretion profile |
+
+The desk warehouses the embedded rate exposure of the accreting Note leg and hedges it down. The accreted notional steps up on each anniversary, so the position the desk holds — and the duration it must match — grows over the life of the trade.
+
+**Rate risk & hedging**
+
+The desk's primary risk is **duration / DV01** — the dollar value of a 1 basis point move in rates. A ZCL has the highest duration-per-dollar of any SRT product because all cash flows land at a single maturity point: a $500M portfolio of 10-year ZCLs has DV01 of approximately $500K per basis point, so a 20bp overnight rate move generates $10M of P&L. The desk hedges with a **zero-coupon swap or a strip of government bonds** duration-matched to the Note leg. The residual exposure is **curve risk** between the hedge tenor and the ZCL maturity, plus the requirement to keep the hedge duration tracking the accreting notional as it steps up each year. The product is linear — no equity-style gamma, no barrier, no discontinuity.
+
+**How the bank makes money**
+
+| Area | Detail |
+|------|--------|
+| **Client economics** | Client buys the note at par ($30M), receives the accreted value at maturity ($38.8M). No periodic cash flows |
+| **Bank economics** | Structuring spread: 5–8bp embedded in the accretion rate. The "fair" accretion rate might be 3.80%, but the client receives 3.75% — the 5bp difference accumulates over 7 years |
+| **Hedging economics** | Rates desk hedges with a zero-coupon swap or strip of government bonds. Residual risk: curve risk between the hedge tenor and the ZCL maturity |
+| **Distribution economics** | Sales credit 3–5bp on notional. Pension-fund relationships are long-term — one ZCL sale often leads to a portfolio of structured rate products |
+
+**The accretion-rate decomposition:**
+
+The client's 3.75% accretion rate is a gross figure. Decomposed, the risk-free component might be only 2.80% (the government zero rate); a further 0.70% compensates for credit and illiquidity; and the "fair" gross rate of roughly 3.80% is reduced to the client's 3.75% by the structuring fee the bank retains. The risk-free rate plus the credit spread are the two structural components delivered to the investor; the structuring fee is the desk's embedded margin.
+
+![ZCL Discount/Return Decomposition — Bank Lens (Desk Economics)](assets/zcl/waterfall_zcl_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by moves in the yield curve against the warehoused duration/DV01, the realized-versus-implied carry on the zero-coupon hedge, changes in the shape of the curve against residual curve risk, and the funding spread on the SOFR + spread Issuer leg. Product Control values the accreting note daily and verifies the accretion schedule; the zero-coupon curve construction and interpolation at the exact maturity date are the most common sources of valuation difference.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
 
 | Field | Value |
 |-------|-------|
-| **Booking system** | Murex |
-| **Pricing system** | Murex (zero-coupon swap curve) |
-| **Four-Leg** | Yes |
+| **Book of record** | Murex |
+| **Pricing/Risk system** | Murex (zero-coupon swap curve); Sophis (risk) |
+| **Four-leg framework?** | Yes — Note, Issuer, Deposit, Hedge |
 | **Note leg** | Accreting zero-coupon: $30M initial, 3.75% annual accretion, 7-year |
 | **Issuer leg** | Bank funding: SOFR + spread |
 | **Deposit leg** | Client collateral: $30M cash |
 | **Hedge leg** | Zero-coupon swap or strip of government bonds matching accretion profile |
-| **ISDA documentation** | Not required from client (note format) |
 | **Day count** | 30/360 for accretion calculation |
 | **Payment frequency** | Zero — single payment at maturity |
+| **ISDA documentation** | Not required from client (note format) |
 
-#### §17. Red Flags
+**Reconciliation points**
 
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
+| Recon point | What must agree | ZCL-specific break |
+|-------------|-----------------|--------------------|
+| **Four-leg net** | Note, Issuer, Deposit and Hedge legs all booked in Murex and net to the intended structured position | A leg booked on one side only, so the net position and risk diverge |
+| **Zero-coupon accretion** | Accreted notional in the system matches (1+r)^n on each anniversary; the annual step-up is processed | Accreting schedule entered incorrectly, or no accretion update on the anniversary date |
+| **Rate fixing source** | The accretion rate / zero-coupon swap curve fixing source matches the termsheet (SOFR / EURIBOR) | A different curve or fixing source applied than the contract specifies |
+| **Redemption formula** | Single maturity payment equals $30M × (1.0375)^7 = $38,818,432 | Settlement amount mismatch between accreted notional and payment instruction |
+| **Day-count** | 30/360 applied to the accretion calculation on both the Note and Hedge legs | A system applies the wrong convention, so the accreted amount differs |
+| **Collateral / Deposit** | Deposit leg ($30M client cash) remains locked for the full term | Deposit leg shows partial withdrawal before maturity — unauthorized collateral release |
+| **Hedge duration** | Hedge-leg duration matches Note-leg duration within tolerance (< 0.5 years) | Duration mismatch between the structured note and its hedge; the book bleeds |
+| **Curve / valuation** | Daily MTM uses the correct zero-coupon curve; gains/losses move in the correct direction with rates | Market value shows a gain on a day when rates rose — sign error or wrong curve applied |
+
+![ZCL Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/zcl/controls_zcl_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
 | Accreted notional in system doesn't match (1+r)^n formula | Accretion schedule was entered incorrectly | Recalculate manually and compare to system value on each anniversary date |
-| Hedge leg duration differs from Note leg duration by > 0.5 years | Duration mismatch between the structured note and its hedge | Rebalance the hedge portfolio — add or subtract bond strips |
+| Hedge-leg duration differs from Note-leg duration by > 0.5 years | Duration mismatch between the structured note and its hedge | Rebalance the hedge portfolio — add or subtract bond strips |
 | Market value shows a gain on a day when rates rose | Possible sign error in duration calculation or wrong curve applied | Verify that the valuation model uses the correct zero-coupon curve |
 | Deposit leg shows partial withdrawal before maturity | Operational error — the deposit should be locked for the full term | Escalate immediately — unauthorized collateral release |
 | No accreted notional update on anniversary date | System failed to process the annual accretion step | Manually trigger the accretion update and verify the new notional |
 
-#### §18. Worked Example
+**Control implication**
+
+For a ZCL the dominant controls are the **zero-coupon accretion step**, the **redemption formula**, and the **Deposit (collateral) lock** — together they determine whether the single maturity payment is correct and whether the bank is correctly exposed throughout the life. A missed or mis-entered accretion step cascades through valuation, risk metrics, and hedge ratios, and ultimately into the wrong settlement amount. A redemption that does not reconcile to $30M × (1.0375)^7 misstates the only cash flow the investor ever receives. An unauthorized release of the Deposit leg leaves the structure under-collateralised against a live multi-year exposure. Because the issuer credit exposure grows with the accreted notional, credit limits set on the initial $30M rather than the accreted $38.8M understate the bank's exposure every year. The reconciliation exists precisely to catch these inconsistencies before the accretion, the redemption, or a collateral movement is processed.
+
+#### §10. Formal Definition
+
+A **Zero-Coupon Linked Note (ZCL)** is a structured rate product that pays no periodic coupons. Instead, the return accretes within the note at a fixed annual rate, compounding until maturity. The accreted notional at maturity equals the original investment multiplied by (1 + accretion rate) raised to the power of the number of years. The product is booked in Murex with four legs: **Note** (accreting zero-coupon obligation to the client), **Issuer** (bank funding), **Deposit** (client's initial investment held as collateral), and **Hedge** (zero-coupon swap or bond strip matching the accretion profile). The ZCL has higher duration than a coupon-paying note of the same maturity because all cash flows are concentrated at a single point.
+
+#### §11. Lifecycle
+
+| Stage | What Happens | Who Is Involved | What Can Go Wrong |
+|:-----:|-------------|----------------|-------------------|
+| **Pre-trade** | Structurer prices the accretion rate using the zero-coupon swap curve. Sales presents the terminal value and yield comparison vs government zeros | Structurer, Sales, Client | Accretion rate set too low relative to government zeros — client walks |
+| **Trade date** | Four legs booked in Murex: Note leg (accreting zero-coupon), Issuer leg (funding), Deposit leg (client's $30M), Hedge leg (zero-coupon swap or bond strip) | Operations, Trader | Accreting schedule not correctly entered — notional grows at the wrong rate |
+| **During life** | No coupon payments. Daily valuation reflects rate moves and accreted notional. The accreted notional increases on each anniversary | Product Control (valuation), Risk (duration monitoring) | Model incorrectly computes accreted notional. Duration risk underestimated as maturity approaches |
+| **Maturity** | Final payment of $38,818,432 to the client. All four legs closed. Deposit released | Operations, Product Control | Settlement amount mismatch between accreted notional and payment instruction |
+
+#### §12. Worked Example (both lenses)
 
 **Terms:** $30M initial notional, 7-year, 3.75% annual accretion, zero coupon, 30/360 day count.
 
@@ -12185,16 +12054,23 @@ P&L ($)
 
 *Note: Each year's growth is larger than the previous year because the accretion is compounding on a growing base — year 7 growth ($1,403,076) is 24.7% larger than year 1 growth ($1,125,000).*
 
-(See Figure 5.3.2-04)
+*Investor lens:*
+The investor invests $30M and receives $38,818,432 at maturity — a total return of 29.4% over 7 years (3.75% annually compounded). If the same capital had bought a 7-year government zero at 2.80%, the terminal value would have been $36,297,685 — $2.5M less. The redemption is entirely embedded: no cash arrives for 7 years, and the predictable terminal value eliminates reinvestment risk. The trade-off is duration risk — the MTM moves sharply with rates even though the terminal value is fixed.
 
-#### §19. Interview Questions
+*Bank lens:*
+The desk books the four legs in Murex, warehouses the accreting Note-leg duration, and hedges it with a duration-matched zero-coupon swap or bond strip. The 5bp gap between the "fair" 3.80% and the client's 3.75% accretion rate is the structuring margin, accumulating over 7 years. The 2nd line must confirm the accreted notional matches (1+r)^n on each anniversary, that the final redemption reconciles to $38,818,432, that the Deposit leg stays locked, and that the credit limit is set on the accreted notional (which reaches $36.1M by year 5) rather than the initial $30M.
 
-1. Why does a ZCL have higher duration than a coupon-paying bond of the same maturity?
-2. What are the four legs of a ZCL trade in Murex?
-3. A ZCL has an accretion rate of 3.75% and government zero yields are 2.80%. What is the approximate credit spread the investor is earning?
-4. A pension fund manager is choosing between a 10-year ZCL and a 10-year coupon bond for liability matching. What factors should she consider beyond yield?
-5. Your desk discovers that accreted notionals in Murex are 0.5% lower than manual calculations for a portfolio of 50 ZCLs. What is your investigation process?
+#### §13. Knowledge Check
 
+1. **How does a ZCL differ from a coupon-paying bond of the same maturity?** *(Investor)*
+2. **Why does a ZCL have higher duration than a coupon bond?** *(Investor)*
+3. **What does the accreted notional represent at any point during the ZCL's life?** *(Investor)*
+4. **What happens to the investor's claim if the issuer defaults before maturity?** (Claim is for the accreted notional at default, e.g. ~$36.1M in year 5, not the original $30M.) *(Investor)*
+5. **A ZCL has an accretion rate of 3.75% and government zero yields are 2.80%. What is the approximate credit/structuring premium the investor is earning?** *(Investor)*
+6. **A pension fund holds a $50M, 10-year ZCL accreting at 4.00%. After 3 years, rates drop 75bp. What happens to the market value? Is the terminal value affected?** *(Investor)*
+7. **A client asks whether to choose a 7-year ZCL at 3.75% or a 7-year coupon bond at 3.90%. What should be advised, and what additional information is needed?** *(Investor)*
+8. **(Desk economics / 1LoD)** What are the four legs the desk books in Murex, what is the dominant rate Greek the desk warehouses, and how does the desk hedge it? Given there is no coupon, where does the desk's margin come from in the 3.75% accretion rate?
+9. **(Controls / 2LoD)** Name three reconciliation breaks specific to a ZCL — covering the zero-coupon accretion, the redemption formula, and the Deposit/collateral lock — and the consequence of each for the maturity payment or the bank's exposure.
 
 **Mental Models**
 
@@ -12205,7 +12081,8 @@ P&L ($)
 | Duration risk | A seesaw — longer duration = more amplified MTM movement for each rate change |
 | Zero-coupon vs coupon | Lump sum at the end vs installments along the way — same total, different timing risk |
 | Credit risk on ZCL | All eggs in one basket at one moment — no coupons cushion a late-life default |
-
+| Four-leg booking | Note, Issuer, Deposit, Hedge — the desk's offsetting plumbing behind the single client redemption |
+| Accreting credit limit | The exposure grows each year even though no new money is lent — set the limit on the accreted, not the initial, notional |
 
 **Key Takeaways**
 
@@ -12213,9 +12090,11 @@ P&L ($)
 2. Pension funds and insurers buy it for liability matching because the predictable terminal value eliminates reinvestment risk.
 3. Duration risk is the core danger — a ZCL's duration equals its maturity, making it highly sensitive to rate changes.
 4. The accretion rate is fixed at inception, so the investor cannot benefit from rising rates without selling the note.
-5. All ZCL trades are booked in Murex with four legs, with the Note leg showing an accreting notional schedule.
+5. All ZCL trades are booked in Murex with four legs (Note, Issuer, Deposit, Hedge), with the Note leg showing an accreting notional schedule.
+6. The desk warehouses the accreting Note-leg duration, hedges it with a duration-matched zero-coupon swap or bond strip, and earns the structuring spread (e.g. 5bp) embedded in the accretion rate rather than a coupon.
+7. For the 2nd line, the dominant control risks are the zero-coupon accretion step, the redemption formula, the Deposit/collateral lock, the rate-fixing source, the day-count, and the hedge-duration match — each can misstate the single maturity payment or the bank's growing exposure.
 
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
 **1. Comparing a ZCL yield directly to a coupon bond yield.** The ZCL's 3.75% is a compounded accretion rate, not a coupon yield. A coupon bond paying 3.75% has reinvestment risk that the ZCL does not — the two are not directly comparable.
 
@@ -12227,208 +12106,48 @@ P&L ($)
 
 **5. Ignoring the tax implications of accretion.** In some jurisdictions, the annual accretion is taxable even though no cash is received (phantom income). Clients must understand this before investing.
 
----
+**6. (Controls) Setting credit limits on the initial notional instead of the accreted notional.** The issuer credit exposure grows every year with accretion — from $30M to $38.8M by maturity — even though no additional money is lent. The 2nd line must confirm the credit limit and the daily collateral are measured against the accreted notional, not the original $30M.
 
-**Who Touches This Product**
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book across the four legs, and what is its primary rate/vol risk and hedge?
+- *(Controls / 2LoD)* Which four-leg / fixing / accrual fields must reconcile, and which is the most common break?
 
-| Role | Responsibility | Primary Concern | Typical Question |
-|------|---------------|----------------|-----------------|
-| **Trader** | Manages the zero-coupon swap hedge, monitors duration exposure | "Is the portfolio duration within limits after adding this 7-year ZCL?" | "What is the DV01 of the ZCL book and how does it compare to my hedge?" |
-| **Structurer** | Prices the accretion rate using the zero-coupon swap curve, compares to government zero yields | "Is the spread over government zeros sufficient to attract pension fund buyers?" | "If I extend the tenor from 7 to 10 years, how much can I increase the accretion rate?" |
-| **Sales** | Presents the ZCL as a liability-matching tool, explains the terminal value guarantee | "Does the client understand that duration risk makes the MTM volatile even though the terminal value is fixed?" | "How does this ZCL compare to the client's existing zero-coupon government bond allocation?" |
-| **Risk** | Monitors duration, credit exposure (growing with accretion), and concentration risk | "The accreted notional grows every year — is our credit limit set on initial or accreted notional?" | "What is the portfolio's key rate duration exposure from ZCL positions?" |
-| **Product Control** | Values the accreting note daily, verifies the accretion schedule matches the booking | "Does the system correctly compute the accreted notional today?" | "Why does the ZCL show a $50K P&L break between the Note leg and the Hedge leg?" |
-| **Operations** | Processes the annual accretion update, prepares for the single maturity payment | "Is the accreted notional correct as of the last anniversary?" | "The ZCL matures next week — have we confirmed the final payment amount with the custodian?" |
-| **Legal** | Reviews the note documentation for accretion mechanics and default provisions | "If the issuer defaults, is the claim based on initial notional or accreted notional?" | "Does the term sheet clearly define the compounding convention (annual, semi-annual, continuous)?" |
-| **Model Validation** | Validates the zero-coupon pricing model and accretion methodology | "Is the model correctly discounting a single cash flow at the zero-coupon rate?" | "What is the model risk from interpolating the zero-coupon curve at the exact maturity date?" |
-
----
-
-**Desk Reality**
-
-**What keeps traders awake:** A large ZCL book has enormous duration — a $500M portfolio of 10-year ZCLs has DV01 of approximately $500K per basis point. A 20bp overnight rate move generates $10M of P&L.
-
-**Most important risk:** Duration — ZCLs have the highest duration-per-dollar of any SRT product because all cash flows are at maturity. The hedge must be perfectly duration-matched or the portfolio will bleed.
-
-**Typical junior mistake:** Setting credit limits on the initial notional ($30M) instead of the accreted notional (which grows to $38.8M by maturity). The credit exposure increases every year even though no additional money is lent.
-
-**Hardest operational issue:** Ensuring the annual accretion step is correctly processed in Murex. Some systems require manual intervention; others auto-accrete. A missed accretion step cascades through valuation, risk, and settlement.
-
-**Most misunderstood concept:** That a ZCL's yield is lower than it appears. The 3.75% accretion rate is a gross figure — after adjusting for the issuer's credit spread and the embedded structuring fee, the risk-free component might be only 2.80%. The remaining 0.95% is compensation for credit risk and illiquidity.
-
----
-
-**Knowledge Check**
-
-*Review Questions:*
-1. How does a ZCL differ from a coupon-paying bond of the same maturity?
-2. Why does a ZCL have higher duration than a coupon bond?
-3. What does the accreted notional represent at any point during the ZCL's life?
-4. How is the ZCL booked in Murex (four legs)?
-5. What happens to the investor's claim if the issuer defaults before maturity?
-
-*Scenario Questions:*
-6. A pension fund holds a $50M, 10-year ZCL accreting at 4.00%. After 3 years, rates drop 75bp. What happens to the market value? Is the fund's terminal value affected?
-7. Your ZCL portfolio has total accreted notional of $800M with average duration of 8 years. A rate rise of 10bp is expected. Estimate the MTM impact.
-8. A client asks whether they should choose a 7-year ZCL at 3.75% or a 7-year coupon bond at 3.90%. What should you advise, and what additional information do you need?
-
-*Desk Question:*
-9. You discover that 15 ZCL trades in Murex have not had their accretion updated for the last anniversary. Walk through your remediation process, including who you need to notify and what systems you need to correct.
-
----
-
-#### §21. Visual Specifications
-
-**Visual 1:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.2-01 |
-| **Visual ID** | FLOW_ZCL_01 |
-| **Type** | Cash Flow Diagram |
-| **Priority** | P1 |
-| **Purpose** | Show the four-leg structure with accreting notional |
-| **Visual Description** | Four-panel diagram similar to IR Callable but with the Note leg showing an accreting bar that grows each year. No coupon arrows — only a single payment arrow at maturity. Deposit leg static. Hedge leg shows a zero-coupon swap or bond strip |
-| **Diagram Elements** | Four boxes (Note, Issuer, Deposit, Hedge), accreting bar on Note leg, single maturity payment arrow, year markers |
-| **Axis Definitions** | N/A (flow diagram) |
-| **Caption** | ZCL four-leg structure: accreting notional with no periodic payments |
-| **Location** | §12 |
-| **Reuse Potential** | Medium — accreting notional variant of the SRT four-leg template |
-| **Future Asset Filename** | flow_zcl_01.svg |
-
-**Visual 2:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.2-02 |
-| **Visual ID** | LIFECYCLE_ZCL_01 |
-| **Type** | Lifecycle Diagram |
-| **Priority** | P1 |
-| **Purpose** | Show the ZCL lifecycle from inception to maturity with annual accretion steps |
-| **Visual Description** | Horizontal timeline with annual markers. At each anniversary, a step-up in accreted notional is shown. No coupon events. Single maturity payment at the end. Annotated with dollar amounts at each anniversary |
-| **Diagram Elements** | Timeline axis, annual step-up markers, notional amounts, maturity payment arrow |
-| **Axis Definitions** | X: Time (years), Y: Accreted notional ($) |
-| **Caption** | ZCL lifecycle: silent accretion for 7 years, single payment at maturity |
-| **Location** | §13 |
-| **Reuse Potential** | Medium — accreting lifecycle template |
-| **Future Asset Filename** | lifecycle_zcl_01.svg |
-
-**Visual 3:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.2-03 |
-| **Visual ID** | PAYOFF_ZCL_01 |
-| **Type** | Payoff Diagram |
-| **Priority** | P2 |
-| **Purpose** | Show the accretion curve over the 7-year term |
-| **Visual Description** | Single exponential curve from $30M (year 0) to $38.8M (year 7). Dotted horizontal line at $30M (breakeven). Shaded area between the curve and the $30M line represents accumulated return. Annotation: "3.75% compounded annually" |
-| **Diagram Elements** | Accretion curve, breakeven line, shaded return area, year markers with dollar amounts |
-| **Axis Definitions** | Y: Accreted Notional ($), X: Time (years) |
-| **Caption** | ZCL accretion: $30M grows to $38.8M over 7 years at 3.75% compounded annually |
-| **Location** | §14 |
-| **Reuse Potential** | Low — specific to zero-coupon accretion |
-| **Future Asset Filename** | payoff_zcl_01.svg |
-
-**Visual 4:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.2-04 |
-| **Visual ID** | TIMELINE_ZCL_01 |
-| **Type** | Timeline |
-| **Priority** | P2 |
-| **Purpose** | Show the worked example year-by-year accretion schedule |
-| **Visual Description** | Table-timeline hybrid showing each year's accreted notional and annual growth. Bar chart alongside with growing bars representing the annual growth amount, demonstrating the compounding effect |
-| **Diagram Elements** | 7 annual bars, notional labels, growth amount labels, compounding annotation |
-| **Axis Definitions** | X: Year, Y: Notional ($) |
-| **Caption** | ZCL worked example: each year's growth is larger than the last due to compounding |
-| **Location** | §18 |
-| **Reuse Potential** | Low — specific to ZCL accretion schedule |
-| **Future Asset Filename** | timeline_zcl_01.svg |
-
-**Visual 5:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.2-05 |
-| **Visual ID** | DIAGRAM_ZCL_01 |
-| **Type** | Comparison Chart |
-| **Priority** | P3 |
-| **Purpose** | Compare ZCL terminal value vs government zero and coupon bond under different rate scenarios |
-| **Visual Description** | Three-scenario bar chart: (1) rates unchanged — ZCL terminal $38.8M, (2) rates drop 100bp — ZCL still $38.8M but higher MTM, (3) rates rise 100bp — ZCL still $38.8M but lower MTM. Side comparison with coupon bond showing reinvestment risk under same scenarios |
-| **Diagram Elements** | Three scenario clusters, ZCL bars (constant terminal value), coupon bond bars (variable due to reinvestment), MTM annotation |
-| **Axis Definitions** | Y: Terminal Value ($M), X: Scenario |
-| **Caption** | ZCL vs coupon bond: terminal value is fixed regardless of rate moves, but MTM varies |
-| **Location** | §10 |
-| **Reuse Potential** | Low — specific to ZCL comparison |
-| **Future Asset Filename** | diagram_zcl_01.svg |
-
-**Visual 6:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.2-06 |
-| **Visual ID** | WATERFALL_ZCL_01 |
-| **Type** | Waterfall Diagram |
-| **Priority** | P3 |
-| **Purpose** | Decompose the ZCL accretion rate into components |
-| **Visual Description** | Three-step waterfall: government zero rate (2.80%) + credit spread (0.70%) + structuring fee absorbed by bank (0.25% — shown as deducted from gross rate 3.80% to client's 3.75%) |
-| **Diagram Elements** | Three waterfall steps, rate labels, final client rate bar |
-| **Axis Definitions** | Y: Rate (%), X: Component |
-| **Caption** | ZCL accretion rate decomposition: risk-free rate + credit spread − structuring fee |
-| **Location** | §12 |
-| **Reuse Potential** | Medium — rate decomposition template |
-| **Future Asset Filename** | waterfall_zcl_01.svg |
-
----
-
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Interest rate swap mechanics | Section 5.2.1 (IRS) |
-| IR Callable concept and four-leg structure | Section 5.3.1 (IR Callable) |
-| VLSP as the simplest swap | Section 5.2.8 (VLSP) |
-| Zero-coupon bond pricing | Section 1.7 (Yield Curves) |
-| Discount factors and present value | Section 1.7 (Yield Curves) |
-| Duration and convexity | Section 1.7 (Yield Curves) |
-| SOFR, EURIBOR | Section 1.8 (Benchmark Rates) |
-| Credit risk and default | Section 1.9 (Credit Risk) |
-| Four-leg structure | Section 2.7 (The Four-Leg Structure) |
-| Murex booking | Section 2.8 (Systems Primer) |
-
----
-
+**Dual-lens visuals (generated):**
+- `assets/zcl/controls_zcl_recon_08.svg` `[generated]`
+- `assets/zcl/legs_zcl_01.svg` `[generated]`
+- `assets/zcl/waterfall_zcl_09.svg` `[generated]`
 ### 5.3.3 Non-Callable Range Accrual (NCRA)
 
 ---
 
-*The IR Callable paid a fixed coupon with a call right. The ZCL eliminated coupons entirely. The Non-Callable Range Accrual reintroduces coupons but makes them conditional: you earn interest only on the days when a reference rate stays within a predefined range. That single change transforms the product from a fixed-income instrument to a rate-view instrument, rewarding investors who correctly predict that rates will remain range-bound.*
+*The IR Callable paid a fixed coupon with a call right. The ZCL eliminated coupons entirely. The Non-Callable Range Accrual reintroduces coupons but makes them conditional: interest accrues only on the days when a reference rate stays within a predefined range. That single change transforms the product from a fixed-income instrument into a rate-view instrument, rewarding the investor who correctly predicts that rates will remain range-bound. This chapter reads the product through two lenses: what it means for **the investor** (the note holder), and what it means for **the bank** — the latter split into the desk's rate economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Priya is a portfolio manager at an Indian insurance company. She believes SOFR will stay between 2.50% and 5.50% for the next five years — not crashing to zero and not spiking above 6%. She wants an investment that rewards this view with a coupon higher than a plain vanilla bond. The NCRA gives her exactly this: a 5.10% annual coupon, but only on the days when 6-month SOFR stays within her predicted range. If SOFR is in the range every single day, she earns the full 5.10%. If SOFR spikes above 5.50% for 30 days in a quarter, she earns a proportionally reduced coupon for those days. The "non-callable" part means nobody can terminate the trade early — Priya is guaranteed to hold for the full 5 years, earning her range-dependent coupon each quarter.
+Imagine a portfolio manager at an insurance company who believes SOFR will stay between 2.50% and 5.50% for the next five years — not crashing to zero and not spiking above 6%. The manager wants an investment that rewards this view with a coupon higher than a plain vanilla bond.
 
-#### §2. Core Analogy
+The NCRA gives exactly this: a 5.10% annual coupon, but only on the days when 6-month SOFR stays within the predicted range. If SOFR is in the range every single day, the investor earns the full 5.10%. If SOFR spikes above 5.50% for 30 days in a quarter, the investor earns a proportionally reduced coupon for those days. The "non-callable" part means nobody can terminate the trade early — the investor is committed to hold for the full 5 years, earning a range-dependent coupon each quarter.
 
-Think of a commission-based salesperson with a territory restriction. You earn your full commission only on the days you work inside your assigned territory. Step outside the boundary — even for a day — and you forfeit that day's pay. The more days you stay in your territory, the closer your actual paycheck is to the maximum. The NCRA works the same way: the reference rate is the salesperson, the range is the territory, and the coupon is the commission.
+#### §2. Real-World Analogy
 
-The critical insight: if the salesperson is sent to a distant office for an entire month, that month's paycheck is zero — regardless of how productive the other eleven months were. Each day's accrual is independent, and sustained out-of-range periods create coupon holes that cannot be recovered later.
+An NCRA is like a commission-based salesperson with a territory restriction. The salesperson earns the full commission only on the days worked inside the assigned territory. A step outside the boundary — even for a day — forfeits that day's pay. The more days spent inside the territory, the closer the actual paycheck is to the maximum.
 
-#### §3. What Problem Does It Solve
+The NCRA works the same way: the reference rate is the salesperson, the range is the territory, and the coupon is the commission. The critical insight: if the salesperson is sent to a distant office for an entire month, that month's paycheck is zero — regardless of how productive the other eleven months were. Each day's accrual is independent, and sustained out-of-range periods create coupon holes that cannot be recovered later.
 
-| Client Need | How the Product Delivers |
-|------------|------------------------|
-| Express a view that rates will remain range-bound | Coupon accrues only when the reference rate is within the investor's predicted range |
+#### §3. What Problem Does This Solve?
+
+The NCRA solves the **range-bound rate-view monetization** problem. An investor who is convinced rates will stay inside a corridor cannot express that view with a vanilla bond, which pays the same regardless of rate behaviour.
+
+| Investor Need | How a Range Accrual Fixes It |
+|---|---|
+| Express a view that rates will remain range-bound | Coupon accrues only when the reference rate is within the predicted range |
 | Earn above-market yield for accepting conditionality | NCRA coupon (5.10%) exceeds vanilla bond yield (~3.80%) because the coupon is conditional |
 | Guaranteed product term without early termination risk | Non-callable — no call right means the investor controls the duration |
 | Diversify fixed-income portfolio with structured exposure | Rate-view product adds a different return driver than traditional bonds |
 
 #### §4. Product DNA
 
-
-| **Field** | **Value** |
+| Field | Value |
 |---|---|
 | **Full Name** | Non-Callable Range Accrual |
 | **Abbreviation** | NCRA |
@@ -12442,7 +12161,6 @@ The critical insight: if the salesperson is sent to a distant office for an enti
 | **Liquidity** | Secondary market |
 | **Primary System** | Murex (primary), Sophis (risk) |
 | **ISDA Required** | No — issued as note |
-
 
 **DNA Atlas Fields:**
 - Primary Risk: Reference rate falling outside range. Days-outside-range reduce coupon. Range set at inception — no adjustment
@@ -12465,14 +12183,18 @@ The critical insight: if the salesperson is sent to a distant office for an enti
 - Client Type: Institutional / Private banking
 - Market Environment: Best in stable rate environments. Poor when rates trend strongly
 
-#### §5. Family Position
+#### §5. Who Touches This Product
 
-```
-Rates
-└── Structured Rate Trades (SRT)
-    └── Range Accrual Products
-        └── Non-Callable Range Accrual (NCRA)  ← You are here
-```
+| Role | Responsibility |
+|------|---------------|
+| **Structurer** | Prices the digital option strip, designs the range, sets the accrual rate using the bank's rate vol surface |
+| **Trader** | Manages the digital option strip hedge. Monitors range proximity and digital gamma near boundaries |
+| **Sales** | Presents the range accrual concept, helps the investor choose an appropriate range and explains the risk-return trade-off |
+| **Risk Management** | Monitors aggregate digital option exposure and gap risk near boundaries. Stress-tests the range accrual book |
+| **Product Control** | Validates daily observations, verifies accrual counters, reconciles quarterly coupons |
+| **Operations** | Processes daily observations, calculates quarterly coupons, settles payments. Sources observation dates from the published SOFR fixing |
+| **Legal / Compliance** | Reviews the range definition and boundary inclusion/exclusion rules. SOFR fallback provisions |
+| **Model Validation** | Validates the digital option pricing model, particularly near the boundaries and for daily monitoring |
 
 #### §6. Product Evolution
 
@@ -12482,89 +12204,33 @@ Rates
 | 2 | CRA ELN (5.1.10) | Range accrual on equity | First application of daily range accrual — coupon depends on days in range |
 | 3 | Non-Callable Range Accrual | Range accrual on rates, non-callable, four-leg SRT | Applied the range accrual concept to interest rates with structured note booking |
 
-#### §7. Why The Market Invented This Product
+---
 
-In the early 2010s, central banks held rates in narrow corridors for extended periods. Investors observed that rates were range-bound but couldn't profit from this view using traditional instruments — vanilla bonds paid the same regardless of rate behavior. The range accrual structure, already proven in equity markets (CRA ELN), was adapted for rates: if the reference rate stayed within a corridor, the investor earned a premium coupon. The non-callable variant was created for investors who wanted rate-view exposure without the reinvestment risk of a callable structure. The daily observation mechanism was borrowed from the CRA ELN template but applied to benchmark rates (SOFR, EURIBOR) instead of equity indices.
+#### §7. THE INVESTOR LENS
 
-#### §8. Why Clients Buy It
+**Why the investor buys it**
 
-1. **Premium coupon** — 5.10% vs approximately 3.80% for a vanilla fixed-rate bond, a 130bp uplift
-2. **Express a rate-stability view** — rewards conviction that rates will remain range-bound
-3. **Non-callable** — no reinvestment risk from early termination
-4. **Daily observation** — maximizes accrual opportunity (every day in range counts)
-5. **Transparent mechanics** — the range and reference rate are objectively observable
+1. **Premium coupon.** 5.10% versus approximately 3.80% for a vanilla fixed-rate bond — a 130bp uplift, in exchange for accepting conditionality.
+2. **Express a rate-stability view.** The product rewards the investor's conviction that rates will remain range-bound; a vanilla bond pays the same regardless of rate behaviour.
+3. **Non-callable.** No call right means no reinvestment risk from early termination — the investor controls the full 5-year duration.
+4. **Daily observation.** Every day in range counts toward accrual, maximising the accrual opportunity.
+5. **Transparent mechanics.** The range and the reference rate are objectively observable.
 
-#### §9. Why This Product Exists
+**Position & accrual mechanic**
 
-**Typical Buyer:** Insurance companies and pension funds with a view that interest rates will remain stable within a corridor. Typically institutional, $1B+ AUM, high derivatives sophistication. Served by institutional sales desks.
+The investor holds a fixed-rate note whose coupon is made conditional by an embedded strip of digital options. By accepting the range condition, the investor is effectively **short a strip of digital options** on the rate — having sold the range to the desk — and earns the option premium as a coupon uplift over vanilla. The investor is **long rate stability** and **short rate volatility** (short vega): the position gains when the rate stays calm inside the corridor and loses accrual when the rate breaks out.
 
-**Problem Being Solved:** Yield enhancement through rate-view expression. Clients want to monetize their conviction that rates will stay range-bound.
-
-**How The Client Makes Money:** If 6M SOFR stays in the [2.50%, 5.50%] range every day for 5 years, Priya earns the full 5.10% — approximately $3,825,000 per year on a $75M notional, totaling $19,125,000 over the term. If SOFR is in range 75% of the time, she earns approximately $14,344,000 — still well above the $14,250,000 from a vanilla bond at 3.80%.
-
-**How The Bank Makes Money:**
-
-| Area | Detail |
-|------|--------|
-| **Client economics** | Client receives 5.10% × (days in range / total days) per quarter. Maximum income = 5.10%, minimum = 0%. The premium over vanilla rates compensates for the conditionality |
-| **Bank economics** | Structuring spread: 8-12bp. The bank prices the range accrual using a strip of digital options and retains the difference between the fair value and the client coupon |
-| **Hedging economics** | Rates desk hedges with a strip of daily digital caps and floors. The hedging cost depends on implied volatility and the width of the range. Residual risk: smile/skew on digital options, correlation between the reference rate and the observation dates |
-| **Distribution economics** | Sales credit 5-8bp on notional. Range accruals are popular in Asia and Europe — repeat business from institutional investors |
-
-**Market Conditions Where Demand Increases:** Demand rises when implied rate volatility is high (digital option premiums are large, funding a higher client coupon), when central banks signal rate stability, and when the yield curve is flat (fewer alternatives for yield enhancement).
-
-**When This Product Makes Sense:** For investors with strong conviction that rates will remain in a specific corridor, who want above-market yield, and who are comfortable with the risk of reduced coupons if rates break out of the range.
-
-**When This Product Is Usually A Poor Choice:** For investors who cannot tolerate variable income, who have no view on rate stability, or who expect rates to be volatile. Also poor when the range is too narrow (high probability of breakout) or too wide (minimal coupon uplift over vanilla).
-
-#### §10. What Happens If...
-
-**Scenario A — SOFR stays in range every day:** Full coupon: $75M × 5.10% = $3,825,000 per year. 5-year total: $19,125,000. Best outcome.
-
-**Scenario B — SOFR in range 75% of days:** Annual coupon: $75M × 5.10% × 75% = $2,868,750. Still above the vanilla bond ($2,850,000 at 3.80%). Acceptable outcome.
-
-**Scenario C — SOFR spikes above 5.50% for an entire quarter:** That quarter's coupon = $0. If the other three quarters are fully in range, annual coupon = $75M × 5.10% × 75% = $2,868,750. One bad quarter reduces the annual return to approximately 3.83%.
-
-**Scenario D — SOFR drops below 2.50% for 6 months:** Two quarters earn zero. Annual coupon = $75M × 5.10% × 50% = $1,912,500 — only 2.55% annualized. Significantly below vanilla bond levels.
-
-#### §11. Formal Definition
-
-A Non-Callable Range Accrual (NCRA) is a structured rate product that pays a conditional coupon based on the number of days a reference rate (typically 6-month SOFR or EURIBOR) stays within a predefined range during each accrual period. The coupon formula is: Coupon = Notional × Accrual Rate × (Days In Range / Total Days In Period) / Periods Per Year. The product is non-callable — neither the bank nor the investor can terminate early. It is booked in Murex with four legs: Note (conditional coupon obligation), Issuer (bank funding), Deposit (client collateral), and Hedge (strip of daily digital cap and floor options). The range is fixed at inception and does not change during the life of the note.
-
-#### §12. Product Construction
-
-The NCRA is built from three components:
-
-1. **Vanilla fixed-rate bond** — provides the base return framework
-2. **Strip of long digital floor options** — pay $1 for each day SOFR is above the lower bound
-3. **Strip of short digital cap options** — cancel the payout for each day SOFR is above the upper bound
+The coupon accrues day by day. On each business day the reference rate is observed; if 6-month SOFR is inside [2.50%, 5.50%], that day accrues at the 5.10% rate, otherwise it accrues nothing. The quarterly coupon is then:
 
 ```
-If SOFR ∈ [2.50%, 5.50%]:  Accrue at 5.10%
-If SOFR < 2.50%:            Accrue at 0%
-If SOFR > 5.50%:            Accrue at 0%
+Coupon = max_coupon × (Days In Range / Total Days)
 ```
 
-The combination creates a corridor: the investor earns only when the rate is inside both bounds.
+so the coupon scales linearly from $0 (no days in range) to the maximum (every day in range). The investor's most important sensitivity is **digital gamma** — accrual is most volatile when SOFR sits near 2.50% or 5.50%, where a small move flips a day in or out of range.
 
-> **Professor Note:** If you remember only one thing from this chapter, remember this: a range accrual note pays you for being right about where rates won't go — it rewards your conviction that rates will stay inside a corridor, and the wider your corridor, the lower your coupon premium.
+**Payoff & scenarios**
 
-(See Figure 5.3.3-01)
-
-#### §13. Product Lifecycle
-
-| Stage | What Happens | Who Is Involved | What Can Go Wrong |
-|:-----:|-------------|----------------|-------------------|
-| **Pre-trade** | Structurer prices the digital option strip using the bank's rate vol surface. Range boundaries and accrual rate are determined by client's view and market pricing | Structurer, Sales, Client | Range set too narrow (client suffers frequent zero-coupon quarters) or too wide (coupon barely exceeds vanilla) |
-| **Trade date** | Four legs booked in Murex. Daily observation mechanism configured for the reference rate | Operations, Trader | Observation rate source incorrect (e.g., wrong SOFR fixing page) |
-| **During life** | Each business day, the reference rate is observed. An accrual counter tracks days in range vs total days per quarter. Quarterly coupons are calculated and paid | Product Control, Operations | Missing a daily observation. Accrual counter reset incorrectly at quarter end |
-| **Maturity** | Final quarterly coupon paid. Principal returned. All four legs closed | Operations, Product Control | Final quarter's accrual count disputed — reference rate on the boundary |
-
-(See Figure 5.3.3-02)
-
-#### §14. Payoff Logic
-
-The NCRA's coupon varies with the number of days in range:
+The coupon is a linear function of the fraction of days the reference rate stays in range. With $75M notional and a 5.10% accrual rate, the quarterly coupon runs from $0 (0% days in range) to a maximum of $956,250 (100% days in range).
 
 ```
 Quarterly
@@ -12580,14 +12246,16 @@ Coupon ($)
   ├────────────────────────── % Days in Range
   0%                       100%
 ```
-*Caption: NCRA quarterly coupon — linear relationship between days in range and coupon amount. $0 if rate is outside the range every day, $956,250 if inside every day.*
+*Caption: NCRA quarterly coupon — linear relationship between days in range and coupon amount. $0 if the rate is outside the range every day, $956,250 if inside every day.*
 
-**Coupon formula per quarter:**
-Quarterly Coupon = $75M × 5.10% × (Days In Range / Total Days) / 4
+- **Scenario A — SOFR stays in range every day:** Full coupon: $75M × 5.10% = $3,825,000 per year. 5-year total: $19,125,000. Best outcome.
+- **Scenario B — SOFR in range 75% of days:** Annual coupon: $75M × 5.10% × 75% = $2,868,750. Still above the vanilla bond ($2,850,000 at 3.80%). Acceptable outcome.
+- **Scenario C — SOFR spikes above 5.50% for an entire quarter:** That quarter's coupon = $0. If the other three quarters are fully in range, annual coupon = $75M × 5.10% × 75% = $2,868,750. One bad quarter reduces the annual return to approximately 3.83%.
+- **Scenario D — SOFR drops below 2.50% for 6 months:** Two quarters earn zero. Annual coupon = $75M × 5.10% × 50% = $1,912,500 — only 2.55% annualized. Significantly below vanilla bond levels.
 
-(See Figure 5.3.3-03)
+![NCRA Coupon vs Days-in-Range — Investor Lens](assets/ncra/payoff_ncra_01.svg)
 
-#### §15. Risks
+**Risks to the investor**
 
 | Risk | Description | Severity |
 |------|------------|:--------:|
@@ -12598,34 +12266,128 @@ Quarterly Coupon = $75M × 5.10% × (Days In Range / Total Days) / 4
 | **Opportunity cost** | If the NCRA earns below the vanilla rate due to range breakouts, the investor has underperformed without the benefit of a callable exit | Low |
 | **Credit risk** | Counterparty default risk on the issuing bank | Low |
 
-#### §16. Booking And Systems
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
 
-| Field | Value |
-|-------|-------|
-| **Booking system** | Murex |
-| **Pricing system** | Murex (digital option strip pricing) |
-| **Four-Leg** | Yes |
+**What the desk books**
+
+The desk books the NCRA in Murex as a **four-leg structured rate trade**:
+
+| Leg | Detail |
+|-----|--------|
+| **Note leg** | Conditional coupon obligation to the investor: $75M, 5.10% × (days in range / total days), quarterly, Act/360 |
+| **Issuer leg** | Bank funding: SOFR + spread |
+| **Deposit leg** | Client collateral: $75M cash |
+| **Hedge leg** | Strip of daily digital caps (strike 5.50%) + digital floors (strike 2.50%) on 6M SOFR |
+
+The investor is short the range (short the digital strip), so the desk is on the mirror side: it is **short the accrual coupon to the investor and long the digital strip** — long the corridor, long rate stability, and long vega on the reference rate. Its building block is a vanilla fixed-rate bond plus a long digital floor strip (paying for each day SOFR is above the lower bound) and a short digital cap strip (cancelling the payout for each day SOFR is above the upper bound), combining to a corridor that pays only when the rate is inside both bounds.
+
+**Rate option risk & hedging**
+
+The desk's primary risk is **digital option gamma near the boundaries**. When SOFR is far from 2.50% and 5.50%, the hedge is stable. When SOFR approaches a boundary, the hedge cost explodes because the digital options become highly sensitive to small rate moves — at 5.40% with an upper boundary of 5.50%, the digital gamma spikes and the hedge becomes extremely sensitive. A $500M NCRA book near the boundary can generate $1M+ of P&L from a single basis point move. The desk hedges the warehoused exposure with a **strip of daily digital caps and floors**, replicated with tight option spreads (call spreads / put spreads) around each strike to bound the **pin risk** at the range boundaries. Residual risk is smile/skew on the digital options and the correlation between the reference rate and the observation dates. Pricing must reflect the **daily** monitoring frequency: daily digital observation is materially more expensive to hedge than periodic (European) observation.
+
+![NCRA Desk Position & Hedge — Bank Lens (Desk Economics)](assets/ncra/desk_ncra_gamma_07.svg)
+
+**How the bank makes money**
+
+| Revenue Component | Detail |
+|------------------|--------|
+| **Structuring spread** | 8–12bp. The bank prices the range accrual using a strip of digital options and retains the difference between fair value and the client coupon |
+| **Hedging P&L** | Profit from managing the digital strip hedge (realized vs implied vol) |
+| **Distribution / sales credit** | 5–8bp on notional. Repeat business from institutional investors in Asia and Europe |
+| **Funding benefit** | Bank funds at SOFR + spread against the $75M deposit leg |
+
+**The desk coupon decomposition:**
+
+The investor's coupon is funded out of the value the desk captures from being long the digital strip. For the 5.10% accrual rate, the gross economics decompose roughly as: the fair value of the digital option strip (the dominant component, which funds the bulk of the coupon premium over vanilla); the structuring spread of 8–12bp retained by the bank; the sales/distribution credit of 5–8bp; less the desk's own hedging cost (which depends on implied volatility and the width of the range) and funding cost on the deposit leg. The digital strip value and the structuring spread are the two structural sources; the hedging P&L is the variable, market-dependent one. *(The 8–12bp structuring spread and 5–8bp sales credit are sourced; the digital-strip and hedging-cost splits are inferred from the source's hedging-economics narrative, as the source gives no further dollar breakdown.)*
+
+![NCRA Coupon Decomposition — Bank Lens (Desk Economics)](assets/ncra/waterfall_ncra_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by the proximity of SOFR to the 2.50% / 5.50% boundaries (digital gamma), changes in implied rate volatility against the long-vega position, realized-versus-implied vol on the digital hedge, smile/skew moves on the digital options, and the funding spread earned on the deposit leg. Demand and margin rise when implied rate volatility is high (digital premiums fund a higher client coupon), when central banks signal rate stability, and when the curve is flat. Product Control attributes P&L daily; divergence between Note-leg and Hedge-leg P&L on a day with no rate move is the most common signal of a stale or mis-calibrated digital hedge.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
+
+| Aspect | Detail |
+|--------|--------|
+| **Book of record** | Murex |
+| **Pricing/Risk system** | Murex (digital option strip pricing); Sophis (risk) |
+| **Booking structure** | Four-leg trade (Note, Issuer, Deposit, Hedge) |
+| **Four-leg framework?** | Yes (structured rate note) |
 | **Note leg** | Conditional coupon: $75M, 5.10% × (days in range / total days), quarterly, Act/360 |
 | **Issuer leg** | Bank funding: SOFR + spread |
 | **Deposit leg** | Client collateral: $75M cash |
 | **Hedge leg** | Strip of daily digital caps (strike 5.50%) + digital floors (strike 2.50%) on 6M SOFR |
-| **ISDA documentation** | Not required from client (note format) |
 | **Observation rate** | 6-month SOFR (daily fixing, Fed-published) |
 | **Range** | [2.50%, 5.50%] — fixed at inception |
 | **Day count** | Act/360 |
 | **Payment frequency** | Quarterly |
+| **ISDA documentation** | Not required from client (note format) |
 
-#### §17. Red Flags
+**Reconciliation points**
 
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| Accrual counter shows 0 days in range for a quarter when SOFR was near the boundary | Observation source may use a different SOFR fixing than the trade confirmation specifies | Verify the exact SOFR fixing page and time used for the observation |
-| Quarterly coupon is exactly $956,250 for 3 consecutive quarters | Suspiciously perfect — may indicate the accrual counter is defaulting to 100% rather than counting | Audit the daily observation log for actual in-range/out-of-range counts |
-| Hedge leg P&L diverges from Note leg P&L by > 10% on a day with no rate move | Digital option hedge may be stale or incorrectly calibrated | Recalibrate the digital strip hedge using current vol surface |
-| Reference rate on boundary (exactly 2.50% or 5.50%) with disputed in/out decision | Contract may define "inclusive" or "exclusive" boundary differently than the system | Check the term sheet — typically boundaries are inclusive (≥ lower, ≤ upper) |
+| Recon point | What must agree | NCRA-specific break |
+|-------------|-----------------|---------------------|
+| **Four-leg net** | Note, Issuer, Deposit, and Hedge legs reconcile to a single trade; deposit notional = note notional ($75M) | Deposit notional differs from Note notional after a corporate action / index restructuring |
+| **Accrual factor / daily observation count** | The running count of in-range days vs total days per quarter, used in the coupon formula | Accrual counter defaults to 100%, or resets incorrectly at quarter end, or misses a daily observation |
+| **Range boundaries** | The [2.50%, 5.50%] bounds and the inclusive/exclusive convention (≥ lower, ≤ upper) match the term sheet | System treats a boundary as exclusive when the contract is inclusive, flipping a day in/out |
+| **Fixing source** | The exact SOFR fixing page, time, and tenor (6M, Fed-published) used for each daily observation | Observation source uses a different SOFR fixing than the trade confirmation specifies |
+| **Day-count** | Act/360 applied to each quarterly accrual period | Wrong day-count or wrong total-days for the period misstates the accrual fraction |
+| **Note vs Hedge P&L** | Note-leg conditional coupon value reconciles to the digital-strip Hedge-leg value | Hedge P&L diverges from Note P&L by > 10% on a day with no rate move (stale/incorrect calibration) |
+| **Quarterly coupon** | Coupon = $75M × 5.10% × (days in range / total days) / 4 ties to the accrual count | Coupon paid does not match the audited in-range day count |
+| **Collateral / deposit** | $75M deposit leg agrees across systems and the four-leg trade record | Deposit leg not reconciled to the original four-leg trade confirmation |
+
+![NCRA Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/ncra/controls_ncra_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Accrual counter shows 0 days in range for a quarter when SOFR was near the boundary | Observation source may use a different SOFR fixing than the trade confirmation | Verify the exact SOFR fixing page and time used for the observation |
+| Quarterly coupon is exactly $956,250 for 3 consecutive quarters | Suspiciously perfect — accrual counter may default to 100% rather than counting | Audit the daily observation log for actual in-range/out-of-range counts |
+| Hedge leg P&L diverges from Note leg P&L by > 10% on a day with no rate move | Digital option hedge may be stale or incorrectly calibrated | Recalibrate the digital strip hedge using the current vol surface |
+| Reference rate on the boundary (exactly 2.50% or 5.50%) with disputed in/out decision | Contract may define "inclusive" or "exclusive" boundary differently than the system | Check the term sheet — boundaries are typically inclusive (≥ lower, ≤ upper) |
 | Deposit notional differs from Note notional after a corporate action | Rare but possible if the reference rate index is restructured | Reconcile all four legs to the original trade confirmation |
 
-#### §18. Worked Example
+**Control implication**
+
+For an NCRA the dominant control is the **accrual factor** — the daily observation count that drives the coupon formula. Every quarter's coupon is `$75M × 5.10% × (days in range / total days) / 4`, so the entire economic outcome reduces to whether the daily in-range count is correct. That count depends on three sub-controls that must all agree with the term sheet: the **fixing source** (the exact SOFR page, time and tenor), the **range boundaries** and their inclusive/exclusive convention, and the **Act/360 day-count** over the correct total-days. A wrong fixing, a flipped boundary convention, or a miscounted day all corrupt the accrual factor and therefore the coupon. Around this, the **four-leg net** must tie (deposit = note notional) and the **Note-vs-Hedge P&L** reconciliation must hold so the conditional coupon and the digital-strip hedge stay consistent. The reconciliation exists precisely to catch a corrupted accrual count before a quarterly coupon settles.
+
+#### §10. Formal Definition
+
+A **Non-Callable Range Accrual (NCRA)** is a structured rate product that pays a conditional coupon based on the number of days a reference rate (typically 6-month SOFR or EURIBOR) stays within a predefined range during each accrual period.
+
+**Coupon formula:** Coupon = Notional × Accrual Rate × (Days In Range / Total Days In Period) / Periods Per Year.
+
+**Key terms:**
+- **Non-callable:** Neither the bank nor the investor can terminate early.
+- **Four-leg booking:** Booked in Murex with four legs — Note (conditional coupon obligation), Issuer (bank funding), Deposit (client collateral), and Hedge (strip of daily digital cap and floor options).
+- **Range:** Fixed at inception (e.g. [2.50%, 5.50%]) and does not change during the life of the note. Boundaries are typically inclusive (≥ lower, ≤ upper).
+- **Observation:** The reference rate is observed each business day from the published fixing; an accrual counter tracks days in range versus total days per quarter.
+
+**Product construction (three components):**
+1. **Vanilla fixed-rate bond** — provides the base return framework.
+2. **Strip of long digital floor options** — pay for each day SOFR is above the lower bound.
+3. **Strip of short digital cap options** — cancel the payout for each day SOFR is above the upper bound.
+
+```
+If SOFR ∈ [2.50%, 5.50%]:  Accrue at 5.10%
+If SOFR < 2.50%:            Accrue at 0%
+If SOFR > 5.50%:            Accrue at 0%
+```
+
+#### §11. Lifecycle
+
+| Stage | Detail |
+|-------|--------|
+| **Pre-trade** | Structurer prices the digital option strip using the bank's rate vol surface. Range boundaries and accrual rate determined by the investor's view and market pricing. Risk: range set too narrow (frequent zero-coupon quarters) or too wide (coupon barely exceeds vanilla) |
+| **Trade date** | Four legs booked in Murex. Daily observation mechanism configured for the reference rate. Risk: observation rate source incorrect (e.g. wrong SOFR fixing page) |
+| **During life** | Each business day the reference rate is observed; an accrual counter tracks days in range vs total days per quarter. Quarterly coupons calculated and paid. Risk: missing a daily observation, or accrual counter reset incorrectly at quarter end |
+| **Maturity** | Final quarterly coupon paid. Principal returned. All four legs closed. Risk: final quarter's accrual count disputed when the reference rate is on the boundary |
+
+#### §12. Worked Example (both lenses)
 
 **Terms:** $75M notional, 5-year, accrual rate 5.10%, range [2.50%, 5.50%] on 6M SOFR, quarterly, Act/360, non-callable.
 
@@ -12641,249 +12403,91 @@ Quarterly Coupon = $75M × 5.10% × (Days In Range / Total Days) / 4
 
 **Effective Year 1 rate:** $2,862,861 / $75,000,000 = 3.82% (vs maximum 5.10%, vs vanilla 3.80%)
 
-In this scenario, Q3's rate spike above 5.50% for 62 days cost Priya approximately $600,000 in that quarter alone. But the other three quarters' strong in-range performance still delivered a return marginally above vanilla levels.
+*Investor lens:*
+In this scenario, Q3's rate spike above 5.50% for 62 days cost the investor approximately $600,000 in that quarter alone. But the other three quarters' strong in-range performance still delivered a return marginally above vanilla levels — an effective 3.82% versus the 3.80% vanilla alternative. The investor monetised a rate-stability view, but the single out-of-range quarter shows how breakout risk compresses the premium. Because the note is non-callable, the investor holds to maturity regardless.
 
-(See Figure 5.3.3-04)
+*Bank lens:*
+The desk holds the mirror position — long the digital strip / short the accrual to the investor — and pays the $2,862,861 Year 1 coupon out of the digital-strip value, retaining the 8–12bp structuring spread net of the 5–8bp sales credit and hedging cost. Q3's spike toward and through the 5.50% upper boundary is exactly where digital gamma is largest and the hedge most expensive. The 2nd line must confirm each quarter's in-range count against the SOFR fixing source — verifying, for example, that Q3's $311,821 matches 30 of 92 days at 5.10% on $75M — that the four legs tie, and that the Note-leg coupon reconciles to the Hedge-leg digital strip.
 
-#### §19. Interview Questions
+#### §13. Knowledge Check
 
-1. What is the maximum and minimum coupon an NCRA investor can earn in a single quarter?
-2. How does the range width affect the NCRA's coupon rate?
-3. If 6M SOFR is exactly at 5.50% on a given observation day, does the day count as in-range or out-of-range?
-4. Explain why Q3 in the worked example produced only $311,821 when the maximum quarterly coupon is approximately $956,250.
-5. The desk is pricing an NCRA with a range of [3.00%, 4.50%] vs [2.00%, 6.00%]. Which range produces a higher accrual rate for the client, and why might the client still prefer the wider range?
-
+1. **What determines the NCRA's quarterly coupon amount?** *(Investor)*
+2. **Why is the NCRA coupon (5.10%) higher than a vanilla fixed-rate bond (~3.80%)?** *(Investor)*
+3. **What does "non-callable" mean for the NCRA investor?** *(Investor)*
+4. **How does the range width affect the coupon rate?** *(Investor)*
+5. **If 6M SOFR is exactly at 5.50% on a given observation day, does the day count as in-range or out-of-range?** *(Investor)*
+6. **What reference rate is observed daily in the worked example, and how often is the coupon paid?** *(Investor)*
+7. **Explain why Q3 in the worked example produced only $311,821 when the maximum quarterly coupon is approximately $956,250.** *(Investor)*
+8. **(Desk economics / 1LoD)** When the investor buys an NCRA, what position does the desk take across the four legs, what is its dominant Greek, and how does it hedge the warehoused risk? Why is the hedge cost largest when SOFR sits at 5.40% with an upper boundary of 5.50%?
+9. **(Controls / 2LoD)** Name three reconciliation breaks specific to an NCRA — covering the accrual factor / daily observation count, the range boundaries, and the fixing source — and the consequence of each for the quarterly coupon.
 
 **Mental Models**
 
 | Concept | Mental Model |
 |---------|-------------|
 | Range accrual | Commission-based salesperson with a territory restriction — earn only on days inside the boundary |
-| Days in range | Attendance record — every day inside the range is a day you get paid |
+| Days in range | Attendance record — every day inside the range is a day the coupon gets paid |
 | Range boundaries | Electric fence — one step outside and the current stops flowing |
-| Non-callable | Unbreakable contract — you're in for the full term, for better or worse |
-| Coupon conditionality | Performance bonus — you get the full bonus only if you meet the conditions every day |
-
+| Non-callable | Unbreakable contract — committed for the full term, for better or worse |
+| Coupon conditionality | Performance bonus — the full bonus only if the condition is met every day |
+| Digital gamma | The desk's tripwire — hedge cost explodes as SOFR nears a boundary |
+| Accrual factor | The 2nd line's master dial — one number (days in range / total days) drives the whole coupon |
 
 **Key Takeaways**
 
-1. An NCRA pays a conditional coupon based on the fraction of days a reference rate stays within a predefined range.
-2. Insurance companies and pension funds buy it to monetize a rate-stability view with a premium coupon above vanilla levels.
+1. An NCRA pays a conditional coupon based on the fraction of days a reference rate stays within a predefined range: Coupon = max_coupon × (days in range / total days).
+2. Insurance companies and pension funds buy it to monetize a rate-stability view with a premium coupon (5.10%) above vanilla levels (~3.80%).
 3. Range breakout risk is the core danger — if the reference rate leaves the corridor, the coupon drops to zero for those days.
 4. The product is non-callable, meaning the investor is committed for the full term regardless of performance.
 5. The wider the range, the higher the probability of earning the full coupon — but the lower the premium rate offered.
+6. The investor is short the digital strip (sold the range); the desk takes the mirror position — long the digital strip, long vega — and is exposed to digital gamma near the boundaries, which it hedges with a strip of daily digital caps and floors.
+7. The trade is booked in Murex with four legs: Note, Issuer, Deposit, and Hedge.
+8. For the 2nd line, the dominant control is the **accrual factor** — the daily in-range observation count — supported by the fixing source, range-boundary convention, Act/360 day-count, four-leg net, and collateral; a corrupted accrual count misstates the quarterly coupon.
 
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
-**1. Assuming the coupon is "fixed at 5.10%."** It is the maximum, not the guaranteed rate. Actual earnings depend entirely on how many days the reference rate stays in the range.
+1. **Assuming the coupon is "fixed at 5.10%."** It is the maximum, not the guaranteed rate. Actual earnings depend entirely on how many days the reference rate stays in the range.
+2. **Setting the range based on current rates without considering historical volatility.** A range of [4.00%, 4.50%] might look safe today but has high breakout probability based on 5-year historical rate distributions.
+3. **Confusing the observation rate with the coupon rate.** The 6M SOFR is observed daily to determine accrual; the 5.10% is the maximum coupon rate if the observation is favourable. They are separate concepts.
+4. **Not understanding that "non-callable" means the investor cannot exit.** Unlike the IR Callable, there is no early termination option for either party. If rates break out permanently, the investor earns zero coupons for the remainder but must hold to maturity.
+5. **Pricing the desk hedge with European-style digital options when the product requires daily digital observations.** Daily monitoring is materially more expensive to hedge than periodic observation — the pricing must reflect the monitoring frequency.
+6. **(Controls)** Trusting an accrual counter that reports 100% or resets cleanly at quarter end without auditing the daily observation log. The accrual factor is the key reconciliation: a counter defaulting to 100%, a flipped boundary convention, or a wrong SOFR fixing source all corrupt the in-range count and misstate the coupon — reconcile the day-by-day count to the fixing source and the four-leg trade record before the coupon settles.
 
-**2. Setting the range based on current rates without considering historical volatility.** A range of [4.00%, 4.50%] might look safe today but has high breakout probability based on 5-year historical rate distributions.
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book across the four legs, and what is its primary rate/vol risk and hedge?
+- *(Controls / 2LoD)* Which four-leg / fixing / accrual fields must reconcile, and which is the most common break?
 
-**3. Confusing the observation rate with the coupon rate.** The 6M SOFR is observed daily to determine accrual; the 5.10% is the maximum coupon rate if the observation is favorable. They are separate concepts.
-
-**4. Not understanding that "non-callable" means the investor cannot exit.** Unlike the IR Callable, there is no early termination option for either party. If rates break out permanently, the investor earns zero coupons for the remainder but must hold to maturity.
-
-**5. Ignoring boundary behavior.** When SOFR oscillates near 2.50% or 5.50%, the accrual becomes volatile from day to day. This "boundary whipsaw" can cause significant uncertainty in quarterly income projections.
-
----
-
-**Who Touches This Product**
-
-| Role | Responsibility | Primary Concern | Typical Question |
-|------|---------------|----------------|-----------------|
-| **Trader** | Manages the digital option strip hedge, monitors range proximity | "How many days until the reference rate hits the boundary?" | "What is the delta of the range accrual book when SOFR is 10bp from the upper barrier?" |
-| **Structurer** | Prices the digital strip, designs the range, sets the accrual rate | "Is the range wide enough to be commercially attractive but narrow enough to generate a meaningful coupon premium?" | "If I narrow the range by 50bp on each side, how much can I increase the accrual rate?" |
-| **Sales** | Presents the range accrual concept, helps clients choose appropriate ranges | "Does the client understand that a narrower range means higher coupon but higher risk of zero-coupon quarters?" | "Our client earned 3.82% last year — is she happy with that vs the 3.80% vanilla alternative?" |
-| **Risk** | Monitors the aggregate digital option exposure, gap risk near boundaries | "What is the notional at risk if SOFR moves 25bp outside the range?" | "How correlated are the range accrual positions across the book — could a rate move trigger simultaneous zero-coupon quarters?" |
-| **Product Control** | Validates daily observations, verifies accrual counters, reconciles quarterly coupons | "Did today's SOFR observation correctly update the accrual counter?" | "The Q3 coupon was $311,821 — does this match 30 out of 92 days at 5.10% on $75M?" |
-| **Operations** | Processes daily observations, calculates quarterly coupons, settles payments | "Are all observation dates correctly sourced from the published SOFR fixing?" | "The client disputes Q3's accrual count — how do I verify day-by-day observations?" |
-| **Legal** | Reviews the range definition, boundary inclusion/exclusion rules | "Does the contract define the range as inclusive (≥ and ≤) or exclusive (> and <)?" | "If the SOFR fixing methodology changes mid-trade, what fallback applies to the range accrual?" |
-| **Model Validation** | Validates the digital option pricing model, particularly near the boundaries | "Does the model correctly price digital options with daily monitoring near the barrier?" | "What is the model risk from using Black-Scholes digital pricing vs. a more sophisticated model for daily barrier monitoring?" |
-
----
-
-**Desk Reality**
-
-**What keeps traders awake:** SOFR drifting toward a range boundary — at 5.40% with an upper boundary of 5.50%, the digital option gamma spikes and the hedge becomes extremely sensitive. A $500M NCRA book near the boundary can generate $1M+ of P&L from a single basis point move.
-
-**Most important risk:** Digital option gamma near the boundaries. When SOFR is far from the boundaries, the hedge is stable. When SOFR approaches a boundary, the hedge cost explodes because the digital options become highly sensitive to small rate moves.
-
-**Typical junior mistake:** Pricing the hedge using European-style digital options when the actual product requires daily digital observations. Daily monitoring is materially more expensive to hedge than periodic observation — the pricing must reflect the monitoring frequency.
-
-**Hardest operational issue:** Maintaining the daily observation log. Each NCRA trade requires a record of whether the reference rate was in or out of range for every business day. With 50+ NCRA trades and 250+ business days per year, that's 12,500+ individual observations per year to track and reconcile.
-
-**Most misunderstood concept:** The relationship between range width and coupon level. Many clients think a wider range is "always better" because the coupon is more likely to accrue. But a wider range means the digital options are cheaper, so the coupon premium over vanilla is smaller. The optimal range balances high accrual probability against a meaningful coupon uplift.
-
----
-
-**Knowledge Check**
-
-*Review Questions:*
-1. What determines the NCRA's quarterly coupon amount?
-2. Why is the NCRA coupon higher than a vanilla fixed-rate bond?
-3. What does "non-callable" mean for the NCRA investor?
-4. How does the range width affect the coupon rate?
-5. What reference rate is observed daily in the worked example?
-
-*Scenario Questions:*
-6. An NCRA has a range of [3.00%, 5.00%] and SOFR rises from 4.80% to 5.20% over 10 business days, then returns to 4.50% for the rest of the quarter (82 days total). How many days are in range? What is the accrual fraction?
-7. Two NCRAs have ranges [2.00%, 6.00%] and [3.50%, 4.50%] on the same notional. One pays 4.50% and the other pays 6.80%. Which is which, and why?
-8. SOFR has been at exactly 5.50% (the upper boundary) for the past 5 business days. Is the client earning or not earning during these days?
-
-*Desk Question:*
-9. Your NCRA book shows that 35% of all trades have SOFR within 25bp of a range boundary. Describe your risk management priorities and what hedging adjustments you would consider.
-
----
-
-#### §21. Visual Specifications
-
-**Visual 1:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.3-01 |
-| **Visual ID** | FLOW_NCRA_01 |
-| **Type** | Cash Flow Diagram |
-| **Priority** | P1 |
-| **Purpose** | Show the four-leg structure with the conditional coupon mechanism |
-| **Visual Description** | Four-panel SRT diagram with the Note leg showing a variable coupon arrow (height depends on days in range). A "range gate" symbol between the reference rate and the coupon arrow: when rate is in range, gate is open (coupon flows); when rate is out of range, gate is closed (no coupon). Accrual counter shown as a running tally |
-| **Diagram Elements** | Four boxes (Note, Issuer, Deposit, Hedge), range gate, variable coupon arrow, accrual counter, reference rate indicator |
-| **Axis Definitions** | N/A (flow diagram) |
-| **Caption** | NCRA four-leg structure: coupon flows only when the reference rate passes through the range gate |
-| **Location** | §12 |
-| **Reuse Potential** | High — range accrual template for CRA SRT, RA STEG |
-| **Future Asset Filename** | flow_ncra_01.svg |
-
-**Visual 2:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.3-02 |
-| **Visual ID** | LIFECYCLE_NCRA_01 |
-| **Type** | Lifecycle Diagram |
-| **Priority** | P1 |
-| **Purpose** | Show the NCRA lifecycle with daily observation and quarterly settlement |
-| **Visual Description** | Horizontal timeline with quarterly markers. Within each quarter, a mini-chart shows the reference rate path relative to the range boundaries. Days inside the range are shaded green; days outside are shaded red. Quarterly coupon arrows vary in height based on the green fraction |
-| **Diagram Elements** | Timeline axis, quarterly segments, mini rate-path charts, range boundary lines, green/red shading, variable coupon arrows |
-| **Axis Definitions** | X: Time (quarters), Y within mini-charts: Rate (%) |
-| **Caption** | NCRA lifecycle: daily observations determine quarterly coupon amounts |
-| **Location** | §13 |
-| **Reuse Potential** | High — range accrual lifecycle template |
-| **Future Asset Filename** | lifecycle_ncra_01.svg |
-
-**Visual 3:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.3-03 |
-| **Visual ID** | PAYOFF_NCRA_01 |
-| **Type** | Payoff Diagram |
-| **Priority** | P2 |
-| **Purpose** | Show the linear relationship between days in range and quarterly coupon |
-| **Visual Description** | Straight line from origin (0% days, $0 coupon) to (100% days, $956,250 coupon). Worked example markers at Q1 (72.2%, $690,625), Q2 (98.9%, $945,742), Q3 (32.6%, $311,821), Q4 (95.7%, $914,674) |
-| **Diagram Elements** | Linear payoff line, four scenario markers, annotations with amounts |
-| **Axis Definitions** | Y: Quarterly Coupon ($), X: % Days in Range |
-| **Caption** | NCRA payoff: coupon is linearly proportional to the fraction of days the reference rate stays in range |
-| **Location** | §14 |
-| **Reuse Potential** | Medium — range accrual payoff template |
-| **Future Asset Filename** | payoff_ncra_01.svg |
-
-**Visual 4:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.3-04 |
-| **Visual ID** | TIMELINE_NCRA_01 |
-| **Type** | Timeline |
-| **Priority** | P2 |
-| **Purpose** | Show the worked example quarterly accrual results |
-| **Visual Description** | Four quarterly bars with heights proportional to accrual fraction. Q1: 72.2% ($690,625), Q2: 98.9% ($945,742), Q3: 32.6% ($311,821), Q4: 95.7% ($914,674). Horizontal dashed line at maximum ($956,250). Rate path shown above as context |
-| **Diagram Elements** | Four accrual bars, maximum coupon reference line, rate path context, dollar annotations |
-| **Axis Definitions** | X: Quarter, Y: Coupon Amount ($) |
-| **Caption** | NCRA Year 1: Q3's rate spike above the range reduced accrual to 32.6%, cutting that quarter's coupon by two-thirds |
-| **Location** | §18 |
-| **Reuse Potential** | Medium — quarterly accrual results template |
-| **Future Asset Filename** | timeline_ncra_01.svg |
-
-**Visual 5:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.3-05 |
-| **Visual ID** | DIAGRAM_NCRA_01 |
-| **Type** | Comparison Chart |
-| **Priority** | P3 |
-| **Purpose** | Compare accrual rates for different range widths |
-| **Visual Description** | Scatter plot: X-axis is range width (in bp), Y-axis is accrual rate (%). Points for [2.50-5.50] (300bp range, 5.10%), [3.00-5.00] (200bp, 6.20%), [3.50-4.50] (100bp, 8.00%), [2.00-6.00] (400bp, 4.30%). Annotation: "Narrower range = higher coupon = higher risk" |
-| **Diagram Elements** | Scatter points, trend line, range width labels, rate annotations |
-| **Axis Definitions** | Y: Accrual Rate (%), X: Range Width (bp) |
-| **Caption** | Narrower ranges command higher accrual rates because the probability of rate breakout is higher |
-| **Location** | §9 |
-| **Reuse Potential** | Low — specific to range width comparison |
-| **Future Asset Filename** | diagram_ncra_01.svg |
-
-**Visual 6:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.3-06 |
-| **Visual ID** | DECISION_TREE_NCRA_01 |
-| **Type** | Decision Tree |
-| **Priority** | P3 |
-| **Purpose** | Show the daily observation decision logic |
-| **Visual Description** | Simple decision tree: "Is today's SOFR fixing ≥ 2.50% AND ≤ 5.50%?" → YES: "Accrue at 5.10% for this day" → NO: "No accrual for this day." Loop back to next business day. End: "Sum all accrual days for quarterly coupon" |
-| **Diagram Elements** | Decision diamond, YES/NO branches, accrual/no-accrual outcomes, loop arrow, quarterly sum box |
-| **Axis Definitions** | N/A (decision tree) |
-| **Caption** | NCRA daily observation: each business day, a single yes/no test determines whether that day accrues |
-| **Location** | §11 |
-| **Reuse Potential** | High — daily observation decision template for all range accrual products |
-| **Future Asset Filename** | decision_tree_ncra_01.svg |
-
----
-
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Range accrual concept (equity) | Section 5.1.10 (CRA ELN) |
-| Interest rate swap mechanics | Section 5.2.1 (IRS) |
-| IR Callable and four-leg structure | Section 5.3.1 (IR Callable) |
-| SOFR, EURIBOR, benchmark rates | Section 1.8 (Benchmark Rates) |
-| Yield curves, forward rates | Section 1.7 (Yield Curves) |
-| Digital options concept | Section 1.3 (Barrier and Digital Options) |
-| Caps and floors | Section 1.8 (Caps, Floors, Swaptions) |
-| Four-leg structure | Section 2.7 (The Four-Leg Structure) |
-| Murex booking | Section 2.8 (Systems Primer) |
-
----
-
+**Dual-lens visuals (generated):**
+- `assets/ncra/controls_ncra_recon_08.svg` `[generated]`
+- `assets/ncra/desk_ncra_gamma_07.svg` `[generated]`
+- `assets/ncra/payoff_ncra_01.svg` `[generated]`
+- `assets/ncra/waterfall_ncra_09.svg` `[generated]`
 ### 5.3.4 Callable Range Accrual SRT (CRA SRT)
 
 ---
 
-*The NCRA paid a conditional coupon based on days in range, but the investor was locked in for the full term. The Callable Range Accrual adds the bank's right to terminate early — combining the range accrual coupon mechanism with the callable feature from Section 5.3.1. That single change increases the coupon rate (because the client is selling both a range view AND a call option) but introduces reinvestment risk on top of range breakout risk.*
+*Where a Non-Callable Range Accrual (Section 5.3.3) pays a conditional coupon based on days in range with the investor locked in for the full term, the Callable Range Accrual SRT adds the issuing bank's right to terminate early — combining the range accrual coupon mechanism with the callable feature from Section 5.3.1. That single change increases the coupon rate (because the investor is selling both a range view AND a call option) but introduces reinvestment risk on top of range breakout risk. The product is a Structured Rate Trade booked in Murex with the four-leg structure (Note, Issuer, Deposit, Hedge). This chapter reads the product through two lenses: what it means for **the investor** (the note holder), and what it means for **the bank** — the latter split into the desk's rate economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Kenji is a senior treasury officer at a Japanese regional bank. He wants the highest possible coupon from a structured rate product and is willing to accept two risks: range breakout (SOFR leaving his predicted corridor) and early termination (the bank calling the note). A plain NCRA at 5.10% isn't enough — Kenji wants more. The CRA SRT gives him 5.40% per year, accruing on the days 6M SOFR stays within [2.00%, 5.00%], with the bank's right to call after 2 years. The extra 30bp over the NCRA comes from the embedded swaption premium — Kenji is selling both a rate-range view and a call option, and gets paid for both.
+Consider a senior treasury officer at a Japanese regional bank who wants the highest possible coupon from a structured rate product and is willing to accept two risks: range breakout (SOFR leaving a predicted corridor) and early termination (the bank calling the note). A plain NCRA at 5.10% is not enough. The CRA SRT pays 5.40% per year, accruing on the days 6M SOFR stays within [2.00%, 5.00%], with the bank's right to call after 2 years. The extra 30bp over the NCRA comes from the embedded swaption premium — the investor is selling both a rate-range view and a call option, and is paid for both.
 
-#### §2. Core Analogy
+#### §2. Real-World Analogy
 
-Think of a freelance contractor with a performance clause and a termination clause. You earn your daily rate only when you complete a specific task (range condition), AND the company can end your contract at any quarterly review (call right). You accept both conditions because the daily rate is higher than what a permanent employee earns. If business is strong, the company keeps you and you keep earning. If business drops, the company terminates you and you must find a new contract — likely at a lower rate.
+A CRA SRT is like a freelance contractor with both a performance clause and a termination clause. The contractor earns the daily rate only when a specific task is completed (range condition), AND the company can end the contract at any quarterly review (call right). The contractor accepts both conditions because the daily rate is higher than what a permanent employee earns. If business is strong, the company keeps the contractor and earnings continue. If business drops, the company terminates the contract and the contractor must find a new one — likely at a lower rate.
 
-The dual risk is what distinguishes you from two colleagues: one is a permanent employee (Vanilla IR Swap — neither condition), and the other is a contractor with only the quarterly review but no task requirement (IR Callable — call right only). You accept both constraints because your daily rate exceeds what either colleague earns.
+The dual risk is what distinguishes this contractor from two colleagues: one is a permanent employee (Vanilla IR Swap — neither condition), and the other is a contractor with only the quarterly review but no task requirement (IR Callable — call right only). The contractor accepts both constraints because the daily rate exceeds what either colleague earns.
 
-#### §3. What Problem Does It Solve
+#### §3. What Problem Does This Solve?
 
-| Client Need | How the Product Delivers |
+| Investor Need | How the Product Delivers |
 |------------|------------------------|
 | Maximum coupon from structured rate exposure | Combines range accrual premium + call option premium = highest available coupon |
-| Express dual view: rates stable AND rates not crashing | Client benefits when rates stay in range AND the bank doesn't call |
+| Express dual view: rates stable AND rates not crashing | Investor benefits when rates stay in range AND the bank does not call |
 | Accept higher risk for higher return | Two risk factors (range + call) provide two sources of premium |
-| Structured note format without ISDA | Packaged as a note — no derivatives documentation required |
+| Structured note format without ISDA | Packaged as a note — no derivatives documentation required from the investor |
 
 #### §4. Product DNA
-
 
 | **Field** | **Value** |
 |---|---|
@@ -12900,9 +12504,8 @@ The dual risk is what distinguishes you from two colleagues: one is a permanent 
 | **Primary System** | Murex (primary), Sophis (risk) |
 | **ISDA Required** | No — issued as note |
 
-
 **DNA Atlas Fields:**
-- Primary Risk: Range accrual risk + callability risk. Bank calls when range accrual is profitable for investor
+- Primary Risk: Range accrual risk + callability risk. Bank calls when range accrual is profitable for the investor
 - Typical Buyer: Yield-seeking institutional investors willing to sell callability for extra coupon
 - Typical Use Case: Maximum yield enhancement — sells both range risk and call optionality
 - Building Blocks: NCRA + receiver swaption sold to bank
@@ -12922,15 +12525,18 @@ The dual risk is what distinguishes you from two colleagues: one is a permanent 
 - Client Type: Sophisticated institutional
 - Market Environment: Best when rates stable and low vol expected
 
-#### §5. Family Position
+#### §5. Who Touches This Product
 
-```
-Rates
-└── Structured Rate Trades (SRT)
-    └── Range Accrual Products
-        ├── Non-Callable Range Accrual (NCRA)
-        └── Callable Range Accrual (CRA SRT)  ← You are here
-```
+| Role | Responsibility |
+|------|---------------|
+| **Structurer** | Prices the combined structure; models the correlation between the range and call components; negotiates non-call period and range boundaries |
+| **Trader** | Manages the combined digital strip + swaption hedge; makes call decisions considering range performance |
+| **Sales** | Presents the dual-premium story; explains the risk stacking to sophisticated clients |
+| **Risk Management** | Monitors aggregate exposure to both digital gamma and swaption vega across the CRA SRT book |
+| **Product Control** | Values the complex combination daily; verifies that call events correctly terminate accrual |
+| **Operations** | Manages the intersection of daily observations and quarterly call decisions; handles four-leg settlement |
+| **Legal / Compliance** | Reviews documentation for the interaction between range accrual and call provisions |
+| **Model Validation** | Validates the combined pricing model, particularly the correlation between digital and swaption components |
 
 #### §6. Product Evolution
 
@@ -12940,62 +12546,25 @@ Rates
 | 2 | IR Callable (5.3.1) | Call right (no range accrual) | Bank's right to terminate for reinvestment premium |
 | 3 | CRA SRT | Combined range accrual + call right | Maximum coupon by stacking two premium sources |
 
-#### §7. Why The Market Invented This Product
+---
 
-By the mid-2010s, Japanese and Asian regional banks were the largest buyers of structured rate products. The NCRA was popular but its coupon was limited by the range accrual premium alone. Banks realized they could offer even higher coupons by combining the range accrual with a callable feature — effectively asking the investor to sell two options (range digital + receiver swaption) instead of one. The dual-premium structure became the most popular SRT variant in Asia, where yield-hungry institutional investors were comfortable with both range and call risks. The product's success was driven by the prolonged low-rate environment in Japan, where the extra 20-40bp over the NCRA was highly valued.
+#### §7. THE INVESTOR LENS
 
-#### §8. Why Clients Buy It
+**Why the investor buys it**
 
-1. **Highest coupon in the SRT family** — dual premium (range + call) produces 20-40bp above the NCRA
-2. **Leveraged rate-stability view** — rewards conviction that rates stay range-bound AND the call is not triggered
-3. **Proven structure** — combines two well-understood features (range accrual from NCRA, call from IR Callable)
-4. **Note format** — no ISDA documentation required from the investor
-5. **Scalable** — standard structure allows large notional trades with tight pricing
+1. **Highest coupon in the SRT family** — the dual premium (range + call) produces 20-40bp above the NCRA.
+2. **Leveraged rate-stability view** — rewards conviction that rates stay range-bound AND the call is not triggered.
+3. **Proven structure** — combines two well-understood features (range accrual from NCRA, call from IR Callable).
+4. **Note format** — no ISDA documentation required from the investor.
+5. **Scalable** — the standard structure allows large notional trades with tight pricing.
 
-#### §9. Why This Product Exists
+The typical buyer is a Japanese regional bank or Asian insurance company seeking maximum yield from structured rate products — typically institutional, $500M+ AUM, with high derivatives sophistication. The product makes sense for investors who have high conviction on rate stability, are comfortable with reinvestment risk, and prioritize maximum coupon over predictability. It is a poor choice for investors who need guaranteed income, who cannot tolerate the dual risk of zero coupons AND early termination, or who have short investment horizons (the non-call period may consume most of the holding period).
 
-**Typical Buyer:** Japanese regional banks and Asian insurance companies seeking maximum yield from structured rate products. Typically institutional, $500M+ AUM, high derivatives sophistication. Served by institutional sales desks with strong Asia relationships.
+**Position & accrual + call**
 
-**Problem Being Solved:** Maximum yield enhancement through dual-premium exposure. Clients want the highest possible coupon and are willing to accept both range breakout risk and reinvestment risk.
+The investor holds the Note leg and is **short two embedded options**: short the range (a digital option strip — the investor gives up coupon on any day SOFR is outside the corridor) AND short the issuer's call (a receiver swaption — the investor has sold the bank the right to terminate). The coupon accrues daily based on whether the reference rate (6-month SOFR, daily fixing) falls within [2.00%, 5.00%], and the bank may call quarterly after the non-call period (NC2).
 
-**How The Client Makes Money:** If 6M SOFR stays in [2.00%, 5.00%] every day for 5 years and the bank never calls, Kenji earns 5.40% on $60M = $3,240,000 per year, totaling $16,200,000. If called after 2 years with full range accrual, he earns $6,480,000 — equivalent to 5.40% for 2 years — and must reinvest.
-
-**How The Bank Makes Money:**
-
-| Area | Detail |
-|------|--------|
-| **Client economics** | Client receives 5.40% × (days in range / total days) per quarter. Maximum = 5.40%, minimum = 0%. The premium over NCRA (5.10%) comes from the embedded call option |
-| **Bank economics** | Structuring spread: 10-15bp. The bank prices both the digital strip and the swaption, retaining the difference between fair value and client coupon |
-| **Hedging economics** | Rates desk hedges with: (1) daily digital cap/floor strip (range), (2) Bermudan receiver swaption (call). Residual: correlation between range accrual performance and call exercise decision |
-| **Distribution economics** | Sales credit 5-8bp on notional. CRA SRT is the most profitable SRT variant for the bank due to dual structuring spread |
-
-**Market Conditions Where Demand Increases:** Demand rises when implied rate volatility is high (both premiums are larger), when central banks signal stability with future uncertainty (rate range is exploitable, call risk is tolerable), and when Japanese yen deposit rates are near zero (any structured yield is valuable).
-
-**When This Product Makes Sense:** For investors who have high conviction on rate stability, are comfortable with reinvestment risk, and prioritize maximum coupon over predictability.
-
-**When This Product Is Usually A Poor Choice:** For investors who need guaranteed income, who cannot tolerate the dual risk of zero coupons AND early termination, or who have short investment horizons (non-call period may consume most of the holding period).
-
-#### §10. What Happens If...
-
-**Scenario A — SOFR in range, never called:** Full 5-year term, full coupon. Total: $60M × 5.40% × 5 = $16,200,000. Best outcome.
-
-**Scenario B — SOFR in range 80% of days, never called:** Annual coupon: $60M × 5.40% × 80% = $2,592,000. 5-year total: $12,960,000. Still above vanilla (3.80% = $11,400,000).
-
-**Scenario C — SOFR in range, called after 2 years:** Kenji earns $6,480,000 over 2 years. Must reinvest $60M at prevailing rates — likely lower (the bank wouldn't call if rates hadn't dropped).
-
-**Scenario D — SOFR breaks range in year 1, called after 2 years:** Kenji earns reduced coupons (e.g., 60% accrual) for year 1 ($1,944,000) and 90% for year 2 ($2,916,000). Total: $4,860,000. Then called. Worst realistic outcome — reduced income followed by forced reinvestment.
-
-#### §11. Formal Definition
-
-A Callable Range Accrual SRT (CRA SRT) is a structured rate product that combines a conditional range accrual coupon with the issuing bank's right to terminate the trade on predetermined call dates. The coupon accrues daily based on whether the reference rate (typically 6-month SOFR) falls within a predefined range: Coupon = Notional × Accrual Rate × (Days In Range / Total Days) / Periods Per Year. The callable feature allows the bank to terminate after a non-call period, typically on quarterly dates. The product is booked in Murex with four legs: Note (conditional coupon with call), Issuer (funding), Deposit (collateral), and Hedge (digital option strip + Bermudan swaption). The accrual rate exceeds both the NCRA and IR Callable because the investor is selling two embedded options.
-
-#### §12. Product Construction
-
-The CRA SRT is built from three components:
-
-1. **NCRA base** — conditional coupon based on days in range (provides ~5.10%)
-2. **Short receiver swaption** — bank's right to call (provides ~0.30% additional premium)
-3. **Net structuring** — combined premium minus fees = 5.40% client coupon
+The coupon is built from three components:
 
 ```
 NCRA accrual rate:            5.10%
@@ -13005,24 +12574,11 @@ CRA SRT coupon (max):         5.40%
 × (days in range / total days)
 ```
 
-> **Professor Note:** If you remember only one thing from this chapter, remember this: the CRA SRT offers the highest coupon in the SRT family because the investor is selling two options — a range view and a call right — and getting paid for both. But stacking risks means the worst case is also worse: zero coupons followed by early termination.
+The investor receives 5.40% × (days in range / total days) per quarter. Maximum = 5.40%, minimum = 0%. The premium over the NCRA (5.10%) comes from the embedded call option the investor has sold.
 
-(See Figure 5.3.4-01)
+**Payoff & scenarios**
 
-#### §13. Product Lifecycle
-
-| Stage | What Happens | Who Is Involved | What Can Go Wrong |
-|:-----:|-------------|----------------|-------------------|
-| **Pre-trade** | Structurer prices both the digital strip and the swaption. Combined premium determines the accrual rate. Non-call period and range boundaries are negotiated | Structurer, Sales, Client | Mispricing the correlation between range performance and call exercise — if the bank calls precisely when accrual is poor, the client receives the worst of both risks |
-| **Trade date** | Four legs booked in Murex: Note leg (conditional callable coupon), Issuer, Deposit, Hedge (digital strip + swaption) | Operations, Trader | Booking the hedge as two separate trades (digital strip and swaption) that don't correctly reference the same master trade |
-| **During life** | Daily observation for range accrual. Quarterly coupon calculation. On each call date after the non-call period, bank decides whether to call | Product Control, Trader (call decision), Operations | Call decision timing conflicts with range accrual quarter-end — if called mid-quarter, partial accrual must be calculated |
-| **Termination** | If called: all four legs close, partial quarter coupon paid. If matured: final quarterly coupon paid, principal returned | Operations, Product Control | Partial quarter accrual calculation on call date — days in range must be counted up to the call date, not quarter end |
-
-(See Figure 5.3.4-02)
-
-#### §14. Payoff Logic
-
-The CRA SRT's coupon depends on two factors: days in range AND whether the bank has called:
+The CRA SRT coupon depends on two factors: days in range AND whether the bank has called.
 
 ```
 Quarterly
@@ -13035,31 +12591,84 @@ Coupon ($)
   │── $0 ──────────── Minimum (0% in range OR called)
   ├────────────────────── % Days in Range
   0%                    100%
-  
+
   CALL EVENT: If called, final partial quarter
   is prorated to the call date.
 ```
-*Caption: CRA SRT quarterly coupon — linear in days in range, terminated if called.*
+*CRA SRT quarterly coupon — linear in days in range, terminated if called.*
 
 **Coupon formula per quarter:**
 Quarterly Coupon = $60M × 5.40% × (Days In Range / Total Days) / 4
 
 Maximum quarterly coupon: $60M × 5.40% / 4 = $810,000
 
-(See Figure 5.3.4-03)
+Scenarios (on $60M notional):
+- **Scenario A — SOFR in range, never called:** Full 5-year term, full coupon. Total: $60M × 5.40% × 5 = $16,200,000. Best outcome.
+- **Scenario B — SOFR in range 80% of days, never called:** Annual coupon: $60M × 5.40% × 80% = $2,592,000. 5-year total: $12,960,000. Still above vanilla (3.80% = $11,400,000).
+- **Scenario C — SOFR in range, called after 2 years:** The investor earns $6,480,000 over 2 years — equivalent to 5.40% for 2 years — and must reinvest $60M at prevailing rates, likely lower (the bank would not call if rates had not dropped).
+- **Scenario D — SOFR breaks range in year 1, called after 2 years:** The investor earns reduced coupons (e.g., 60% accrual) for year 1 ($1,944,000) and 90% for year 2 ($2,916,000). Total: $4,860,000. Then called. Worst realistic outcome — reduced income followed by forced reinvestment.
 
-#### §15. Risks
+![CRA SRT Coupon vs Days-in-Range — Investor Lens](assets/crasrt/payoff_crasrt_01.svg)
+
+**Risks to the investor**
 
 | Risk | Description | Severity |
 |------|------------|:--------:|
 | **Range breakout risk** | SOFR leaving [2.00%, 5.00%] reduces or eliminates the coupon | High |
-| **Reinvestment risk** | Bank calls when rates drop, forcing reinvestment at lower levels | High |
+| **Reinvestment risk** | Bank calls when rates drop, forcing the investor to reinvest at lower levels | High |
 | **Correlation risk** | Range breakout and call exercise may coincide — worst case is zero coupons then termination | Medium |
-| **Digital gamma near boundaries** | Hedge becomes expensive and volatile when SOFR approaches range limits | Medium |
+| **Digital gamma near boundaries** | The hedge becomes expensive and volatile when SOFR approaches range limits, which can feed back into bid-offer the investor pays to unwind | Medium |
 | **Swaption vega risk** | Changes in implied volatility affect the callable component's MTM | Medium |
 | **Credit risk** | Counterparty default risk on the issuing bank | Low |
 
-#### §16. Booking And Systems
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk books the CRA SRT in Murex as a **four-leg trade**:
+
+- **Note leg** — conditional callable coupon: $60M, 5.40% × (days in range / total days), quarterly, callable after year 2.
+- **Issuer leg** — bank funding: SOFR + spread.
+- **Deposit leg** — investor collateral: $60M cash.
+- **Hedge leg** — digital cap/floor strip (range [2.00%, 5.00%] on 6M SOFR) + Bermudan receiver swaption (quarterly exercise after NC2).
+
+The investor is short both embedded options, so the desk is **long both**: long the digital strip (the range view) and long the issuer's call (the receiver swaption). The desk warehouses both positions and hedges the rate and volatility risk down.
+
+**Rate/vol risk & hedging**
+
+The rates desk hedges with two instruments: (1) a daily digital cap/floor strip for the range, and (2) a Bermudan receiver swaption for the call. The residual is the correlation between range accrual performance and the call exercise decision. The combined gamma from both the digital options and the swaption can create large P&L swings — a book near both a range boundary AND the call exercise threshold sees significant P&L from small rate moves (illustratively, a $500M book near both boundaries might see $3-5M of P&L from a 2bp move). The two hedges should partially offset in many scenarios; if they move in the same direction it signals a correlation breakdown.
+
+![CRA SRT Desk Position & Hedge — Bank Lens (Desk Economics)](assets/crasrt/desk_crasrt_gamma_07.svg)
+
+**How the bank makes money**
+
+| Area | Detail |
+|------|--------|
+| **Client economics** | The investor receives 5.40% × (days in range / total days) per quarter. Maximum = 5.40%, minimum = 0%. The premium over NCRA (5.10%) comes from the embedded call option |
+| **Bank economics** | Structuring spread: 10-15bp. The bank prices both the digital strip and the swaption, retaining the difference between fair value and the client coupon |
+| **Hedging economics** | The rates desk hedges with (1) a daily digital cap/floor strip (range) and (2) a Bermudan receiver swaption (call). Residual: correlation between range accrual performance and the call exercise decision |
+| **Distribution economics** | Sales credit 5-8bp on notional. The CRA SRT is the most profitable SRT variant for the bank due to the dual structuring spread |
+
+**Coupon decomposition:**
+
+```
+NCRA accrual rate:            5.10%
++ Swaption premium (ann.):    0.30%
+─────────────────────────────────────
+CRA SRT coupon (max):         5.40%
+```
+
+The 5.40% maximum client coupon decomposes into an NCRA base of 5.10% (the range-accrual / digital-strip component) plus 0.30% of annualized swaption premium (the call component the investor sells). The bank retains a structuring spread of 10-15bp out of the priced fair value, and sales earns 5-8bp distribution credit. The combined premium is not simply the linear sum of the two parts — the correlation between range performance and call exercise affects the combined pricing, so the realised premium may be more or less than the sum of the components.
+
+![CRA SRT Coupon Decomposition — Bank Lens (Desk Economics)](assets/crasrt/waterfall_crasrt_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by SOFR moves against the digital-strip gamma (sharpest near the [2.00%, 5.00%] boundaries), changes in implied rate volatility against short vega on both the digital strip and the swaption, the realised path of days-in-range versus the priced accrual, and shifts in the swap curve that change the value of the Bermudan call. The dominant cross-risk is the correlation between range performance and the call decision: the call right is valuable precisely when range accrual is likely to be poor (rates dropping toward or through the lower boundary), so the two exposures are not independent.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
 
 | Field | Value |
 |-------|-------|
@@ -13076,17 +12685,53 @@ Maximum quarterly coupon: $60M × 5.40% / 4 = $810,000
 | **Call dates** | Quarterly after year 2 (NC2) |
 | **Day count** | Act/360 |
 
-#### §17. Red Flags
+**Reconciliation points**
 
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
+| Recon point | What must agree | CRA SRT-specific break |
+|-------------|-----------------|------------------------|
+| **Four legs net** | Note, Issuer, Deposit, and Hedge legs reference the same master trade and net consistently across systems | Hedge booked as two separate trades (digital strip and swaption) that do not correctly reference the same master trade |
+| **Accrual factor / observation count** | Daily days-in-range count agrees with the published SOFR fixing log over each quarter | Accrual counter stuck at a default value — e.g. 100% for 4 consecutive quarters after rates were volatile |
+| **Range** | The corridor [2.00%, 5.00%] stored at inception matches the termsheet and the digital strip strikes | Range stored with different boundaries or convention in pricing vs booking system |
+| **Fixing** | 6-month SOFR daily fixing source and date convention match the termsheet | System uses a different SOFR observation date or source than the contract |
+| **Call schedule & exercise capture** | Quarterly call dates after NC2 and any exercised call are captured consistently; the call simultaneously terminates accrual and the swaption | Call exercise not propagated to all legs; a coupon generated on a quarter where the note was called |
+| **Day-count** | Act/360 applied consistently to the accrual and coupon calculation | Wrong day-count convention applied, so the quarterly coupon amount differs |
+| **Partial-quarter accrual on call** | On a mid-quarter call, days in range counted up to and including the call date (not quarter-end), coupon prorated | Accrual not stopped on the call date — full-quarter coupon paid, or accrual not prorated |
+| **Collateral / Deposit** | $60M Deposit leg released within T+2 of call exercise; daily MTM and collateral track | Deposit leg not released within T+2 of call — client's collateral trapped |
+
+![CRASRT Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/crasrt/controls_crasrt_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|--------------|-------------|
 | Accrual counter and call date fall on the same day with conflicting instructions | System may process the call before finishing the quarter's accrual count | Verify that accrual is calculated up to and including the call date before processing termination |
 | Hedge leg shows swaption P&L and digital P&L moving in the same direction | Possible correlation breakdown — the two hedges should partially offset in many scenarios | Review the correlation assumptions in the pricing model |
 | Client receives a coupon on a quarter where the note was called | Post-call coupon was incorrectly generated | Check the call exercise date and verify no payments are processed after it |
 | Range accrual shows 100% for 4 consecutive quarters after rates were volatile | Accrual counter may be stuck at a default value | Audit the daily observation log against published SOFR fixings |
 | Deposit leg not released within T+2 of call exercise | Operational delay in coordinating four-leg settlement | Escalate to Operations — client's collateral is trapped |
 
-#### §18. Worked Example
+**Control implication**
+
+For a CRA SRT the dominant controls are the **daily accrual factor (observation count vs the SOFR fixing log)**, the **call schedule and exercise capture across all four legs**, and the **partial-quarter accrual on a mid-quarter call**. A stuck or wrong accrual counter misstates the coupon; a call event that does not propagate to all four legs can pay a coupon after termination or leave the swaption position live; a mid-quarter call that fails to stop the accrual counter on the exact call date overpays the investor. The four legs (Note, Issuer, Deposit, Hedge) must reference the same master trade so a call simultaneously terminates the accrual and the swaption, and the $60M Deposit must release within T+2. The reconciliation exists precisely to catch these inconsistencies before a coupon settles, a call processes, or collateral is trapped.
+
+#### §10. Formal Definition
+
+A **Callable Range Accrual SRT (CRA SRT)** is a structured rate product that combines a conditional range accrual coupon with the issuing bank's right to terminate the trade on predetermined call dates. The coupon accrues daily based on whether the reference rate (typically 6-month SOFR) falls within a predefined range:
+
+Coupon = Notional × Accrual Rate × (Days In Range / Total Days) / Periods Per Year.
+
+The callable feature allows the bank to terminate after a non-call period, typically on quarterly dates. The product is booked in Murex with four legs: Note (conditional coupon with call), Issuer (funding), Deposit (collateral), and Hedge (digital option strip + Bermudan swaption). The accrual rate exceeds both the NCRA and the IR Callable because the investor is selling two embedded options.
+
+#### §11. Lifecycle
+
+| Stage | What Happens | Who Is Involved | What Can Go Wrong |
+|:-----:|-------------|----------------|-------------------|
+| **Pre-trade** | Structurer prices both the digital strip and the swaption. Combined premium determines the accrual rate. Non-call period and range boundaries are negotiated | Structurer, Sales, Client | Mispricing the correlation between range performance and call exercise — if the bank calls precisely when accrual is poor, the investor receives the worst of both risks |
+| **Trade date** | Four legs booked in Murex: Note leg (conditional callable coupon), Issuer, Deposit, Hedge (digital strip + swaption) | Operations, Trader | Booking the hedge as two separate trades (digital strip and swaption) that do not correctly reference the same master trade |
+| **During life** | Daily observation for range accrual. Quarterly coupon calculation. On each call date after the non-call period, the bank decides whether to call | Product Control, Trader (call decision), Operations | Call decision timing conflicts with range accrual quarter-end — if called mid-quarter, partial accrual must be calculated |
+| **Termination** | If called: all four legs close, partial quarter coupon paid. If matured: final quarterly coupon paid, principal returned | Operations, Product Control | Partial quarter accrual calculation on call date — days in range must be counted up to the call date, not quarter end |
+
+#### §12. Worked Example (both lenses)
 
 **Terms:** $60M notional, 5-year NC2, accrual rate 5.40%, range [2.00%, 5.00%] on 6M SOFR, quarterly, Act/360.
 
@@ -13102,251 +12747,91 @@ Maximum quarterly coupon: $60M × 5.40% / 4 = $810,000
 
 **Effective Year 1 rate:** $2,690,159 / $60,000,000 = 4.48% (vs max 5.40%, vs vanilla 3.80%)
 
-**Call scenario:** If called after year 2 with average 85% days in range, two-year total coupons ≈ $5,508,000 (4.59% annualized). Kenji must then reinvest at prevailing rates — likely below 5.40%.
+**Call scenario:** If called after year 2 with average 85% days in range, two-year total coupons ≈ $5,508,000 (4.59% annualized). The investor must then reinvest at prevailing rates — likely below 5.40%.
 
 **Maximum quarterly coupon:** $60M × 5.40% / 4 = $810,000
 
-(See Figure 5.3.4-04)
+*Investor lens:*
+The investor earned an effective 4.48% in Year 1 — below the 5.40% maximum because SOFR was outside [2.00%, 5.00%] on some days each quarter, but well above the 3.80% vanilla rate. Q3 is the weakest quarter (60 of 92 days in range, $528,261) and reflects the range breakout risk the investor is short. Across two years to call, an average 85% days-in-range produces ≈ $5,508,000 (4.59% annualized), after which the investor faces reinvestment risk — having sold the call, the investor cannot prevent early termination and must redeploy $60M at lower prevailing rates.
 
-#### §19. Interview Questions
+*Bank lens:*
+The desk holds the mirror position — long the digital strip and long the issuer's call — and pays the investor the accrued coupon each quarter, funded against the digital and swaption hedges plus the 10-15bp structuring spread. Across Year 1 the desk pays $2,690,159 on the Note leg. The 2nd line must confirm each quarter's days-in-range count against the published SOFR fixing log, that the Act/360 day-count produced each coupon (e.g. Q2 = $60M × 5.40% × 85/91 / 4 = $756,593), and that on any call the accrual stops on the exact call date with all four legs terminating together.
 
-1. Why does the CRA SRT offer a higher coupon than both the NCRA and the IR Callable?
-2. What two embedded options is the investor selling in a CRA SRT?
-3. If the bank calls a CRA SRT mid-quarter, how is the final coupon calculated?
-4. Explain why the worst-case scenario for a CRA SRT is more severe than for either the NCRA or the IR Callable alone.
-5. The desk has a $1B CRA SRT portfolio. SOFR is at 4.95% (5bp inside the upper boundary) and 3-year swap rates have dropped 80bp. Describe the competing risks and how you would manage them.
+#### §13. Knowledge Check
 
+1. **What two embedded options does the CRA SRT investor sell?** (The range — a digital option strip — and the issuer's call — a receiver swaption.) *(Investor)*
+2. **Why does the CRA SRT offer a higher coupon than the NCRA?** *(Investor)*
+3. **What happens to the accrual counter if the bank calls mid-quarter?** *(Investor)*
+4. **How does the non-call period affect the coupon uplift from the callable feature?** *(Investor)*
+5. **Why is the worst case for a CRA SRT more severe than for an NCRA or IR Callable alone?** *(Investor)*
+6. **A CRA SRT has a range of [2.00%, 5.00%] and is callable NC2 quarterly. In year 3, SOFR drops from 3.00% to 1.50%. What happens to the accrual, and what is the bank likely to do at the next call date?** *(Investor)*
+7. **The bank calls a CRA SRT on day 45 of a 91-day quarter. Of the 45 days, 38 were in range. Calculate the partial quarter coupon on a $60M notional with a 5.40% accrual rate.** *(Investor)*
+8. **(Desk economics / 1LoD)** When the investor is short both the range and the call, what positions does the desk hold, what are its dominant Greeks, and how does the desk hedge each? Why is the correlation between range performance and the call decision the residual the desk cannot fully hedge?
+9. **(Controls / 2LoD)** Name three reconciliation breaks specific to a CRA SRT — covering the daily accrual factor, the call exercise across all four legs, and the partial-quarter accrual on a mid-quarter call — and the consequence of each for the coupon or the collateral.
 
 **Mental Models**
 
 | Concept | Mental Model |
 |---------|-------------|
-| CRA SRT | Freelance contractor — earn daily rate only when performing (range), with the company able to end your contract (call) |
-| Dual premium | Stacking two insurance policies — you earn two premiums but face two types of claims |
-| Range + call correlation | If you're fired precisely when your commissions are lowest, you get the worst of both worlds |
-| Non-call period | Probation period — your contract is safe until probation ends, then reviews begin |
-| Maximum coupon | The theoretical ceiling — achieved only if you hit every target and survive every review |
-
+| CRA SRT | Freelance contractor — earn the daily rate only when performing (range), with the company able to end the contract (call) |
+| Dual premium | Stacking two insurance policies — the investor earns two premiums but faces two types of claims |
+| Range + call correlation | If you are fired precisely when your commissions are lowest, you get the worst of both worlds |
+| Non-call period | Probation period — the contract is safe until probation ends, then reviews begin |
+| Maximum coupon | The theoretical ceiling — achieved only if every target is hit and every review survived |
+| Four legs net (2LoD) | One master trade — a call must close all four legs at once, or accrual and the swaption fall out of step |
 
 **Key Takeaways**
 
 1. A CRA SRT combines range accrual and callable features, offering the highest coupon in the SRT family.
 2. Japanese regional banks and Asian insurance companies buy it for maximum yield from structured rate exposure.
 3. Dual risk (range breakout + early termination) means the worst case is more severe than either risk alone.
-4. The accrual rate exceeds the NCRA because the investor sells both a digital option strip and a swaption.
-5. The hedge is complex: a strip of daily digital options plus a Bermudan swaption, with correlation risk between them.
+4. The accrual rate (5.40%) exceeds the NCRA (5.10%) because the investor sells both a digital option strip and a swaption — the desk is long both.
+5. The hedge is complex: a strip of daily digital options plus a Bermudan swaption, with correlation risk between them that the desk cannot fully neutralise.
+6. For the 2nd line, the dominant control risks are the daily accrual factor (observation count vs the SOFR fixing log), the call schedule and exercise capture across all four legs, the partial-quarter accrual on a mid-quarter call, the Act/360 day-count, and the $60M Deposit release within T+2 — each can misstate a coupon or trap collateral.
 
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
-**1. Adding the premiums linearly.** The CRA SRT's coupon is not simply NCRA coupon + swaption premium. The correlation between range performance and call exercise affects the combined pricing — the actual premium may be more or less than the sum of parts.
+1. **Adding the premiums linearly.** The CRA SRT's coupon is not simply NCRA coupon + swaption premium. The correlation between range performance and call exercise affects the combined pricing — the actual premium may be more or less than the sum of the parts.
+2. **Assuming the call is independent of range performance.** The bank is more likely to call when rates drop — which is the same scenario where SOFR may approach or breach the lower range boundary. The two risks can coincide, creating a "double hit."
+3. **Quoting the 5.40% as the "yield" of the product.** The 5.40% is the maximum possible coupon if every day is in range. Actual yield depends on range accrual performance. Investors should be quoted the expected yield based on rate forecasts, not the maximum.
+4. **Booking the digital strip and swaption as independent trades.** They must reference the same master trade in Murex so that a call event simultaneously terminates both the accrual and the swaption position.
+5. **(Controls)** **Not modeling the partial-quarter accrual on a mid-quarter call date.** If the bank calls on day 45 of a 91-day quarter, the accrual counter must stop at day 45 and the coupon must be prorated — the system may not handle this automatically, and 2LoD must verify the accrual stopped on the exact call date with all four legs settling together.
 
-**2. Assuming the call is independent of range performance.** The bank is more likely to call when rates drop — which is the same scenario where SOFR may approach or breach the lower range boundary. The two risks can coincide, creating a "double hit."
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book across the four legs, and what is its primary rate/vol risk and hedge?
+- *(Controls / 2LoD)* Which four-leg / fixing / accrual fields must reconcile, and which is the most common break?
 
-**3. Quoting the 5.40% as the "yield" of the product.** The 5.40% is the maximum possible coupon if every day is in range. Actual yield depends on range accrual performance. Clients should be quoted the expected yield based on rate forecasts, not the maximum.
-
-**4. Booking the digital strip and swaption as independent trades.** They must reference the same master trade in Murex so that a call event simultaneously terminates both the accrual and the swaption position.
-
-**5. Not modeling the partial-quarter accrual on a mid-quarter call date.** If the bank calls on day 45 of a 91-day quarter, the accrual counter must stop at day 45 and the coupon must be prorated — the system may not handle this automatically.
-
----
-
-**Who Touches This Product**
-
-| Role | Responsibility | Primary Concern | Typical Question |
-|------|---------------|----------------|-----------------|
-| **Trader** | Manages combined digital strip + swaption hedge, makes call decisions considering range performance | "If I call this trade, do I lose the remaining swaption premium?" | "SOFR is at 4.90% — should I call now before it potentially breaches the range, or hold and collect more premium?" |
-| **Structurer** | Prices the combined structure, models the correlation between range and call components | "Is the correlation assumption between range accrual and call exercise correctly priced?" | "If I tighten the range by 25bp on each side and shorten the NC from 2 years to 1, what is the net coupon change?" |
-| **Sales** | Presents the dual-premium story, explains the risk stacking to sophisticated clients | "Does the client understand that this product has TWO ways to underperform?" | "Kenji earned 4.48% in Year 1 vs the 3.80% vanilla. How do I frame the Q3 underperformance constructively?" |
-| **Risk** | Monitors aggregate exposure to both digital gamma and swaption vega across the CRA SRT book | "What is the combined risk if SOFR spikes 50bp AND vol rises 3 points simultaneously?" | "How correlated is our CRA SRT book with our standalone NCRA and IR Callable books?" |
-| **Product Control** | Values the complex combination daily, verifies that call events correctly terminate accrual | "Does the system stop the accrual counter on the call exercise date?" | "The Note leg shows a coupon payment after the call date — is this a legitimate partial-quarter payment or an error?" |
-| **Operations** | Manages the intersection of daily observations and quarterly call decisions | "If we call on day 60 of a 91-day quarter, how do I calculate the partial coupon?" | "The call was exercised but the deposit release is delayed by 3 days — should I escalate?" |
-| **Legal** | Reviews documentation for the interaction between range accrual and call provisions | "If the bank calls mid-quarter, does the client receive the partial quarter coupon or nothing?" | "The term sheet references 'quarterly coupon dates' for both accrual settlement and call exercise — are these the same dates?" |
-| **Model Validation** | Validates the combined pricing model, particularly the correlation between digital and swaption components | "Does the model correctly capture the co-dependency between range accrual value and call exercise value?" | "What is the model risk from assuming zero correlation between the digital strip and the swaption when they reference the same rate?" |
-
----
-
-**Desk Reality**
-
-**What keeps traders awake:** A large CRA SRT book where SOFR is simultaneously near a range boundary AND near the call exercise threshold. The combined gamma from both the digital options and the swaption can create enormous P&L swings — a $500M book near both boundaries might see $3-5M of P&L from a 2bp move.
-
-**Most important risk:** The correlation between range and call events. If rates drop below the range (zero coupons) and trigger a call simultaneously, the client gets the worst of both features. The hedge for this correlation is expensive and imperfect.
-
-**Typical junior mistake:** Pricing the CRA SRT as "NCRA price + swaption price" without adjusting for the correlation between the two embedded options. The combined structure has cross-gammas that the individual components don't have.
-
-**Hardest operational issue:** Processing a mid-quarter call. The accrual counter must stop on the exact call date, the partial quarter coupon must be calculated based on days in range up to that date (not quarter-end), and all four legs must settle simultaneously. This requires manual intervention in most booking systems.
-
-**Most misunderstood concept:** That the call right is valuable precisely when range accrual is likely to be poor. The bank calls when rates drop — and if rates drop fast enough to breach the lower range boundary, the client has already been earning reduced coupons. The call and the range are not independent risks — they are correlated, and the correlation works against the investor.
-
----
-
-**Knowledge Check**
-
-*Review Questions:*
-1. What two embedded options does the CRA SRT investor sell?
-2. Why does the CRA SRT offer a higher coupon than the NCRA?
-3. What happens to the accrual counter if the bank calls mid-quarter?
-4. How does the non-call period affect the coupon uplift from the callable feature?
-5. Why is the worst case for a CRA SRT more severe than for an NCRA or IR Callable alone?
-
-*Scenario Questions:*
-6. A CRA SRT has a range of [2.00%, 5.00%] and is callable NC2 quarterly. In year 3, SOFR drops from 3.00% to 1.50%. What happens to the accrual? What is the bank likely to do at the next call date?
-7. Two CRA SRTs have the same range but different non-call periods: NC1 at 5.80% and NC3 at 5.20%. Explain the coupon difference and which an investor with high rate-stability conviction should prefer.
-8. The bank calls a CRA SRT on day 45 of a 91-day quarter. Of the 45 days, 38 were in range. Calculate the partial quarter coupon on a $60M notional with a 5.40% accrual rate.
-
-*Desk Question:*
-9. Your CRA SRT book is $800M with staggered NC periods. A central bank announcement is expected tomorrow that could move rates 50bp in either direction. Walk through your pre-announcement risk management plan, including how you'd assess the combined range and call risks.
-
----
-
-#### §21. Visual Specifications
-
-**Visual 1:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.4-01 |
-| **Visual ID** | FLOW_CRA_SRT_01 |
-| **Type** | Cash Flow Diagram |
-| **Priority** | P1 |
-| **Purpose** | Show the four-leg structure with both range gate and call overlay |
-| **Visual Description** | NCRA flow diagram (from 5.3.3) with an additional call option overlay on the Note leg — dashed line indicating the bank's right to terminate. Two gates on the coupon: range gate (daily) and call gate (quarterly after NC period). Both must be open for coupons to flow |
-| **Diagram Elements** | Four boxes, range gate, call gate overlay, variable coupon arrow, call dates marked |
-| **Axis Definitions** | N/A (flow diagram) |
-| **Caption** | CRA SRT: dual-gate structure — coupons flow only when the rate is in range AND the note has not been called |
-| **Location** | §12 |
-| **Reuse Potential** | Medium — callable range accrual template |
-| **Future Asset Filename** | flow_cra_srt_01.svg |
-
-**Visual 2:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.4-02 |
-| **Visual ID** | LIFECYCLE_CRA_SRT_01 |
-| **Type** | Lifecycle Diagram |
-| **Priority** | P1 |
-| **Purpose** | Show the CRA SRT lifecycle with daily observations, quarterly settlements, and call decisions |
-| **Visual Description** | Combined NCRA lifecycle (daily observations, quarterly coupons) with IR Callable overlay (call decision diamonds after NC period). Non-call period clearly shaded. Branch points at each call date |
-| **Diagram Elements** | Timeline, quarterly segments, mini rate-path charts, range shading, call decision diamonds, "Called"/"Not Called" branches |
-| **Axis Definitions** | X: Time (years/quarters) |
-| **Caption** | CRA SRT lifecycle: daily range observations with quarterly call decisions after the non-call period |
-| **Location** | §13 |
-| **Reuse Potential** | Medium — callable range accrual lifecycle |
-| **Future Asset Filename** | lifecycle_cra_srt_01.svg |
-
-**Visual 3:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.4-03 |
-| **Visual ID** | PAYOFF_CRA_SRT_01 |
-| **Type** | Payoff Diagram |
-| **Priority** | P2 |
-| **Purpose** | Show the CRA SRT coupon as a function of days in range, compared to NCRA and IR Callable |
-| **Visual Description** | Three lines on the same chart: (1) IR Callable = flat line at $810,000 regardless of range (no range condition), (2) NCRA = line from $0 to $956,250 (higher max, lower slope), (3) CRA SRT = line from $0 to $810,000 (highest rate but conditional). Annotations explain the tradeoffs |
-| **Diagram Elements** | Three payoff lines, labels, tradeoff annotations |
-| **Axis Definitions** | Y: Quarterly Coupon ($), X: % Days in Range |
-| **Caption** | CRA SRT vs NCRA vs IR Callable: the CRA SRT's higher rate comes with conditionality that the IR Callable lacks |
-| **Location** | §14 |
-| **Reuse Potential** | Low — specific to SRT product comparison |
-| **Future Asset Filename** | payoff_cra_srt_01.svg |
-
-**Visual 4:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.4-04 |
-| **Visual ID** | TIMELINE_CRA_SRT_01 |
-| **Type** | Timeline |
-| **Priority** | P2 |
-| **Purpose** | Show the worked example quarterly results with call scenario |
-| **Visual Description** | 8 quarterly bars (2 years to call) with varying heights based on days in range. After Q8, a "CALLED" marker terminates the timeline. Comparison dotted line shows what the remaining 12 quarters would have paid if not called |
-| **Diagram Elements** | 8 accrual bars, call marker, dotted continuation, dollar annotations |
-| **Axis Definitions** | X: Quarter, Y: Coupon Amount ($) |
-| **Caption** | CRA SRT worked example: 8 quarters of range-dependent coupons, then called — dotted line shows missed future income |
-| **Location** | §18 |
-| **Reuse Potential** | Low — specific to CRA SRT worked example |
-| **Future Asset Filename** | timeline_cra_srt_01.svg |
-
-**Visual 5:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.4-05 |
-| **Visual ID** | DIAGRAM_CRA_SRT_01 |
-| **Type** | Comparison Chart |
-| **Priority** | P3 |
-| **Purpose** | Compare the coupon components of all SRT products |
-| **Visual Description** | Stacked bar chart: for each SRT product (IR Callable, ZCL, NCRA, CRA SRT), show the coupon decomposition into vanilla swap rate + range premium + call premium + structuring fee. CRA SRT has the tallest bar (most premium sources) |
-| **Diagram Elements** | Four stacked bars, component labels, total rate annotations |
-| **Axis Definitions** | Y: Rate (%), X: Product |
-| **Caption** | SRT coupon decomposition: the CRA SRT stacks range and call premiums for the highest total coupon |
-| **Location** | §9 |
-| **Reuse Potential** | Low — specific to SRT family comparison |
-| **Future Asset Filename** | diagram_cra_srt_01.svg |
-
-**Visual 6:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.4-06 |
-| **Visual ID** | DECISION_TREE_CRA_SRT_01 |
-| **Type** | Decision Tree |
-| **Priority** | P3 |
-| **Purpose** | Show the dual decision process: daily range check AND quarterly call check |
-| **Visual Description** | Two-level decision tree: Level 1 (daily): "Is SOFR in [2.00%, 5.00%]?" → YES: accrue, NO: don't accrue. Level 2 (quarterly after NC): "Does the bank exercise the call?" → YES: terminate all legs, pay partial quarter. → NO: continue to next quarter |
-| **Diagram Elements** | Two decision diamonds, YES/NO branches, accrue/terminate outcomes, loop arrows |
-| **Axis Definitions** | N/A (decision tree) |
-| **Caption** | CRA SRT dual-decision: daily range check determines accrual, quarterly call check determines survival |
-| **Location** | §11 |
-| **Reuse Potential** | Medium — callable range accrual decision template |
-| **Future Asset Filename** | decision_tree_cra_srt_01.svg |
-
----
-
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Non-Callable Range Accrual mechanics | Section 5.3.3 (NCRA) |
-| IR Callable and call mechanics | Section 5.3.1 (IR Callable) |
-| Range accrual concept (equity) | Section 5.1.10 (CRA ELN) |
-| Interest rate swap mechanics | Section 5.2.1 (IRS) |
-| SOFR, EURIBOR, benchmark rates | Section 1.8 (Benchmark Rates) |
-| Digital options concept | Section 1.3 (Barrier and Digital Options) |
-| Swaptions | Section 1.8 (Caps, Floors, Swaptions) |
-| Four-leg structure | Section 2.7 (The Four-Leg Structure) |
-| Murex booking | Section 2.8 (Systems Primer) |
-
----
-
+**Dual-lens visuals (generated):**
+- `assets/crasrt/controls_crasrt_recon_08.svg` `[generated]`
+- `assets/crasrt/desk_crasrt_gamma_07.svg` `[generated]`
+- `assets/crasrt/payoff_crasrt_01.svg` `[generated]`
+- `assets/crasrt/waterfall_crasrt_09.svg` `[generated]`
 ### 5.3.5 Digital Cap-Floor Note
 
 ---
 
-*The range accrual products paid you for days inside a range. The Digital Cap-Floor Note takes a different approach: instead of accruing interest day by day, it pays a fixed digital payout whenever the reference rate crosses a predetermined level. It's a binary bet on the rate level — either the rate is above (or below) the threshold and you get paid, or it isn't and you get nothing.*
+*Where a Range Accrual Note pays the investor for each day a reference rate sits inside a range, a Digital Cap-Floor Note takes a different approach: instead of accruing interest day by day, it pays a fixed digital coupon whenever the reference rate crosses a predetermined strike. The coupon is a binary function of the rate level — either the reference rate is on the paying side of the strike and the high coupon is paid, or it is not and the low (or zero) coupon is paid. It is a structured rate note in the Structured Rate Trade (SRT) family, wrapped as a note and booked in Murex with a four-leg structure. This chapter reads the product through two lenses: what it means for **the investor** (the note holder), and what it means for **the bank** — the latter split into the desk's rate-option economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Lucia is a risk manager at an Italian utility company with $400 million of floating-rate debt. She is worried about SOFR rising above 5.00% — at that level, her interest expense begins to threaten the company's profit margin. She doesn't want a traditional interest rate cap because the premium is expensive and she doesn't need proportional protection — she just needs a fixed payment whenever rates breach her danger threshold. The Digital Cap-Floor Note gives her exactly this: if 3-month SOFR is at or above 5.00% on any quarterly observation date, she receives a flat payment of 0.75% × $40M = $300,000 for that quarter. If SOFR is below 5.00%, she receives nothing. It's a binary outcome — either the rate is in the danger zone and she gets compensated, or it's not and she doesn't.
+Consider a risk manager at an Italian utility company with $400 million of floating-rate debt. The manager is worried about SOFR rising above 5.00% — at that level, the company's interest expense begins to threaten its profit margin. A traditional interest rate cap is expensive, and the company does not need proportional protection — it needs a fixed payment whenever rates breach the danger threshold. The Digital Cap-Floor Note delivers exactly this: if 3-month SOFR is at or above 5.00% on any quarterly observation date, the note pays a flat coupon of 0.75% × $40M = $300,000 for that quarter. If SOFR is below 5.00%, the coupon is zero. The outcome is binary — either the rate is in the danger zone and the coupon is paid, or it is not and nothing is paid.
 
-#### §2. Core Analogy
+#### §2. Real-World Analogy
 
-Think of a home insurance policy with a fixed payout. If your house floods (rate breach), you receive a predetermined payment of $10,000 — regardless of whether the flood caused $5,000 or $50,000 in actual damage. If your house doesn't flood, you receive nothing and you've paid the premium for peace of mind. The Digital Cap pays you a fixed amount whenever the "flood" (rate above threshold) occurs.
+A Digital Cap is like a home insurance policy with a fixed payout. If the house floods (rate breach), the policy pays a predetermined amount of $10,000 — regardless of whether the flood caused $5,000 or $50,000 in actual damage. If the house does not flood, nothing is paid and the premium bought peace of mind. The Digital Cap pays a fixed amount whenever the "flood" (rate above strike) occurs.
 
-The Digital Floor works in reverse: it's like drought insurance. If rainfall drops below a critical level (rate falls below the floor strike), you receive a fixed payment. Now combine both policies — flood insurance plus drought insurance — and you have a Digital Cap-Floor: protection against rates going too high OR too low, with a fixed payment in either direction. Lucia buys only the cap because her specific risk is rates rising, but the structure can be tailored to protect against either extreme or both.
+The Digital Floor works in reverse — it is like drought insurance. If rainfall drops below a critical level (rate falls below the floor strike), a fixed payment is made. Combine both — flood insurance plus drought insurance — and the result is a Digital Cap-Floor: protection against rates going too high OR too low, with a fixed coupon in either direction. An investor concerned only about rates rising buys the cap alone, but the structure can be tailored to either extreme or both.
 
-#### §3. What Problem Does It Solve
+#### §3. What Problem Does This Solve?
 
-| Client Need | How the Product Delivers |
+| Investor Need | How the Product Delivers |
 |------------|------------------------|
-| Protection against rates exceeding a specific level | Fixed digital payout whenever SOFR ≥ strike on observation dates |
+| Protection against rates exceeding a specific level | Fixed digital coupon whenever SOFR ≥ strike on observation dates |
 | Simpler and cheaper than traditional caps | No proportional payout calculation — binary yes/no decision |
-| Budget certainty on protection payments | Payout is a fixed percentage per period, not variable with rate level |
-| Hedge floating-rate debt at specific thresholds | Payments offset increased interest expense when rates breach the danger level |
+| Budget certainty on protection payments | Coupon is a fixed percentage per period, not variable with rate level |
+| Hedge floating-rate debt at specific thresholds | Coupons offset increased interest expense when rates breach the danger level |
 
 #### §4. Product DNA
-
 
 | **Field** | **Value** |
 |---|---|
@@ -13362,7 +12847,6 @@ The Digital Floor works in reverse: it's like drought insurance. If rainfall dro
 | **Liquidity** | Secondary market |
 | **Primary System** | Murex (primary), Sophis (risk) |
 | **ISDA Required** | No — issued as note |
-
 
 **DNA Atlas Fields:**
 - Primary Risk: Digital payoff — small rate move across strike causes large P&L swing. Discontinuous payoff at cap/floor levels
@@ -13385,14 +12869,18 @@ The Digital Floor works in reverse: it's like drought insurance. If rainfall dro
 - Client Type: Institutional
 - Market Environment: Best with strong directional rate view
 
-#### §5. Family Position
+#### §5. Who Touches This Product
 
-```
-Rates
-└── Structured Rate Trades (SRT)
-    └── Digital Rate Products
-        └── Digital Cap-Floor Note  ← You are here
-```
+| Role | Responsibility |
+|------|---------------|
+| **Structurer** | Prices the digital caplet strip, designs the coupon and premium structure. Negotiates strike and payout amount against the investor's hedging need |
+| **Trader** | Manages the digital caplet strip hedge. Monitors digital delta and gamma near the strike. Manages the embedded rate option risk |
+| **Sales** | Presents the digital cap as a lower-cost alternative to vanilla caps. Manages underinsurance expectations with the investor |
+| **Risk Management** | Monitors aggregate digital exposure, especially cliff risk near strikes. Stress-tests the book |
+| **Product Control** | Verifies observation rates, validates binary coupons, reconciles premiums. Daily P&L attribution |
+| **Operations** | Processes quarterly observations, pays digital coupons, collects premiums. Confirms observation date convention |
+| **Legal / Compliance** | Reviews digital coupon provisions and observation-date definitions. Confirms the official SOFR fixing source |
+| **Model Validation** | Validates digital option pricing, particularly behaviour near the strike and the call-spread approximation |
 
 #### §6. Product Evolution
 
@@ -13400,104 +12888,42 @@ Rates
 |:-----:|---------|---------------|-----|
 | 1 | Vanilla interest rate cap | — (baseline) | Proportional payout when rate exceeds strike — standard hedge for floating-rate borrowers |
 | 2 | Digital equity note (5.1.12) | Binary payout on equity level | Simplified payoff: all-or-nothing instead of proportional |
-| 3 | Digital Cap-Floor Note | Binary payout on rate level, SRT note format | Applied the digital concept to rates with structured note packaging and four-leg booking |
+| 3 | Digital Cap-Floor Note | Binary payout on rate level, SRT note format | Applied the digital concept to rates with structured-note packaging and four-leg booking |
 
-#### §7. Why The Market Invented This Product
+---
 
-Traditional interest rate caps were expensive because they provided proportional protection — the higher rates went above the strike, the more they paid. Many borrowers didn't need proportional protection; they just needed a fixed offset payment when rates breached a specific threshold. The digital structure, borrowed from equity markets where Digital Notes (5.1.12) were already successful, provided this simpler payoff at a lower premium. Corporate treasurers adopted the product because the fixed payout was easier to budget and the premium was typically 30-50% lower than a vanilla cap with the same strike. The SRT note packaging made it accessible to clients without ISDA documentation.
+#### §7. THE INVESTOR LENS
 
-#### §8. Why Clients Buy It
+**Why the investor buys it**
 
-1. **Lower premium than vanilla caps** — digital payout eliminates the expensive proportional protection
-2. **Fixed payout** — predictable $300,000 per quarter when triggered, regardless of how high rates go
-3. **Simple decision framework** — binary outcome is easier to explain to management and board
-4. **Hedges a specific threshold** — targets the exact rate level where the company's margin is threatened
-5. **Note format** — no ISDA required from the corporate borrower
+1. **Rate view / enhanced yield.** The investor expresses a directional view on rates: a fixed high coupon is earned in the periods where the reference rate is on the paying side of the digital strike, enhancing yield over a plain note.
+2. **Lower premium than vanilla caps.** The digital coupon eliminates the expensive proportional protection, so the premium is typically 30-50% lower than a vanilla cap with the same strike.
+3. **Fixed coupon.** The coupon is a predictable $300,000 per quarter when triggered, regardless of how high rates go — easy to budget.
+4. **Simple decision framework.** The binary outcome is easier to explain to management and a board than a proportional payoff.
+5. **Hedges a specific threshold.** The strike targets the exact rate level where the investor's margin is threatened.
+6. **Note format.** No ISDA documentation is required from the investor.
 
-#### §9. Why This Product Exists
+**Position & coupon condition**
 
-**Typical Buyer:** Corporate treasurers and utilities with floating-rate debt who need protection above a specific rate threshold. Typically corporate, $1B+ revenue, moderate derivatives sophistication. Served by corporate banking desks.
-
-**Problem Being Solved:** Risk transfer — hedging floating-rate exposure above a specific level at a lower cost than traditional caps.
-
-**How The Client Makes Money:** If SOFR rises to 5.50% and stays there for 8 of 12 quarters, Lucia receives 8 × $300,000 = $2,400,000 in digital payouts. Her premium cost is $740,000 per year (185bp on $40M), or $2,220,000 over 3 years. Net benefit: $2,400,000 − $2,220,000 = $180,000. If SOFR rises to 7.00%, she still receives $300,000 per triggered quarter — the digital payout does not increase with the severity of the rate breach.
-
-**How The Bank Makes Money:**
-
-| Area | Detail |
-|------|--------|
-| **Client economics** | Client pays annual premium of 185bp ($740,000) and receives $300,000 per triggered quarter. Breakeven: approximately 2.5 triggered quarters per year |
-| **Bank economics** | Structuring spread: 10-20bp on the digital strip pricing. The bank sells the strip at a slight premium to the hedge cost |
-| **Hedging economics** | Rates desk hedges with a strip of digital caplets. Residual risk: digital gamma near the strike — the hedge becomes discontinuous when SOFR is close to 5.00% |
-| **Distribution economics** | Sales credit 5-10bp on notional. Corporate hedging is relationship-driven — one digital cap sale often leads to broader treasury management services |
-
-**Market Conditions Where Demand Increases:** Demand rises when rates are rising toward a perceived danger level, when traditional cap premiums are expensive (high implied volatility), and when corporate borrowers need to hedge within tight budget constraints.
-
-**When This Product Makes Sense:** For borrowers who need protection above a specific threshold, who want a lower premium than a vanilla cap, and who can accept that the payout doesn't increase if rates go significantly above the strike.
-
-**When This Product Is Usually A Poor Choice:** For borrowers who need proportional protection (use a vanilla cap instead). Also poor when rates are well below the strike (low probability of triggering) or when the payout amount is too small relative to the actual interest cost increase (underinsured).
-
-#### §10. What Happens If...
-
-**Scenario A — SOFR stays at 4.50% (below strike):** No quarterly payouts triggered. Lucia pays $740,000/year in premium with no benefit. Total cost: $2,220,000 over 3 years. The insurance was not needed.
-
-**Scenario B — SOFR rises to 5.50%:** All 12 quarterly observations trigger. Lucia receives 12 × $300,000 = $3,600,000. Net after premium: $3,600,000 − $2,220,000 = $1,380,000.
-
-**Scenario C — SOFR oscillates around 5.00%:** 4 of 12 quarters trigger. Lucia receives 4 × $300,000 = $1,200,000. Net: $1,200,000 − $2,220,000 = −$1,020,000. Partial offset — better than no hedge, but the premium wasn't fully recovered.
-
-**Scenario D — SOFR spikes to 8.00%:** All quarters trigger. Lucia receives $3,600,000. But her actual incremental interest cost at 8.00% vs 5.00% on $400M of floating debt is $12M/year — the digital payout covers only a fraction. She is underinsured for extreme moves.
-
-#### §11. Formal Definition
-
-A Digital Cap-Floor Note is a structured rate product that pays a fixed digital amount whenever the reference rate (typically 3-month SOFR) is above a predetermined cap strike or below a predetermined floor strike on periodic observation dates. The payout is binary: if the rate is at or above the cap strike, the holder receives a fixed payment (e.g., 0.75% of notional per quarter). If the rate is below the strike, the holder receives nothing. The product is booked in Murex with four legs: Note (digital payout obligation), Issuer (funding), Deposit (premium reserve), and Hedge (strip of digital caplets or floorlets). Unlike a vanilla cap, the payout does not increase with the distance above the strike — it is all-or-nothing at each observation date.
-
-#### §12. Product Construction
-
-The Digital Cap-Floor is built from a strip of binary options on the reference rate:
+The investor holds a note whose coupon is a **digital function of a reference rate**. There is no proportional participation — the coupon is all-or-nothing at each observation date:
 
 ```
 For each quarterly observation:
-  IF 3M SOFR ≥ 5.00%: Pay $300,000
-  IF 3M SOFR < 5.00%: Pay $0
+  IF 3M SOFR ≥ 5.00%: coupon = 0.75% of notional = $300,000
+  IF 3M SOFR < 5.00%: coupon = $0
 ```
 
-The strip of 12 quarterly digital caplets (3-year term) creates a "staircase" protection:
+The investor is therefore **long the embedded digital rate option** (long the digital cap): the investor receives the high coupon when the reference rate is at or above the cap strike and the low (zero) coupon otherwise. The investor's rate risk is concentrated entirely at the strike — the position is most sensitive when SOFR is near 5.00%, where a small rate move flips the entire coupon.
 
-```
-Payout ($)
-  │
-  │── $300,000 ──── Digital cap payout
-  │              │
-  │              │
-  │── $0 ────────┘
-  ├──────────────────────── 3M SOFR (%)
-        4.0%    5.0%    6.0%
-              Strike
-```
-*Caption: Digital cap — flat payout above the strike, zero below. No proportional increase.*
+**Payoff & scenarios**
 
-> **Professor Note:** If you remember only one thing from this chapter, remember this: a digital cap pays a fixed amount when rates cross your danger line — it's insurance with a predetermined claim, not proportional coverage. Simple, but it can leave you underinsured in extreme scenarios.
+The digital coupon is a step function of the reference rate: zero below the strike, a fixed high coupon at and above it, with no proportional increase for rates further above the strike.
 
-(See Figure 5.3.5-01)
-
-#### §13. Product Lifecycle
-
-| Stage | What Happens | Who Is Involved | What Can Go Wrong |
-|:-----:|-------------|----------------|-------------------|
-| **Pre-trade** | Structurer prices the digital caplet strip using the bank's vol surface and digital option models. Strike and payout amount negotiated based on the client's hedging need | Structurer, Sales, Client | Strike set at a level that is too unlikely to trigger (client never gets paid) or too likely (premium is expensive) |
-| **Trade date** | Four legs booked in Murex: Note leg (digital payout obligation), Issuer leg (funding), Deposit leg (premium reserve), Hedge leg (strip of digital caplets) | Operations, Trader | Digital strike entered incorrectly — one caplet has 4.50% instead of 5.00% |
-| **During life** | On each quarterly observation date, the reference rate is checked against the strike. If triggered, payout is made. Premium is collected quarterly | Product Control, Operations | Observation date falls on a holiday — which fixing applies? |
-| **Maturity** | Final observation, final payout (if triggered), all legs closed | Operations, Product Control | Dispute over the final observation rate source or timing |
-
-(See Figure 5.3.5-02)
-
-#### §14. Payoff Logic
-
-The Digital Cap has a discontinuous payoff — a step function at the strike:
+![Digital Cap-Floor Coupon vs Reference Rate — Investor Lens](assets/digcapfloor/payoff_digcapfloor_01.svg)
 
 ```
 Quarterly
-Payout ($)
+Coupon ($)
   │
   │── $300,000 ──────────────────
   │                              │
@@ -13508,279 +12934,208 @@ Payout ($)
   3.0%    4.0%    5.0%    6.0%   7.0%
                   Strike
 ```
-*Caption: Digital cap payoff — all-or-nothing at 5.00%. No increase for rates above the strike.*
+*Caption: Digital cap coupon — all-or-nothing at 5.00%. No increase for rates above the strike.*
 
-**Net P&L per quarter:**
-- Triggered: $300,000 − $185,000 = +$115,000
-- Not triggered: $0 − $185,000 = −$185,000
+- **Scenario A — SOFR stays at 4.50% (below strike):** No quarterly coupons triggered. The investor pays $740,000/year in premium with no coupon benefit. Total cost: $2,220,000 over 3 years. The protection was not needed.
+- **Scenario B — SOFR rises to 5.50%:** All 12 quarterly observations trigger. The investor receives 12 × $300,000 = $3,600,000. Net after premium: $3,600,000 − $2,220,000 = $1,380,000.
+- **Scenario C — SOFR oscillates around 5.00%:** 4 of 12 quarters trigger. The investor receives 4 × $300,000 = $1,200,000. Net: $1,200,000 − $2,220,000 = −$1,020,000. Partial offset — better than no hedge, but the premium was not fully recovered.
+- **Scenario D — SOFR spikes to 8.00%:** All quarters trigger. The investor receives $3,600,000. But the actual incremental interest cost at 8.00% vs 5.00% on $400M of floating debt is $12M/year — the digital coupon covers only a fraction. The investor is underinsured for extreme moves.
 
-(See Figure 5.3.5-03)
-
-#### §15. Risks
+**Risks to the investor**
 
 | Risk | Description | Severity |
 |------|------------|:--------:|
-| **Binary risk near strike** | When SOFR is near 5.00%, small moves determine a $300,000 swing (from $0 to $300K or vice versa) | High |
-| **Underinsurance risk** | If rates go very high (8%+), the fixed $300K payout doesn't scale — actual interest costs may far exceed the hedge | Medium |
-| **Premium drag** | Quarterly premium of $185,000 is paid regardless of whether the cap triggers | Medium |
-| **Observation timing risk** | The specific SOFR fixing on the observation date determines the payout — intraday rate levels are irrelevant | Medium |
+| **Binary risk near strike** | When SOFR is near 5.00%, a small move determines a $300,000 swing in the coupon (from $0 to $300K or vice versa) | High |
+| **Underinsurance risk** | If rates go very high (8%+), the fixed $300K coupon does not scale — actual interest costs may far exceed the hedge | Medium |
+| **Premium drag** | Quarterly premium of $185,000 is paid regardless of whether the coupon triggers | Medium |
+| **Observation timing risk** | The specific SOFR fixing on the observation date determines the coupon — intraday rate levels are irrelevant | Medium |
 | **Model risk** | Digital options near the strike are sensitive to the pricing model's assumptions about rate distribution (normal vs lognormal) | Low |
-| **Credit risk** | Counterparty default risk on the bank paying the digital payout | Low |
+| **Issuer credit risk** | The investor relies on the note issuer to pay the digital coupon and return principal at maturity; issuer default risk applies | Low |
 
-#### §16. Booking And Systems
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk takes the other side of the investor's note and is therefore **short the embedded digital rate option** — short the digital cap that the investor is long. It books the structured note in Murex with the standard **four-leg SRT structure**, which together net to the client economics:
+
+| Leg | Content |
+|-----|---------|
+| **Note leg** | Digital cap: $40M notional, 0.75% quarterly coupon if 3M SOFR ≥ 5.00%, 12 quarterly observations (the digital coupon obligation owed to the investor) |
+| **Issuer leg** | Bank funding (the issuer's funding of the note) |
+| **Deposit leg** | Premium reserve: investor pays 185bp per annum, collected quarterly |
+| **Hedge leg** | Strip of 12 digital caplets (strike 5.00%, quarterly expiry) hedging the desk's short digital position |
+
+The Note, Issuer, Deposit and Hedge legs together must net to the economics shown to the investor — a fixed digital coupon funded by the premium and offset by the hedge.
+
+**Rate option risk & hedging**
+
+The desk's residual risk is **digital gamma near the strike**. A vanilla option has a smooth delta; the digital option's delta spikes toward infinity as SOFR approaches the strike, so the hedge becomes discontinuous and expensive to manage when SOFR is within 5-10bp of a widely-used strike level. The desk does not hedge a digital caplet with a single vanilla caplet at the same strike — that has a smooth payoff, not a step. The correct hedge is a **tight call/put spread** that approximates the digital step (for the cap: buy a cap at 4.975% and sell a cap at 5.025%). The tighter the spread, the better the approximation — but also the more expensive. The dominant management concern is **pin risk** when SOFR sits a few basis points from the strike on the eve of an observation date: a 2bp overnight move can flip $3.75M of coupons across a $500M book one way or the other.
+
+![Digital Cap-Floor Desk Position & Hedge — Bank Lens (Desk Economics)](assets/digcapfloor/desk_digcapfloor_gamma_07.svg)
+
+**How the bank makes money**
+
+| Area | Detail |
+|------|--------|
+| **Client economics** | The investor pays an annual premium of 185bp ($740,000) and receives $300,000 per triggered quarter. Breakeven: approximately 2.5 triggered quarters per year |
+| **Structuring spread** | 10-20bp on the digital strip pricing. The desk sells the strip at a slight premium to the hedge cost |
+| **Hedging economics** | The rates desk hedges with a strip of digital caplets. Residual risk: digital gamma near the strike — the hedge becomes discontinuous when SOFR is close to 5.00% |
+| **Distribution economics** | Sales credit 5-10bp on notional. Corporate hedging is relationship-driven — one digital cap sale often leads to broader treasury-management services |
+
+**The desk coupon decomposition:**
+
+The premium the investor pays decomposes into the cost of the embedded digital, the structuring spread, distribution credit, and the desk's hedge cost. Annualised, the investor pays 185bp of premium; against this the desk runs the digital strip hedge and captures a 10-20bp structuring spread (with 5-10bp routed to sales as distribution credit). The bulk of the premium funds the cost of the digital cap the desk is short; the structuring spread is the desk's margin over that hedge cost. *(Source quotes the premium 185bp, structuring spread 10-20bp and sales credit 5-10bp but does not split the residual hedge cost into an exact figure; the hedge-cost component below is inferred as the residual of premium less stated spreads.)*
+
+![Digital Cap-Floor Coupon Decomposition — Bank Lens (Desk Economics)](assets/digcapfloor/waterfall_digcapfloor_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by SOFR's proximity to the strike against the warehoused digital gamma, the realized cost of rolling the tight call/put spreads versus the structuring spread captured at inception, changes in the rate-vol surface used to price the digital strip, and the timing of each quarterly observation. P&L can show large swings even when SOFR has barely moved, because the digital is highly sensitive near the strike. Product Control attributes P&L daily and verifies digital valuations independently; the model used near the strike (exact digital vs call-spread approximation) is the most common source of valuation differences.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
 
 | Field | Value |
 |-------|-------|
-| **Booking system** | Murex |
-| **Pricing system** | Murex (digital caplet pricing) |
-| **Four-Leg** | Yes |
-| **Note leg** | Digital cap: $40M notional, 0.75% quarterly payout if 3M SOFR ≥ 5.00%, 12 quarterly observations |
+| **Book of record** | Murex |
+| **Pricing system** | Murex (digital caplet pricing), Sophis (risk) |
+| **Four-leg framework?** | Yes |
+| **Note leg** | Digital cap: $40M notional, 0.75% quarterly coupon if 3M SOFR ≥ 5.00%, 12 quarterly observations |
 | **Issuer leg** | Bank funding |
-| **Deposit leg** | Premium reserve: client pays 185bp per annum quarterly |
+| **Deposit leg** | Premium reserve: investor pays 185bp per annum quarterly |
 | **Hedge leg** | Strip of 12 digital caplets (strike 5.00%, quarterly expiry) |
-| **ISDA documentation** | Not required from client (note format) |
+| **ISDA documentation** | Not required from investor (note format) |
 | **Observation rate** | 3-month SOFR (quarterly fixing, 2 business days before period end) |
 | **Strike** | 5.00% |
 | **Day count** | Act/360 |
 
-#### §17. Red Flags
+**Reconciliation points**
 
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| Payout triggered on a day when SOFR was reported at 4.98% | Observation date mismatch — the system may be using a different fixing date or rate source | Verify the exact observation date and SOFR fixing page specified in the term sheet |
-| Hedge P&L shows large gains/losses when SOFR hasn't moved | Digital gamma spike — SOFR is near the strike and the digital option is highly sensitive | This is expected behavior near the strike — verify that the hedge is correctly sized |
-| Premium payment missed for one quarter | Client may be in arrears or the payment instruction was not processed | Contact Operations — missed premium may trigger a default clause |
-| All 4 digital caplets in a year triggered but only 3 payouts were made | One payout may have been netted against the premium incorrectly | Reconcile the payout schedule against the observation dates |
-| Hedge leg shows 13 digital caplets instead of 12 | An extra caplet was booked — possibly a correction that was added instead of replacing | Audit the hedge leg against the trade confirmation |
+| Recon point | What must agree | Digital CF-specific break |
+|-------------|-----------------|--------------------------|
+| **Note leg** | Digital coupon obligation: $40M notional, 0.75% coupon, 5.00% strike, 12 observations | Coupon or notional on the Note leg does not match the term sheet |
+| **Issuer leg** | Bank funding amount and tenor consistent with the note | Funding leg booked against the wrong issuer entity or amount |
+| **Deposit leg** | Premium reserve: 185bp per annum collected quarterly | Premium not collected, or netted against a coupon incorrectly |
+| **Hedge leg** | Strip of 12 digital caplets at strike 5.00%, quarterly expiry | Hedge leg shows 13 caplets instead of 12 — a correction added rather than replacing |
+| **Rate fixing source** | The 3M SOFR fixing — official Fed SOFR fixing vs a screen rate, and the correct fixing page | System uses a different SOFR fixing source than the term sheet; a 1bp difference flips a $300,000 coupon |
+| **Digital strike & observation** | Strike 5.00% and observation convention (2 business days before period end) consistent across systems | One caplet entered at 4.50% instead of 5.00%, or observation date taken as 2 business days before period start |
+| **Day-count / calendar** | Act/360 applied to the premium and coupon, with the correct payment calendar | Wrong convention applied, so a payment amount differs |
+| **Collateral / settlement** | Coupon and premium cash flows settle on the correct dates; four legs net to the client economics | Coupon paid on a non-triggered quarter, or four legs fail to net to the investor's economics |
 
-#### §18. Worked Example
+![DIGCAPFLOOR Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/digcapfloor/controls_digcapfloor_recon_08.svg)
 
-**Terms:** $40M notional, 3-year, digital cap at 5.00%, payout 0.75% per quarter ($300,000) if 3M SOFR ≥ 5.00%, premium 185bp per annum ($740,000/year, $185,000/quarter).
+**Common breaks & red flags**
 
-| Quarter | 3M SOFR | Triggered? | Payout | Premium | Net |
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Coupon triggered on a day when SOFR was reported at 4.98% | Observation-date mismatch — the system may be using a different fixing date or rate source | Verify the exact observation date and SOFR fixing page specified in the term sheet |
+| Hedge P&L shows large gains/losses when SOFR has not moved | Digital gamma spike — SOFR is near the strike and the digital option is highly sensitive | Expected behaviour near the strike — verify that the hedge is correctly sized |
+| Premium payment missed for one quarter | Investor may be in arrears or the payment instruction was not processed | Contact Operations — missed premium may trigger a default clause |
+| All 4 digital caplets in a year triggered but only 3 coupons were paid | One coupon may have been netted against the premium incorrectly | Reconcile the coupon schedule against the observation dates |
+| Hedge leg shows 13 digital caplets instead of 12 | An extra caplet was booked — possibly a correction added instead of replacing | Audit the hedge leg against the trade confirmation |
+
+**Control implication**
+
+For a Digital Cap-Floor Note the dominant controls are **four-leg net consistency**, the **rate fixing source**, and the **digital strike and observation convention** — together they determine whether each quarterly coupon is correct and whether the booked structure actually reproduces the client economics. The Note, Issuer, Deposit and Hedge legs must net to the fixed digital coupon shown to the investor; if they do not, the desk's economics or the investor's payout is misstated. A wrong fixing source or fixing date flips the digital — a 1bp difference in the SOFR observation can turn a $0 coupon into a $300,000 coupon or vice versa. A digital strike entered as 4.50% instead of 5.00%, or an observation taken 2 business days before period start instead of period end, breaks the trigger condition even when the rate is read correctly. The reconciliation exists precisely to catch these inconsistencies before a coupon settles.
+
+#### §10. Formal Definition
+
+A **Digital Cap-Floor Note** is a structured rate product that pays a fixed digital coupon whenever the reference rate (typically 3-month SOFR) is at or above a predetermined cap strike or below a predetermined floor strike on periodic observation dates. The coupon is binary: if the rate is at or above the cap strike, the investor receives a fixed coupon (e.g., 0.75% of notional per quarter); if the rate is below the strike, the investor receives nothing. The note is booked in Murex with four legs: Note (digital coupon obligation), Issuer (funding), Deposit (premium reserve), and Hedge (strip of digital caplets or floorlets). Unlike a vanilla cap, the coupon does not increase with the distance above the strike — it is all-or-nothing at each observation date.
+
+**Key terms:**
+- **Strike:** The cap (or floor) level against which the reference rate is compared — 5.00% in this chapter.
+- **Reference rate:** The benchmark observed at each date (3-month SOFR), fixed 2 business days before period end.
+- **Digital coupon:** The fixed amount paid when the trigger condition is met (0.75% of notional, $300,000 per quarter) — zero otherwise.
+- **Observation date:** The quarterly date on which the reference rate is compared to the strike.
+- **Four-leg structure:** Note, Issuer, Deposit and Hedge legs that together net to the client economics.
+
+#### §11. Lifecycle
+
+| Stage | Detail |
+|-------|--------|
+| **Pre-trade** | Structurer prices the digital caplet strip using the bank's vol surface and digital option models. Strike and coupon amount negotiated against the investor's hedging need. Risk: strike set too unlikely to trigger (investor never paid) or too likely (premium expensive) |
+| **Trade date** | Four legs booked in Murex: Note leg (digital coupon obligation), Issuer leg (funding), Deposit leg (premium reserve), Hedge leg (strip of digital caplets). Risk: digital strike entered incorrectly — one caplet at 4.50% instead of 5.00% |
+| **During life** | On each quarterly observation date, the reference rate is checked against the strike. If triggered, the coupon is paid. Premium is collected quarterly. Risk: observation date falls on a holiday — which fixing applies? |
+| **Maturity** | Final observation, final coupon (if triggered), principal returned (100% capital protection), all legs closed. Risk: dispute over the final observation rate source or timing |
+
+#### §12. Worked Example (both lenses)
+
+**Terms:** $40M notional, 3-year, digital cap at 5.00%, coupon 0.75% per quarter ($300,000) if 3M SOFR ≥ 5.00%, premium 185bp per annum ($740,000/year, $185,000/quarter).
+
+| Quarter | 3M SOFR | Triggered? | Coupon | Premium | Net |
 |:-------:|:-------:|:----------:|:------:|:-------:|:---:|
 | Q1 | 4.80% | No | $0 | −$185,000 | −$185,000 |
 | Q2 | 5.20% | Yes | $300,000 | −$185,000 | +$115,000 |
 | Q3 | 5.50% | Yes | $300,000 | −$185,000 | +$115,000 |
 | Q4 | 4.90% | No | $0 | −$185,000 | −$185,000 |
 
-**Year 1 total:** Payouts $600,000 − Premium $740,000 = Net −$140,000
+**Year 1 total:** Coupons $600,000 − Premium $740,000 = Net −$140,000
 
-In this scenario, 2 of 4 quarters triggered. Lucia's breakeven is approximately 2.5 triggered quarters per year. Year 1 was slightly below breakeven, but the protection offset a portion of her increased interest expense during Q2-Q3.
+*Investor lens:*
+In this scenario, 2 of 4 quarters triggered. The investor's breakeven is approximately 2.5 triggered quarters per year. Year 1 was slightly below breakeven, but the protection offset a portion of the increased interest expense during Q2-Q3. The investor is long the digital cap: each triggered quarter pays the fixed $300,000 coupon, and the per-quarter net is +$115,000 when triggered ($300,000 − $185,000) and −$185,000 when not ($0 − $185,000), regardless of how far above 5.00% SOFR rises.
 
-(See Figure 5.3.5-04)
+*Bank lens:*
+The desk holds the mirror position — short the digital cap — and pays the $300,000 coupon in Q2 and Q3, funded against the 185bp premium it collects each quarter and its digital-caplet-strip hedge. The 2nd line must confirm each quarter's SOFR fixing against the term-sheet source, that the digital strike of 5.00% and the observation convention were applied correctly (Q1 at 4.80% and Q4 at 4.90% correctly did not trigger; Q2 at 5.20% and Q3 at 5.50% correctly did), and that the four legs net to the investor's economics.
 
-#### §19. Interview Questions
+#### §13. Knowledge Check
 
-1. What is the difference between a digital cap and a vanilla interest rate cap?
-2. Why is the digital cap premium typically lower than a vanilla cap premium with the same strike?
-3. If SOFR is at 5.01% on the observation date, what is the payout? If SOFR is at 8.00%, what is the payout?
-4. Explain why the digital cap leaves Lucia "underinsured" when rates spike to 8.00%.
-5. Your desk has a $2B portfolio of digital caps at various strikes. SOFR moves from 4.95% to 5.05% in a single day. Describe the P&L impact and hedging challenge.
-
+1. **What is the difference between a digital cap and a vanilla interest rate cap?** *(Investor)*
+2. **How is the digital coupon calculated for each quarter, and what is the coupon if SOFR is at 5.01% versus 8.00%?** *(Investor)*
+3. **An investor holds the note for protection above a specific rate threshold. Why does the fixed coupon leave the investor underinsured when rates spike to 8.00%?** *(Investor)*
+4. **What is the breakeven trigger frequency for the worked example?** *(Investor)*
+5. **Why is the digital cap premium lower than a vanilla cap premium with the same strike?** *(Investor)*
+6. **What is the binary risk near the strike, and why is it the core danger?** *(Investor)*
+7. **What does 100% capital protection mean for the investor, and what credit exposure remains?** *(Investor)*
+8. **(Desk economics / 1LoD)** When the investor is long the digital cap, what position does the desk take, what is its dominant residual Greek, and how does the desk hedge it? Why is a single vanilla caplet at the strike the wrong hedge, and what does the desk use instead?
+9. **(Controls / 2LoD)** Name three reconciliation breaks specific to a Digital Cap-Floor Note — covering the four-leg net, the rate fixing source, and the digital strike/observation — and the consequence of each for the coupon paid to the investor.
 
 **Mental Models**
 
 | Concept | Mental Model |
 |---------|-------------|
 | Digital cap | Flood insurance with a fixed payout — $10,000 whether the flood causes $5K or $50K damage |
-| Strike level | Flood line — below it, no payout; above it, full payout |
+| Strike level | Flood line — below it, no coupon; above it, full coupon |
 | Binary payoff | Light switch — on or off, no dimmer |
 | Premium | Insurance premium — paid every quarter regardless of whether the "flood" occurs |
 | Underinsurance | Wearing a raincoat in a hurricane — some protection, but not enough for the worst case |
-
+| Digital gamma (desk) | The desk's tripwire — delta spikes toward infinity as SOFR nears the strike, so the hedge is hardest exactly at 5.00% |
+| Four-leg net | Note + Issuer + Deposit + Hedge must add back to the coupon the investor sees — if they do not, the booking is wrong |
 
 **Key Takeaways**
 
-1. A Digital Cap-Floor pays a fixed amount whenever the reference rate crosses a predetermined threshold — binary, not proportional.
-2. Corporate treasurers buy it for cheaper protection than vanilla caps when they need a specific-level hedge.
-3. Binary risk near the strike is the core danger — a 1bp rate move at the strike creates a $300,000 swing.
-4. The fixed payout means the product can underinsure in extreme scenarios where rates spike far above the strike.
-5. The product is booked in Murex with four legs, with the hedge leg containing a strip of digital caplets.
+1. A Digital Cap-Floor Note pays a fixed digital coupon whenever the reference rate crosses a predetermined strike — binary, not proportional.
+2. The investor is long the embedded digital rate option; institutional and corporate buyers use it for cheaper protection than vanilla caps when they need a specific-level hedge.
+3. Binary risk near the strike is the core danger — a 1bp rate move at the strike creates a $300,000 swing in the coupon.
+4. The fixed coupon means the product can underinsure in extreme scenarios where rates spike far above the strike.
+5. The note carries 100% capital protection at maturity but leaves the investor exposed to issuer credit.
+6. The desk is short the digital, hedges with a tight call/put spread (not a single vanilla caplet), and earns the structuring spread over the hedge cost; its dominant residual risk is digital gamma / pin risk near the strike.
+7. The note is booked in Murex with four legs — Note, Issuer, Deposit, Hedge.
+8. For the 2nd line, the dominant control risks are four-leg net consistency, the rate fixing source, and the digital strike and observation convention — each can flip the digital and misstate the coupon by $300,000.
 
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
-**1. Expecting the payout to increase with rates.** The digital cap pays $300,000 whether SOFR is at 5.01% or 10.00%. For proportional protection, use a vanilla cap.
+1. **Expecting the coupon to increase with rates.** The digital cap pays $300,000 whether SOFR is at 5.01% or 10.00%. For proportional protection, a vanilla cap is required.
 
-**2. Setting the strike at the current rate level.** If SOFR is already at 4.90% and the strike is 5.00%, the digital options are expensive (high probability of triggering). Setting the strike further out-of-the-money reduces the premium but also the protection probability.
+2. **Setting the strike at the current rate level.** If SOFR is already at 4.90% and the strike is 5.00%, the digital options are expensive (high probability of triggering). Setting the strike further out-of-the-money reduces the premium but also the protection probability.
 
-**3. Ignoring the "cliff" risk near the strike.** When SOFR is near 5.00%, the digital option's delta becomes very large. A 1bp move can flip the payout from $0 to $300,000. The hedge becomes discontinuous and expensive to manage.
+3. **Ignoring the "cliff" risk near the strike.** When SOFR is near 5.00%, the digital option's delta becomes very large. A 1bp move can flip the coupon from $0 to $300,000. The hedge becomes discontinuous and expensive to manage.
 
-**4. Comparing the annualized payout to the premium without considering trigger probability.** The maximum annualized payout is 3.00% (4 quarters × 0.75%), and the premium is 1.85%. But the expected payout depends on the probability of triggering, which may be much less than 100%.
+4. **Comparing the annualised coupon to the premium without considering trigger probability.** The maximum annualised coupon is 3.00% (4 quarters × 0.75%), and the premium is 1.85%. But the expected coupon depends on the probability of triggering, which may be much less than 100%.
 
-**5. Using the same observation date convention as vanilla caps without checking.** Digital caps may use "2 business days before period end" while vanilla caps use "2 business days before period start." A mismatched convention means the rate observed for hedging and the rate observed for the payout are different.
+5. **Using the same observation date convention as vanilla caps without checking.** Digital caps may use "2 business days before period end" while vanilla caps use "2 business days before period start." A mismatched convention means the rate observed for hedging and the rate observed for the coupon are different.
 
----
+6. **(Controls)** **Assuming the four legs are correct because the Note leg matches the term sheet.** The Note, Issuer, Deposit and Hedge legs must *net* to the client economics — a hedge leg with 13 caplets instead of 12, or a premium netted against a coupon, breaks the structure even when the Note leg's strike and coupon look right. The 2LoD check is the four-leg net, not any single leg in isolation.
 
-**Who Touches This Product**
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book across the four legs, and what is its primary rate/vol risk and hedge?
+- *(Controls / 2LoD)* Which four-leg / fixing / accrual fields must reconcile, and which is the most common break?
 
-| Role | Responsibility | Primary Concern | Typical Question |
-|------|---------------|----------------|-----------------|
-| **Trader** | Manages the digital caplet strip hedge, monitors delta near the strike | "SOFR is 4bp from the strike — what is the digital delta of the book?" | "Should I hedge the digital with a tight call spread (vanilla caps at 4.95% and 5.05%) to smooth the discontinuity?" |
-| **Structurer** | Prices the digital caplet strip, designs the payout and premium structure | "Is the digital pricing consistent with the vanilla cap/floor smile?" | "Can I offer a higher payout per quarter by reducing the number of observation dates from 12 to 4?" |
-| **Sales** | Presents the digital cap as a lower-cost alternative to vanilla caps, manages underinsurance expectations | "Does the client understand that the payout is fixed regardless of how high rates go?" | "Lucia's actual interest cost increase at SOFR = 7% is $8M — how do I explain that the digital only pays $1.2M?" |
-| **Risk** | Monitors aggregate digital exposure, especially the cliff risk near strikes | "What is the total notional at risk if SOFR crosses the 5.00% strike?" | "How many digital caps in the book are within 10bp of their strike?" |
-| **Product Control** | Verifies observation rates, validates binary payouts, reconciles premiums | "Was today's SOFR observation correctly applied to all digital caps with a 5.00% strike?" | "The payout was triggered but the system shows $280,000 instead of $300,000 — is this a day count adjustment or an error?" |
-| **Operations** | Processes quarterly observations, pays digital payouts, collects premiums | "Is the observation date consistent with the term sheet — 2 business days before period end or period start?" | "The client says they should have been paid last quarter but SOFR was 4.99% — how do I confirm?" |
-| **Legal** | Reviews the digital payout provisions, observation date definitions | "How is the observation rate defined — is it the official Fed SOFR fixing or a screen rate?" | "If the SOFR fixing methodology changes mid-trade, does the digital strike need to be adjusted?" |
-| **Model Validation** | Validates the digital option pricing, particularly the behavior near the strike | "Does the model correctly price the digital payoff discontinuity, or does it use a call spread approximation?" | "What is the model risk from using a 1bp call spread to proxy the digital vs. an exact digital model?" |
-
----
-
-**Desk Reality**
-
-**What keeps traders awake:** SOFR sitting at 4.98% on the eve of an observation date with $500M of digital caps at the 5.00% strike. A 2bp move overnight determines $3.75M of payouts (one way or the other), and the hedge is nearly impossible to manage with conventional instruments at this proximity.
-
-**Most important risk:** Digital discontinuity near the strike. Vanilla options have smooth deltas; digital options have a delta that spikes toward infinity as the rate approaches the strike. This makes hedging extremely difficult and expensive when SOFR is within 5-10bp of a widely-used strike level.
-
-**Typical junior mistake:** Hedging a digital caplet with a single vanilla caplet at the same strike. A vanilla caplet has a smooth payoff, not a step function. The correct hedge is a tight call spread (e.g., buy a cap at 4.975% and sell a cap at 5.025%) that approximates the digital step. The tighter the spread, the better the approximation — but also the more expensive.
-
-**Hardest operational issue:** Determining the exact SOFR fixing that applies to the observation date. Different term sheets may reference different fixing times, different publication sources, or different lag conventions. A 1bp difference in the fixing can flip a $300,000 payout.
-
-**Most misunderstood concept:** The relationship between the digital payout and the premium. Clients often think "I pay 185bp and can earn 300bp, so it's always profitable." But the breakeven requires triggering in approximately 2.5 of every 4 quarters — which implies SOFR must be above 5.00% about 60% of the time. If the forward curve implies SOFR will be below 5.00% most of the time, the expected payout is below the premium.
-
----
-
-**Knowledge Check**
-
-*Review Questions:*
-1. What is the difference between a digital cap and a vanilla interest rate cap?
-2. How is the digital payout calculated for each quarter?
-3. What is the breakeven trigger frequency for the worked example?
-4. Why is the digital cap premium lower than a vanilla cap premium?
-5. How is the Digital Cap-Floor Note booked in Murex (four legs)?
-
-*Scenario Questions:*
-6. A client holds a digital cap at 5.00% with a quarterly payout of 0.50%. SOFR is at 4.95% with 3 days until the observation. What is the client's risk/reward for those 3 days?
-7. Two digital caps have strikes at 5.00% and 6.00% on the same notional. Which has a higher premium, and why?
-8. SOFR rises steadily from 4.00% to 7.00% over 12 quarters. Compare the total payout from a digital cap (strike 5.00%, payout 0.75%) to a vanilla cap (strike 5.00%, notional $40M).
-
-*Desk Question:*
-9. Your digital cap book has $3B notional with strikes concentrated at 5.00%, 5.25%, and 5.50%. SOFR is at 5.10%. Walk through your risk management priorities, including which strikes you are most concerned about and why.
-
----
-
-#### §21. Visual Specifications
-
-**Visual 1:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.5-01 |
-| **Visual ID** | PAYOFF_DIGITAL_CF_01 |
-| **Type** | Payoff Diagram |
-| **Priority** | P1 |
-| **Purpose** | Show the step-function payoff of the digital cap |
-| **Visual Description** | Step function: flat at $0 from 0% to 5.00%, then vertical step up to $300,000 at 5.00%, then flat at $300,000 from 5.00% onward. Comparison with a vanilla cap payoff (diagonal line above strike) overlaid in lighter color |
-| **Diagram Elements** | Digital step function (bold), vanilla cap line (light), strike marker, payout annotations |
-| **Axis Definitions** | Y: Quarterly Payout ($), X: 3M SOFR (%) |
-| **Caption** | Digital cap vs vanilla cap: the digital pays a fixed $300,000 above 5.00%; the vanilla pays proportionally |
-| **Location** | §14 |
-| **Reuse Potential** | High — digital payoff template (similar to Digital Note 5.1.12 but on rates axis) |
-| **Future Asset Filename** | payoff_digital_cf_01.svg |
-
-**Visual 2:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.5-02 |
-| **Visual ID** | LIFECYCLE_DIGITAL_CF_01 |
-| **Type** | Lifecycle Diagram |
-| **Priority** | P1 |
-| **Purpose** | Show the quarterly observation-and-payout cycle |
-| **Visual Description** | 12-quarter timeline. At each quarter, a binary decision: SOFR ≥ 5.00%? If yes: green upward arrow ($300K payout). If no: red X (no payout). Premium arrows pointing down at every quarter regardless. Net P&L annotated at bottom |
-| **Diagram Elements** | Timeline, 12 observation points, green payout arrows, red X marks, downward premium arrows, net P&L running total |
-| **Axis Definitions** | X: Quarter, Y: Payment ($) |
-| **Caption** | Digital cap lifecycle: 12 quarterly binary observations with fixed payouts and running premium |
-| **Location** | §13 |
-| **Reuse Potential** | Medium — quarterly digital observation template |
-| **Future Asset Filename** | lifecycle_digital_cf_01.svg |
-
-**Visual 3:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.5-03 |
-| **Visual ID** | FLOW_DIGITAL_CF_01 |
-| **Type** | Cash Flow Diagram |
-| **Priority** | P2 |
-| **Purpose** | Show the four-leg structure with the binary payout mechanism |
-| **Visual Description** | Four-panel SRT diagram. Note leg shows a binary switch: when SOFR ≥ strike, the switch is ON and the payout arrow appears. When SOFR < strike, the switch is OFF. Premium arrow flows from client to bank on every quarter |
-| **Diagram Elements** | Four boxes, binary switch on Note leg, conditional payout arrow, unconditional premium arrow |
-| **Axis Definitions** | N/A (flow diagram) |
-| **Caption** | Digital Cap-Floor four-leg structure: binary switch determines whether the quarterly payout flows |
-| **Location** | §12 |
-| **Reuse Potential** | Medium — digital rate product flow template |
-| **Future Asset Filename** | flow_digital_cf_01.svg |
-
-**Visual 4:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.5-04 |
-| **Visual ID** | TIMELINE_DIGITAL_CF_01 |
-| **Type** | Timeline |
-| **Priority** | P2 |
-| **Purpose** | Show the worked example quarterly results |
-| **Visual Description** | 4 quarterly bars for Year 1. Q1: no payout (red, −$185K net). Q2: payout (green, +$115K net). Q3: payout (green, +$115K net). Q4: no payout (red, −$185K net). Running total at bottom: −$140K |
-| **Diagram Elements** | 4 bars (2 red, 2 green), net P&L labels, running total, SOFR level annotations |
-| **Axis Definitions** | X: Quarter, Y: Net P&L ($) |
-| **Caption** | Digital cap Year 1: 2 of 4 quarters triggered — net cost of $140,000 (below breakeven of 2.5 triggers) |
-| **Location** | §18 |
-| **Reuse Potential** | Low — specific to Digital Cap-Floor worked example |
-| **Future Asset Filename** | timeline_digital_cf_01.svg |
-
-**Visual 5:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.5-05 |
-| **Visual ID** | DIAGRAM_DIGITAL_CF_01 |
-| **Type** | Comparison Chart |
-| **Priority** | P3 |
-| **Purpose** | Compare total payouts: digital cap vs vanilla cap across different rate scenarios |
-| **Visual Description** | Two-line chart: X-axis is average SOFR level over 3 years. Digital cap line is flat at $0 below strike, steps to $3.6M above strike (all 12 quarters triggered). Vanilla cap line rises linearly above strike. Lines cross at a specific rate level — below the crossover, digital is preferable; above it, vanilla provides more protection |
-| **Diagram Elements** | Two payout lines, crossover point, "Digital wins" and "Vanilla wins" annotations |
-| **Axis Definitions** | Y: Total 3-Year Payout ($), X: Average SOFR Level (%) |
-| **Caption** | Digital vs vanilla cap: the digital is more cost-effective for moderate rate increases; the vanilla provides more protection for extreme spikes |
-| **Location** | §9 |
-| **Reuse Potential** | Low — specific to digital vs vanilla comparison |
-| **Future Asset Filename** | diagram_digital_cf_01.svg |
-
-**Visual 6:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.3.5-06 |
-| **Visual ID** | DECISION_TREE_DIGITAL_CF_01 |
-| **Type** | Decision Tree |
-| **Priority** | P3 |
-| **Purpose** | Show the quarterly observation decision logic |
-| **Visual Description** | Simple decision tree: "Is 3M SOFR ≥ 5.00% on observation date?" → YES: "Pay $300,000" → NO: "Pay $0." Both branches lead to "Collect $185,000 premium." Loop to next quarter. End: "Sum all payouts for total hedge value" |
-| **Diagram Elements** | Decision diamond, YES/NO branches, payout/no-payout outcomes, premium collection, loop arrow |
-| **Axis Definitions** | N/A (decision tree) |
-| **Caption** | Digital cap quarterly observation: one binary check determines the quarter's payout |
-| **Location** | §11 |
-| **Reuse Potential** | Medium — quarterly digital observation template |
-| **Future Asset Filename** | decision_tree_digital_cf_01.svg |
-
----
-
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Digital options concept (binary payoff) | Section 1.3 (Barrier and Digital Options) |
-| Digital Coupon Note (equity digital) | Section 5.1.12 (Digital Note) |
-| Interest rate caps and floors | Section 1.8 (Caps, Floors, Swaptions) |
-| Interest rate swap mechanics | Section 5.2.1 (IRS) |
-| SOFR, benchmark rates | Section 1.8 (Benchmark Rates) |
-| Four-leg SRT structure | Section 5.3.1 (IR Callable) |
-| Range accrual comparison | Section 5.3.3 (NCRA) |
-| Murex booking | Section 2.8 (Systems Primer) |
-
----
-
+**Dual-lens visuals (generated):**
+- `assets/digcapfloor/controls_digcapfloor_recon_08.svg` `[generated]`
+- `assets/digcapfloor/desk_digcapfloor_gamma_07.svg` `[generated]`
+- `assets/digcapfloor/payoff_digcapfloor_01.svg` `[generated]`
+- `assets/digcapfloor/waterfall_digcapfloor_09.svg` `[generated]`
 ## 5.4 STEEPENER NOTES
 
 *You have just completed the Structured Rate Trades family — five products whose payoffs depend on the level of a single interest rate. We now turn to Steepener Notes (STEG) — products whose payoffs depend on the slope of the yield curve: the difference between a long-term rate and a short-term rate. The building blocks for this family were taught in Section 1.7 (Yield Curves, Spot Rates, and Forward Rates), Section 1.8 (Benchmark Rates — including CMS rates), and the SRT family (Section 5.3) established the four-leg booking structure in Murex. Every STEG product references two CMS (Constant Maturity Swap) rates — typically CMS30Y and CMS2Y — and pays the investor based on the spread between them.*

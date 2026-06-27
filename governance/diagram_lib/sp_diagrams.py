@@ -470,6 +470,80 @@ def payoff_varswap(
 
 
 # --------------------------------------------------------------------------- #
+# 1i. Digital coupon vs reference RATE (Digital Cap-Floor Note)
+# --------------------------------------------------------------------------- #
+def payoff_digital_rate(
+    out_svg: str | Path,
+    *,
+    strike_rate: float,
+    high_coupon: float,
+    low_coupon: float = 0.0,
+    high_when_below: bool = True,
+    title: str = "Digital Coupon vs Reference Rate",
+    lens: str = LENS_INVESTOR,
+    rate_max: Optional[float] = None,
+    preview: bool = True,
+) -> str:
+    """Step coupon: pays high_coupon on one side of the strike rate, low_coupon on
+    the other. high_when_below=True → high coupon when rate < strike (cap-style)."""
+    _apply_style()
+    rate_max = rate_max or strike_rate * 2.0
+    fig, ax = plt.subplots(figsize=(7.2, 4.4))
+    lo = np.linspace(0, strike_rate, 120)
+    hi = np.linspace(strike_rate, rate_max, 120)
+    yl = high_coupon if high_when_below else low_coupon
+    yh = low_coupon if high_when_below else high_coupon
+    ax.plot(lo, np.full_like(lo, yl), color=GREEN, lw=2.6)
+    ax.plot(hi, np.full_like(hi, yh), color=ACCENT, lw=2.6)
+    ax.plot([strike_rate, strike_rate], [low_coupon, high_coupon], color=GREY, lw=1.3, ls=(0, (3, 3)))
+    ax.text(strike_rate, high_coupon + (high_coupon - low_coupon) * 0.06 + 0.02,
+            f"Strike {strike_rate:g}%", fontsize=9, color=NAVY, ha="center")
+    ax.text(strike_rate * 0.4, yl + 0.03, f"{yl:g}% coupon", fontsize=9, color=GREEN, ha="center")
+    ax.text((strike_rate + rate_max) / 2, yh + 0.03, f"{yh:g}% coupon", fontsize=9, color=ACCENT, ha="center")
+    ax.axhline(0, color=SLATE, lw=0.8)
+    ax.set_xlabel("Reference rate (%)")
+    ax.set_ylabel("Coupon paid (%)")
+    ax.set_title(f"{title} — {lens}", color=NAVY, fontsize=13, fontweight="bold", loc="left")
+    ax.set_xlim(0, rate_max)
+    ax.set_ylim(min(low_coupon, 0) - 0.1, high_coupon + (high_coupon - low_coupon) * 0.3 + 0.15)
+    ax.grid(True, color=LIGHT, lw=1)
+    ax.set_axisbelow(True)
+    return _finish(fig, out_svg, preview)
+
+
+# --------------------------------------------------------------------------- #
+# 1j. Range-accrual coupon vs days-in-range (NCRA / CRA SRT)
+# --------------------------------------------------------------------------- #
+def payoff_range_accrual(
+    out_svg: str | Path,
+    *,
+    max_coupon: float,
+    title: str = "Coupon vs Days-in-Range",
+    lens: str = LENS_INVESTOR,
+    preview: bool = True,
+) -> str:
+    """Range-accrual coupon = max_coupon × (days in range / total days). Linear."""
+    _apply_style()
+    fig, ax = plt.subplots(figsize=(7.2, 4.4))
+    d = np.linspace(0, 100, 200)
+    ax.plot(d, max_coupon * d / 100.0, color=NAVY, lw=2.6)
+    ax.fill_between(d, max_coupon * d / 100.0, color=SLATE, alpha=0.12)
+    ax.scatter([100], [max_coupon], color=GREEN, zorder=5, s=30)
+    ax.text(98, max_coupon * 0.92, f"Max {max_coupon:g}%\n(all days in range)", fontsize=9,
+            color=GREEN, ha="right")
+    ax.text(3, max_coupon * 0.06, "0% (all days out of range)", fontsize=9, color=ACCENT)
+    ax.axhline(0, color=SLATE, lw=0.8)
+    ax.set_xlabel("Days the reference rate is inside the range (%)")
+    ax.set_ylabel("Coupon earned (%)")
+    ax.set_title(f"{title} — {lens}", color=NAVY, fontsize=13, fontweight="bold", loc="left")
+    ax.set_xlim(0, 100)
+    ax.set_ylim(0, max_coupon * 1.15)
+    ax.grid(True, color=LIGHT, lw=1)
+    ax.set_axisbelow(True)
+    return _finish(fig, out_svg, preview)
+
+
+# --------------------------------------------------------------------------- #
 # 2. Desk gamma / hedge profile (Bank Lens — Desk Economics)
 # --------------------------------------------------------------------------- #
 def desk_gamma_profile(
