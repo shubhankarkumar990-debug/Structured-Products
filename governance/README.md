@@ -1,8 +1,8 @@
 # Governance & Quality — Structured Products Desk Bible
 
-[![Dual-lens quality gate](https://github.com/OWNER/REPO/actions/workflows/dual-lens-ci.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/dual-lens-ci.yml)
+[![Dual-lens quality gate](https://github.com/shubhankarkumar990-debug/Structured-Products/actions/workflows/dual-lens-ci.yml/badge.svg)](https://github.com/shubhankarkumar990-debug/Structured-Products/actions/workflows/dual-lens-ci.yml)
 
-> **Set the badge:** replace `OWNER/REPO` above with your GitHub `owner/repository` (e.g. `shubhankarkumar/structured-products`). Once the repo is on GitHub and the workflow has run once, the badge shows the live pass/fail of the dual-lens quality gate.
+> Badge points at `shubhankarkumar990-debug/Structured-Products`. It goes green once the repo is pushed to GitHub and the `dual-lens-ci.yml` workflow runs once.
 
 This folder holds the machinery that keeps the Desk Bible correct and consistent.
 
