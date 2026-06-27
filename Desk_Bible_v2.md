@@ -2769,33 +2769,23 @@ A client says: "PPNs seem like free money — I get protected downside and parti
 
 ---
 
-*The PPN (Section 5.1.1) protected 100% of the investor's principal. The Reverse Convertible removes that guarantee — the investor accepts full downside equity exposure below a barrier in exchange for a significantly higher coupon. This is the fundamental tradeoff at the heart of most ELNs: more yield for less protection.*
+*The PPN (Section 5.1.1) protected 100% of the investor's principal. The Reverse Convertible removes that guarantee — the investor accepts full downside equity exposure below a barrier in exchange for a significantly higher coupon. This is the fundamental tradeoff at the heart of most ELNs: more yield for less protection. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-You walk into a bank and the advisor says: "I can offer you a 3-year bond paying 2% per year, or I can offer you a structured product paying 8% per year for the same 3 years."
+A bank advisor offers a client two choices: a 3-year bond paying 2% per year, or a structured product paying 8% per year for the same 3 years. The natural question is: where does the extra 6% come from?
 
-You would naturally ask: "Where does the extra 6% come from?"
+The answer is that the extra income is payment for taking on a specific risk. In a **Reverse Convertible**, the investor does two things at once: lends money to the bank (like a bond) and sells the bank a put option on a stock or index. The premium the bank pays for that put option is added to the bond coupon, creating the enhanced yield.
 
-The answer is simple and important: you are earning that extra income by taking on a specific risk. In a **Reverse Convertible**, the investor lends money to the bank (like a bond) and simultaneously sells the bank a put option on a stock or index. The premium the bank pays for that put option is added to the bond coupon, creating the enhanced yield.
-
-The tradeoff: if the stock falls below a certain level (the **capital barrier**, also called the knock-in barrier), the investor may lose part of their principal at maturity. If the stock stays above the barrier for the entire life of the product, the investor keeps their full principal plus all the enhanced coupons.
-
-Think of it this way: you are being paid to accept a specific, bounded risk. As long as the bad scenario does not happen (the stock does not crash through the barrier), you earn a generous coupon. If the bad scenario does happen, you lose money — potentially a lot.
-
+The tradeoff: if the stock falls below a certain level (the **capital barrier**, also called the knock-in barrier), the investor may lose part of their principal at maturity. If the stock stays above the barrier for the life of the product, the investor keeps full principal plus all the enhanced coupons. In effect, the investor is paid to accept a specific, bounded risk — a generous coupon as long as the stock does not crash through the barrier, and a potentially large loss if it does.
 
 #### §2. Real-World Analogy
 
-A Reverse Convertible is like selling earthquake insurance on your own house.
+A Reverse Convertible is like a homeowner selling earthquake insurance on their own house.
 
-You own a house in a region that occasionally has earthquakes. An insurance company approaches you and says: "We will pay you $5,000 per year if you agree to cover any earthquake damage to your house yourself — no insurance payout if an earthquake hits."
+The homeowner lives in a region that occasionally has earthquakes. An insurer offers $5,000 per year if the homeowner agrees to cover any earthquake damage themselves — no payout if a quake hits. In most years there is no earthquake and the homeowner pockets the $5,000; over five years that is $25,000 of extra income. But if a major earthquake strikes, the homeowner bears the full repair cost — $100,000 or more.
 
-In most years, there is no earthquake. You pocket the $5,000. Over five years, you earn $25,000 in extra income. But if a major earthquake strikes, you bear the full cost of repairs — which could be $100,000 or more.
-
-The $5,000 annual payment is the enhanced coupon. The earthquake is the barrier breach. The repair cost is the principal loss.
-
-Just like earthquake insurance, the premium you earn reflects the probability and severity of the event you are insuring against. Higher risk (lower barrier, more volatile stock) = higher coupon. Lower risk (higher barrier, stable stock) = lower coupon.
-
+The $5,000 is the enhanced coupon. The earthquake is the barrier breach. The repair cost is the principal loss. As with real insurance, the premium reflects the probability and severity of the event: higher risk (lower barrier, more volatile stock) means a higher coupon; lower risk means a lower coupon. In this analogy the investor is the insurer — collecting premium and bearing the tail — while the bank is the policyholder, paying premium to be protected.
 
 #### §3. What Problem Does This Solve?
 
@@ -2810,7 +2800,6 @@ These investors are often willing to accept some risk of loss — they just do n
 | 6%+ income per year | Bonds pay 2% | Enhanced coupon funded by put premium |
 | Some protection | Stocks can fall 50%+ | Barrier at 60-70% — investor is protected unless stock falls more than 30-40% |
 | Certainty of income | Stock dividends vary | Fixed coupon paid regardless of market (as long as not knocked in at maturity) |
-
 
 #### §4. Product DNA
 
@@ -2871,7 +2860,59 @@ These investors are often willing to accept some risk of loss — they just do n
 | 2 | Reverse Convertible | Short put option embedded | Higher coupon funded by put premium. Principal at risk if underlying falls below strike |
 | 3 | DRC / KODRC variants | Discount + barrier features | Lower entry price (DRC) or barrier protection (KODRC) added to base RC structure |
 
-#### §7. How the Bank Makes Money
+---
+
+#### §7. THE INVESTOR LENS
+
+**Why the investor buys it**
+
+1. **Enhanced yield.** The coupon is significantly higher than comparable bonds — typically 6-12% vs 2-3% on bonds.
+2. **Defined risk.** The investor knows exactly when they face loss: only if the stock falls below the barrier. This is clearer than open-ended stock market risk.
+3. **View expression.** An investor who believes a stock will not fall more than 30% in the next year can monetize that view by selling the put and earning the premium.
+4. **Diversification of income sources.** The coupon comes from option premium, not just interest — a different source of return.
+5. **Behavioral fit.** Many investors prefer a high, visible coupon even if the theoretical expected return is similar to a direct stock investment. The coupon feels like "income," which is psychologically reassuring.
+
+**Position taken**
+
+The investor simultaneously holds a long bond (lends principal to the issuer) and a **short** knock-in put (sold to the bank). Net, the investor is **short volatility** (hurt by volatile markets) and carries full equity downside below the strike. With a single underlying there is no correlation exposure; on a worst-of basket the investor is additionally long correlation (see §15 and the worst-of products).
+
+**Payoff & scenarios**
+
+The investor's payoff has two zones. Above the barrier at maturity: the investor receives 100% principal plus coupon (return = coupon rate). Below the barrier at maturity: the investor receives (Final / Initial) × principal plus coupon — the further below the barrier, the larger the loss. The payoff is **discontinuous** at the barrier: a stock finishing at 70.01% returns full principal, while 69.99% triggers knock-in and reduces principal.
+
+![RC Payoff at Maturity — Investor Lens](assets/rc/payoff_rc_put_01.svg)
+
+**Product:** 1-year RC, $100,000 notional, 8% coupon, stock initial price $100, knock-in barrier at $70 (70%), European observation.
+
+- **Stock finishes at $110 (+10%):** Barrier not breached. The investor receives $100,000 principal + $8,000 coupon = **$108,000**. Excellent outcome.
+- **Stock drops to $75 during the year but finishes at $85:** European barrier — only checked at maturity. The stock is above $70 at maturity, so the barrier is not breached. The investor receives $100,000 + $8,000 = **$108,000**. The mid-life drop to $75 does not matter.
+- **Stock finishes at $65 (−35%):** Below the $70 barrier at maturity. Knock-in is triggered. The investor's principal is reduced by the full stock decline: redemption = $100,000 × ($65 / $100) = $65,000, plus the $8,000 coupon already paid. **Total received: $73,000.** Net loss: $27,000. The coupon cushioned the blow but did not prevent a significant loss.
+- **Stock finishes at $30 (−70%):** Catastrophic decline. Barrier breached. Redemption = $100,000 × ($30 / $100) = $30,000 + $8,000 coupon = **$38,000**. Net loss: $62,000. The 8% coupon is small comfort against a 70% crash — this is the tail risk the investor is compensated for.
+
+**Risks to the investor**
+
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Barrier breach (capital risk)** | If the underlying falls below the barrier, the investor loses principal in proportion to the stock's decline. Losses can be very large. | High |
+| **Gap risk** | The stock may jump past the barrier (e.g. overnight after bad earnings) without trading through it, making the breach sudden and unhedgeable. | High |
+| **Issuer credit risk** | The investor is exposed to the bank's creditworthiness. If the issuer defaults, the investor may not receive coupons or principal. | Medium |
+| **Illiquidity** | Selling an RC before maturity typically involves a wide bid-offer spread and potential loss, even if the underlying has performed well. | Medium |
+| **Correlation risk (worst-of)** | If the RC is linked to a basket (worst-of), low correlation between stocks increases the probability that at least one stock breaches the barrier. | Medium-High |
+| **Tail risk** | Enhanced coupons create a pattern of frequent small gains and rare large losses. This pattern is psychologically deceptive — the investor feels successful until a tail event occurs. | High |
+
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk's position is the mirror image of the investor's. Where the investor is short the knock-in put, the desk is **long** that put (bought from the investor); alongside it the desk has issued a note, which is a funding liability. The investor's enhanced coupon is, to the desk, the cost of the put premium plus funding, returned to the client.
+
+**Greeks & hedging**
+
+The desk is long the embedded knock-in put and delta-hedges by trading the underlying. Because the payoff is discontinuous at the barrier, the option's gamma spikes as the underlying approaches the barrier and hedging becomes expensive and error-prone — this is where the desk's structuring margin is earned or lost. The desk monitors delta and gamma closely as maturity and the barrier approach; risk management may impose limits on concentrated barrier exposure.
+
+![RC Desk Position & Hedge — Bank Lens (Desk Economics)](assets/rc/desk_rc_hedge_gamma_07.svg)
+
+**How the bank makes money**
 
 | Revenue Component | Detail |
 |------------------|--------|
@@ -2880,134 +2921,21 @@ These investors are often willing to accept some risk of loss — they just do n
 | **Hedging P&L** | Delta-hedging profits from realized vs implied vol spread |
 | **Funding benefit** | Effective funding below bank's unsecured rate |
 
-#### §8. Why This Product Exists (Client Perspective)
-
-1. **Enhanced yield.** The coupon is significantly higher than comparable bonds — typically 6-12% vs 2-3% on bonds.
-2. **Defined risk.** The investor knows exactly when they face loss: only if the stock falls below the barrier. This is clearer than open-ended stock market risk.
-3. **View expression.** An investor who believes a stock will not fall more than 30% in the next year can monetize that view by selling the put and earning the premium.
-4. **Diversification of income sources.** The coupon comes from option premium, not just interest — a different source of return.
-5. **Behavioral fit.** Many investors prefer a high, visible coupon even if the theoretical expected return is similar to a direct stock investment. The coupon feels like "income," which is psychologically reassuring.
-
-
-#### §9. The Three Scenarios
-
-| Scenario | Market Condition | Outcome for Investor |
-|----------|-----------------|---------------------|
-| **Best case** | Underlying performs strongly | Maximum return captured (subject to any participation cap or barrier) |
-| **Base case** | Underlying is flat or moderately positive | Moderate return or coupon income depending on structure |
-| **Worst case** | Underlying declines significantly | Capital at risk if below protection level; coupon may partially offset |
-
-*Detailed scenario analysis with specific numbers follows in §10.*
-
-#### §10. What Happens When Markets Move
-
-**Product:** 1-year RC, $100,000 notional, 8% coupon, stock initial price $100, knock-in barrier at $70 (70%), European observation.
-
-**Scenario 1 — Stock finishes at $110 (+10%):**
-Barrier not breached. Investor receives $100,000 principal + $8,000 coupon = **$108,000**. Excellent outcome.
-
-**Scenario 2 — Stock drops to $75 during the year but finishes at $85:**
-European barrier — only checked at maturity. Stock is above $70 at maturity. Barrier not breached. Investor receives $100,000 + $8,000 = **$108,000**. The mid-life drop to $75 does not matter.
-
-**Scenario 3 — Stock finishes at $65 (-35%):**
-Stock is below the $70 barrier at maturity. Knock-in is triggered. The investor's principal is reduced by the full stock decline: Redemption = $100,000 × ($65 / $100) = $65,000. Plus the $8,000 coupon already paid. **Total received: $73,000.** Net loss: $27,000. The coupon cushioned the blow but did not prevent a significant loss.
-
-**Scenario 4 — Stock finishes at $30 (-70%):**
-Catastrophic decline. Barrier breached. Redemption = $100,000 × ($30 / $100) = $30,000 + $8,000 coupon = **$38,000**. Net loss: $62,000. The 8% coupon is small comfort against a 70% stock crash. This is the tail risk that the investor is being compensated for.
-
-
-#### §11. Formal Definition
-
-A **Reverse Convertible** (also called an Enhanced Return Note) is a structured product consisting of a bond plus a short knock-in put option. At maturity:
-
-- If the underlying price has **not** breached the knock-in barrier: **Redemption = 100% of Principal**
-- If the underlying price **has** breached the knock-in barrier: **Redemption = Principal × (Final Level / Initial Level)**
-
-The investor also receives periodic fixed coupon payments throughout the life of the product, regardless of barrier breach.
-
-**Key parameters:**
-- **Coupon:** Fixed, paid periodically (quarterly, semi-annually, or annually)
-- **Barrier:** Typically 60-80% of initial level
-- **Barrier observation:** European (checked only at maturity) or American (checked continuously)
-- **Underlying:** Single stock, stock index, or worst-of basket
-- **Maturity:** Typically 1-3 years
-
-
-#### §12. Product Construction
-
-*Dependency: Builds on Section 2.2 (Decomposition) and Section 1.2 (Options).*
-
-| Component | What It Is | Economic Purpose |
-|-----------|-----------|-----------------|
-| Bond | Investor lends $100 to the issuer | Provides funding; pays base interest |
-| Short knock-in put | Investor sells a put with KI barrier at 70% | Generates premium to fund the enhanced coupon |
-
 **The coupon decomposition (from Section 2.2):**
 
-Coupon = Bond interest + Put premium - Funds Transfer Pricing (FTP) - Desk margin
+Coupon = Bond interest + Put premium − Funds Transfer Pricing (FTP) − Desk margin
 
-For an 8% coupon:
-- Bond interest (bank's credit curve): ~2.0%
-- Put premium (value of the KI put sold): ~7.5%
-- FTP (internal funding cost): -0.5%
-- Desk margin: -1.0%
-- **Net coupon: 8.0%**
+For an 8% coupon: bond interest (bank's credit curve) ~2.0%; put premium (value of the KI put sold) ~7.5%; FTP (internal funding cost) −0.5%; desk margin −1.0%; **net coupon 8.0%**. The 7.5% put premium is the key — it is high because the investor is selling a meaningful option: the right for the bank to "put" devalued shares to the investor if the stock falls below the barrier.
 
-The 7.5% put premium is the key. It is high because the investor is selling a meaningful option — the right for the bank to "put" the stock to the investor (deliver devalued shares instead of cash) if the stock falls below the barrier.
+![RC Coupon Decomposition — Bank Lens (Desk Economics)](assets/rc/waterfall_rc_coupon_09.svg)
 
+**P&L drivers**
 
-#### §13. Lifecycle
+Day to day, desk P&L is driven by realized-versus-implied volatility on the delta hedge, moves in the underlying near the barrier (gamma), funding, and the mark-to-market of the embedded put. Product Control attributes P&L between fixed-coupon accrual and put-option MTM, and performs Independent Price Verification (IPV) of the put component.
 
-| Stage | Detail |
-|-------|--------|
-| **Trade date** | Terms agreed: underlying, strike (e.g., 90% of spot), coupon, maturity |
-| **Issue date** | Note issued at par. Bank sells put protection. Coupon schedule begins |
-| **Coupon dates** | Fixed coupons paid (e.g., quarterly). Guaranteed regardless of underlying performance |
-| **Maturity** | If underlying ≥ strike: investor receives par. If underlying < strike: investor receives shares at strike price (worth less than par) |
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
 
-#### §14. Desk Reality
-
-```
-Investor
-Return (%)
-    |
-+8% |─────────────────────*  ← Coupon (paid regardless)
-    |                     |
-  0%|─────────────────────|────────  ← Barrier not breached: full principal
-    |                     |
-    |                  ╱  |
-    |                ╱    |
-    |              ╱      |
-    |            ╱        |
-    |          ╱   Barrier breached:
-    |        ╱    principal reduced by
-    |      ╱      full stock decline
-    |    ╱
-    +───────────────|─────────────→ Stock Final Price
-                  70%            100%
-               (barrier)     (initial)
-```
-
-Two distinct zones:
-- **Above barrier at maturity:** Investor receives 100% principal + coupon. Return = coupon rate.
-- **Below barrier at maturity:** Investor receives (Final / Initial) × principal + coupon. The further below the barrier, the larger the loss.
-
-The payoff is **discontinuous** at the barrier: a stock finishing at 70.01% returns full principal, while 69.99% triggers knock-in and reduces principal. This discontinuity makes hedging near the barrier extremely challenging (high Gamma — see Section 1.4).
-
-
-#### §15. Risk Analysis
-
-| Risk | Description | Severity |
-|------|------------|:--------:|
-| **Barrier breach (capital risk)** | If the underlying falls below the barrier, the investor loses principal in proportion to the stock's decline. Losses can be very large. | High |
-| **Gap risk** | The stock may jump past the barrier (e.g., overnight after bad earnings) without trading through it, making the breach sudden and unhedgeable. | High |
-| **Issuer credit risk** | The investor is exposed to the bank's creditworthiness. If the issuer defaults, the investor may not receive coupons or principal. | Medium |
-| **Illiquidity** | Selling an RC before maturity typically involves a wide bid-offer spread and potential loss, even if the underlying has performed well. | Medium |
-| **Correlation risk (worst-of)** | If the RC is linked to a basket (worst-of), low correlation between stocks increases the probability that at least one stock breaches the barrier. | Medium-High |
-| **Tail risk** | Enhanced coupons create a pattern of frequent small gains and rare large losses. This pattern is psychologically deceptive — the investor feels successful until a tail event occurs. | High |
-
-
-#### §16. Booking and Systems
+**Booking & systems**
 
 | Aspect | Detail |
 |--------|--------|
@@ -3016,47 +2944,75 @@ The payoff is **discontinuous** at the barrier: a stock finishing at 70.01% retu
 | **Booking structure** | Single note with embedded KI put option |
 | **Four-leg framework?** | No |
 | **Key booking fields** | Notional, strike (initial level), barrier level, barrier type (European/American), coupon rate, coupon frequency, maturity, underlying(s) |
-| **Coupon schedule** | Fixed payments on scheduled dates (e.g., quarterly) |
+| **Coupon schedule** | Fixed payments on scheduled dates (e.g. quarterly) |
 | **Barrier monitoring** | European: single check at maturity. American: continuous monitoring via market data feed |
 
-**Lifecycle events:**
-- **Trade date:** Book in NEMO. Set initial level, barrier, coupon schedule.
-- **Coupon dates:** Process fixed coupon payments to investor. No conditions on coupon payment for a standard RC.
-- **Barrier monitoring (American):** Daily check — has the underlying touched the barrier? If yes, flag the trade as "knocked in."
-- **Final observation:** Record closing price. Determine if barrier is breached (European) or was breached (American).
-- **Maturity:** Calculate redemption. If no knock-in: return 100% principal. If knocked in: return (Final/Initial) × principal. Settle.
+**Reconciliation points**
 
+| Recon point | What must agree | RC-specific break |
+|-------------|-----------------|-------------------|
+| **Trade economics** | Notional, strike (initial level), barrier level **and convention**, coupon rate & frequency, maturity, underlying ID | Barrier stored as absolute price in NEMO ($70) but % in Sophis (70%) — consistent only if the initial level is exactly $100 |
+| **Observation type** | European (maturity-only) vs American (continuous) | American barrier flagged but only daily closes monitored → intraday breaches missed |
+| **Fixings** | Initial and final fixing **source** matches the termsheet | Different vendors report different closing prices on the final observation |
+| **Barrier event capture** | Knock-in flag consistent across NEMO and Sophis | Trade knocked in on an intraday touch but the flag is not set → redemption miscalculated |
+| **Coupon lifecycle** | Schedule, day-count, whether the coupon survives a knock-in | Coupon paid on a knocked-in trade where the termsheet says it should stop |
+| **Corporate actions** | Strike/barrier adjusted for dividends, splits, mergers | Underlying split not propagated → barrier off by the split ratio |
+| **P&L attribution** | Coupon accrual + put MTM reconciles to total | Unexplained P&L points to a stale vol surface or a wrong fixing |
+| **Settlement** | Cash vs physical; shares = notional / strike; delivery-versus-payment | Physical delivery booked as cash, or the wrong share count delivered |
 
-#### §17. Red Flags
+![RC Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/rc/controls_rc_recon_flow_08.svg)
 
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| Barrier stored as absolute price in one system, percentage in another | NEMO: barrier = $70. Sophis: barrier = 70%. If initial level was $100, these are consistent. If initial was $95, they are not. | Verify both systems use the same convention |
-| Coupon paid on knocked-in trade | Some RCs pay coupons regardless of knock-in, some stop. Check termsheet. | Verify coupon convention against termsheet |
-| American barrier flagged but no intraday monitoring | If the barrier is American but the system only checks daily closes, breaches during the day may be missed | Ensure real-time or intraday monitoring is in place |
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Barrier stored as absolute price in one system, percentage in another | NEMO: barrier = $70. Sophis: barrier = 70%. Consistent only if initial level is $100. | Verify both systems use the same convention before relying on either valuation |
+| Coupon paid on a knocked-in trade | Some RCs pay coupons regardless of knock-in, some stop. | Verify the coupon convention against the termsheet |
+| American barrier flagged but no intraday monitoring | Daily-close checks miss intraday breaches | Ensure real-time or intraday monitoring is in place |
 | Final observation price mismatch | Different data sources report different closing prices | Use the fixing source specified in the termsheet |
-| Physical settlement confusion | Some RCs settle by delivering shares (physical) rather than cash if knocked in | Check settlement convention — cash or physical |
+| Physical settlement confusion | Some RCs deliver shares rather than cash if knocked in | Confirm the settlement convention — cash or physical |
 
+**Control implication**
 
-#### §18. Worked Example
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. A barrier-convention error misstates whether the investor breached — driving the wrong redemption and the wrong client payout. A missed knock-in understates desk risk and overstates the investor's protection simultaneously. A fixing mismatch breaks both valuation and redemption at once. The reconciliation exists precisely to catch these inconsistencies before settlement crystallises them.
 
-**Product:** 1-year RC on Toyota stock
-**Notional:** $500,000
-**Coupon:** 9% annual, paid quarterly (2.25% per quarter)
-**Initial stock price:** $180
-**Knock-in barrier:** 65% = $117 (European observation)
-**Maturity:** 1 year
+#### §10. Formal Definition
 
-**Quarterly coupon payments:** $500,000 × 2.25% = $11,250 per quarter = $45,000 total
+A **Reverse Convertible** (also called an Enhanced Return Note) is a structured product consisting of a bond plus a short knock-in put option. At maturity:
 
-**At maturity, Toyota closes at $155 (-13.9%):**
-Stock is above the barrier ($117). No knock-in. Investor receives $500,000 principal + $45,000 total coupons = **$545,000**. Net return: +9%.
+- If the underlying price has **not** breached the knock-in barrier: **Redemption = 100% of Principal**
+- If the underlying price **has** breached the knock-in barrier: **Redemption = Principal × (Final Level / Initial Level)**
 
-**At maturity, Toyota closes at $100 (-44.4%):**
-Stock is below the barrier ($117). Knock-in triggered. Redemption = $500,000 × ($100/$180) = **$277,778**. Plus $45,000 in coupons already received. Total: **$322,778**. Net loss: **$177,222** (-35.4%). The 9% coupon was overwhelmed by the capital loss.
+The investor also receives periodic fixed coupon payments throughout the life of the product, regardless of barrier breach.
 
+**Key parameters:** coupon — fixed, paid periodically (quarterly, semi-annually, or annually); barrier — typically 60-80% of initial level; barrier observation — European (checked only at maturity) or American (checked continuously); underlying — single stock, stock index, or worst-of basket; maturity — typically 1-3 years.
 
-#### §19. Knowledge Check
+#### §11. Lifecycle
+
+| Stage | Detail |
+|-------|--------|
+| **Trade date** | Terms agreed: underlying, strike (e.g. 90% of spot), coupon, maturity. Book in NEMO; set initial level, barrier, coupon schedule |
+| **Issue date** | Note issued at par. The investor sells the put protection to the bank. Coupon schedule begins |
+| **Coupon dates** | Fixed coupons paid (e.g. quarterly), guaranteed regardless of underlying performance (subject to termsheet convention on knock-in) |
+| **Barrier monitoring (American)** | Daily check — has the underlying touched the barrier? If yes, flag the trade as "knocked in" |
+| **Final observation** | Record the closing price from the termsheet fixing source. Determine whether the barrier is breached (European) or was breached (American) |
+| **Maturity** | If underlying ≥ strike: the investor receives par. If underlying < strike: the investor receives shares at the strike price (worth less than par). Settle |
+
+#### §12. Worked Example (both lenses)
+
+**Product:** 1-year RC on Toyota stock. **Notional:** $500,000. **Coupon:** 9% annual, paid quarterly (2.25% per quarter). **Initial stock price:** $180. **Knock-in barrier:** 65% = $117 (European observation). **Maturity:** 1 year.
+
+**Quarterly coupon payments:** $500,000 × 2.25% = $11,250 per quarter = $45,000 total.
+
+*Investor lens:*
+- **Toyota closes at $155 (−13.9%):** above the barrier ($117). No knock-in. The investor receives $500,000 principal + $45,000 total coupons = **$545,000**. Net return: +9%.
+- **Toyota closes at $100 (−44.4%):** below the barrier ($117). Knock-in triggered. Redemption = $500,000 × ($100/$180) = **$277,778**, plus $45,000 in coupons already received. Total: **$322,778**. Net loss: **$177,222** (−35.4%). The 9% coupon was overwhelmed by the capital loss.
+
+*Bank lens:*
+- In the first scenario the desk's long put expires worthless; the desk keeps its structuring margin and net hedging P&L, having funded the $45,000 of coupons. Product Control confirms the put MTM rolls to zero and the coupon accrual closes out.
+- In the second scenario the desk's long put is deep in the money: the investor delivers value equal to the shortfall (physical shares worth $277,778 against $500,000 notional), offsetting the desk's redemption obligation. The 2nd line must confirm the redemption math (notional × final/initial), the share count (notional / strike), and that NEMO and Sophis agree before settlement.
+
+#### §13. Knowledge Check
 
 1. **What is the investor really doing when they buy a Reverse Convertible?** (Answer: lending money and selling a put option.)
 2. **Where does the enhanced coupon come from?** Decompose it.
@@ -3065,57 +3021,51 @@ Stock is below the barrier ($117). Knock-in triggered. Redemption = $500,000 × 
 5. **Why does higher volatility result in higher RC coupons?**
 6. **What is gap risk, and why is it particularly dangerous for Reverse Convertibles?**
 7. **Draw the payoff diagram of a Reverse Convertible at maturity, showing both the knocked-in and non-knocked-in outcomes.**
-
+8. **(Controls / 2LoD)** Name three reconciliation breaks specific to an RC and the consequence of each for the investor's redemption.
+9. **(Desk economics / 1LoD)** What position does the desk hold against the investor, and how does the desk's gamma behave as the underlying approaches the barrier? Why is that where the margin is made or lost?
 
 **Mental Models**
 
 | Concept | Mental Model |
 |---------|-------------|
-| Reverse Convertible | Selling earthquake insurance on your house — you earn premiums, but pay dearly if the earthquake hits |
-| Enhanced coupon | Not free money — it is the price the bank pays you for bearing barrier risk |
-| Barrier | The earthquake threshold — the level at which the insurance kicks in (against you) |
+| Reverse Convertible | A homeowner selling earthquake insurance on their house — they earn premiums, but pay dearly if the earthquake hits |
+| Enhanced coupon | Not free money — it is the price the bank pays the investor for bearing barrier risk |
+| Barrier | The earthquake threshold — the level at which the insurance kicks in (against the investor) |
 | European vs American barrier | Annual earthquake check (European) vs 24/7 seismic monitoring (American) |
-| Knock-in | The earthquake hits — your insurance obligation is triggered |
-| Coupon vs capital loss | The coupon is your annual premium income; the capital loss is the earthquake repair bill |
-
+| Knock-in | The earthquake hits — the investor's insurance obligation is triggered |
+| Coupon vs capital loss | The coupon is the investor's annual premium income; the capital loss is the earthquake repair bill |
+| 2LoD reconciliation | The building inspector — confirms the contract terms and the damage assessment match before anyone pays out |
 
 **Key Takeaways**
 
-1. An RC is a bond + a short knock-in put. The investor earns an enhanced coupon by selling downside risk.
+1. An RC is a bond + a short knock-in put. The investor earns an enhanced coupon by selling downside risk to the bank.
 2. The coupon is not free — it is the premium for the put option the investor has sold to the bank.
 3. If the barrier is not breached, the investor keeps full principal plus coupons. If breached, principal is reduced by the full stock decline.
-4. American barriers are riskier than European barriers — more chances for the barrier to be hit.
+4. American barriers are riskier than European barriers for the investor — more chances for the barrier to be hit.
 5. The payoff is discontinuous at the barrier — a small price difference can mean full principal or significant loss.
 6. Tail risk is the dominant risk: frequent small gains (coupons) masked by rare large losses (barrier breach).
-7. RCs are short volatility products — the investor benefits from calm markets and is hurt by volatile ones.
+7. RCs are short volatility products for the investor — the investor benefits from calm markets and is hurt by volatile ones; the desk holds the offsetting long-put position.
+8. For the 2nd line, the dominant control risks are barrier convention, observation type, fixings, and knock-in capture — each can misstate the redemption.
 
+#### §14. Common Mistakes
 
-#### §20. Common Mistakes
-
-1. **"My maximum loss is 30% because the barrier is at 70%."** Wrong. The barrier determines *when* you start losing, not *how much*. If the stock falls to 20%, the investor loses 80% of principal — far more than 30%.
+1. **"My maximum loss is 30% because the barrier is at 70%."** Wrong. The barrier determines *when* losses start, not *how much*. If the stock falls to 20%, the investor loses 80% of principal — far more than 30%.
 2. **Focusing on the coupon and ignoring the put.** The coupon is attractive, but the investor is selling insurance. The premium should be compared to the risk, not evaluated in isolation.
 3. **Comparing RC coupons across different underlyings without adjusting for risk.** A 12% coupon on a volatile tech stock is not "better" than a 7% coupon on a stable utility — the higher coupon reflects higher risk.
-4. **Ignoring the barrier observation type.** American barriers are breached far more often than European barriers because any intraday touch counts. The coupon difference between American and European may not adequately compensate for the risk difference.
-5. **Assuming the stock will "recover."** Even if the stock recovers after breaching the barrier, with an American barrier, the knock-in has already occurred. Recovery after knock-in does not undo the knock-in.
-
-### Desk Perspective
-
-| Role | What the RC Means to Them |
-|------|--------------------------|
-| **Trader** | The desk is long a KI put (bought from the investor). It hedges by selling stock (Delta hedge). Near the barrier, Gamma spikes and hedging becomes expensive — this is where the margin is earned or lost. |
-| **Structurer** | Sets the barrier and coupon to balance client attractiveness with desk profitability. Lower barriers are safer for the client but produce lower coupons. Must also choose European vs American observation. |
-| **Product Control** | Verifies barrier monitoring, coupon calculations, and the valuation of the embedded KI put. Reconciles P&L between NEMO and Sophis daily. |
-| **Risk** | Monitors proximity to barrier levels. When underlyings approach barriers, Delta and Gamma exposure increases rapidly. May impose limits on concentrated barrier risk. |
-| **Operations** | Processes quarterly coupon payments, monitors barriers (American), captures final fixing, calculates redemption (100% or physical delivery/cash equivalent), and processes settlement. |
+4. **Ignoring the barrier observation type.** American barriers are breached far more often than European barriers because any intraday touch counts. The coupon difference may not adequately compensate for the risk difference.
+5. **Assuming the stock will "recover."** With an American barrier, once knock-in has occurred, recovery does not undo it.
+6. **(Controls) Trusting a single system's barrier value.** Because the barrier can be stored as a percentage or an absolute price, the 2nd line must reconcile the convention across NEMO and Sophis rather than assume they agree.
 
 ### Knowledge Check
 
 **Review Questions:**
-1. What two financial instruments make up a Reverse Convertible?
-2. Why is the RC coupon higher than a bond coupon? Where does the extra yield come from?
-3. What is the difference between a European and American knock-in barrier?
-4. What happens to the investor's principal if the barrier is breached at maturity?
-5. Why are RCs described as "short volatility" products?
+1. *(Investor)* What two financial instruments make up a Reverse Convertible?
+2. *(Investor)* Why is the RC coupon higher than a bond coupon? Where does the extra yield come from?
+3. *(Investor)* What is the difference between a European and American knock-in barrier?
+4. *(Investor)* What happens to the investor's principal if the barrier is breached at maturity?
+5. *(Investor)* Why are RCs described as "short volatility" products?
+6. *(Desk economics / 1LoD)* The investor is short the put; what is the desk, and which way does the desk's vega and gamma point? Where does the desk's structuring margin come from?
+7. *(Controls / 2LoD)* Which booking fields must reconcile between NEMO and Sophis for an RC, and which single field most often differs by convention?
 
 **Scenario Questions:**
 1. An investor holds a 1-year RC with a 65% American barrier. The stock drops to 64% on Day 100 but recovers to 90% by maturity. What is the investor's redemption? Would the answer change if the barrier were European?
@@ -3127,11 +3077,18 @@ A junior structurer proposes an RC with a 50% barrier on a volatile tech stock, 
 
 ### Visual Learning Recommendations
 
+*Investor lens:*
 1. **Payoff diagram** — RC at maturity showing the discontinuity at the barrier
 2. **Coupon decomposition waterfall** — Bond interest + put premium - FTP - margin = coupon
-3. **Barrier proximity timeline** — Stock price path showing approach to barrier, with Gamma/Delta annotations
 4. **European vs American barrier comparison** — Same stock path, different outcomes depending on barrier type
 5. **Risk-return scatter** — RC vs bond vs stock, plotting expected return against maximum loss
+
+*Bank lens — desk economics (1LoD):*
+3. **Desk position & hedge map** — The desk is long the KI put; show the delta hedge in the underlying and the gamma profile spiking near the barrier
+6. **Barrier proximity timeline** — Stock price path showing approach to barrier, with desk Gamma/Delta annotations
+
+*Bank lens — controls & reconciliation (2LoD):*
+7. **RC reconciliation flow** — Trade economics flowing NEMO ↔ Sophis ↔ downstream, highlighting the eight recon points (trade economics, observation type, fixings, knock-in capture, coupon lifecycle, corporate actions, P&L attribution, settlement) and where each break surfaces
 
 ### Dependency References
 
@@ -3155,6 +3112,7 @@ A junior structurer proposes an RC with a 50% barrier on a volatile tech stock, 
 - **Caption:** "RC Payoff at Maturity"
 - **Diagram elements:** X-axis: underlying price at maturity. Y-axis: total return (coupon + principal). Flat at par + coupon above strike. Declining below strike (share delivery loss minus coupon). Show strike level clearly
 - **Reuse status:** Adapt from payoff template
+- **Production status:** `[generated — assets/rc/payoff_rc_put_01.svg]`
 **Visual 2: RC Construction: Note + Short Put**
 - **Asset filename:** construction_rc_note_put_02.svg
 - **Caption:** "RC Construction: Note + Short Put"
@@ -3180,6 +3138,18 @@ A junior structurer proposes an RC with a 50% barrier on a volatile tech stock, 
 - **Caption:** "RC Suitability Decision Tree"
 - **Diagram elements:** Decision tree: Is client willing to own underlying at strike? YES → RC candidate. Does client need guaranteed principal? YES → not suitable. Is client view bullish/neutral? YES → proceed
 - **Reuse status:** Adapt from decision tree template
+**Visual 7: RC Desk Position & Hedge (Bank Lens — Desk Economics)**
+- **Asset filename:** desk_rc_hedge_gamma_07.svg
+- **Caption:** "RC Desk Position: Long the KI Put, Delta-Hedged"
+- **Diagram elements:** Show the desk long the embedded knock-in put (mirror of the investor's short put), the offsetting delta hedge in the underlying, and the gamma profile spiking as spot approaches the barrier. Annotate where hedging cost erodes structuring margin
+- **Reuse status:** New — desk-economics panel
+- **Production status:** `[generated — assets/rc/desk_rc_hedge_gamma_07.svg]`
+**Visual 8: RC Reconciliation Flow (Bank Lens — Controls & 2LoD)**
+- **Asset filename:** controls_rc_recon_flow_08.svg
+- **Caption:** "RC Reconciliation Flow: NEMO ↔ Sophis ↔ Downstream"
+- **Diagram elements:** Swimlane flow across book-of-record (NEMO), pricing/risk (Sophis), and downstream settlement. Mark the eight reconciliation points (trade economics, observation type, fixings, knock-in capture, coupon lifecycle, corporate actions, P&L attribution, settlement); flag the barrier convention (% vs absolute) as the most common break and its redemption consequence
+- **Reuse status:** New — controls/reconciliation panel
+- **Production status:** `[generated — assets/rc/controls_rc_recon_flow_08.svg]`
 
 #### §22. Related Chapters / Dependency References
 
