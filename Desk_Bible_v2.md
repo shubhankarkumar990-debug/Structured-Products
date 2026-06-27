@@ -211,14 +211,8 @@ Risk is measured in many ways, but the most common intuition is simple: **the wi
 
 Every investment falls somewhere on a spectrum:
 
-```
-LOW RISK                                                    HIGH RISK
-LOW RETURN                                                HIGH RETURN
-    |                                                          |
-    |  Savings   Government   Corporate   Stocks   Startups   |
-    |  Account     Bonds        Bonds               & Crypto  |
-    |   (~2%)     (~3-4%)      (~4-6%)   (~8-10%)  (???%)     |
-```
+![The Risk–Return Spectrum](assets/foundations/concept_risk_spectrum_01.svg)
+
 
 Notice that the expected returns increase as you move right — but so does the uncertainty of those returns. Government bonds almost always pay what they promise. Stocks sometimes deliver 30% returns and sometimes lose 40%. Startups can make you rich or wipe you out.
 
@@ -811,40 +805,15 @@ The horizontal line at Y = 0 is the breakeven point — above this line you are 
 
 **Call option payoff (buyer):**
 
-```
-Profit
-  |          ╱
-  |         ╱
-  |        ╱
-  |-------╱--------  ← Breakeven (Strike + Premium)
-  |      ╱
---+-----*-----------  ← Zero line
-  |     Strike
-  |
-  | - - - - - - - -  ← Maximum loss = Premium paid
-  |
-  +-------------------→ Underlying Price
-```
+![Long Call — payoff at expiry](assets/foundations/concept_payoff_call_01.svg)
+
 
 Below the strike price, the call expires worthless and the buyer loses the premium. Above the strike price, the call gains value dollar-for-dollar with the underlying. The breakeven point is the strike price plus the premium paid.
 
 **Put option payoff (buyer):**
 
-```
-Profit
-  |
-  ╲         |
-   ╲        |
-    ╲       |
-     ╲------+--------  ← Breakeven (Strike - Premium)
-      ╲     |
--------*----+---------  ← Zero line
-       Strike
-             |
-  - - - - - -|- - - -  ← Maximum loss = Premium paid
-             |
-  +-------------------→ Underlying Price
-```
+![Long Put — payoff at expiry](assets/foundations/concept_payoff_put_01.svg)
+
 
 Above the strike price, the put expires worthless and the buyer loses the premium. Below the strike price, the put gains value as the underlying falls.
 
@@ -1137,18 +1106,8 @@ Implied volatility is not the same for all expiry dates. A one-month option migh
 
 The **volatility term structure** describes how implied volatility changes across different expiry dates:
 
-```
-Implied
-Volatility
-    |
-    |        ╱───────────
-    |      ╱
-    |    ╱
-    |  ╱
-    |╱
-    +───────────────────→ Time to Expiry
-       1m  3m  6m  1y  2y
-```
+![Volatility term structure](assets/foundations/concept_vol_term_01.svg)
+
 
 In the diagram above, short-dated options have lower implied volatility than long-dated options. This is the most common pattern: uncertainty tends to increase with the time horizon (more time for unexpected events to occur).
 
@@ -1158,19 +1117,8 @@ However, during market stress (like a financial crisis), the term structure can 
 
 Implied volatility is also not the same for all strike prices. For equity options, the pattern typically looks like this:
 
-```
-Implied
-Volatility
-    |
-  ╲ |
-   ╲|     
-    ╲     
-     ╲        ───────────
-      ╲──────╱
-       Strike
-    Low strikes    ATM    High strikes
-    (OTM Puts)            (OTM Calls)
-```
+![Volatility smile / skew](assets/foundations/concept_vol_smile_01.svg)
+
 
 This downward-sloping pattern is called the **volatility skew**. OTM puts (low strike prices) have higher implied volatility than ATM options. This means the market charges more for downside protection than for upside speculation.
 
@@ -1263,21 +1211,8 @@ A **yield curve** is a graph showing the interest rate (yield) for different len
 
 The most important yield curve in finance is the government bond yield curve — the rates at which a government borrows for different periods.
 
-```
-Yield (%)
-    |
-  5 |                              ╱────────
-    |                          ╱──╱
-  4 |                      ╱──╱
-    |                  ╱──╱
-  3 |              ╱──╱
-    |          ╱──╱
-  2 |      ╱──╱
-    |  ╱──╱
-  1 |╱╱
-    +──────────────────────────────────→ Maturity
-     1m  3m  6m  1y  2y  5y  10y  30y
-```
+![Normal (upward-sloping) yield curve](assets/foundations/concept_yield_curve_01.svg)
+
 
 This upward-sloping curve is the **normal** shape: longer maturities pay higher yields. This makes intuitive sense — you demand more compensation for lending your money for longer.
 
@@ -1347,13 +1282,8 @@ An **interest rate swap** is an agreement between two parties to exchange intere
 - One party pays a **fixed rate** (for example, 3% per year)
 - The other party pays a **floating rate** (for example, SOFR, which changes periodically)
 
-```
-Party A                         Party B
-(Fixed Payer)                   (Floating Payer)
+![Interest rate swap — cash flows](assets/foundations/concept_swap_flow_01.svg)
 
-        ──── Fixed Rate (3%) ────→
-        ←── Floating Rate (SOFR) ──
-```
 
 Why would anyone do this? Because Party A might have a floating-rate obligation that it wants to convert to fixed (certainty), while Party B might have a fixed-rate obligation that it wants to convert to floating (because it expects rates to fall).
 
@@ -1432,13 +1362,8 @@ A **Credit Default Swap** (CDS) is a derivative contract that provides insurance
 
 *Analogy:* A CDS is exactly like insurance on a loan. Imagine you have lent money to a company and you are worried they might not pay it back. You can buy a CDS from another party (the "protection seller"). You pay the protection seller a regular fee (the **CDS spread**, quoted in basis points per year), and in return, the protection seller promises to compensate you if the company defaults.
 
-```
-Protection Buyer                    Protection Seller
-(worried about default)             (takes the risk)
+![Credit default swap — cash flows](assets/foundations/concept_cds_flow_01.svg)
 
-    ──── CDS Spread (regular fee) ────→
-    ←── Payment if default occurs ─────
-```
 
 If the company defaults, the protection seller pays the protection buyer the loss amount (principal minus recovery value). If the company does not default, the protection buyer has paid the CDS spread "for nothing" — like paying insurance premiums without making a claim.
 
@@ -1661,21 +1586,8 @@ The trading desk hedges the embedded derivatives in the external market. If the 
 
 ### How P&L Flows Across Legs
 
-```
-INVESTOR ──── Principal ────→ ISSUER ──── Funding ────→ BANK
-    ↑                            ↑                       BALANCE
-    │                            │                       SHEET
-    │ Coupons / Redemption       │ Internal                │
-    │                            │ Liability               │
-                                                          │
-                                    FTP Cost              │
-                              TREASURY ←──────────────────┘
-                                                          │
-                                    Hedge Costs           │
-                              MARKET ←── Hedge Leg ───────┘
-                                         (Delta, Vega,
-                                          Options, Swaps)
-```
+![How a structured note flows through the bank](assets/foundations/concept_note_mechanics_01.svg)
+
 
 The bank's profit is the difference between what it receives from the investor (via the note leg) and what it pays out across the other three legs (issuer liability, FTP, and hedging costs).
 
@@ -1719,16 +1631,8 @@ The $70,000 coupon is funded by: $20,000 (FTP/bond interest) + $45,000 (option p
 
 Every structured product sits somewhere on a spectrum from "you cannot lose any money" to "you could lose everything."
 
-```
-FULL PROTECTION          CONDITIONAL PROTECTION          NO PROTECTION
-(Principal guaranteed)   (Protected unless barrier hit)  (Full market exposure)
-      |                           |                            |
-     PPN                   RC / Phoenix                     Warrant
-  (safest)              Airbag / FCN                  Accumulator
-                         (most common)                  (riskiest)
-      |                           |                            |
-  Low coupon              Medium-high coupon              Highest coupon
-```
+![The capital-protection spectrum](assets/foundations/concept_protection_spectrum_01.svg)
+
 
 **Full protection:** The investor's principal is guaranteed regardless of market performance. The tradeoff is lower participation in market upside. Example: Principal Protected Note.
 
@@ -1879,15 +1783,8 @@ Before diving into product deep dives, you need to understand the three core sys
 
 ### How Information Flows
 
-```
-TRADE ENTRY ──→ NEMO or MUREX (booking)
-                    │
-                    ▼
-              SOPHIS or MUREX (pricing & risk)
-                    │
-                    ▼
-              PRODUCT CONTROL (reconciliation & P&L verification)
-```
+![How a trade flows through the systems](assets/foundations/concept_systems_flow_01.svg)
+
 
 NEMO and Sophis must agree on every trade. If NEMO says a trade has a strike of 95% but Sophis has 95 (absolute price), the position is misbooked and the P&L will be wrong. This is one of the most common reconciliation errors.
 
@@ -1991,30 +1888,8 @@ Any structured product can be classified along six dimensions:
 
 The Reverse Convertible is the seed from which the entire ELN family grows. Every variant in the RC sub-family adds exactly one feature to the base product. Understanding the RC means understanding the core of every product below it.
 
-```
-Equity-Linked Notes
-│
-├── Reverse Convertible Variants
-│   ├── Reverse Convertible (RC) ............ Core product: fixed coupon, knock-in put
-│   ├── Discounted RC (DRC) ................ Instead of a coupon, investor buys at a discount (e.g., pays $95 for $100 par)
-│   ├── Knock-Out Discounted RC (KODRC) .... Adds a KO barrier above — if stock rises enough, the put is extinguished
-│   ├── Callable RC (CRC) .................. Bank can redeem early — adds reinvestment risk for the investor
-│   └── Airbag / Leveraged RC .............. Below the barrier, losses are amplified by a leverage factor
-│
-├── Autocallable Variants
-│   ├── Fixed Coupon Note (FCN) ............. Like an RC with automatic early redemption if the stock is above a level on observation dates
-│   ├── Phoenix Autocallable ................ Coupon is conditional — paid only if stock is above a threshold, with memory for missed coupons
-│   └── Callable Range Accrual ELN .......... Coupon accrues day-by-day depending on whether the stock stays in a range
-│
-└── Other ELNs
-    ├── Principal Protected Note (PPN) ...... Full capital protection — investor cannot lose principal, but gives up most upside
-    ├── Bonus / Participation Note .......... Investor participates in upside; a floor protects against moderate losses
-    ├── Issuer Callable Note (ICN) .......... Fixed coupon with issuer call right — no barrier, no put
-    ├── Digital Coupon Notes ................ All-or-nothing coupon: full coupon if stock is above threshold, zero if below
-    ├── Booster Note ....................... Leveraged upside participation — gains are multiplied, but so are losses
-    ├── Digital Coupon Knock-In Put ......... Combines digital coupon with a knock-in barrier — most complex ELN variant
-    └── Warrant / Turbo Certificate ......... Pure option exposure without a bond wrapper — no coupon, no protection
-```
+![Equity-Linked Notes — product family](assets/foundations/concept_taxonomy_eln_01.svg)
+
 
 **The unifying theme:** All ELNs involve the investor taking equity risk (usually by selling a put option) in exchange for enhanced income or participation.
 
@@ -2052,22 +1927,8 @@ Swaps
 
 Structured Rate Trades embed interest rate derivatives into a note structure. They are all booked in Murex with the four-leg framework, and their coupons depend on where interest rates are — not on equity prices.
 
-```
-Structured Rate Trades
-│
-├── Callable
-│   ├── IR Callable Fixed Rate Swap ........ Fixed coupon, but the issuer can redeem early if rates move in its favor
-│   └── IR Callable Range Accrual .......... Coupon accrues daily when a reference rate stays within a defined range; issuer can call
-│
-├── Non-Callable
-│   └── IR Non-Callable Range Accrual ...... Same as callable range accrual, but runs to maturity — no early redemption
-│
-├── Accreting
-│   └── IR Accreting Callable / ZCL ........ No periodic coupons — the notional grows over time, and the investor receives the total at maturity
-│
-└── Digital
-    └── Digital Cap-Floor .................. Pays a fixed amount if a rate is above a cap or below a floor; nothing otherwise
-```
+![Structured Rate Trades — product family](assets/foundations/concept_taxonomy_rates_01.svg)
+
 
 **The unifying theme:** All SRT products pay coupons linked to interest rate levels. The investor is expressing a view on where rates will be, not on equity or credit markets.
 
@@ -2075,14 +1936,8 @@ Structured Rate Trades
 
 ## 3.6 STEG Family Tree
 
-```
-Steepener Notes
-│
-├── Vanilla Steepener ..................... Coupon = CMS30Y - CMS2Y
-├── Range-Accrual Steepener ............... Coupon accrues when spread in range
-├── Callable Steepener .................... + Issuer call right
-└── TARN Steepener ........................ Coupon capped at lifetime total
-```
+![Steepener Notes — variants](assets/foundations/concept_taxonomy_steepener_01.svg)
+
 
 **The unifying theme:** All STEG products pay coupons linked to the difference between long-term and short-term interest rates. They profit when the yield curve is steep and suffer when it flattens or inverts.
 
@@ -2092,20 +1947,8 @@ Steepener Notes
 
 Credit-Linked Notes apply the same "investor sells protection" logic as put-selling ELNs, but in the credit world. Instead of selling equity downside risk, the investor sells default risk — and earns a CDS-like premium as a coupon.
 
-```
-Credit-Linked Notes
-│
-├── Single-Name
-│   ├── Vanilla CLN ....................... Investor sells credit protection on one company; earns CDS spread as coupon
-│   └── Skew CLN .......................... Like a Vanilla CLN but with modified recovery terms that shift payout under default
-│
-├── Basket
-│   ├── First-to-Default (FTD) ............ Investor sells protection on a basket of 5-10 companies; first default triggers loss
-│   └── Nth-to-Default (NTD) .............. Like FTD but the Nth default triggers loss — second-to-default is less risky than first-to-default
-│
-└── Portfolio
-    └── Synthetic CDO Tranche ............. Investor takes a slice of credit risk on a large portfolio (100+ names); complex correlation exposure
-```
+![Credit-Linked Notes — product family](assets/foundations/concept_taxonomy_cln_01.svg)
+
 
 **The unifying theme:** All CLNs involve the investor selling credit protection. The investor earns a CDS-like premium as a coupon and bears the loss if a credit event occurs.
 
@@ -16227,23 +16070,8 @@ A **Synthetic CDO (Collateralized Debt Obligation)** is a structured product tha
 
 **Loss allocation waterfall:**
 
-```
-Portfolio losses flow downward through tranches:
+![How portfolio losses hit CDO tranches](assets/foundations/concept_tranche_waterfall_01.svg)
 
-Loss = 0%                                    ─── No tranche affected
-  │
-  ▼
-Loss = 0-3%    →  EQUITY absorbs          ─── First loss position
-  │
-  ▼
-Loss = 3-7%    →  MEZZANINE absorbs       ─── After equity exhausted
-  │
-  ▼
-Loss = 7-15%   →  SENIOR absorbs          ─── After mezz exhausted
-  │
-  ▼
-Loss = 15-100% →  SUPER-SENIOR absorbs    ─── Catastrophic scenario only
-```
 
 **Tranche payoff at maturity:**
 
@@ -22830,10 +22658,8 @@ Settlement is where the abstract world of bookings becomes the concrete world of
 
 **Settlement workflow:**
 
-```
-Trade Date  →  +Settlement Lag  →  Settlement Date  →  DvP Instruction  →  Cash/Securities Exchange
-   (T)            (typically T+2)        (T+2)           (sent to CSD)        (executed via CSD)
-```
+![Settlement workflow (DvP)](assets/foundations/concept_settlement_timeline_01.svg)
+
 
 **Fails management:** A settlement fail occurs when one party does not deliver on the settlement date. This can happen because:
 - The seller does not have the securities to deliver
