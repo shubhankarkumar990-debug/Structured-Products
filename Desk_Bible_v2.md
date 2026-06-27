@@ -33,7 +33,7 @@ This book is designed to take you from zero finance knowledge to a professional-
 | Product Control / Operations | Part 2 → 6 → 4 → 7 → selected products from Part 5 |
 | Risk Analyst | Parts 1.4–1.6 → 2.7 → 4 → selected products from Part 5 (note: Sections 1.7-1.9 cover rates and credit) |
 | Trader | Parts 4 → 5 → 7 |
-| Interview Preparation | Part 0 → 1 → 2 → product interview questions in Part 5 → Part 7.5 |
+| Interview Preparation | Part 0 → 1 → 2 → product interview questions in Part 5 → Part 7 (Quick Reference) |
 
 Every chapter ends with mental models — memorable one-line summaries that help you remember concepts, not just definitions.
 
@@ -2692,7 +2692,7 @@ A client says: "PPNs seem like free money — I get protected downside and parti
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Payoff at Maturity vs Index Return**
 - **Asset filename:** payoff_ppn_participation_01.svg
@@ -2730,7 +2730,7 @@ A client says: "PPNs seem like free money — I get protected downside and parti
 - `assets/ppn/controls_ppn_recon_08.svg` `[generated]`
 - `assets/ppn/payoff_ppn_01.svg` `[generated]`
 - `assets/ppn/waterfall_ppn_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -3085,7 +3085,7 @@ A junior structurer proposes an RC with a 50% barrier on a volatile tech stock, 
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: RC Payoff at Maturity**
 - **Asset filename:** payoff_rc_put_01.svg
@@ -3131,7 +3131,7 @@ A junior structurer proposes an RC with a 50% barrier on a volatile tech stock, 
 - **Reuse status:** New — controls/reconciliation panel
 - **Production status:** `[generated — assets/rc/controls_rc_recon_flow_08.svg]`
 
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -3509,7 +3509,7 @@ An operations analyst discovers that the system paid a coupon on Q3 even though 
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Phoenix Autocallable Payoff at Maturity**
 - **Asset filename:** payoff_phoenix_maturity_01.svg
@@ -3547,7 +3547,7 @@ An operations analyst discovers that the system paid a coupon on Q3 even though 
 - `assets/phoenix/controls_phoenix_recon_08.svg` `[generated]`
 - `assets/phoenix/desk_phoenix_gamma_07.svg` `[generated]`
 - `assets/phoenix/waterfall_phoenix_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -3876,7 +3876,7 @@ A structurer is pitching a DRC to a client who currently holds a standard RC wit
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Discounted Reverse Convertible Payoff at Maturity**
 - **Asset filename:** payoff_drc_maturity_01.svg
@@ -3928,7 +3928,7 @@ A structurer is pitching a DRC to a client who currently holds a standard RC wit
 - **Reuse status:** New — desk-economics panel
 - **Production status:** `[generated — assets/drc/waterfall_drc_discount_09.svg]`
 
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -4268,7 +4268,7 @@ A portfolio manager holds five KODRCs on different underlyings. Three have alrea
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Knock-Out Discounted Reverse Convertible Payoff at Maturity**
 - **Asset filename:** payoff_kodrc_maturity_01.svg
@@ -4307,7 +4307,7 @@ A portfolio manager holds five KODRCs on different underlyings. Three have alrea
 - `assets/kodrc/desk_kodrc_gamma_07.svg` `[generated]`
 - `assets/kodrc/payoff_kodrc_01.svg` `[generated]`
 - `assets/kodrc/waterfall_kodrc_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -4654,7 +4654,7 @@ A structurer is debating between offering a client a 3-year non-callable RC at 8
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Callable Reverse Convertible Payoff at Maturity**
 - **Asset filename:** payoff_crc_maturity_01.svg
@@ -4693,7 +4693,7 @@ A structurer is debating between offering a client a 3-year non-callable RC at 8
 - `assets/crc/desk_crc_gamma_07.svg` `[generated]`
 - `assets/crc/payoff_crc_01.svg` `[generated]`
 - `assets/crc/waterfall_crc_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -5035,7 +5035,7 @@ A risk manager notices that the desk's Airbag book has 15 positions with barrier
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Airbag Note Payoff at Maturity**
 - **Asset filename:** payoff_airbag_maturity_01.svg
@@ -5074,7 +5074,7 @@ A risk manager notices that the desk's Airbag book has 15 positions with barrier
 - `assets/airbag/desk_airbag_gamma_07.svg` `[generated]`
 - `assets/airbag/payoff_airbag_01.svg` `[generated]`
 - `assets/airbag/waterfall_airbag_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -5414,7 +5414,7 @@ A portfolio manager wants to express a bullish view on the S&P 500 with some dow
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Bonus Note Payoff at Maturity**
 - **Asset filename:** payoff_bonus_maturity_01.svg
@@ -5453,7 +5453,7 @@ A portfolio manager wants to express a bullish view on the S&P 500 with some dow
 - `assets/bonus/desk_bonus_gamma_07.svg` `[generated]`
 - `assets/bonus/payoff_bonus_01.svg` `[generated]`
 - `assets/bonus/waterfall_bonus_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -5795,7 +5795,7 @@ An FCN on Unilever is approaching its Q4 observation date. The stock closed at 9
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Fixed Coupon Note Payoff at Maturity**
 - **Asset filename:** payoff_fcn_maturity_01.svg
@@ -5834,7 +5834,7 @@ An FCN on Unilever is approaching its Q4 observation date. The stock closed at 9
 - `assets/fcn/desk_fcn_gamma_07.svg` `[generated]`
 - `assets/fcn/payoff_fcn_01.svg` `[generated]`
 - `assets/fcn/waterfall_fcn_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -6171,7 +6171,7 @@ A CRA ELN on Barclays shows 48 accrual days out of 63 in Q3. Product Control rep
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Callable Range Accrual ELN Payoff at Maturity**
 - **Asset filename:** payoff_cra eln_maturity_01.svg
@@ -6209,7 +6209,7 @@ A CRA ELN on Barclays shows 48 accrual days out of 63 in Q3. Product Control rep
 - `assets/cra/controls_cra_recon_08.svg` `[generated]`
 - `assets/cra/desk_cra_gamma_07.svg` `[generated]`
 - `assets/cra/waterfall_cra_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -6554,7 +6554,7 @@ You are a Risk analyst reviewing the bank's ICN book. You notice that several IC
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Issuer Callable Note Payoff at Maturity**
 - **Asset filename:** payoff_icn_maturity_01.svg
@@ -6591,7 +6591,7 @@ You are a Risk analyst reviewing the bank's ICN book. You notice that several IC
 **Dual-lens visuals (generated):**
 - `assets/icn/controls_icn_recon_08.svg` `[generated]`
 - `assets/icn/waterfall_icn_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -6943,7 +6943,7 @@ You are in Product Control on an observation date. The Digital Coupon Note has a
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Digital Coupon Note Payoff at Maturity**
 - **Asset filename:** payoff_digital_maturity_01.svg
@@ -6982,7 +6982,7 @@ You are in Product Control on an observation date. The Digital Coupon Note has a
 - `assets/digital/desk_digital_gamma_07.svg` `[generated]`
 - `assets/digital/payoff_digital_01.svg` `[generated]`
 - `assets/digital/waterfall_digital_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -7323,7 +7323,7 @@ A Booster Note on ASML is approaching maturity. ASML closed at €699 yesterday 
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Booster Note Payoff at Maturity**
 - **Asset filename:** payoff_booster_maturity_01.svg
@@ -7361,7 +7361,7 @@ A Booster Note on ASML is approaching maturity. ASML closed at €699 yesterday 
 - `assets/booster/controls_booster_recon_08.svg` `[generated]`
 - `assets/booster/desk_booster_gamma_07.svg` `[generated]`
 - `assets/booster/waterfall_booster_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -7725,7 +7725,7 @@ You are the Structurer pricing a new Digital KI Put for a client. The client wan
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Digital Coupon Knock-In Put Payoff at Maturity**
 - **Asset filename:** payoff_dkip_maturity_01.svg
@@ -7764,7 +7764,7 @@ You are the Structurer pricing a new Digital KI Put for a client. The client wan
 - `assets/digitalki/desk_digitalki_gamma_07.svg` `[generated]`
 - `assets/digitalki/payoff_digitalki_01.svg` `[generated]`
 - `assets/digitalki/waterfall_digitalki_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -8127,7 +8127,7 @@ The desk issues a turbo call warrant with a KO barrier at €85 on a stock tradi
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Warrant / Turbo Certificate Payoff at Maturity**
 - **Asset filename:** payoff_warrant_maturity_01.svg
@@ -8160,7 +8160,7 @@ The desk issues a turbo call warrant with a KO barrier at €85 on a stock tradi
 - **Diagram elements:** Decision tree guiding investor suitability. Key questions: risk tolerance, income need, market view, time horizon
 - **Reuse status:** Adapt from decision tree template
 
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -8520,7 +8520,7 @@ A trader notices that the 5-year swap rate has moved from 3.5% to 3.8% over the 
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Interest Rate Swap Cash Flow Diagram**
 - **Asset filename:** flow_irs_cash_flows_01.svg
@@ -8558,7 +8558,7 @@ A trader notices that the 5-year swap rate has moved from 3.5% to 3.8% over the 
 - `assets/irs/controls_irs_recon_08.svg` `[generated]`
 - `assets/irs/legs_irs_01.svg` `[generated]`
 - `assets/irs/waterfall_irs_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -8909,7 +8909,7 @@ A prime brokerage client has a $300M TRS on a concentrated portfolio of 5 tech s
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Total Return Swap Cash Flow Diagram**
 - **Asset filename:** flow_trs_cash_flows_01.svg
@@ -8947,7 +8947,7 @@ A prime brokerage client has a $300M TRS on a concentrated portfolio of 5 tech s
 - `assets/trs/controls_trs_recon_08.svg` `[generated]`
 - `assets/trs/legs_trs_01.svg` `[generated]`
 - `assets/trs/waterfall_trs_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -9285,7 +9285,7 @@ A client has a $500M equity swap receiving the return on a concentrated basket o
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Equity Swap Cash Flow Diagram**
 - **Asset filename:** flow_eqswap_cash_flows_01.svg
@@ -9323,7 +9323,7 @@ A client has a $500M equity swap receiving the return on a concentrated basket o
 - `assets/eqswap/controls_eqswap_recon_08.svg` `[generated]`
 - `assets/eqswap/legs_eqswap_01.svg` `[generated]`
 - `assets/eqswap/waterfall_eqswap_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -9666,7 +9666,7 @@ The desk has sold $2M vega notional of variance swaps on the EURO STOXX 50 at a 
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Variance Swap Cash Flow Diagram**
 - **Asset filename:** flow_varswap_cash_flows_01.svg
@@ -9704,7 +9704,7 @@ The desk has sold $2M vega notional of variance swaps on the EURO STOXX 50 at a 
 - `assets/varswap/controls_varswap_recon_08.svg` `[generated]`
 - `assets/varswap/payoff_varswap_01.svg` `[generated]`
 - `assets/varswap/waterfall_varswap_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -10075,7 +10075,7 @@ The ISDA Determinations Committee has declared a credit event on a reference ent
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Credit Default Swap Cash Flow Diagram**
 - **Asset filename:** flow_cds_cash_flows_01.svg
@@ -10113,7 +10113,7 @@ The ISDA Determinations Committee has declared a credit event on a reference ent
 - `assets/cds/controls_cds_recon_08.svg` `[generated]`
 - `assets/cds/legs_cds_01.svg` `[generated]`
 - `assets/cds/waterfall_cds_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -10532,7 +10532,7 @@ Year-end is approaching and the USD cross-currency basis has widened by 25bp in 
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Cross-Currency Swap Cash Flow Diagram**
 - **Asset filename:** flow_xccy_cash_flows_01.svg
@@ -10570,7 +10570,7 @@ Year-end is approaching and the USD cross-currency basis has widened by 25bp in 
 - `assets/ccyswap/controls_ccyswap_recon_08.svg` `[generated]`
 - `assets/ccyswap/legs_ccyswap_01.svg` `[generated]`
 - `assets/ccyswap/waterfall_ccyswap_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -10990,7 +10990,7 @@ Your desk runs a book of commodity swaps across crude oil, jet fuel, natural gas
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Commodity Swap Cash Flow Diagram**
 - **Asset filename:** flow_commswap_cash_flows_01.svg
@@ -11028,7 +11028,7 @@ Your desk runs a book of commodity swaps across crude oil, jet fuel, natural gas
 - `assets/commodswap/controls_commodswap_recon_08.svg` `[generated]`
 - `assets/commodswap/legs_commodswap_01.svg` `[generated]`
 - `assets/commodswap/waterfall_commodswap_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -11455,7 +11455,7 @@ The rates desk runs a $50B notional VLSP book. The desk is DV01-neutral but has 
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Vanilla Swap Cash Flow Diagram**
 - **Asset filename:** flow_vlsp_cash_flows_01.svg
@@ -11488,7 +11488,7 @@ The rates desk runs a $50B notional VLSP book. The desk is DV01-neutral but has 
 - **Diagram elements:** Three rate path scenarios (rates up, stable, down) showing P&L impact. Clearly labelled outcomes
 - **Reuse status:** Adapt from scenario template
 
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -14857,7 +14857,7 @@ A credit event occurs on a reference entity. The ISDA Determinations Committee d
 ---
 
 
-#### §21. Visual Specifications
+#### Visual Specifications
 
 **Visual 1: Vanilla Credit-Linked Note Payoff at Maturity**
 - **Asset filename:** payoff_cln_maturity_01.svg
@@ -14895,7 +14895,7 @@ A credit event occurs on a reference entity. The ISDA Determinations Committee d
 - `assets/cln/controls_cln_recon_08.svg` `[generated]`
 - `assets/cln/legs_cln_01.svg` `[generated]`
 - `assets/cln/waterfall_cln_09.svg` `[generated]`
-#### §22. Related Chapters / Dependency References
+#### Dependency References
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
@@ -20528,6 +20528,15 @@ If KI breached AND WO_T < Strike: physical delivery of the worst-performing stoc
 - `assets/woauto/controls_woauto_recon_08.svg` `[generated]`
 - `assets/woauto/payoff_woauto_01.svg` `[generated]`
 - `assets/woauto/waterfall_woauto_09.svg` `[generated]`
+
+---
+
+# PART 6 — DESK OPERATIONS & CONTROL
+
+*The operational guide — how a structured-products desk is actually run: market conventions, termsheets and documentation, credit and capital structure, valuation and fair value, product control, treasury and XVA, model risk, operations, regulation, and the 2nd-line reconciliation discipline.*
+
+---
+
 ## 6.1 Market Conventions
 
 *How the market speaks — the conventions that govern when, how, and on what basis payments are calculated*
@@ -23896,7 +23905,15 @@ A reconciliation break is never "just a data issue." It is a future loss, a futu
 
 **The 2nd line's one rule:** a reconciliation break is a future loss that has not happened yet. Catch it before settlement crystallises it.
 
-## Part 6 — Knowledge Check
+---
+
+# PART 7 — QUICK REFERENCE
+
+*The fast lookup layer for revision and interview preparation — consolidated review questions and the book-wide mental-models glossary.*
+
+---
+
+## 7.1 Knowledge Check
 
 ### Review Questions
 
@@ -23934,7 +23951,7 @@ A junior structurer says: "We do not need to worry about XVA charges — they ar
 
 ---
 
-## Part 6 — Mental Models Summary
+## 7.2 Mental Models Summary
 
 | Concept | Mental Model |
 |---------|-------------|
