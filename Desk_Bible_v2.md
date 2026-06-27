@@ -13521,13 +13521,13 @@ The counterintuitive twist: a heatwave (dramatically steep curve) is just as dam
 | **ISDA Required** | No — issued as note |
 
 **DNA Atlas Fields:**
-- Primary Risk: Dual risk — curve must steepen AND reference rate must stay in range. Two conditions must be met simultaneously
+- Primary Risk: Spread-range risk — the CMS30Y−CMS2Y spread must stay within [0.25%, 2.50%]; coupon is lost on both flattening (spread < 0.25%) and extreme steepening (spread > 2.50%)
 - Typical Buyer: Yield-seeking institutional investors with stable-rate + steepening view
 - Typical Use Case: Maximum yield from combined curve and range view
-- Building Blocks: Vanilla STEG + range accrual digital strip
+- Building Blocks: Range-accrual digital spread strip (long digital floor at 0.25% + short digital cap at 2.50% on CMS30Y−CMS2Y)
 - Key Hedge: CMS spread swap + digital option strip
 - Similar Products: Vanilla STEG (5.4.1 — without range), NCRA (5.3.3 — range without curve), CRA SRT (5.3.4)
-- Most Important Greek: CMS spread delta + digital gamma (dual sensitivity)
+- Most Important Greek: CMS30Y−CMS2Y correlation (dominant driver); digital gamma and CMS-spread delta secondary
 
 **Comparison Matrix Fields:**
 - Complexity: 7
@@ -13536,7 +13536,7 @@ The counterintuitive twist: a heatwave (dramatically steep curve) is just as dam
 - Credit Exposure: Issuer (note format)
 - Liquidity: OTC — model-dependent
 - Path Dependency: Yes (daily range + periodic curve observation)
-- Volatility Sensitivity: Short vega (range) + long vega (curve)
+- Volatility Sensitivity: Short vega (short the digital strip on the spread)
 - Correlation Sensitivity: CMS rate correlation
 - Client Type: Sophisticated institutional
 - Market Environment: Best when expecting stable rates + steepening curve
@@ -13857,7 +13857,7 @@ What makes the arrangement notable is that the market authority revokes the lice
 | **Underlying Asset Class** | Rates (CMS30Y − CMS2Y spread) |
 | **Capital Protection** | 100% at maturity (or on call date) |
 | **Coupon Type** | Enhanced leveraged CMS spread coupon (call premium funds additional yield) |
-| **Maturity** | 10–30 years (callable after non-call period) |
+| **Maturity** | 7–30 years (callable after the non-call period; the worked example uses a 7-year NC2 note) |
 | **Liquidity** | OTC — model-dependent |
 | **Primary System** | Murex (primary) |
 | **ISDA Required** | No — issued as note |
@@ -14194,7 +14194,7 @@ A TARN Steepener resembles a loyalty card that redeems automatically. Each purch
 | **Complexity Score** | 8 / 10 |
 | **Complexity Rationale** | Leveraged CMS spread with target accumulation and automatic redemption. Path-dependent. Monte Carlo pricing |
 | **Underlying Asset Class** | Rates (CMS30Y − CMS2Y spread) |
-| **Capital Protection** | 100% at maturity or target date |
+| **Capital Protection** | 100% at maturity or target date, subject to issuer credit |
 | **Coupon Type** | Leveraged CMS spread coupon with cumulative target cap |
 | **Maturity** | 10 years maximum (terminates early if target reached) |
 | **Liquidity** | OTC — model-dependent |
@@ -14212,7 +14212,7 @@ A TARN Steepener resembles a loyalty card that redeems automatically. Each purch
 **Comparison Matrix Fields:**
 - Complexity: 8
 - Yield Potential: Capped at target (e.g., 15% total)
-- Capital Protection: 100% at maturity or target date
+- Capital Protection: 100% at maturity or target date, subject to issuer credit
 - Credit Exposure: Issuer (note format)
 - Liquidity: OTC — model-dependent
 - Path Dependency: Very high (accumulated coupon determines termination)
