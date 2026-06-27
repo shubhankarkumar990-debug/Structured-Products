@@ -2657,6 +2657,10 @@ Investor receives full principal. A direct S&P 500 investment would have lost $2
 4. What is the main risk that the "principal guarantee" does not protect against?
 5. Why is a PPN described as a "long volatility" product?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What position does the desk hold against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking and risk-system fields must reconcile for this product, and which is the most common break?
 **Scenario Questions:**
 1. Interest rates fall from 4% to 1%. How does this affect the PPN's participation rate, and why?
 2. A client invested $500,000 in a 5-year PPN with 60% participation. At maturity, the underlying index is down 15%. What does the client receive? What would they have received from a direct index investment?
@@ -2721,6 +2725,11 @@ A client says: "PPNs seem like free money — I get protected downside and parti
 - **Diagram elements:** Decision tree: Can client tolerate principal loss? NO → PPN candidate. Does client need current income? YES → consider coupon-bearing alternative. Does client want full upside? YES → PPN may not suit
 - **Reuse status:** Adapt from decision tree template
 
+
+**Dual-lens visuals (generated):**
+- `assets/ppn/controls_ppn_recon_08.svg` `[generated]`
+- `assets/ppn/payoff_ppn_01.svg` `[generated]`
+- `assets/ppn/waterfall_ppn_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -2958,7 +2967,7 @@ The investor also receives periodic fixed coupon payments throughout the life of
 
 | Stage | Detail |
 |-------|--------|
-| **Trade date** | Terms agreed: underlying, strike (e.g. 90% of spot), coupon, maturity. Book in NEMO; set initial level, barrier, coupon schedule |
+| **Trade date** | Terms agreed: underlying, strike (= initial level, 100%), coupon, maturity. Book in NEMO; set initial level, barrier, coupon schedule |
 | **Issue date** | Note issued at par. The investor sells the put protection to the bank. Coupon schedule begins |
 | **Coupon dates** | Fixed coupons paid (e.g. quarterly), guaranteed regardless of underlying performance (subject to termsheet convention on knock-in) |
 | **Barrier monitoring (American)** | Daily check — has the underlying touched the barrier? If yes, flag the trade as "knocked in" |
@@ -3417,7 +3426,7 @@ A **Phoenix Autocallable** is a structured product with:
 4. **A Phoenix has a coupon barrier of 70% and an autocall barrier of 100%. The worst performer is at 95%. What happens on this observation date?** *(Investor)*
 5. **What makes the Phoenix harder to price than a Reverse Convertible?** *(Investor)*
 6. **A client holds a Phoenix that has not paid a coupon for 4 quarters. 5 coupons are memorized. On Q6, the worst performer is at 72% (above the 70% coupon barrier). How much does the client receive?** *(Investor)*
-7. **Why is a Phoenix a "short correlation" product?** *(Investor)*
+7. **The Phoenix investor sold the correlation premium embedded in the basket. Explain why this makes the investor *structurally* short, yet long correlation under the MTM convention.** *(Investor)*
 8. **(Desk economics / 1LoD)** What package of embedded options does the desk hold long against the investor, and where does the desk's gamma spike? Explain the pin risk near the autocall barrier and why it is the desk's signature exposure.
 9. **(Controls / 2LoD)** On each observation date, which fields must reconcile between NEMO and Sophis for a Phoenix, and why are autocall event capture and the memory-coupon counter the two breaks most specific to this product?
 
@@ -3457,10 +3466,14 @@ A **Phoenix Autocallable** is a structured product with:
 **Review Questions:**
 1. What are the three barriers in a Phoenix Autocallable, and what does each control?
 2. How does the memory feature work? Give an example with specific numbers.
-3. Why is a Phoenix a "short correlation" product?
+3. The Phoenix investor sold the correlation premium embedded in the basket — explain why this is *structurally* short but long correlation under the MTM convention.
 4. What makes the Phoenix path-dependent?
 5. Which system is used for booking and pricing a Phoenix?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What position does the desk hold against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking and risk-system fields must reconcile for this product, and which is the most common break?
 **Scenario Questions:**
 1. A Phoenix has a coupon barrier at 70%, autocall at 100%, and KI at 60%. The worst performer is at 68% on Q3. What happens? What if it recovers to 73% on Q4?
 2. Correlation between three basket stocks drops from 0.8 to 0.3. How does this affect the bank's pricing of a new Phoenix on this basket?
@@ -3525,6 +3538,11 @@ An operations analyst discovers that the system paid a coupon on Q3 even though 
 - **Diagram elements:** Decision tree guiding investor suitability. Key questions: risk tolerance, income need, market view, time horizon
 - **Reuse status:** Adapt from decision tree template
 
+
+**Dual-lens visuals (generated):**
+- `assets/phoenix/controls_phoenix_recon_08.svg` `[generated]`
+- `assets/phoenix/desk_phoenix_gamma_07.svg` `[generated]`
+- `assets/phoenix/waterfall_phoenix_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -4207,6 +4225,10 @@ A **Knock-Out Discounted Reverse Convertible (KODRC)** is a DRC with an addition
 4. What is the difference between American and European observation for the KO barrier?
 5. What three components make up a KODRC?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What position does the desk hold against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking and risk-system fields must reconcile for this product, and which is the most common break?
 **Scenario Questions:**
 1. A KODRC has a KI at 65% and KO at 125%. The stock rises to 126% in month 3, then drops to 55% by maturity. What does the investor receive? Would this change if the KO were European (checked only at maturity)?
 2. A risk analyst sees that a KODRC position still shows Delta exposure of -0.35 even though the KO was triggered two weeks ago. What is wrong?
@@ -4271,6 +4293,12 @@ A portfolio manager holds five KODRCs on different underlyings. Three have alrea
 - **Diagram elements:** Decision tree guiding investor suitability. Key questions: risk tolerance, income need, market view, time horizon
 - **Reuse status:** Adapt from decision tree template
 
+
+**Dual-lens visuals (generated):**
+- `assets/kodrc/controls_kodrc_recon_08.svg` `[generated]`
+- `assets/kodrc/desk_kodrc_gamma_07.svg` `[generated]`
+- `assets/kodrc/payoff_kodrc_01.svg` `[generated]`
+- `assets/kodrc/waterfall_kodrc_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -4584,6 +4612,10 @@ In the call scenario the desk's long put is deeply out of the money and its long
 4. Why does the issuer typically call when the stock has risen?
 5. What is the difference between a Bermudan and European call option?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What position does the desk hold against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking and risk-system fields must reconcile for this product, and which is the most common break?
 **Scenario Questions:**
 1. A CRC pays 10% annually on $500,000, with a 1-year no-call period and annual call dates. The issuer calls after Year 2. Calculate the investor's total return in dollars and as a percentage.
 2. An investor holds two positions: a 3-year RC at 7% and a 3-year CRC at 10%, both on the same underlying with the same barrier. The CRC is called after Year 1. After reinvesting at 6%, which investor earns more over 3 years?
@@ -4647,6 +4679,12 @@ A structurer is debating between offering a client a 3-year non-callable RC at 8
 - **Diagram elements:** Decision tree guiding investor suitability. Key questions: risk tolerance, income need, market view, time horizon
 - **Reuse status:** Adapt from decision tree template
 
+
+**Dual-lens visuals (generated):**
+- `assets/crc/controls_crc_recon_08.svg` `[generated]`
+- `assets/crc/desk_crc_gamma_07.svg` `[generated]`
+- `assets/crc/payoff_crc_01.svg` `[generated]`
+- `assets/crc/waterfall_crc_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -4955,6 +4993,10 @@ In the first scenario the desk's long modified put expires worthless; the desk k
 4. What is the put strike in an Airbag, and how does it differ from a standard RC?
 5. What is the "zone of disadvantage" for an Airbag investor?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What position does the desk hold against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking and risk-system fields must reconcile for this product, and which is the most common break?
 **Scenario Questions:**
 1. Two products on the same stock (initial $100): Standard RC (barrier 65%, 7% coupon) and Airbag (barrier 80%, 7% coupon). Stock finishes at $55. Calculate the redemption and loss for each. Which investor is better off?
 2. A Product Control analyst runs the Airbag redemption as $100,000 × ($60/$100) = $60,000. The barrier is 75%. What is the correct calculation, and how large is the error?
@@ -5018,6 +5060,12 @@ A risk manager notices that the desk's Airbag book has 15 positions with barrier
 - **Diagram elements:** Decision tree guiding investor suitability. Key questions: risk tolerance, income need, market view, time horizon
 - **Reuse status:** Adapt from decision tree template
 
+
+**Dual-lens visuals (generated):**
+- `assets/airbag/controls_airbag_recon_08.svg` `[generated]`
+- `assets/airbag/desk_airbag_gamma_07.svg` `[generated]`
+- `assets/airbag/payoff_airbag_01.svg` `[generated]`
+- `assets/airbag/waterfall_airbag_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -5086,7 +5134,7 @@ Many investors want upside exposure but fear flat markets more than crashes. In 
 - Primary Risk: Barrier breach eliminates bonus. Below barrier, product behaves like direct equity (full loss exposure)
 - Typical Buyer: Conservative investors wanting equity exposure with minimum return guarantee
 - Typical Use Case: Guaranteed minimum bonus return (e.g., 15%) if underlying stays above barrier. Full participation above that
-- Building Blocks: ZCB + European call + short down-and-in put + bonus coupon mechanism
+- Building Blocks: ZCB + European call + long down-and-out put + bonus coupon mechanism
 - Key Hedge: ZCB hedge, delta-hedge call, DI put replication
 - Similar Products: PPN (5.1.1 — guaranteed protection), Shark Fin (5.6.9 — barrier with rebate), Phoenix (5.1.3 — conditional coupon)
 - Most Important Greek: Gamma (near barrier) + Delta (participation)
@@ -5324,6 +5372,10 @@ In the first scenario the desk's short down-and-out put expires worthless and th
 4. Why is the KO barrier typically American rather than European?
 5. What booking system records a Bonus Note, and what key fields must be captured?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What position does the desk hold against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking and risk-system fields must reconcile for this product, and which is the most common break?
 **Scenario Questions:**
 1. A Bonus Note has a 115% bonus, 90% participation, and 65% KO barrier. The stock finishes at +22%, KO never triggered. Calculate the investor's return. Now recalculate if participation were 100%.
 2. An investor holds two Bonus Notes on the same stock. Note A has a 70% KO barrier and 108% bonus. Note B has a 60% KO barrier and 118% bonus. The stock drops to 62% at month 6 then recovers to 100%. Compare the outcomes.
@@ -5387,6 +5439,12 @@ A portfolio manager wants to express a bullish view on the S&P 500 with some dow
 - **Diagram elements:** Decision tree guiding investor suitability. Key questions: risk tolerance, income need, market view, time horizon
 - **Reuse status:** Adapt from decision tree template
 
+
+**Dual-lens visuals (generated):**
+- `assets/bonus/controls_bonus_recon_08.svg` `[generated]`
+- `assets/bonus/desk_bonus_gamma_07.svg` `[generated]`
+- `assets/bonus/payoff_bonus_01.svg` `[generated]`
+- `assets/bonus/waterfall_bonus_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -5695,6 +5753,10 @@ In Outcome A the desk's long put expires worthless on early redemption; the desk
 4. Why is the FCN coupon typically lower than an RC coupon on the same underlying?
 5. What is a step-down autocall, and why is it used?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What position does the desk hold against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking and risk-system fields must reconcile for this product, and which is the most common break?
 **Scenario Questions:**
 1. An FCN investor receives 6 quarterly coupons and then the note autocalls. The coupon was 6% p.a. Calculate the investor's total return over the holding period.
 2. Two FCNs are offered on the same stock with the same maturity. FCN A has a 70% barrier and 6% coupon. FCN B has an 80% barrier and 8% coupon. Which is riskier, and why does it pay more?
@@ -5758,6 +5820,12 @@ An FCN on Unilever is approaching its Q4 observation date. The stock closed at 9
 - **Diagram elements:** Decision tree guiding investor suitability. Key questions: risk tolerance, income need, market view, time horizon
 - **Reuse status:** Adapt from decision tree template
 
+
+**Dual-lens visuals (generated):**
+- `assets/fcn/controls_fcn_recon_08.svg` `[generated]`
+- `assets/fcn/desk_fcn_gamma_07.svg` `[generated]`
+- `assets/fcn/payoff_fcn_01.svg` `[generated]`
+- `assets/fcn/waterfall_fcn_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -6061,6 +6129,10 @@ The desk holds the offsetting long digital strip and long call. Each quarter Pro
 4. Why must range boundaries be adjusted for corporate actions like stock splits?
 5. What market view does a CRA ELN investor hold?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What position does the desk hold against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking and risk-system fields must reconcile for this product, and which is the most common break?
 **Scenario Questions:**
 1. A CRA ELN has a range of 85%-115%. In Q1, the stock trades at 84% for 10 days, then between 90%-110% for 45 days, then at 118% for 8 days. How many accrual days out of 63? Calculate the coupon if the maximum quarterly amount is $15,000.
 2. The issuer calls a CRA ELN after Q2. The investor had 95% accrual in Q1 and 88% in Q2. Was the call decision rational from the issuer's perspective? Why?
@@ -6124,6 +6196,11 @@ A CRA ELN on Barclays shows 48 accrual days out of 63 in Q3. Product Control rep
 - **Diagram elements:** Decision tree guiding investor suitability. Key questions: risk tolerance, income need, market view, time horizon
 - **Reuse status:** Adapt from decision tree template
 
+
+**Dual-lens visuals (generated):**
+- `assets/cra/controls_cra_recon_08.svg` `[generated]`
+- `assets/cra/desk_cra_gamma_07.svg` `[generated]`
+- `assets/cra/waterfall_cra_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -6263,7 +6340,7 @@ The investor's payoff is fundamentally different from all other ELN products: it
 | Risk | Description | Severity |
 |------|------------|:--------:|
 | **Reinvestment risk** | Issuer calls when rates drop, forcing reinvestment at lower yields | High |
-| **Issuer credit risk** | If the issuing bank defaults, the investor is an unsecured creditor | Medium |
+| **Issuer credit risk** | If the issuing bank defaults, the investor is an unsecured creditor — the **only** capital-loss channel for an ICN | High |
 | **Opportunity cost** | If rates rise, the investor is locked into a below-market coupon | Medium |
 | **Call timing uncertainty** | The investor cannot predict when the issuer will call | Low |
 | **Liquidity risk** | Secondary market may be thin; selling before call or maturity may be at a discount | Low |
@@ -6435,6 +6512,10 @@ The ICN is the simplest product in the structured notes spectrum. Its enhanced y
 4. How does the ICN's risk profile differ from an FCN?
 5. What type of model does Sophis use to price an ICN?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What position does the desk hold against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking and risk-system fields must reconcile for this product, and which is the most common break?
 **Scenario Questions:**
 1. An ICN pays 4% annually on $1M. Market rates drop from 3% to 1%. The issuer calls at Year 2. Calculate the investor's total return and the reinvestment cost over the remaining year.
 2. Two ICNs are offered: ICN A pays 3.5% with a 2-year no-call. ICN B pays 4.5% with a 6-month no-call. Which offers more call protection, and why does it pay less?
@@ -6498,6 +6579,10 @@ You are a Risk analyst reviewing the bank's ICN book. You notice that several IC
 - **Diagram elements:** Decision tree guiding investor suitability. Key questions: risk tolerance, income need, market view, time horizon
 - **Reuse status:** Adapt from decision tree template
 
+
+**Dual-lens visuals (generated):**
+- `assets/icn/controls_icn_recon_08.svg` `[generated]`
+- `assets/icn/waterfall_icn_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -6817,6 +6902,10 @@ In Q4 and Q5 the desk's long digital calls finish out-of-the-money: the digital 
 4. What is "pin risk" and why is it relevant to Digital Coupon Notes?
 5. How does the Digital Coupon Note's construction differ from the FCN's?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What position does the desk hold against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking and risk-system fields must reconcile for this product, and which is the most common break?
 **Scenario Questions:**
 1. A Digital Coupon Note has a 75% coupon barrier. The stock closes at 74.8% on Q3's observation date and 76.2% on Q4's. What is the coupon outcome for each quarter? What would change if this were a Phoenix?
 2. An investor compares two products: a Digital Coupon Note at 9% p.a. with a 75% barrier, and an FCN at 6% p.a. with the same barrier. If the investor expects the stock to breach the coupon barrier in 2 of 12 quarters, which product produces higher total income?
@@ -6879,6 +6968,12 @@ You are in Product Control on an observation date. The Digital Coupon Note has a
 - **Diagram elements:** Decision tree guiding investor suitability. Key questions: risk tolerance, income need, market view, time horizon
 - **Reuse status:** Adapt from decision tree template
 
+
+**Dual-lens visuals (generated):**
+- `assets/digital/controls_digital_recon_08.svg` `[generated]`
+- `assets/digital/desk_digital_gamma_07.svg` `[generated]`
+- `assets/digital/payoff_digital_01.svg` `[generated]`
+- `assets/digital/waterfall_digital_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -7185,6 +7280,10 @@ In Outcomes A and B the desk's short leveraged call spread is in the money to th
 4. How does the downside of a Booster Note compare to direct stock ownership?
 5. Where does the Booster Note sit on the capital protection spectrum relative to PPN and RC?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What position does the desk hold against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking and risk-system fields must reconcile for this product, and which is the most common break?
 **Scenario Questions:**
 1. A Booster Note has 150% participation and a 40% cap. The stock rises 35%. Calculate the investor's return. What if the stock had risen 25%?
 2. An investor paid $500,000 for a 2-year Booster Note. The stock declines 30%. Compare the loss to (a) direct stock ownership and (b) an RC with a 70% barrier.
@@ -7249,6 +7348,11 @@ A Booster Note on ASML is approaching maturity. ASML closed at €699 yesterday 
 - **Diagram elements:** Decision tree guiding investor suitability. Key questions: risk tolerance, income need, market view, time horizon
 - **Reuse status:** Adapt from decision tree template
 
+
+**Dual-lens visuals (generated):**
+- `assets/booster/controls_booster_recon_08.svg` `[generated]`
+- `assets/booster/desk_booster_gamma_07.svg` `[generated]`
+- `assets/booster/waterfall_booster_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -7579,6 +7683,10 @@ The Digital KI Put combines the digital coupon mechanism (from 5.1.12), the auto
 4. What happens to coupons missed before an autocall event?
 5. Why is the Digital KI Put considered the "capstone" of the ELN family?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What position does the desk hold against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking and risk-system fields must reconcile for this product, and which is the most common break?
 **Scenario Questions:**
 1. A Digital KI Put has a 70% coupon barrier, 100% autocall barrier, and 60% capital barrier. In Q5, the stock closes at 101%. What happens? What would have happened if the stock closed at 99%?
 2. An investor holds a Digital KI Put that missed coupons in Q2, Q4, and Q7. The note was not autocalled. At maturity, the stock is at 65%. Calculate the total return on a $300,000 notional with 12% p.a. coupon (3% per quarter, 8 total quarters).
@@ -7642,6 +7750,12 @@ You are the Structurer pricing a new Digital KI Put for a client. The client wan
 - **Diagram elements:** Decision tree guiding investor suitability. Key questions: risk tolerance, income need, market view, time horizon
 - **Reuse status:** Adapt from decision tree template
 
+
+**Dual-lens visuals (generated):**
+- `assets/digitalki/controls_digitalki_recon_08.svg` `[generated]`
+- `assets/digitalki/desk_digitalki_gamma_07.svg` `[generated]`
+- `assets/digitalki/payoff_digitalki_01.svg` `[generated]`
+- `assets/digitalki/waterfall_digitalki_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -7961,6 +8075,10 @@ In the +30% expiry, the desk is short the call it issued; against the €225,000
 4. What is the maximum loss for a warrant investor?
 5. Why do warrants lose value over time even when the stock price does not change?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What position does the desk hold against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking and risk-system fields must reconcile for this product, and which is the most common break?
 **Scenario Questions:**
 1. An investor buys 2,000 call warrants at €8 each (€16,000 total). Strike is €100, ratio is 1:1. At expiry, the stock is at €115. Calculate the profit. What stock price would produce a break-even result?
 2. A turbo call warrant has a strike of €100 and a KO barrier at €92. The stock drops from €105 to €91 on a Monday morning, then recovers to €110 by Friday. What is the turbo holder's outcome? Compare this to a vanilla warrant holder's outcome.
@@ -7977,6 +8095,12 @@ The desk issues a turbo call warrant with a KO barrier at €85 on a stock tradi
 4. **Time decay visualization** — Warrant value declining over time with stock price held constant, showing the Theta erosion curve accelerating near expiry (P2)
 5. **ELN family tree** — All 15 products in Part 5.1, organized from most bond-like (PPN) to least bond-like (Warrant), showing which components each product contains (P3)
 
+
+**Dual-lens visuals (generated):**
+- `assets/warrant/controls_warrant_recon_08.svg` `[generated]`
+- `assets/warrant/desk_warrant_gamma_07.svg` `[generated]`
+- `assets/warrant/payoff_warrant_01.svg` `[generated]`
+- `assets/warrant/waterfall_warrant_09.svg` `[generated]`
 ### Dependency References
 
 | Concept Used | Where It Was Taught |
