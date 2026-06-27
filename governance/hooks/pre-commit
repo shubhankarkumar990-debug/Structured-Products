@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Dual-lens pre-commit hook.
+# Runs the semantic linter (fail on S1) + regression suite before each commit.
+# Enable once with:  git config core.hooksPath governance/hooks
+#
+# Bypass in an emergency with:  git commit --no-verify
+set -uo pipefail
+
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
+GATE="$ROOT/governance/linter/run_checks.sh"
+
+# Only run when a tracked Desk Bible / production / linter file is staged.
+if git diff --cached --name-only | grep -qE '^(Desk_Bible_v2\.md|production/|governance/linter/)'; then
+  if [[ -x "$GATE" || -f "$GATE" ]]; then
+    bash "$GATE" || {
+      echo
+      echo "pre-commit: dual-lens checks failed — commit aborted (use --no-verify to override)."
+      exit 1
+    }
+  fi
+fi
+exit 0

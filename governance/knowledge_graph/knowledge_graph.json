@@ -1,0 +1,2313 @@
+{
+  "nodes": [
+    {
+      "id": "FAM-CLN",
+      "type": "N-FAMILY",
+      "name": "CLN"
+    },
+    {
+      "id": "FAM-ELN",
+      "type": "N-FAMILY",
+      "name": "ELN"
+    },
+    {
+      "id": "FAM-Other",
+      "type": "N-FAMILY",
+      "name": "Other"
+    },
+    {
+      "id": "FAM-SRT",
+      "type": "N-FAMILY",
+      "name": "SRT"
+    },
+    {
+      "id": "FAM-STEG",
+      "type": "N-FAMILY",
+      "name": "STEG"
+    },
+    {
+      "id": "FAM-Swap",
+      "type": "N-FAMILY",
+      "name": "Swap"
+    },
+    {
+      "id": "PROD-ELN-511",
+      "type": "N-PRODUCT",
+      "name": "Principal Protected Note",
+      "family": "ELN",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.1.1",
+      "start_line": 2327,
+      "end_line": 2744
+    },
+    {
+      "id": "SEC-DB-511",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.1.1 Principal Protected Note",
+      "start_line": 2327,
+      "end_line": 2744
+    },
+    {
+      "id": "PROD-ELN-512",
+      "type": "N-PRODUCT",
+      "name": "Reverse Convertible",
+      "family": "ELN",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.1.2",
+      "start_line": 2744,
+      "end_line": 3146
+    },
+    {
+      "id": "SEC-DB-512",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.1.2 Reverse Convertible",
+      "start_line": 2744,
+      "end_line": 3146
+    },
+    {
+      "id": "PROD-ELN-513",
+      "type": "N-PRODUCT",
+      "name": "Phoenix Autocallable",
+      "family": "ELN",
+      "system": "Murex",
+      "correlation_direction": "LONG",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.1.3",
+      "start_line": 3146,
+      "end_line": 3560
+    },
+    {
+      "id": "SEC-DB-513",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.1.3 Phoenix Autocallable",
+      "start_line": 3146,
+      "end_line": 3560
+    },
+    {
+      "id": "PROD-ELN-514",
+      "type": "N-PRODUCT",
+      "name": "Discounted Reverse Convertible",
+      "family": "ELN",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.1.4",
+      "start_line": 3560,
+      "end_line": 3941
+    },
+    {
+      "id": "SEC-DB-514",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.1.4 Discounted Reverse Convertible",
+      "start_line": 3560,
+      "end_line": 3941
+    },
+    {
+      "id": "PROD-ELN-515",
+      "type": "N-PRODUCT",
+      "name": "Knock-Out DRC",
+      "family": "ELN",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.1.5",
+      "start_line": 3941,
+      "end_line": 4320
+    },
+    {
+      "id": "SEC-DB-515",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.1.5 Knock-Out DRC",
+      "start_line": 3941,
+      "end_line": 4320
+    },
+    {
+      "id": "PROD-ELN-516",
+      "type": "N-PRODUCT",
+      "name": "Callable RC",
+      "family": "ELN",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.1.6",
+      "start_line": 4320,
+      "end_line": 4706
+    },
+    {
+      "id": "SEC-DB-516",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.1.6 Callable RC",
+      "start_line": 4320,
+      "end_line": 4706
+    },
+    {
+      "id": "PROD-ELN-517",
+      "type": "N-PRODUCT",
+      "name": "Airbag / Leveraged RC",
+      "family": "ELN",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.1.7",
+      "start_line": 4706,
+      "end_line": 5087
+    },
+    {
+      "id": "SEC-DB-517",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.1.7 Airbag / Leveraged RC",
+      "start_line": 4706,
+      "end_line": 5087
+    },
+    {
+      "id": "PROD-ELN-518",
+      "type": "N-PRODUCT",
+      "name": "Bonus / Participation Note",
+      "family": "ELN",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.1.8",
+      "start_line": 5087,
+      "end_line": 5466
+    },
+    {
+      "id": "SEC-DB-518",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.1.8 Bonus / Participation Note",
+      "start_line": 5087,
+      "end_line": 5466
+    },
+    {
+      "id": "PROD-ELN-519",
+      "type": "N-PRODUCT",
+      "name": "Fixed Coupon Note",
+      "family": "ELN",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.1.9",
+      "start_line": 5466,
+      "end_line": 5847
+    },
+    {
+      "id": "SEC-DB-519",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.1.9 Fixed Coupon Note",
+      "start_line": 5466,
+      "end_line": 5847
+    },
+    {
+      "id": "PROD-ELN-5110",
+      "type": "N-PRODUCT",
+      "name": "Callable Range Accrual ELN",
+      "family": "ELN",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.1.10",
+      "start_line": 5847,
+      "end_line": 6222
+    },
+    {
+      "id": "SEC-DB-5110",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.1.10 Callable Range Accrual ELN",
+      "start_line": 5847,
+      "end_line": 6222
+    },
+    {
+      "id": "PROD-ELN-5111",
+      "type": "N-PRODUCT",
+      "name": "Issuer Callable Note",
+      "family": "ELN",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.1.11",
+      "start_line": 6222,
+      "end_line": 6604
+    },
+    {
+      "id": "SEC-DB-5111",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.1.11 Issuer Callable Note",
+      "start_line": 6222,
+      "end_line": 6604
+    },
+    {
+      "id": "PROD-ELN-5112",
+      "type": "N-PRODUCT",
+      "name": "Digital Coupon Note",
+      "family": "ELN",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.1.12",
+      "start_line": 6604,
+      "end_line": 6995
+    },
+    {
+      "id": "SEC-DB-5112",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.1.12 Digital Coupon Note",
+      "start_line": 6604,
+      "end_line": 6995
+    },
+    {
+      "id": "PROD-ELN-5113",
+      "type": "N-PRODUCT",
+      "name": "Booster Note",
+      "family": "ELN",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.1.13",
+      "start_line": 6995,
+      "end_line": 7374
+    },
+    {
+      "id": "SEC-DB-5113",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.1.13 Booster Note",
+      "start_line": 6995,
+      "end_line": 7374
+    },
+    {
+      "id": "PROD-ELN-5114",
+      "type": "N-PRODUCT",
+      "name": "Digital Coupon Knock-In Put",
+      "family": "ELN",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.1.14",
+      "start_line": 7374,
+      "end_line": 7777
+    },
+    {
+      "id": "SEC-DB-5114",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.1.14 Digital Coupon Knock-In Put",
+      "start_line": 7374,
+      "end_line": 7777
+    },
+    {
+      "id": "PROD-ELN-5115",
+      "type": "N-PRODUCT",
+      "name": "Warrant / Turbo",
+      "family": "ELN",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.1.15",
+      "start_line": 7777,
+      "end_line": 8125
+    },
+    {
+      "id": "SEC-DB-5115",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.1.15 Warrant / Turbo",
+      "start_line": 7777,
+      "end_line": 8125
+    },
+    {
+      "id": "PROD-Swap-521",
+      "type": "N-PRODUCT",
+      "name": "Interest Rate Swap",
+      "family": "Swap",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.2.1",
+      "start_line": 8173,
+      "end_line": 8571
+    },
+    {
+      "id": "SEC-DB-521",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.2.1 Interest Rate Swap",
+      "start_line": 8173,
+      "end_line": 8571
+    },
+    {
+      "id": "PROD-Swap-522",
+      "type": "N-PRODUCT",
+      "name": "Total Return Swap",
+      "family": "Swap",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.2.2",
+      "start_line": 8571,
+      "end_line": 8958
+    },
+    {
+      "id": "SEC-DB-522",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.2.2 Total Return Swap",
+      "start_line": 8571,
+      "end_line": 8958
+    },
+    {
+      "id": "PROD-Swap-523",
+      "type": "N-PRODUCT",
+      "name": "Equity Swap",
+      "family": "Swap",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.2.3",
+      "start_line": 8958,
+      "end_line": 9336
+    },
+    {
+      "id": "SEC-DB-523",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.2.3 Equity Swap",
+      "start_line": 8958,
+      "end_line": 9336
+    },
+    {
+      "id": "PROD-Swap-524",
+      "type": "N-PRODUCT",
+      "name": "Variance Swap",
+      "family": "Swap",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.2.4",
+      "start_line": 9336,
+      "end_line": 9717
+    },
+    {
+      "id": "SEC-DB-524",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.2.4 Variance Swap",
+      "start_line": 9336,
+      "end_line": 9717
+    },
+    {
+      "id": "PROD-Swap-525",
+      "type": "N-PRODUCT",
+      "name": "Credit Default Swap",
+      "family": "Swap",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.2.5",
+      "start_line": 9717,
+      "end_line": 10125
+    },
+    {
+      "id": "SEC-DB-525",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.2.5 Credit Default Swap",
+      "start_line": 9717,
+      "end_line": 10125
+    },
+    {
+      "id": "PROD-Swap-526",
+      "type": "N-PRODUCT",
+      "name": "Cross-Currency Swap",
+      "family": "Swap",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.2.6",
+      "start_line": 10125,
+      "end_line": 10583
+    },
+    {
+      "id": "SEC-DB-526",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.2.6 Cross-Currency Swap",
+      "start_line": 10125,
+      "end_line": 10583
+    },
+    {
+      "id": "PROD-Swap-527",
+      "type": "N-PRODUCT",
+      "name": "Commodity Swap",
+      "family": "Swap",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.2.7",
+      "start_line": 10583,
+      "end_line": 11039
+    },
+    {
+      "id": "SEC-DB-527",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.2.7 Commodity Swap",
+      "start_line": 10583,
+      "end_line": 11039
+    },
+    {
+      "id": "PROD-Swap-528",
+      "type": "N-PRODUCT",
+      "name": "Vanilla Swap",
+      "family": "Swap",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.2.8",
+      "start_line": 11039,
+      "end_line": 11451
+    },
+    {
+      "id": "SEC-DB-528",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.2.8 Vanilla Swap",
+      "start_line": 11039,
+      "end_line": 11451
+    },
+    {
+      "id": "PROD-SRT-531",
+      "type": "N-PRODUCT",
+      "name": "IR Callable Fixed Swap",
+      "family": "SRT",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.3.1",
+      "start_line": 11501,
+      "end_line": 11816
+    },
+    {
+      "id": "SEC-DB-531",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.3.1 IR Callable Fixed Swap",
+      "start_line": 11501,
+      "end_line": 11816
+    },
+    {
+      "id": "PROD-SRT-532",
+      "type": "N-PRODUCT",
+      "name": "Zero-Coupon Linked Note",
+      "family": "SRT",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.3.2",
+      "start_line": 11816,
+      "end_line": 12127
+    },
+    {
+      "id": "SEC-DB-532",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.3.2 Zero-Coupon Linked Note",
+      "start_line": 11816,
+      "end_line": 12127
+    },
+    {
+      "id": "PROD-SRT-533",
+      "type": "N-PRODUCT",
+      "name": "Non-Callable Range Accrual",
+      "family": "SRT",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.3.3",
+      "start_line": 12127,
+      "end_line": 12473
+    },
+    {
+      "id": "SEC-DB-533",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.3.3 Non-Callable Range Accrual",
+      "start_line": 12127,
+      "end_line": 12473
+    },
+    {
+      "id": "PROD-SRT-534",
+      "type": "N-PRODUCT",
+      "name": "Callable Range Accrual SRT",
+      "family": "SRT",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.3.4",
+      "start_line": 12473,
+      "end_line": 12817
+    },
+    {
+      "id": "SEC-DB-534",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.3.4 Callable Range Accrual SRT",
+      "start_line": 12473,
+      "end_line": 12817
+    },
+    {
+      "id": "PROD-SRT-535",
+      "type": "N-PRODUCT",
+      "name": "Digital Cap-Floor Note",
+      "family": "SRT",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.3.5",
+      "start_line": 12817,
+      "end_line": 13147
+    },
+    {
+      "id": "SEC-DB-535",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.3.5 Digital Cap-Floor Note",
+      "start_line": 12817,
+      "end_line": 13147
+    },
+    {
+      "id": "PROD-STEG-541",
+      "type": "N-PRODUCT",
+      "name": "Vanilla Steepener",
+      "family": "STEG",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.4.1",
+      "start_line": 13153,
+      "end_line": 13489
+    },
+    {
+      "id": "SEC-DB-541",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.4.1 Vanilla Steepener",
+      "start_line": 13153,
+      "end_line": 13489
+    },
+    {
+      "id": "PROD-STEG-542",
+      "type": "N-PRODUCT",
+      "name": "Range Accrual Steepener",
+      "family": "STEG",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.4.2",
+      "start_line": 13489,
+      "end_line": 13829
+    },
+    {
+      "id": "SEC-DB-542",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.4.2 Range Accrual Steepener",
+      "start_line": 13489,
+      "end_line": 13829
+    },
+    {
+      "id": "PROD-STEG-543",
+      "type": "N-PRODUCT",
+      "name": "Callable Steepener",
+      "family": "STEG",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.4.3",
+      "start_line": 13829,
+      "end_line": 14172
+    },
+    {
+      "id": "SEC-DB-543",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.4.3 Callable Steepener",
+      "start_line": 13829,
+      "end_line": 14172
+    },
+    {
+      "id": "PROD-STEG-544",
+      "type": "N-PRODUCT",
+      "name": "TARN Steepener",
+      "family": "STEG",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.4.4",
+      "start_line": 14172,
+      "end_line": 14501
+    },
+    {
+      "id": "SEC-DB-544",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.4.4 TARN Steepener",
+      "start_line": 14172,
+      "end_line": 14501
+    },
+    {
+      "id": "PROD-CLN-551",
+      "type": "N-PRODUCT",
+      "name": "Vanilla Credit-Linked Note",
+      "family": "CLN",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.5.1",
+      "start_line": 14505,
+      "end_line": 14907
+    },
+    {
+      "id": "SEC-DB-551",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.5.1 Vanilla Credit-Linked Note",
+      "start_line": 14505,
+      "end_line": 14907
+    },
+    {
+      "id": "PROD-CLN-552",
+      "type": "N-PRODUCT",
+      "name": "Skew CLN",
+      "family": "CLN",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.5.2",
+      "start_line": 14907,
+      "end_line": 15219
+    },
+    {
+      "id": "SEC-DB-552",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.5.2 Skew CLN",
+      "start_line": 14907,
+      "end_line": 15219
+    },
+    {
+      "id": "PROD-CLN-553",
+      "type": "N-PRODUCT",
+      "name": "First-to-Default Note",
+      "family": "CLN",
+      "system": "Murex",
+      "correlation_direction": "LONG",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.5.3",
+      "start_line": 15219,
+      "end_line": 15556
+    },
+    {
+      "id": "SEC-DB-553",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.5.3 First-to-Default Note",
+      "start_line": 15219,
+      "end_line": 15556
+    },
+    {
+      "id": "PROD-CLN-554",
+      "type": "N-PRODUCT",
+      "name": "Nth-to-Default Note",
+      "family": "CLN",
+      "system": "Murex",
+      "correlation_direction": "SHORT",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.5.4",
+      "start_line": 15556,
+      "end_line": 15936
+    },
+    {
+      "id": "SEC-DB-554",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.5.4 Nth-to-Default Note",
+      "start_line": 15556,
+      "end_line": 15936
+    },
+    {
+      "id": "PROD-CLN-555",
+      "type": "N-PRODUCT",
+      "name": "Synthetic CDO Tranche",
+      "family": "CLN",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.5.5",
+      "start_line": 15936,
+      "end_line": 16374
+    },
+    {
+      "id": "SEC-DB-555",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.5.5 Synthetic CDO Tranche",
+      "start_line": 15936,
+      "end_line": 16374
+    },
+    {
+      "id": "PROD-Other-561",
+      "type": "N-PRODUCT",
+      "name": "Structured Deposit",
+      "family": "Other",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.6.1",
+      "start_line": 16376,
+      "end_line": 16735
+    },
+    {
+      "id": "SEC-DB-561",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.6.1 Structured Deposit",
+      "start_line": 16376,
+      "end_line": 16735
+    },
+    {
+      "id": "PROD-Other-562",
+      "type": "N-PRODUCT",
+      "name": "Forward",
+      "family": "Other",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.6.2",
+      "start_line": 16735,
+      "end_line": 17074
+    },
+    {
+      "id": "SEC-DB-562",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.6.2 Forward",
+      "start_line": 16735,
+      "end_line": 17074
+    },
+    {
+      "id": "PROD-Other-563",
+      "type": "N-PRODUCT",
+      "name": "Vanilla Options",
+      "family": "Other",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.6.3",
+      "start_line": 17074,
+      "end_line": 17429
+    },
+    {
+      "id": "SEC-DB-563",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.6.3 Vanilla Options",
+      "start_line": 17074,
+      "end_line": 17429
+    },
+    {
+      "id": "PROD-Other-564",
+      "type": "N-PRODUCT",
+      "name": "Equity-Linked Option",
+      "family": "Other",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.6.4",
+      "start_line": 17429,
+      "end_line": 17752
+    },
+    {
+      "id": "SEC-DB-564",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.6.4 Equity-Linked Option",
+      "start_line": 17429,
+      "end_line": 17752
+    },
+    {
+      "id": "PROD-Other-565",
+      "type": "N-PRODUCT",
+      "name": "Option on RC",
+      "family": "Other",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.6.5",
+      "start_line": 17752,
+      "end_line": 18079
+    },
+    {
+      "id": "SEC-DB-565",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.6.5 Option on RC",
+      "start_line": 17752,
+      "end_line": 18079
+    },
+    {
+      "id": "PROD-Other-566",
+      "type": "N-PRODUCT",
+      "name": "Accumulator",
+      "family": "Other",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.6.6",
+      "start_line": 18079,
+      "end_line": 18429
+    },
+    {
+      "id": "SEC-DB-566",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.6.6 Accumulator",
+      "start_line": 18079,
+      "end_line": 18429
+    },
+    {
+      "id": "PROD-Other-567",
+      "type": "N-PRODUCT",
+      "name": "Decumulator",
+      "family": "Other",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.6.7",
+      "start_line": 18429,
+      "end_line": 18779
+    },
+    {
+      "id": "SEC-DB-567",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.6.7 Decumulator",
+      "start_line": 18429,
+      "end_line": 18779
+    },
+    {
+      "id": "PROD-Other-568",
+      "type": "N-PRODUCT",
+      "name": "Dual Currency Investment",
+      "family": "Other",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.6.8",
+      "start_line": 18779,
+      "end_line": 19127
+    },
+    {
+      "id": "SEC-DB-568",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.6.8 Dual Currency Investment",
+      "start_line": 18779,
+      "end_line": 19127
+    },
+    {
+      "id": "PROD-Other-569",
+      "type": "N-PRODUCT",
+      "name": "Shark Fin Note",
+      "family": "Other",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.6.9",
+      "start_line": 19127,
+      "end_line": 19447
+    },
+    {
+      "id": "SEC-DB-569",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.6.9 Shark Fin Note",
+      "start_line": 19127,
+      "end_line": 19447
+    },
+    {
+      "id": "PROD-Other-5610",
+      "type": "N-PRODUCT",
+      "name": "Snowball Note",
+      "family": "Other",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.6.10",
+      "start_line": 19447,
+      "end_line": 19778
+    },
+    {
+      "id": "SEC-DB-5610",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.6.10 Snowball Note",
+      "start_line": 19447,
+      "end_line": 19778
+    },
+    {
+      "id": "PROD-Other-5611",
+      "type": "N-PRODUCT",
+      "name": "Cliquet / Ratchet",
+      "family": "Other",
+      "system": "Murex",
+      "correlation_direction": "N_A",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.6.11",
+      "start_line": 19778,
+      "end_line": 20159
+    },
+    {
+      "id": "SEC-DB-5611",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.6.11 Cliquet / Ratchet",
+      "start_line": 19778,
+      "end_line": 20159
+    },
+    {
+      "id": "PROD-Other-5612",
+      "type": "N-PRODUCT",
+      "name": "Worst-of Autocallable",
+      "family": "Other",
+      "system": "Murex",
+      "correlation_direction": "LONG",
+      "status": "CANONICAL",
+      "desk_bible_section": "5.6.12",
+      "start_line": 20159,
+      "end_line": 20531
+    },
+    {
+      "id": "SEC-DB-5612",
+      "type": "N-SECTION",
+      "artifact_id": "ART-DB",
+      "title": "5.6.12 Worst-of Autocallable",
+      "start_line": 20159,
+      "end_line": 20531
+    },
+    {
+      "id": "ART-DB",
+      "type": "N-ARTIFACT",
+      "name": "Desk Bible v2",
+      "file_path": "Desk_Bible_v2.md",
+      "version": "V1.0.1",
+      "status": "CANONICAL",
+      "line_count": 23986
+    },
+    {
+      "id": "ART-IS",
+      "type": "N-ARTIFACT",
+      "name": "Interview System v2.2",
+      "file_path": "production/interview_system_v2_2.md",
+      "version": "V1.0.1",
+      "status": "CANONICAL",
+      "line_count": 2236
+    },
+    {
+      "id": "ART-ENC",
+      "type": "N-ARTIFACT",
+      "name": "Infrastructure Encyclopedia v1",
+      "file_path": "production/infrastructure_encyclopedia_v1.md",
+      "version": "V1.0.1",
+      "status": "CANONICAL",
+      "line_count": 4439
+    },
+    {
+      "id": "ART-SOL",
+      "type": "N-ARTIFACT",
+      "name": "Solutions Manual",
+      "file_path": "production/solutions_manual.md",
+      "version": "V1.0.1",
+      "status": "CANONICAL",
+      "line_count": 2082
+    },
+    {
+      "id": "ART-ATL",
+      "type": "N-ARTIFACT",
+      "name": "Product DNA Atlas",
+      "file_path": "production/product_dna_atlas.md",
+      "version": "V1.0.1",
+      "status": "CANONICAL",
+      "line_count": 2099
+    },
+    {
+      "id": "ART-P6",
+      "type": "N-ARTIFACT",
+      "name": "Part 6 Operations Guide",
+      "file_path": "production/part6_sections_10_11.md",
+      "version": "V1.0.1",
+      "status": "CANONICAL",
+      "line_count": 618
+    },
+    {
+      "id": "TERM-COR-01",
+      "type": "N-TERM",
+      "name": "long correlation",
+      "canonical_meaning": "Benefits (MTM) when correlation rises",
+      "has_alternate": true,
+      "required_qualifier": "structurally short (sold the premium)",
+      "severity": "S1"
+    },
+    {
+      "id": "TERM-COR-02",
+      "type": "N-TERM",
+      "name": "short correlation",
+      "canonical_meaning": "Risk rises (MTM) when correlation rises",
+      "has_alternate": true,
+      "required_qualifier": "raw desk position; qualify raw/net",
+      "severity": "S1"
+    },
+    {
+      "id": "TERM-COR-03",
+      "type": "N-TERM",
+      "name": "structurally short",
+      "canonical_meaning": "Sold the correlation premium at inception (structural convention)",
+      "has_alternate": false,
+      "required_qualifier": "",
+      "severity": "S1"
+    },
+    {
+      "id": "TERM-COR-04",
+      "type": "N-TERM",
+      "name": "dispersion trade",
+      "canonical_meaning": "Long single-stock vol + short basket vol = short correlation",
+      "has_alternate": false,
+      "required_qualifier": "",
+      "severity": "S1"
+    },
+    {
+      "id": "CON-01",
+      "type": "N-CONVENTION",
+      "concept": "correlation direction",
+      "canonical_rule": "MTM sensitivity convention (long = benefits from rising rho)",
+      "alternate_rule": "structural convention (short = sold the premium)",
+      "qualifier": "'structurally' + MTM-long clause"
+    },
+    {
+      "id": "T-COR-01",
+      "type": "N-GOVERNANCE_RULE",
+      "term": "long/short correlation",
+      "severity": "S1",
+      "canonical_meaning": "MTM convention; structural use must be qualified"
+    },
+    {
+      "id": "LNT-COR-01",
+      "type": "N-LINTER_RULE",
+      "severity": "S1",
+      "category": "COR",
+      "regression_test": "REG-COR-01"
+    },
+    {
+      "id": "LNT-COR-02",
+      "type": "N-LINTER_RULE",
+      "severity": "S1",
+      "category": "COR",
+      "regression_test": "REG-COR-02"
+    },
+    {
+      "id": "LNT-COR-03",
+      "type": "N-LINTER_RULE",
+      "severity": "S2",
+      "category": "COR",
+      "regression_test": "REG-COR-03"
+    },
+    {
+      "id": "LNT-COR-06",
+      "type": "N-LINTER_RULE",
+      "severity": "S1",
+      "category": "COR",
+      "regression_test": "REG-COR-01"
+    },
+    {
+      "id": "LNT-COR-07",
+      "type": "N-LINTER_RULE",
+      "severity": "S1",
+      "category": "COR",
+      "regression_test": "REG-COR-05"
+    },
+    {
+      "id": "LNT-COR-08",
+      "type": "N-LINTER_RULE",
+      "severity": "S1",
+      "category": "COR",
+      "regression_test": "REG-COR-08"
+    },
+    {
+      "id": "LNT-COR-09",
+      "type": "N-LINTER_RULE",
+      "severity": "S1",
+      "category": "COR",
+      "regression_test": "REG-COR-07"
+    },
+    {
+      "id": "LNT-COR-10",
+      "type": "N-LINTER_RULE",
+      "severity": "S2",
+      "category": "COR",
+      "regression_test": "REG-COR-09"
+    },
+    {
+      "id": "LNT-POS-01",
+      "type": "N-LINTER_RULE",
+      "severity": "S2",
+      "category": "POS",
+      "regression_test": "REG-POS-01"
+    },
+    {
+      "id": "LNT-PRO-01",
+      "type": "N-LINTER_RULE",
+      "severity": "S1",
+      "category": "PRO",
+      "regression_test": "REG-PRO-01"
+    },
+    {
+      "id": "LNT-PRO-03",
+      "type": "N-LINTER_RULE",
+      "severity": "S1",
+      "category": "PRO",
+      "regression_test": "REG-PRO-03"
+    },
+    {
+      "id": "LNT-SGN-01",
+      "type": "N-LINTER_RULE",
+      "severity": "S1",
+      "category": "SGN",
+      "regression_test": "REG-SGN-01"
+    },
+    {
+      "id": "LNT-SGN-02",
+      "type": "N-LINTER_RULE",
+      "severity": "S1",
+      "category": "SGN",
+      "regression_test": "REG-SGN-02"
+    },
+    {
+      "id": "LNT-SGN-03",
+      "type": "N-LINTER_RULE",
+      "severity": "S1",
+      "category": "SGN",
+      "regression_test": "REG-SGN-03"
+    },
+    {
+      "id": "LNT-STR-01",
+      "type": "N-LINTER_RULE",
+      "severity": "S2",
+      "category": "STR",
+      "regression_test": "REG-STR-01"
+    },
+    {
+      "id": "LNT-XAR-03",
+      "type": "N-LINTER_RULE",
+      "severity": "S1",
+      "category": "XAR",
+      "regression_test": ""
+    },
+    {
+      "id": "LNT-XAR-01",
+      "type": "N-LINTER_RULE",
+      "severity": "S1",
+      "category": "XAR",
+      "regression_test": ""
+    },
+    {
+      "id": "LNT-XAR-02",
+      "type": "N-LINTER_RULE",
+      "severity": "S1",
+      "category": "XAR",
+      "regression_test": ""
+    },
+    {
+      "id": "REG-COR-01",
+      "type": "N-TEST",
+      "objective": "FTD not labeled short (ELI5 section)",
+      "severity": "S1"
+    },
+    {
+      "id": "REG-COR-02",
+      "type": "N-TEST",
+      "objective": "FTD key-insight not self-contradictory",
+      "severity": "S1"
+    },
+    {
+      "id": "REG-COR-03",
+      "type": "N-TEST",
+      "objective": "FTD coupon-table row shows Long correlation",
+      "severity": "S1"
+    },
+    {
+      "id": "REG-COR-04",
+      "type": "N-TEST",
+      "objective": "Worst-of not self-contradictory",
+      "severity": "S1"
+    },
+    {
+      "id": "REG-COR-05",
+      "type": "N-TEST",
+      "objective": "All NTD rows (2TD-5TD) labeled Short correlation",
+      "severity": "S1"
+    },
+    {
+      "id": "REG-COR-06",
+      "type": "N-TEST",
+      "objective": "NTD label table consistent with risk table (XAR-03)",
+      "severity": "S1"
+    },
+    {
+      "id": "REG-COR-07",
+      "type": "N-TEST",
+      "objective": "Dispersion trade not labeled long correlation",
+      "severity": "S1"
+    },
+    {
+      "id": "REG-COR-08",
+      "type": "N-TEST",
+      "objective": "Interview System WOAC not self-contradictory",
+      "severity": "S1"
+    },
+    {
+      "id": "REG-COR-09",
+      "type": "N-TEST",
+      "objective": "No 'reversal at high rho' without clarification",
+      "severity": "S2"
+    },
+    {
+      "id": "REG-PRO-01",
+      "type": "N-TEST",
+      "objective": "Part 6 desk not labeled protection seller",
+      "severity": "S1"
+    },
+    {
+      "id": "REG-PRO-02",
+      "type": "N-TEST",
+      "objective": "Cross-artifact protection ownership consistent",
+      "severity": "S1"
+    },
+    {
+      "id": "REG-POS-01",
+      "type": "N-TEST",
+      "objective": "Part 6 desk Greek table has net/hedged qualifier",
+      "severity": "S2"
+    },
+    {
+      "id": "REG-POS-02",
+      "type": "N-TEST",
+      "objective": "Encyclopedia correlation-trade entry has raw/unhedged qualifier",
+      "severity": "S2"
+    },
+    {
+      "id": "REG-POS-03",
+      "type": "N-TEST",
+      "objective": "Part 6 (hedged) and Encyclopedia (raw) not contradictory",
+      "severity": "S1"
+    },
+    {
+      "id": "REG-SGN-01",
+      "type": "N-TEST",
+      "objective": "WOAC 65% not 'above strike'",
+      "severity": "S1"
+    },
+    {
+      "id": "REG-SGN-02",
+      "type": "N-TEST",
+      "objective": "Gamma sign intermediate step",
+      "severity": "S1"
+    },
+    {
+      "id": "REG-SGN-03",
+      "type": "N-TEST",
+      "objective": "CRA SRT Q4 coupon (review-only, must not regress to absurd)",
+      "severity": "S3"
+    },
+    {
+      "id": "REG-SGN-04",
+      "type": "N-TEST",
+      "objective": "WOAC strike defined in terms table (review-only R-02)",
+      "severity": "S2"
+    },
+    {
+      "id": "REG-XAR-01",
+      "type": "N-TEST",
+      "objective": "Interview System FTD matches Desk Bible (both long)",
+      "severity": "S1"
+    },
+    {
+      "id": "REG-XAR-02",
+      "type": "N-TEST",
+      "objective": "Solutions Manual: no same-sentence self-contradiction",
+      "severity": "S1"
+    },
+    {
+      "id": "REG-XAR-03",
+      "type": "N-TEST",
+      "objective": "Product DNA Atlas avoids long/short correlation labels",
+      "severity": "S3"
+    },
+    {
+      "id": "E-01",
+      "type": "N-ERRATUM",
+      "artifact_id": "ART-DB",
+      "error_type": "Label correction",
+      "severity": "P1",
+      "description": "FTD §1/§11/table correlation labels"
+    },
+    {
+      "id": "E-02",
+      "type": "N-ERRATUM",
+      "artifact_id": "ART-DB",
+      "error_type": "Label correction",
+      "severity": "P1",
+      "description": "Worst-of correlation label"
+    },
+    {
+      "id": "E-03",
+      "type": "N-ERRATUM",
+      "artifact_id": "ART-P6",
+      "error_type": "Factual",
+      "severity": "P1",
+      "description": "Part 6 protection ownership"
+    },
+    {
+      "id": "E-04",
+      "type": "N-ERRATUM",
+      "artifact_id": "ART-P6",
+      "error_type": "Qualifier",
+      "severity": "P1",
+      "description": "Part 6 / Encyclopedia raw-vs-hedged"
+    },
+    {
+      "id": "E-05",
+      "type": "N-ERRATUM",
+      "artifact_id": "ART-DB",
+      "error_type": "Arithmetic",
+      "severity": "P1",
+      "description": "WOAC 65% above/below strike"
+    },
+    {
+      "id": "E-06",
+      "type": "N-ERRATUM",
+      "artifact_id": "ART-DB",
+      "error_type": "Label correction",
+      "severity": "P2",
+      "description": "Dispersion = short correlation"
+    },
+    {
+      "id": "E-07",
+      "type": "N-ERRATUM",
+      "artifact_id": "ART-DB",
+      "error_type": "Arithmetic",
+      "severity": "P2",
+      "description": "Gamma sign intermediate step"
+    },
+    {
+      "id": "E-08",
+      "type": "N-ERRATUM",
+      "artifact_id": "ART-IS",
+      "error_type": "Label correction",
+      "severity": "P1",
+      "description": "Interview WOAC self-contradiction (from R-01)"
+    },
+    {
+      "id": "E-09",
+      "type": "N-ERRATUM",
+      "artifact_id": "ART-DB",
+      "error_type": "Label correction",
+      "severity": "P1",
+      "description": "NTD coupon-scaling table labels (from R-02)"
+    },
+    {
+      "id": "E-10",
+      "type": "N-ERRATUM",
+      "artifact_id": "ART-DB",
+      "error_type": "Label correction",
+      "severity": "P1",
+      "description": "Cross-family table FTD/worst-of short→long"
+    },
+    {
+      "id": "E-11",
+      "type": "N-ERRATUM",
+      "artifact_id": "ART-DB",
+      "error_type": "Label correction",
+      "severity": "P1",
+      "description": "Phoenix takeaway short→long"
+    },
+    {
+      "id": "E-12",
+      "type": "N-ERRATUM",
+      "artifact_id": "ART-IS",
+      "error_type": "Label correction",
+      "severity": "P1",
+      "description": "Interview WOAC row short→long"
+    },
+    {
+      "id": "E-13",
+      "type": "N-ERRATUM",
+      "artifact_id": "ART-DB",
+      "error_type": "Label correction",
+      "severity": "P1",
+      "description": "NTD common-mistakes 4TD/5TD long→short"
+    },
+    {
+      "id": "R-01",
+      "type": "REVIEW_ONLY",
+      "artifact_id": "ART-DB",
+      "description": "promoted to E-08",
+      "disposition": "PROMOTED"
+    },
+    {
+      "id": "R-02",
+      "type": "REVIEW_ONLY",
+      "artifact_id": "ART-DB",
+      "description": "promoted to E-09",
+      "disposition": "PROMOTED"
+    }
+  ],
+  "edges": [
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-ELN-511",
+      "target": "FAM-ELN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-511"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-ELN-512",
+      "target": "FAM-ELN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-512"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-ELN-513",
+      "target": "FAM-ELN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-513"
+    },
+    {
+      "type": "USES",
+      "source": "PROD-ELN-513",
+      "target": "TERM-COR-01",
+      "note": "investor long correlation (MTM); structurally short"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-ELN-514",
+      "target": "FAM-ELN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-514"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-ELN-515",
+      "target": "FAM-ELN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-515"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-ELN-516",
+      "target": "FAM-ELN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-516"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-ELN-517",
+      "target": "FAM-ELN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-517"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-ELN-518",
+      "target": "FAM-ELN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-518"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-ELN-519",
+      "target": "FAM-ELN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-519"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-ELN-5110",
+      "target": "FAM-ELN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-5110"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-ELN-5111",
+      "target": "FAM-ELN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-5111"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-ELN-5112",
+      "target": "FAM-ELN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-5112"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-ELN-5113",
+      "target": "FAM-ELN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-5113"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-ELN-5114",
+      "target": "FAM-ELN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-5114"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-ELN-5115",
+      "target": "FAM-ELN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-5115"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Swap-521",
+      "target": "FAM-Swap"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-521"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Swap-522",
+      "target": "FAM-Swap"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-522"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Swap-523",
+      "target": "FAM-Swap"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-523"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Swap-524",
+      "target": "FAM-Swap"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-524"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Swap-525",
+      "target": "FAM-Swap"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-525"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Swap-526",
+      "target": "FAM-Swap"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-526"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Swap-527",
+      "target": "FAM-Swap"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-527"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Swap-528",
+      "target": "FAM-Swap"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-528"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-SRT-531",
+      "target": "FAM-SRT"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-531"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-SRT-532",
+      "target": "FAM-SRT"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-532"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-SRT-533",
+      "target": "FAM-SRT"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-533"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-SRT-534",
+      "target": "FAM-SRT"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-534"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-SRT-535",
+      "target": "FAM-SRT"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-535"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-STEG-541",
+      "target": "FAM-STEG"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-541"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-STEG-542",
+      "target": "FAM-STEG"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-542"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-STEG-543",
+      "target": "FAM-STEG"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-543"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-STEG-544",
+      "target": "FAM-STEG"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-544"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-CLN-551",
+      "target": "FAM-CLN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-551"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-CLN-552",
+      "target": "FAM-CLN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-552"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-CLN-553",
+      "target": "FAM-CLN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-553"
+    },
+    {
+      "type": "USES",
+      "source": "PROD-CLN-553",
+      "target": "TERM-COR-01",
+      "note": "investor long correlation (MTM); structurally short"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-CLN-554",
+      "target": "FAM-CLN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-554"
+    },
+    {
+      "type": "USES",
+      "source": "PROD-CLN-554",
+      "target": "TERM-COR-02",
+      "note": "investor short correlation (N>=2)"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-CLN-555",
+      "target": "FAM-CLN"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-555"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Other-561",
+      "target": "FAM-Other"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-561"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Other-562",
+      "target": "FAM-Other"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-562"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Other-563",
+      "target": "FAM-Other"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-563"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Other-564",
+      "target": "FAM-Other"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-564"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Other-565",
+      "target": "FAM-Other"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-565"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Other-566",
+      "target": "FAM-Other"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-566"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Other-567",
+      "target": "FAM-Other"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-567"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Other-568",
+      "target": "FAM-Other"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-568"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Other-569",
+      "target": "FAM-Other"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-569"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Other-5610",
+      "target": "FAM-Other"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-5610"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Other-5611",
+      "target": "FAM-Other"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-5611"
+    },
+    {
+      "type": "BELONGS_TO",
+      "source": "PROD-Other-5612",
+      "target": "FAM-Other"
+    },
+    {
+      "type": "CONTAINS",
+      "source": "ART-DB",
+      "target": "SEC-DB-5612"
+    },
+    {
+      "type": "USES",
+      "source": "PROD-Other-5612",
+      "target": "TERM-COR-01",
+      "note": "investor long correlation (MTM); structurally short"
+    },
+    {
+      "type": "HEDGED_BY",
+      "source": "PROD-ELN-513",
+      "target": "TERM-COR-04",
+      "note": "desk raw short correlation hedged via dispersion"
+    },
+    {
+      "type": "HEDGED_BY",
+      "source": "PROD-CLN-553",
+      "target": "TERM-COR-04",
+      "note": "desk raw short correlation hedged via dispersion"
+    },
+    {
+      "type": "HEDGED_BY",
+      "source": "PROD-Other-5612",
+      "target": "TERM-COR-04",
+      "note": "desk raw short correlation hedged via dispersion"
+    },
+    {
+      "type": "DEPENDS_ON",
+      "source": "ART-IS",
+      "target": "ART-DB"
+    },
+    {
+      "type": "DEPENDS_ON",
+      "source": "ART-SOL",
+      "target": "ART-DB"
+    },
+    {
+      "type": "DEPENDS_ON",
+      "source": "ART-ATL",
+      "target": "ART-DB"
+    },
+    {
+      "type": "REQUIRES",
+      "source": "TERM-COR-01",
+      "target": "CON-01"
+    },
+    {
+      "type": "REQUIRES",
+      "source": "TERM-COR-02",
+      "target": "CON-01"
+    },
+    {
+      "type": "GOVERNS",
+      "source": "T-COR-01",
+      "target": "TERM-COR-01"
+    },
+    {
+      "type": "GOVERNS",
+      "source": "T-COR-01",
+      "target": "TERM-COR-02"
+    },
+    {
+      "type": "DETECTS",
+      "source": "LNT-COR-01",
+      "target": "T-COR-01"
+    },
+    {
+      "type": "DETECTS",
+      "source": "LNT-COR-02",
+      "target": "T-COR-01"
+    },
+    {
+      "type": "DETECTS",
+      "source": "LNT-COR-03",
+      "target": "T-COR-01"
+    },
+    {
+      "type": "DETECTS",
+      "source": "LNT-COR-06",
+      "target": "T-COR-01"
+    },
+    {
+      "type": "DETECTS",
+      "source": "LNT-COR-07",
+      "target": "T-COR-01"
+    },
+    {
+      "type": "DETECTS",
+      "source": "LNT-COR-08",
+      "target": "T-COR-01"
+    },
+    {
+      "type": "DETECTS",
+      "source": "LNT-COR-09",
+      "target": "T-COR-01"
+    },
+    {
+      "type": "DETECTS",
+      "source": "LNT-COR-10",
+      "target": "T-COR-01"
+    },
+    {
+      "type": "DETECTS",
+      "source": "LNT-POS-01",
+      "target": "T-COR-01"
+    },
+    {
+      "type": "DETECTS",
+      "source": "LNT-PRO-01",
+      "target": "T-COR-01"
+    },
+    {
+      "type": "DETECTS",
+      "source": "LNT-PRO-03",
+      "target": "T-COR-01"
+    },
+    {
+      "type": "DETECTS",
+      "source": "LNT-XAR-03",
+      "target": "T-COR-01"
+    },
+    {
+      "type": "DETECTS",
+      "source": "LNT-XAR-01",
+      "target": "T-COR-01"
+    },
+    {
+      "type": "DETECTS",
+      "source": "LNT-XAR-02",
+      "target": "T-COR-01"
+    },
+    {
+      "type": "VALIDATES",
+      "source": "REG-COR-01",
+      "target": "LNT-COR-01"
+    },
+    {
+      "type": "VALIDATES",
+      "source": "REG-COR-02",
+      "target": "LNT-COR-02"
+    },
+    {
+      "type": "VALIDATES",
+      "source": "REG-COR-03",
+      "target": "LNT-COR-03"
+    },
+    {
+      "type": "VALIDATES",
+      "source": "REG-COR-01",
+      "target": "LNT-COR-06"
+    },
+    {
+      "type": "VALIDATES",
+      "source": "REG-COR-05",
+      "target": "LNT-COR-07"
+    },
+    {
+      "type": "VALIDATES",
+      "source": "REG-COR-08",
+      "target": "LNT-COR-08"
+    },
+    {
+      "type": "VALIDATES",
+      "source": "REG-COR-07",
+      "target": "LNT-COR-09"
+    },
+    {
+      "type": "VALIDATES",
+      "source": "REG-COR-09",
+      "target": "LNT-COR-10"
+    },
+    {
+      "type": "VALIDATES",
+      "source": "REG-POS-01",
+      "target": "LNT-POS-01"
+    },
+    {
+      "type": "VALIDATES",
+      "source": "REG-PRO-01",
+      "target": "LNT-PRO-01"
+    },
+    {
+      "type": "VALIDATES",
+      "source": "REG-SGN-01",
+      "target": "LNT-SGN-01"
+    },
+    {
+      "type": "VALIDATES",
+      "source": "REG-SGN-02",
+      "target": "LNT-SGN-02"
+    },
+    {
+      "type": "VALIDATES",
+      "source": "REG-SGN-03",
+      "target": "LNT-SGN-03"
+    },
+    {
+      "type": "CORRECTS",
+      "source": "E-01",
+      "target": "ART-DB"
+    },
+    {
+      "type": "COVERS",
+      "source": "REG-COR-01",
+      "target": "E-01"
+    },
+    {
+      "type": "CORRECTS",
+      "source": "E-02",
+      "target": "ART-DB"
+    },
+    {
+      "type": "COVERS",
+      "source": "REG-COR-04",
+      "target": "E-02"
+    },
+    {
+      "type": "CORRECTS",
+      "source": "E-03",
+      "target": "ART-P6"
+    },
+    {
+      "type": "COVERS",
+      "source": "REG-PRO-01",
+      "target": "E-03"
+    },
+    {
+      "type": "CORRECTS",
+      "source": "E-04",
+      "target": "ART-P6"
+    },
+    {
+      "type": "COVERS",
+      "source": "REG-POS-03",
+      "target": "E-04"
+    },
+    {
+      "type": "CORRECTS",
+      "source": "E-05",
+      "target": "ART-DB"
+    },
+    {
+      "type": "COVERS",
+      "source": "REG-SGN-01",
+      "target": "E-05"
+    },
+    {
+      "type": "CORRECTS",
+      "source": "E-06",
+      "target": "ART-DB"
+    },
+    {
+      "type": "COVERS",
+      "source": "REG-COR-07",
+      "target": "E-06"
+    },
+    {
+      "type": "CORRECTS",
+      "source": "E-07",
+      "target": "ART-DB"
+    },
+    {
+      "type": "COVERS",
+      "source": "REG-SGN-02",
+      "target": "E-07"
+    },
+    {
+      "type": "CORRECTS",
+      "source": "E-08",
+      "target": "ART-IS"
+    },
+    {
+      "type": "COVERS",
+      "source": "REG-COR-08",
+      "target": "E-08"
+    },
+    {
+      "type": "CORRECTS",
+      "source": "E-09",
+      "target": "ART-DB"
+    },
+    {
+      "type": "COVERS",
+      "source": "REG-COR-05",
+      "target": "E-09"
+    },
+    {
+      "type": "CORRECTS",
+      "source": "E-10",
+      "target": "ART-DB"
+    },
+    {
+      "type": "CORRECTS",
+      "source": "E-11",
+      "target": "ART-DB"
+    },
+    {
+      "type": "CORRECTS",
+      "source": "E-12",
+      "target": "ART-IS"
+    },
+    {
+      "type": "CORRECTS",
+      "source": "E-13",
+      "target": "ART-DB"
+    },
+    {
+      "type": "PROMOTED_FROM",
+      "source": "E-08",
+      "target": "R-01"
+    },
+    {
+      "type": "PROMOTED_FROM",
+      "source": "E-09",
+      "target": "R-02"
+    }
+  ]
+}

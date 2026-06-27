@@ -23577,6 +23577,325 @@ Using this information to benefit the desk or personal accounts is illegal. Bank
 
 ---
 
+## 6.12 The 2nd-Line Reconciliation Casebook
+
+*Where the controls meet the trade — fifteen worked reconciliation breaks, end to end, for the 2nd line of defence.*
+
+The product chapters in Part 5 each carry a **Controls & Reconciliation (2nd Line of Defence)** lens with a reconciliation-points table and a flagged "most common break." This casebook is the operational companion: it takes the breaks that matter most across the 49 products and works each one through, with numbers, from the moment the trade is booked to the moment 2nd line catches it. It is written for the reader who runs trade reconciliation alongside the desk (1st line) and must prevent losses to the bank from data inconsistency.
+
+Every case follows the same anatomy so the discipline becomes muscle memory.
+
+### The anatomy of a reconciliation break
+
+Every break, regardless of product, has the same seven parts. Learn the shape and you can dissect any break you meet on the desk:
+
+1. **What must agree** — the specific field or event, and the two (or more) systems that must hold the same value (book of record vs pricing/risk vs downstream settlement).
+2. **The break** — the precise inconsistency: a value, a flag, a date, a convention, or a sign.
+3. **The numbers** — the trade economics, so the size of the error is concrete, not abstract.
+4. **Detection** — how 2nd line finds it: a tolerance breach, a four-leg net that does not zero, an unexplained P&L, a failed fixing match, a stale flag.
+5. **Consequence** — what crystallises if it reaches settlement: wrong redemption, wrong client payout, misstated risk, misstated P&L, capital/regulatory impact.
+6. **Root cause** — the upstream reason: a convention default, a manual entry, a missing feed, a model version, a calendar.
+7. **Remediation and preventive control** — the fix today, and the control that stops recurrence (a four-eyes check, a reconciliation rule, a system constraint, a linter/regression rule).
+
+A reconciliation break is never "just a data issue." It is a future loss, a future client complaint, or a future regulatory finding that has not happened yet. The job of the 2nd line is to ensure it never does.
+
+![The 2nd-Line Reconciliation Map — Bank Lens (Controls & 2nd Line of Defence)](assets/casebook/controls_casebook_recon_08.svg)
+
+---
+
+### Group A — Trade economics breaks (the trade was captured wrong)
+
+#### Case 1 — Barrier stored as a percentage in one system, an absolute price in another
+
+**Product:** Reverse Convertible (5.1.2), or any barrier note. **Systems:** NEMO (book of record) vs Sophis (pricing/risk).
+
+**The break.** NEMO stores the knock-in barrier as **$70**; Sophis stores it as **70%**. These agree only if the initial level is exactly $100.
+
+**The numbers.** Underlying initial level $95, barrier 70% of initial = **$66.50**. NEMO was keyed with `barrier = 70` (read as $70, not 70%). The two systems now value and monitor against barriers $3.50 apart.
+
+**Detection.** The daily barrier-proximity report shows two different distances-to-barrier for the same trade; the IPV reconciliation of the embedded put flags a valuation gap that scales with the barrier difference. A convention check (`barrier × initial = barrier_price`?) fails: $70 ≠ 0.70 × $95.
+
+**Consequence.** At maturity the redemption test uses the wrong trigger: a stock finishing at $68 is **above** the true $66.50 barrier (no loss) but **below** the false $70 barrier — the investor is wrongly paid a reduced redemption, or wrongly paid par, depending on which system drives settlement. Either is a misstated client payout.
+
+**Root cause.** The barrier convention (percentage vs absolute) was not normalised at capture; the booking template defaulted the field type.
+
+**Remediation / preventive control.** Re-key the barrier consistently as a percentage of initial across both systems; reconcile every barrier trade with the rule `barrier_price = barrier_pct × initial_level`. The preventive control is a system constraint forcing barriers to be stored one way only, plus a daily cross-system convention reconciliation. (This is the canonical "most common break" flagged in the RC reconciliation flow and protected by linter rule `LNT-SGN-01`'s sibling checks.)
+
+#### Case 2 — Issue price recorded as par on a discounted note
+
+**Product:** Discounted Reverse Convertible (5.1.4). **Systems:** NEMO vs Sophis vs the deposit/cash ledger.
+
+**The break.** The DRC traded at an issue price of **91%** ($455,000 on $500,000 face). NEMO records the issue price as **100%**.
+
+**The numbers.** Cash actually paid: $455,000. Face value: $500,000. Every return and P&L number computed on a 100% base is wrong by the 9% discount; the desk's day-one manufacturing margin is overstated because the discount is treated as zero.
+
+**Detection.** The cash ledger ($455,000 received) does not reconcile to the booked notional ($500,000). P&L Explain shows an inexplicable day-one profit equal to the un-booked discount.
+
+**Consequence.** Misstated P&L at inception; at maturity, if settlement reads the wrong base, the investor is redeemed at the wrong amount. The barrier could also be applied to the issue price instead of the initial stock level.
+
+**Root cause.** Issue price defaulted to par; the discount field was left blank.
+
+**Remediation / preventive control.** Capture both **face value** (for barrier and redemption) and **issue price** (for cash and P&L) as distinct mandatory fields; reconcile cash-received against issue-price × face daily. This is the DRC reconciliation flow's flagged break (issue price vs face value).
+
+#### Case 3 — Notional vs invested-amount confusion in risk reports
+
+**Product:** Any discounted or leveraged note (DRC, Accumulator). **Systems:** risk engine vs P&L attribution.
+
+**The break.** The risk report expresses returns on **face value** while the P&L attribution uses **invested capital**, and neither states which base it uses.
+
+**The numbers.** A −40% stock move on a DRC bought at 91% produces a −34.8% loss on **face** but a different percentage on **invested capital**; quoting one base while computing on the other misstates the loss by the discount ratio.
+
+**Detection.** Two reports show different percentage losses for the same trade and date.
+
+**Consequence.** Risk limits sized on the wrong base; a position looks within limit when it is not, or vice versa.
+
+**Root cause.** No standard for the reporting base.
+
+**Remediation / preventive control.** Mandate that every return figure states its base (face vs invested) and that risk and P&L use the same convention. A label standard, enforced in the report template.
+
+---
+
+### Group B — Observation and event-capture breaks (the event was missed or mis-flagged)
+
+#### Case 4 — American barrier monitored only on daily closes
+
+**Product:** RC / Phoenix / any American (continuous) barrier. **Systems:** market-data feed vs barrier-monitor.
+
+**The break.** The barrier is **American** (continuous), but the monitor only checks the **daily close**.
+
+**The numbers.** The underlying touches the 60% knock-in **intraday** (low of 59%) but closes at 63%. The daily-close monitor records "no breach"; the trade is, in fact, knocked in.
+
+**Detection.** The intraday low feed, reconciled against the monitor's "not knocked in" flag, disagrees. A reconciliation rule comparing `min(intraday) < barrier` against the KI flag fires.
+
+**Consequence.** The desk's risk understates the knock-in (it still carries the trade as protected); the investor's protection is overstated. At maturity the redemption is computed as if never breached — a wrong, too-generous payout, and a loss to the bank when the true economics surface.
+
+**Root cause.** Observation type (European vs American) was correctly captured but the monitoring infrastructure only consumed end-of-day prices.
+
+**Remediation / preventive control.** Ensure American barriers are monitored against intraday lows/highs (real-time or intraday feed); reconcile the KI flag against the intraday extreme daily. The preventive control links the observation-type field to the monitoring frequency so the two cannot diverge.
+
+#### Case 5 — Autocall event not captured; the note keeps running
+
+**Product:** Phoenix / Snowball / Worst-of Autocallable. **Systems:** observation engine vs book of record.
+
+**The break.** On the Q5 observation the worst-of is at 103% (above the 100% autocall barrier); the note **should redeem early**, but the autocall flag is not set, so the structure stays open.
+
+**The numbers.** $1,000,000 note, autocall at Q5 returns principal + $15,000 coupon = $1,015,000. With the flag missed, the desk keeps hedging a position that no longer exists and the investor is not paid on time.
+
+**Detection.** The observation engine's "autocall = yes" does not match the book-of-record "live" status. A daily event-capture reconciliation (every observation date: does the determination match the booked lifecycle state?) fires.
+
+**Consequence.** Late client redemption; the desk carries phantom risk and funding; unwind P&L is wrong.
+
+**Root cause.** Manual event processing or a failed straight-through link between the observation engine and the book of record.
+
+**Remediation / preventive control.** Reconcile every observation-date determination (autocall, coupon-paid, knock-in) against the booked lifecycle state before any payment settles. This is the autocall family's flagged control.
+
+#### Case 6 — Worst-of determined on the wrong underlying
+
+**Product:** Worst-of Autocallable / Worst-of RC. **Systems:** fixing engine vs payout calculator.
+
+**The break.** The worst-of basket is {Siemens, LVMH, ASML}; on the Q3 observation the payout calculator uses LVMH (the median) instead of ASML (the true worst) because of a basket-ordering error.
+
+**The numbers.** ASML at 75% (worst), LVMH at 98%. A coupon barrier at 70% pays in both cases, but at a knock-in test the wrong "worst" changes the redemption: using LVMH (98%) hides an ASML breach.
+
+**Detection.** Reconcile the calculator's "worst name" against the independently computed minimum of the basket fixings on each date.
+
+**Consequence.** Wrong coupon/redemption; understated worst-of risk.
+
+**Root cause.** Basket constituent ordering or a stale fixing for one name.
+
+**Remediation / preventive control.** The worst-of determination must recompute `argmin` over the live fixings each date and reconcile against the payout engine.
+
+---
+
+### Group C — Lifecycle and coupon breaks (the cash was wrong)
+
+#### Case 7 — Coupon paid on a knocked-in trade that should have stopped
+
+**Product:** Reverse Convertible / Phoenix (memory) variants. **Systems:** coupon scheduler vs lifecycle state.
+
+**The break.** The termsheet stops coupons after a knock-in; the scheduler keeps paying because it does not read the KI flag.
+
+**The numbers.** $500,000 notional, 9% coupon = $11,250/quarter. The trade knocks in at Q2; two further coupons ($22,500) are paid that the termsheet says should not be.
+
+**Detection.** The coupon scheduler's payment list, reconciled against the lifecycle state (knocked-in from Q2), shows payments after the stop event.
+
+**Consequence.** Overpayment to the investor; a direct loss to the bank.
+
+**Root cause.** The coupon-survival-after-knock-in convention was not wired into the scheduler.
+
+**Remediation / preventive control.** Reconcile each scheduled coupon against the termsheet's survival convention and the live KI flag before release. (The Bible flags this as a red-flag in the RC and FCN controls lenses.)
+
+#### Case 8 — Snowball accumulator counter not incremented
+
+**Product:** Snowball Note. **Systems:** accumulator engine vs book of record.
+
+**The break.** Through months 3–4 no coupon is paid and the snowball counter should accumulate to **4%**; the counter is not incremented, so the month-5 catch-up underpays.
+
+**The numbers.** RMB 10,000,000 note; missed months should roll up to a month-5 payout of 6% (4% carried + 2% current) = RMB 600,000. If the counter sits at 0, the catch-up pays only RMB 200,000.
+
+**Detection.** Reconcile the accumulator counter against the independent sum of missed-but-eligible coupons on each observation date.
+
+**Consequence.** Investor underpaid the carried coupon; a client complaint and a remediation payment.
+
+**Root cause.** Accumulator-counter tracking is the snowball's defining control and was not reconciled.
+
+**Remediation / preventive control.** Daily reconciliation of the accumulator counter against the missed-coupon ledger.
+
+#### Case 9 — Range-accrual factor computed on the wrong day count
+
+**Product:** Range Accrual ELN / NCRA / Range Accrual Steepener. **Systems:** accrual engine vs verification.
+
+**The break.** The coupon is `max_coupon × (days in range / total days)`. The engine counts 88 days-in-range; the independent recount finds 85 (three holiday observations were wrongly counted as in-range).
+
+**The numbers.** $60M × 5.10% / 4 = $956,250 max quarterly. At 88/92 the coupon is $914,674; at the correct 85/92 it is $883,492 — a $31,182 overpayment.
+
+**Detection.** Reconcile the accrual factor (days-in-range / total) against the observation log, holiday-adjusted.
+
+**Consequence.** Coupon overpayment; misstated accrued interest.
+
+**Root cause.** Holiday calendar / observation-count error in the accrual factor — the range-accrual family's defining control.
+
+**Remediation / preventive control.** The accrual factor must reconcile to a holiday-adjusted observation log; the day-count basis must match the termsheet.
+
+---
+
+### Group D — Valuation and model breaks (the price moved for the wrong reason)
+
+#### Case 10 — Two CMS fixings taken from different sources or times
+
+**Product:** Steepener family (Vanilla / Range Accrual / Callable / TARN). **Systems:** rate-fixing feed vs coupon calculator.
+
+**The break.** The coupon is `leverage × (CMS30Y − CMS2Y)`. The two CMS rates are taken from different snap times (or different vendors), so the spread is wrong.
+
+**The numbers.** Leverage 5×; true spread CMS30 4.50% − CMS2 3.80% = 0.70% → coupon 3.50%. If CMS2 is snapped 30 minutes later at 3.70%, the spread reads 0.80% → coupon 4.00% — a 0.50% overpayment on notional ($50M × 0.50% = $250,000 per annum).
+
+**Detection.** Reconcile both CMS fixings to the same source and snap time; a mismatch in source/time fails the check.
+
+**Consequence.** Coupon over/under-payment; P&L Explain shows an unexplained residual on the curve leg.
+
+**Root cause.** The two fixings were not constrained to a single source and time — the steepener's defining control.
+
+**Remediation / preventive control.** Both CMS legs must reconcile to the same fixing source and snap; the control links the two fixing fields to one source reference.
+
+#### Case 11 — Realized-variance calculation: sampling and annualisation mismatch
+
+**Product:** Variance Swap. **Systems:** realized-variance engine vs verification.
+
+**The break.** The realized-variance formula, sampling frequency (daily close vs intraday), and annualisation factor (252 vs 260) must match the termsheet. The engine uses 260; the termsheet says 252.
+
+**The numbers.** On a variance notional, a strike of 20% vol, the annualisation factor difference scales the realized leg by 260/252 ≈ 1.03 — a 3% error on the variance settlement, magnified by the variance notional and any cap.
+
+**Detection.** Reconcile the realized-variance inputs (fixing source, sampling, annualisation, the exact formula, the cap) against the termsheet on settlement.
+
+**Consequence.** Wrong settlement on a leveraged variance position.
+
+**Root cause.** Annualisation/sampling convention mismatch — the variance swap's defining control.
+
+**Remediation / preventive control.** The realized-variance configuration must reconcile field-by-field to the termsheet, including the 2.5× cap.
+
+#### Case 12 — Base-correlation input stale on a CDO tranche
+
+**Product:** Synthetic CDO Tranche. **Systems:** correlation/copula surface vs tranche pricer.
+
+**The break.** The tranche MTM depends on the base-correlation surface; a stale or divergent correlation input moves the mezzanine MTM and the tranche risk.
+
+**The numbers.** A mezzanine (3–7%) tranche on a $1B portfolio: a base-correlation move that the senior desk and the risk system disagree on shifts the $40M tranche's MTM by several percent — material to daily P&L and to the equity-long / senior-short correlation risk.
+
+**Detection.** Reconcile the base-correlation/copula inputs between front office and risk; an IPV check on the tranche price flags a gap.
+
+**Consequence.** Misstated tranche MTM and correlation risk; the equity-long/senior-short directionality is mismarked.
+
+**Root cause.** Stale or divergent correlation model inputs — the CDO's defining control.
+
+**Remediation / preventive control.** Daily reconciliation of base-correlation inputs and an independent tranche-price verification.
+
+#### Case 13 — Model version changed overnight; valuations jump
+
+**Product:** Any path-dependent / model-priced product (Cliquet, autocalls, CDO). **Systems:** front-office model vs independent valuation.
+
+**The break.** A new model version is deployed overnight and changes valuations in a way the standard Greeks do not capture (forward-vol or skew move).
+
+**The numbers.** A cliquet book's value jumps by an amount that P&L Explain cannot attribute to delta/vega/theta — a large **Unexplained** residual (e.g. $50,000 on a $145,000 day, far above the 5–10% tolerance).
+
+**Detection.** P&L Explain Unexplained breaches tolerance; the cause traces to a model-version change, not a market move.
+
+**Consequence.** Unexplained P&L that, if signed off, hides a real valuation change; potential restatement.
+
+**Root cause.** Model change management — a model-version deployment without a re-baseline.
+
+**Remediation / preventive control.** Model changes are governed (Section 6.8): no overnight deployment without a parallel run and a P&L impact assessment; the day's Unexplained must be reconciled to the model-change log.
+
+---
+
+### Group E — Settlement and FX breaks (the wrong amount, or the wrong currency, was paid)
+
+#### Case 14 — DCI converted on the wrong side of the strike
+
+**Product:** Dual Currency Investment. **Systems:** FX-fixing source vs conversion engine vs settlement-currency capture.
+
+**The break.** A DCI repays in the alternate currency at the strike **only when that currency has weakened** (the bank exercises against the investor). A sign/inequality error converts on the favourable side instead — or the settlement currency is captured as the base when it should be the alternate.
+
+**The numbers.** USD 1,000,000 deposit, strike USD/CHF 0.8600. At maturity USD/CHF = 0.9000 (CHF weaker): conversion delivers CHF 860,000, worth $955,556 — a $44,444 loss before coupon. If the engine instead pays USD 1,000,000 (no conversion), the bank overpays by the option value it was owed; if it converts on the wrong side, the investor is shortchanged.
+
+**Detection.** Reconcile the conversion trigger against the FX fixing and the strike inequality; reconcile the **settlement currency** captured against the conversion determination.
+
+**Consequence.** Wrong settlement amount and/or wrong settlement currency — a direct loss to one party.
+
+**Root cause.** FX fixing source/time and the conversion-side inequality — the DCI's defining control.
+
+**Remediation / preventive control.** The conversion determination must reconcile the FX fixing (source and time) against the strike, and the settlement currency must be captured and reconciled before payment.
+
+#### Case 15 — Physical delivery booked as cash, or the wrong share count
+
+**Product:** Worst-of RC / any physically-settled note. **Systems:** settlement instruction vs redemption calculator.
+
+**The break.** A knocked-in note settles by **delivering shares** (`shares = notional / strike`), but the instruction is booked as a **cash** redemption, or the share count is wrong.
+
+**The numbers.** €500,000 notional, ASML strike €700 → 714 shares to deliver. ASML at 65% = €455/share → shares worth €324,870. If booked as cash redemption of €500,000, the bank overpays €175,130; if the share count is miscomputed, the delivery is wrong.
+
+**Detection.** Reconcile the settlement type (cash vs physical) and the share count (`notional / strike`) against the termsheet and the redemption calculator before delivery-versus-payment.
+
+**Consequence.** Overpayment, wrong delivery, failed DvP.
+
+**Root cause.** Settlement-convention capture (cash vs physical) — flagged in the RC and worst-of controls lenses.
+
+**Remediation / preventive control.** Settlement type and share count must reconcile to the termsheet; DvP confirms both legs.
+
+---
+
+### The master reconciliation checklist (use every observation and settlement date)
+
+| # | Reconciliation point | What must agree | Defining product(s) |
+|:-:|----------------------|-----------------|---------------------|
+| 1 | Trade economics | Notional, strike/initial, barrier level **and convention**, coupon, maturity, underlying ID | All barrier notes |
+| 2 | Issue price vs face | Cash paid vs redemption base | DRC, discounted notes |
+| 3 | Observation type | European vs American; monitoring frequency matches | RC, Phoenix, autocalls |
+| 4 | Fixings | Initial & final source/time = termsheet | All |
+| 5 | Worst-of determination | argmin over live fixings | Worst-of products |
+| 6 | Event capture | Knock-in / knock-out / autocall flags vs lifecycle state | Autocalls, barriers |
+| 7 | Coupon lifecycle | Schedule, day-count, survival after KI | RC, FCN, Phoenix |
+| 8 | Accumulator / accrual | Snowball counter; range-accrual days-in-range (holiday-adjusted) | Snowball, range accruals |
+| 9 | Two CMS fixings | Same source & snap time | Steepeners |
+| 10 | Realized variance | Formula, sampling, annualisation, cap | Variance swap |
+| 11 | Correlation / model inputs | Base correlation, copula, attachment/detachment | CDO, FTD/NTD |
+| 12 | Four-leg net | Note + Issuer + Deposit + Hedge nets to client economics | SRT, STEG, rate notes |
+| 13 | P&L attribution | Components + accrual reconcile to total; Unexplained within tolerance | All |
+| 14 | FX / settlement currency | Conversion side vs strike; settlement currency captured | DCI, cross-currency |
+| 15 | Settlement type & count | Cash vs physical; shares = notional / strike; DvP | Physically-settled notes |
+| 16 | Corporate actions | Strike/barrier adjusted for splits, dividends, mergers | Equity underlyings |
+| 17 | Collateral / CSA | Margin, eligible collateral, thresholds (XVA) | Swaps, OTC |
+
+### Escalation matrix
+
+| Severity | Trigger | Action | Owner |
+|----------|---------|--------|-------|
+| **Low** | Within tolerance, single trade, no payment impact | Log, correct, note in the daily pack | 2nd-line analyst |
+| **Medium** | Affects a payment/redemption, or breaches a reconciliation tolerance | Hold the payment, correct before settlement, four-eyes sign-off | 2nd-line lead + desk |
+| **High** | Affects multiple trades, P&L Unexplained breaches threshold, or client-facing error | Escalate to desk head + Risk; if material, the Valuation Committee | Head of Product Control |
+| **Critical** | Systemic (model, feed, convention) error across a book | Freeze affected settlements; incident review; regulator notification if required | CFO / CRO |
+
+**The 2nd line's one rule:** a reconciliation break is a future loss that has not happened yet. Catch it before settlement crystallises it.
+
 ## Part 6 — Knowledge Check
 
 ### Review Questions
