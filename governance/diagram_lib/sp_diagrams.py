@@ -249,6 +249,144 @@ def payoff_participation(
 
 
 # --------------------------------------------------------------------------- #
+# 1d. Digital / binary coupon payoff (Digital Coupon Note)
+# --------------------------------------------------------------------------- #
+def payoff_digital(
+    out_svg: str | Path,
+    *,
+    strike_pct: float,
+    coupon_pct: float,
+    capital_barrier_pct: Optional[float] = None,
+    title: str = "Payoff at Maturity",
+    lens: str = LENS_INVESTOR,
+    x_max: float = 140.0,
+    preview: bool = True,
+) -> str:
+    """All-or-nothing coupon: return = +coupon if final >= digital strike, else 0;
+    below an optional capital barrier the principal is reduced 1:1. Two step
+    discontinuities (the digital strike, and the capital barrier if given)."""
+    _apply_style()
+    fig, ax = plt.subplots(figsize=(7.2, 4.4))
+    cb = capital_barrier_pct if capital_barrier_pct is not None else 0
+    # above strike: coupon
+    xa = np.linspace(strike_pct, x_max, 150)
+    ax.plot(xa, np.full_like(xa, coupon_pct), color=GREEN, lw=2.6, label="≥ digital strike: + coupon")
+    # between capital barrier and strike: zero (par, no coupon)
+    xm = np.linspace(cb, strike_pct, 150)
+    ax.plot(xm, np.zeros_like(xm), color=GOLD, lw=2.6, label="par returned, no coupon")
+    # below capital barrier: capital loss
+    if capital_barrier_pct is not None:
+        xb = np.linspace(0, cb, 150)
+        ax.plot(xb, (xb - 100), color=ACCENT, lw=2.6, label="< capital barrier: principal loss")
+        ax.plot([cb, cb], [(cb - 100), 0], color=GREY, lw=1.2, ls=(0, (3, 3)))
+        ax.text(cb - 1, 2, f"Cap. barrier {cb:g}%", fontsize=8, color=GREY, ha="right")
+    # digital step marker
+    ax.plot([strike_pct, strike_pct], [0, coupon_pct], color=GREY, lw=1.2, ls=(0, (3, 3)))
+    ax.text(strike_pct + 1, coupon_pct - 2, f"Digital strike {strike_pct:g}%", fontsize=8, color=GREEN)
+    ax.axhline(0, color=SLATE, lw=0.8)
+    ax.axvline(100, color=GREY, lw=0.8, ls=":")
+    ax.set_xlabel("Underlying final level (% of initial)")
+    ax.set_ylabel("Investor total return (%)")
+    ax.set_title(f"{title} — {lens}", color=NAVY, fontsize=13, fontweight="bold", loc="left")
+    ax.set_xlim(0, x_max)
+    ax.set_ylim(min(-55, coupon_pct - 65), max(18, coupon_pct + 8))
+    ax.legend(loc="lower right", frameon=False, fontsize=8.5)
+    ax.grid(True, color=LIGHT, lw=1)
+    ax.set_axisbelow(True)
+    return _finish(fig, out_svg, preview)
+
+
+# --------------------------------------------------------------------------- #
+# 1e. Principal-protected payoff (PPN) — floor + participation
+# --------------------------------------------------------------------------- #
+def payoff_ppn(
+    out_svg: str | Path,
+    *,
+    floor_pct: float = 100.0,
+    participation: float = 1.0,
+    cap_pct: Optional[float] = None,
+    title: str = "Payoff at Maturity",
+    lens: str = LENS_INVESTOR,
+    x_max: float = 180.0,
+    preview: bool = True,
+) -> str:
+    """PPN: capital floor at floor_pct (return >= floor-100), plus participation in
+    upside above the initial level, optionally capped."""
+    _apply_style()
+    fig, ax = plt.subplots(figsize=(7.2, 4.4))
+    x = np.linspace(0, x_max, 400)
+    base = floor_pct - 100
+    up = participation * np.maximum(0.0, x - 100)
+    ret = base + up
+    if cap_pct is not None:
+        ret = np.minimum(ret, cap_pct)
+    ax.plot(x, ret, color=GREEN, lw=2.6, label=f"PPN ({participation*100:g}% participation)")
+    ax.plot(x, x - 100, color=GREY, lw=1.2, ls=(0, (4, 3)), label="direct equity (1:1)")
+    ax.axhline(0, color=SLATE, lw=0.8)
+    ax.axhline(base, color=GOLD, lw=1.0, ls=":")
+    ax.text(2, base + 1.5, f"Capital floor {floor_pct:g}%", fontsize=8, color=GOLD)
+    ax.axvline(100, color=GREY, lw=0.8, ls=":")
+    if cap_pct is not None:
+        ax.text(x_max - 2, cap_pct + 1, f"Cap +{cap_pct:g}%", fontsize=8, color=ACCENT, ha="right")
+    ax.set_xlabel("Underlying final level (% of initial)")
+    ax.set_ylabel("Investor total return (%)")
+    ax.set_title(f"{title} — {lens}", color=NAVY, fontsize=13, fontweight="bold", loc="left")
+    ax.set_xlim(0, x_max)
+    ax.set_ylim(-60, max(40, (cap_pct or participation * (x_max - 100)) + 10))
+    ax.legend(loc="upper left", frameon=False, fontsize=8.5)
+    ax.grid(True, color=LIGHT, lw=1)
+    ax.set_axisbelow(True)
+    return _finish(fig, out_svg, preview)
+
+
+# --------------------------------------------------------------------------- #
+# 1f. Warrant / Turbo payoff — leveraged directional, with knock-out
+# --------------------------------------------------------------------------- #
+def payoff_warrant(
+    out_svg: str | Path,
+    *,
+    option: str = "call",
+    strike_pct: float = 100.0,
+    knockout_pct: Optional[float] = None,
+    leverage: float = 1.0,
+    title: str = "Payoff at Maturity",
+    lens: str = LENS_INVESTOR,
+    x_max: float = 130.0,
+    x_min: float = 70.0,
+    preview: bool = True,
+) -> str:
+    """Leveraged warrant/turbo: return on premium ≈ leverage × (underlying move).
+    A turbo knocks out to −100% if it touches the knock-out level."""
+    _apply_style()
+    fig, ax = plt.subplots(figsize=(7.2, 4.4))
+    x = np.linspace(x_min, x_max, 400)
+    sgn = 1.0 if option == "call" else -1.0
+    ret = np.clip(leverage * sgn * (x - 100), -100, 150)
+    if knockout_pct is not None:
+        if option == "call":
+            ret = np.where(x <= knockout_pct, -100, ret)
+        else:
+            ret = np.where(x >= knockout_pct, -100, ret)
+    ax.plot(x, ret, color=NAVY, lw=2.6, label=f"{option} warrant ({leverage:g}x leverage)")
+    ax.axhline(0, color=SLATE, lw=0.8)
+    ax.axhline(-100, color=ACCENT, lw=1.0, ls=":")
+    ax.text(x_min + 1, -94, "Total loss (−100%)", fontsize=8, color=ACCENT)
+    ax.axvline(100, color=GREY, lw=0.8, ls=":")
+    if knockout_pct is not None:
+        ax.axvline(knockout_pct, color=ACCENT, lw=1.2, ls=(0, (4, 3)))
+        ax.text(knockout_pct, 120, f"Knock-out {knockout_pct:g}%", fontsize=8, color=ACCENT, ha="center")
+    ax.set_xlabel("Underlying level (% of initial)")
+    ax.set_ylabel("Warrant return (% of premium)")
+    ax.set_title(f"{title} — {lens}", color=NAVY, fontsize=13, fontweight="bold", loc="left")
+    ax.set_xlim(x_min, x_max)
+    ax.set_ylim(-115, 160)
+    ax.legend(loc="upper left", frameon=False, fontsize=8.5)
+    ax.grid(True, color=LIGHT, lw=1)
+    ax.set_axisbelow(True)
+    return _finish(fig, out_svg, preview)
+
+
+# --------------------------------------------------------------------------- #
 # 2. Desk gamma / hedge profile (Bank Lens — Desk Economics)
 # --------------------------------------------------------------------------- #
 def desk_gamma_profile(

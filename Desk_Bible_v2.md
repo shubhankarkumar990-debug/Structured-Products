@@ -2328,30 +2328,29 @@ A structurer is designing a new product. The client wants: 6%+ annual coupon, so
 
 ---
 
+*A Principal Protected Note guarantees 100% of the investor's principal at maturity while still offering a share of the market's upside — the opposite trade to a Reverse Convertible, which surrenders protection for a higher coupon. The investor here gives up a portion of the upside (participation below 100%) in exchange for eliminating downside risk entirely. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Imagine you have $100,000 to invest. You want to participate in the stock market — if the market goes up, you want to share in the gains. But you absolutely cannot afford to lose your original $100,000. Perhaps it is your retirement savings, or money set aside for your child's education.
+Consider an investor with $100,000 to invest. The investor wants to participate in the stock market — if the market goes up, the investor wants to share in the gains. But the investor absolutely cannot afford to lose the original $100,000. Perhaps it is retirement savings, or money set aside for a child's education.
 
-A regular stock investment cannot guarantee that. If the market falls 30%, your $100,000 becomes $70,000. That is unacceptable to you.
+A regular stock investment cannot guarantee that. If the market falls 30%, the $100,000 becomes $70,000. That is unacceptable to this investor.
 
-A savings account guarantees your principal, but pays 2-3% per year. That is safe but insufficient — you need your money to grow.
+A savings account guarantees principal, but pays 2-3% per year. That is safe but insufficient — the money needs to grow.
 
-A **Principal Protected Note (PPN)** solves this problem. It guarantees that you will receive your full $100,000 back at maturity, no matter what happens in the market. On top of that guarantee, you receive some percentage of the market's upside — typically 50-80% of the gains.
+A **Principal Protected Note (PPN)** solves this problem. It guarantees that the investor will receive the full $100,000 back at maturity, no matter what happens in the market. On top of that guarantee, the investor receives some percentage of the market's upside — typically 50-80% of the gains.
 
-If the market rises 20%, you might receive 12% (at 60% participation). If the market falls 30%, you still receive your full $100,000. Your worst case is zero return — never a loss of principal.
-
+If the market rises 20%, the investor might receive 12% (at 60% participation). If the market falls 30%, the investor still receives the full $100,000. The worst case is zero return — never a loss of principal.
 
 #### §2. Real-World Analogy
 
-Think of a PPN as a seat belt in a sports car.
+A PPN is like a seat belt in a sports car.
 
-You are driving a fast car (the stock market). Without a seat belt, if you crash (the market falls), you could be seriously hurt (lose your investment). With a seat belt (the principal protection), you are protected in a crash — but the seat belt restricts your movement slightly, so you cannot lean out the window to enjoy the wind as much as the driver without a seat belt (reduced upside participation).
+The driver is in a fast car (the stock market). Without a seat belt, in a crash (the market falls) the driver could be seriously hurt (lose the investment). With a seat belt (the principal protection), the driver is protected in a crash — but the seat belt restricts movement slightly, so the driver cannot lean out the window to enjoy the wind as much as a driver without a seat belt (reduced upside participation).
 
 The seat belt has a cost — it is built into the car's design. Similarly, the principal protection in a PPN has a cost — it is funded by reducing the investor's participation in market gains.
 
-Another way to think about it: a PPN is like paying a premium for a no-deductible insurance policy on your investment. You are guaranteed to get your money back, but the insurance premium comes out of your potential upside.
-
+Another way to frame it: a PPN is like paying a premium for a no-deductible insurance policy on an investment. The investor is guaranteed to get the money back, but the insurance premium comes out of the potential upside.
 
 #### §3. What Problem Does This Solve?
 
@@ -2370,7 +2369,6 @@ The PPN bridges this gap: guaranteed principal return + market participation. Th
 | Foundation | Endowment must be preserved; only investment income can be spent |
 | Insurance company | Regulatory capital requirements demand principal protection |
 | Risk-averse individual | Psychologically unable to tolerate market losses, but wants better returns than cash |
-
 
 #### §4. Product DNA
 
@@ -2431,136 +2429,36 @@ The PPN bridges this gap: guaranteed principal return + market participation. Th
 | 2 | Equity index fund | Market participation | Full upside and downside, no capital protection |
 | 3 | Principal Protected Note | Capital guarantee + capped participation | Guarantees principal via ZCB funding; trades full participation for downside elimination |
 
-#### §7. How the Bank Makes Money
+---
 
-| Revenue Component | Detail |
-|------------------|--------|
-| **Structuring fee** | 1-2% embedded in note price at issuance |
-| **Bid-offer spread** | Captures spread between option cost and implied participation rate |
-| **Funding advantage** | Issues note at sub-LIBOR effective rate vs own funding curve |
-| **Hedging P&L** | Earns from delta-hedging the embedded call (realized vs implied vol) |
+#### §7. THE INVESTOR LENS
 
-#### §8. Why This Product Exists (Client Perspective)
+**Why the investor buys it**
 
 1. **Capital certainty.** The investor knows their principal is guaranteed at maturity, regardless of market performance.
 2. **Market participation.** Unlike a bond or deposit, the investor benefits if markets rise.
 3. **Behavioral comfort.** The guarantee removes the anxiety of watching daily market movements. The investor can hold through volatility without panic-selling.
 4. **Regulatory compliance.** Some investors are required by law or mandate to protect their principal.
-5. **Simplicity.** The payoff is straightforward: you get your money back plus a share of any gains. No barriers, no conditions, no knock-in risk.
+5. **Simplicity.** The payoff is straightforward: the investor gets the money back plus a share of any gains. No barriers, no conditions, no knock-in risk.
 
+**Position taken**
 
-#### §9. The Three Scenarios
+The investor simultaneously holds a long zero-coupon bond (which accretes to par and guarantees the principal) and a **long** call option on the underlying (which provides the upside participation). Net, the investor is **long volatility** (helped by a more valuable embedded call) and carries no downside below the initial level — the ZCB floor absorbs any market decline. With a single index there is no correlation exposure.
 
-| Scenario | Market Condition | Outcome for Investor |
-|----------|-----------------|---------------------|
-| **Best case** | Underlying performs strongly | Maximum return captured (subject to any participation cap or barrier) |
-| **Base case** | Underlying is flat or moderately positive | Moderate return or coupon income depending on structure |
-| **Worst case** | Underlying declines significantly | Capital at risk if below protection level; coupon may partially offset |
+**Payoff & scenarios**
 
-*Detailed scenario analysis with specific numbers follows in §10.*
+The investor's payoff has two zones. Below the initial level at maturity: the investor receives exactly 100% of principal (return = 0%) — the ZCB floor holds regardless of how far the market has fallen. Above the initial level at maturity: the investor receives 100% of principal plus the participation rate multiplied by the market gain. The payoff is **continuous and not path-dependent** — only the final level on the observation date matters, never the journey.
 
-#### §10. What Happens When Markets Move
+![PPN Payoff at Maturity — Investor Lens](assets/ppn/payoff_ppn_01.svg)
 
-**Scenario 1 — The market rises strongly (e.g., +25% over 3 years):**
-The investor receives their $100,000 principal plus participation in the gain. At 60% participation: $100,000 + (60% × 25% × $100,000) = **$115,000**. The investor earns 15% — less than the full 25% market return, but with zero risk of loss.
+**Product:** 3-year PPN, $100,000 notional, 60% participation, European observation at maturity.
 
-**Scenario 2 — The market rises modestly (e.g., +5% over 3 years):**
-The investor receives $100,000 + (60% × 5% × $100,000) = **$103,000**. A modest return, but still positive and still protected.
+- **Market rises strongly (+25% over 3 years):** The investor receives $100,000 principal plus participation in the gain. At 60% participation: $100,000 + (60% × 25% × $100,000) = **$115,000**. The investor earns 15% — less than the full 25% market return, but with zero risk of loss.
+- **Market rises modestly (+5% over 3 years):** The investor receives $100,000 + (60% × 5% × $100,000) = **$103,000**. A modest return, but still positive and still protected.
+- **Market falls significantly (−35% over 3 years):** The investor receives the full **$100,000**. The protection worked. A direct stock investment would have been worth only $65,000.
+- **Market falls and recovers (drops −40% in year 2, recovers to +10% by maturity):** The investor receives $100,000 + (60% × 10% × $100,000) = **$106,000**. Only the final level matters — the journey does not. This is a key feature: the PPN is not path-dependent.
 
-**Scenario 3 — The market falls significantly (e.g., -35% over 3 years):**
-The investor receives their full **$100,000**. The protection worked. A direct stock investment would have been worth only $65,000.
-
-**Scenario 4 — The market falls and recovers (e.g., drops -40% in year 2, recovers to +10% by maturity):**
-The investor receives $100,000 + (60% × 10% × $100,000) = **$106,000**. Only the final level matters — the journey does not. This is a key feature: the PPN is not path-dependent.
-
-
-#### §11. Formal Definition
-
-A **Principal Protected Note** is a structured product consisting of a zero-coupon bond and a call option on an underlying asset or index. At maturity, the investor receives:
-
-**Redemption = Principal + Participation Rate × max(Final Level / Initial Level - 1, 0) × Principal**
-
-Where:
-- **Principal** = the investor's initial investment (100% guaranteed)
-- **Participation Rate** = the percentage of market gains the investor receives (typically 50-80%)
-- **Final Level** = the closing price of the underlying on the observation date
-- **Initial Level** = the closing price of the underlying on the trade date
-
-The participation rate is less than 100% because the cost of the principal protection (the zero-coupon bond) uses up part of the investment, leaving less capital available to buy the call option.
-
-
-#### §12. Product Construction
-
-*Dependency: This section builds on the decomposition framework taught in Section 2.2.*
-
-A PPN is decomposed into two components:
-
-| Component | What It Is | Purpose |
-|-----------|-----------|---------|
-| Zero-coupon bond | A bond that pays no coupons but is bought at a discount and matures at par | Guarantees the principal at maturity |
-| Call option | A long call on the underlying index/stock | Provides upside participation |
-
-**How the construction works:**
-
-Step 1: The investor pays $100 (par).
-
-Step 2: The bank uses most of that $100 to buy a zero-coupon bond. If the 3-year risk-free rate is 4%, the present value of $100 in 3 years is approximately $88.90. So the bank pays $88.90 for the bond, which will grow to $100 at maturity.
-
-Step 3: The remaining $100 - $88.90 = **$11.10** is the "option budget." The bank uses this to buy a call option on the underlying index.
-
-Step 4: If a 3-year ATM call option costs $18.50, the $11.10 budget can only buy 60% of a call option. This 60% becomes the participation rate.
-
-Step 5: The bank deducts its margin (say $1.50), which reduces the option budget to $9.60, and the participation rate to approximately 52%.
-
-**The decomposition equation:**
-
-**PPN = Zero-coupon bond (guarantees $100) + 52% × Call option (provides upside)**
-
-| Flow | Amount |
-|------|--------|
-| Investor pays | $100.00 |
-| Zero-coupon bond cost | -$88.90 |
-| Bank margin | -$1.50 |
-| Option budget remaining | $9.60 |
-| Call option cost (full) | $18.50 |
-| Participation rate | $9.60 / $18.50 = **~52%** |
-
-> **Professor Note:** If you remember only one thing from this chapter, remember this: the PPN's participation rate is not arbitrary. It is determined by arithmetic: whatever money is left after buying the zero-coupon bond (and paying the bank's margin) is spent on a call option. Higher interest rates mean a cheaper bond, more money for options, and higher participation. Lower interest rates mean an expensive bond, less money for options, and lower participation. This is why PPNs are more attractive in high-rate environments.
-
-
-#### §13. Lifecycle
-
-| Stage | Detail |
-|-------|--------|
-| **Trade date** | Terms agreed: index, maturity, participation rate. Pricing locks ZCB yield and option cost |
-| **Issue date** | Note issued. Investor pays par. Bank buys ZCB and call option |
-| **Interim** | Mark-to-market driven by index level, rates, and vol. No coupons paid |
-| **Maturity** | Index final fixing. Payout = max(par, par × (1 + PR × index return)). Settlement T+2 |
-
-#### §14. Desk Reality
-
-```
-Investor
-Return (%)
-    |
-    |              ╱ (participation slope, e.g., 52%)
-    |            ╱
-    |          ╱
-    |        ╱
-  0%|------*---------  ← If market falls: return = 0% (principal protected)
-    |      Initial
-    |      Level
-    |
-    +-------------------→ Underlying Final Level
-```
-
-- **Below initial level:** Investor receives exactly 100% of principal. Return = 0%.
-- **Above initial level:** Investor receives 100% + (Participation Rate × market gain).
-- **No coupon payments during the life.** All return comes at maturity.
-- **Not path-dependent.** Only the final level on the observation date matters.
-
-
-#### §15. Risk Analysis
+**Risks to the investor**
 
 | Risk | Description | Severity |
 |------|------------|:--------:|
@@ -2571,10 +2469,51 @@ Return (%)
 | **Low-rate risk** | In a low interest rate environment, the zero-coupon bond is expensive, leaving very little option budget. Participation rates may be unattractive (e.g., 30-40%). | High |
 | **No income** | PPNs typically pay no coupons during the life of the product. Investors who need regular income should consider other products. | Low |
 
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
 
-#### §16. Booking and Systems
+**What the desk books**
 
-*Dependency: This section references the systems primer in Section 2.8.*
+The desk's position is the mirror image of the investor's upside. Where the investor is long the embedded call, the desk is **short** that call (sold to the investor); alongside it the desk has issued a note, a funding liability, and holds a zero-coupon bond position that accretes to par to fund the 100% principal floor. The investor's participation in market gains is, to the desk, the cost of the call it has sold, funded out of the option budget left after the ZCB is purchased.
+
+**Greeks & hedging**
+
+The desk is short the embedded call and delta-hedges by buying the underlying as the market rises and selling as it falls. Because the embedded call is a plain vanilla European option with no barrier, the gamma is smooth and well-behaved — there is no discontinuity to spike hedging costs, so PPN positions are relatively simple to hedge compared with barrier products. The desk also carries vega (short, against the investor's long-vega call) and interest-rate exposure through the ZCB. Risk management monitors delta and vega as well as credit exposure to the issuer.
+
+**How the bank makes money**
+
+| Revenue Component | Detail |
+|------------------|--------|
+| **Structuring fee** | 1-2% embedded in note price at issuance |
+| **Bid-offer spread** | Captures spread between option cost and implied participation rate |
+| **Funding advantage** | Issues note at sub-LIBOR effective rate vs own funding curve |
+| **Hedging P&L** | Earns from delta-hedging the embedded call (realized vs implied vol) |
+
+**The construction decomposition (from Section 2.2):**
+
+A PPN is built from two components: a zero-coupon bond that guarantees the principal, and a call option that provides the upside. The investor pays $100 (par). The bank uses most of that to buy a zero-coupon bond — if the 3-year risk-free rate is 4%, the present value of $100 in 3 years is approximately **$88.90**, so the bank pays $88.90 for the bond, which grows to $100 at maturity. The remaining $100 − $88.90 = **$11.10** is the "option budget." The bank deducts its margin (say **$1.50**), leaving **$9.60** to buy the call. If a 3-year ATM call costs $18.50, the $9.60 budget buys $9.60 / $18.50 ≈ **52%** of a call — and that 52% becomes the participation rate.
+
+**PPN = Zero-coupon bond (guarantees $100) + ~52% × Call option (provides upside)**
+
+| Flow | Amount |
+|------|--------|
+| Investor pays | $100.00 |
+| Zero-coupon bond cost | -$88.90 |
+| Bank margin | -$1.50 |
+| Option budget remaining | $9.60 |
+| Call option cost (full) | $18.50 |
+| Participation rate | $9.60 / $18.50 = **~52%** |
+
+![PPN Construction (ZCB + Call) — Bank Lens (Desk Economics)](assets/ppn/waterfall_ppn_09.svg)
+
+The participation rate is not arbitrary: it is determined by arithmetic. Whatever money is left after buying the zero-coupon bond (and paying the bank's margin) is spent on the call option. Higher interest rates mean a cheaper bond, more money for options, and higher participation; lower rates mean an expensive bond, less option budget, and lower participation. This is why PPNs are more attractive in high-rate environments.
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by realized-versus-implied volatility on the delta hedge, moves in the underlying (delta/gamma on the short call), the level of rates (ZCB accretion and discounting), and the mark-to-market of the embedded call. Product Control attributes P&L between zero-coupon bond accretion and call-option MTM, and performs Independent Price Verification (IPV) of the call component.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
 
 | Aspect | Detail |
 |--------|--------|
@@ -2586,59 +2525,97 @@ Return (%)
 | **Coupon schedule** | None — all return at maturity |
 | **Observation dates** | Single final observation date |
 
-**Lifecycle events:**
-- **Trade date:** PPN is booked in NEMO. Initial level is set.
-- **During life:** No coupon observations. No barrier monitoring. Sophis reprices daily for mark-to-market.
-- **Final observation:** Underlying closing price is recorded.
-- **Maturity:** Redemption amount calculated and settled. Investor receives principal + participation amount (if any).
+**Reconciliation points**
 
+| Recon point | What must agree | PPN-specific break |
+|-------------|-----------------|--------------------|
+| **Participation rate** | Participation rate matches the termsheet across NEMO and Sophis | NEMO and Sophis show different participation rates → wrong redemption and wrong MTM |
+| **Cap (if any)** | Any participation cap or maximum return is recorded identically in both systems | Cap present on termsheet but missing in one system → upside overstated |
+| **ZCB / floor** | The zero-coupon bond accretion path and the 100% principal floor reconcile across systems | Floor accretion stale or mismatched → MTM and guaranteed redemption misstated |
+| **Trade economics** | Notional, strike (initial level), maturity, underlying ID, and convention | Initial level stored as % in one system, absolute price in another |
+| **Fixings** | Initial and final fixing **source** matches the termsheet | Different vendors report different closing prices on the final observation |
+| **Issuer credit / CVA** | Credit valuation adjustment applied consistently across systems | Sophis P&L includes an issuer credit spread adjustment that NEMO does not |
+| **P&L attribution** | ZCB accretion + call MTM reconciles to total | Unexplained P&L points to a stale vol surface or a wrong fixing |
+| **Settlement** | Redemption = max(par, par × (1 + PR × index return)); cash settlement; delivery-versus-payment | Redemption miscalculated or settled as the wrong amount |
 
-#### §17. Red Flags
+![PPN Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/ppn/controls_ppn_recon_08.svg)
 
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| Participation rate mismatch | NEMO and Sophis show different participation rates | Check termsheet; correct the system with the wrong value |
-| Initial level discrepancy | NEMO records initial level as a percentage, Sophis as an absolute price | Standardize — both must use the same convention |
-| Missing final observation | No closing price recorded on observation date | Contact market data team; use fallback fixing source per termsheet |
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Participation rate mismatch | NEMO and Sophis show different participation rates | Check termsheet; correct the system with the wrong value before relying on either valuation |
+| Initial level discrepancy | NEMO records initial level as a percentage, Sophis as an absolute price | Standardize — confirm both systems use the same convention |
+| Missing final observation | No closing price recorded on observation date | Contact market data team; use the fallback fixing source per termsheet |
 | Redemption amount mismatch | Calculated redemption differs between systems | Recalculate manually using the formula; identify which system has the error |
 | Issuer credit adjustment | Sophis P&L includes an issuer credit spread adjustment that NEMO does not | Ensure credit valuation adjustment (CVA) is applied consistently |
 
+**Control implication**
 
-#### §18. Worked Example
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. A participation-rate mismatch drives the wrong upside payout — the single field most likely to misstate a PPN redemption, since the entire return above par scales off it. A stale or mismatched ZCB/floor accretion misstates the guaranteed redemption and the daily mark simultaneously. And the floor itself is only as good as the issuer: the "100% protection" is the bank's promise, not a government guarantee, so a missing or inconsistent issuer credit adjustment (CVA) understates the true risk to the investor's principal. The reconciliation exists precisely to catch these inconsistencies before settlement crystallises them.
 
-**Product:** 3-year PPN linked to the S&P 500
-**Notional:** $1,000,000
-**Participation rate:** 55%
-**Initial S&P 500 level:** 5,000
+#### §10. Formal Definition
+
+A **Principal Protected Note** is a structured product consisting of a zero-coupon bond and a call option on an underlying asset or index. At maturity, the investor receives:
+
+**Redemption = Principal + Participation Rate × max(Final Level / Initial Level − 1, 0) × Principal**
+
+Where:
+- **Principal** = the investor's initial investment (100% guaranteed)
+- **Participation Rate** = the percentage of market gains the investor receives (typically 50-80%)
+- **Final Level** = the closing price of the underlying on the observation date
+- **Initial Level** = the closing price of the underlying on the trade date
+
+The participation rate is less than 100% because the cost of the principal protection (the zero-coupon bond) uses up part of the investment, leaving less capital available to buy the call option.
+
+#### §11. Lifecycle
+
+| Stage | Detail |
+|-------|--------|
+| **Trade date** | Terms agreed: index, maturity, participation rate. Pricing locks ZCB yield and option cost. Book in NEMO; set initial level |
+| **Issue date** | Note issued. Investor pays par. Bank buys ZCB and call option |
+| **Interim** | Mark-to-market driven by index level, rates, and vol. No coupons paid. Sophis reprices daily |
+| **Final observation** | Underlying closing price recorded from the termsheet fixing source |
+| **Maturity** | Payout = max(par, par × (1 + PR × index return)). Settlement T+2 |
+
+#### §12. Worked Example (both lenses)
+
+**Product:** 3-year PPN linked to the S&P 500. **Notional:** $1,000,000. **Participation rate:** 55%. **Initial S&P 500 level:** 5,000.
+
+*Investor lens:*
 
 **At maturity, the S&P 500 closes at 6,250 (+25%):**
 
-Redemption = $1,000,000 + 55% × max(6,250/5,000 - 1, 0) × $1,000,000
+Redemption = $1,000,000 + 55% × max(6,250/5,000 − 1, 0) × $1,000,000
 Redemption = $1,000,000 + 55% × 25% × $1,000,000
 Redemption = $1,000,000 + $137,500
 **Redemption = $1,137,500**
 
 Investor return: **+13.75%** over 3 years (~4.4% annualized). A direct S&P 500 investment would have returned 25%. The investor gave up 11.25% of return in exchange for complete downside protection.
 
-**At maturity, the S&P 500 closes at 4,000 (-20%):**
+**At maturity, the S&P 500 closes at 4,000 (−20%):**
 
-Redemption = $1,000,000 + 55% × max(4,000/5,000 - 1, 0) × $1,000,000
+Redemption = $1,000,000 + 55% × max(4,000/5,000 − 1, 0) × $1,000,000
 Redemption = $1,000,000 + 55% × 0 × $1,000,000
 **Redemption = $1,000,000**
 
 Investor receives full principal. A direct S&P 500 investment would have lost $200,000.
 
+*Bank lens:*
+- In the first scenario the desk's short call finishes in the money: the desk owes the $137,500 participation amount, offset by the gains on its delta hedge accumulated as the index rose, plus its structuring margin. Product Control confirms the call MTM and the ZCB accretion (now at par) reconcile to the $1,137,500 redemption.
+- In the second scenario the desk's short call expires worthless; the ZCB has accreted to par and funds the $1,000,000 principal floor in full. The desk keeps its structuring margin and net hedging P&L. The 2nd line confirms the redemption math (max of par and the participation formula), the participation rate, and that NEMO and Sophis agree before settlement.
 
-#### §19. Knowledge Check
+#### §13. Knowledge Check
 
-1. **Explain how a PPN is constructed.** Walk through the decomposition step by step.
-2. **Why is the participation rate less than 100%?** What determines it?
-3. **How do interest rates affect PPN attractiveness?** Why are PPNs better in high-rate environments?
-4. **What is the main risk of a PPN for the investor?** (Hint: it is not market risk.)
-5. **A client says: "The bank guarantees my principal, so there is zero risk." Is this correct?** Explain.
-6. **Draw the payoff diagram of a PPN at maturity.**
-7. **If interest rates are 1% and a 3-year ATM call option costs $15, what is the approximate participation rate on a PPN? Show your work.**
-
+1. *(Investor)* **Explain how a PPN is constructed.** Walk through the decomposition step by step.
+2. *(Investor)* **Why is the participation rate less than 100%?** What determines it?
+3. *(Investor)* **How do interest rates affect PPN attractiveness?** Why are PPNs better in high-rate environments?
+4. *(Investor)* **What is the main risk of a PPN for the investor?** (Hint: it is not market risk.)
+5. *(Investor)* **A client says: "The bank guarantees my principal, so there is zero risk." Is this correct?** Explain.
+6. *(Investor)* **Draw the payoff diagram of a PPN at maturity.**
+7. *(Investor)* **If interest rates are 1% and a 3-year ATM call option costs $15, what is the approximate participation rate on a PPN? Show your work.**
+8. **(Desk economics / 1LoD)** What position does the desk hold against the investor, and why is the desk's gamma smooth (rather than spiked) on a PPN? Where does the desk's structuring margin come from?
+9. **(Controls / 2LoD)** Name three reconciliation breaks specific to a PPN and the consequence of each for the investor's redemption.
 
 **Mental Models**
 
@@ -2650,37 +2627,27 @@ Investor receives full principal. A direct S&P 500 investment would have lost $2
 | Call option | The market ticket — gives upside exposure |
 | Interest rates & PPNs | Higher rates = cheaper safety net = more money for the market ticket |
 | Issuer credit risk | The guarantee is only as good as the guarantor |
-
+| 2LoD reconciliation | The building inspector — confirms participation rate, floor, and redemption math agree across systems before anyone pays out |
 
 **Key Takeaways**
 
 1. A PPN guarantees 100% principal return at maturity. The worst case is zero return, never a loss.
-2. The product is constructed from a zero-coupon bond (protection) and a call option (participation).
+2. The product is constructed from a zero-coupon bond (protection) and a call option (participation). The investor is long the call; the desk holds the offsetting short-call position.
 3. The participation rate is determined by arithmetic: money left after the bond and margin pay for a fraction of a call option.
 4. Higher interest rates make PPNs more attractive because the zero-coupon bond is cheaper.
-5. The principal "guarantee" is subject to issuer credit risk — if the bank defaults, the guarantee fails.
+5. The principal "guarantee" is subject to issuer credit risk — if the bank defaults, the guarantee fails. The floor is only as good as the issuer.
 6. PPNs pay no coupons during the life of the product. All return comes at maturity.
-7. PPNs are long volatility — meaning the investor benefits from higher volatility, because it makes the embedded call option more valuable. This is unusual: most structured products (like Reverse Convertibles) are short volatility.
+7. PPNs are long volatility for the investor — the investor benefits from higher volatility, because it makes the embedded call more valuable. This is unusual: most structured products (like Reverse Convertibles) are short volatility.
+8. For the 2nd line, the dominant control risks are the participation rate, any cap, the ZCB/floor accretion, fixings, and consistent issuer credit (CVA) treatment — each can misstate the redemption.
 
-
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
 1. **Thinking "protected" means "risk-free."** The principal is guaranteed by the issuing bank, not by a government. If the bank defaults (as Lehman Brothers did in 2008), the protection fails.
 2. **Ignoring the opportunity cost.** In a strong bull market, a PPN returns significantly less than a direct stock investment. The protection has a real cost.
 3. **Expecting income.** PPNs pay no coupons. Investors who need regular income should consider yield-generating products like Reverse Convertibles or Phoenix Autocallables.
 4. **Ignoring the interest rate environment.** When rates are very low, the zero-coupon bond is expensive, leaving minimal option budget. A PPN with 30% participation is rarely attractive.
 5. **Confusing participation in gains with participation in the market.** If the market rises 20% and participation is 55%, the investor earns 11% — not 20%.
-
-### Desk Perspective
-
-| Role | What PPN Means to Them |
-|------|----------------------|
-| **Trader** | The desk is long a call option — it benefits from rising markets and rising volatility. Hedging involves selling Delta (selling stock as the market rises) and managing Vega. PPN positions are relatively simple to hedge compared to barrier products. |
-| **Structurer** | Must balance the participation rate against market competitiveness. In low-rate environments, PPNs become hard to structure attractively. May add features (caps, averaging, basket) to improve participation. |
-| **Product Control** | Verify that the zero-coupon bond is valued correctly on the bank's credit curve, and that the call option is priced consistently with the desk's volatility surface. |
-| **Risk** | Monitor Delta and Vega exposure. PPNs are long Vega — a volatility spike increases the value of the embedded call. Credit risk on the issuer must be monitored. |
-| **Operations** | Simple lifecycle — no coupon observations, no barriers to monitor. Key task: ensure the final observation is correctly captured and the redemption amount is calculated accurately. |
-
+6. **(Controls) Trusting a single system's participation rate or floor.** Because the participation rate drives the entire upside and the ZCB accretion drives the floor, the 2nd line must reconcile both across NEMO and Sophis rather than assume they agree — and confirm the issuer credit (CVA) is applied consistently, since the floor is only as good as the issuer.
 ### Knowledge Check
 
 **Review Questions:**
@@ -3167,16 +3134,16 @@ A junior structurer proposes an RC with a 50% barrier on a volatile tech stock, 
 
 ---
 
-*The Reverse Convertible (Section 5.1.2) paid a fixed coupon over a single observation period. The Phoenix Autocallable adds two features: periodic barrier observations with memory coupons (missed coupons can be recovered if the underlying rebounds), and an autocall mechanism that terminates the note early when the underlying trades above a call level. These additions create a path-dependent product with multiple possible outcomes.*
+*The Reverse Convertible (Section 5.1.2) paid a fixed coupon over a single observation period. The Phoenix Autocallable adds two features: periodic barrier observations with memory coupons (missed coupons can be recovered if the underlying rebounds), and an autocall mechanism that terminates the note early when the underlying trades above a call level. These additions create a path-dependent product with multiple possible outcomes. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Imagine you sign a rental agreement with a twist. You agree to rent out your apartment for up to 3 years. Every quarter, the landlord checks a condition:
+Consider a rental agreement with a twist. A landlord rents out an apartment for up to 3 years. Every quarter, the contract checks a condition:
 
-- If the apartment's market value is above a certain threshold (say, its original purchase price), the lease automatically ends — you get your apartment back plus all the accumulated rent.
-- If the apartment's value is above a lower threshold (say, 80% of original), you still earn rent that quarter.
-- If the apartment's value has dropped below that lower threshold, you earn no rent that quarter — but the missed rent is remembered. If the value recovers above the threshold on any future check, you receive all the missed rent payments at once.
-- If the apartment's value drops below a much lower threshold (say, 60%) by the final check and never recovered, you lose part of the apartment's value.
+- If the apartment's market value is above a certain threshold (say, its original purchase price), the lease automatically ends — the owner gets the apartment back plus all the accumulated rent.
+- If the apartment's value is above a lower threshold (say, 80% of original), the owner still earns rent that quarter.
+- If the apartment's value has dropped below that lower threshold, no rent is earned that quarter — but the missed rent is remembered. If the value recovers above the threshold on any future check, all the missed rent payments are received at once.
+- If the apartment's value drops below a much lower threshold (say, 60%) by the final check and never recovered, the owner loses part of the apartment's value.
 
 A **Phoenix Autocallable** works just like this:
 
@@ -3187,20 +3154,18 @@ A **Phoenix Autocallable** works just like this:
 
 The Phoenix is the most popular structured product in the world. It offers high conditional income, the possibility of early redemption, and a cushion against moderate market declines.
 
-
 #### §2. Real-World Analogy
 
 A Phoenix Autocallable is like a performance-based employment contract with a buyout clause.
 
-You sign a 3-year contract with a company. Every quarter, they review your performance:
+An employee signs a 3-year contract with a company. Every quarter, performance is reviewed:
 
-- **If the company's stock is doing great** (above the autocall level), they buy out your contract early — you receive your full bonus and leave. This is the autocall.
-- **If the company is doing okay** (stock above the coupon barrier but below autocall), you earn your quarterly bonus.
-- **If the company is struggling** (stock below the coupon barrier), your bonus is deferred — but not lost. When the company recovers, all deferred bonuses are paid at once. This is the memory feature.
-- **If the company collapses** (stock below the capital barrier at the end), you lose part of your severance. This is the knock-in.
+- **If the company's stock is doing great** (above the autocall level), the company buys out the contract early — the employee receives the full bonus and leaves. This is the autocall.
+- **If the company is doing okay** (stock above the coupon barrier but below autocall), the employee earns the quarterly bonus.
+- **If the company is struggling** (stock below the coupon barrier), the bonus is deferred — but not lost. When the company recovers, all deferred bonuses are paid at once. This is the memory feature.
+- **If the company collapses** (stock below the capital barrier at the end), the employee loses part of the severance. This is the knock-in.
 
-The name "Phoenix" comes from the memory feature — like the mythical bird, the missed coupons rise from the ashes when conditions improve.
-
+The name "Phoenix" comes from the memory feature — like the mythical bird, the missed coupons rise from the ashes when conditions improve. In this analogy the investor is the employee — collecting deferred bonuses and bearing the tail if the company collapses — while the bank is the employer that holds the right to buy out the contract early.
 
 #### §3. What Problem Does This Solve?
 
@@ -3212,14 +3177,13 @@ The autocall feature provides this: if the market is above the starting level on
 
 Meanwhile, the conditional coupon with memory provides a balanced income stream that adapts to market conditions — paying when things are reasonable, deferring when they are not, and catching up when they recover.
 
-| Client Need | How the Phoenix Delivers |
+| Investor Need | How the Phoenix Delivers |
 |------------|------------------------|
 | Regular income | Quarterly conditional coupons (e.g., 8-12% annualized) |
 | Early exit when markets are up | Autocall feature redeems early if underlying is above initial level |
 | Tolerance for moderate decline | Coupon paid even if stock is down, as long as it is above the coupon barrier |
 | Fear of permanent loss | Capital barrier (e.g., 60%) provides a cushion against moderate declines |
 | Recovery participation | Memory feature ensures no coupons are permanently lost — they are paid when the stock recovers |
-
 
 #### §4. Product DNA
 
@@ -3280,16 +3244,11 @@ Meanwhile, the conditional coupon with memory provides a balanced income stream 
 | 2 | Equity-linked note | Equity participation or option embedded | Market return exposure with note wrapper |
 | 3 | Phoenix Autocallable | Specific structural features added | Product-specific innovation: Autocallable with memory coupon feature, barrier observation, early termination |
 
-#### §7. How the Bank Makes Money
+---
 
-| Revenue Component | Detail |
-|------------------|--------|
-| **Structuring fee** | Embedded in note price at issuance (typically 1-3%) |
-| **Bid-offer spread** | Spread between option cost and terms offered to investor |
-| **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
-| **Funding advantage** | Issues note at sub-market effective funding rate |
+#### §7. THE INVESTOR LENS
 
-#### §8. Why This Product Exists (Client Perspective)
+**Why the investor buys it**
 
 1. **High conditional income.** Coupons of 8-12% annualized, significantly above bonds.
 2. **Memory feature.** Missed coupons are not lost — they accumulate and pay out when conditions improve. This reduces the penalty for temporary market downturns.
@@ -3297,115 +3256,22 @@ Meanwhile, the conditional coupon with memory provides a balanced income stream 
 4. **Worst-of basket enhances coupons.** Phoenix products are often linked to a basket of stocks (worst-of), which increases the coupon because the investor is taking on correlation risk (Section 1.6).
 5. **Psychological comfort.** The structure — regular coupons, memory, early redemption — feels like a "smart bond" to many investors, even though the risk profile is fundamentally different from a bond.
 
+**Position taken**
 
-#### §9. The Three Scenarios
+The investor simultaneously holds a long bond (lends principal to the issuer) and a series of **short** embedded options sold to the bank: a short knock-in put (capital risk), a series of short digital coupon options (the conditional coupons), and a short autocall option (the bank's right to redeem early). Net, the investor is **short volatility** below the barrier (hurt by volatile markets) and carries full equity downside below the capital barrier. On a worst-of basket the investor is additionally exposed to correlation: the payoff is set by the worst performer, so the investor is structurally **short correlation** premium — though the MTM sensitivity is long correlation, since rising correlation reduces worst-of risk (see §13 and the worst-of products).
 
-| Scenario | Market Condition | Outcome for Investor |
-|----------|-----------------|---------------------|
-| **Best case** | Underlying performs strongly | Maximum return captured (subject to any participation cap or barrier) |
-| **Base case** | Underlying is flat or moderately positive | Moderate return or coupon income depending on structure |
-| **Worst case** | Underlying declines significantly | Capital at risk if below protection level; coupon may partially offset |
+**Payoff & scenarios**
 
-*Detailed scenario analysis with specific numbers follows in §10.*
+The investor's payoff is path-dependent — the outcome depends on the entire sequence of observations, not just the final level. On each observation date the worst performer is checked against three barriers in turn: at or above the autocall barrier redeems the note early at par plus all due coupons; at or above the coupon barrier pays the coupon (plus any memorized coupons); below the coupon barrier pays nothing but memorizes the coupon. If the note runs to maturity without autocalling, the capital barrier determines whether principal is returned in full or reduced by the worst performer's decline.
 
-#### §10. What Happens When Markets Move
+**Product:** 3-year Phoenix Autocallable on worst-of basket (Apple, Toyota, Samsung). **Notional:** $200,000. **Coupon:** 10% p.a. (2.5% per quarter), conditional on worst performer being above the 70% coupon barrier. **Autocall barrier:** 100% of initial levels (checked quarterly starting Q4). **Capital barrier:** 60% knock-in (European, checked at maturity). **Memory:** Yes.
 
-**Product:** 3-year Phoenix Autocallable on worst-of basket (Apple, Toyota, Samsung)
-**Notional:** $200,000
-**Coupon:** 10% p.a. (2.5% per quarter), conditional on worst performer being above 70% coupon barrier
-**Autocall barrier:** 100% of initial levels (checked quarterly starting Q4)
-**Capital barrier:** 60% knock-in (European, checked at maturity)
-**Memory:** Yes
+- **Scenario 1 — Strong market, early autocall in Q4:** All three stocks are above 100% at the Q4 observation. The product autocalls. The investor receives $200,000 principal + 4 quarterly coupons (4 × $5,000 = $20,000) = **$220,000** after 1 year.
+- **Scenario 2 — Dip and recovery with memory:** Q1-Q2, the worst performer (Toyota) is at 75% — above the coupon barrier, so coupons are paid: 2 × $5,000 = $10,000. Q3-Q4, Toyota drops to 65% — below the 70% coupon barrier, so no coupon is paid, but the coupons are *remembered*. Q5, Toyota recovers to 72% — above the coupon barrier, so the investor receives the Q5 coupon PLUS two missed coupons (Q3 and Q4): 3 × $5,000 = **$15,000 in one payment**. The Phoenix rises. Q6, all stocks above 100% — the product autocalls and the investor receives $200,000 + remaining coupons.
+- **Scenario 3 — Persistent decline, no knock-in:** The worst performer stays between 62-68% for the entire 3 years. The coupon barrier (70%) is never cleared after Q2. Many coupons are missed and never recovered because the stock never goes back above 70%. At maturity, the worst performer is at 63% — above the 60% capital barrier. The investor receives full $200,000 principal but only 2 coupons ($10,000). Disappointing but not catastrophic.
+- **Scenario 4 — Crash and knock-in:** Samsung crashes to 45% by maturity. The capital barrier (60%) is breached. The investor receives $200,000 × (45%/100%) = **$90,000** plus whatever coupons were paid. If only 3 coupons were paid ($15,000), the total is $105,000. Net loss: **$95,000** (-47.5%).
 
-**Scenario 1 — Strong market, early autocall in Q4:**
-All three stocks are above 100% at the Q4 observation. Product autocalls. Investor receives $200,000 principal + 4 quarterly coupons (4 × $5,000 = $20,000) = **$220,000** after 1 year.
-
-**Scenario 2 — Dip and recovery with memory:**
-- Q1-Q2: Worst performer (Toyota) is at 75% — above coupon barrier. Coupons paid: 2 × $5,000 = $10,000.
-- Q3-Q4: Toyota drops to 65% — below 70% coupon barrier. No coupon paid. But coupons are *remembered*.
-- Q5: Toyota recovers to 72% — above coupon barrier. Investor receives Q5 coupon PLUS two missed coupons (Q3 and Q4): 3 × $5,000 = **$15,000 in one payment**. The Phoenix rises.
-- Q6: All stocks above 100%. Product autocalls. Investor receives $200,000 + remaining coupons.
-
-**Scenario 3 — Persistent decline, no knock-in:**
-Worst performer stays between 62-68% for the entire 3 years. Coupon barrier (70%) is never cleared after Q2. Many coupons are missed and never recovered because the stock never goes back above 70%. At maturity, worst performer is at 63% — above the 60% capital barrier. Investor receives full $200,000 principal but only 2 coupons ($10,000). Disappointing but not catastrophic.
-
-**Scenario 4 — Crash and knock-in:**
-Samsung crashes to 45% by maturity. Capital barrier (60%) is breached. Investor receives $200,000 × (45%/100%) = **$90,000** plus whatever coupons were paid. If only 3 coupons were paid ($15,000), total is $105,000. Net loss: **$95,000** (-47.5%).
-
-
-#### §11. Formal Definition
-
-A **Phoenix Autocallable** is a structured product with:
-
-**Autocall:** On each observation date (typically quarterly, starting after a no-call period — the initial quarters during which autocall cannot trigger), if the underlying (or worst-of basket) is at or above the autocall barrier, the product redeems at 100% of principal plus any due coupons.
-
-**Conditional coupon:** On each observation date, if the underlying is at or above the coupon barrier, the coupon is paid. If below, no coupon is paid for that period.
-
-**Memory feature:** Missed coupons accumulate. On any observation date where the coupon condition is met, all previously missed coupons are also paid.
-
-**Capital protection:** At maturity (if not autocalled), if the underlying has breached the knock-in barrier: Redemption = Principal × (Final Level / Initial Level). If the knock-in barrier has not been breached: Redemption = 100% of Principal.
-
-
-#### §12. Product Construction
-
-*Dependency: Builds on Section 2.2 (Decomposition), Section 1.2 (Options), Section 1.3 (Barriers), Section 1.6 (Correlation).*
-
-| Component | What It Is | Purpose |
-|-----------|-----------|---------|
-| Bond | Investor lends principal to issuer | Provides funding |
-| Short knock-in put | Investor sells a put with KI barrier | Generates capital risk premium |
-| Short autocall option | Investor sells the issuer the right to redeem early | Generates autocall premium |
-| Digital coupon options | Series of conditional payments based on barrier observation | Determines coupon payment schedule |
-| Memory feature | Accumulates unpaid coupons | Adds value to the investor; costs the bank additional premium |
-
-The Phoenix is more complex to decompose than the RC because it has multiple embedded options:
-- A knock-in put (same as the RC)
-- A series of digital options for each coupon observation
-- An autocall feature that functions like a series of knock-out barriers
-- The memory provision that links coupon payments across periods
-
-The interaction between these components — particularly the correlation between basket underlyings — makes the Phoenix challenging to price. Monte Carlo simulation (running thousands of random price paths) is required.
-
-
-#### §13. Lifecycle
-
-| Stage | Detail |
-|-------|--------|
-| **Trade date** | Terms agreed: underlying, strike/barrier, coupon, maturity. Pricing finalised |
-| **Issue date** | Note issued. Investor pays par (or discount). Bank establishes hedge |
-| **Coupon dates** | Periodic observations and coupon payments (if applicable). Barrier monitoring |
-| **Maturity** | Final observation. Settlement: cash (par or adjusted) or physical delivery. T+2 settlement |
-
-#### §14. Desk Reality
-
-The Phoenix payoff is **path-dependent**: the outcome depends on the entire sequence of observations, not just the final level.
-
-**Decision tree on each observation date:**
-
-```
-Observation Date
-       │
-       ├── Worst performer ≥ Autocall barrier?
-       │         YES → AUTOCALL: Redeem 100% + all due coupons. Product ends.
-       │         NO  ↓
-       │
-       ├── Worst performer ≥ Coupon barrier?
-       │         YES → Pay coupon + any memorized coupons
-       │         NO  → No coupon this period (memorize it)
-       │
-       └── Continue to next observation date
-```
-
-**At final maturity (if not autocalled):**
-
-```
-       ├── Was knock-in barrier breached?
-       │         NO  → Redeem 100% of principal
-       │         YES → Redeem Principal × (Worst Final / Worst Initial)
-```
-
-
-#### §15. Risk Analysis
+**Risks to the investor**
 
 | Risk | Description | Severity |
 |------|------------|:--------:|
@@ -3416,8 +3282,42 @@ Observation Date
 | **Capital loss after knock-in** | If the knock-in barrier is breached and the worst performer remains depressed at maturity, the investor can lose a large portion of principal. | High |
 | **Complexity risk** | The product has multiple barriers (autocall, coupon, capital) and the memory feature. Misunderstanding any of these can lead to surprise outcomes. | Medium |
 
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
 
-#### §16. Booking and Systems
+**What the desk books**
+
+The desk's position is the mirror image of the investor's. Where the investor is short the embedded options, the desk is **long** them (bought from the investor): long the down-and-in put (capital risk), long the series of digital coupon options, and long the autocall option (the right to redeem the note early). Alongside these the desk has issued a note, which is a funding liability. The investor's conditional coupon is, to the desk, the cost of the option premiums plus funding, returned to the client. The memory provision links the digital coupons across periods, adding value to the investor and costing the bank additional premium.
+
+**Greeks & hedging**
+
+The desk delta-hedges the basket by trading each underlying, and must manage delta and gamma across all basket names simultaneously because the worst-of payoff couples them. The product is path-dependent, so the hedge changes as each observation date approaches. Because the payoffs are discontinuous, gamma spikes in two places: near the **capital barrier** (the knock-in put becomes sharply convex) and near the **autocall barrier** (the digital/short-autocall replication produces a large jump in the hedge as the note approaches early redemption). This **pin risk near the autocall barrier** is the desk's signature exposure: a worst performer hovering at 100% on an observation date forces the desk to unwind a large hedge if the note autocalls, or carry it if it does not. The digital coupon options carry the same cliff-edge digital risk at the coupon barrier. Risk management monitors barrier proximity and may impose limits on concentrated barrier and autocall exposure.
+
+![Phoenix Desk Position & Hedge — Bank Lens (Desk Economics)](assets/phoenix/desk_phoenix_gamma_07.svg)
+
+**How the bank makes money**
+
+| Revenue Component | Detail |
+|------------------|--------|
+| **Structuring fee** | Embedded in note price at issuance (typically 1-3%) |
+| **Bid-offer spread** | Spread between option cost and terms offered to investor |
+| **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
+| **Funding advantage** | Issues note at sub-market effective funding rate |
+
+**The coupon decomposition:**
+
+Coupon = Bond interest + Net option premium − Funds Transfer Pricing (FTP) − Desk margin
+
+For a 10% p.a. conditional coupon, the dominant block is the net premium the investor pays away by selling the embedded options — the knock-in put, the digital coupon options, and the autocall option — net of the memory provision the bank funds back to the investor. Bond interest comes from the bank's credit curve; FTP is the internal funding cost; the residual is desk margin. The premium on the digital and autocall options is what makes the contingent coupon so much higher than a bond coupon — it is the price of the conditionality and the early-redemption right the investor has sold.
+
+![Phoenix Coupon Decomposition — Bank Lens (Desk Economics)](assets/phoenix/waterfall_phoenix_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by realized-versus-implied volatility on the delta hedge across the basket, moves in the underlyings near the capital and autocall barriers (gamma and pin risk), correlation marks on the worst-of, funding, and the mark-to-market of the embedded options. Because the Phoenix has multiple embedded options and a path-dependent payoff, Monte Carlo simulation is required to revalue it. Product Control attributes P&L between note accrual and option MTM and performs independent price verification.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
 
 | Aspect | Detail |
 |--------|--------|
@@ -3429,38 +3329,61 @@ Observation Date
 | **Observation dates** | Quarterly (typically) — each date requires checking autocall, coupon, and potentially capital barrier |
 | **Memory tracking** | System must track the number of missed coupons and pay them when conditions are met |
 
-**Lifecycle events (complex):**
-- **Trade date:** Book in NEMO. Record initial levels for all basket stocks.
-- **Each observation date:**
-  1. Check all underlying closing prices. Identify worst performer.
-  2. Compare worst performer to autocall barrier. If above → process autocall redemption.
-  3. If no autocall, compare worst performer to coupon barrier. If above → pay coupon + any memorized coupons.
-  4. If below coupon barrier → record missed coupon in memory counter.
-- **Barrier monitoring (if American capital barrier):** Continuous monitoring of all underlyings against capital barrier.
-- **Final observation:** If not autocalled, determine if capital barrier was breached. Calculate final redemption.
-- **Settlement:** Process final payment.
+**Reconciliation points**
 
+| Recon point | What must agree | Phoenix-specific break |
+|-------------|-----------------|------------------------|
+| **Trade economics** | Notional, initial levels, all three barriers **and convention** (% vs absolute), coupon rate & frequency, maturity, underlying IDs | Barrier stored as % in one system and absolute price in the other — consistent only if the initial level matches the assumed reference |
+| **Observation schedule** | The full set of observation dates, the no-call period, and the autocall start date agree across NEMO and Sophis | A missing or misdated observation skips an autocall or coupon check entirely |
+| **Worst-of determination** | Both systems use the same initial levels and fixing sources to identify the worst performer | Systems disagree on which stock is worst → wrong barrier comparison |
+| **Coupon barrier / digital capture** | Coupon-paid vs coupon-missed flag for each observation date is consistent | Coupon paid when the worst performer was below the coupon barrier, or skipped when it was above |
+| **Memory-coupon accrual** | The memorized-coupon counter and accumulated amount agree across systems | NEMO and Sophis disagree on how many coupons are memorized → wrong catch-up payment |
+| **Autocall event capture** | The autocall trigger flag and early-redemption date are consistent across systems | Autocall condition met but not processed (or processed late) → note carried when it should have terminated |
+| **Capital barrier event** | Knock-in flag at maturity (European) or on touch (American) consistent across NEMO and Sophis | Capital barrier checked against the average or best performer, not the worst |
+| **P&L attribution** | Note accrual + option MTM reconciles to total | Unexplained P&L points to a stale vol/correlation surface or a wrong fixing |
 
-#### §17. Red Flags
+![PHOENIX Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/phoenix/controls_phoenix_recon_08.svg)
 
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| Memory counter mismatch | NEMO and Sophis disagree on how many coupons are memorized | Manually trace each observation date's coupon payment/skip |
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Memory counter mismatch | NEMO and Sophis disagree on how many coupons are memorized | Manually trace each observation date's coupon payment/skip and reconcile the counter |
 | Worst-of determination error | Systems disagree on which stock is the worst performer | Verify that both systems use the same initial levels and fixing sources |
-| Autocall not triggered when it should have been | System did not process autocall because of a data error on observation date | Check fixing data; if autocall condition was met, process retroactively |
-| Coupon paid when it should not have been | Worst performer was below coupon barrier but coupon was processed | Investigate; may require reversal and client notification |
-| Capital barrier applied to wrong stock | System checked barrier against the average or best performer, not worst | Verify worst-of logic in the booking |
+| Autocall not triggered when it should have been | System did not process autocall because of a data error on the observation date | Check fixing data; if the autocall condition was met, process retroactively |
+| Coupon paid when it should not have been | Worst performer was below the coupon barrier but the coupon was processed | Investigate; may require reversal and client notification |
+| Capital barrier applied to wrong stock | System checked the barrier against the average or best performer, not the worst | Verify the worst-of logic in the booking |
 
+**Control implication**
 
-#### §18. Worked Example
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. The two control points that distinguish the Phoenix from a simple barrier note are **autocall event capture** and **memory-coupon tracking**. A missed autocall leaves a note live that should have redeemed — overstating desk risk, mis-stating expected life, and delaying the investor's principal — while a spurious autocall terminates a note early and crystallises the wrong redemption. A memory-counter error mis-states the catch-up payment due on recovery, paying the investor too little or too much and breaking P&L attribution at the same time. Because both depend on a correct worst-of determination on every observation date, the reconciliation must run on each scheduled date — not just at maturity — to catch these inconsistencies before settlement crystallises them.
 
-**Product:** 2-year Phoenix on worst-of (Stock A, Stock B, Stock C)
-**Notional:** $1,000,000
-**Coupon:** 3% per quarter (12% p.a.), conditional
-**Autocall barrier:** 100% (checked quarterly from Q2)
-**Coupon barrier:** 65%
-**Capital barrier:** 55% knock-in (European)
-**Memory:** Yes
+#### §10. Formal Definition
+
+A **Phoenix Autocallable** is a structured product with:
+
+**Autocall:** On each observation date (typically quarterly, starting after a no-call period — the initial quarters during which autocall cannot trigger), if the underlying (or worst-of basket) is at or above the autocall barrier, the product redeems at 100% of principal plus any due coupons.
+
+**Conditional coupon:** On each observation date, if the underlying is at or above the coupon barrier, the coupon is paid. If below, no coupon is paid for that period.
+
+**Memory feature:** Missed coupons accumulate. On any observation date where the coupon condition is met, all previously missed coupons are also paid.
+
+**Capital protection:** At maturity (if not autocalled), if the underlying has breached the knock-in barrier: Redemption = Principal × (Final Level / Initial Level). If the knock-in barrier has not been breached: Redemption = 100% of Principal.
+
+#### §11. Lifecycle
+
+| Stage | Detail |
+|-------|--------|
+| **Trade date** | Terms agreed: underlying, strike/barrier, coupon, maturity. Pricing finalised. Book in NEMO; record initial levels for all basket stocks |
+| **Issue date** | Note issued. The investor pays par (or discount). The bank establishes the hedge |
+| **Coupon dates** | Periodic observations and coupon payments (if applicable). Barrier monitoring. On each observation date: check all underlying closing prices and identify the worst performer; compare to the autocall barrier (if above, process autocall redemption); if no autocall, compare to the coupon barrier (if above, pay coupon plus any memorized coupons; if below, record a missed coupon in the memory counter) |
+| **Barrier monitoring (American capital barrier)** | Continuous monitoring of all underlyings against the capital barrier |
+| **Final observation** | If not autocalled, determine whether the capital barrier was breached. Calculate final redemption |
+| **Maturity** | Settlement: cash (par or adjusted) or physical delivery. T+2 settlement |
+
+#### §12. Worked Example (both lenses)
+
+**Product:** 2-year Phoenix on worst-of (Stock A, Stock B, Stock C). **Notional:** $1,000,000. **Coupon:** 3% per quarter (12% p.a.), conditional. **Autocall barrier:** 100% (checked quarterly from Q2). **Coupon barrier:** 65%. **Capital barrier:** 55% knock-in (European). **Memory:** Yes.
 
 **Initial levels:** A = $100, B = $50, C = $200
 
@@ -3482,17 +3405,21 @@ Observation Date
 **Total coupons received:** $30,000 + $0 + $0 + $90,000 + $30,000 + $30,000 + $30,000 + $30,000 = **$240,000**
 **Total returned:** $1,000,000 + $240,000 = **$1,240,000** over 2 years. Return: 24% (12% annualized).
 
+*Investor lens:* The investor collects $240,000 of conditional coupons — including the $90,000 Q4 catch-up that recovers the two missed Q2/Q3 coupons via the memory feature — and receives full principal back when the note autocalls at Q8. Total $1,240,000, a 24% return (12% annualized).
 
-#### §19. Knowledge Check
+*Bank lens:* The desk holds the long embedded options against the investor. Through Q2-Q3 the digital coupon options are out of the money (worst performer below the 65% coupon barrier) and the knock-in put gains value as B approaches the 55% capital barrier; from Q4 the basket recovers, the desk funds the $90,000 memory catch-up, and at Q8 the autocall terminates the structure and the desk unwinds the basket hedge. The 2nd line must confirm on each observation date that the worst-of determination, the memory counter (2 stored at Q3, cleared at Q4), the coupon-paid flags, and the Q8 autocall event all agree between NEMO and Sophis before each payment and the final redemption settle.
 
-1. **Explain the three barriers in a Phoenix Autocallable and what each one controls.**
-2. **What is the memory feature, and why does it make the product more attractive to investors?**
-3. **Why are Phoenix products usually linked to worst-of baskets? How does correlation affect pricing?**
-4. **A Phoenix has a coupon barrier of 70% and an autocall barrier of 100%. The worst performer is at 95%. What happens on this observation date?**
-5. **What makes the Phoenix harder to price than a Reverse Convertible?**
-6. **A client holds a Phoenix that has not paid a coupon for 4 quarters. 5 coupons are memorized. On Q6, the worst performer is at 72% (above the 70% coupon barrier). How much does the client receive?**
-7. **Why is a Phoenix a "short correlation" product?**
+#### §13. Knowledge Check
 
+1. **Explain the three barriers in a Phoenix Autocallable and what each one controls.** *(Investor)*
+2. **What is the memory feature, and why does it make the product more attractive to investors?** *(Investor)*
+3. **Why are Phoenix products usually linked to worst-of baskets? How does correlation affect pricing?** *(Investor)*
+4. **A Phoenix has a coupon barrier of 70% and an autocall barrier of 100%. The worst performer is at 95%. What happens on this observation date?** *(Investor)*
+5. **What makes the Phoenix harder to price than a Reverse Convertible?** *(Investor)*
+6. **A client holds a Phoenix that has not paid a coupon for 4 quarters. 5 coupons are memorized. On Q6, the worst performer is at 72% (above the 70% coupon barrier). How much does the client receive?** *(Investor)*
+7. **Why is a Phoenix a "short correlation" product?** *(Investor)*
+8. **(Desk economics / 1LoD)** What package of embedded options does the desk hold long against the investor, and where does the desk's gamma spike? Explain the pin risk near the autocall barrier and why it is the desk's signature exposure.
+9. **(Controls / 2LoD)** On each observation date, which fields must reconcile between NEMO and Sophis for a Phoenix, and why are autocall event capture and the memory-coupon counter the two breaks most specific to this product?
 
 **Mental Models**
 
@@ -3502,10 +3429,10 @@ Observation Date
 | Autocall | The buyout — if things are going well, both sides walk away happy |
 | Conditional coupon | The quarterly bonus — paid only if performance meets the threshold |
 | Memory | Deferred bonus — missed payments are remembered and paid when performance recovers |
-| Worst-of | You are only as strong as your weakest team member |
+| Worst-of | A team is only as strong as its weakest member |
 | Coupon barrier vs capital barrier | The coupon barrier is the "okay" threshold; the capital barrier is the "disaster" threshold |
 | Path dependency | Every quarterly check matters — the journey determines the destination |
-
+| 2LoD reconciliation | The auditor who re-runs every quarterly check — confirming the worst-of, the memory counter, and the autocall flag agree before any payment is made |
 
 **Key Takeaways**
 
@@ -3514,27 +3441,17 @@ Observation Date
 3. Phoenix products are usually worst-of basket linked, making the investor long correlation (MTM convention) — lower correlation between stocks increases risk and coupon. (The investor *structurally sold* the correlation premium, but the economic sensitivity is long: rising correlation reduces worst-of risk.)
 4. The product is path-dependent: the sequence of observations determines the total return.
 5. Autocall is likely in rising markets, returning the investor's capital early for reinvestment.
-6. The Phoenix is the most traded structured product globally because it combines high income, memory, and early exit in one package.
+6. The Phoenix is the most traded structured product globally because it combines high income, memory, and early exit in one package. The desk holds the offsetting long-option package and carries pin risk near the autocall barrier.
+7. For the 2nd line, the dominant control risks are observation-schedule integrity, worst-of determination, memory-coupon accrual, and autocall event capture — each must be reconciled on every observation date, not just at maturity.
 
-
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
 1. **Treating the coupon as guaranteed.** It is conditional. If the worst performer stays below the coupon barrier, no coupon is paid — memory only helps if recovery occurs.
 2. **Ignoring worst-of risk.** In a 3-stock basket, the probability that *at least one* stock breaches a barrier is much higher than the probability for any single stock.
 3. **Assuming autocall is certain.** Autocall requires *all* basket stocks to be above the autocall barrier. If one stock lags, autocall does not trigger even if the others are up 30%.
 4. **Forgetting issuer credit risk.** The memory feature means large accumulated coupon payments could be due. If the issuer defaults before paying, the investor loses those memorized coupons.
 5. **Comparing Phoenix coupons across different baskets.** A Phoenix on three volatile, uncorrelated stocks will pay a much higher coupon than one on three stable, correlated stocks — but the risk is commensurately higher.
-
-### Desk Perspective
-
-| Role | What the Phoenix Means to Them |
-|------|-------------------------------|
-| **Trader** | Complex hedging: multiple barriers, path dependency, correlation exposure. Must manage Delta and Gamma across all basket underlyings simultaneously. Near barriers, hedging costs increase significantly. |
-| **Structurer** | The Phoenix is the workhorse product. Structurers tune the three barrier levels and coupon rate to balance attractiveness against profitability. Basket composition is critical — stock selection drives correlation and therefore pricing. |
-| **Product Control** | Must verify memory tracking, worst-of determination, autocall processing, and coupon calculations on every observation date. Multi-stock products are more error-prone than single-stock products. |
-| **Risk** | Monitors correlation assumptions, concentration risk (many products on similar baskets), and barrier proximity. A market sell-off that pushes multiple Phoenix products toward barriers simultaneously creates concentrated risk. |
-| **Operations** | Most operationally intensive product: quarterly observations, conditional coupons, memory tracking, potential autocall processing. Each observation date requires a multi-step workflow. |
-
+6. **(Controls) Reconciling only at maturity.** The Phoenix must be reconciled on every observation date — autocall capture, the memory counter, and the worst-of determination can each drift between NEMO and Sophis at any quarterly check, long before maturity.
 ### Knowledge Check
 
 **Review Questions:**
@@ -5853,30 +5770,31 @@ An FCN on Unilever is approaching its Q4 observation date. The stock closed at 9
 | ICN | 5.1.11 — issuer callable |
 ### 5.1.10 Callable Range Accrual ELN (CRA ELN)
 
-*This product adds a concept from the interest rates world — range accrual — to the equity-linked note framework. Instead of paying a full coupon every period like the FCN, the CRA ELN accrues coupon day-by-day based on whether the underlying stays within a specified range. The issuer can also call the note early. The result is a product suited to range-bound market views.*
+---
 
+*This product adds a concept from the interest rates world — range accrual — to the equity-linked note framework. Instead of paying a full coupon every period like the FCN, the CRA ELN accrues coupon day-by-day based on whether the underlying stays within a specified range, and the issuer can call the note early. The result is a product suited to range-bound market views. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
 James runs a pension fund's alternatives allocation. His investment committee has approved equity-linked notes for yield enhancement, but his analysts believe the market will trade sideways for the next two years — not crashing, but not rallying either.
 
-Standard FCNs and RCs pay the same coupon regardless of whether the market moves 1% or 20%. James wants a product that rewards him specifically for being right about a range-bound market: the more days the stock stays within a predicted range, the more income he earns.
+Standard FCNs and RCs pay the same coupon regardless of whether the market moves 1% or 20%. James wants a product that rewards him specifically for being right about a range-bound market: the more days the stock stays within a predicted range, the more income the fund earns.
 
 The **Callable Range Accrual ELN** does exactly this. Each day, the product checks whether the stock is within a specified range (e.g., 80%-120% of the initial level). If yes, that day accrues a fraction of the coupon. If no, nothing accrues for that day. At the end of each quarter, the accrued amount is paid. The issuer also has the right to call the note early.
-
 
 #### §2. Real-World Analogy
 
 A CRA ELN is like a solar panel investment.
 
-You install solar panels on your roof. Your energy income depends on sunshine — but not in a simple way. You earn electricity credits only when sunlight is within a productive range. On cloudy days (below range), the panels produce nothing. On extremely hot days (above range), the panels overheat and shut down for safety. Only moderate, productive sunshine days earn income.
+The owner installs solar panels on the roof. The energy income depends on sunshine — but not in a simple way. Electricity credits are earned only when sunlight is within a productive range. On cloudy days (below range), the panels produce nothing. On extremely hot days (above range), the panels overheat and shut down for safety. Only moderate, productive sunshine days earn income.
 
-**Range monitoring:** Each day, the weather station records whether sunshine was within the productive range. At the end of the month, you are paid based on how many productive days occurred out of the total.
+**Range monitoring:** Each day, the weather station records whether sunshine was within the productive range. At the end of the month, the owner is paid based on how many productive days occurred out of the total.
 
-**Utility buyback clause:** The utility company can buy back your panel installation at annual review dates if energy prices drop — returning your original investment but ending your income stream.
+**Utility buyback clause:** The utility company can buy back the panel installation at annual review dates if energy prices drop — returning the original investment but ending the income stream.
 
-**Storm damage clause:** If a severe storm destroys the panels at the end of the contract (stock below capital barrier), you lose part of your original investment.
+**Storm damage clause:** If a severe storm destroys the panels at the end of the contract (stock below capital barrier), the owner loses part of the original investment.
 
+In this analogy the investor is the panel owner — collecting variable income that depends on conditions staying in range — while the bank is the utility that holds the buyback right.
 
 #### §3. What Problem Does This Solve?
 
@@ -5888,7 +5806,6 @@ The CRA ELN solves the **range-bound market yield** problem.
 | Higher potential yield | Maximum coupon rate is higher than FCN because the investor takes on accrual risk |
 | Graduated payoff | Coupon is proportional to days in range — not all-or-nothing |
 | Callable income | Issuer call right funds a higher maximum coupon rate |
-
 
 #### §4. Product DNA
 
@@ -5949,7 +5866,56 @@ The CRA ELN solves the **range-bound market yield** problem.
 | 2 | Equity-linked note | Equity participation or option embedded | Market return exposure with note wrapper |
 | 3 | Callable Range Accrual ELN | Specific structural features added | Product-specific innovation: Range accrual coupon on equity underlying with issuer call right. Days in range determine coupon. Most complex ELN coupon |
 
-#### §7. How the Bank Makes Money
+---
+
+#### §7. THE INVESTOR LENS
+
+**Why the investor buys it**
+
+1. **Express a market view.** The CRA ELN rewards the investor for correctly predicting range-bound conditions.
+2. **Higher maximum coupon.** If the stock stays in range every day, the full coupon (typically 8-12% p.a.) exceeds what an FCN offers.
+3. **Graduated risk.** Unlike a digital coupon that pays all-or-nothing, the range accrual provides proportional income — 90% of days in range earns 90% of the maximum coupon.
+4. **Call premium boost.** The issuer call right adds premium that funds a higher maximum coupon rate.
+
+**Position taken**
+
+The investor holds a long bond (lends principal to the issuer) and simultaneously sells the bank a strip of daily digital options on the underlying and a short Bermudan call (the issuer's right to redeem early); on barrier-protected variants the investor also sells a short knock-in put. Net, the investor is **short volatility** (hurt by markets that swing the stock out of the range), short the range (income falls as the stock spends more days outside the band), and short the call (the issuer redeems early precisely when the accrual is most valuable to keep). With a single underlying there is no correlation exposure.
+
+**Payoff & scenarios**
+
+The investor's coupon is proportional to the number of days the underlying closes within the range during each period: a perfect period earns the maximum coupon, a half-in-range period earns roughly half. The payoff at maturity follows the standard RC pattern — full principal above the capital barrier, principal reduced proportionally below it — but the income stream is the day-by-day accrual, and the issuer may call the note early and end that income.
+
+**Product:** 2-year CRA ELN on a single stock. **Notional:** $300,000. **Maximum coupon:** 10% p.a. (2.5% per quarter = $7,500 if 100% of days in range). **Range:** 80%-120% of initial. **Call dates:** Semi-annually, after a 6-month no-call period. **Capital barrier:** 65% knock-in (European).
+
+- **Scenario 1 — Perfect range, full coupon:** Stock stays between 82%-118% for all 8 quarters. Every trading day accrues. The investor receives 8 × $7,500 = $60,000 coupons + $300,000 principal. **Total: $360,000.** Return: 20% over 2 years.
+- **Scenario 2 — Partial accrual:** Stock spends 70% of trading days in range (brief dips below 80% and spikes above 120%). Quarterly coupon: $7,500 × 70% = $5,250. Over 8 quarters: $42,000 + $300,000. **Total: $342,000.** Return: 14%.
+- **Scenario 3 — Stock drifts out of range, barrier breach:** Stock trends downward, spending only 30% of days in range. At maturity: stock at 55%. Below 65% barrier. Coupons: 8 × $7,500 × 30% = $18,000. Redemption: $300,000 × 55/100 = $165,000. **Total: $183,000.** Loss: $117,000 (39%).
+- **Scenario 4 — Issuer calls after strong accrual:** Stock stays in range perfectly for 6 months. Issuer calls at the first eligible date. The investor receives $300,000 + 2 × $7,500 = $315,000. Return: 5% over 6 months. Must reinvest.
+
+**Risks to the investor**
+
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Accrual risk** | If the stock moves outside the range, coupon income drops to zero for those days. | High |
+| **Capital loss** | Same as RC — barrier breach at maturity causes a proportional loss of principal. | High |
+| **Call risk** | The issuer calls when the range accrual is performing well, ending the investor's income. | Medium |
+| **Range narrowing** | In volatile markets, the stock frequently exits the range, reducing accrual. | Medium |
+| **Directional drift** | A trending market (up or down) is worse for the investor than a range-bound market. | Medium |
+| **Complexity risk** | The investor may not understand the daily accrual mechanism and assume coupons are guaranteed. | Medium |
+
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk's position is the mirror image of the investor's. Where the investor sells the strip of daily digital options, the desk is **long** that digital strip (bought from the investor); where the investor sells the Bermudan call, the desk is **long** the right to call; alongside these the desk has issued a note, which is a funding liability. The maximum coupon the investor can earn is, to the desk, the value of the digital strip plus the call premium plus bond yield, net of funding and margin, returned to the client. Each trading day the desk's books recognise an accrual: if the close is between the lower and upper bound the day accrues, otherwise it does not, and the period coupon the desk owes is the maximum rate scaled by days-in-range over total trading days.
+
+**Greeks & hedging**
+
+The desk hedges a portfolio of daily digital options on the stock plus the embedded call. The dominant risk is **digital gamma near the range boundaries**: when the stock sits close to 80% or 120% of initial, a small move flips whether that day accrues, so the desk's delta jumps and its daily P&L becomes volatile precisely at the edges of the range. This boundary gamma is where the desk's structuring margin is earned or lost, and it is the desk's analogue of the investor's accrual risk. The desk also carries the call optionality — short to the investor's long, i.e. the desk decides whether to redeem — and manages reinvestment economics around each call date.
+
+![CRA ELN Desk Position & Hedge — Bank Lens (Desk Economics)](assets/cra/desk_cra_gamma_07.svg)
+
+**How the bank makes money**
 
 | Revenue Component | Detail |
 |------------------|--------|
@@ -5958,126 +5924,21 @@ The CRA ELN solves the **range-bound market yield** problem.
 | **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
 | **Funding advantage** | Issues note at sub-market effective funding rate |
 
-#### §8. Why This Product Exists (Client Perspective)
+**The coupon decomposition:**
 
-1. **Express a market view.** The CRA ELN rewards the investor for correctly predicting range-bound conditions.
-2. **Higher maximum coupon.** If the stock stays in range every day, the full coupon (typically 8-12% p.a.) exceeds what an FCN offers.
-3. **Graduated risk.** Unlike a digital coupon that pays all-or-nothing, the range accrual provides proportional income — 90% of days in range earns 90% of the maximum coupon.
-4. **Call premium boost.** The issuer call right adds premium that funds a higher maximum coupon rate.
-
-
-#### §9. The Three Scenarios
-
-| Scenario | Market Condition | Outcome for Investor |
-|----------|-----------------|---------------------|
-| **Best case** | Underlying performs strongly | Maximum return captured (subject to any participation cap or barrier) |
-| **Base case** | Underlying is flat or moderately positive | Moderate return or coupon income depending on structure |
-| **Worst case** | Underlying declines significantly | Capital at risk if below protection level; coupon may partially offset |
-
-*Detailed scenario analysis with specific numbers follows in §10.*
-
-#### §10. What Happens When Markets Move
-
-**Product:** 2-year CRA ELN on a single stock
-**Notional:** $300,000
-**Maximum coupon:** 10% p.a. (2.5% per quarter = $7,500 if 100% of days in range)
-**Range:** 80%-120% of initial
-**Call dates:** Semi-annually, after a 6-month no-call period
-**Capital barrier:** 65% knock-in (European)
-
-**Scenario 1 — Perfect range, full coupon:**
-Stock stays between 82%-118% for all 8 quarters. Every trading day accrues. Investor receives 8 × $7,500 = $60,000 coupons + $300,000 principal. **Total: $360,000.** Return: 20% over 2 years.
-
-**Scenario 2 — Partial accrual:**
-Stock spends 70% of trading days in range (brief dips below 80% and spikes above 120%). Quarterly coupon: $7,500 × 70% = $5,250. Over 8 quarters: $42,000 + $300,000. **Total: $342,000.** Return: 14%.
-
-**Scenario 3 — Stock drifts out of range, barrier breach:**
-Stock trends downward, spending only 30% of days in range. At maturity: stock at 55%. Below 65% barrier. Coupons: 8 × $7,500 × 30% = $18,000. Redemption: $300,000 × 55/100 = $165,000. **Total: $183,000.** Loss: $117,000 (39%).
-
-**Scenario 4 — Issuer calls after strong accrual:**
-Stock stays in range perfectly for 6 months. Issuer calls at the first eligible date. Investor receives $300,000 + 2 × $7,500 = $315,000. Return: 5% over 6 months. Must reinvest.
-
-
-#### §11. Formal Definition
-
-A **Callable Range Accrual ELN** is a structured product with:
-
-**Range accrual coupon:** Daily accrual rate = (Annual coupon / Trading days per year). On each trading day, if the underlying closes within the specified range (lower bound to upper bound), one day of coupon accrues. Period coupon = Daily rate × Days in range during the period.
-
-**Issuer call right:** The issuer may redeem the note at par on specified call dates, after a no-call period.
-
-**Capital protection:** At maturity (if not called), if the underlying has breached the knock-in barrier: Redemption = Principal × (Final / Initial). If not breached: 100% of Principal.
-
-
-#### §12. Product Construction
-
-| Component | What It Is | Purpose |
-|-----------|-----------|---------|
-| Bond | Investor lends principal to issuer | Provides funding |
-| Short knock-in put | Investor sells a put with KI barrier | Generates premium for coupon enhancement |
-| Series of daily digital options | Each day: digital pays if stock is in range | Creates the day-by-day accrual mechanism |
-| Short Bermudan call | Investor sells the issuer the right to redeem early | Generates call premium to boost maximum coupon |
-
-**Coupon decomposition:**
 Max Coupon = Bond yield + Put premium + Call premium + Digital option portfolio value − Funds Transfer Pricing (FTP) − Desk margin
 
-The CRA ELN has the most complex decomposition in the ELN family because the coupon depends on a series of daily digital options — one for each trading day — rather than a single put or call.
+The CRA ELN has the most complex decomposition in the ELN family because the coupon depends on a series of daily digital options — one for each trading day — rather than a single put or call. The digital option portfolio value is the engine of the maximum coupon; the call premium boosts it further; FTP and desk margin are deducted to arrive at the rate quoted to the investor.
 
-> **Professor Note:** If you remember only one thing from this chapter, remember this: the CRA ELN coupon is proportional to the number of days the stock stays within the range — it is not all-or-nothing, and it is not guaranteed.
+![CRA ELN Coupon Decomposition — Bank Lens (Desk Economics)](assets/cra/waterfall_cra_09.svg)
 
+**P&L drivers**
 
-#### §13. Lifecycle
+Day to day, desk P&L is driven by realized-versus-implied volatility on the delta hedge, moves in the underlying near the range boundaries (digital gamma — small moves there determine whether each day accrues), the mark-to-market of the embedded call as call dates approach, funding, and the running accrual count. Product Control performs daily P&L attribution between the note accrual and the option MTM, and independent price verification of the embedded derivatives.
 
-| Stage | Detail |
-|-------|--------|
-| **Trade date** | Terms agreed: underlying, strike/barrier, coupon, maturity. Pricing finalised |
-| **Issue date** | Note issued. Investor pays par (or discount). Bank establishes hedge |
-| **Coupon dates** | Periodic observations and coupon payments (if applicable). Barrier monitoring |
-| **Maturity** | Final observation. Settlement: cash (par or adjusted) or physical delivery. T+2 settlement |
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
 
-#### §14. Desk Reality
-
-**Each trading day:**
-- If Lower Bound ≤ Stock ≤ Upper Bound → Day accrues
-- If Stock < Lower Bound or Stock > Upper Bound → No accrual
-
-**Each quarter:** Coupon = Max rate × (Days in range / Total trading days)
-
-**At each call date:** Issuer may redeem at 100% + accrued coupon
-
-**At maturity (if not called):**
-- If Stock ≥ Capital Barrier → 100% + final coupon
-- If Stock < Capital Barrier → (Final / Initial) × 100% + final coupon
-
-```
-Daily Accrual Logic:
-
-            Lower       Upper
-            Bound       Bound
-              |           |
-  No accrual  | ACCRUES   | No accrual
-  ◄──────────►|◄─────────►|◄──────────►
-              |           |
-         80% of      120% of
-         Initial      Initial
-```
-
-The payoff at maturity follows the standard RC pattern. The innovation is in the coupon mechanism: daily observation rather than periodic.
-
-
-#### §15. Risk Analysis
-
-| Risk | Description | Severity |
-|------|------------|:--------:|
-| **Accrual risk** | If stock moves outside the range, coupon income drops to zero for those days | High |
-| **Capital loss** | Same as RC — barrier breach at maturity causes proportional loss | High |
-| **Call risk** | Issuer calls when the range accrual is performing well, ending income | Medium |
-| **Range narrowing** | In volatile markets, the stock frequently exits the range, reducing accrual | Medium |
-| **Directional drift** | A trending market (up or down) is worse than a range-bound market | Medium |
-| **Complexity risk** | Investors may not understand the daily accrual mechanism and assume guaranteed coupons | Medium |
-
-
-#### §16. Booking and Systems
+**Booking & systems**
 
 | Field | Value |
 |-------|-------|
@@ -6089,58 +5950,77 @@ The payoff at maturity follows the standard RC pattern. The innovation is in the
 | **Coupon calculation** | Days in range / Total trading days × Max coupon rate |
 | **Call observation** | Semi-annual (or as specified) |
 
-**Desk Perspective:**
+**Reconciliation points**
 
-| Role | What the CRA ELN Means to Them |
-|------|-------------------------------|
-| **Trader** | Hedges a portfolio of daily digital options on the stock. When the stock is near a range boundary, the Gamma exposure is significant — small moves determine whether each day accrues. This makes the daily P&L volatile near boundaries |
-| **Structurer** | Sets the range width to balance coupon attractiveness with accrual probability. Narrower range = higher max coupon but lower expected accrual. Must educate clients on the range-bound market view required |
-| **Product Control** | Must verify the daily fixing source (exchange close) and track the running accrual counter. At each quarter-end, calculates the exact coupon based on accrual days. Any dispute over a single day's fixing can change the coupon |
-| **Risk** | Monitors the stock's distance from range boundaries. Cluster risk: many CRA ELNs on the same stock with similar ranges creates correlated accrual exposure |
-| **Operations** | Tracks daily accrual status (in-range or out-of-range). Processes quarterly coupon based on accrual count. On issuer call, processes early redemption and stops daily monitoring |
+| Recon point | What must agree | CRA-specific break |
+|-------------|-----------------|--------------------|
+| **Trade economics** | Notional, strike (initial level), range bounds **and convention** (% vs absolute), max coupon rate & frequency, maturity, underlying ID | Range bound stored as % in NEMO (80%) but absolute price in Sophis ($160) — consistent only if the initial level matches |
+| **Daily range-observation count** | The count of trading days observed in the period agrees across NEMO and Sophis | One system observes on a day the other treats as a holiday → observation count diverges |
+| **Accrual factor (days-in-range / total)** | Days-in-range and total-trading-days both agree, so the accrual fraction reconciles | A one-day discrepancy in days-in-range changes the accrued coupon |
+| **Trading-day calendar** | Accrual counts trading days only — weekends and holidays excluded | Non-trading day counted as an accrual day → coupon inflated |
+| **Fixings** | Daily fixing **source** (exchange close) matches the termsheet for every observation | Different vendors report different daily closes near a range boundary → in/out flips |
+| **Call capture** | Issuer-call flag, call date, and early-redemption amount consistent across systems | Call processed on a non-call date, or a call executed but not flagged downstream |
+| **Corporate actions** | Range bounds and barrier adjusted for dividends, splits, mergers | Underlying split not propagated → range bounds off by the split ratio |
+| **P&L attribution** | Note accrual + option (digital strip + call) MTM reconciles to total | Unexplained P&L points to a stale vol surface, a wrong daily fixing, or a mis-counted accrual day |
 
+![CRA Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/cra/controls_cra_recon_08.svg)
 
-#### §17. Red Flags
+**Common breaks & red flags**
 
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| **Accrual count mismatch between NEMO and Sophis** | Daily accrual tracking must agree across systems. A one-day discrepancy changes the coupon | Reconcile daily fixing records and accrual counters |
-| **Non-trading day counted as accrual day** | Weekends and holidays should not count toward accrual. Including them inflates the coupon | Verify the trading day calendar used for accrual |
-| **Range bounds incorrectly set after corporate action** | Stock splits or dividends change the absolute price level. Range bounds must be adjusted | Confirm range bounds are adjusted for corporate actions |
-| **Call processed on non-call date** | The issuer can only call on specified dates. Processing a call between dates is contractually invalid | Verify call date schedule |
-| **Quarterly coupon paid as full amount despite partial accrual** | The coupon must reflect the actual accrual percentage, not the maximum rate | Compare accrual days to total days before paying |
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Accrual count mismatch between NEMO and Sophis | Daily accrual tracking must agree across systems. A one-day discrepancy changes the coupon. | Reconcile daily fixing records and accrual counters |
+| Non-trading day counted as accrual day | Weekends and holidays should not count toward accrual. Including them inflates the coupon. | Verify the trading day calendar used for accrual |
+| Range bounds incorrectly set after corporate action | Stock splits or dividends change the absolute price level. Range bounds must be adjusted. | Confirm range bounds are adjusted for corporate actions |
+| Call processed on non-call date | The issuer can only call on specified dates. Processing a call between dates is contractually invalid. | Verify call date schedule |
+| Quarterly coupon paid as full amount despite partial accrual | The coupon must reflect the actual accrual percentage, not the maximum rate. | Compare accrual days to total days before paying |
 
+**Control implication**
 
-#### §18. Worked Example
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. Because the coupon is built one day at a time, the dominant control is a **daily accrual-count reconciliation**: days-in-range and total-trading-days must agree across NEMO and Sophis every period, and the trading-day calendar must exclude weekends and holidays — a single mis-counted day (a holiday treated as a trading day, or a boundary fixing flipped by a vendor difference) changes the coupon the investor is paid. Equally, **call capture** must be controlled: a call must be flagged on the correct date and the early-redemption amount propagated downstream, because a call processed on a non-call date is contractually invalid and a call executed but not captured leaves the note accruing on the books after it should have stopped. The reconciliation exists precisely to catch these inconsistencies before settlement crystallises them.
 
-**Product:** 2-year CRA ELN on Barclays
-**Notional:** $400,000
-**Maximum coupon:** 10% p.a., paid quarterly (2.5% = $10,000 per quarter at full accrual)
-**Initial stock price:** £200
-**Range:** 80%-120% = £160-£240
-**Call dates:** Semi-annually, after 6-month no-call period
-**Capital barrier:** 65% = £130 (European)
-**Trading days per quarter:** 63
+#### §10. Formal Definition
 
-**Quarter 1:** Barclays trades between £185-£215. In range all 63 days. Coupon: $10,000 × 63/63 = **$10,000.**
+A **Callable Range Accrual ELN** is a structured product with:
 
-**Quarter 2:** Barclays dips to £155 for 8 days (below range), then recovers. In range 55 of 63 days. Coupon: $10,000 × 55/63 = **$8,730.** First call date: issuer does not call (accrual is high — valuable to keep the note).
+**Range accrual coupon:** Daily accrual rate = (Annual coupon / Trading days per year). On each trading day, if the underlying closes within the specified range (lower bound to upper bound), one day of coupon accrues. Period coupon = Daily rate × Days in range during the period.
 
-**Quarter 3:** Market rallies. Barclays at £245 for 12 days (above range). In range 51 of 63 days. Coupon: $10,000 × 51/63 = **$8,095.**
+**Issuer call right:** The issuer may redeem the note at par on specified call dates, after a no-call period.
 
-**If note runs to maturity at £190 (95% of initial):** Above £130 barrier. Total coupons over 8 quarters (assuming ~85% average accrual): 8 × $10,000 × 85% = $68,000. Principal: $400,000. **Total: $468,000.** Return: 17%.
+**Capital protection:** At maturity (if not called), if the underlying has breached the knock-in barrier: Redemption = Principal × (Final / Initial). If not breached: 100% of Principal.
 
-**If note runs to maturity at £120 (60% of initial):** Below £130 barrier. Redemption: $400,000 × 120/200 = $240,000. Plus ~$50,000 coupons (lower accrual due to stock drifting below range). **Total: $290,000.** Loss: $110,000 (27.5%).
+#### §11. Lifecycle
 
+| Stage | Detail |
+|-------|--------|
+| **Trade date** | Terms agreed: underlying, strike/barrier, coupon, maturity. Pricing finalised |
+| **Issue date** | Note issued. Investor pays par (or discount). Bank establishes hedge |
+| **Coupon dates** | Periodic observations and coupon payments (if applicable). Barrier monitoring |
+| **Maturity** | Final observation. Settlement: cash (par or adjusted) or physical delivery. T+2 settlement |
 
-#### §19. Knowledge Check
+#### §12. Worked Example (both lenses)
+
+**Product:** 2-year CRA ELN on Barclays. **Notional:** $400,000. **Maximum coupon:** 10% p.a., paid quarterly (2.5% = $10,000 per quarter at full accrual). **Initial stock price:** £200. **Range:** 80%-120% = £160-£240. **Call dates:** Semi-annually, after 6-month no-call period. **Capital barrier:** 65% = £130 (European). **Trading days per quarter:** 63.
+
+*Investor lens:*
+- **Quarter 1:** Barclays trades between £185-£215. In range all 63 days. Coupon: $10,000 × 63/63 = **$10,000.**
+- **Quarter 2:** Barclays dips to £155 for 8 days (below range), then recovers. In range 55 of 63 days. Coupon: $10,000 × 55/63 = **$8,730.** First call date: issuer does not call (accrual is high — valuable to keep the note).
+- **Quarter 3:** Market rallies. Barclays at £245 for 12 days (above range). In range 51 of 63 days. Coupon: $10,000 × 51/63 = **$8,095.**
+- **If note runs to maturity at £190 (95% of initial):** Above £130 barrier. Total coupons over 8 quarters (assuming ~85% average accrual): 8 × $10,000 × 85% = $68,000. Principal: $400,000. **Total: $468,000.** Return: 17%.
+- **If note runs to maturity at £120 (60% of initial):** Below £130 barrier. Redemption: $400,000 × 120/200 = $240,000. Plus ~$50,000 coupons (lower accrual due to stock drifting below range). **Total: $290,000.** Loss: $110,000 (27.5%).
+
+*Bank lens:*
+The desk holds the offsetting long digital strip and long call. Each quarter Product Control reconciles the running accrual counter between NEMO and Sophis and recomputes the coupon from days-in-range over 63 — the Q3 figure of $8,095 (= $10,000 × 51/63) is the kind of number a single mis-counted day would distort, so the accrual count is verified against the trading-day calendar before the coupon is paid. At each call date the desk's call decision is captured and the call flag reconciled; if the note runs to the barrier-breach maturity the 2nd line confirms the redemption math (notional × final/initial) and that both systems agree before settlement.
+
+#### §13. Knowledge Check
 
 1. **How does a range accrual coupon differ from a fixed coupon and a conditional coupon?**
 2. **Why does a CRA ELN have a higher maximum coupon rate than a comparable FCN?**
 3. **What market view is a CRA ELN investor expressing?**
 4. **Explain how a narrow range (90%-110%) versus a wide range (70%-130%) affects both the maximum coupon and the expected accrual.**
 5. **A CRA ELN has 55 days in range out of 63 trading days in Q1. Calculate the coupon if the maximum quarterly rate is $12,000.**
-
+6. **(Desk economics / 1LoD)** What position does the desk hold against the investor on the daily digital strip and the call, and how does the desk's gamma behave as the underlying approaches a range boundary? Why is that where the structuring margin is made or lost?
+7. **(Controls / 2LoD)** Name three reconciliation breaks specific to a CRA ELN's accrual mechanism, and the consequence of each for the coupon the investor is paid.
 
 **Mental Models**
 
@@ -6149,9 +6029,10 @@ The payoff at maturity follows the standard RC pattern. The innovation is in the
 | Range accrual | Solar panels earning only on productive-sunshine days — too cloudy or too hot means no output |
 | Range boundaries | The productive-sunshine window — a specific band where income is generated |
 | Partial accrual | Partial sunshine month — 70% productive days earns 70% of maximum income |
-| Issuer call | Utility buyback — the company ends your contract when energy economics shift |
+| Issuer call | Utility buyback — the company ends the contract when energy economics shift |
 | CRA ELN vs FCN | Solar panel income (weather-dependent) vs fixed rent (guaranteed). Higher ceiling, lower floor |
-
+| Digital gamma at the boundary | The desk's daily coin-flip — at the edge of the range, one tick decides whether the day accrues |
+| 2LoD accrual reconciliation | The meter reader — confirms the count of productive days matches before anyone is paid |
 
 **Key Takeaways**
 
@@ -6160,26 +6041,17 @@ The payoff at maturity follows the standard RC pattern. The innovation is in the
 3. The core risk is that the stock drifts outside the range, reducing coupon income to zero for those days.
 4. The issuer call right funds a higher maximum coupon but creates reinvestment risk.
 5. CRA ELNs are booked in NEMO and priced in Sophis, with daily accrual tracking required.
+6. The desk holds the offsetting long digital strip and long call; its dominant risk is digital gamma at the range boundaries, which is the mirror of the investor's accrual risk.
+7. For the 2nd line, the dominant control risks are the daily accrual count (days-in-range / total trading days), the trading-day calendar, daily fixings, and call capture — each can misstate the coupon or leave a called note accruing.
 
-
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
 1. **Assuming the coupon is guaranteed.** The maximum coupon is paid only if the stock is in range every single trading day. Any day outside the range reduces the coupon proportionally.
 2. **Confusing range accrual with a coupon barrier.** A coupon barrier is all-or-nothing per period. Range accrual is proportional — 80% of days in range pays 80% of the maximum coupon.
 3. **Ignoring boundary risk.** When the stock is near a range boundary, each day's accrual is uncertain. A stock at 79.9% of initial earns nothing; at 80.1% it earns a full day. This creates significant day-to-day variability.
 4. **Using calendar days instead of trading days.** Accrual counts trading days only. Weekends and holidays do not count. Using calendar days overstates or understates the coupon.
 5. **Expecting range accrual to work in trending markets.** The CRA ELN is designed for range-bound markets. A stock that trends steadily upward or downward will spend many days outside the range, producing low accrual.
-
-### Desk Perspective
-
-| Role | What the CRA ELN Means to Them |
-|------|-------------------------------|
-| **Trader** | Manages a portfolio of daily digital options near range boundaries. Gamma exposure spikes when the stock is near 80% or 120% of initial |
-| **Structurer** | Designs the range width and call schedule. Narrower ranges offer higher coupons but lower expected accrual. Must communicate this trade-off clearly |
-| **Product Control** | Tracks daily accrual and reconciles the running total between NEMO and Sophis. Quarterly coupon calculation is a multi-step process |
-| **Risk** | Monitors proximity to range boundaries. A stock at 79% requires close attention — one day's move determines accrual for that day |
-| **Operations** | Records daily in-range/out-of-range status. Calculates and pays quarterly coupons. Adjusts range boundaries for corporate actions |
-
+6. **(Controls) Trusting a single system's accrual count or paying a coupon before the call flag is reconciled.** Because the coupon is built one day at a time and the note can be called, the 2nd line must reconcile the daily accrual count (days-in-range / total) across NEMO and Sophis and confirm call capture rather than assume the systems agree.
 ### Knowledge Check
 
 **Review Questions:**
@@ -6638,40 +6510,40 @@ You are a Risk analyst reviewing the bank's ICN book. You notice that several IC
 | IR Callable | 5.3.1 — rates version |
 ### 5.1.12 Digital Coupon Note
 
-*This product replaces the RC's guaranteed coupon with an all-or-nothing payment. On each observation date, if the underlying is above a coupon barrier, the full coupon is paid. If below, zero is paid — no partial credit, no memory, no catch-up. The Digital Coupon Note is the Phoenix without memory: what you miss is gone forever.*
+---
 
+*The Reverse Convertible (Section 5.1.2) paid a guaranteed coupon. The Digital Coupon Note replaces that guarantee with an all-or-nothing payment. On each observation date, if the underlying is above a coupon barrier, the full coupon is paid; if below, zero is paid — no partial credit, no memory, no catch-up. The Digital Coupon Note is the Phoenix without memory: a missed coupon is gone forever. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Miguel manages a pension fund's structured product allocation. He has been evaluating Phoenix products but dislikes the memory feature — it makes the valuation complex and hard to explain to the fund's trustees. He wants a simpler structure: either the coupon is paid or it is not. No accumulation, no catch-up, no deferred payments.
+A pension fund manager evaluating structured product allocations has been looking at Phoenix products but dislikes the memory feature — it makes the valuation complex and hard to explain to the fund's trustees. The fund wants a simpler structure: either the coupon is paid or it is not. No accumulation, no catch-up, no deferred payments.
 
-His analysts believe the underlying stock will stay above 75% of its current level for most quarters. They want a product that pays a high coupon in "normal" quarters and accepts zero coupon in "stress" quarters, with the simplicity of a binary outcome.
+The fund's analysts believe the underlying stock will stay above 75% of its current level for most quarters. They want a product that pays a high coupon in "normal" quarters and accepts zero coupon in "stress" quarters, with the simplicity of a binary outcome.
 
-The **Digital Coupon Note** provides this. Each quarter, it checks the stock level against a coupon barrier. Above the barrier: full coupon paid. Below: nothing. It is a pass/fail system with no partial grades.
-
+The **Digital Coupon Note** provides this. Each quarter, it checks the stock level against a coupon barrier. Above the barrier: full coupon paid. Below: nothing. It is a pass/fail system with no partial grades. In effect, the investor accepts a specific, binary risk on each coupon — a generous payment whenever the stock holds above the line, and a complete zero whenever it does not.
 
 #### §2. Real-World Analogy
 
 A Digital Coupon Note is like a university pass/fail exam.
 
-In a standard graded course, you receive a percentage score — 85% means you earned 85% of the available marks. In a pass/fail course, you either pass (full credit) or fail (no credit). Scoring 69% and scoring 12% produce the same outcome: fail.
+In a standard graded course, a score of 85% earns 85% of the available marks. In a pass/fail course, the result is either a pass (full credit) or a fail (no credit). Scoring 69% and scoring 12% produce the same outcome: fail.
 
 The Digital Coupon Note works the same way. The coupon barrier is the passing grade. If the stock is above the barrier on the observation date: full coupon (pass). If below, even by 0.1%: zero coupon (fail). There is no 80% coupon for being "almost" above the barrier.
 
-Unlike the Phoenix (which has memory — like a professor who lets you retake failed exams), the Digital Coupon Note has no second chances. A failed quarter is a zero.
-
+Unlike the Phoenix — which has memory, like a professor who lets a student retake failed exams — the Digital Coupon Note has no second chances. A failed quarter is a zero.
 
 #### §3. What Problem Does This Solve?
 
-The Digital Coupon Note addresses the **simple conditional income** need:
+The Digital Coupon Note addresses the **simple conditional income** need.
 
-| Client Need | How the Digital Coupon Note Delivers |
+When interest rates are low, bonds and guaranteed-coupon notes pay little, and income-focused investors look for higher yield. The Digital Coupon Note offers a higher per-period coupon than a guaranteed FCN, in exchange for the risk that any given coupon may not be paid at all. Its appeal is transparency: a single, binary test per period, with no memory mechanism to track.
+
+| Investor Need | How the Digital Coupon Note Delivers |
 |------------|-------------------------------------|
 | High coupon when conditions are met | Pays full coupon (8-12% p.a.) when stock ≥ barrier |
 | Simple valuation | Binary outcome per period — no memory tracking, no accumulation |
-| Higher per-period coupon than FCN | Conditional payment = higher rate (investor bears coupon risk) |
-| Transparency | Easy to explain: "above the line, you get paid; below, you don't" |
-
+| Higher per-period coupon than FCN | Conditional payment = higher rate (the investor bears coupon risk) |
+| Transparency | Easy to explain: above the line, the investor is paid; below, the investor is not |
 
 #### §4. Product DNA
 
@@ -6730,57 +6602,127 @@ The Digital Coupon Note addresses the **simple conditional income** need:
 |:-----:|---------|---------------|-----|
 | 1 | Plain vanilla bond | — (baseline) | Fixed coupon, full principal return |
 | 2 | Equity-linked note | Equity participation or option embedded | Market return exposure with note wrapper |
-| 3 | Digital Coupon Note | Specific structural features added | Product-specific innovation: Binary coupon structure — pays fixed coupon if underlying above digital strike, zero otherwise. Clean yes/no outcome |
+| 3 | Digital Coupon Note | Binary coupon structure | Pays fixed coupon if underlying above digital strike, zero otherwise. Clean yes/no outcome |
 
-#### §7. How the Bank Makes Money
+---
 
-| Revenue Component | Detail |
-|------------------|--------|
-| **Structuring fee** | Embedded in note price at issuance (typically 1-3%) |
-| **Bid-offer spread** | Spread between option cost and terms offered to investor |
-| **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
-| **Funding advantage** | Issues note at sub-market effective funding rate |
+#### §7. THE INVESTOR LENS
 
-#### §8. Why This Product Exists (Client Perspective)
+**Why the investor buys it**
 
 1. **Higher per-period coupon.** The conditional payment risk funds a higher coupon than a guaranteed FCN — typically 8-12% p.a. versus 5-7% for an FCN.
 2. **Simplicity over Phoenix.** No memory mechanism, no deferred coupon tracking. Each period is independent.
 3. **Clear risk/reward.** The investor knows exactly what they get in each scenario: full coupon or zero. No ambiguity.
 4. **Barrier cushion.** The coupon barrier (typically 70-80%) provides a substantial cushion — the stock must decline significantly before coupons are affected.
 
+**Position taken**
 
-#### §9. The Three Scenarios
+The investor simultaneously holds a long bond (lends principal to the issuer), a **short** knock-in put (sold to the bank, which generates premium), and is **short** a strip of digital call options — one per observation date — written to the bank. Net, the investor is **short volatility** and carries full equity downside below the capital barrier at maturity. With a single underlying there is no correlation exposure; on a worst-of basket the coupon depends on the worst performer and the investor is additionally exposed to dispersion.
 
-| Scenario | Market Condition | Outcome for Investor |
-|----------|-----------------|---------------------|
-| **Best case** | Underlying performs strongly | Maximum return captured (subject to any participation cap or barrier) |
-| **Base case** | Underlying is flat or moderately positive | Moderate return or coupon income depending on structure |
-| **Worst case** | Underlying declines significantly | Capital at risk if below protection level; coupon may partially offset |
+**Payoff & scenarios**
 
-*Detailed scenario analysis with specific numbers follows in §10.*
+The investor's coupon payoff is binary at each observation date and **discontinuous** at the coupon barrier: a stock finishing an observation at 75.1% of initial pays the full coupon, while 74.9% pays zero. There is no memory — a missed coupon is permanently lost. Separately, capital is returned in full at maturity unless the capital barrier is breached, in which case redemption falls proportionally with the stock.
 
-#### §10. What Happens When Markets Move
+![Digital Coupon Note Payoff at Maturity — Investor Lens](assets/digital/payoff_digital_01.svg)
 
-**Product:** 3-year Digital Coupon Note on a single stock
-**Notional:** $250,000
-**Coupon:** 9% p.a. (2.25% per quarter = $5,625), conditional on stock ≥ 75% coupon barrier
-**Capital barrier:** 65% knock-in (European)
-**Autocall:** None
+**Product:** 3-year Digital Coupon Note on a single stock. **Notional:** $250,000. **Coupon:** 9% p.a. (2.25% per quarter = $5,625), conditional on stock ≥ 75% coupon barrier. **Capital barrier:** 65% knock-in (European). **Autocall:** None.
 
-**Scenario 1 — Stock stays above coupon barrier:**
-Stock fluctuates between 80%-115% for 3 years. Coupon barrier (75%) never breached on any observation date. All 12 quarterly coupons paid: 12 × $5,625 = $67,500. Principal: $250,000. **Total: $317,500.** Return: 27%.
+- **Scenario 1 — Stock stays above coupon barrier:** Stock fluctuates between 80%-115% for 3 years. Coupon barrier (75%) never breached on any observation date. All 12 quarterly coupons paid: 12 × $5,625 = $67,500. Principal: $250,000. **Total: $317,500.** Return: 27%.
+- **Scenario 2 — Coupon missed in two quarters:** Stock dips to 72% in Q4 and 74% in Q5. Coupon barrier (75%) breached on those dates. Zero coupon for those 2 quarters. Recovers to 85% for Q6 onward. 10 × $5,625 = $56,250 coupons + $250,000 principal. **Total: $306,250.** Return: 22.5%.
+- **Scenario 3 — Persistent decline, barrier breach:** Stock trends down. Below coupon barrier (75%) for 8 of 12 quarters. At maturity: 55% of initial. Below 65% capital barrier. Coupons received: 4 × $5,625 = $22,500. Redemption: $250,000 × 55/100 = $137,500. **Total: $160,000.** Loss: $90,000 (36%).
+- **Scenario 4 — Single bad quarter then recovery:** Stock crashes to 60% in Q3 (below coupon barrier), then recovers to 95% by Q4. No memory — the Q3 coupon is lost forever. The investor receives 11 × $5,625 = $61,875 coupons. At maturity (95%): above capital barrier. **Total: $311,875.** Return: 24.75%.
 
-**Scenario 2 — Coupon missed in two quarters:**
-Stock dips to 72% in Q4 and 74% in Q5. Coupon barrier (75%) breached on those dates. Zero coupon for those 2 quarters. Recovers to 85% for Q6 onward. 10 × $5,625 = $56,250 coupons + $250,000 principal. **Total: $306,250.** Return: 22.5%.
+**Risks to the investor**
 
-**Scenario 3 — Persistent decline, barrier breach:**
-Stock trends down. Below coupon barrier (75%) for 8 of 12 quarters. At maturity: 55% of initial. Below 65% capital barrier. Coupons received: 4 × $5,625 = $22,500. Redemption: $250,000 × 55/100 = $137,500. **Total: $160,000.** Loss: $90,000 (36%).
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Coupon risk** | If the stock is below the coupon barrier on an observation date, the coupon is zero with no recovery | High |
+| **Capital loss** | A capital-barrier breach at maturity causes proportional capital loss for the investor | High |
+| **No memory** | Unlike the Phoenix, missed coupons are permanently lost — no catch-up mechanism | Medium |
+| **Binary cliff** | Stock at 74.9% earns zero; stock at 75.1% earns the full coupon. Small moves create all-or-nothing outcomes for the investor | Medium |
+| **Correlation (worst-of)** | If linked to a basket, the coupon depends on the worst performer | Medium |
+| **Issuer credit risk** | If the issuing bank defaults, the investor may lose principal | Low |
 
-**Scenario 4 — Single bad quarter then recovery:**
-Stock crashes to 60% in Q3 (below coupon barrier), then recovers to 95% by Q4. No memory — the Q3 coupon is lost forever. Miguel receives 11 × $5,625 = $61,875 coupons. At maturity (95%): above capital barrier. **Total: $311,875.** Return: 24.75%.
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
 
+**What the desk books**
 
-#### §11. Formal Definition
+The desk's position is the mirror image of the investor's. Where the investor is short the strip of digital call options, the desk is **long** that strip of digitals (bought from the investor); where the investor is short the knock-in put, the desk is **long** that put; and the desk has issued a note, which is a funding liability. The investor's enhanced, conditional coupon is, to the desk, the value of the digital options plus the put premium and funding, returned to the client.
+
+**Greeks & hedging**
+
+The desk is long a strip of digital call options, one per observation date, and delta-hedges by trading the underlying. A digital pays an all-or-nothing amount if the underlying is above the digital strike on the observation date, so the payoff is **discontinuous at the digital strike**: the desk's delta is discontinuous there and its gamma spikes — theoretically becoming infinite at the barrier — as spot approaches the digital strike near an observation date. This is the dominant feature of the position. The desk replicates each digital with a tight **call spread** around the strike, which bounds the gamma but leaves residual **pin risk**: with spot sitting on the strike near expiry, a fixing a fraction of a percent either way flips the whole coupon from zero to full. This is where the desk's structuring margin is earned or lost, and risk management monitors proximity to the coupon barrier and may limit concentrated digital exposure.
+
+![Digital Coupon Note Desk Position & Hedge — Bank Lens (Desk Economics)](assets/digital/desk_digital_gamma_07.svg)
+
+**How the bank makes money**
+
+| Revenue Component | Detail |
+|------------------|--------|
+| **Structuring fee** | Embedded in note price at issuance (typically 1-3%) |
+| **Bid-offer spread** | Spread between option cost and terms offered to the investor |
+| **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
+| **Funding advantage** | Issues the note at a sub-market effective funding rate |
+
+**The coupon decomposition (from Section 2.2):**
+
+Digital Coupon = Bond yield + Put premium + Digital option portfolio value − Funds Transfer Pricing (FTP) − Desk margin
+
+Each quarterly coupon is funded by a separate digital call option that pays a fixed amount if the stock is above the coupon barrier at that observation. For a 9% conditional coupon, an indicative split is: bond yield (bank's credit curve) ~2.0%; put premium (value of the KI put sold) ~3.0%; digital option portfolio value (the strip of digital calls) ~5.5%; FTP (internal funding cost) −0.5%; desk margin −1.0%; **net coupon 9.0%**. *(The source decomposition is qualitative; these component splits are inferred for illustration and must be calibrated to the live vol surface — only the 9.0% net coupon is a source figure.)* The digital option portfolio value is the key driver: it is high precisely because the investor is selling a meaningful series of binary options that pay the bank nothing but cost the investor a full coupon whenever the stock fails the test.
+
+![Digital Coupon Decomposition — Bank Lens (Desk Economics)](assets/digital/waterfall_digital_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by realized-versus-implied volatility on the delta hedge, moves in the underlying near the digital strike (digital gamma / pin risk), the width and cost of the call-spread replication, funding, and the mark-to-market of the embedded put. Product Control attributes P&L between fixed-note accrual and option MTM, and performs independent price verification of the option components.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
+
+| Aspect | Detail |
+|--------|--------|
+| **Book of record** | NEMO |
+| **Pricing/Risk system** | Sophis |
+| **Booking structure** | Single note with embedded KI put and a strip of digital call options |
+| **Four-leg framework?** | No |
+| **Product type** | Equity-Linked Note — Digital Coupon |
+| **Key booking fields** | Notional, strike (initial level), digital strike / coupon barrier, capital barrier, barrier type (European/American), coupon rate, coupon frequency, maturity, underlying(s) |
+| **Coupon observation** | Quarterly: compare stock close to the coupon barrier |
+| **Coupon payment** | Full amount if at or above the barrier; zero if below |
+| **Memory** | None |
+| **Capital barrier** | European (maturity only) |
+
+**Reconciliation points**
+
+| Recon point | What must agree | Digital-specific break |
+|-------------|-----------------|------------------------|
+| **Trade economics** | Notional, strike (initial level), coupon rate & frequency, maturity, underlying ID | Coupon rate or frequency mismatch misstates the per-period digital amount |
+| **Digital strike / coupon barrier** | Coupon-barrier level **and convention** (% vs absolute) agree across NEMO and Sophis | Digital strike stored as % in one system, absolute price in another — flips pass/fail near the line |
+| **Capital barrier** | Capital-barrier level and convention agree, kept distinct from the coupon barrier | Coupon barrier (75%) confused with capital barrier (65%) — wrong test applied |
+| **Observation fixing** | Each observation-date close, from the termsheet fixing source/exchange, agrees across systems | Different vendors/exchanges report different closes — a fraction of a percent flips the coupon |
+| **Binary settle / no-settle capture** | The pass/fail result and the resulting coupon-paid/zero flag are captured identically across systems | Coupon paid when stock was below barrier, or zeroed when above |
+| **Memory flag** | Product carries NO memory; no deferred-coupon accumulation | Memory logic applied → phantom deferred coupons appear |
+| **P&L attribution** | Note accrual + option (put + digital strip) MTM reconciles to total | Unexplained P&L points to a stale vol surface or a wrong fixing |
+| **Settlement** | Cash vs physical at maturity; shares = notional / strike if breached; delivery-versus-payment | Physical delivery booked as cash, or the wrong share count |
+
+![DIGITAL Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/digital/controls_digital_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Coupon paid when stock was below barrier | A conditional coupon paid incorrectly is a direct cash loss | Verify the observation-date close against the coupon barrier before payment |
+| Coupon not paid when stock was above barrier | A missed payment when the condition was met creates a client claim | Verify immediately — this is a processing error |
+| Memory logic applied | Digital Coupon Notes have NO memory. Deferred coupons in the system mean the product is misconfigured | Confirm the product type does not include memory |
+| Coupon barrier confused with capital barrier | The coupon barrier (e.g. 75%) drives coupon payment; the capital barrier (e.g. 65%) drives principal redemption — separate levels | Verify both barriers are correctly configured and distinct |
+| Closing price from wrong exchange | If the stock trades on multiple exchanges, the observation must use the contractual exchange | Confirm the fixing source matches the termsheet |
+
+**Control implication**
+
+The digital strike and the observation fixing are the two fields the 2nd line must reconcile most carefully, because the payoff is binary: there is no proportional zone to absorb a small error. A tiny fixing discrepancy — a stock recorded at 74.997% in one system and 75.00% in another — flips a whole $5,625 (or larger) coupon from full to zero, simultaneously creating a cash loss or a client claim and breaking P&L attribution. The reconciliation of the digital strike level, its convention, and the per-observation fixing source exists precisely to catch these inconsistencies before settlement crystallises them, since unlike a continuously varying payoff, there is no rounding that "almost" works.
+
+#### §10. Formal Definition
 
 A **Digital Coupon Note** is a structured product with:
 
@@ -6792,114 +6734,18 @@ A **Digital Coupon Note** is a structured product with:
 
 The Digital Coupon Note is a Phoenix without memory and without autocall. Each observation period is independent — the outcome depends only on the stock level at that observation date.
 
-
-#### §12. Product Construction
-
-| Component | What It Is | Purpose |
-|-----------|-----------|---------|
-| Bond | Investor lends principal to issuer | Provides funding |
-| Short knock-in put | Investor sells a put with KI barrier | Generates premium for coupon enhancement |
-| Series of digital call options | Each observation: pays fixed amount if stock ≥ coupon barrier | Creates the conditional coupon mechanism |
-
-**Coupon decomposition:**
-Digital Coupon = Bond yield + Put premium + Digital option portfolio value − Funds Transfer Pricing (FTP) − Desk margin
-
-Each quarterly coupon is funded by a separate digital call option. The digital call pays a fixed amount if the stock is above the coupon barrier at expiry — exactly the definition from Section 1.3 (Barriers).
-
-> **Professor Note:** If you remember only one thing from this chapter, remember this: the Digital Coupon Note pays a higher coupon than the FCN because each payment carries a risk of not being paid — and unlike the Phoenix, there is no memory to recover missed coupons.
-
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Detail |
 |-------|--------|
 | **Trade date** | Terms agreed: underlying, strike/barrier, coupon, maturity. Pricing finalised |
-| **Issue date** | Note issued. Investor pays par (or discount). Bank establishes hedge |
-| **Coupon dates** | Periodic observations and coupon payments (if applicable). Barrier monitoring |
+| **Issue date** | Note issued. The investor pays par (or discount). The bank establishes the hedge |
+| **Coupon dates** | Periodic observations and conditional coupon payments. Barrier monitoring |
 | **Maturity** | Final observation. Settlement: cash (par or adjusted) or physical delivery. T+2 settlement |
 
-#### §14. Desk Reality
+#### §12. Worked Example (both lenses)
 
-**At each observation date:**
-- If Underlying ≥ Coupon Barrier → Full coupon paid
-- If Underlying < Coupon Barrier → Zero coupon (permanently lost)
-
-**At maturity:**
-- If Underlying ≥ Capital Barrier → 100% redemption
-- If Underlying < Capital Barrier → (Final / Initial) × 100%
-
-```
-Coupon Payment Logic:
-
-                 Coupon
-                 Barrier
-                   |
-  Zero coupon      | Full coupon
-  (fail)           | (pass)
-  ◄───────────────►|◄───────────────►
-                   |
-              75% of Initial
-
-No memory: missed coupons are gone.
-```
-
-
-#### §15. Risk Analysis
-
-| Risk | Description | Severity |
-|------|------------|:--------:|
-| **Coupon risk** | If stock is below the coupon barrier on an observation date, the coupon is zero with no recovery | High |
-| **Capital loss** | Barrier breach at maturity causes proportional capital loss | High |
-| **No memory** | Unlike Phoenix, missed coupons are permanently lost — no catch-up mechanism | Medium |
-| **Binary cliff** | Stock at 74.9% earns zero; stock at 75.1% earns full coupon. Small moves create all-or-nothing outcomes | Medium |
-| **Correlation (worst-of)** | If linked to a basket, coupon depends on the worst performer | Medium |
-| **Issuer credit risk** | If issuing bank defaults, investor may lose principal | Low |
-
-
-#### §16. Booking and Systems
-
-| Field | Value |
-|-------|-------|
-| **Booking system** | NEMO |
-| **Pricing system** | Sophis |
-| **Four-Leg** | No |
-| **Product type** | Equity-Linked Note — Digital Coupon |
-| **Coupon observation** | Quarterly: compare stock close to coupon barrier |
-| **Coupon payment** | Full amount if above barrier; zero if below |
-| **Memory** | None |
-| **Capital barrier** | European (maturity only) |
-
-**Desk Perspective:**
-
-| Role | What the Digital Coupon Note Means to Them |
-|------|------------------------------------------|
-| **Trader** | Hedges a series of digital call options, one per observation date. Near the coupon barrier, the digital options have extreme Gamma — the payout jumps from zero to full at the barrier. This creates significant hedging cost near the barrier |
-| **Structurer** | Sets the coupon barrier to balance attractiveness (high probability of payment) with coupon level (lower barrier = more likely to pay = lower coupon). Must explain the "no memory" feature clearly |
-| **Product Control** | Verifies the stock closing price on each observation date against the coupon barrier. A difference of $0.01 can determine whether a $5,625 coupon is paid or not |
-| **Risk** | Monitors proximity to coupon barrier. Digital options near expiry with spot near the barrier create "pin risk" — extreme sensitivity to small price moves |
-| **Operations** | Processes conditional coupon payments: check barrier, pay if above, record zero if below. No memory tracking required (simpler than Phoenix) |
-
-
-#### §17. Red Flags
-
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| **Coupon paid when stock was below barrier** | A conditional coupon paid incorrectly is a direct cash loss | Verify the observation date close price against the coupon barrier before payment |
-| **Coupon not paid when stock was above barrier** | A missed payment when the condition was met creates a client claim | Verify immediately — this is a processing error |
-| **Memory logic applied** | Digital Coupon Notes have NO memory. If deferred coupons appear in the system, the product is misconfigured | Confirm that the product type does not include memory |
-| **Coupon barrier confused with capital barrier** | The coupon barrier (e.g., 75%) determines coupon payment. The capital barrier (e.g., 65%) determines principal redemption. They are separate levels | Verify both barriers are correctly configured |
-| **Closing price from wrong exchange** | If the stock trades on multiple exchanges, the observation must use the contractual exchange | Confirm the fixing source matches the termsheet |
-
-
-#### §18. Worked Example
-
-**Product:** 3-year Digital Coupon Note on BHP
-**Notional:** $350,000
-**Coupon:** 9% p.a. (2.25% per quarter = $7,875), conditional on stock ≥ 75% coupon barrier
-**Initial stock price:** A$50
-**Coupon barrier:** 75% = A$37.50
-**Capital barrier:** 65% = A$32.50 (European)
-**Maturity:** 3 years (12 quarterly observations)
+**Product:** 3-year Digital Coupon Note on BHP. **Notional:** $350,000. **Coupon:** 9% p.a. (2.25% per quarter = $7,875), conditional on stock ≥ 75% coupon barrier. **Initial stock price:** A$50. **Coupon barrier:** 75% = A$37.50. **Capital barrier:** 65% = A$32.50 (European). **Maturity:** 3 years (12 quarterly observations).
 
 **Quarter-by-quarter:**
 
@@ -6915,60 +6761,53 @@ No memory: missed coupons are gone.
 | Q8 | A$45 | 90% | Yes | $7,875 |
 | Q9-Q12 | A$43-48 | 86-96% | Yes | 4 × $7,875 |
 
-**Total coupons:** 10 × $7,875 = $78,750 (missed Q4 and Q5 — permanently lost)
-**Maturity at A$45 (90%):** Above A$32.50 barrier. Principal: $350,000.
-**Total: $428,750.** Return: $78,750 / $350,000 = 22.5% over 3 years.
+*Investor lens:*
+- **Total coupons:** 10 × $7,875 = $78,750 (missed Q4 and Q5 — permanently lost).
+- **Maturity at A$45 (90%):** Above the A$32.50 barrier. Principal: $350,000. **Total: $428,750.** Return: $78,750 / $350,000 = 22.5% over 3 years.
+- **If maturity at A$30 (60%):** Below the barrier. Redemption: $350,000 × 30/50 = $210,000. Plus $78,750 coupons. **Total: $288,750.** Loss: $61,250 (17.5%).
 
-**If maturity at A$30 (60%):** Below barrier. Redemption: $350,000 × 30/50 = $210,000. Plus $78,750 coupons. **Total: $288,750.** Loss: $61,250 (17.5%).
+*Bank lens:*
+In Q4 and Q5 the desk's long digital calls finish out-of-the-money: the digital test fails, no coupon is funded, and the desk keeps the value of those two digitals net of its hedging cost — but each was a knife-edge near the 75% line where pin risk peaked. On the paid quarters the desk funds $7,875 each from the corresponding digital. At the A$45 maturity the long KI put expires worthless; at the A$30 maturity the put is in the money and the redemption shortfall (notional × final/initial) offsets the desk's obligation. The 2nd line must confirm each observation fixing against the A$37.50 coupon barrier, the redemption math, and that NEMO and Sophis agree before settlement.
 
-
-#### §19. Knowledge Check
+#### §13. Knowledge Check
 
 1. **How does a Digital Coupon Note differ from a Phoenix in terms of coupon mechanics?**
 2. **Why does the Digital Coupon Note pay a higher per-period coupon than an FCN?**
 3. **Explain "pin risk" in the context of a Digital Coupon Note approaching an observation date.**
 4. **An investor missed 3 of 12 quarterly coupons on a Digital Coupon Note. Can any of these be recovered? Why or why not?**
 5. **Compare the risk/reward of a Digital Coupon Note with a 75% coupon barrier versus a Phoenix with a 75% coupon barrier and memory.**
-
+6. **(Desk economics / 1LoD)** The investor is short the strip of digital calls; what is the desk, and how does the desk's delta and gamma behave as spot approaches the digital strike near an observation date? Why is the call-spread replication the place the margin is made or lost?
+7. **(Controls / 2LoD)** Name three reconciliation breaks specific to a Digital Coupon Note and the consequence of each for whether a coupon is paid.
 
 **Mental Models**
 
 | Concept | Mental Model |
 |---------|-------------|
 | Digital coupon | Pass/fail exam — above the line is full credit, below is zero. No partial marks |
-| No memory | No retakes — a failed exam stays failed. You cannot make up the grade later |
+| No memory | No retakes — a failed exam stays failed. The grade cannot be made up later |
 | Coupon barrier | The passing grade — the minimum stock level required for payment |
 | Binary cliff | The difference between 74.9% and 75.1% is the difference between zero and full payment |
 | Digital vs Phoenix | Pass/fail course (Digital) vs course with retakes (Phoenix). Digital is simpler but less forgiving |
-
+| 2LoD reconciliation | The exam invigilator — confirms the recorded score and the pass mark match before any grade is awarded |
 
 **Key Takeaways**
 
 1. A Digital Coupon Note pays an all-or-nothing coupon each period based on whether the underlying is above a coupon barrier.
-2. Investors buy Digital Coupon Notes for higher conditional coupons than FCNs and simpler mechanics than Phoenix.
-3. The core risk is that missed coupons are permanent — there is no memory feature to recover them.
+2. Investors buy Digital Coupon Notes for higher conditional coupons than FCNs and simpler mechanics than the Phoenix.
+3. The core risk for the investor is that missed coupons are permanent — there is no memory feature to recover them.
 4. The binary cliff near the coupon barrier creates extreme sensitivity: small price moves determine full payment or zero.
 5. Digital Coupon Notes are booked in NEMO, priced in Sophis, with no memory logic and no autocall.
+6. The desk is long the strip of digital calls and replicates each with a tight call spread; the residual pin risk near the digital strike is where the desk's margin is made or lost.
+7. For the 2nd line, the dominant control risks are the digital-strike convention and the observation fixing — a fraction-of-a-percent error flips the entire coupon.
 
+#### §14. Common Mistakes
 
-#### §20. Common Mistakes
-
-1. **Assuming Digital Coupon Note has memory.** It does not. Missed coupons are gone. If an investor expects missed coupons to "catch up" later, they are thinking of a Phoenix.
-2. **Underestimating binary cliff risk.** The coupon barrier creates an all-or-nothing outcome. Being 0.1% below the barrier is as costly as being 20% below. This makes the product riskier near the barrier than its headline coupon suggests.
-3. **Confusing coupon barrier with capital barrier.** The coupon barrier (e.g., 75%) determines coupon payment. The capital barrier (e.g., 65%) determines principal redemption. They are different levels with different consequences.
+1. **Assuming the Digital Coupon Note has memory.** It does not. Missed coupons are gone. An investor expecting missed coupons to "catch up" later is thinking of a Phoenix.
+2. **Underestimating binary cliff risk.** The coupon barrier creates an all-or-nothing outcome. Being 0.1% below the barrier is as costly as being 20% below, making the product riskier near the barrier than its headline coupon suggests.
+3. **Confusing coupon barrier with capital barrier.** The coupon barrier (e.g. 75%) determines coupon payment; the capital barrier (e.g. 65%) determines principal redemption. They are different levels with different consequences.
 4. **Comparing the headline coupon to an FCN without adjusting for probability.** A 9% digital coupon that pays 10 of 12 quarters produces $78,750. A 6% FCN that pays 12 of 12 quarters produces $63,000. The effective comparison depends on how many quarters the coupon is likely to be paid.
 5. **Forgetting that each observation is independent.** The stock could be at 90% in Q3 and 72% in Q4. Q3's strong performance does not help Q4. Each observation is a standalone event.
-
-### Desk Perspective
-
-| Role | What the Digital Coupon Note Means to Them |
-|------|------------------------------------------|
-| **Trader** | Hedges a series of digital call options. Pin risk near the barrier creates volatile P&L. May use call spreads to approximate the digital payoff |
-| **Structurer** | Balances coupon level against coupon barrier. A 70% barrier pays more than 80% but has higher miss probability. Must explain the no-memory feature |
-| **Product Control** | Verifies each observation date: binary check against coupon barrier. Any fixing dispute changes the coupon from zero to full or vice versa |
-| **Risk** | Monitors digital option Greeks near barriers. Gamma becomes infinite at the barrier in theory; in practice, manages through spread approximations |
-| **Operations** | Simpler than Phoenix — no memory tracking. Each quarter: check barrier, pay or don't pay |
-
+6. **(Controls) Trusting a single system's fixing or digital-strike value.** Because the payoff is binary and the strike can be stored as a percentage or an absolute price, the 2nd line must reconcile the digital-strike convention and the observation fixing across NEMO and Sophis rather than assume they agree — a tiny mismatch flips the whole coupon.
 ### Knowledge Check
 
 **Review Questions:**
@@ -7052,40 +6891,38 @@ You are in Product Control on an observation date. The Digital Coupon Note has a
 | Phoenix | 5.1.3 — contingent coupon |
 ### 5.1.13 Booster Note
 
-*This product sits at the opposite end of the capital protection spectrum from the PPN. Where the PPN protects capital and limits participation to below 100%, the Booster Note offers leveraged participation above 100% but provides zero capital protection. Every percentage point of decline hits the investor's principal directly. The Booster rewards aggressive bullish views.*
+---
 
+*This product sits at the opposite end of the capital protection spectrum from the PPN. Where the PPN protects capital and limits participation to below 100%, the Booster Note offers leveraged participation above the initial level but provides zero capital protection. Every percentage point of decline hits the investor's principal directly. The Booster rewards aggressive bullish views. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Elena is a high-net-worth investor with a strong conviction that a specific technology stock will rise over the next two years. She could simply buy the stock, but she wants to amplify her returns if she is right.
+Consider a high-net-worth investor with a strong conviction that a specific technology stock will rise over the next two years. The investor could simply buy the stock, but wants to amplify the return if the view proves right.
 
-A standard equity investment gives her 1:1 participation — if the stock rises 20%, she gains 20%. Elena wants 1.5:1 — if the stock rises 20%, she gains 30%. She is willing to accept full downside exposure (no protection) in exchange for this leveraged upside.
+A standard equity investment gives 1:1 participation — if the stock rises 20%, the investor gains 20%. The investor instead wants 1.5:1 — if the stock rises 20%, the gain is 30%. The investor is willing to accept full downside exposure (no protection) in exchange for this leveraged upside.
 
-The **Booster Note** provides this asymmetry. On the upside, returns are multiplied by a participation rate (e.g., 150%). On the downside, losses are 1:1 — the same as owning the stock directly. There is no barrier, no coupon, and no capital protection. It is a pure directional bet with amplified gains.
-
+The **Booster Note** provides this asymmetry. On the upside, returns are multiplied by a participation rate (e.g., 150%), up to a cap. On the downside, losses are 1:1 — the same as owning the stock directly. There is no barrier, no coupon, and no capital protection. It is a pure directional bet with amplified gains.
 
 #### §2. Real-World Analogy
 
 A Booster Note is like a trampoline at the bottom of a hill.
 
-Imagine hiking on a hill that slopes in both directions. Walking downhill (stock decline), gravity affects you normally — each step down is a step down. But at the base of the uphill slope, there is a trampoline. Walking uphill (stock rise), the trampoline amplifies each step — every step gains 1.5× the altitude.
+Picture a hill that slopes in both directions. Walking downhill (stock decline), gravity acts normally — each step down is a step down. But at the base of the uphill slope there is a trampoline. Walking uphill (stock rise), the trampoline amplifies each step — every step gains 1.5× the altitude.
 
-If you reach the trampoline (stock above initial), you bounce higher than you would by walking. If you trip and fall downhill (stock below initial), there is no trampoline to break your fall — you slide at normal speed.
+When the stock is above initial, the trampoline bounces the return higher than a direct holding would. When the stock is below initial, there is no trampoline to break the fall — the downside slides at normal (1:1) speed.
 
 The trampoline is the leveraged participation. The absence of a safety net is the absence of capital protection.
-
 
 #### §3. What Problem Does This Solve?
 
 The Booster Note solves the **leveraged directional exposure** problem.
 
-| Client Need | How the Booster Delivers |
+| Investor Need | How the Booster Delivers |
 |------------|------------------------|
-| Strong bullish conviction | 150% participation on upside amplifies gains |
+| Strong bullish conviction | 150% participation on the upside amplifies gains |
 | No need for protection | Full downside mirrors direct stock ownership |
 | No coupon dilution | Zero-coupon structure — all value goes to participation leverage |
 | Tax or regulatory structure | Note wrapper may be more efficient than leveraged stock positions |
-
 
 #### §4. Product DNA
 
@@ -7129,12 +6966,12 @@ The Booster Note solves the **leveraged directional exposure** problem.
 
 | Role | Responsibility |
 |------|---------------|
-| **Structurer** | Designs Booster Note terms: strike, barrier, coupon, maturity. Optimises structure for client and bank |
+| **Structurer** | Designs Booster Note terms: strike, participation rate, cap, maturity. Optimises structure for client and bank |
 | **Trader** | Hedges embedded options. Manages Greeks (delta, gamma, vega). Prices secondary market |
 | **Sales** | Distributes Booster Note to target clients. Explains payoff scenarios and risk-return profile |
-| **Risk Management** | Monitors option Greeks, barrier proximity, concentration risk. Sets trading limits |
+| **Risk Management** | Monitors option Greeks, leverage proximity at the initial level, concentration risk. Sets trading limits |
 | **Product Control** | Daily P&L attribution between note accrual and option MTM. Independent price verification |
-| **Operations** | Processes coupon payments and maturity settlement. Handles physical delivery if applicable |
+| **Operations** | Processes maturity settlement. Handles physical delivery if applicable |
 | **Legal / Compliance** | Reviews term sheet for regulatory compliance. Ensures suitability for target investor base |
 | **Quantitative Analytics** | Prices embedded derivatives. Calibrates volatility surface. Provides model validation |
 
@@ -7144,58 +6981,125 @@ The Booster Note solves the **leveraged directional exposure** problem.
 |:-----:|---------|---------------|-----|
 | 1 | Plain vanilla bond | — (baseline) | Fixed coupon, full principal return |
 | 2 | Equity-linked note | Equity participation or option embedded | Market return exposure with note wrapper |
-| 3 | Booster Note | Specific structural features added | Product-specific innovation: Leveraged participation note — amplified upside (e.g., 200%) up to a cap, with direct downside exposure below strike |
+| 3 | Booster Note | Leveraged participation added | Amplified upside (e.g., 200%) up to a cap, with direct downside exposure below strike |
 
-#### §7. How the Bank Makes Money
+---
 
-| Revenue Component | Detail |
-|------------------|--------|
-| **Structuring fee** | Embedded in note price at issuance (typically 1-3%) |
-| **Bid-offer spread** | Spread between option cost and terms offered to investor |
-| **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
-| **Funding advantage** | Issues note at sub-market effective funding rate |
+#### §7. THE INVESTOR LENS
 
-#### §8. Why This Product Exists (Client Perspective)
+**Why the investor buys it**
 
-1. **Leveraged gains.** A 20% stock rise becomes a 30% return at 150% participation — 50% more income from the same market move.
+1. **Leveraged gains.** A 20% stock rise becomes a 30% return at 150% participation — 50% more return from the same market move.
 2. **Capped downside at 100%.** Unlike margin lending, the investor cannot lose more than the invested amount. Maximum loss is the full notional.
 3. **Simplicity.** No barrier, no coupon, no autocall, no memory. The payoff depends only on the final stock price relative to the initial level.
 4. **No margin calls.** Unlike leveraged stock positions, the Booster Note requires no margin maintenance during the life of the product.
 
+**Position taken**
 
-#### §9. The Three Scenarios
+The investor holds a long zero-coupon bond (lends principal to the issuer) plus a leveraged long call position — economically a **long call spread** when capped: long more than one at-the-money call (the leverage, e.g. 1.5×) and short an out-of-the-money call at the cap level. Below the initial level the investor carries full 1:1 equity downside via the embedded forward. Net, the investor is **long the underlying with amplified upside delta** and, through the option package, **long volatility** on the leveraged call spread. With a single underlying there is no correlation exposure. The investor also forgoes dividends, which fund the leverage.
 
-| Scenario | Market Condition | Outcome for Investor |
-|----------|-----------------|---------------------|
-| **Best case** | Underlying performs strongly | Maximum return captured (subject to any participation cap or barrier) |
-| **Base case** | Underlying is flat or moderately positive | Moderate return or coupon income depending on structure |
-| **Worst case** | Underlying declines significantly | Capital at risk if below protection level; coupon may partially offset |
+**Payoff & scenarios**
 
-*Detailed scenario analysis with specific numbers follows in §10.*
+The investor's payoff has two zones split at the initial level. Above the initial level: the return is multiplied by the participation rate (1.5×), subject to the cap — once leveraged return reaches the cap, the payoff is flat. Below the initial level: the return is 1:1, identical to owning the stock directly — no leverage and no protection. The slope of the payoff line is therefore steeper above the initial level (1.5×) than below it (1.0×), with a horizontal ceiling at the cap. The discontinuity in *slope* sits at the initial level, where delta steps from 1.0× to >1.0×.
 
-#### §10. What Happens When Markets Move
+**Product:** 2-year Booster Note on a single stock. **Notional:** $400,000. **Participation rate:** 150% above initial. **Cap:** 45% total return (stock rise of 30% = 30% × 1.5 = 45%). **Capital protection:** None (1:1 downside). **Coupon:** None (zero-coupon).
 
-**Product:** 2-year Booster Note on a single stock
-**Notional:** $400,000
-**Participation rate:** 150% above initial
-**Cap:** 45% total return (stock rise of 30% = 30% × 1.5 = 45%)
-**Capital protection:** None (1:1 downside)
-**Coupon:** None (zero-coupon)
+- **Stock rises 20%:** Return = 20% × 150% = 30%. Below the 45% cap. The investor receives $400,000 × 130% = **$520,000.** Gain: $120,000. Versus direct stock: $400,000 × 120% = $480,000. Booster advantage: $40,000.
+- **Stock rises 40%:** Return = 40% × 150% = 60%. Exceeds the 45% cap. Capped at 45%. The investor receives $400,000 × 145% = **$580,000.** Gain: $180,000. Direct stock would yield $560,000 (40% gain). Booster advantage: $20,000. But if uncapped, the investor would have received $640,000.
+- **Stock falls 15%:** Return = −15% × 100% = −15%. No leverage on the downside. The investor receives $400,000 × 85% = **$340,000.** Loss: $60,000. Identical to owning the stock directly.
+- **Stock falls 40%:** Return = −40%. The investor receives $400,000 × 60% = **$240,000.** Loss: $160,000. No protection, no barrier, no cushion. Same as direct ownership.
 
-**Scenario 1 — Stock rises 20%:**
-Return = 20% × 150% = 30%. Below 45% cap. Elena receives $400,000 × 130% = **$520,000.** Gain: $120,000. Versus direct stock: $400,000 × 120% = $480,000. Booster advantage: $40,000.
+**Risks to the investor**
 
-**Scenario 2 — Stock rises 40%:**
-Return = 40% × 150% = 60%. Exceeds 45% cap. Capped at 45%. Elena receives $400,000 × 145% = **$580,000.** Gain: $180,000. Direct stock would yield $560,000 (40% gain). Booster advantage: $20,000. But if uncapped, she would have received $640,000.
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Full capital risk** | No protection. A 50% stock decline = 50% principal loss | High |
+| **Cap limits upside** | In strong markets, the cap prevents the investor from capturing the full leveraged return | Medium |
+| **No income** | Zero-coupon structure means no periodic cash flow during the holding period | Medium |
+| **Opportunity cost** | If the stock is flat, the investor earns zero while deposits or bonds would have earned interest | Medium |
+| **Dividend forfeiture** | The investor does not receive dividends — they are used to fund the leveraged participation | Medium |
+| **Issuer credit risk** | If the issuing bank defaults, the investor is an unsecured creditor | Low |
 
-**Scenario 3 — Stock falls 15%:**
-Return = -15% × 100% = -15%. No leverage on downside. Elena receives $400,000 × 85% = **$340,000.** Loss: $60,000. Identical to owning the stock directly.
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
 
-**Scenario 4 — Stock falls 40%:**
-Return = -40%. Elena receives $400,000 × 60% = **$240,000.** Loss: $160,000. No protection, no barrier, no cushion. Same as direct ownership.
+**What the desk books**
 
+The desk's position is the mirror image of the investor's. Where the investor is long the leveraged call spread (long >1 ATM call, short an OTM call at the cap), the desk is **short** that call spread (it has sold the leveraged upside to the investor); alongside it the desk has issued a zero-coupon note, which is a funding liability, and is **long** the equity forward below the initial level (the mirror of the investor's 1:1 downside). The dividends the investor forgoes accrue to the desk and help fund the extra calls it must buy in the market to flatten its sold call-spread exposure.
 
-#### §11. Formal Definition
+**Greeks & hedging**
+
+The desk is short the leveraged call spread and delta-hedges by trading the underlying. Above the initial level the note's delta is amplified (>1.0× because of the 1.5 participation), so the desk must carry a larger underlying hedge than for an unlevered note; at the cap the short OTM call caps the desk's delta. Below the initial level delta is 1.0×. The delta therefore **steps up at the initial level** — the desk must hedge that discontinuity in delta, and gamma concentrates there and at the cap, where hedging is most error-prone and where structuring margin is earned or lost. The desk is long vega on the leveraged call spread. Risk management monitors the amplified delta exposure, which produces larger MTM swings than a standard RC or FCN.
+
+![Booster Note Desk Position & Hedge — Bank Lens (Desk Economics)](assets/booster/desk_booster_gamma_07.svg)
+
+**How the bank makes money**
+
+| Revenue Component | Detail |
+|------------------|--------|
+| **Structuring fee** | Embedded in note price at issuance (typically 1-3%) |
+| **Bid-offer spread** | Spread between option cost and terms offered to the investor |
+| **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
+| **Funding advantage** | Issues the note at a sub-market effective funding rate |
+
+**The note decomposition (from Section 2.2):**
+
+The investor's notional funds a zero-coupon bond plus the leveraged call package. No put is sold (unlike RC/FCN). The extra calls are funded by (a) the dividend income forwarded to the desk, and (b) the cap, which generates premium from the short OTM call.
+
+For a $400,000 notional, 2-year, 150% participation, 45% cap structure:
+- Zero-coupon bond: $400,000 × discount factor → ~$380,000
+- Option budget: ~$20,000 + dividend income + short call premium
+- Long 1.5 ATM calls − short 1 OTM call at the cap = net leveraged position
+
+![Booster Note Decomposition — Bank Lens (Desk Economics)](assets/booster/waterfall_booster_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by realized-versus-implied volatility on the delta hedge, moves in the underlying near the initial level and near the cap (gamma), funding, dividend realisation versus the level priced in, and the mark-to-market of the embedded leveraged call spread. Product Control attributes P&L between zero-coupon note accrual and option MTM, and performs Independent Price Verification (IPV) of the option component.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
+
+| Aspect | Detail |
+|--------|--------|
+| **Book of record** | NEMO |
+| **Pricing/Risk system** | Sophis |
+| **Booking structure** | Single zero-coupon note with embedded leveraged call spread |
+| **Four-leg framework?** | No |
+| **Key booking fields** | Notional, strike (initial level), participation rate (>100%, e.g. 150%), cap level, observation type (European/maturity-only), maturity, underlying |
+| **Coupon** | None (zero-coupon) |
+| **Observation** | Maturity only (European, single observation) |
+
+**Reconciliation points**
+
+| Recon point | What must agree | Booster-specific break |
+|-------------|-----------------|------------------------|
+| **Trade economics** | Notional, strike (initial level), participation rate, cap level **and convention**, maturity, underlying ID | Participation rate stored as 150% in NEMO but 1.5 (factor) in Sophis, or cap stored as total-return % vs stock-move % |
+| **Participation / boost factor** | Leverage (e.g. 1.5×) applied above the initial level only | 150% participation mistakenly applied to the downside, overstating the loss |
+| **Cap level** | Cap (e.g. 45% total return) and whether it binds on leveraged return | Cap not applied → bank overpays when leveraged return exceeds the cap |
+| **Observation type** | European, maturity-only single observation | An interim observation booked that should not exist for a single-observation note |
+| **Coupon / zero-coupon flag** | Booked as zero-coupon | Bond component accruing coupons → booking error |
+| **Dividends** | Dividends fund the leverage and accrue to the desk | Dividends paid to the investor double-count the economics |
+| **Fixings** | Final fixing date and source match the termsheet | Wrong date or source on the maturity observation changes the entire payout |
+| **Settlement** | Cash vs physical; share count if physical; delivery-versus-payment | Physical delivery booked as cash, or wrong share count |
+
+![BOOSTER Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/booster/controls_booster_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Participation rate applied to downside | Below initial, the participation rate is 100% (1:1). Applying 150% to the downside overstates the loss | Verify the payout formula distinguishes upside (leveraged) from downside (1:1) |
+| Cap not applied | If the leveraged return exceeds the cap but the full amount is paid, the bank overpays | Verify cap application in the redemption calculation |
+| Dividends paid to investor | Dividends fund the leveraged participation. Paying them to the investor double-counts the economics | Confirm dividend handling matches the termsheet |
+| Bond component accruing coupons | Booster Notes are zero-coupon. Any coupon accrual in NEMO is a booking error | Verify the product is booked as zero-coupon |
+| Final fixing from wrong date or source | The maturity observation determines the entire payout. A wrong date or source price changes the outcome | Confirm the fixing date and source against the termsheet |
+
+**Control implication**
+
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. The dominant Booster-specific exposures are the **leverage (participation) factor** and the **cap**: if the 1.5× participation is mistakenly applied below the initial level, the redemption overstates the investor's loss; if the cap is not enforced when leveraged return exceeds it, the bank overpays a deep-in-the-money payout. Because the structure is zero-coupon with a single maturity observation, a wrong final fixing date or source mis-states the entire payout at once, and any coupon accrual or dividend leakage corrupts the funding of the leverage. The reconciliation exists precisely to confirm the participation factor, the cap level and convention, the zero-coupon flag, and the maturity fixing agree across NEMO and Sophis before settlement crystallises them.
+
+#### §10. Formal Definition
 
 A **Booster Note** is a structured product with:
 
@@ -7208,154 +7112,51 @@ A **Booster Note** is a structured product with:
 **Zero-coupon:** No periodic coupon payments. All economic value is directed to the upside participation.
 
 Formal payout:
-- If Final ≥ Initial: MIN(Participation Rate × (Final/Initial − 1), Cap) + 1) × Principal
+- If Final ≥ Initial: (MIN(Participation Rate × (Final/Initial − 1), Cap) + 1) × Principal
 - If Final < Initial: (Final / Initial) × Principal
 
-
-#### §12. Product Construction
-
-| Component | What It Is | Purpose |
-|-----------|-----------|---------|
-| Zero-coupon bond | Bond redeemed at par at maturity | Provides funding and principal return |
-| Long call options (quantity > 1) | Multiple ATM calls on the underlying | Creates leveraged upside participation |
-| Short OTM call (if capped) | Sold call at the cap level | Funds the extra long calls; limits upside |
-
-**Construction math (simplified):**
-The investor's notional funds a zero-coupon bond plus extra call options. No put is sold (unlike RC/FCN). The extra calls are funded by: (a) the dividend income forwarded to the desk, and (b) the cap (if present) which generates premium from the short OTM call.
-
-Example: $400,000 notional, 2 years, 150% participation, 45% cap.
-- Zero-coupon bond: $400,000 × discount factor → ~$380,000
-- Option budget: ~$20,000 + dividend income + short call premium
-- Long 1.5 ATM calls − short 1 OTM call = net leveraged position
-
-> **Professor Note:** If you remember only one thing from this chapter, remember this: the Booster Note gives you more than 1:1 on the way up but offers nothing extra on the way down — it is a bet that amplifies conviction, not a product that cushions mistakes.
-
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Detail |
 |-------|--------|
-| **Trade date** | Terms agreed: underlying, strike/barrier, coupon, maturity. Pricing finalised |
-| **Issue date** | Note issued. Investor pays par (or discount). Bank establishes hedge |
-| **Coupon dates** | Periodic observations and coupon payments (if applicable). Barrier monitoring |
-| **Maturity** | Final observation. Settlement: cash (par or adjusted) or physical delivery. T+2 settlement |
+| **Trade date** | Terms agreed: underlying, strike (initial level), participation rate, cap, maturity. Pricing finalised. Book in NEMO; set initial level, participation rate, cap, zero-coupon flag |
+| **Issue date** | Note issued. The investor pays par (or discount). The bank establishes the hedge (leveraged long calls less short cap call, plus delta hedge) |
+| **Life of note** | No coupons and no interim observations — single maturity observation only. The desk runs its delta hedge as the underlying moves relative to the initial level and the cap |
+| **Maturity** | Final observation. Record the closing price from the termsheet fixing source. Apply the leveraged participation formula above initial or the 1:1 downside formula below initial; enforce the cap. Settlement: cash (par or adjusted) or physical delivery. T+2 settlement |
 
-#### §14. Desk Reality
+#### §12. Worked Example (both lenses)
 
-```
-Investor Return (%)
-|
-|          /  ← 150% participation
-|        /      (leveraged)
-|      / . . . . Cap (45%)
-|    /
-|  /
-| / ← Slope = 1.5x above initial
-|/
-+──────────────────────────────────
-|\ ← Slope = 1.0x below initial
-|  \    (no leverage on downside)
-|    \
-|      \
-|        \
-|          \
-+───────────────────────────────────
-0%        100%
-      Underlying at Maturity (% of Initial)
-```
+**Product:** 2-year Booster Note on ASML. **Notional:** $400,000. **Participation rate:** 150% above initial. **Cap:** 45% total return. **Initial stock price:** €700. **Capital protection:** None. **Coupon:** None.
 
-Above initial: the payoff line has a steeper slope (1.5×). Below initial: the payoff line has a normal slope (1.0×). The cap creates a horizontal ceiling.
+*Investor lens:*
+- **Outcome A — ASML at €840 (+20%):** Above initial. Return = 20% × 150% = 30%. Below 45% cap. Redemption: $400,000 × 130% = **$520,000.** Gain: $120,000. Direct stock gain would be $80,000. Booster excess return: $40,000.
+- **Outcome B — ASML at €910 (+30%):** Above initial. Return = 30% × 150% = 45%. Equals the 45% cap exactly. Redemption: $400,000 × 145% = **$580,000.** Gain: $180,000. Direct stock gain would be $120,000. Booster excess: $60,000.
+- **Outcome C — ASML at €980 (+40%):** Above initial. Return = 40% × 150% = 60%. Exceeds cap. Capped at 45%. Redemption: $400,000 × 145% = **$580,000.** Gain: $180,000. Direct stock gain would be $160,000. Booster excess: only $20,000. The cap limits the advantage.
+- **Outcome D — ASML at €560 (−20%):** Below initial. Return = −20% × 100% = −20%. No leverage on the downside. Redemption: $400,000 × 80% = **$320,000.** Loss: $80,000. Identical to direct stock ownership.
 
+*Bank lens:*
+In Outcomes A and B the desk's short leveraged call spread is in the money to the investor but below the cap, so the desk pays the participation it hedged for; in Outcome C the cap binds, the short OTM cap call offsets the extra long-call value, and the desk's payout is held at the capped 145% — the structuring margin and net hedging P&L are realised, funded in part by the forfeited dividends. In Outcome D the upside calls expire worthless and the desk's long equity forward delivers the 1:1 downside the investor bears. In every case the 2nd line must confirm the participation factor was applied above initial only, the cap was enforced, the note carried no coupon accrual, and NEMO and Sophis agree on the maturity fixing before settlement.
 
-#### §15. Risk Analysis
+#### §13. Knowledge Check
 
-| Risk | Description | Severity |
-|------|------------|:--------:|
-| **Full capital risk** | No protection. A 50% stock decline = 50% principal loss | High |
-| **Cap limits upside** | In strong markets, the cap prevents the investor from capturing the full leveraged return | Medium |
-| **No income** | Zero-coupon structure means no periodic cash flow during the holding period | Medium |
-| **Opportunity cost** | If the stock is flat, the investor earns zero while deposits or bonds would have earned interest | Medium |
-| **Dividend forfeiture** | The investor does not receive dividends — they are used to fund the leveraged participation | Medium |
-| **Issuer credit risk** | If the issuing bank defaults, the investor is an unsecured creditor | Low |
-
-
-#### §16. Booking and Systems
-
-| Field | Value |
-|-------|-------|
-| **Booking system** | NEMO |
-| **Pricing system** | Sophis |
-| **Four-Leg** | No |
-| **Product type** | Equity-Linked Note — Booster / Leveraged Participation |
-| **Coupon** | None (zero-coupon) |
-| **Observation** | Maturity only (European, single observation) |
-| **Participation rate** | > 100% (e.g., 150%) |
-| **Cap** | Optional; if present, limits total return |
-
-**Desk Perspective:**
-
-| Role | What the Booster Note Means to Them |
-|------|-------------------------------------|
-| **Trader** | Holds long call options and possibly short OTM calls. Delta is > 1.0 above initial (leveraged) and 1.0 below. Must hedge the discontinuity in Delta at the initial level |
-| **Structurer** | Sets participation rate and cap to balance attractiveness with pricing feasibility. Higher participation requires either a tighter cap or a longer maturity to fund the extra calls |
-| **Product Control** | Verifies the participation rate and cap at maturity. Simple calculation but large notionals mean dollar errors are significant |
-| **Risk** | Monitors the leveraged Delta exposure. Above initial, the note's sensitivity to stock moves is amplified. This creates larger P&L swings than a standard RC or FCN |
-| **Operations** | Simplest operational processing — no coupon payments during the life. Single maturity calculation: determine final stock level, apply participation or downside formula, settle |
-
-
-#### §17. Red Flags
-
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| **Participation rate applied to downside** | Below initial, the participation rate is 100% (1:1). Applying 150% to the downside overstates the loss | Verify that the payout formula distinguishes upside from downside |
-| **Cap not applied** | If the leveraged return exceeds the cap but the full amount is paid, the bank overpays | Verify cap application in the redemption calculation |
-| **Dividends paid to investor** | Dividends fund the leveraged participation. Paying them to the investor double-counts the economics | Confirm that dividend handling matches the termsheet |
-| **Bond component accruing coupons** | Booster Notes are zero-coupon. Any coupon accrual in NEMO is a booking error | Verify the product is booked as zero-coupon |
-| **Final fixing from wrong date or source** | The maturity observation determines the entire payout. A wrong date or source price changes the outcome | Confirm the fixing date and source against the termsheet |
-
-
-#### §18. Worked Example
-
-**Product:** 2-year Booster Note on ASML
-**Notional:** $400,000
-**Participation rate:** 150% above initial
-**Cap:** 45% total return
-**Initial stock price:** €700
-**Capital protection:** None
-**Coupon:** None
-
-**Outcome A — ASML at €840 (+20%):**
-Above initial. Return = 20% × 150% = 30%. Below 45% cap. Redemption: $400,000 × 130% = **$520,000.** Gain: $120,000. Direct stock gain would be $80,000. Booster excess return: $40,000.
-
-**Outcome B — ASML at €910 (+30%):**
-Above initial. Return = 30% × 150% = 45%. Equals 45% cap exactly. Redemption: $400,000 × 145% = **$580,000.** Gain: $180,000. Direct stock gain would be $120,000. Booster excess: $60,000.
-
-**Outcome C — ASML at €980 (+40%):**
-Above initial. Return = 40% × 150% = 60%. Exceeds cap. Capped at 45%. Redemption: $400,000 × 145% = **$580,000.** Gain: $180,000. Direct stock gain would be $160,000. Booster excess: only $20,000. Cap limits the advantage.
-
-**Outcome D — ASML at €560 (-20%):**
-Below initial. Return = -20% × 100% = -20%. No leverage on downside. Redemption: $400,000 × 80% = **$320,000.** Loss: $80,000. Identical to direct stock ownership.
-
-
-#### §19. Knowledge Check
-
-1. **Why does a Booster Note offer zero capital protection?**
-2. **How does the cap affect the Booster Note's risk/reward profile?**
-3. **What funds the leveraged participation in a Booster Note?**
-4. **Compare the Booster Note to the PPN: how are they on opposite ends of the capital protection spectrum?**
-5. **An investor holds a Booster Note with 150% participation and a 45% cap. The stock rises 50%. What is the investor's return? What would it be without the cap?**
-
+1. **Why does a Booster Note offer zero capital protection?** *(Investor)*
+2. **How does the cap affect the Booster Note's risk/reward profile?** *(Investor)*
+3. **What funds the leveraged participation in a Booster Note?** *(Investor)*
+4. **Compare the Booster Note to the PPN: how are they on opposite ends of the capital protection spectrum?** *(Investor)*
+5. **An investor holds a Booster Note with 150% participation and a 45% cap. The stock rises 50%. What is the investor's return? What would it be without the cap?** *(Investor)*
+6. **(Desk economics / 1LoD)** The investor is long the leveraged call spread; what does the desk hold against the investor, and how does the desk's delta behave as the underlying crosses the initial level and approaches the cap? Why is that step in delta where the hedging margin is made or lost?
+7. **(Controls / 2LoD)** Name three reconciliation breaks specific to a Booster Note — including the participation factor and the cap — and the consequence of each for the investor's redemption.
 
 **Mental Models**
 
 | Concept | Mental Model |
 |---------|-------------|
-| Booster Note | A trampoline on a hillside — bounces you higher on the way up, but no safety net on the way down |
+| Booster Note | A trampoline on a hillside — bounces the return higher on the way up, but no safety net on the way down |
 | Leveraged participation | The trampoline's spring — amplifies upward movement by 1.5× |
-| Cap | A ceiling above the trampoline — limits how high you can bounce |
-| No capital protection | No safety net — if you fall, gravity is the same as for everyone else |
-| Booster vs PPN | Trampoline without net (Booster) vs safety net without trampoline (PPN). You cannot have both |
-
+| Cap | A ceiling above the trampoline — limits how high the return can bounce |
+| No capital protection | No safety net — on the downside the loss is 1:1, the same as direct equity |
+| Booster vs PPN | Trampoline without net (Booster) vs safety net without trampoline (PPN). One cannot have both |
+| 2LoD reconciliation | The building inspector — confirms the participation factor, cap, and zero-coupon flag agree across systems before anyone settles |
 
 **Key Takeaways**
 
@@ -7364,26 +7165,17 @@ Below initial. Return = -20% × 100% = -20%. No leverage on downside. Redemption
 3. The core risk is full capital loss — a 50% stock decline causes a 50% loss with no cushion.
 4. The cap limits upside in strongly rising markets, creating an asymmetry that favors moderate gains.
 5. Booster Notes are zero-coupon, booked in NEMO, priced in Sophis, with single maturity observation.
+6. The desk holds the offsetting short leveraged call spread and a long equity forward; its delta steps up at the initial level, which is where the hedge and margin are concentrated.
+7. For the 2nd line, the dominant control risks are the participation (boost) factor, the cap level and convention, the zero-coupon flag, and the maturity fixing — each can misstate the redemption.
 
-
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
 1. **Assuming leverage works on the downside.** It does not. Below the initial level, the investor participates 1:1, not 1.5:1. The leverage is upside-only.
 2. **Ignoring the cap.** In strongly rising markets, the cap limits returns. An investor who buys a Booster Note on a stock that rises 50% but has a 45% cap earns 45%, not 75%.
 3. **Forgetting dividend forfeiture.** The investor does not receive dividends. For high-dividend stocks, this can significantly reduce the net benefit of the leveraged participation.
 4. **Treating the Booster as a protected product.** It is not. There is no barrier, no coupon cushion, no floor. The investor's first dollar of loss matches the stock's first percent of decline.
 5. **Comparing only upside to direct stock ownership.** The Booster outperforms direct ownership on the upside (up to the cap) but underperforms on the downside because the investor has forfeited dividends without any protection in return.
-
-### Desk Perspective
-
-| Role | What the Booster Note Means to Them |
-|------|-------------------------------------|
-| **Trader** | Manages long call options. Delta > 1.0 above initial level. Hedging is simpler than barrier products — no discontinuity at a barrier level, just the cap |
-| **Structurer** | Balances participation rate, cap, and maturity. Higher participation or wider cap requires longer maturity or lower-dividend underlyings |
-| **Product Control** | Verifies maturity calculation: participation formula above initial, linear below. Confirms cap application |
-| **Risk** | Monitors amplified Delta exposure above initial. The leveraged position creates larger MTM swings than a standard note |
-| **Operations** | Simplest processing in the ELN family — no coupons, no observations during life, single maturity settlement |
-
+6. **(Controls) Trusting a single system's participation or cap value.** Because the participation rate can be stored as a percentage (150%) or a factor (1.5), and the cap as total-return % or stock-move %, the 2nd line must reconcile both conventions across NEMO and Sophis rather than assume they agree.
 ### Knowledge Check
 
 **Review Questions:**
@@ -7469,10 +7261,11 @@ A Booster Note on ASML is approaching maturity. ASML closed at €699 yesterday 
 | Warrant | 5.1.15 — pure leverage |
 ### 5.1.14 Digital Coupon Knock-In Put
 
-*This product combines every major ELN feature the reader has encountered: digital coupon (from 5.1.12), knock-in put (from 5.1.2), and autocall (from 5.1.3). It is the ELN family's capstone — the most complex product in Part 5.1. If you understand the Digital KI Put, you understand the full ELN toolkit.*
+---
+
+*This product combines every major ELN feature the reader has encountered: digital coupon (from 5.1.12), knock-in put (from 5.1.2), and autocall (from 5.1.3). It is the ELN family's capstone — the most complex product in Part 5.1. If you understand the Digital KI Put, you understand the full ELN toolkit. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 **How This Differs From the Digital Coupon Note (5.1.12):** The Digital Coupon Note pays an all-or-nothing coupon per period and runs to maturity with no early termination. The Digital KI Put adds autocall: on each eligible observation date, the issuer first checks whether the stock has risen above the autocall barrier. If it has, the note terminates early with full principal plus any coupon due that period. If not, the digital coupon test applies — stock above the coupon barrier pays full coupon; below pays zero. This three-barrier structure (autocall, coupon, capital) makes the Digital KI Put the most feature-rich product in the ELN family.
-
 
 #### §1. Explain Like I'm New
 
@@ -7487,17 +7280,15 @@ Why does combining features produce a higher coupon? Each feature the investor a
 
 Each of these risks generates option premium for the desk. All three premiums are stacked into the coupon, producing the highest conditional yield in the ELN family — typically 10-15% p.a.
 
-
 #### §2. Real-World Analogy
 
-A Digital KI Put is like a talent competition show.
+A Digital KI Put is like a multi-round competition with strict scoring.
 
-Each round of the competition (each quarter), a contestant either passes or fails the challenge (digital coupon). A brilliant performance in Round 1 does not help if you fail Round 2 — each round is judged independently (no memory). If the judges are sufficiently impressed early on, they can declare a winner and end the competition (autocall). But if the contestant's overall score at the finale drops below a safety threshold, they owe a financial penalty (knock-in barrier breach at maturity).
+Each round of the competition (each quarter), the contestant either passes or fails the round's challenge (digital coupon). A strong performance in Round 1 does not carry forward if Round 2 is failed — each round is judged independently (no memory). If the scores are high enough early on, the judges can declare a result and end the competition (autocall). But if the overall standing at the finale falls below a defined threshold, a financial penalty is owed (knock-in barrier breach at maturity).
 
-The prize money per round is high precisely because the rules are demanding: pass/fail judging, no second chances, and a penalty for poor performance. A simpler competition (like an FCN, which pays the prize regardless of performance) offers lower prize money because the contestant bears less risk.
+The reward per round is high precisely because the rules are demanding: pass/fail judging, no second chances, and a penalty for a poor finale. A simpler arrangement (such as an FCN, which pays out regardless of round-by-round performance) offers a smaller reward because less risk is borne.
 
-The Digital KI Put is the competition with the toughest rules — and the biggest prizes.
-
+The Digital KI Put is the version with the strictest rules — and the largest rewards.
 
 #### §3. What Problem Does This Solve?
 
@@ -7507,9 +7298,8 @@ The Digital KI Put addresses the **maximum conditional yield** need:
 |------------|--------------------------------|
 | Highest possible coupon in ELN family | Stacks three risk premiums: digital, autocall, KI put |
 | Autocall for early exit in bull markets | Terminates with full principal if stock rises above autocall level |
-| Sophisticated view expression | Rewards clients who believe stock will stay in a range — not too low (coupon/capital barriers) but possibly rising (autocall) |
+| Sophisticated view expression | Rewards investors who believe the stock will stay in a range — not too low (coupon/capital barriers) but possibly rising (autocall) |
 | Capital efficiency | High coupon per unit of notional deployed |
-
 
 #### §4. Product DNA
 
@@ -7544,7 +7334,7 @@ The Digital KI Put addresses the **maximum conditional yield** need:
 - Credit Exposure: Issuer
 - Liquidity: Secondary market
 - Path Dependency: Yes (digital observation + barrier monitoring)
-- Volatility Sensitivity: Short vega (sold digital + put)
+- Volatility Sensitivity: Short vega (investor sold digital + put)
 - Correlation Sensitivity: None
 - Client Type: Private banking
 - Market Environment: Best in mildly bullish with low expected vol
@@ -7570,7 +7360,58 @@ The Digital KI Put addresses the **maximum conditional yield** need:
 | 2 | Equity-linked note | Equity participation or option embedded | Market return exposure with note wrapper |
 | 3 | Digital Coupon Knock-In Put | Specific structural features added | Product-specific innovation: Combines digital coupon with knock-in put barrier. Coupon if above digital strike; principal at risk if barrier breached |
 
-#### §7. How the Bank Makes Money
+---
+
+#### §7. THE INVESTOR LENS
+
+**Why the investor buys it**
+
+1. **Maximum coupon.** The triple risk premium produces the highest coupon in the ELN family — typically 10-15% p.a. versus 8-12% for Digital Coupon Notes and 5-7% for FCNs.
+2. **Autocall provides upside exit.** If the stock rallies above the autocall barrier, the note terminates early with full principal — the investor can reinvest at prevailing rates.
+3. **Familiar building blocks.** Sophisticated investors who have held RCs, Phoenix notes, and Digital Coupon Notes already understand each component individually. The Digital KI Put combines them.
+4. **View expression.** Ideal for investors who believe a stock will remain range-bound to mildly bullish — the investor earns a high coupon while the stock stays in the range.
+
+**Position taken**
+
+The investor simultaneously holds a long bond (lends principal to the issuer), a **short** down-and-in put (sold to the bank, putting capital at risk below the knock-in barrier), and is **long** a series of digital coupon options (each pays a fixed amount if the stock is at or above the digital coupon strike on an observation date). The investor has also sold the issuer a callable right (short the autocall). Net, across the digital and the put, the investor is **short volatility** (hurt by volatile markets) and carries full equity downside below the capital barrier once knocked in. With a single underlying there is no correlation exposure.
+
+**Payoff & scenarios**
+
+The investor's payoff is governed by three barriers operating simultaneously: the autocall barrier (above, e.g. 100%), the digital coupon barrier / strike (middle, e.g. 70%), and the capital barrier (below, e.g. 60%). On each observation date the autocall is checked first; if not triggered, the digital coupon test applies. At maturity, if the capital barrier has not been breached the investor receives 100% of principal; if breached, the investor receives (Final / Initial) × principal. The payoff is **discontinuous** at each barrier — a small move across the digital strike flips a full coupon to zero, and a small move across the capital barrier flips full principal to a proportional loss.
+
+![Digital Coupon KI Put Payoff at Maturity — Investor Lens](assets/digitalki/payoff_digitalki_01.svg)
+
+**Product:** 2-year Digital KI Put on a single stock, $400,000 notional, 12% p.a. coupon (3% per quarter = $12,000) conditional on stock ≥ 70% coupon barrier, autocall barrier 100% of initial (checked quarterly after Year 1), capital barrier 60% knock-in (European), maturity 2 years (8 quarterly observations; autocall eligible from Q5).
+
+- **Scenario 1 — Stock rises, autocall in Q5:** Stock trades between 85%-105% for 4 quarters, all above the 70% coupon barrier. All 4 digital coupons paid: 4 × $12,000 = $48,000. In Q5, stock closes at 102%. Autocall triggered. The investor receives $400,000 principal + $48,000 prior coupons + Q5 coupon ($12,000). **Total: $460,000.** Annualized return: ~12% over 15 months.
+- **Scenario 2 — Stock stays in range, no autocall:** Stock fluctuates between 75%-98% for all 8 quarters. Always above the 70% coupon barrier, always below the 100% autocall barrier. All 8 coupons paid: 8 × $12,000 = $96,000. At maturity, stock at 90% — above the 60% capital barrier. Principal: $400,000. **Total: $496,000.** Return: 24% over 2 years.
+- **Scenario 3 — Mixed coupons, no capital loss:** Stock dips below the 70% coupon barrier in Q3 and Q6. Zero coupon for those quarters. 6 × $12,000 = $72,000 coupons. At maturity, stock at 75% — above the 60% capital barrier. Principal: $400,000. **Total: $472,000.** Return: 18%.
+- **Scenario 4 — Persistent decline, capital loss:** Stock trends down. Below the coupon barrier (70%) for 5 of 8 quarters. At maturity: 50% of initial, below the 60% capital barrier. Coupons received: 3 × $12,000 = $36,000. Redemption: $400,000 × 50/100 = $200,000. **Total: $236,000.** Loss: $164,000 (41%).
+
+**Risks to the investor**
+
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Complexity risk** | Three interacting barriers create outcomes that are difficult for the investor to predict and explain | High |
+| **Capital loss** | KI barrier breach at maturity causes proportional capital loss for the investor, magnified by missed coupons | High |
+| **Coupon risk** | The digital coupon is all-or-nothing per period with no memory — missed coupons are permanently lost to the investor | High |
+| **Autocall reinvestment risk** | Early termination forces the investor to reinvest at potentially lower rates | Medium |
+| **Model risk** | Pricing requires modelling three correlated barrier events — model assumptions significantly affect valuation | Medium |
+| **Binary cliff** | Small price moves near any barrier create discontinuous outcomes for the investor (coupon/no coupon, autocall/continue, protect/loss) | Medium |
+
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk's position is the mirror image of the investor's. Where the investor is short the down-and-in put, the desk is **long** that put (bought from the investor); where the investor is long the digital coupon options, the desk is **short** the digital portfolio (it pays the binary coupon when the stock is above the digital strike); and where the investor is short the callable right, the desk is **long** the autocall (the right to terminate early). Alongside these the desk has issued a note, which is a funding liability. The investor's enhanced coupon is, to the desk, the cost of the put premium, the digital option portfolio, the autocall premium and funding, returned to the client.
+
+**Greeks & hedging**
+
+The desk delta-hedges the combined position by trading the underlying. Two regions dominate the gamma profile. Near the **digital strike** (the coupon barrier, e.g. 70%), the binary nature of the coupon means a small move in the underlying flips a full coupon payment to zero — the digital's gamma spikes sharply and changes sign across the strike, creating a "pin risk" the desk must manage on each observation date. Near the **capital (KI) barrier** (e.g. 60%), the embedded down-and-in put's gamma spikes as the underlying approaches the knock-in, because crossing it switches the investor's principal from protected to proportionally exposed. Near the autocall barrier (e.g. 100%), the callable Greeks dominate as early termination becomes likely. This is where the desk's structuring margin is earned or lost — managing discontinuous Greeks at three separate levels is the most demanding hedge book in the ELN family.
+
+![Digital KI Put Desk Position & Hedge — Bank Lens (Desk Economics)](assets/digitalki/desk_digitalki_gamma_07.svg)
+
+**How the bank makes money**
 
 | Revenue Component | Detail |
 |------------------|--------|
@@ -7579,51 +7420,75 @@ The Digital KI Put addresses the **maximum conditional yield** need:
 | **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
 | **Funding advantage** | Issues note at sub-market effective funding rate |
 
-#### §8. Why This Product Exists (Client Perspective)
+**The coupon decomposition (from Section 2.2):**
 
-1. **Maximum coupon.** The triple risk premium produces the highest coupon in the ELN family — typically 10-15% p.a. versus 8-12% for Digital Coupon Notes and 5-7% for FCNs.
-2. **Autocall provides upside exit.** If the stock rallies, the note terminates early with full principal — the investor can reinvest at prevailing rates.
-3. **Familiar building blocks.** Sophisticated investors who have held RCs, Phoenix notes, and Digital Coupon Notes already understand each component individually. The Digital KI Put combines them.
-4. **View expression.** Ideal for investors who believe a stock will remain range-bound to mildly bullish — they earn a high coupon while the stock stays in the range.
+Digital KI Put Coupon = Bond yield + Put premium + Digital option portfolio + Autocall premium − Funds Transfer Pricing (FTP) − Desk margin
 
+This is the richest coupon decomposition in the ELN family. Three separate option premiums contribute:
+1. **Put premium** — compensation for capital risk below the KI barrier
+2. **Digital option portfolio** — compensation for binary coupon risk each period (paid above the digital strike)
+3. **Autocall premium** — compensation for the issuer's right to terminate early
 
-#### §9. The Three Scenarios
+For an illustrative 12% coupon, the components combine roughly as follows (indicative split, consistent with the §10 decomposition — exact contributions depend on calibration): bond yield ~2.0%; put premium ~6.0%; digital option portfolio ~4.0%; autocall premium ~1.5%; FTP −0.5%; desk margin −1.0%; **net coupon ~12.0%**. The point is structural rather than precise: every feature the investor accepts stacks another premium into the coupon.
 
-| Scenario | Market Condition | Outcome for Investor |
-|----------|-----------------|---------------------|
-| **Best case** | Underlying performs strongly | Maximum return captured (subject to any participation cap or barrier) |
-| **Base case** | Underlying is flat or moderately positive | Moderate return or coupon income depending on structure |
-| **Worst case** | Underlying declines significantly | Capital at risk if below protection level; coupon may partially offset |
+![Digital KI Coupon Decomposition — Bank Lens (Desk Economics)](assets/digitalki/waterfall_digitalki_09.svg)
 
-*Detailed scenario analysis with specific numbers follows in §10.*
+**P&L drivers**
 
-#### §10. What Happens When Markets Move
+Day to day, desk P&L is driven by realized-versus-implied volatility on the delta hedge, moves in the underlying near the digital strike and the KI barrier (gamma at two levels), the probability of autocall, funding, and the mark-to-market of the embedded put and digital portfolio. Product Control attributes P&L between note accrual and option MTM, and performs Independent Price Verification of the option components.
 
-**Product:** 2-year Digital KI Put on a single stock
-**Notional:** $400,000
-**Coupon:** 12% p.a. (3% per quarter = $12,000), conditional on stock ≥ 70% coupon barrier
-**Autocall barrier:** 100% of initial (checked quarterly after Year 1)
-**Capital barrier:** 60% knock-in (European)
-**Maturity:** 2 years (8 quarterly observations; autocall eligible from Q5)
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
 
-**Scenario 1 — Stock rises, autocall in Q5:**
-Stock trades between 85%-105% for 4 quarters, all above 70% coupon barrier. All 4 digital coupons paid: 4 × $12,000 = $48,000. In Q5, stock closes at 102%. Autocall triggered. Investor receives $400,000 principal + $48,000 prior coupons + Q5 coupon ($12,000). **Total: $460,000.** Annualized return: ~12% over 15 months.
+**Booking & systems**
 
-**Scenario 2 — Stock stays in range, no autocall:**
-Stock fluctuates between 75%-98% for all 8 quarters. Always above 70% coupon barrier, always below 100% autocall barrier. All 8 coupons paid: 8 × $12,000 = $96,000. At maturity, stock at 90% — above 60% capital barrier. Principal: $400,000. **Total: $496,000.** Return: 24% over 2 years.
+| Aspect | Detail |
+|--------|--------|
+| **Book of record** | NEMO |
+| **Pricing/Risk system** | Sophis |
+| **Booking structure** | Single note — Digital Coupon Autocallable with Knock-In Put |
+| **Four-leg framework?** | No |
+| **Key booking fields** | Notional, initial level, three barriers (autocall, coupon/digital strike, capital), coupon rate & frequency, no-call period, maturity, underlying |
+| **Observation sequence** | Each date: (1) check autocall eligibility and barrier, (2) if not autocalled, check digital coupon barrier |
+| **Coupon payment** | Full amount if above coupon barrier; zero if below |
+| **Memory** | None |
+| **Capital barrier monitoring** | European — single check at maturity |
+| **Autocall** | Quarterly after no-call period |
 
-**Scenario 3 — Mixed coupons, no capital loss:**
-Stock dips below 70% coupon barrier in Q3 and Q6. Zero coupon for those quarters. 6 × $12,000 = $72,000 coupons. At maturity, stock at 75% — above 60% capital barrier. Principal: $400,000. **Total: $472,000.** Return: 18%.
+**Reconciliation points**
 
-**Scenario 4 — Persistent decline, capital loss:**
-Stock trends down. Below coupon barrier (70%) for 5 of 8 quarters. At maturity: 50% of initial, below 60% capital barrier. Coupons received: 3 × $12,000 = $36,000. Redemption: $400,000 × 50/100 = $200,000. **Total: $236,000.** Loss: $164,000 (41%).
+| Recon point | What must agree | DKIP-specific break |
+|-------------|-----------------|---------------------|
+| **Trade economics** | Notional, initial level, all three barriers **and convention** (% vs absolute), coupon rate & frequency, maturity, underlying ID | A barrier stored as absolute price in NEMO but % in Sophis — consistent only if the initial level matches exactly |
+| **Digital coupon strike** | The digital strike (coupon barrier, e.g. 70% = $42) agrees across NEMO and Sophis | Digital strike off by convention → coupon fires on the wrong side of the cliff, paying or missing a full binary coupon |
+| **Capital (KI) barrier** | The knock-in barrier (e.g. 60% = $36), European observation | KI barrier mis-stored → wrong redemption when the breach is assessed at maturity |
+| **Autocall barrier & no-call period** | Autocall level (e.g. 100%) and eligibility dates (from Q5) consistent | Autocall flagged eligible inside the no-call window, or wrong level → spurious early termination |
+| **Observation sequence** | Autocall checked before the digital coupon on each eligible date | Coupon check run before autocall → coupon paid on a note that should have terminated |
+| **Fixings** | Initial and each observation/final fixing **source** matches the termsheet | Different vendors report different closes on a digital observation, flipping the binary outcome |
+| **Binary settle / coupon capture** | Each digital observation result (paid/zero), the autocall flag, and the maturity capital-barrier result captured consistently across systems | A binary "paid" booked where the close was below the digital strike, or a missed coupon booked as paid; no-memory logic mis-applied as catch-up |
+| **P&L attribution** | Note accrual + put MTM + digital portfolio MTM reconciles to total | Unexplained P&L points to a stale vol surface, a wrong fixing, or a mis-captured binary settle |
 
+![DIGITALKI Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/digitalki/controls_digitalki_recon_08.svg)
 
-#### §11. Formal Definition
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| **Autocall not checked before coupon** | The observation sequence matters: autocall takes priority. If autocall is triggered, there is no separate coupon check — the note terminates | Verify that the system checks autocall first on each eligible observation date |
+| **Coupon paid after autocall** | If the note autocalled in Q5, no coupon should be paid for Q6 onward | Verify the note's status before processing any payment |
+| **Memory logic applied** | The Digital KI Put has NO memory. If deferred coupons appear, the product is misconfigured | Confirm the product type does not include memory |
+| **Three barriers confused** | Autocall barrier (e.g. 100%), coupon/digital strike (e.g. 70%), and capital barrier (e.g. 60%) are separate levels with different consequences | Verify all three are correctly stored and independently monitored |
+| **No-call period ignored** | Autocall is typically not eligible in the first year. If an autocall is triggered during the no-call period, it is an error | Verify autocall eligibility dates against the termsheet |
+| **Digital fixing flips the binary** | A close marginally above or below the digital strike from a non-termsheet source flips the full coupon | Use the fixing source specified in the termsheet for each digital observation |
+
+**Control implication**
+
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. A **digital fixing or digital-strike error** flips a binary outcome at the cliff — a full coupon is paid where none was due, or a due coupon is missed — and because the digital is all-or-nothing with no memory, the error cannot be smoothed away across periods; it must be caught on the observation date. A **missed or mis-stored KI-barrier capture** understates desk risk and overstates the investor's protection at maturity, driving the wrong redemption (notional × final/initial) and the wrong client payout. The reconciliation exists precisely to catch both the digital fixing flip and the capital-barrier capture before settlement crystallises them, alongside confirming the autocall-first observation sequence so coupons are not paid on a terminated note.
+
+#### §10. Formal Definition
 
 A **Digital Coupon Knock-In Put** is a structured product with:
 
-**Digital coupon:** On each observation date, if the underlying is at or above the coupon barrier, the full coupon is paid. If below, zero is paid. There is no memory — missed coupons are permanently lost.
+**Digital coupon:** On each observation date, if the underlying is at or above the coupon barrier (digital strike), the full coupon is paid. If below, zero is paid. There is no memory — missed coupons are permanently lost.
 
 **Autocall:** On eligible observation dates (typically after a no-call period), if the underlying is at or above the autocall barrier, the note terminates with full principal redemption plus any coupon due that period.
 
@@ -7631,116 +7496,19 @@ A **Digital Coupon Knock-In Put** is a structured product with:
 
 The Digital KI Put combines the digital coupon mechanism (from 5.1.12), the autocall feature (from 5.1.3), and the knock-in put (from 5.1.2). Three barriers operate simultaneously: autocall barrier (above), coupon barrier (middle), capital barrier (below).
 
-
-#### §12. Product Construction
-
-| Component | What It Is | Purpose |
-|-----------|-----------|---------|
-| Bond | Investor lends principal to issuer | Provides funding |
-| Short knock-in put | Investor sells a put with KI barrier | Generates premium for coupon enhancement |
-| Series of digital call options | Each observation: pays fixed amount if stock ≥ coupon barrier | Creates conditional coupon mechanism |
-| Short callable right | Issuer buys the right to terminate early above autocall barrier | Shortens expected life, generates additional premium |
-
-**Coupon decomposition:**
-Digital KI Put Coupon = Bond yield + Put premium + Digital option portfolio + Autocall premium − Funds Transfer Pricing (FTP) − Desk margin
-
-This is the richest coupon decomposition in the ELN family. Three separate option premiums contribute:
-1. **Put premium** — compensation for capital risk below the KI barrier
-2. **Digital option portfolio** — compensation for binary coupon risk each period
-3. **Autocall premium** — compensation for the issuer's right to terminate early
-
-> **Professor Note:** If you remember only one thing from this chapter, remember this: the Digital KI Put earns the highest coupon in the ELN family because it stacks three risk premiums. Every feature the investor accepts — digital coupon, autocall, knock-in put — adds premium to the coupon. The investor is compensated for complexity, but also exposed to every risk the family offers.
-
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Detail |
 |-------|--------|
-| **Trade date** | Terms agreed: underlying, strike/barrier, coupon, maturity. Pricing finalised |
-| **Issue date** | Note issued. Investor pays par (or discount). Bank establishes hedge |
-| **Coupon dates** | Periodic observations and coupon payments (if applicable). Barrier monitoring |
-| **Maturity** | Final observation. Settlement: cash (par or adjusted) or physical delivery. T+2 settlement |
+| **Trade date** | Terms agreed: underlying, strike/barrier, coupon, maturity. Book in NEMO; set initial level, three barriers (autocall, coupon, capital), coupon schedule, no-call period, maturity |
+| **Issue date** | Note issued. The investor pays par (or discount). The bank establishes the hedge |
+| **Coupon dates** | Periodic observations and coupon payments (if applicable). Barrier monitoring. On autocall-eligible dates: check autocall first; if not triggered, check the coupon barrier |
+| **Barrier monitoring** | European — single check at maturity for the capital barrier |
+| **Maturity (if not autocalled)** | Record the closing price. If above the capital barrier: return 100% principal. If below: return (Final / Initial) × principal. T+2 settlement |
 
-#### §14. Desk Reality
+#### §12. Worked Example (both lenses)
 
-**At each observation date (in order of priority):**
-1. **Autocall check** (if eligible): If Underlying ≥ Autocall Barrier → Note terminates, full principal + period coupon
-2. **Digital coupon check**: If Underlying ≥ Coupon Barrier → Full coupon paid
-3. **If Underlying < Coupon Barrier** → Zero coupon (permanently lost)
-
-**At maturity (if not autocalled):**
-- If Underlying ≥ Capital Barrier → 100% redemption
-- If Underlying < Capital Barrier → (Final / Initial) × 100%
-
-```
-Three-Barrier Structure:
-
-  Autocall Barrier ─── 100% ──── If stock ≥ here: note terminates, full principal
-
-  Coupon Barrier ───── 70% ───── If stock ≥ here: full coupon paid
-                                 If stock < here: zero coupon
-
-  Capital Barrier ──── 60% ───── If stock < here at maturity: capital loss
-
-  Stock at 0% ────────────────── Maximum loss = 100% of principal
-```
-
-
-#### §15. Risk Analysis
-
-| Risk | Description | Severity |
-|------|------------|:--------:|
-| **Complexity risk** | Three interacting barriers create outcomes that are difficult to predict and explain | High |
-| **Capital loss** | KI barrier breach at maturity causes proportional capital loss, magnified by missed coupons | High |
-| **Coupon risk** | Digital coupon is all-or-nothing per period with no memory — missed coupons are permanent | High |
-| **Autocall reinvestment risk** | Early termination forces reinvestment at potentially lower rates | Medium |
-| **Model risk** | Pricing requires modelling three correlated barrier events — model assumptions significantly affect valuation | Medium |
-| **Binary cliff** | Small price moves near any barrier create discontinuous outcomes (coupon/no coupon, autocall/continue, protect/loss) | Medium |
-
-
-#### §16. Booking and Systems
-
-| Field | Value |
-|-------|-------|
-| **Booking system** | NEMO |
-| **Pricing system** | Sophis |
-| **Four-Leg** | No |
-| **Product type** | Equity-Linked Note — Digital Coupon Autocallable with Knock-In Put |
-| **Observation sequence** | Each date: (1) check autocall eligibility and barrier, (2) if not autocalled, check digital coupon barrier |
-| **Coupon payment** | Full amount if above coupon barrier; zero if below |
-| **Memory** | None |
-| **Capital barrier** | European (maturity only) |
-| **Autocall** | Quarterly after no-call period |
-
-**Lifecycle events:**
-- **Trade date:** Book in NEMO. Set initial level, three barriers (autocall, coupon, capital), coupon schedule, no-call period, maturity.
-- **Observation dates (no-call period):** Check stock level against coupon barrier only. Above: pay full coupon. Below: zero.
-- **Observation dates (autocall eligible):** Check stock level against autocall barrier first. If triggered: terminate note, pay final coupon and return principal. If not triggered: check coupon barrier as above.
-- **Barrier monitoring:** European — single check at maturity for capital barrier.
-- **Maturity (if not autocalled):** Record closing price. If above capital barrier: return 100% principal. If below: return (Final / Initial) × principal.
-
-
-#### §17. Red Flags
-
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| **Autocall not checked before coupon** | The observation sequence matters: autocall takes priority. If autocall is triggered, there is no separate coupon check — the note terminates | Verify that the system checks autocall first on each eligible observation date |
-| **Coupon paid after autocall** | If the note autocalled in Q5, no coupon should be paid for Q6 onward | Verify the note's status before processing any payment |
-| **Memory logic applied** | Digital KI Put has NO memory. If deferred coupons appear, the product is misconfigured | Confirm the product type does not include memory |
-| **Three barriers confused** | Autocall barrier (e.g., 100%), coupon barrier (e.g., 70%), and capital barrier (e.g., 60%) are separate levels with different consequences | Verify all three are correctly stored and independently monitored |
-| **No-call period ignored** | Autocall is typically not eligible in the first year. If an autocall is triggered during the no-call period, it is an error | Verify autocall eligibility dates against the termsheet |
-
-
-#### §18. Worked Example
-
-**Product:** 2-year Digital KI Put on Samsung
-**Notional:** $500,000
-**Coupon:** 12% p.a. (3% per quarter = $15,000), conditional on stock ≥ 70% coupon barrier
-**Initial stock price:** $60
-**Coupon barrier:** 70% = $42
-**Autocall barrier:** 100% = $60 (eligible from Q5)
-**Capital barrier:** 60% = $36 (European)
-**Maturity:** 2 years (8 quarterly observations)
+**Product:** 2-year Digital KI Put on Samsung. **Notional:** $500,000. **Coupon:** 12% p.a. (3% per quarter = $15,000), conditional on stock ≥ 70% coupon barrier. **Initial stock price:** $60. **Coupon barrier:** 70% = $42. **Autocall barrier:** 100% = $60 (eligible from Q5). **Capital barrier:** 60% = $36 (European). **Maturity:** 2 years (8 quarterly observations).
 
 **Quarter-by-quarter:**
 
@@ -7755,62 +7523,53 @@ Three-Barrier Structure:
 | Q7 | $56 | 93.3% | No (< 100%) | Yes | $15,000 |
 | Q8 | $52 | 86.7% | No (< 100%) | Yes | $15,000 |
 
-**Total coupons:** 7 × $15,000 = $105,000 (missed Q4 — permanently lost)
-**Maturity at $52 (86.7%):** Above $36 capital barrier. Principal: $500,000.
-**Total: $605,000.** Return: $105,000 / $500,000 = 21% over 2 years.
+*Investor lens:*
+- **Total coupons:** 7 × $15,000 = $105,000 (missed Q4 — permanently lost).
+- **Maturity at $52 (86.7%):** Above the $36 capital barrier. Principal: $500,000. **Total: $605,000.** Return: $105,000 / $500,000 = 21% over 2 years.
+- **If autocalled in Q6 at $61 (101.7%):** Autocall triggered. Coupons through Q6: Q1-Q3 paid + Q4 missed + Q5-Q6 paid = 5 × $15,000 = $75,000. Principal: $500,000. **Total: $575,000.** Return: 15% over 18 months.
+- **If maturity at $32 (53.3%):** Below the $36 capital barrier. Redemption: $500,000 × 32/60 = $266,667. Plus coupons (assume 3 paid): $45,000. **Total: $311,667.** Loss: $188,333 (37.7%).
 
-**If autocalled in Q6 at $61 (101.7%):** Autocall triggered. Coupons through Q6: Q1-Q3 paid + Q4 missed + Q5-Q6 paid = 5 × $15,000 = $75,000. Principal: $500,000. **Total: $575,000.** Return: 15% over 18 months.
+*Bank lens:* In the base path, the desk's long KI put expires worthless (final $52 is above the $36 barrier), the short digital portfolio pays 7 of 8 binary coupons and the missed Q4 is a saving to the desk, and the desk keeps its structuring margin and net hedging P&L. In the autocall path, the desk's long callable right is exercised in Q6 — the note terminates, the hedge unwinds early, and the desk stops funding future coupons. In the loss path, the desk's long KI put is in the money (final $32 below $36): the investor delivers value equal to the shortfall, offsetting the desk's redemption obligation. In every path the 2nd line must confirm the binary coupon captures, the autocall flag, the redemption math (notional × final/initial), and that NEMO and Sophis agree before settlement.
 
-**If maturity at $32 (53.3%):** Below $36 capital barrier. Redemption: $500,000 × 32/60 = $266,667. Plus coupons (assume 3 paid): $45,000. **Total: $311,667.** Loss: $188,333 (37.7%).
-
-
-#### §19. Knowledge Check
+#### §13. Knowledge Check
 
 1. **What three types of option premium are embedded in the Digital KI Put's coupon, and how does each contribute?**
 2. **Why must the autocall check be performed before the digital coupon check on each observation date?**
 3. **Compare the Digital KI Put to the Phoenix. What features do they share? What differs?**
 4. **An investor held a Digital KI Put that autocalled in Q6. They complain that they "lost" the remaining coupons. Explain why the autocall actually benefits them.**
 5. **Explain why the Digital KI Put has the highest coupon in the ELN family.**
-
+6. **(Desk economics / 1LoD)** What position does the desk hold against the investor across the put, the digital portfolio, and the autocall? At which two price levels does the desk's gamma spike, and why is that where the structuring margin is made or lost?
+7. **(Controls / 2LoD)** Name three reconciliation breaks specific to a Digital KI Put — including one involving the digital strike and one involving the capital barrier — and the consequence of each for the investor's coupon or redemption.
 
 **Mental Models**
 
 | Concept | Mental Model |
 |---------|-------------|
-| Digital KI Put | Talent competition — pass/fail each round, winner declared early, penalty for poor finale |
-| Three barriers | Traffic lights: green (autocall — go home with prize), yellow (coupon barrier — paid if above), red (capital barrier — losses if below) |
+| Digital KI Put | A strict multi-round competition — pass/fail each round, result called early, penalty for a poor finale |
+| Three barriers | Traffic lights: green (autocall — terminate with prize), yellow (coupon barrier — paid if above), red (capital barrier — losses if below) |
 | No memory | Each round is judged fresh — a perfect Round 1 does not save a failed Round 2 |
 | Coupon stacking | Three premiums layered: digital risk + call risk + put risk = highest coupon |
-| Capstone product | The Swiss Army knife of ELNs — every blade (feature) is deployed |
-
+| Capstone product | The Swiss Army knife of ELNs — every feature is deployed |
+| Dual gamma | The desk fights pin risk at two cliffs at once — the digital strike and the KI barrier |
+| 2LoD reconciliation | The scorekeeper — confirms each round's pass/fail and the finale result match before any payout |
 
 **Key Takeaways**
 
 1. The Digital KI Put combines digital coupon, autocall, and knock-in put — the most feature-rich product in the ELN family.
 2. Three barriers operate simultaneously: autocall (above), coupon (middle), capital (below). On each observation date, autocall is checked first.
 3. The triple risk premium produces the highest coupon in the ELN family — typically 10-15% p.a.
-4. Missed coupons are permanent (no memory), autocall shortens the expected income stream, and capital is at risk below the KI barrier.
-5. The Digital KI Put is the capstone product — understanding it means understanding the full ELN toolkit.
+4. Missed coupons are permanent (no memory), autocall shortens the expected income stream, and the investor's capital is at risk below the KI barrier.
+5. The Digital KI Put is the capstone product — understanding it means understanding the full ELN toolkit. The desk holds the offsetting long-put, short-digital, long-autocall position.
+6. For the 2nd line, the dominant control risks are the digital-strike fixing flip and the capital-barrier capture, plus the autocall-first observation sequence — each can misstate a coupon or the redemption.
 
-
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
 1. **Checking coupon before autocall.** The autocall takes priority. If the stock is above the autocall barrier, the note terminates — no separate coupon check is needed. Getting the sequence wrong produces incorrect payments.
 2. **Assuming memory exists.** The "digital" in Digital KI Put means binary: paid or not paid, per period. There is no Phoenix-style catch-up for missed coupons.
-3. **Confusing the three barriers.** Autocall barrier (e.g., 100%), coupon barrier (e.g., 70%), and capital barrier (e.g., 60%) are independent levels. Each triggers a different outcome.
+3. **Confusing the three barriers.** Autocall barrier (e.g. 100%), coupon barrier (e.g. 70%), and capital barrier (e.g. 60%) are independent levels. Each triggers a different outcome.
 4. **Underestimating complexity risk.** The interaction between three barriers makes outcomes hard to predict. A stock can miss coupons while avoiding autocall and capital loss, or get autocalled after missing several coupons.
 5. **Treating the high coupon as "free money."** The 12% coupon reflects three layers of risk the investor bears. In adverse scenarios, the combination of missed coupons and capital loss can overwhelm years of coupon income.
-
-### Desk Perspective
-
-| Role | What the Digital KI Put Means to Them |
-|------|--------------------------------------|
-| **Trader** | Most complex hedge book in the ELN family. Three sets of options interact — correlation between barrier events affects hedging cost. Near the coupon barrier, digital option Greeks spike; near the autocall barrier, the callable option Greeks dominate |
-| **Structurer** | Must calibrate three barriers to produce an attractive coupon while managing risk. The client conversation is the most demanding: "Your coupon is conditional each quarter with no catch-up, the bank can terminate early, and your capital is at risk below 60%" |
-| **Product Control** | Verifies the observation sequence on each date: autocall check first, then digital coupon check. Reconciles three separate barrier events across NEMO and Sophis. Most reconciliation-intensive ELN product |
-| **Risk** | Monitors three barrier proximities simultaneously. Scenario analysis requires modelling all combinations: autocall vs no autocall, coupon vs no coupon, barrier breach vs no breach |
-| **Operations** | Most complex ELN lifecycle: track autocall eligibility, process conditional coupons, monitor capital barrier, handle potential early termination. Clear standard operating procedures needed for each observation date |
-
+6. **(Controls) Trusting a single system's barrier or digital-strike value.** Because the digital strike and the KI barrier can each be stored as a percentage or an absolute price, the 2nd line must reconcile the convention across NEMO and Sophis rather than assume they agree — a flipped digital fixing pays or misses a full binary coupon.
 ### Knowledge Check
 
 **Review Questions:**
@@ -7895,44 +7654,42 @@ You are the Structurer pricing a new Digital KI Put for a client. The client wan
 | Phoenix | 5.1.3 — autocall with barrier |
 ### 5.1.15 Warrant / Turbo Certificate
 
-*Every ELN product in this family has contained a bond component — the investor lends money to the issuer, and the bond provides funding for the embedded option. The Warrant strips the bond away entirely. What remains is pure option exposure in a securitized wrapper: no coupon, no principal protection, no barrier cushion. The investor pays a premium and participates directly in the underlying's price movement. The Turbo Certificate adds a knock-out barrier that reduces cost but introduces sudden-death risk.*
+---
+
+*Every ELN product in this family has contained a bond component — the investor lends money to the issuer, and the bond provides funding for the embedded option. The Warrant strips the bond away entirely. What remains is pure option exposure in a securitized wrapper: no coupon, no principal protection, no barrier cushion. The investor pays a premium and participates directly in the underlying's price movement. The Turbo Certificate adds a knock-out barrier that reduces cost but introduces sudden-death risk. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 **How This Differs From Other ELN Products:** All previous ELN products (5.1.1 through 5.1.14) combine a bond with one or more options. The Warrant has no bond. It is a securitized option — an option packaged as a tradeable security listed on an exchange. The investor buys leverage directly. There is no coupon, no capital barrier, and no autocall. If the underlying moves favorably, the warrant gains value. If not, the investor loses the premium paid — potentially all of it.
 
-
 #### §1. Explain Like I'm New
 
-Omar is a portfolio manager at a London-based investment firm. He is bullish on Volkswagen over the next six months but does not want to commit €500,000 to buying shares directly. He wants to deploy €50,000 for the same directional exposure — accepting that if he is wrong, he could lose the entire €50,000.
+Omar is a portfolio manager at a London-based investment firm. He is bullish on Volkswagen over the next six months but does not want to commit €500,000 to buying shares directly. He wants to deploy €50,000 for the same directional exposure — accepting that if the view is wrong, the entire €50,000 could be lost.
 
-A **Warrant** makes this possible. Omar pays a premium (€50,000) for the right to benefit from Volkswagen's price movement, with leverage that amplifies his exposure. If Volkswagen rises 10%, his warrant might rise 50%. If Volkswagen falls 10%, his warrant might fall 50%. The amplification works in both directions.
+A **Warrant** makes this possible. The investor pays a premium (€50,000) for the right to benefit from Volkswagen's price movement, with leverage that amplifies the exposure. If Volkswagen rises 10%, the warrant might rise 50%. If Volkswagen falls 10%, the warrant might fall 50%. The amplification works in both directions.
 
 A **Turbo Certificate** adds a twist: it includes a knock-out barrier. If Volkswagen's price drops below a specified level at any point, the turbo is immediately terminated and becomes worthless (or worth a small residual). The knock-out reduces the premium (making the turbo cheaper than a vanilla warrant) but introduces the risk of sudden, total loss even if the stock eventually recovers.
 
 Unlike every other product in Part 5.1, there is no bond, no coupon, and no capital protection. The warrant is pure leverage.
 
-
 #### §2. Real-World Analogy
 
 A Warrant is like a prospector's mining claim.
 
-You pay a fee (the premium) to secure the exclusive right to mine gold from a specific plot for a fixed period. If the plot contains gold (the stock rises above your strike price), you extract it and profit — potentially many times your claim fee. If the plot is barren (the stock stays flat or declines), you lose the claim fee entirely when the license expires. There is no partial refund, no guaranteed minimum discovery, and no one to share the loss.
+The prospector pays a fee (the premium) to secure the exclusive right to mine gold from a specific plot for a fixed period. If the plot contains gold (the stock rises above the strike price), the gold is extracted and the prospector profits — potentially many times the claim fee. If the plot is barren (the stock stays flat or declines), the claim fee is lost entirely when the license expires. There is no partial refund, no guaranteed minimum discovery, and no one to share the loss.
 
-The **Turbo Certificate** adds a flood-zone clause to the claim. If the groundwater level rises above a threshold (the knock-out barrier), your mining rights are automatically cancelled — even if you believe the water will recede and gold lies just below. The flood clause makes the claim cheaper to buy but introduces the risk that you lose access to the plot before its natural expiry.
+The **Turbo Certificate** adds a flood-zone clause to the claim. If the groundwater level rises above a threshold (the knock-out barrier), the mining rights are automatically cancelled — even if gold is believed to lie just below the rising water. The flood clause makes the claim cheaper to buy but introduces the risk that access to the plot is lost before its natural expiry.
 
 The warrant's leverage is the prospector's amplifier: a small claim fee controls access to a large plot. But unlike a structured note (where the bond provides a safety net), the prospector has no safety net. The claim fee is both the maximum and the minimum at risk.
-
 
 #### §3. What Problem Does This Solve?
 
 The Warrant addresses the **leveraged directional exposure** need:
 
-| Client Need | How the Warrant Delivers |
+| Investor Need | How the Warrant Delivers |
 |------------|-------------------------|
 | Bullish or bearish view with limited capital | Small premium controls large notional exposure |
 | Defined maximum loss | Maximum loss = premium paid. No margin calls, no additional liability |
 | Exchange-traded liquidity | Listed on exchanges with continuous market-making |
 | Short-term tactical trading | Maturities from weeks to years, enabling precise timing |
-
 
 #### §4. Product DNA
 
@@ -7976,12 +7733,12 @@ The Warrant addresses the **leveraged directional exposure** need:
 
 | Role | Responsibility |
 |------|---------------|
-| **Structurer** | Designs Warrant / Turbo Certificate terms: strike, barrier, coupon, maturity. Optimises structure for client and bank |
+| **Structurer** | Designs Warrant / Turbo Certificate terms: strike, barrier, ratio, maturity. Optimises structure for client and bank |
 | **Trader** | Hedges embedded options. Manages Greeks (delta, gamma, vega). Prices secondary market |
 | **Sales** | Distributes Warrant / Turbo Certificate to target clients. Explains payoff scenarios and risk-return profile |
 | **Risk Management** | Monitors option Greeks, barrier proximity, concentration risk. Sets trading limits |
-| **Product Control** | Daily P&L attribution between note accrual and option MTM. Independent price verification |
-| **Operations** | Processes coupon payments and maturity settlement. Handles physical delivery if applicable |
+| **Product Control** | Daily P&L attribution between intrinsic value and time-value (option MTM). Independent price verification |
+| **Operations** | Processes exchange settlement and maturity. Handles KO events and corporate-action adjustments |
 | **Legal / Compliance** | Reviews term sheet for regulatory compliance. Ensures suitability for target investor base |
 | **Quantitative Analytics** | Prices embedded derivatives. Calibrates volatility surface. Provides model validation |
 
@@ -7991,59 +7748,127 @@ The Warrant addresses the **leveraged directional exposure** need:
 |:-----:|---------|---------------|-----|
 | 1 | Plain vanilla bond | — (baseline) | Fixed coupon, full principal return |
 | 2 | Equity-linked note | Equity participation or option embedded | Market return exposure with note wrapper |
-| 3 | Warrant / Turbo Certificate | Specific structural features added | Product-specific innovation: Leveraged exposure instrument — direct participation in underlying with gearing. Simplest leveraged product |
+| 3 | Warrant / Turbo Certificate | Bond stripped away — pure securitized option | Leveraged exposure instrument: direct participation in underlying with gearing. Simplest leveraged product |
 
-#### §7. How the Bank Makes Money
+---
 
-| Revenue Component | Detail |
-|------------------|--------|
-| **Structuring fee** | Embedded in note price at issuance (typically 1-3%) |
-| **Bid-offer spread** | Spread between option cost and terms offered to investor |
-| **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
-| **Funding advantage** | Issues note at sub-market effective funding rate |
+#### §7. THE INVESTOR LENS
 
-#### §8. Why This Product Exists (Client Perspective)
+**Why the investor buys it**
 
 1. **Leverage.** A €50,000 warrant investment can deliver the same price exposure as €500,000 in shares. This frees capital for other uses.
-2. **Defined risk.** The maximum loss is the premium paid. Unlike leveraged share purchases on margin, there are no margin calls.
+2. **Defined risk.** The maximum loss is the premium paid. Unlike leveraged share purchases on margin, there are no margin calls and no additional liability.
 3. **Flexibility.** Available as call warrants (bullish) and put warrants (bearish). The investor can express either direction.
 4. **Liquidity.** Exchange-listed with a designated market maker. The investor can enter and exit during trading hours at transparent prices.
 5. **Cost efficiency.** For turbos, the knock-out barrier reduces the premium further, making the leverage even greater.
 
+**Position taken**
 
-#### §9. The Three Scenarios
+The investor is **long** the warrant — a long call (bullish) or long put (bearish), held in securitized form. There is no bond, no coupon, and no capital protection: the position is pure, highly leveraged optionality. Net, the investor is **long volatility** (helped by rising implied vol, hurt by falling vol) and **short theta** (time decay erodes value daily). The maximum loss is the premium paid; for a Turbo, an intraday touch of the knock-out level terminates the position immediately, so the investor is additionally exposed to sudden-death barrier risk. With a single underlying there is no correlation exposure.
 
-| Scenario | Market Condition | Outcome for Investor |
-|----------|-----------------|---------------------|
-| **Best case** | Underlying performs strongly | Maximum return captured (subject to any participation cap or barrier) |
-| **Base case** | Underlying is flat or moderately positive | Moderate return or coupon income depending on structure |
-| **Worst case** | Underlying declines significantly | Capital at risk if below protection level; coupon may partially offset |
+**Payoff & scenarios**
 
-*Detailed scenario analysis with specific numbers follows in §10.*
+At expiry the warrant pays its intrinsic value, scaled by the ratio. The payoff has two distinct regions: **below the strike (call) or above the strike (put)** the warrant is worthless and the investor loses the entire premium; **above the strike (call) or below the strike (put)** value increases linearly with the underlying at the ratio rate. There is no barrier cushion — unlike an RC, there is no "safe zone" between a barrier and the strike. The transition from worthless to valuable happens at a single point. For a Turbo, the payoff is cut short entirely if the knock-out level is touched at any time during the life, regardless of where the underlying finishes.
 
-#### §10. What Happens When Markets Move
+![Warrant / Turbo Payoff at Maturity — Investor Lens](assets/warrant/payoff_warrant_01.svg)
 
-**Product:** 6-month Call Warrant on a stock
-**Premium paid:** €5,000 (for 1,000 warrants at €5 each)
-**Strike price:** €150 (at-the-money)
-**Current stock price:** €150
-**Ratio:** 1:1 (1 warrant = exposure to 1 share)
+**Product:** 6-month Call Warrant on a stock. **Premium paid:** €5,000 (for 1,000 warrants at €5 each). **Strike price:** €150 (at-the-money). **Current stock price:** €150. **Ratio:** 1:1 (1 warrant = exposure to 1 share).
 
-**Scenario 1 — Stock rises to €180 (+20%):**
-Intrinsic value per warrant: €180 − €150 = €30. Total value: 1,000 × €30 = €30,000. Profit: €30,000 − €5,000 = **€25,000 (+500%)**. A 20% stock move produced a 500% warrant return.
+- **Scenario 1 — Stock rises to €180 (+20%):** Intrinsic value per warrant: €180 − €150 = €30. Total value: 1,000 × €30 = €30,000. Profit: €30,000 − €5,000 = **€25,000 (+500%)**. A 20% stock move produced a 500% warrant return.
+- **Scenario 2 — Stock rises to €155 (+3.3%):** Intrinsic value: €155 − €150 = €5. Total: 1,000 × €5 = €5,000. Profit: €5,000 − €5,000 = **€0 (break-even)**. The stock rose, but only enough to recover the premium.
+- **Scenario 3 — Stock finishes at €145 (−3.3%):** Warrant expires out of the money. Intrinsic value: €0 (stock below strike, no right to exercise). Total loss: **€5,000 (−100%)**. A 3.3% stock decline caused a 100% warrant loss.
+- **Scenario 4 — Turbo Call Warrant with KO at €140:** Same parameters, but with a knock-out barrier at €140. Premium: €3,000 (cheaper due to KO risk). Stock drops to €139 in Month 2 → KO triggered. Turbo terminates immediately. Residual value: €0. **Loss: €3,000 (−100%)**, even though the stock later recovers to €170.
 
-**Scenario 2 — Stock rises to €155 (+3.3%):**
-Intrinsic value: €155 − €150 = €5. Total: 1,000 × €5 = €5,000. Profit: €5,000 − €5,000 = **€0 (break-even)**. The stock rose, but only enough to recover the premium.
+**Risks to the investor**
 
-**Scenario 3 — Stock finishes at €145 (−3.3%):**
-Warrant expires out of the money. Intrinsic value: €0 (stock below strike, no right to exercise). Total loss: **€5,000 (−100%)**. A 3.3% stock decline caused a 100% warrant loss.
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Total premium loss** | If the underlying finishes below the strike (call) or above the strike (put), the warrant expires worthless — 100% loss. | High |
+| **Time decay (Theta)** | The warrant loses value every day as maturity approaches, even if the stock price is unchanged. | High |
+| **Leverage amplification** | Percentage losses are amplified — a small adverse stock move creates a large percentage warrant loss. | High |
+| **Knock-out risk (turbos)** | If the stock briefly touches the KO barrier, the turbo terminates immediately. Recovery after KO is irrelevant. | High |
+| **Volatility sensitivity (Vega)** | Warrant value is sensitive to implied volatility changes. A decline in implied vol reduces the warrant's value even if the stock price is unchanged. | Medium |
+| **Liquidity risk** | While exchange-listed, bid-offer spreads may widen in volatile markets or for less popular underlyings. | Low |
 
-**Scenario 4 — Turbo Call Warrant with KO at €140:**
-Same parameters, but with a knock-out barrier at €140. Premium: €3,000 (cheaper due to KO risk).
-Stock drops to €139 in Month 2 → KO triggered. Turbo terminates immediately. Residual value: €0. **Loss: €3,000 (−100%)**, even though the stock later recovers to €170.
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
 
+**What the desk books**
 
-#### §11. Formal Definition
+The desk's position is the mirror image of the investor's. Where the investor is long the warrant, the desk is **short** that warrant — short a call (or short a put) that it has issued and listed on the exchange. There is no bond leg: unlike every other Part 5.1 product, the warrant has no note wrapper providing funding or coupons, so the desk's only exposure is the short option it must hedge. For a Turbo, the desk is short an option that knocks out on an intraday touch of the barrier, which sharply alters the hedge the moment the level is hit.
+
+**Greeks & hedging**
+
+The desk is short the warrant and delta-hedges by trading the underlying. Because the investor is long gamma, the desk is **short gamma**, and the hedge must be rebalanced as the underlying moves — most aggressively near the strike, where gamma is largest. The desk is short vega (a rise in implied vol increases what it owes the holder) and earns theta as the warrant's time value decays. For a Turbo, gamma and delta spike near the knock-out level: the moment the barrier is touched the option terminates, and the desk must flatten its hedge instantly — a residual hedge left running after a KO is an immediate, unhedged exposure.
+
+![Warrant Desk Position & Hedge — Bank Lens (Desk Economics)](assets/warrant/desk_warrant_gamma_07.svg)
+
+**How the bank makes money**
+
+| Revenue Component | Detail |
+|------------------|--------|
+| **Structuring fee** | Embedded in the warrant's issue price (typically 1-3%) |
+| **Bid-offer spread** | Spread between the option's cost and the terms offered to the investor; captured continuously through market-making |
+| **Hedging P&L** | Delta-hedging profits from the realized-versus-implied volatility differential |
+| **Funding advantage** | Premium received up front is funded at a sub-market effective rate |
+
+**The price decomposition (from §12 Product Construction):**
+
+Warrant Price = Intrinsic value + Time value + Funding/carry
+
+For the at-the-money 6-month call above (strike €150, spot €150, €5 premium per warrant): intrinsic value is **€0.00** (the option is exactly at-the-money, so there is no immediate exercise value); the **€5.00** premium is therefore almost entirely **time value** — the price of remaining optionality that decays toward zero as maturity approaches — with a small embedded **funding/carry** component reflecting the cost of carrying the delta hedge. *(Source gives "Warrant Price = Intrinsic Value + Time Value" without a numeric split; the €5.00 premium on an ATM warrant is therefore time value plus carry — the funding/carry slice is inferred here as a small fraction of premium, illustratively ~€0.50, with the remaining ~€4.50 as pure time value.)* For a Turbo, the knock-out barrier eliminates most of the time value, so the turbo trades close to its intrinsic value — giving it near-1:1 sensitivity to the underlying (high delta) and even greater leverage than a vanilla warrant.
+
+![Warrant Price Decomposition — Bank Lens (Desk Economics)](assets/warrant/waterfall_warrant_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by realized-versus-implied volatility on the delta hedge, moves in the underlying near the strike (gamma), the mark-to-market of the short option's time value (theta and vega), funding, and — for Turbos — discrete jumps at knock-out events. Product Control attributes P&L between intrinsic value and option time-value MTM, and performs Independent Price Verification of the option component against exchange settlement prices.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
+
+| Aspect | Detail |
+|--------|--------|
+| **Book of record** | NEMO |
+| **Pricing/Risk system** | Sophis |
+| **Four-leg framework?** | No |
+| **Product type** | Warrant (Call/Put) or Turbo Certificate |
+| **Trading venue** | Exchange-listed (e.g., Euronext, SIX, Börse Frankfurt) |
+| **Market-making** | Issuing bank provides continuous two-sided quotes during trading hours |
+| **Key booking fields** | Strike, ratio, maturity, type (call/put), KO barrier (if turbo), underlying identifier, exchange listing |
+| **Settlement** | Cash: Max(0, Final − Strike) × Ratio for calls; Max(0, Strike − Final) × Ratio for puts |
+| **KO monitoring (turbos)** | Continuous — any intraday touch during exchange hours terminates the product |
+
+**Reconciliation points**
+
+| Recon point | What must agree | Warrant-specific break |
+|-------------|-----------------|------------------------|
+| **Strike** | Strike price matches the termsheet and exchange listing across NEMO and Sophis | Strike stored differently between systems → payout miscalculated |
+| **Knock-out level (turbos)** | KO barrier level and monitoring type (American/continuous) consistent across systems | KO level mis-stored or flagged as European → barrier breach missed |
+| **Ratio / conversion** | Number of warrants per unit of underlying (e.g. 10:1) matches the termsheet | System records 1:1 but warrant is 10:1 → payouts 10× too large or small |
+| **Call/Put type** | Type matches the termsheet and exchange listing | Call booked as put (or vice versa) inverts the entire payoff direction |
+| **Exchange listing** | Listed identifier, venue, and market-maker obligations reconcile to NEMO and exchange records | Wrong listing reference → quotes and settlements reconciled against the wrong security |
+| **Barrier/event capture (turbos)** | KO event flag consistent across NEMO, Sophis, and exchange | Intraday touch occurs but only daily closes monitored → turbo not terminated |
+| **Residual value** | Residual-on-KO convention (zero vs small residual) matches the termsheet | Zero residual booked where a residual is due, or vice versa |
+| **Corporate actions** | Strike and/or ratio adjusted for splits, dividends, mergers per exchange rules | Split not propagated → strike and ratio wrong, all subsequent valuations off |
+
+![WARRANT Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/warrant/controls_warrant_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Ratio mismatch | If the system records a 1:1 ratio but the warrant is actually 10:1, payouts will be 10× too large or small | Verify the ratio against the termsheet and exchange listing |
+| KO event not detected (turbos) | If the stock touched the KO barrier intraday but the system only checks daily closes, the turbo may not be terminated | Ensure real-time intraday barrier monitoring for turbo certificates |
+| Residual value calculation | Some turbos pay a small residual on KO (the difference between the KO level and the next traded price). Others pay zero | Verify the residual value convention against the termsheet |
+| Call/Put type reversed | Booking a call warrant as a put (or vice versa) inverts the entire payoff direction | Verify the type matches the termsheet and exchange listing |
+| Corporate action adjustment missed | A stock split changes the ratio and/or strike. If not adjusted, all subsequent valuations are wrong | Monitor corporate action announcements and apply adjustments per exchange rules |
+
+**Control implication**
+
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. The two dominant control risks for a warrant are **knock-out capture** and the **conversion ratio**. A missed intraday KO touch leaves a turbo that should be dead still booked as live — overstating both the investor's residual claim and the desk's hedged risk, while the desk's real hedge has already gone wrong. A ratio error silently scales every payout: a 10:1 warrant booked as 1:1 misstates redemption by a factor of ten. The reconciliation exists precisely to catch these inconsistencies — across NEMO, Sophis, and the exchange record — before settlement crystallises them.
+
+#### §10. Formal Definition
 
 A **Warrant** is a securitized option issued by a bank, giving the holder the right to participate in the price movement of an underlying asset. At expiry, the warrant pays the intrinsic value:
 
@@ -8064,172 +7889,50 @@ A **Turbo Certificate** (also: Turbo Warrant, Knock-Out Certificate) adds a knoc
 - **Maturity:** Weeks to years
 - **Type:** Call (bullish) or Put (bearish)
 
-
-#### §12. Product Construction
-
-| Component | What It Is | Purpose |
-|-----------|-----------|---------|
-| Call option (call warrant) | Long call at the strike price | Provides leveraged upside exposure |
-| Put option (put warrant) | Long put at the strike price | Provides leveraged downside exposure |
-| Knock-out feature (turbo only) | American barrier that terminates the product | Reduces premium by eliminating deep out-of-money scenarios |
-
-**No bond component.** Unlike every other product in Part 5.1, the warrant has no bond wrapper. The investor buys pure optionality.
-
-**Pricing:**
-Warrant Price = Intrinsic Value + Time Value
-
-- **Intrinsic value:** The immediate exercise value (positive if in-the-money, zero if out-of-the-money)
-- **Time value:** The value of remaining optionality — decays toward zero as maturity approaches (Theta from Section 1.4)
-
-For Turbo Certificates, the knock-out barrier eliminates most of the time value, so the turbo trades close to its intrinsic value. This gives the turbo near-1:1 sensitivity to the underlying (high Delta), creating even greater leverage than a vanilla warrant.
-
-> **Professor Note:** If you remember only one thing from this chapter, remember this: the warrant is the only product in Part 5.1 without a bond. Every other ELN has a bond providing funding, coupons, or capital protection. The warrant strips all of that away, leaving pure option exposure. The investor's maximum loss is the premium paid, but that premium can go to zero.
-
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Detail |
 |-------|--------|
-| **Trade date** | Terms agreed: underlying, strike/barrier, coupon, maturity. Pricing finalised |
-| **Issue date** | Note issued. Investor pays par (or discount). Bank establishes hedge |
-| **Coupon dates** | Periodic observations and coupon payments (if applicable). Barrier monitoring |
-| **Maturity** | Final observation. Settlement: cash (par or adjusted) or physical delivery. T+2 settlement |
+| **Listing date** | Warrant is listed on the exchange. NEMO records the issuance: strike, ratio, maturity, type (call/put), KO barrier (if turbo). Bank establishes hedge |
+| **Trading** | Market maker provides continuous bid-offer quotes. Investors buy and sell at exchange prices |
+| **KO event (turbos)** | If the underlying touches the KO barrier intraday, the turbo is immediately terminated. Settlement = residual value (typically zero or the difference between the KO level and the next available price) |
+| **Corporate actions** | Stock splits, dividends, and mergers require adjustment to the strike and/or ratio. These are governed by exchange rules |
+| **Expiry** | If in-the-money: cash settlement = (Final − Strike) × Ratio (for calls). If out-of-the-money: expires worthless. No action required from the investor. T+2 settlement |
 
-#### §14. Desk Reality
+#### §12. Worked Example (both lenses)
 
-**Call Warrant at expiry:**
-```
-Warrant
-Value (€)
-    |
-    |                          ╱
-    |                        ╱
-    |                      ╱   Slope = ratio
-    |                    ╱
-    |                  ╱
-    |                ╱
-  0 |──────────────*────────────→ Stock Price (€)
-    |            Strike
-    |
-    Break-even = Strike + Premium paid per warrant
-```
+**Product:** 9-month Call Warrant on Volkswagen. **Number of warrants:** 5,000. **Premium per warrant:** €10. **Total investment:** €50,000. **Strike price:** €150. **Volkswagen current price:** €150 (at-the-money). **Ratio:** 1:1. **Maturity:** 9 months.
 
-**Turbo Call Warrant at expiry (if not knocked out):**
-```
-Turbo
-Value (€)
-    |
-    |                          ╱
-    |                        ╱
-    |                      ╱
-    |                    ╱
-    |                  ╱
-  0 |────────────────*────────────→ Stock Price (€)
-    |     ↑        Strike
-    |     KO
-    |   Barrier
-    |   (instant
-    |   termination)
-```
+*Investor lens:*
+- **At expiry, Volkswagen at €195 (+30%):** Intrinsic value per warrant: €195 − €150 = €45. Total: 5,000 × €45 = €225,000. Profit: €225,000 − €50,000 = **€175,000 (+350%)**. A 30% stock move produced a 350% return.
+- **At expiry, Volkswagen at €160 (+6.7%):** Intrinsic value: €160 − €150 = €10. Total: 5,000 × €10 = €50,000. Profit: €50,000 − €50,000 = **€0 (break-even)**. The stock needed to rise by exactly the premium amount to break even.
+- **At expiry, Volkswagen at €148 (−1.3%):** Intrinsic value: €0. Warrant expires out of the money. Total loss: **€50,000 (−100%)**. A 1.3% decline wiped out the entire investment.
+- **Turbo variant — KO at €135:** Same parameters. Premium: €7 per warrant (cheaper due to KO risk). Total: €35,000. If Volkswagen drops to €134.50 at any point → KO triggered. Turbo terminates immediately. **Loss: €35,000 (−100%)**, regardless of subsequent stock recovery. If Volkswagen never hits €135 and expires at €195: Intrinsic value per warrant: €195 − €150 = €45. Total: 5,000 × €45 = €225,000. Profit: €225,000 − €35,000 = **€190,000 (+543%)**. The turbo's lower cost amplifies the return percentage versus the vanilla warrant.
 
-Two distinct regions:
-- **Below strike (call) or above strike (put):** Value is zero. The option expires worthless.
-- **Above strike (call) or below strike (put):** Value increases linearly with the stock price at the ratio rate.
+*Bank lens:*
+In the +30% expiry, the desk is short the call it issued; against the €225,000 it owes the holder it relies on its delta hedge in Volkswagen stock, having earned the structuring margin and net hedging P&L on the way. Product Control confirms the intrinsic value and the time-value MTM (now zero at expiry) reconcile to the settlement. In the €148 expiry the short option dies worthless and the desk keeps the premium net of hedging cost. In the Turbo KO at €134.50, the desk must flatten its hedge the instant the barrier is touched; the 2nd line must confirm the KO event was captured intraday across NEMO, Sophis, and the exchange, that the ratio (1:1) and residual convention are correct, and that the dead turbo is no longer booked as live before settlement.
 
-There is no barrier cushion — unlike an RC, there is no "safe zone" between a barrier and the strike. The transition from worthless to valuable happens at a single point.
+#### §13. Knowledge Check
 
-
-#### §15. Risk Analysis
-
-| Risk | Description | Severity |
-|------|------------|:--------:|
-| **Total premium loss** | If the underlying finishes below the strike (call) or above the strike (put), the warrant expires worthless — 100% loss | High |
-| **Time decay (Theta)** | The warrant loses value every day as maturity approaches, even if the stock price is unchanged | High |
-| **Leverage amplification** | Percentage losses are amplified — a small adverse stock move creates a large percentage warrant loss | High |
-| **Knock-out risk (turbos)** | If the stock briefly touches the KO barrier, the turbo terminates immediately. Recovery after KO is irrelevant | High |
-| **Volatility sensitivity (Vega)** | Warrant value is sensitive to implied volatility changes. A decline in implied vol reduces the warrant's value even if the stock price is unchanged | Medium |
-| **Liquidity risk** | While exchange-listed, bid-offer spreads may widen in volatile markets or for less popular underlyings | Low |
-
-
-#### §16. Booking and Systems
-
-| Field | Value |
-|-------|-------|
-| **Booking system** | NEMO |
-| **Pricing system** | Sophis |
-| **Four-Leg** | No |
-| **Product type** | Warrant (Call/Put) or Turbo Certificate |
-| **Trading venue** | Exchange-listed (e.g., Euronext, SIX, Börse Frankfurt) |
-| **Market-making** | Issuing bank provides continuous two-sided quotes during trading hours |
-| **Settlement** | Cash: Max(0, Final − Strike) × Ratio for calls; Max(0, Strike − Final) × Ratio for puts |
-| **KO monitoring (turbos)** | Continuous — any intraday touch during exchange hours terminates the product |
-
-**Lifecycle events:**
-- **Listing date:** Warrant is listed on the exchange. NEMO records the issuance: strike, ratio, maturity, type (call/put), KO barrier (if turbo).
-- **Trading:** Market maker provides continuous bid-offer quotes. Investors buy and sell at exchange prices.
-- **KO event (turbos):** If the underlying touches the KO barrier intraday, the turbo is immediately terminated. Settlement = residual value (typically zero or the difference between the KO level and the next available price).
-- **Corporate actions:** Stock splits, dividends, and mergers require adjustment to the strike and/or ratio. These are governed by exchange rules.
-- **Expiry:** If in-the-money: cash settlement = (Final − Strike) × Ratio (for calls). If out-of-the-money: expires worthless. No action required from the investor.
-
-
-#### §17. Red Flags
-
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| **Ratio mismatch** | If the system records a 1:1 ratio but the warrant is actually 10:1, payouts will be 10× too large or small | Verify the ratio against the termsheet and exchange listing |
-| **KO event not detected (turbos)** | If the stock touched the KO barrier intraday but the system only checks daily closes, the turbo may not be terminated | Ensure real-time intraday barrier monitoring for turbo certificates |
-| **Residual value calculation** | Some turbos pay a small residual on KO (the difference between the KO level and the next traded price). Others pay zero | Verify the residual value convention against the termsheet |
-| **Call/Put type reversed** | Booking a call warrant as a put (or vice versa) inverts the entire payoff direction | Verify the type matches the termsheet and exchange listing |
-| **Corporate action adjustment missed** | A stock split changes the ratio and/or strike. If not adjusted, all subsequent valuations are wrong | Monitor corporate action announcements and apply adjustments per exchange rules |
-
-
-#### §18. Worked Example
-
-**Product:** 9-month Call Warrant on Volkswagen
-**Number of warrants:** 5,000
-**Premium per warrant:** €10
-**Total investment:** €50,000
-**Strike price:** €150
-**Volkswagen current price:** €150 (at-the-money)
-**Ratio:** 1:1
-**Maturity:** 9 months
-
-**At expiry, Volkswagen at €195 (+30%):**
-Intrinsic value per warrant: €195 − €150 = €45. Total: 5,000 × €45 = €225,000. Profit: €225,000 − €50,000 = **€175,000 (+350%)**. A 30% stock move produced a 350% return.
-
-**At expiry, Volkswagen at €160 (+6.7%):**
-Intrinsic value: €160 − €150 = €10. Total: 5,000 × €10 = €50,000. Profit: €50,000 − €50,000 = **€0 (break-even)**. The stock needed to rise by exactly the premium amount to break even.
-
-**At expiry, Volkswagen at €148 (−1.3%):**
-Intrinsic value: €0. Warrant expires out of the money. Total loss: **€50,000 (−100%)**. A 1.3% decline wiped out the entire investment.
-
-**Turbo variant — KO at €135:**
-Same parameters. Premium: €7 per warrant (cheaper due to KO risk). Total: €35,000.
-If Volkswagen drops to €134.50 at any point → KO triggered. Turbo terminates immediately. **Loss: €35,000 (−100%)**, regardless of subsequent stock recovery.
-
-If Volkswagen never hits €135 and expires at €195: Intrinsic value per warrant: €195 − €150 = €45. Total: 5,000 × €45 = €225,000. Profit: €225,000 − €35,000 = **€190,000 (+543%)**. The turbo's lower cost amplifies the return percentage versus the vanilla warrant.
-
-
-#### §19. Knowledge Check
-
-1. **What is the fundamental difference between a warrant and every other product in Part 5.1?**
-2. **Explain why a warrant can lose 100% of its value while the underlying stock declines only 5%.**
-3. **What is the difference between a vanilla warrant and a turbo certificate? Why is the turbo cheaper?**
-4. **How does time decay (Theta) affect a warrant's value as maturity approaches?**
-5. **An investor holds a turbo call that was knocked out. The stock recovers above the strike by expiry. Does the investor profit? Why or why not?**
-
+1. **What is the fundamental difference between a warrant and every other product in Part 5.1?** *(Investor)*
+2. **Explain why a warrant can lose 100% of its value while the underlying stock declines only 5%.** *(Investor)*
+3. **What is the difference between a vanilla warrant and a turbo certificate? Why is the turbo cheaper?** *(Investor)*
+4. **How does time decay (Theta) affect a warrant's value as maturity approaches?** *(Investor)*
+5. **An investor holds a turbo call that was knocked out. The stock recovers above the strike by expiry. Does the investor profit? Why or why not?** *(Investor)*
+6. **(Desk economics / 1LoD)** What position does the desk hold against the investor on a warrant, and which way do the desk's gamma, vega, and theta point? Where does the desk's structuring margin come from, and why is a Turbo's knock-out the moment the hedge is most dangerous?
+7. **(Controls / 2LoD)** Name three reconciliation breaks specific to a warrant/turbo and the consequence of each for the investor's settlement.
 
 **Mental Models**
 
 | Concept | Mental Model |
 |---------|-------------|
-| Warrant | Mining claim — pay for the right to extract value; if the plot is barren, you lose the fee |
-| Premium | The claim fee — your total risk. No additional liability beyond what you paid |
-| Strike price | The depth at which gold starts — value only exists below this depth (for calls, above the strike) |
+| Warrant | Mining claim — pay for the right to extract value; if the plot is barren, the fee is lost |
+| Premium | The claim fee — the investor's total risk. No additional liability beyond what was paid |
+| Strike price | The depth at which gold starts — value only exists above this depth (for calls) |
 | Time decay | The claim's expiry date — every day the license gets closer to expiring, the claim loses value |
 | Turbo KO | Flood clause — automatic cancellation if conditions deteriorate, even temporarily |
 | Leverage | A small claim fee controlling a large plot — amplifies both discovery (gain) and failure (loss) |
-
+| 2LoD reconciliation | The claims registry — confirms the strike, ratio, KO level, and listing match before any payout is settled |
 
 **Key Takeaways**
 
@@ -8238,26 +7941,17 @@ If Volkswagen never hits €135 and expires at €195: Intrinsic value per warra
 3. Leverage amplifies returns in both directions: small stock moves create large percentage changes in the warrant's value.
 4. A Turbo Certificate adds a knock-out barrier that terminates the product if the stock touches the barrier at any point. The KO makes the turbo cheaper but introduces sudden-death risk.
 5. Warrants decay over time (Theta). Holding a warrant in a flat market results in a loss from time decay alone.
+6. The investor is long the warrant; the desk holds the offsetting short-option position, short gamma and short vega, earning theta and flattening its hedge instantly on a Turbo KO.
+7. For the 2nd line, the dominant control risks are knock-out capture, the conversion ratio, and call/put type — each can misstate the settlement across NEMO, Sophis, and the exchange.
 
-
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
 1. **Treating warrants like shares.** Shares do not expire. Warrants do. An investor who holds a warrant in a flat market loses money from time decay, even if the stock price is unchanged.
 2. **Ignoring the break-even point.** A call warrant profits only if the stock rises above the strike PLUS the premium paid per warrant. A stock that rises from €150 to €155 does not profit if the premium was €10.
 3. **Assuming turbos can recover after KO.** Once knocked out, the turbo is dead. The stock's subsequent recovery is irrelevant to the turbo holder.
 4. **Misunderstanding the ratio.** If the ratio is 10:1, the investor needs 10 warrants for exposure to 1 share. Forgetting the ratio leads to investment-size errors.
 5. **Comparing warrant returns to stock returns without adjusting for risk.** A warrant that returned 500% did so because of leverage — the same leverage that could have produced a −100% return. The percentage return is not comparable to stock returns without adjusting for the different capital at risk.
-
-### Desk Perspective
-
-| Role | What the Warrant Means to Them |
-|------|-------------------------------|
-| **Trader** | Manages a flow book of long and short options. Delta-hedges continuously by trading the underlying stock. Turbo KO events require immediate position flattening — the hedge must be unwound the moment the barrier is hit |
-| **Structurer** | Designs warrant parameters for exchange listing: strike, maturity, ratio, KO level (for turbos). Balances leverage (retail appeal) with manageable hedging cost (desk constraint) |
-| **Product Control** | Monitors market-maker quotes against exchange obligations (maximum spread, minimum quote size). Validates daily settlement prices. Reconciles warrant book between NEMO and exchange records |
-| **Risk** | Manages aggregate Greeks across the warrant book. Concentrated Gamma near popular strike levels creates directional risk during sharp moves. KO events cause sudden position changes requiring rapid rebalancing |
-| **Operations** | Processes exchange settlement, KO events (turbos), and expiry. Handles corporate actions (stock splits, dividends) that require adjustment to strike and ratio per exchange rules |
-
+6. **(Controls) Trusting a single system's ratio or KO flag.** Because the ratio scales every payout and a missed intraday touch leaves a dead turbo booked as live, the 2nd line must reconcile the ratio, the KO level, and the KO event flag across NEMO, Sophis, and the exchange record rather than assume they agree.
 ### Knowledge Check
 
 **Review Questions:**
