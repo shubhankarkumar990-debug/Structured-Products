@@ -3395,7 +3395,7 @@ A **Phoenix Autocallable** is a structured product with:
 | Q4 | $98 | $36 | $185 | B (72%) | No (72%<100%) | Yes (72%>65%) | 0 | **$90,000** |
 | Q5 | $105 | $42 | $210 | B (84%) | No (84%<100%) | Yes (84%>65%) | 0 | $30,000 |
 | Q6 | $110 | $48 | $220 | B (96%) | No (96%<100%) | Yes (96%>65%) | 0 | $30,000 |
-| Q7 | $115 | $52 | $230 | B (104%) | No (B 104%, but need ALL ≥100%) | Yes | 0 | $30,000 |
+| Q7 | $115 | $48 | $230 | B (96%) | No (B 96% < 100%) | Yes | 0 | $30,000 |
 | Q8 | $120 | $55 | $240 | B (110%) | Yes (all ≥100%) | Yes | 0 | $30,000 |
 
 **Q4 memory payout:** Coupon condition is met. Memory has 2 stored coupons. Payment = current coupon + 2 memorized = 3 × $30,000 = $90,000.
@@ -4071,7 +4071,7 @@ The desk is long the embedded knock-in put and short the knock-out feature, and 
 
 **The discount decomposition (from Section 2.2):**
 
-Gross put premium ~7.5%; cost of KO feature ~−2.0%; net put premium available ~5.5%; bond yield ~2.0%; Funds Transfer Pricing (FTP) −0.5%; desk margin ~−0.5% (lower margin due to smaller premium pool); **net discount ~7.0%**. The KO feature costs approximately 2% of the premium. This is why the KODRC discount (7%) is smaller than the DRC discount (9%) — the investor is paying for downside protection, and that 2% is the desk's cost of buying back the up-and-out feature on the put.
+Gross put premium ~7.5%; cost of KO feature ~−2.0%; net put premium available ~5.5%; bond yield ~2.5%; Funds Transfer Pricing (FTP) −0.5%; desk margin ~−0.5% (lower margin due to smaller premium pool); **net discount ~7.0%**. The KO feature costs approximately 2% of the premium. This is why the KODRC discount (7%) is smaller than the DRC discount (9%) — the investor is paying for downside protection, and that 2% is the desk's cost of buying back the up-and-out feature on the put.
 
 ![KODRC Coupon/Discount Decomposition — Bank Lens (Desk Economics)](assets/kodrc/waterfall_kodrc_09.svg)
 
@@ -4710,7 +4710,7 @@ Some investors want more protection against moderate stock declines but are will
 | **Complexity Rationale** | Leveraged RC with airbag protection zone between strike and barrier. Amplified upside participation above strike |
 | **Underlying Asset Class** | Equity (single stock or index) |
 | **Capital Protection** | Partial (airbag absorbs losses between strike and barrier) |
-| **Coupon Type** | None — return via leveraged participation |
+| **Coupon Type** | Fixed coupon (comparable to RC); geared downside below the barrier |
 | **Maturity** | 2-5 years |
 | **Liquidity** | Secondary market |
 | **Primary System** | Murex |
@@ -5073,9 +5073,9 @@ Many investors want upside exposure but fear flat markets more than crashes. In 
 | **Abbreviation** | Bonus |
 | **Family** | Equity-Linked Notes |
 | **Complexity Score** | 4 / 10 |
-| **Complexity Rationale** | Capital-protected participation note with bonus minimum return if underlying stays above barrier |
+| **Complexity Rationale** | Participation note with a bonus minimum return if the barrier holds; principal exposed to full downside if the KO barrier is breached |
 | **Underlying Asset Class** | Equity (index or stock) |
-| **Capital Protection** | Conditional (bonus forfeited if barrier breached, but principal returned at maturity) |
+| **Capital Protection** | Conditional — if the KO barrier is breached the bonus is voided and principal tracks the underlying (full downside, no protection) |
 | **Coupon Type** | Bonus coupon if barrier not breached |
 | **Maturity** | 3-5 years |
 | **Liquidity** | Secondary market |
@@ -5122,7 +5122,7 @@ Many investors want upside exposure but fear flat markets more than crashes. In 
 |:-----:|---------|---------------|-----|
 | 1 | Plain vanilla bond | — (baseline) | Fixed coupon, full principal return |
 | 2 | Equity-linked note | Equity participation or option embedded | Market return exposure with note wrapper |
-| 3 | Bonus Note | Specific structural features added | Product-specific innovation: Capital-protected participation note with bonus minimum return if underlying stays above barrier |
+| 3 | Bonus Note | Specific structural features added | Product-specific innovation: Participation note with a bonus minimum return if the barrier holds; principal exposed to full downside if the KO barrier is breached |
 
 ---
 
@@ -5817,7 +5817,7 @@ The CRA ELN solves the **range-bound market yield** problem.
 | **Complexity Score** | 6 / 10 |
 | **Complexity Rationale** | Range accrual coupon on equity underlying with issuer call right. Days in range determine coupon. Most complex ELN coupon |
 | **Underlying Asset Class** | Equity (index) |
-| **Capital Protection** | 100% at maturity |
+| **Capital Protection** | Conditional — 65% knock-in barrier at maturity (principal reduced Final/Initial if breached) |
 | **Coupon Type** | Accrual coupon (proportional to days in range) |
 | **Maturity** | 3-7 years |
 | **Liquidity** | Secondary market |
@@ -5836,7 +5836,7 @@ The CRA ELN solves the **range-bound market yield** problem.
 **Comparison Matrix Fields:**
 - Complexity: 6
 - Yield Potential: Very high (if index stays in range)
-- Capital Protection: 100% at maturity
+- Capital Protection: Conditional (65% knock-in barrier at maturity)
 - Credit Exposure: Issuer
 - Liquidity: Secondary market
 - Path Dependency: Yes (daily range + call dates)
@@ -6180,9 +6180,9 @@ The ICN solves the **low-yield, no-equity-risk** problem.
 | **Abbreviation** | ICN |
 | **Family** | Equity-Linked Notes |
 | **Complexity Score** | 3 / 10 |
-| **Complexity Rationale** | Equity-linked note with issuer call right on predetermined dates. Higher coupon for callability. No autocall trigger |
-| **Underlying Asset Class** | Equity (single stock or index) |
-| **Capital Protection** | Conditional (depends on variant) |
+| **Complexity Rationale** | Issuer-callable funding note (no equity, no barrier). Bank holds the call right on predetermined dates; higher coupon compensates the investor for that callability |
+| **Underlying Asset Class** | Interest rate / issuer credit (no equity underlying) |
+| **Capital Protection** | Full par at call or maturity (issuer credit risk only) |
 | **Coupon Type** | Enhanced fixed or contingent coupon |
 | **Maturity** | 2-5 years |
 | **Liquidity** | Secondary market |
@@ -6201,7 +6201,7 @@ The ICN solves the **low-yield, no-equity-risk** problem.
 **Comparison Matrix Fields:**
 - Complexity: 3
 - Yield Potential: High (call premium enhances coupon)
-- Capital Protection: Varies by underlying note type
+- Capital Protection: Full par at call/maturity (issuer credit risk only)
 - Credit Exposure: Issuer
 - Liquidity: Secondary market
 - Path Dependency: Yes (call observation dates)
@@ -6214,12 +6214,12 @@ The ICN solves the **low-yield, no-equity-risk** problem.
 
 | Role | Responsibility |
 |------|---------------|
-| **Structurer** | Designs Issuer Callable Note terms: strike, barrier, coupon, maturity. Optimises structure for client and bank |
-| **Trader** | Hedges embedded options. Manages Greeks (delta, gamma, vega). Prices secondary market |
+| **Structurer** | Designs Issuer Callable Note terms: call schedule, no-call period, coupon, maturity. Optimises structure for client and bank |
+| **Trader** | Hedges the issuer call with swaptions. Manages rate vega and DV01 (no equity Greeks). Prices secondary market |
 | **Sales** | Distributes Issuer Callable Note to target clients. Explains payoff scenarios and risk-return profile |
-| **Risk Management** | Monitors option Greeks, barrier proximity, concentration risk. Sets trading limits |
+| **Risk Management** | Monitors rate vega, DV01, and call-exercise risk. Sets trading limits |
 | **Product Control** | Daily P&L attribution between note accrual and option MTM. Independent price verification |
-| **Operations** | Processes coupon payments and maturity settlement. Handles physical delivery if applicable |
+| **Operations** | Processes coupon payments and call/maturity par redemption. Cash settlement (no physical delivery) |
 | **Legal / Compliance** | Reviews term sheet for regulatory compliance. Ensures suitability for target investor base |
 | **Quantitative Analytics** | Prices embedded derivatives. Calibrates volatility surface. Provides model validation |
 
@@ -6229,7 +6229,7 @@ The ICN solves the **low-yield, no-equity-risk** problem.
 |:-----:|---------|---------------|-----|
 | 1 | Plain vanilla bond | — (baseline) | Fixed coupon, full principal return |
 | 2 | Equity-linked note | Equity participation or option embedded | Market return exposure with note wrapper |
-| 3 | Issuer Callable Note | Specific structural features added | Product-specific innovation: Equity-linked note with issuer call right on predetermined dates. Higher coupon for callability. No autocall trigger |
+| 3 | Issuer Callable Note | Specific structural features added | Product-specific innovation: Issuer-callable funding note (no equity, no barrier). Bank holds the call right on predetermined dates; higher coupon compensates the investor for that callability |
 
 ---
 
@@ -6284,7 +6284,7 @@ This is a rates product, not an equity product. The desk hedges the embedded opt
 |------------------|--------|
 | **Structuring fee** | Embedded in note price at issuance (typically 1-3%) |
 | **Bid-offer spread** | Spread between option cost and terms offered to investor |
-| **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
+| **Hedging P&L** | Swaption / rate-vol hedging P&L; the desk gains if the call is not exercised |
 | **Funding advantage** | Issues note at sub-market effective funding rate |
 
 **The coupon decomposition:**
@@ -6362,8 +6362,8 @@ The ICN is the simplest product in the structured notes spectrum. Its enhanced y
 |-------|--------|
 | **Trade date** | Terms agreed: underlying, strike/barrier, coupon, maturity. Pricing finalised |
 | **Issue date** | Note issued. Investor pays par (or discount). Bank establishes hedge |
-| **Coupon dates** | Periodic observations and coupon payments (if applicable). Barrier monitoring |
-| **Maturity** | Final observation. Settlement: cash (par or adjusted) or physical delivery. T+2 settlement |
+| **Coupon dates** | Coupon payments on scheduled dates. Call dates after the no-call period |
+| **Maturity** | Call or maturity: par redemption in cash. T+2 settlement |
 
 #### §12. Worked Example (both lenses)
 
@@ -6555,7 +6555,7 @@ When interest rates are low, bonds and guaranteed-coupon notes pay little, and i
 | **Complexity Score** | 4 / 10 |
 | **Complexity Rationale** | Binary coupon structure — pays fixed coupon if underlying above digital strike, zero otherwise. Clean yes/no outcome |
 | **Underlying Asset Class** | Equity (single stock or index) |
-| **Capital Protection** | 100% at maturity |
+| **Capital Protection** | Conditional — 65% knock-in barrier at maturity (principal reduced Final/Initial if breached) |
 | **Coupon Type** | Digital coupon (all-or-nothing based on observation) |
 | **Maturity** | 1-3 years |
 | **Liquidity** | Secondary market |
@@ -6574,7 +6574,7 @@ When interest rates are low, bonds and guaranteed-coupon notes pay little, and i
 **Comparison Matrix Fields:**
 - Complexity: 4
 - Yield Potential: Moderate-High (if above strike on all dates)
-- Capital Protection: 100% at maturity
+- Capital Protection: Conditional (65% knock-in barrier at maturity)
 - Credit Exposure: Issuer
 - Liquidity: Secondary market
 - Path Dependency: Yes (periodic observation dates)
@@ -6932,10 +6932,10 @@ The Booster Note solves the **leveraged directional exposure** problem.
 | **Abbreviation** | Booster |
 | **Family** | Equity-Linked Notes |
 | **Complexity Score** | 4 / 10 |
-| **Complexity Rationale** | Leveraged participation note — amplified upside (e.g., 200%) up to a cap, with direct downside exposure below strike |
+| **Complexity Rationale** | Leveraged participation note — amplified upside (150% in this chapter's examples) up to a cap, with direct downside exposure below strike |
 | **Underlying Asset Class** | Equity (index) |
 | **Capital Protection** | None (full equity downside below strike) |
-| **Coupon Type** | None — return via leveraged participation |
+| **Coupon Type** | None — return via leveraged upside participation (boosted, up to a cap) |
 | **Maturity** | 2-5 years |
 | **Liquidity** | Secondary market |
 | **Primary System** | Murex |
@@ -6981,7 +6981,7 @@ The Booster Note solves the **leveraged directional exposure** problem.
 |:-----:|---------|---------------|-----|
 | 1 | Plain vanilla bond | — (baseline) | Fixed coupon, full principal return |
 | 2 | Equity-linked note | Equity participation or option embedded | Market return exposure with note wrapper |
-| 3 | Booster Note | Leveraged participation added | Amplified upside (e.g., 200%) up to a cap, with direct downside exposure below strike |
+| 3 | Booster Note | Leveraged participation added | Amplified upside (150% in this chapter's examples) up to a cap, with direct downside exposure below strike |
 
 ---
 
