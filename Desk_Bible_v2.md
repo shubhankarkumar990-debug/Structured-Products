@@ -14664,7 +14664,7 @@ The desk is long single-name CDS protection on the reference entity and hedges b
 
 Coupon = Bond interest (risk-free + issuer spread) + CDS spread − Bank margin
 
-For a 5.5% coupon: risk-free rate ~2.5%; CDS spread on Acme Corp ~3.5%; bank margin −0.5%; **net coupon 5.5%**. The CDS spread is the key component — it is the premium the investor earns for selling single-name protection, and the margin between the spread embedded in the note and the spread the desk pays to lay off the risk is where the desk's structuring P&L sits.
+For a 5.5% coupon: risk-free rate ~2.5%; CDS spread on Acme Corp ~3.0%; **net coupon 5.5%** (the desk's margin sits in the spread the note pays versus the spread the desk lays off). The CDS spread is the key component — it is the premium the investor earns for selling single-name protection, and the margin between the spread embedded in the note and the spread the desk pays to lay off the risk is where the desk's structuring P&L sits.
 
 ![Vanilla CLN Coupon Decomposition — Bank Lens (Desk Economics)](assets/cln/waterfall_cln_09.svg)
 
@@ -14817,8 +14817,8 @@ A **Credit-Linked Note (CLN)** is a structured product in which the investor len
 
 
 **Dual-lens questions:**
-- *(Desk economics / 1LoD)* What does the desk book against the investor (raw correlation/credit position), and how is it hedged?
-- *(Controls / 2LoD)* Which credit-event / basket / model-input fields must reconcile, and which is the most common break?
+- *(Desk economics / 1LoD)* What does the desk book against the investor (raw single-name credit / CDS position), and how is it hedged?
+- *(Controls / 2LoD)* Which credit-event / reference-entity (RED code) / recovery-rate fields must reconcile, and which is the most common break?
 **Scenario Questions:**
 1. An investor holds a CLN on a bank that is in the same country as the issuing bank. Why might a risk manager flag this as a concern?
 2. The CDS spread on the reference entity narrows from 300bp to 100bp after purchase. No credit event occurred. How does this affect the CLN's mark-to-market value? Would the investor benefit from selling early?
@@ -15082,7 +15082,7 @@ Day to day, desk P&L is driven by moves in the reference entity's credit spread 
 |-------------|-----------------|-------------------|
 | **ISDA Credit Definitions** | Credit-event set and Determinations Committee reference consistent across systems and termsheet | A credit event recognised under one definition set but not another → settlement triggered incorrectly |
 | **Reference portfolio / entity** | Single reference entity identifier matches across NEMO, Sophis and the termsheet | Wrong reference entity mapped → protection on the incorrect name |
-| **Base-correlation / skew model inputs** | Recovery-distribution / recovery-skew model inputs match between front office and risk | Recovery-skew input stale or divergent between systems → MTM and risk diverge |
+| **Recovery-skew / recovery-distribution model inputs** | Recovery-distribution / recovery-skew model inputs match between front office and risk | Recovery-skew input stale or divergent between systems → MTM and risk diverge |
 | **Recovery override** | Contractual recovery rate in NEMO equals the value used in Sophis and on the termsheet | Recovery field shows "market" instead of the fixed value → P&L is wrong |
 | **Credit-event / recovery determination** | On a credit event, contractual recovery applied — not the ISDA auction recovery | Operations applies market/auction recovery instead of contractual recovery |
 | **Coupon lifecycle** | Coupon schedule, day-count, cancellation of remaining coupons on a credit event | Coupon paid (or accrued) after a credit event that should have stopped it |
@@ -15201,8 +15201,8 @@ A **Skew Credit-Linked Note (Skew CLN)** is a credit-linked note on a single ref
 5. **(Controls) Failing to book the recovery override.** If the NEMO recovery field defaults to "market," all P&L and risk calculations are wrong — verify it is populated with the contractual rate and that Sophis agrees.
 
 **Dual-lens questions:**
-- *(Desk economics / 1LoD)* What does the desk book against the investor (raw correlation/credit position), and how is it hedged?
-- *(Controls / 2LoD)* Which credit-event / basket / model-input fields must reconcile, and which is the most common break?
+- *(Desk economics / 1LoD)* What does the desk book against the investor (raw single-name credit / CDS position), and how is it hedged?
+- *(Controls / 2LoD)* Which credit-event / reference-entity (RED code) / recovery-rate fields must reconcile, and which is the most common break?
 
 **Dual-lens visuals (generated):**
 - `assets/skewcln/controls_skewcln_recon_08.svg` `[generated]`
@@ -15382,7 +15382,7 @@ The correlation premium is the primary profit driver. The bank's model assigns a
 
 FTD Coupon is LESS than the sum of all individual CDS spreads but MORE than any single CDS spread. For a basket of 5 names with individual CDS spreads of 150-250bp:
 - Sum of all CDS spreads: ~1,000bp (if five separate CDS were sold)
-- FTD coupon: ~550-700bp (loss occurs only on the *first* default, not all five)
+- FTD coupon: ~900-950bp (e.g. 9.5% in the worked example — between a single-name CLN and the full sum of the basket CDS)
 - Single-name CLN coupon: ~200bp (only one name's risk)
 
 The FTD coupon sits between single-name and sum-of-all because the investor takes *first*-default risk but not *all*-default risk.
@@ -15483,7 +15483,7 @@ The FTD coupon depends critically on **default correlation** — the tendency fo
 
 *Investor lens:*
 
-**Step 1 — Individual default probabilities:** Sum of individual default probabilities (independent): 1 − (1−0.036)(1−0.044)(1−0.030)(1−0.050)(1−0.040) = 1 − 0.964 × 0.956 × 0.970 × 0.950 × 0.960 = 1 − 0.8117 = **18.83%**
+**Step 1 — Individual default probabilities:** Sum of individual default probabilities (independent): 1 − (1−0.036)(1−0.044)(1−0.030)(1−0.050)(1−0.040) = 1 − 0.964 × 0.956 × 0.970 × 0.950 × 0.960 = 1 − 0.8153 = **18.5%**
 
 **Step 2 — Correlation adjustment:** With correlation at 0.30, defaults are partially clustered. The effective first-default probability is reduced from the independent case but still much higher than any single name. Modeled first-default probability: approximately **14.5%** (correlation reduces the probability because defaults tend to happen together or not at all). This is the long-correlation (MTM) effect: higher correlation lowers the first-default probability and helps the investor.
 
@@ -15639,7 +15639,7 @@ FTDs give investors a binary choice: take first-default risk (high coupon, high 
 | **Structurer** | Selects N and basket composition. Must explain the FTD-vs-NTD correlation-direction reversal to clients and internal stakeholders |
 | **Trader** | Hedges with individual CDS and manages the correlation book. NTD correlation exposure is opposite in direction to FTD — critical for portfolio management |
 | **Sales** | Explains the N-threshold and the correlation-direction reversal. Must ensure the client understands why the NTD is short correlation while the FTD is long |
-| **Quant** | Models basket default probabilities with the Nth-default trigger. Correlation sensitivity analysis is essential — the non-monotonic behavior requires careful calibration |
+| **Quant** | Models basket default probabilities with the Nth-default trigger. Correlation sensitivity analysis is essential — the strong correlation sensitivity requires careful calibration |
 | **Risk Manager** | Monitors correlation exposure direction (raw vs net). Stress-tests the correlation profile |
 | **Operations** | Tracks cumulative defaults in the basket. Must count defaults accurately — the Nth default triggers settlement |
 | **Compliance** | Verifies suitability for complex correlation products. The NTD's short-correlation direction makes suitability assessment harder |
@@ -15714,7 +15714,7 @@ The investor receives fixed coupons and full principal unless the Nth default oc
 | **Correlation risk (short correlation)** | The NTD (N≥2) is short correlation — its risk *rises* as default correlation rises, because clustering makes the Nth default more likely. High-correlation regimes are the adverse case. | Very High |
 | **Default clustering risk** | Multiple defaults in rapid succession consume the N-1 buffer faster and cut short the coupon stream collected before the trigger. | High |
 | **Recovery risk** | Loss severity depends on the recovery rate of the Nth defaulted name, set at credit-event auction — a low recovery means a larger principal loss. | High |
-| **Model risk** | A copula model drives pricing; the non-monotonic correlation behavior is model-dependent and hard to calibrate. | High |
+| **Model risk** | A copula model drives pricing; the correlation sensitivity is model-dependent and hard to calibrate. | High |
 | **Issuer credit risk** | The investor is exposed to the issuing bank's creditworthiness; if the issuer defaults, coupons or principal may not be received. | Medium |
 
 #### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
@@ -15725,7 +15725,7 @@ The desk's raw position is the mirror image of the investor's. Where the investo
 
 **Credit/correlation risk & hedging**
 
-The desk hedges with individual single-name CDS on the basket constituents and with correlation-dependent basket hedges. Because the NTD's correlation direction is the reverse of the FTD's, the desk's correlation book must be managed carefully: a desk that is short correlation on a raw basis from one product is not automatically hedged by the other. On a **raw** basis the desk's NTD position is the mirror of the investor's (the desk is long correlation where the investor is short); the **net** correlation exposure depends on the rest of the book, and the desk monitors the direction (raw vs net) continuously. The Nth-default sensitivity is non-monotonic in correlation, so the desk watches for the level at which the sensitivity changes magnitude or sign.
+The desk hedges with individual single-name CDS on the basket constituents and with correlation-dependent basket hedges. Because the NTD's correlation direction is the reverse of the FTD's, the desk's correlation book must be managed carefully: a desk that is short correlation on a raw basis from one product is not automatically hedged by the other. On a **raw** basis the desk's NTD position is the mirror of the investor's (the desk is long correlation where the investor is short); the **net** correlation exposure depends on the rest of the book, and the desk monitors the direction (raw vs net) continuously. The Nth-default sensitivity rises monotonically with correlation (short throughout), so the desk watches for the level at which the sensitivity changes magnitude.
 
 **How the bank makes money**
 
@@ -15785,7 +15785,7 @@ Day to day, desk P&L is driven by single-name credit-spread moves on the basket 
 |----------|---------------|-------------|
 | N parameter is 1 in a product sold as 2TD | Booking error — the product is actually an FTD | Correct immediately |
 | Default counter not updated after a confirmed credit event | The next default may trigger settlement unexpectedly | Update the counter; verify against ISDA determinations |
-| Correlation model shows NTD sensitivity changing magnitude or sign | The non-monotonic correlation region is near the current market level | Alert the trader — risk magnitude may shift |
+| Correlation model shows NTD sensitivity changing magnitude | The high-sensitivity correlation region is near the current market level | Alert the trader — risk magnitude may shift |
 | Multiple basket names in the same industry / geography | Clustering risk is high — the N-1 buffer may be insufficient | Stress-test with sector-wide defaults |
 | Recovery taken from assumption, not the auction print | Loss severity on the Nth name is misstated | Use the credit-event auction recovery |
 
@@ -15801,7 +15801,7 @@ An **Nth-to-Default Note (NTD)** is a credit-linked note referencing a basket of
 
 For the FTD (N=1), the relationship between correlation and risk is straightforward: higher correlation → lower first-default probability → lower risk (long correlation).
 
-For the NTD (N≥2), the direction reverses to short correlation, and the relationship becomes **non-monotonic** in the level of correlation:
+For the NTD (N≥2), the direction reverses to short correlation; NTD risk then rises monotonically with correlation (short throughout):
 
 | Correlation | FTD (N=1) Risk | 2TD (N=2) Risk | 3TD (N=3) Risk |
 |:-----------:|:--------------:|:--------------:|:--------------:|
