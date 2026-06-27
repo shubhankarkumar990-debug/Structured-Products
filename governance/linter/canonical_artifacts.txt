@@ -1,0 +1,18 @@
+# Canonical published artifacts for the Structured Products Knowledge Ecosystem.
+# The semantic linter and regression suite run cross-artifact checks over THIS
+# set only. Working files under review/, audit/, governance/, checkpoints/,
+# reports/, and release/desk-bible-v1/ are intentionally excluded: they quote
+# defect text by design (e.g. the errata addendum's "V1.0 text" blocks) and
+# would produce false positives.
+#
+# Paths are relative to the repo root. Lines starting with # are comments.
+
+Desk_Bible_v2.md
+production/part6_sections_1_3.md
+production/part6_sections_4_6.md
+production/part6_sections_7_9.md
+production/part6_sections_10_11.md
+production/infrastructure_encyclopedia_v1.md
+production/interview_system_v2_2.md
+production/solutions_manual.md
+production/product_dna_atlas.md
