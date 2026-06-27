@@ -592,6 +592,136 @@ def payoff_steepener(
     return _finish(fig, out_svg, preview)
 
 
+# --------------------------------------------------------------------------- #
+# 1m. Vanilla option payoff (buyer P&L) — call / put
+# --------------------------------------------------------------------------- #
+def payoff_option(
+    out_svg: str | Path,
+    *,
+    option: str = "call",
+    strike_pct: float = 100.0,
+    premium_pct: float = 5.0,
+    title: str = "Option Payoff at Maturity",
+    lens: str = LENS_INVESTOR,
+    x_min: float = 60.0,
+    x_max: float = 140.0,
+    preview: bool = True,
+) -> str:
+    """Long-option buyer P&L (% of underlying): call = max(0, S−K) − premium;
+    put = max(0, K−S) − premium. Floor at −premium; breakeven marked."""
+    _apply_style()
+    fig, ax = plt.subplots(figsize=(7.2, 4.4))
+    x = np.linspace(x_min, x_max, 400)
+    if option == "put":
+        pnl = np.maximum(0.0, strike_pct - x) - premium_pct
+        be = strike_pct - premium_pct
+    else:
+        pnl = np.maximum(0.0, x - strike_pct) - premium_pct
+        be = strike_pct + premium_pct
+    ax.plot(x, pnl, color=NAVY, lw=2.8, label=f"Long {option} (K={strike_pct:g}%, premium {premium_pct:g}%)")
+    ax.axhline(0, color=SLATE, lw=0.8)
+    ax.axhline(-premium_pct, color=ACCENT, lw=1.0, ls=":")
+    ax.text(x_min + 1, -premium_pct + 1, f"Max loss = premium ({premium_pct:g}%)", fontsize=8, color=ACCENT)
+    ax.axvline(strike_pct, color=GREY, lw=0.8, ls=":")
+    ax.text(strike_pct + 0.6, ax.get_ylim()[1] if False else premium_pct, f"Strike {strike_pct:g}%", fontsize=8, color=GREY)
+    ax.scatter([be], [0], color=GREEN, zorder=5, s=28)
+    ax.text(be + 0.6, 1.5, f"Breakeven {be:g}%", fontsize=8, color=GREEN)
+    ax.set_xlabel("Underlying at maturity (% of initial)")
+    ax.set_ylabel("Buyer P&L (% of underlying)")
+    ax.set_title(f"{title} — {lens}", color=NAVY, fontsize=13, fontweight="bold", loc="left")
+    ax.set_xlim(x_min, x_max)
+    ax.set_ylim(-premium_pct - 6, max(20, x_max - strike_pct - premium_pct + 4))
+    ax.grid(True, color=LIGHT, lw=1)
+    ax.set_axisbelow(True)
+    ax.legend(loc="upper left", frameon=False, fontsize=8.5)
+    return _finish(fig, out_svg, preview)
+
+
+# --------------------------------------------------------------------------- #
+# 1n. Forward payoff (linear)
+# --------------------------------------------------------------------------- #
+def payoff_forward(
+    out_svg: str | Path,
+    *,
+    direction: str = "long",
+    strike_pct: float = 100.0,
+    title: str = "Forward Payoff at Maturity",
+    lens: str = LENS_INVESTOR,
+    x_min: float = 60.0,
+    x_max: float = 140.0,
+    preview: bool = True,
+) -> str:
+    """Linear forward P&L (% of spot): long = S − F; short = F − S."""
+    _apply_style()
+    fig, ax = plt.subplots(figsize=(7.2, 4.4))
+    x = np.linspace(x_min, x_max, 200)
+    pnl = (x - strike_pct) if direction == "long" else (strike_pct - x)
+    ax.plot(x, pnl, color=NAVY, lw=2.8, label=f"{direction.capitalize()} forward (F={strike_pct:g}%)")
+    ax.fill_between(x, pnl, 0, where=(pnl >= 0), color=GREEN, alpha=0.10)
+    ax.fill_between(x, pnl, 0, where=(pnl < 0), color=ACCENT, alpha=0.10)
+    ax.axhline(0, color=SLATE, lw=0.8)
+    ax.axvline(strike_pct, color=GREY, lw=0.8, ls=":")
+    ax.text(strike_pct + 0.6, (x_max - strike_pct) * 0.5, f"Forward {strike_pct:g}%", fontsize=8, color=GREY)
+    ax.text(x_min + 2, (x_max - strike_pct) * 0.7, "Linear — full downside (no optionality)",
+            fontsize=8.5, color=SLATE)
+    ax.set_xlabel("Underlying at maturity (% of spot)")
+    ax.set_ylabel("Forward P&L (% of spot)")
+    ax.set_title(f"{title} — {lens}", color=NAVY, fontsize=13, fontweight="bold", loc="left")
+    ax.set_xlim(x_min, x_max)
+    ax.grid(True, color=LIGHT, lw=1)
+    ax.set_axisbelow(True)
+    ax.legend(loc="upper left", frameon=False, fontsize=8.5)
+    return _finish(fig, out_svg, preview)
+
+
+# --------------------------------------------------------------------------- #
+# 1o. Shark-fin payoff — participation up to a knock-out, then a rebate
+# --------------------------------------------------------------------------- #
+def payoff_sharkfin(
+    out_svg: str | Path,
+    *,
+    participation: float = 1.0,
+    ko_barrier_pct: float = 130.0,
+    rebate_pct: float = 2.0,
+    floor_pct: float = 100.0,
+    title: str = "Shark Fin Payoff at Maturity",
+    lens: str = LENS_INVESTOR,
+    x_min: float = 60.0,
+    x_max: float = 150.0,
+    preview: bool = True,
+) -> str:
+    """Capital-floored note with participation from the initial level up to a
+    knock-out barrier; touching the barrier drops the payoff to the rebate — the
+    'fin' shape. Return in % (floor_pct−100 below initial, the rebate above KO)."""
+    _apply_style()
+    fig, ax = plt.subplots(figsize=(7.2, 4.4))
+    base = floor_pct - 100
+    reb = rebate_pct
+    # below initial: flat at floor
+    xb = np.linspace(x_min, 100, 80); ax.plot(xb, np.full_like(xb, base), color=GREEN, lw=2.6)
+    # initial -> KO: participation
+    xf = np.linspace(100, ko_barrier_pct, 120); yf = base + participation * (xf - 100)
+    ax.plot(xf, yf, color=NAVY, lw=2.8, label=f"Participation {participation:g}× up to KO")
+    # above KO: rebate (the cliff)
+    xa = np.linspace(ko_barrier_pct, x_max, 80); ax.plot(xa, np.full_like(xa, reb), color=ACCENT, lw=2.6)
+    peak = base + participation * (ko_barrier_pct - 100)
+    ax.plot([ko_barrier_pct, ko_barrier_pct], [reb, peak], color=GREY, lw=1.3, ls=(0, (3, 3)))
+    ax.scatter([ko_barrier_pct], [peak], color=NAVY, zorder=5, s=26)
+    ax.scatter([ko_barrier_pct], [reb], color=ACCENT, zorder=5, s=26)
+    ax.annotate(f"Knock-out {ko_barrier_pct:g}% → rebate {rebate_pct:g}%",
+                xy=(ko_barrier_pct, (reb + peak) / 2), xytext=(ko_barrier_pct - 38, peak + 1),
+                fontsize=8.5, color=ACCENT, arrowprops=dict(arrowstyle="->", color=GREY))
+    ax.axhline(0, color=SLATE, lw=0.8); ax.axvline(100, color=GREY, lw=0.8, ls=":")
+    ax.text(x_min + 1, base + 1, f"Capital floor {floor_pct:g}%", fontsize=8, color=GREEN)
+    ax.set_xlabel("Underlying at maturity (% of initial)")
+    ax.set_ylabel("Investor total return (%)")
+    ax.set_title(f"{title} — {lens}", color=NAVY, fontsize=13, fontweight="bold", loc="left")
+    ax.set_xlim(x_min, x_max); ax.set_ylim(min(base - 4, -4), peak + 6)
+    ax.grid(True, color=LIGHT, lw=1); ax.set_axisbelow(True)
+    ax.legend(loc="upper left", frameon=False, fontsize=8.5)
+    return _finish(fig, out_svg, preview)
+
+
 # (linter rules live in governance/linter/semantic_linter.py; this is the diagram lib)
 # --------------------------------------------------------------------------- #
 # 1l. Correlation sensitivity (FTD / NTD / CDO tranche)

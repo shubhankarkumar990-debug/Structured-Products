@@ -188,8 +188,7 @@ def t_cor_06(repo):
 def t_cor_07(repo):
     defect = "Bank's hedge: long single-stock vol + short basket vol = long correlation."
     neg = fires(defect, "LNT-COR-09")
-    pos = repo.contains("Desk_Bible_v2.md",
-                        "long single-stock vol + short basket vol = **short** correlation")
+    pos = repo.contains("Desk_Bible_v2.md", "long single-stock vol + short basket vol, which is a short-correlation trade")
     clean = not repo.contains("Desk_Bible_v2.md",
                               "long single-stock vol + short basket vol = long correlation")
     return (neg and pos and clean,

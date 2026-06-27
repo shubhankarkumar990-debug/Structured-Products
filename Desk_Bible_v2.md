@@ -3043,6 +3043,10 @@ The investor also receives periodic fixed coupon payments throughout the life of
 6. *(Desk economics / 1LoD)* The investor is short the put; what is the desk, and which way does the desk's vega and gamma point? Where does the desk's structuring margin come from?
 7. *(Controls / 2LoD)* Which booking fields must reconcile between NEMO and Sophis for an RC, and which single field most often differs by convention?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor (it is long the embedded put), and how does gamma near the barrier drive the hedging cost?
+- *(Controls / 2LoD)* Which booking / fixing / barrier-event fields must reconcile across NEMO and Sophis, and which is the most common break?
 **Scenario Questions:**
 1. An investor holds a 1-year RC with a 65% American barrier. The stock drops to 64% on Day 100 but recovers to 90% by maturity. What is the investor's redemption? Would the answer change if the barrier were European?
 2. Implied volatility on a stock increases from 25% to 40%. How does this affect the value of the embedded put, and what happens to the RC's mark-to-market value for the investor?
@@ -3838,6 +3842,10 @@ No periodic coupons are paid; the return is the gap between the discounted purch
 4. *(Investor)* Why does a DRC have slightly amplified percentage losses compared to a standard RC?
 5. *(Desk economics / 1LoD)* The desk is long the put; how does the zero-coupon structure simplify the desk's P&L attribution versus an RC, and what new accretion term appears?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor (it is long the embedded put), and how does gamma near the barrier drive the hedging cost?
+- *(Controls / 2LoD)* Which booking / fixing / barrier-event fields must reconcile across NEMO and Sophis, and which is the most common break?
 **Scenario Questions:**
 1. An investor holds a 1-year DRC with a 70% European barrier. Issue price is 90%. The stock finishes at 65%. Calculate the redemption amount and the investor's return on invested capital.
 2. Two investors buy the same underlying risk: one in an RC (8% coupon, quarterly), one in a DRC (8% discount). The barrier is breached at month 9. Who is worse off at maturity, and why?
@@ -16369,30 +16377,32 @@ Now losses have breached the 3% attachment point:
 
 ---
 
+*The PPN (Section 5.1.1) protects principal in a note format. The Structured Deposit delivers the same economics — capital protection plus market-linked upside — but wraps them in a bank deposit. The wrapper matters: in many jurisdictions a deposit is eligible for a deposit guarantee scheme, an additional layer of protection that a note cannot offer. This chapter reads the product through two lenses: what it means for **the investor** (here, the depositor), and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+
 #### §1. Explain Like I'm New
 
-Imagine you walk into a bank and ask: "I want something safer than buying stocks but better than a savings account." The banker says: "We have a Structured Deposit. Your principal is guaranteed — just like a normal deposit — but instead of a fixed interest rate, your return depends on how the stock market performs."
+A retail client wants something safer than buying stocks but better than a savings account. A bank can offer a **Structured Deposit**: principal is guaranteed — just like a normal deposit — but instead of a fixed interest rate, the return depends on how a market index, stock, currency, or other underlying performs.
 
-If the market goes up, you earn more than a regular deposit. If the market goes down, you still get your full deposit back. You cannot lose your principal.
+If the market rises, the depositor earns more than a regular deposit. If the market falls, the depositor still receives the full deposit back. Principal cannot be lost.
 
-A **Structured Deposit** is a bank deposit where the interest payment is linked to the performance of a market index, stock, currency, or other underlying. The principal is fully protected by the bank's deposit insurance scheme (where available) or by the bank's own guarantee. The variable return replaces the fixed interest rate of a traditional deposit.
+A **Structured Deposit** is a bank deposit where the interest payment is linked to the performance of an underlying. The principal is fully protected by the bank's deposit insurance scheme (where available) or by the bank's own guarantee. The variable return replaces the fixed interest rate of a traditional deposit.
 
 This is the simplest structured product. It is a PPN (Principal Protected Note) wrapped in a deposit format rather than a note format. The economic exposure is identical — Bond + Call Option = Capital Protection + Upside — but the legal wrapper is a deposit, which in many jurisdictions carries deposit insurance protection that a note does not.
 
 #### §2. Real-World Analogy
 
-A Structured Deposit is like a savings account at a casino.
+A Structured Deposit is like a savings account whose interest rate is tied to a benchmark rather than fixed.
 
-You deposit $1,000 at the casino's bank. The casino guarantees you will get your $1,000 back at the end of the year no matter what. But instead of earning a fixed 2% interest rate, the casino says: "We will pay you interest based on how well our VIP tables perform this year."
+A client deposits $1,000 with the bank. The bank guarantees the $1,000 will be returned at the end of the year no matter what. But instead of a fixed 2% interest rate, the interest is based on how a chosen market index performs over the year.
 
-If the VIP tables have a great year, you earn 5% or more. If the VIP tables have a terrible year, you earn 0%. Either way, your $1,000 is safe.
+If the index has a great year, the depositor earns 5% or more. If the index has a poor year, the depositor earns 0%. Either way, the $1,000 is safe.
 
 In a Structured Deposit:
-- The **casino's bank** is the issuing bank.
+- The **issuing bank** holds the deposit.
 - The **$1,000 deposit** is the investor's principal (protected).
-- The **VIP table performance** is the underlying market index.
+- The **index performance** is the underlying market reference.
 - The **variable interest** is the participation-based return.
-- The **guarantee** is deposit insurance + bank's credit.
+- The **guarantee** is deposit insurance + the bank's credit.
 
 Unlike a PPN (which is a note and carries issuer credit risk like a bond), the Structured Deposit in many jurisdictions is covered by deposit guarantee schemes — an additional layer of safety.
 
@@ -16474,7 +16484,59 @@ The Structured Deposit is the ancestral structured product — the first form in
 
 **Key regulatory distinction:** In the EU, structured deposits fall under MiFID II but are NOT classified as securities. They carry deposit guarantee scheme protection (up to €100,000 per depositor per bank). This is the primary structural advantage over PPNs.
 
-#### §7. How the Bank Makes Money
+---
+
+#### §7. THE INVESTOR LENS
+
+**Why the investor buys it**
+
+1. **Capital protection.** Principal is fully protected at maturity by the deposit format. In any market scenario, the worst outcome is a 0% return (equivalent to keeping cash) — the investor cannot lose principal.
+2. **Deposit insurance.** Unlike a PPN, a Structured Deposit may be covered by national deposit guarantee schemes. This provides protection even if the bank fails — something a PPN cannot offer.
+3. **Market-linked upside.** If the market rises, the investor earns more than a regular deposit, participating in the underlying's performance at the agreed participation rate.
+4. **Simplicity.** No derivative documentation. No ISDA. Open a deposit account, sign terms, deposit money.
+5. **Market access.** Retail clients gain equity-market exposure without opening a brokerage account or understanding options.
+
+**Position taken**
+
+The investor holds a protected deposit (lends principal to the bank, returned in full at maturity) and is **long** an embedded call option on the underlying. Net, the investor is **long** the upside and long volatility at inception (a higher option value supports a higher participation rate), with principal protected on the downside. With a single underlying there is no correlation exposure.
+
+**Payoff & scenarios**
+
+The investor's payoff has two zones. If the underlying is below or at its initial level at maturity, the embedded call expires worthless and the investor receives 100% of principal (return = 0%). If the underlying is above its initial level, the investor receives 100% of principal plus the participation rate applied to the underlying's gain. The downside is floored at par; the upside is geared by the participation rate (and capped where a cap applies).
+
+**Terms (illustrative):** $100,000 Structured Deposit, 2-year, 100% participation in EuroStoxx 50, capital guaranteed.
+
+| Scenario | Market Move | Investor Receives | Return |
+|----------|:----------:|:-----------------:|:------:|
+| **Bull** | Index +25% | $100,000 + $25,000 = $125,000 | +25.0% |
+| **Base** | Index +5% | $100,000 + $5,000 = $105,000 | +5.0% |
+| **Bear** | Index -20% | $100,000 (capital guarantee) | 0.0% |
+
+In the bear scenario, the investor receives exactly the deposit back. The "cost" of protection is the forgone fixed deposit rate (~3.5% per year = ~7% over 2 years). The investor gave up ~$7,000 in guaranteed interest for the chance to earn more if markets rose.
+
+![Structured Deposit Payoff at Maturity — Investor Lens](assets/strdep/payoff_strdep_01.svg)
+
+**Risks to the investor**
+
+| Risk | Severity | Description |
+|------|:--------:|------------|
+| **Opportunity cost** | Medium | If markets fall or stay flat, the investor earns 0% vs the ~3.5% they would have earned from a fixed deposit |
+| **Issuer credit risk** | Low | Mitigated by deposit insurance. But deposit insurance has limits (e.g., €100K) — amounts above the limit carry bank credit risk |
+| **Early withdrawal risk** | Low | Most structured deposits penalize early withdrawal by forfeiting the variable return. Some forfeit a portion of principal for very early exit |
+| **Inflation risk** | Medium | In bear markets, 0% nominal return = negative real return after inflation |
+| **Participation / cap risk** | Low | In low-rate environments, participation rates can be very low (30-50%), making the product unattractive even if markets rise significantly. A cap, where applied, limits the upside the investor can earn |
+
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk's position is the mirror image of the investor's. Where the investor is long the embedded call, the desk is **short** that call (sold to the investor); alongside it the desk holds the deposit, which is a funding liability. The deposit principal funds the bank at the deposit rate, and the forgone fixed interest forms the option budget from which the embedded call is purchased and the desk's margin retained.
+
+**Greeks & hedging**
+
+The desk is short the embedded call and delta-hedges by trading the underlying (futures or vanilla options). Delta runs from 0 toward 1 as the underlying rises into the money; gamma is moderate near the strike (highest sensitivity near ATM); the desk is long vol (vega positive — it benefits from a vol increase); theta is negative (time decay works against the option component); rho is positive (higher rates raise the option budget at inception). The main day-to-day risk is vega: if implied volatility drops after issuance, the mark-to-market on the hedge book falls. Because the product is held to maturity by retail clients, the bank rarely faces early-termination requests.
+
+**How the bank makes money**
 
 The bank earns a margin by retaining a portion of the option budget.
 
@@ -16485,47 +16547,77 @@ The bank earns a margin by retaining a portion of the option budget.
 | Option budget | Interest that would have been paid as fixed deposit rate (~3-4% for 2-year) |
 | Option cost | ATM call option on underlying costs ~2.5-3.5% for 2-year |
 | Margin | Option budget minus option cost = bank profit (~0.3-0.5%) |
-| Participation rate | Client receives: (Option budget - Margin) / Option cost × 100% |
+| Participation rate | Client receives: (Option budget − Margin) / Option cost × 100% |
 
-**Example:** 2-year deposit. Fixed rate alternative: 3.5%. Option cost for ATM call: 3.0%. Bank retains 0.5% margin. Option budget for client: 3.0%. Participation rate: 3.0% / 3.0% = 100%.
+In practice, participation rates for Structured Deposits are often higher than for PPNs because the bank's funding cost is lower (deposit vs bond issuance). Lower-dividend underlyings produce higher participation rates (cheaper calls).
 
-In practice, participation rates for Structured Deposits are often higher than for PPNs because the bank's funding cost is lower (deposit vs bond issuance).
+**The value decomposition:**
 
-#### §8. Why This Product Exists (Client Perspective)
+A Structured Deposit = Risk-Free Deposit + Long Call Option (participation rate × ATM), with the bank's margin deducted from the option budget. The construction waterfall:
 
-1. **Deposit insurance.** Unlike a PPN, a Structured Deposit may be covered by national deposit guarantee schemes. This provides protection even if the bank fails — something a PPN cannot offer
-2. **No downside.** The client cannot lose principal. In any market scenario, the worst outcome is 0% return (equivalent to keeping cash)
-3. **Simplicity.** No derivative documentation. No ISDA. Open a deposit account, sign terms, deposit money
-4. **Market access.** Retail clients gain equity market exposure without opening a brokerage account or understanding options
+```
+Fixed deposit rate:     3.50%
+- Bank margin:         -0.50%
+= Option budget:        3.00%
+÷ ATM call cost:        3.00%
+= Participation rate:   100%
+```
 
-#### §9. The Three Scenarios
+Equivalently, par (100) decomposes at inception into the present value of the principal-protecting zero-coupon deposit, the embedded call option (~3.0% of notional), and the bank margin (~0.5%).
 
-**Terms:** $100,000 Structured Deposit, 2-year, 100% participation in EuroStoxx 50, capital guaranteed.
+![Structured Deposit Value Decomposition — Bank Lens (Desk Economics)](assets/strdep/waterfall_strdep_09.svg)
 
-| Scenario | Market Move | Investor Receives | Return |
-|----------|:----------:|:-----------------:|:------:|
-| **Bull** | Index +25% | $100,000 + $25,000 = $125,000 | +25.0% |
-| **Base** | Index +5% | $100,000 + $5,000 = $105,000 | +5.0% |
-| **Bear** | Index -20% | $100,000 (capital guarantee) | 0.0% |
+**P&L drivers**
 
-**Key insight:** In the bear scenario, the investor receives exactly their deposit back. The "cost" of protection is the forgone fixed deposit rate (~3.5% per year = ~7% over 2 years). The investor gave up ~$7,000 in guaranteed interest for the chance to earn more if markets rose.
+Day to day, desk P&L is driven by the mark-to-market of the embedded short call, realized-versus-implied volatility on the delta hedge, the funding benefit on the deposit, and the structuring margin locked at inception. Product Control performs independent valuation of the embedded option and verifies day-one P&L.
 
-#### §10. What Happens When Markets Move
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
 
-| Market Condition | Impact on Product | Impact on Bank's Hedge |
-|-----------------|-------------------|----------------------|
-| **Underlying rises** | Higher payout to investor | Delta-hedge gains offset payout |
-| **Underlying falls** | Zero return. Capital returned | Delta-hedge loses, but option expires worthless — no payout to fund |
-| **Volatility rises** | No impact on existing product (already issued) | Mark-to-market gain on embedded option. Positive for bank if hedged |
-| **Volatility falls** | No impact on existing product | Mark-to-market loss on embedded option |
-| **Interest rates rise** | No impact on existing fixed-term deposit | Future issuance: higher option budget = better participation rates |
-| **Interest rates fall** | No impact on existing product | Future issuance: lower option budget = worse participation rates |
+**Booking & systems**
 
-#### §11. Formal Definition
+| Dimension | Detail |
+|-----------|--------|
+| **Primary system** | Murex (equity-linked structured deposits) |
+| **Booking model** | Deposit leg + embedded option leg. Two-leg structure |
+| **Valuation model** | Black-Scholes for European call. Adjust for dividends, borrowing costs |
+| **Market data** | Spot level, implied volatility surface, dividend forecast, risk-free rate |
+| **Settlement** | Cash settlement at maturity. Principal + variable return to client's deposit account |
+| **Regulatory classification** | Deposit (not security). MiFID II product governance applies but securities regulation does not |
+
+**Reconciliation points**
+
+| Recon point | What must agree | SD-specific break |
+|-------------|-----------------|-------------------|
+| **Deposit-scheme eligibility** | Deposit classification and deposit-guarantee eligibility consistent across booking and legal records | Trade booked as a security/note loses guarantee eligibility, or deposit booked above the insurance limit without the excess flagged |
+| **Option terms — strike** | Strike (= initial level S₀) matches the termsheet across systems | Strike stored at the wrong initial level → participation applied to the wrong base |
+| **Option terms — participation** | Participation rate matches the termsheet | Participation booked at 100% in one system, 95% on the termsheet → payout overstated |
+| **Option terms — cap** | Cap level (or absence of a cap) matches the termsheet | Cap omitted in booking → uncapped payout calculated where a cap applies |
+| **Fixing — initial** | Initial fixing source and level match the termsheet | Different vendor close used for S₀ → wrong participation base |
+| **Fixing — final** | Final fixing source and level match the termsheet | Different vendor reports a different closing level on the final observation |
+| **P&L attribution** | Deposit/funding accrual + option MTM reconciles to total | Unexplained P&L points to a stale vol surface or a wrong fixing |
+| **Settlement** | Cash settlement; principal + variable return to the deposit account; correct value date | Variable return miscomputed, or settled to the wrong account/date |
+
+![STRDEP Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/strdep/controls_strdep_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | Why It Matters | 2LoD Action |
+|----------|---------------|-------------|
+| Deposit amount exceeds insurance limit | Above-limit amount carries bank credit risk without deposit insurance. Client may not understand this | Confirm the depositor is informed; flag the uninsured excess |
+| Participation rate below 50% | Product is unattractive; client gives up guaranteed interest for very limited upside | Verify participation against pricing and termsheet before distribution |
+| Cap omitted or mismatched in booking | Uncapped payout calculated where a cap applies overstates the investor's return | Reconcile the cap level (or its absence) against the termsheet |
+| Final observation level mismatch | Different data sources report different closing levels | Use the fixing source specified in the termsheet |
+| "Capital guaranteed" marketing without deposit-insurance disclosure | Client may assume a government guarantee when the product only has bank guarantee | Confirm disclosure distinguishes scheme protection from bank guarantee |
+
+**Control implication**
+
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. A deposit-classification error removes guarantee eligibility the client was sold. A wrong strike or participation drives the wrong variable return. A missing cap overstates the payout. A fixing mismatch breaks both valuation and the final payout at once. The reconciliation exists precisely to catch these inconsistencies before settlement crystallises them.
+
+#### §10. Formal Definition
 
 A Structured Deposit is a deposit whose return R at maturity T is defined as:
 
-R = max(0, PR × (S_T / S_0 - 1))
+R = max(0, PR × (S_T / S_0 − 1))
 
 Where:
 - PR = participation rate (0% < PR ≤ 100%, sometimes > 100%)
@@ -16543,25 +16635,7 @@ The depositor receives: Principal × (1 + R)
 
 This is economically identical to a PPN. The distinction is legal (deposit vs note), regulatory (deposit insurance vs issuer credit), and distributional (retail banking vs capital markets).
 
-#### §12. Product Construction
-
-| Component | Value | Purpose |
-|-----------|:-----:|---------|
-| Risk-free deposit | 100% of notional | Principal protection. Returns to 100% at maturity |
-| Long call option (ATM) | ~3.0% of notional | Market-linked upside. Funded by forgone fixed interest |
-| Forgone fixed interest | ~3.5% | This is the "cost" of the structured return — the guaranteed interest the client gives up |
-| Bank margin | ~0.5% | Bank's profit. Deducted from option budget |
-
-**Construction waterfall:**
-```
-Fixed deposit rate:     3.50%
-- Bank margin:         -0.50%
-= Option budget:        3.00%
-÷ ATM call cost:        3.00%
-= Participation rate:   100%
-```
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Timing | Action |
 |-------|--------|--------|
@@ -16574,59 +16648,7 @@ Fixed deposit rate:     3.50%
 
 **Simplicity note:** The Structured Deposit has the simplest lifecycle of any structured product. No intermediate events. No barriers to monitor. No coupons to process. One observation at maturity. One settlement.
 
-#### §14. Desk Reality
-
-**What traders think about:**
-The Structured Deposit is a "bread and butter" product. High volume, low complexity, small individual margin, large aggregate revenue. The delta hedge is straightforward — long call option hedged with futures. The main risk is vega: if implied volatility drops after issuance, the mark-to-market on the hedge book falls. But since the product is held to maturity by retail clients, the bank rarely faces early termination requests.
-
-**What structurers think about:**
-Participation rate is the single competitive metric. Clients compare: "Bank A offers 90% participation, Bank B offers 100%." The structurer's job is to maximize participation by minimizing margin, negotiating option pricing with the trader, and selecting underlyings with favorable vol/dividend characteristics. Lower-dividend underlyings produce higher participation rates (cheaper calls).
-
-**What operations thinks about:**
-Structured Deposits are operationally light. No fixings during life. One settlement at maturity. The main challenge is volume — a retail bank may have thousands of individual structured deposits, each with slightly different terms, all maturing around the same dates. Batch processing and automated maturity settlement are essential.
-
-#### §15. Risk Analysis
-
-| Risk | Severity | Description |
-|------|:--------:|------------|
-| **Opportunity cost** | Medium | If markets fall, investor earns 0% vs the ~3.5% they would have earned from a fixed deposit |
-| **Issuer credit risk** | Low | Mitigated by deposit insurance. But deposit insurance has limits (e.g., €100K) — amounts above the limit carry bank credit risk |
-| **Early withdrawal risk** | Low | Most structured deposits penalize early withdrawal by forfeiting the variable return. Some forfeit a portion of principal for very early exit |
-| **Inflation risk** | Medium | In bear markets, 0% nominal return = negative real return after inflation |
-| **Participation risk** | Low | In low-rate environments, participation rates can be very low (30-50%), making the product unattractive even if markets rise significantly |
-
-**Greeks profile:**
-
-| Greek | Value | Significance |
-|-------|:-----:|-------------|
-| Delta | 0 → 1 (as underlying rises) | Increases as option moves into the money |
-| Gamma | Moderate near ATM | Highest sensitivity near the strike |
-| Vega | Positive | Trader is long vol — benefits from vol increase |
-| Theta | Negative | Time decay works against the option component |
-| Rho | Positive | Higher rates = higher option budget = better product at inception |
-
-#### §16. Booking and Systems
-
-| Dimension | Detail |
-|-----------|--------|
-| **Primary system** | Murex (equity-linked structured deposits) |
-| **Booking model** | Deposit leg + embedded option leg. Two-leg structure |
-| **Valuation model** | Black-Scholes for European call. Adjust for dividends, borrowing costs |
-| **Market data** | Spot level, implied volatility surface, dividend forecast, risk-free rate |
-| **Settlement** | Cash settlement at maturity. Principal + variable return to client's deposit account |
-| **Regulatory classification** | Deposit (not security). MiFID II product governance applies but securities regulation does not |
-
-#### §17. Red Flags
-
-| Red Flag | Why It Matters |
-|----------|---------------|
-| Participation rate below 50% | Product is unattractive. Client gives up guaranteed interest for very limited upside. Structurer should reassess underlying or tenor |
-| Deposit amount exceeds insurance limit | Above-limit amount carries bank credit risk without deposit insurance. Client may not understand this |
-| Underlying has high dividend yield | Dividends reduce call option value and participation rate. May produce misleadingly low participation |
-| "Capital guaranteed" marketing without deposit insurance disclosure | Client may assume government guarantee when product only has bank guarantee |
-| Very short tenor (< 1 year) | Low option budget. Participation rate will be poor. Product adds little value vs fixed deposit |
-
-#### §18. Worked Example
+#### §12. Worked Example (both lenses)
 
 **Terms:**
 - Notional: €100,000
@@ -16636,6 +16658,8 @@ Structured Deposits are operationally light. No fixings during life. One settlem
 - Capital protection: 100%
 - No cap
 
+*Investor lens:*
+
 **Scenario A — Market rises 18%:**
 - S_T = 4,500 × 1.18 = 5,310
 - Return = 95% × 18% = 17.1%
@@ -16644,7 +16668,7 @@ Structured Deposits are operationally light. No fixings during life. One settlem
 
 **Scenario B — Market falls 12%:**
 - S_T = 4,500 × 0.88 = 3,960
-- Return = max(0, 95% × (-12%)) = 0%
+- Return = max(0, 95% × (−12%)) = 0%
 - Payout = €100,000
 - Comparison: Fixed deposit at 3.5% p.a. = €107,123. Opportunity cost: €7,123
 
@@ -16654,73 +16678,73 @@ Structured Deposits are operationally light. No fixings during life. One settlem
 - Payout = €100,000
 - Comparison: Fixed deposit at 3.5% p.a. = €107,123. Opportunity cost: €7,123
 
-#### §19. Knowledge Check
+*Bank lens:*
+- In Scenario A the desk's short embedded call is in the money: the investor's €17,100 of participation is the desk's payout obligation, funded from the option budget and the delta hedge built over the life of the trade. Product Control confirms the option MTM and the funding accrual reconcile to the €117,100 settlement.
+- In Scenarios B and C the embedded call expires worthless; the desk owes only the €100,000 protected principal, keeps its structuring margin and funding benefit, and the delta hedge unwinds against the worthless option. The 2nd line confirms the variable return is zero, that the strike (S₀ = 4,500), participation (95%) and absence of a cap match the termsheet, and that settlement credits exactly €100,000 to the deposit account before maturity crystallises it.
 
-**Review Questions:**
-1. What is the key difference between a Structured Deposit and a PPN?
-2. How is the participation rate determined?
-3. What is the "cost" of capital protection in a Structured Deposit?
-4. Why might a Structured Deposit have a higher participation rate than a comparable PPN?
-5. What role does deposit insurance play, and what are its limits?
+#### §13. Knowledge Check
 
-**Scenario Questions:**
-1. Interest rates rise from 2% to 5%. How does this affect the attractiveness of newly issued Structured Deposits?
-2. A client has €250,000 to invest. The deposit insurance limit is €100,000. What risk does the client face that a smaller depositor does not?
-3. Two Structured Deposits are offered on the same index with the same maturity. One has 85% participation, the other has 110% participation with a 25% cap. Which is better if you expect 30% market growth? Which is better if you expect 10% growth?
+1. *(Investor)* **What is the key difference between a Structured Deposit and a PPN?**
+2. *(Investor)* **How is the participation rate determined?** Decompose it.
+3. *(Investor)* **What is the "cost" of capital protection in a Structured Deposit?**
+4. *(Investor)* **Why might a Structured Deposit have a higher participation rate than a comparable PPN?**
+5. *(Investor)* **What role does deposit insurance play, and what are its limits?**
+6. *(Investor)* **Draw the payoff diagram of a Structured Deposit at maturity, showing the protected floor and the participation above the initial level.**
+7. **(Desk economics / 1LoD)** What position does the desk hold against the investor, which way do the desk's vega and gamma point, and where does the desk's structuring margin come from?
+8. **(Controls / 2LoD)** Name three reconciliation breaks specific to a Structured Deposit — covering deposit-scheme eligibility, the option terms, and fixing — and the consequence of each for the investor's payout.
 
-**Desk Question:**
-A retail client says: "Why should I accept a 90% participation rate when I can just buy an index ETF and get 100% of the return?" Explain the trade-offs, including capital protection, opportunity cost, dividend income, and the cost of the embedded option.
+**Mental Models**
 
-**Interview Layer Candidates:** Q1, Q3, Desk Q1
+| Concept | Mental Model |
+|---------|-------------|
+| Structured Deposit | A savings account whose interest is tied to a market index — principal safe, return variable |
+| Capital protection | A floor under the deposit: the worst outcome is getting the principal back, never less |
+| Participation rate | The slice of the market's gain the investor keeps — set by the option budget divided by the call cost |
+| Option budget | The forgone fixed interest, recycled to buy the upside option |
+| Deposit insurance | A second safety net beneath the bank's own guarantee — but only up to the scheme limit |
+| Investor long the call | The investor owns the upside option; the desk is short it and hedges in the underlying |
+| 2LoD reconciliation | The auditor confirming the deposit classification, strike, participation, cap and fixings agree before anyone is paid |
 
-**Examiner Notes Candidates:** Q3, Desk Q1
+**Key Takeaways**
 
-#### §20. Common Mistakes
+1. A Structured Deposit is a deposit + a long call option. The investor gives up fixed interest to buy market-linked upside with principal protected.
+2. The participation rate is not free — it is funded by the forgone fixed interest (the option budget), net of the bank's margin.
+3. If the market rises, the investor earns participation × the gain. If it falls or is flat, the investor receives full principal and a 0% return.
+4. The deposit wrapper adds deposit-guarantee eligibility — protection a PPN cannot offer — but only up to the scheme limit; the excess carries bank credit risk.
+5. The real cost is opportunity cost: the forgone guaranteed interest, potentially 3-7% over the product's life.
+6. The investor is long the embedded call; the desk holds the offsetting short-call position and is long vol.
+7. For the 2nd line, the dominant control risks are deposit-scheme eligibility, the option terms (strike, participation, cap), and the fixings — each can misstate the variable return or the protection the investor was sold.
 
-1. **Treating 0% return as "no cost."** The real cost is the forgone fixed interest rate — potentially 3-7% over the product's life
-2. **Assuming deposit insurance covers unlimited amounts.** Most deposit guarantee schemes have per-depositor limits. Amounts above the limit carry bank credit risk
-3. **Comparing participation rate across different underlyings.** A 90% participation on a high-dividend index is not comparable to 100% participation on a low-dividend index — the underlying characteristics drive the difference
-4. **Ignoring the cap.** Some Structured Deposits include a cap on maximum return. A 110% participation with a 20% cap is worse than 85% participation with no cap if markets rise more than ~24%
-5. **Confusing "capital guaranteed" with "risk-free."** The deposit is credit-risk-free (with insurance) but carries opportunity cost risk and inflation risk
+#### §14. Common Mistakes
 
-#### §21. Visual Specifications
+1. **Treating 0% return as "no cost."** The real cost is the forgone fixed interest rate — potentially 3-7% over the product's life.
+2. **Assuming deposit insurance covers unlimited amounts.** Most deposit guarantee schemes have per-depositor limits. Amounts above the limit carry bank credit risk.
+3. **Comparing participation rate across different underlyings.** A 90% participation on a high-dividend index is not comparable to 100% participation on a low-dividend index — the underlying characteristics drive the difference.
+4. **Ignoring the cap.** Some Structured Deposits include a cap on maximum return. A 110% participation with a 20% cap is worse than 85% participation with no cap if markets rise more than ~24%.
+5. **Confusing "capital guaranteed" with "risk-free."** The deposit is credit-risk-free (with insurance) but carries opportunity cost risk and inflation risk.
+6. **(Controls) Trusting a single system's booking of the option terms.** Because the strike, participation, and cap drive the entire variable return, the 2nd line must reconcile each against the termsheet — and confirm deposit-scheme eligibility — rather than assume the systems agree.
 
-| # | Priority | Visual | Type | Description |
-|:-:|:--------:|--------|------|-------------|
-| 1 | P1 | Payoff diagram: SD vs fixed deposit vs direct index | Payoff comparison | Three lines: SD (kinked at 0%), fixed deposit (flat), direct index (linear through origin) |
-| 2 | P1 | Construction waterfall | Waterfall | Fixed rate → margin → option budget → participation rate |
-| 3 | P2 | Participation rate sensitivity | Sensitivity chart | Participation rate as function of: interest rate, volatility, tenor |
-| 4 | P2 | Deposit insurance coverage diagram | Structure | €100K insured layer + uninsured excess |
-| 5 | P3 | Lifecycle timeline | Timeline | Trade date → (quiet period) → final observation → settlement |
-| 6 | P3 | Comparison table: SD vs PPN vs savings | Comparison | Risk, return, insurance, format, documentation |
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking / fixing / event-capture fields must reconcile, and which is the most common break?
 
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Zero-coupon bond, present value | Section 0.6 (Time Value of Money) |
-| Call option, premium, participation | Section 1.2 (Options From Zero) |
-| Delta, Vega, Gamma | Section 1.4 (Greeks) |
-| Product decomposition, Funds Transfer Pricing (FTP), margin | Section 2.2 (Product Construction) |
-| Capital protection spectrum | Section 2.4 (Capital Protection Spectrum) |
-| PPN construction and mechanics | PPN (5.1.1) |
-| Murex booking | Section 2.8 (Systems Primer) |
-
----
-
+**Dual-lens visuals (generated):**
+- `assets/strdep/controls_strdep_recon_08.svg` `[generated]`
+- `assets/strdep/payoff_strdep_01.svg` `[generated]`
+- `assets/strdep/waterfall_strdep_09.svg` `[generated]`
 ### 5.6.2 Forward
 
 ---
 
-*The Structured Deposit (Section 5.6.1) protected the investor's principal and linked returns to market performance. The Forward removes protection entirely: it is a binding obligation to buy or sell an asset at a predetermined price on a future date. There is no optionality — both parties must perform. The payoff is linear and symmetric, making the Forward the simplest derivative structure.*
+*The Structured Deposit (Section 5.6.1) protected the investor's principal and linked returns to market performance. The Forward removes protection entirely: it is a binding obligation to buy or sell an asset at a predetermined price on a future date. There is no optionality — both parties must perform. The payoff is linear and symmetric, making the Forward the simplest derivative structure. This chapter reads the product through two lenses: what it means for **the investor** (here the client taking the long forward), and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Imagine you are a wheat farmer. It is March, and you will harvest your wheat in September. You do not know what wheat will cost in September — it could be $5 per bushel or $3 per bushel. You need certainty to plan your finances.
+Consider a wheat farmer. It is March, and the harvest comes in September. The farmer does not know what wheat will cost in September — it could be $5 per bushel or $3 per bushel. The farmer needs certainty to plan finances.
 
-A grain merchant approaches you and says: "I will agree today to buy your wheat in September at $4 per bushel, regardless of what the market price is then." You agree. You have locked in your price. If wheat rises to $5, you miss out on the extra dollar. If wheat falls to $3, you are protected. Either way, you know exactly what you will receive.
+A grain merchant approaches and offers: "I will agree today to buy your wheat in September at $4 per bushel, regardless of what the market price is then." The farmer agrees and locks in the price. If wheat rises to $5, the farmer misses out on the extra dollar. If wheat falls to $3, the farmer is protected. Either way, the farmer knows exactly what will be received.
 
-This is a **Forward contract**. It is an agreement between two parties to buy or sell an asset at a fixed price on a future date. No money changes hands today. No optionality — both parties are obligated to perform.
+This is a **Forward contract**. It is an agreement between two parties to buy or sell an asset at a fixed price on a future date. No money changes hands today. There is no optionality — both parties are obligated to perform.
 
 The Forward is the oldest and simplest derivative. It predates options, swaps, and every structured product in this book. Every other derivative can be understood as a modification of a Forward.
 
@@ -16728,11 +16752,11 @@ The Forward is the oldest and simplest derivative. It predates options, swaps, a
 
 A Forward is like a handshake deal at a car dealership.
 
-You walk into a dealership today and say: "I want to buy that car, but I need it delivered in 6 months." The dealer says: "Fine. The price today is $40,000. I will hold it for you at $40,000 + storage cost. You must buy it in 6 months at $40,500."
+A buyer walks into a dealership today and says: "I want that car, but I need it delivered in 6 months." The dealer responds: "Fine. The price today is $40,000. I will hold it at $40,000 + storage cost. You must buy it in 6 months at $40,500."
 
-You shake hands. No deposit. No option to walk away. In 6 months:
-- If car prices have risen to $45,000, you got a great deal — you pay only $40,500
-- If car prices have fallen to $35,000, you overpaid — but you are obligated to buy at $40,500
+They shake hands. No deposit. No option to walk away. In 6 months:
+- If car prices have risen to $45,000, the buyer got a great deal — paying only $40,500
+- If car prices have fallen to $35,000, the buyer overpaid — but is obligated to buy at $40,500
 
 In a Forward:
 - The **car** is the underlying asset
@@ -16819,28 +16843,25 @@ Any party with a future obligation to buy or sell an asset faces price risk. A F
 | **2000s** | OTC forward market dwarfs exchange-traded futures. Notional outstanding in trillions |
 | **2010s** | Post-crisis reforms push standardized forwards toward central clearing. Non-deliverable forwards (NDFs) grow for emerging market currencies |
 
-#### §7. How the Bank Makes Money
+---
 
-The bank earns a bid-offer spread on the forward price.
+#### §7. THE INVESTOR LENS
 
-| Component | Detail |
-|-----------|--------|
-| **Forward price (mid)** | F = S × e^((r - q) × T), where S = spot, r = funding rate, q = income yield (dividends, convenience yield), T = time |
-| **Bid** | F_bid = F_mid - spread/2. Price at which bank buys from client |
-| **Offer** | F_offer = F_mid + spread/2. Price at which bank sells to client |
-| **Spread** | Typically 0.1-0.5% of notional for liquid underlyings. Wider for illiquid or long-dated |
-| **Additional margin** | Funding cost (bank's credit spread above risk-free), credit charge for counterparty risk |
+**Why the client enters it**
 
-There is no embedded option, no structural margin, and no coupon manipulation. The economics are transparent: the client pays the forward price, which equals spot + cost of carry + bank's spread.
+1. **Price certainty.** The single most important reason. A corporate treasurer can budget with certainty against a known future price.
+2. **No upfront cost.** Unlike an option, a Forward requires no premium. The "cost" is the obligation to perform even if the market moves favourably.
+3. **Customization.** OTC forwards can be tailored to exact amounts, dates, and delivery terms. Futures contracts are standardized.
+4. **Simplicity.** No barriers, no triggers, no conditions. One price, one date, one settlement.
+5. **View expression or hedging.** A party with a future need to buy locks in the cost by going long; a party with a future asset to sell locks in revenue by going short. The forward expresses either a hedge or a directional view at today's terms.
 
-#### §8. Why This Product Exists (Client Perspective)
+**Position taken**
 
-1. **Price certainty.** The single most important reason. A corporate treasurer can budget with certainty
-2. **No upfront cost.** Unlike an option, a Forward requires no premium. The "cost" is the obligation to perform even if the market moves favorably
-3. **Customization.** OTC forwards can be tailored to exact amounts, dates, and delivery terms. Futures contracts are standardized
-4. **Simplicity.** No barriers, no triggers, no conditions. One price, one date, one settlement
+The client here takes the **long forward** — the binding obligation to buy the asset at the fixed forward price on the settlement date; the desk takes the offsetting short. The long forward profits when the underlying rises above the forward price and loses when it falls below. Net, the long forward carries full directional exposure to the underlying: delta ≈ 1, with no optionality, no protection, and no premium. (A client hedging a future sale would instead take the short forward, the mirror image.)
 
-#### §9. The Three Scenarios
+**Payoff & scenarios**
+
+The long forward has a **linear, symmetric** payoff: P&L = (S_T − F) × N, where S_T is the spot at maturity, F is the forward price, and N is the notional. There is no protection. The long forward gains dollar-for-dollar above the forward price and loses dollar-for-dollar below it. This is the defining characteristic that distinguishes a Forward from an option.
 
 **Terms:** Long forward on 1,000 shares of ABC Corp. Forward price: $100. Settlement: 6 months.
 
@@ -16850,19 +16871,97 @@ There is no embedded option, no structural margin, and no coupon manipulation. T
 | **Base** | $100 | $0 | Bought at $100, worth $100. Break-even |
 | **Bear** | $75 | -$25,000 | Bought at $100, worth $75. Loss |
 
-**Key insight:** The Forward has linear, symmetric payoff. There is no protection. The investor gains dollar-for-dollar above the forward price and loses dollar-for-dollar below it. This is the defining characteristic that distinguishes a Forward from an option.
+The payoff is linear: the long forward gains $20,000 when the underlying rises 20% to $120 and loses $25,000 when it falls 25% to $75 — symmetric, with no floor or ceiling.
 
-#### §10. What Happens When Markets Move
+![Forward Payoff at Maturity — Investor Lens](assets/forward/payoff_forward_01.svg)
 
-| Market Condition | Impact on Long Forward | Impact on Short Forward |
-|-----------------|----------------------|------------------------|
-| **Underlying rises** | Positive MTM (asset worth more than agreed price) | Negative MTM |
-| **Underlying falls** | Negative MTM (asset worth less than agreed price) | Positive MTM |
-| **Volatility changes** | No direct impact (no optionality) | No direct impact |
-| **Interest rates rise** | Forward price for new contracts increases. Existing contract MTM may change slightly | Opposite |
-| **Dividends announced** | Forward price for new contracts decreases. Existing contract gains value if long | Opposite |
+**Risks to the investor**
 
-#### §11. Formal Definition
+| Risk | Severity | Description |
+|------|:--------:|------------|
+| **Market risk** | High | Unlimited loss potential in both directions. Linear exposure with no floor or ceiling. Unlike an option, the full downside is borne — there is no premium-only loss cap |
+| **Counterparty risk** | Medium-High | OTC bilateral contract. If the counterparty defaults when the forward has positive MTM, value is lost. Mitigated by CSA/collateral |
+| **Settlement risk** | Medium | Physical delivery: risk that one party delivers but the other does not pay. CLS mitigates for FX |
+| **Liquidity risk** | Medium | Cannot close out on exchange. Must negotiate unwind with the original counterparty or novate to a third party |
+| **Basis risk** | Low | If hedging with futures instead of a matching forward, basis risk arises from contract specification differences |
+
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk's position is the mirror image of the client's. Where the client is long the forward, the desk is **short** the forward — obligated to deliver the asset at the fixed forward price on the settlement date. It is booked as a single-leg forward trade: notional, forward price, settlement date, and settlement type. There is no embedded option, no bond leg, and no premium — the Forward is not decomposed into bond + option. This single obligation is what makes it the building block for all other derivatives.
+
+**Carry & hedging**
+
+Forwards are delta-one products: the hedge is the underlying itself. A desk that is short a forward (the client is long) buys the underlying and borrows to fund it — the classic **cash-and-carry** hedge — or uses futures. The desk holds the asset until settlement, earning any income it pays (dividends for equities, the foreign rate for FX, convenience yield for commodities) and paying funding on the borrowed cash. The forward price is exactly the level at which this carry nets out to no-arbitrage: spot grown at the funding rate, less the income yield. The main concern is funding cost — the bank's cost of carry may differ from the theoretical risk-free rate, creating P&L. For FX forwards, the desk thinks in terms of the interest-rate differential between the two currencies. Delta is ≈ 1 and stable; gamma is 0, so there is no re-hedging convexity to manage.
+
+**How the bank makes money**
+
+The bank earns a bid-offer spread on the forward price.
+
+| Component | Detail |
+|-----------|--------|
+| **Forward price (mid)** | F = S × e^((r - q) × T), where S = spot, r = funding rate, q = income yield (dividends, convenience yield), T = time |
+| **Bid** | F_bid = F_mid - spread/2. Price at which the bank buys from the client |
+| **Offer** | F_offer = F_mid + spread/2. Price at which the bank sells to the client |
+| **Spread** | Typically 0.1-0.5% of notional for liquid underlyings. Wider for illiquid or long-dated |
+| **Additional margin** | Funding cost (bank's credit spread above risk-free), credit charge for counterparty risk |
+
+There is no embedded option, no structural margin, and no coupon manipulation. The economics are transparent: the client pays the forward price, which equals spot + cost of carry + the bank's spread.
+
+**The forward price decomposition:**
+
+The forward price builds up from spot by the cost of carry: F = spot + funding − dividend yield. Funding (the financing cost of holding the asset to settlement) pushes the forward price above spot; the income yield the asset pays (dividends) pulls it back down. For the worked example (S = $50.00, r = 4%, q = 1.5%, T = 0.5): funding adds approximately +$1.01 and the dividend yield subtracts approximately −$0.38, giving a forward price of **$50.63**. (Component split inferred from the cost-of-carry inputs; the source states only the net forward price F = $50.63.)
+
+![Forward Price Decomposition — Bank Lens (Desk Economics)](assets/forward/waterfall_forward_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by the mark-to-market of the forward against the underlying (positive for the desk's short when spot falls, negative when spot rises), the realized funding cost versus the rate embedded in the forward price, and dividend/income realization versus the assumed yield. Volatility has no direct impact — there is no optionality, so no gamma or vega P&L. Product Control verifies forward prices against the market and checks the cost-of-carry assumptions (interest rates, dividends, storage).
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
+
+| Dimension | Detail |
+|-----------|--------|
+| **Primary system** | Murex |
+| **Booking model** | Single-leg forward trade. Notional, forward price, settlement date, settlement type |
+| **Valuation model** | Cost-of-carry (analytical). No Monte Carlo needed |
+| **Market data** | Spot price, interest rate curve, dividend/income yield, counterparty credit spread |
+| **Settlement** | Physical delivery or cash settlement (specified at trade inception) |
+| **Collateral** | CSA governs margin/collateral exchange. Daily or weekly MTM-based calls |
+
+**Reconciliation points**
+
+| Recon point | What must agree | Forward-specific break |
+|-------------|-----------------|------------------------|
+| **Forward price vs spot + carry** | Booked forward price = spot × e^((r−q)×T) within tolerance | Forward price significantly above/below theoretical → mispricing or embedded credit/liquidity charge; verify cost-of-carry inputs |
+| **Cost-of-carry inputs** | Funding rate, dividend/income yield, tenor match the curve and termsheet | Stale dividend yield or wrong funding curve → forward price drifts from market |
+| **Fixing** | Final settlement price taken from the agreed source/fixing | Different vendors report different closing prices on the settlement date |
+| **Settlement type** | Physical delivery vs cash settlement matches the confirmation | Physical delivery booked as cash, or cash booked as physical → wrong settlement mechanics |
+| **Counterparty / CSA** | ISDA Master + CSA in place; collateral terms captured | No CSA/collateral agreement → uncollateralized forward = full counterparty credit exposure |
+| **Margin / collateral** | Daily/weekly MTM-based collateral calls reconcile to position MTM | Collateral call lags MTM → uncollateralized exposure builds silently |
+| **MTM / valuation** | Front-office MTM agrees with risk/control valuation | Sign or magnitude mismatch on the forward MTM between systems |
+| **Tenor / settlement date** | Settlement date and day-count consistent across systems and confirmation | Settlement date off by convention → MTM discounting and cash-flow date wrong |
+
+![FORWARD Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/forward/controls_forward_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | Why It Matters | 2LoD Action |
+|----------|---------------|-------------|
+| Forward price significantly above/below theoretical | Indicates mispricing or embedded credit/liquidity charge | Verify cost-of-carry inputs (spot, funding rate, dividend yield, tenor) |
+| No CSA/collateral agreement | Uncollateralized forward = full counterparty credit exposure. Unacceptable for large notionals | Confirm ISDA + CSA in place before relying on the position |
+| Physical delivery on illiquid underlying | Delivery failure risk. May be unable to source the asset at settlement | Confirm settlement type and sourcing capability ahead of settlement |
+| Corporate client using forward as speculation, not hedge | Regulatory and suitability concern. Forwards for hedging are treated differently from speculative positions | Escalate suitability; confirm hedge designation |
+| Very long tenor (> 5 years) | Counterparty credit exposure grows with tenor. Cost-of-carry assumptions become uncertain | Re-verify PFE and cost-of-carry inputs; confirm collateral adequacy |
+
+**Control implication**
+
+Each break has a direct consequence the 2nd line must size before it reaches the books or the counterparty. A forward price that does not reconcile to spot + carry misstates the trade's value and the bank's margin from inception. A settlement-type error — physical booked as cash, or the reverse — breaks the settlement mechanics and can fail delivery. A missing CSA or a lagging collateral call leaves counterparty exposure uncollateralized, so a default crystallizes a loss the books did not show. A fixing mismatch misstates both the final MTM and the cash that settles. The reconciliation exists precisely to catch these inconsistencies before settlement crystallises them.
+
+#### §10. Formal Definition
 
 A Forward contract obliges the buyer to purchase, and the seller to sell, a specified quantity of an underlying asset at a pre-agreed price F on a specified future date T.
 
@@ -16886,23 +16985,13 @@ At inception, V_0 = 0 (no money changes hands). At maturity, V_T = (S_T - F_0) �
 
 **No optionality means:** No premium, no gamma, no vega. Delta ≈ 1 for the long position, -1 for the short. The Forward is a pure directional instrument.
 
-#### §12. Product Construction
-
-| Component | Value | Purpose |
-|-----------|:-----:|---------|
-| Obligation to buy/sell | 0 upfront | Binding commitment. No premium |
-| Cost of carry | (r - q) × T | Included in forward price. Accounts for funding, dividends, storage |
-| Bid-offer spread | ~0.1-0.5% | Bank's profit |
-
-**The Forward has no "construction" in the structured product sense.** It is not decomposed into bond + option. It is a single obligation. This is what makes it the building block for all other derivatives.
-
 **Relationship to other products:**
 - Forward = Call Option - Put Option (put-call parity)
 - Forward = Futures + basis risk (if marked to market daily)
 - Swap = Series of forwards
 - Structured Product = Bond + Options/Forwards
 
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Timing | Action |
 |-------|--------|--------|
@@ -16915,59 +17004,7 @@ At inception, V_0 = 0 (no money changes hands). At maturity, V_T = (S_T - F_0) �
 - **Physical:** Common for commodities and FX. Actual delivery of underlying
 - **Cash:** Common for equity indices and NDFs. Net payment of (S_T - F) × N
 
-#### §14. Desk Reality
-
-**What traders think about:**
-Forwards are delta-one products. The hedge is the underlying itself. A trader who sells a forward buys the underlying and borrows to fund it (or uses futures). The main concern is funding cost — the bank's cost of carry may differ from the theoretical risk-free rate, creating P&L. For FX forwards, the trader thinks about the interest rate differential between the two currencies.
-
-**What structurers think about:**
-Forwards are rarely "structured" — they are building blocks used inside other products. A structurer cares about forwards because they determine the cost-of-carry component in every structured product pricing. Understanding forward pricing is prerequisite for understanding any structured product.
-
-**What operations thinks about:**
-Settlement logistics. Physical delivery requires coordination of asset transfer, payment, and confirmation. For FX forwards, settlement risk (Herstatt risk) is a key concern — one leg may settle before the other due to time zone differences. CLS (Continuous Linked Settlement) mitigates this for major currencies.
-
-#### §15. Risk Analysis
-
-| Risk | Severity | Description |
-|------|:--------:|------------|
-| **Market risk** | High | Unlimited loss potential in both directions. Linear exposure with no floor or ceiling |
-| **Counterparty risk** | Medium-High | OTC bilateral contract. If counterparty defaults when forward has positive MTM, value is lost. Mitigated by CSA/collateral |
-| **Settlement risk** | Medium | Physical delivery: risk that one party delivers but the other does not pay. CLS mitigates for FX |
-| **Liquidity risk** | Medium | Cannot close out on exchange. Must negotiate unwind with original counterparty or novate to third party |
-| **Basis risk** | Low | If hedging with futures instead of matching forward, basis risk arises from contract specification differences |
-
-**Greeks profile:**
-
-| Greek | Value | Significance |
-|-------|:-----:|-------------|
-| Delta | ≈ 1 (long) / ≈ -1 (short) | Linear exposure. No optionality |
-| Gamma | 0 | No convexity. Linear payoff |
-| Vega | 0 | No vol sensitivity. No optionality |
-| Theta | ≈ 0 (small funding component) | No time decay in the option sense. Small carry effect |
-| Rho | Positive (long) | Higher rates increase forward price, benefiting long position at inception |
-
-#### §16. Booking and Systems
-
-| Dimension | Detail |
-|-----------|--------|
-| **Primary system** | Murex |
-| **Booking model** | Single-leg forward trade. Notional, forward price, settlement date, settlement type |
-| **Valuation model** | Cost-of-carry (analytical). No Monte Carlo needed |
-| **Market data** | Spot price, interest rate curve, dividend/income yield, counterparty credit spread |
-| **Settlement** | Physical delivery or cash settlement (specified at trade inception) |
-| **Collateral** | CSA governs margin/collateral exchange. Daily or weekly MTM-based calls |
-
-#### §17. Red Flags
-
-| Red Flag | Why It Matters |
-|----------|---------------|
-| Forward price significantly above/below theoretical | Indicates mispricing or embedded credit/liquidity charge. Verify cost-of-carry inputs |
-| No CSA/collateral agreement | Uncollateralized forward = full counterparty credit exposure. Unacceptable for large notionals |
-| Physical delivery on illiquid underlying | Delivery failure risk. May be unable to source asset at settlement |
-| Corporate client using forward as speculation, not hedge | Regulatory and suitability concern. Forwards for hedging are treated differently from speculative positions |
-| Very long tenor (> 5 years) | Counterparty credit exposure grows with tenor. Cost-of-carry assumptions become uncertain |
-
-#### §18. Worked Example
+#### §12. Worked Example (both lenses)
 
 **Terms:**
 - Underlying: 10,000 shares of XYZ Corp
@@ -16979,107 +17016,97 @@ Settlement logistics. Physical delivery requires coordination of asset transfer,
 **Forward price:**
 F = $50.00 × e^((0.04 - 0.015) × 0.5) = $50.00 × e^(0.0125) = $50.00 × 1.01258 = $50.63
 
-**At maturity — Scenario A (S_T = $55.00):**
-- Long forward P&L = ($55.00 - $50.63) × 10,000 = +$43,700
-- Short forward P&L = ($50.63 - $55.00) × 10,000 = -$43,700
+*Client lens:* (the client is long the forward)
+- **At maturity — Scenario A (S_T = $55.00):** Long forward P&L = ($55.00 - $50.63) × 10,000 = **+$43,700**. The underlying rose above the forward price, so the long position profits.
+- **At maturity — Scenario B (S_T = $45.00):** Long forward P&L = ($45.00 - $50.63) × 10,000 = **-$56,300**. The underlying fell below the forward price, so the long position loses — dollar-for-dollar, with no floor.
+- **Mid-life valuation (3 months in, S = $52.00):** New 3-month forward: F_3 = $52.00 × e^((0.04-0.015)×0.25) = **$52.32**. Value of existing long = ($52.32 - $50.63) × e^(-0.04×0.25) × 10,000 = **$16,731**.
 
-**At maturity — Scenario B (S_T = $45.00):**
-- Long forward P&L = ($45.00 - $50.63) × 10,000 = -$56,300
-- Short forward P&L = ($50.63 - $45.00) × 10,000 = +$56,300
+*Bank lens:* The desk holds the offsetting **short** forward, so its P&L is the exact mirror: Scenario A short forward P&L = ($50.63 - $55.00) × 10,000 = **-$43,700**; Scenario B short forward P&L = ($50.63 - $45.00) × 10,000 = **+$56,300**. The desk runs the cash-and-carry hedge (long the underlying, funded), so the hedge offsets this MTM and the desk retains the bid-offer spread. The 2nd line confirms the forward price reconciles to spot + carry, that the MTM ($16,731 mid-life) agrees across systems, and that the CSA collateral matches the position MTM before settlement.
 
-**Mid-life valuation (3 months in, S = $52.00):**
-- New 3-month forward: F_3 = $52.00 × e^((0.04-0.015)×0.25) = $52.32
-- Value of existing long = ($52.32 - $50.63) × e^(-0.04×0.25) × 10,000 = $16,731
+#### §13. Knowledge Check
 
-#### §19. Knowledge Check
+1. *(Investor)* Why does a Forward contract require no upfront payment?
+2. *(Investor)* What determines the forward price, and how does it differ from the spot price?
+3. *(Investor)* What is the fundamental difference between a Forward and an option?
+4. *(Investor)* Which way does the long forward profit — when the underlying rises or falls? What about the short?
+5. *(Investor)* Why is the Forward considered the "building block" of all derivatives?
+6. **(Desk economics / 1LoD)** A client buys a long forward; what position does the desk book against it, and how does the desk hedge it via cash-and-carry? Where does the desk's funding cost show up in P&L, and why is there no gamma or vega to manage?
+7. **(Controls / 2LoD)** Which fields must reconcile for a forward between the front office and risk/control, and which single check most often surfaces a mispricing — and what is the consequence of a missing CSA?
 
-**Review Questions:**
-1. Why does a Forward contract require no upfront payment?
-2. What determines the forward price, and how does it differ from the spot price?
-3. What is the fundamental difference between a Forward and an option?
-4. What is settlement risk, and how does CLS mitigate it?
-5. Why is the Forward considered the "building block" of all derivatives?
+**Mental Models**
 
-**Scenario Questions:**
-1. You are long a 6-month equity forward at $100. After 3 months, the stock is at $110 and interest rates have risen by 1%. Is your forward worth more or less than simply ($110 - $100) × notional? Why?
-2. A corporate treasurer needs to hedge a €10M receivable due in 9 months. Should they buy or sell a EUR/USD forward? What happens if the EUR strengthens vs the USD?
-3. Two forwards on the same stock with the same maturity have different prices: Bank A quotes $50.63, Bank B quotes $51.10. What might explain the difference?
+| Concept | Mental Model |
+|---------|-------------|
+| Forward | A handshake deal at a car dealership — a binding price agreed today for delivery later, no deposit, no walking away |
+| Long forward profit | The buyer wins when the asset ends up worth more than the price they locked in |
+| Forward price | Spot, carried forward — financing cost added, income yield subtracted |
+| No premium ≠ no cost | The cost is the obligation to perform even when the market moves your way (opportunity cost) |
+| Cash-and-carry hedge | The desk buys and funds the asset, holds it to delivery — the carry is exactly the forward premium over spot |
+| 2LoD reconciliation | The price-checker — confirms forward price = spot + carry and that collateral matches MTM before anyone settles |
 
-**Desk Question:**
-An intern asks: "If Forwards are so simple, why does the bank even need traders for them?" Explain the value the bank provides, including funding, counterparty intermediation, customization, and risk management.
+**Key Takeaways**
 
-**Interview Layer Candidates:** Q3, Q5, Desk Q1
-**Examiner Notes Candidates:** Q3, Desk Q1
+1. A Forward is a binding obligation to buy or sell an asset at a fixed forward price on a future date. No premium, no optionality, both parties must perform.
+2. The payoff is linear and symmetric: the long forward gains dollar-for-dollar above the forward price and loses dollar-for-dollar below it — there is no floor or ceiling.
+3. The long forward profits when the underlying rises above the forward price; the short forward profits when it falls.
+4. The forward price equals spot grown at the funding rate less the income yield: F = S × e^((r−q)×T). It is not the spot price.
+5. The desk takes the offsetting short, hedges with cash-and-carry (long the underlying, funded), and earns the bid-offer spread — there is no structural margin or embedded option.
+6. The dominant risk is full linear market exposure (unlike an option's capped premium loss), plus counterparty risk on the bilateral OTC contract.
+7. For the 2nd line, the dominant control checks are forward price vs spot+carry, fixing source, settlement type, and counterparty/CSA + margin — each can misstate value, settlement, or exposure.
 
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
-1. **Thinking Forwards are "free."** No premium ≠ no cost. The cost is the obligation to perform even if the market moves in your favor. This is opportunity cost, not zero cost
-2. **Confusing Forwards with Futures.** Futures are exchange-traded, standardized, marked-to-market daily. Forwards are OTC, customized, settled at maturity. The economics are similar but the mechanics differ
-3. **Forgetting counterparty risk.** A Forward is only as good as the counterparty's ability to pay. Without collateral, a large positive MTM is an unsecured credit exposure
-4. **Using spot price as forward price.** The forward price includes cost of carry. F ≠ S unless r = q (interest rate equals income yield)
-5. **Ignoring the funding component.** The bank does not fund at risk-free. The bank's credit spread above risk-free is embedded in the forward price
+1. **Thinking Forwards are "free."** No premium ≠ no cost. The cost is the obligation to perform even if the market moves favourably. This is opportunity cost, not zero cost.
+2. **Confusing Forwards with Futures.** Futures are exchange-traded, standardized, marked-to-market daily. Forwards are OTC, customized, settled at maturity. The economics are similar but the mechanics differ.
+3. **Forgetting counterparty risk.** A Forward is only as good as the counterparty's ability to pay. Without collateral, a large positive MTM is an unsecured credit exposure.
+4. **Using spot price as forward price.** The forward price includes cost of carry. F ≠ S unless r = q (interest rate equals income yield).
+5. **Ignoring the funding component.** The bank does not fund at risk-free. The bank's credit spread above risk-free is embedded in the forward price.
+6. **(Controls) Trusting the booked forward price without reconciling it to spot + carry.** Because the forward price is built analytically from spot, funding, and dividend yield, the 2nd line must reconcile it against spot × e^((r−q)×T) rather than assume the booked level is correct — a drift signals a stale input or an embedded charge.
 
-#### §21. Visual Specifications
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking / fixing / event-capture fields must reconcile, and which is the most common break?
 
-| # | Priority | Visual | Type | Description |
-|:-:|:--------:|--------|------|-------------|
-| 1 | P1 | Forward payoff diagram (long and short) | Payoff | Two lines crossing at forward price. Linear, symmetric. No kink |
-| 2 | P1 | Forward vs option payoff comparison | Payoff comparison | Forward (linear) vs call option (kinked) vs put option (kinked). Shows why Forward has no premium |
-| 3 | P2 | Cost-of-carry diagram | Waterfall | Spot + interest - dividends = forward price |
-| 4 | P2 | Settlement flow (physical vs cash) | Flow | Two paths: physical (asset + cash exchange) vs cash (net payment) |
-| 5 | P3 | Forward as building block | Structure | Forward decomposes into long call + short put. Shows put-call parity |
-| 6 | P3 | Counterparty credit exposure over time | Line chart | Potential future exposure grows with tenor and volatility |
-
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Spot price, bid-offer | Section 1.1 (Core Trading Concepts) |
-| Call and put options | Section 1.2 (Options From Zero) |
-| Delta | Section 1.4 (Greeks) |
-| Forward rates, cost of carry | Section 1.7 (Yield Curves, Spot Rates, Forward Rates) |
-| Product decomposition | Section 2.2 (Product Construction) |
-| Counterparty risk | Section 1.9 (Credit Risk) |
-| Murex booking | Section 2.8 (Systems Primer) |
-
----
-
+**Dual-lens visuals (generated):**
+- `assets/forward/controls_forward_recon_08.svg` `[generated]`
+- `assets/forward/payoff_forward_01.svg` `[generated]`
+- `assets/forward/waterfall_forward_09.svg` `[generated]`
 ### 5.6.3 Vanilla Options
 
 ---
 
-*The Forward (Section 5.6.2) created a symmetric obligation for both parties. The Vanilla Option breaks that symmetry: the buyer pays a premium for the right — but not the obligation — to buy (call) or sell (put) at a fixed strike price. This asymmetric payoff is the building block for most structured products in this Bible.*
+*The Forward (Section 5.6.2) created a symmetric obligation for both parties. The Vanilla Option breaks that symmetry: the buyer pays a premium for the right — but not the obligation — to buy (call) or sell (put) at a fixed strike price. This asymmetric payoff is the building block for most structured products in this Bible. This chapter reads the product through two lenses: what it means for **the investor** — here the option **buyer**, who is **long** the option — and what it means for **the bank** — the **writer / market-maker**, who is **short** the option — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Imagine you are thinking about buying a house. You find one you love for $500,000, but you are not sure — maybe you will get a job in another city, or maybe you want to wait and see if prices drop. The seller offers a deal: "Pay me $10,000 now, and I will guarantee you the right to buy this house at $500,000 any time in the next 6 months. If you decide not to buy, you lose the $10,000, but you are not obligated to buy."
+Consider a buyer thinking about purchasing a house. The buyer finds one for $500,000 but is not sure — perhaps a job in another city, perhaps a wish to wait and see whether prices drop. The seller offers a deal: "Pay me $10,000 now, and I will guarantee the right to buy this house at $500,000 any time in the next 6 months. If the buyer decides not to buy, the $10,000 is lost, but there is no obligation to buy."
 
-This is an **option**. You have paid for the **right but not the obligation** to transact at a fixed price in the future.
+This is an **option**. The buyer has paid for the **right but not the obligation** to transact at a fixed price in the future.
 
-A **Vanilla Option** is the simplest form of this right. A **call option** gives you the right to buy. A **put option** gives you the right to sell. "Vanilla" means no exotic features — no barriers, no knock-ins, no autocalls, no digital payoffs. Just a strike price and an expiry date.
+A **Vanilla Option** is the simplest form of this right. A **call option** gives the holder the right to buy. A **put option** gives the holder the right to sell. "Vanilla" means no exotic features — no barriers, no knock-ins, no autocalls, no digital payoffs. Just a strike price and an expiry date.
 
-Section 1.2 taught you what options are. This chapter teaches how they are traded, booked, hedged, and managed on a structured products desk.
+Section 1.2 introduced what options are. This chapter explains how they are traded, booked, hedged, and managed on a structured products desk.
 
 #### §2. Real-World Analogy
 
 A Vanilla Option is like a rain check at a store.
 
-A store advertises a TV for $800, but they sell out before you arrive. The store gives you a rain check: "Come back within 30 days, and we guarantee you can buy the TV at $800." If the TV price rises to $1,000 during those 30 days, your rain check saves you $200. If the price drops to $600, you throw away the rain check and buy at the lower price.
+A store advertises a TV for $800 but sells out before the customer arrives. The store gives the customer a rain check: "Come back within 30 days, and the TV can be bought at $800." If the TV price rises to $1,000 during those 30 days, the rain check saves the customer $200. If the price drops to $600, the customer discards the rain check and buys at the lower price.
 
 In a Vanilla Option:
 - The **rain check** is the option contract
 - The **$800 guaranteed price** is the strike price
 - The **30 days** is the time to expiry
-- The **store's promise** is the seller's obligation
+- The **store's promise** is the writer's obligation
 - The **cost of the rain check** (if any) is the option premium
 
-Unlike the rain check (which is usually free), a Vanilla Option has a premium — the price you pay for the right. The premium is not refundable. If you do not exercise, you lose the premium but nothing more.
+Unlike the rain check (which is usually free), a Vanilla Option has a premium — the price the buyer pays for the right. The premium is not refundable. If the buyer does not exercise, the premium is lost but nothing more.
 
 #### §3. What Problem Does This Solve?
 
 Vanilla Options solve the **asymmetric exposure** problem.
 
-A Forward gives you both upside and downside exposure. An option gives you only one side. You choose which risk to keep and which to eliminate.
+A Forward gives both upside and downside exposure. An option gives only one side. The buyer chooses which risk to keep and which to eliminate.
 
 | Need | Forward Solution | Option Solution |
 |------|:----------------:|:---------------:|
@@ -17151,25 +17178,28 @@ A Forward gives you both upside and downside exposure. An option gives you only 
 | **2000s** | Electronic trading. Options become building blocks in structured product factories |
 | **2010s-present** | Zero-day-to-expiry (0DTE) options surge in retail trading. Vol products (VIX options) grow |
 
-#### §7. How the Bank Makes Money
+---
 
-| Revenue Source | Mechanism |
-|---------------|-----------|
-| **Bid-offer spread** | Buy option at implied vol of 18%, sell at 19%. Spread = bank's profit on each trade |
-| **Vol positioning** | If trader believes implied vol is too high, sell options and profit as vol decreases. This is proprietary risk-taking |
-| **Gamma scalping** | Delta-hedge a long gamma position. Buy low (after drops), sell high (after rises). Profit if realized vol > implied vol |
-| **Structured product margin** | Embed vanilla options inside structured products (RC, PPN, Phoenix). Sell the structured product at a markup over the sum of its parts |
+#### §7. THE INVESTOR LENS
 
-#### §8. Why This Product Exists (Client Perspective)
+**Why the investor buys it**
 
-1. **Asymmetric risk.** The buyer can never lose more than the premium. Unlimited upside (call) or downside protection (put)
-2. **Leverage.** A small premium controls a large notional exposure. $5 premium controls $100 of underlying = 20× leverage
-3. **Hedging precision.** Tailor the hedge to exact strike, expiry, and amount needed
-4. **Income generation.** Selling options generates premium income — a strategy used by covered call writers and structured product issuers
+The investor here is the option **buyer**, who is **long** the option.
 
-#### §9. The Three Scenarios
+1. **Leverage.** A small premium controls a large notional exposure. A $5 premium controls $100 of underlying = 20× leverage.
+2. **Asymmetric risk.** The buyer can never lose more than the premium. Unlimited upside (call) or downside protection (put).
+3. **Hedging precision.** The buyer tailors the hedge to the exact strike, expiry, and amount needed.
+4. **View expression.** A buyer who holds a directional view can express it with defined, bounded risk — maximum loss is the premium paid.
 
-**Terms:** Long 1 call option on ABC Corp. Strike: $100. Premium: $5. Notional: 100 shares. Expiry: 3 months.
+**Position taken**
+
+The investor is **long** the option: long a call (the right to buy at strike K) or long a put (the right to sell at strike K). The buyer pays the premium up front. Downside is limited to that premium; upside is leveraged (call) or provides downside protection (put). The buyer is **long volatility** — the long option position gains value when implied volatility rises (positive vega).
+
+**Payoff & scenarios**
+
+A **call payoff** at expiry is max(0, S − K); the buyer's net P&L is max(0, S − K) − premium. The break-even is not the strike — it is strike + premium. The buyer needs the underlying to move enough to cover the premium paid.
+
+**Terms (long call):** Long 1 call option on ABC Corp. Strike: $100. Premium: $5. Notional: 100 shares. Expiry: 3 months.
 
 | Scenario | Spot at Expiry | Option Payoff | Net P&L (after premium) |
 |----------|:--------------:|:------------:|:-----------------------:|
@@ -17177,89 +17207,29 @@ A Forward gives you both upside and downside exposure. An option gives you only 
 | **Base** | $105 | $5 per share | $0 × 100 = $0 (break-even) |
 | **Bear** | $90 | $0 (expires worthless) | -$5 × 100 = -$500 (premium lost) |
 
-**Key insight:** The break-even is not the strike price — it is strike + premium ($105). The option buyer needs the underlying to move enough to cover the premium paid. This is why sellers of options win more often than buyers — most options expire at or near the money.
+**Key insight:** The break-even is not the strike price — it is strike + premium ($105). The option buyer needs the underlying to move enough to cover the premium paid. Most options expire at or near the money, which is why sellers of options win more often than buyers (though they bear the tail — see §8).
 
-#### §10. What Happens When Markets Move
+![Vanilla Call Option Payoff at Maturity — Investor Lens](assets/vanopt/payoff_vanopt_01.svg)
 
-| Market Condition | Impact on Long Call | Impact on Long Put |
-|-----------------|--------------------|--------------------|
-| **Underlying rises** | Value increases (higher delta) | Value decreases |
-| **Underlying falls** | Value decreases | Value increases (higher absolute delta) |
-| **Volatility rises** | Value increases (positive vega) | Value increases (positive vega) |
-| **Volatility falls** | Value decreases | Value decreases |
-| **Time passes** | Value decreases (theta decay) | Value decreases (theta decay) |
-| **Interest rates rise** | Call value increases slightly | Put value decreases slightly |
+**Risks to the investor**
 
-#### §11. Formal Definition
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Total premium loss** | If the option expires out-of-the-money, the buyer loses 100% of the premium paid. Buying OTM short-dated options is the most common way buyers lose money. | High |
+| **Theta (time decay)** | Time decay is relentless. The long option loses value every day that passes, all else equal — a predictable daily cost for the buyer. | Medium |
+| **Volatility falls** | The long option is positive vega: if implied volatility falls, the option's value declines even if the underlying is unchanged. | Medium |
+| **Implied vs realized vol** | If the buyer pays a high implied vol that the underlying never realizes, the premium was overpriced relative to the move delivered. | Medium |
+| **Early-exercise / convention (American)** | For American options the optimal exercise decision affects realized value; ignoring it undervalues the position. | Low-Medium |
 
-A European call option gives the holder the right to buy the underlying at strike K on expiry date T.
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
 
-**Call payoff:** max(S_T - K, 0)
-**Put payoff:** max(K - S_T, 0)
+**What the desk books**
 
-**Black-Scholes call price:**
-C = S_0 × N(d_1) - K × e^(-rT) × N(d_2)
+The desk's position is the mirror image of the buyer's. Where the investor is **long** the option, the desk is **short** the option — it is the **writer / market-maker**. The desk receives the premium up front and takes on the obligation: to deliver the underlying at strike if a call is exercised, or to buy the underlying at strike if a put is exercised. The desk's exposure is large (call) or substantial (put) and is managed dynamically rather than held naked.
 
-Where:
-- d_1 = [ln(S_0/K) + (r - q + σ²/2) × T] / (σ × √T)
-- d_2 = d_1 - σ × √T
-- N(·) = standard normal cumulative distribution function
-- σ = implied volatility
-- r = risk-free rate
-- q = dividend yield
+**Greeks & hedging**
 
-**Put-call parity:** C - P = S_0 × e^(-qT) - K × e^(-rT)
-
-This means: Long Call + Short Put = Forward. Options and forwards are connected through put-call parity. This is the foundation of all structured product pricing.
-
-#### §12. Product Construction
-
-There is no "construction" of a vanilla option — it IS the building block. But understanding how options construct other products is essential:
-
-| Structured Product | Option Construction |
-|-------------------|-------------------|
-| PPN | Bond + Long Call |
-| RC | Bond + Short Put |
-| Collar | Long Put + Short Call |
-| Bull Call Spread | Long Call (low K) + Short Call (high K) |
-| Straddle | Long Call + Long Put (same K) |
-| Forward | Long Call + Short Put (same K) |
-
-Every structured product in this book is built from combinations of vanilla options and bonds.
-
-#### §13. Lifecycle
-
-| Stage | Timing | Action |
-|-------|--------|--------|
-| **Trade** | T | Buyer pays premium. Seller receives premium. Position established |
-| **During life** | T to expiry | Trader delta-hedges daily. Mark-to-market based on vol surface, spot, time. For American options: monitor for early exercise |
-| **Near expiry** | T-2 to expiry | Gamma increases for near-the-money options. Pin risk: large hedging flows near the strike. Exercise decisions for American/Bermudan |
-| **Expiry** | Expiry date | European: automatic exercise if in-the-money (by convention, > threshold). American: final exercise decision. Assignment for short positions |
-| **Settlement** | Expiry+2 | Cash settlement: net payment. Physical settlement: delivery of underlying vs payment of strike |
-
-#### §14. Desk Reality
-
-**What traders think about:**
-Vanilla options are the core of the trading desk. The trader manages a portfolio of thousands of options across strikes and expiries — the "vol surface." The primary concerns are: (1) Is my vol surface correctly calibrated to the market? (2) What is my gamma exposure near key strikes? (3) Am I net long or short vega — do I benefit from vol rising or falling? (4) Can I recycle flow — use a client's sell to offset another client's buy?
-
-**What structurers think about:**
-Vanilla options are inputs. The structurer buys puts and calls from the trader (at internal transfer prices) and packages them into structured products. The structurer cares about the implied vol level (higher vol = more expensive options = lower participation/coupon for clients) and the vol skew (puts more expensive than calls = RC coupons affected differently than PPN participation).
-
-**What operations thinks about:**
-Exercise and assignment. On expiry day, operations must process thousands of exercises. In-the-money options are auto-exercised. Borderline cases need trader confirmation. Failed exercises or assignment errors can be costly. Physical settlement requires delivery logistics.
-
-#### §15. Risk Analysis
-
-| Risk | Severity | Description |
-|------|:--------:|------------|
-| **Delta risk** | High | Directional exposure to underlying. Managed by delta-hedging |
-| **Gamma risk** | High | Rate of change of delta. High gamma near strikes at expiry. Hedging cost increases |
-| **Vega risk** | High | Sensitivity to implied volatility changes. The primary risk factor for option portfolios |
-| **Theta risk** | Medium | Time decay. Predictable daily cost for long option positions |
-| **Pin risk** | Medium | At expiry, options near the strike oscillate between in-the-money and out-of-the-money. Difficult to hedge |
-| **Model risk** | Medium | Black-Scholes assumes constant vol. Real vol is stochastic, creating skew and smile. Model choice affects pricing |
-
-**Greeks profile:**
+The desk is short the option and **delta-hedges** by trading the underlying — re-hedging as spot moves. Because the short option position is short gamma, delta changes as spot moves and the desk must re-hedge frequently; **gamma** is the hedging-frequency driver and spikes for near-the-money options near expiry, where re-hedging becomes expensive and pin risk arises. The desk is also short **vega** (hurt if implied vol rises) and collects **theta** (the time decay the buyer pays). The trader manages a portfolio of thousands of options across strikes and expiries — the "vol surface" — and watches: (1) whether the vol surface is correctly calibrated, (2) gamma exposure near key strikes, (3) net vega, and (4) whether client flow can be recycled (one client's sell offsetting another's buy).
 
 | Greek | Call | Put | Significance |
 |-------|:----:|:---:|-------------|
@@ -17269,7 +17239,30 @@ Exercise and assignment. On expiry day, operations must process thousands of exe
 | Theta | - | - | Both lose value over time |
 | Rho | + | - | Rate sensitivity |
 
-#### §16. Booking and Systems
+**How the bank makes money**
+
+| Revenue Source | Mechanism |
+|---------------|-----------|
+| **Bid-offer spread** | Buy option at implied vol of 18%, sell at 19%. Spread = bank's profit on each trade |
+| **Vol positioning** | If the trader believes implied vol is too high, sell options and profit as vol decreases. Proprietary risk-taking |
+| **Gamma scalping** | Delta-hedge a long gamma position. Buy low (after drops), sell high (after rises). Profit if realized vol > implied vol |
+| **Structured product margin** | Embed vanilla options inside structured products (RC, PPN, Phoenix). Sell the structured product at a markup over the sum of its parts |
+
+**The premium decomposition:**
+
+Premium = Intrinsic value + Time value.
+
+For an at-the-money option, intrinsic value is zero and the entire premium is time value. For the §7 example — a call struck at $100 with spot at $100 and a $5 premium — intrinsic value is $0 and time value is the full $5 (5% of strike). Time value is what the writer earns through theta as the option ages toward expiry, provided spot does not move against the short position faster than implied. Intrinsic value is what the option is already worth if exercised immediately (max(0, S − K) for a call).
+
+![Option Premium Decomposition — Bank Lens (Desk Economics)](assets/vanopt/waterfall_vanopt_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by realized-versus-implied volatility on the delta hedge (gamma scalping), the bid-offer captured on flow, the mark-to-market of the short option book against the vol surface, theta collected, and vega as implied vol moves. Product Control performs independent valuation, vol surface verification, and model reserve assessment.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
 
 | Dimension | Detail |
 |-----------|--------|
@@ -17279,17 +17272,71 @@ Exercise and assignment. On expiry day, operations must process thousands of exe
 | **Market data** | Spot, vol surface (by strike and expiry), interest rate curve, dividend schedule |
 | **Settlement** | Premium: T+1 or T+2. Exercise: T+2 after expiry |
 
-#### §17. Red Flags
+**Reconciliation points**
 
-| Red Flag | Why It Matters |
-|----------|---------------|
-| Retail client selling naked options | Unlimited loss potential. Suitability risk. Requires explicit risk acknowledgment |
-| Option price inconsistent with vol surface | Possible mis-mark. Product Control should investigate |
-| Large gamma concentration near expiry | Pin risk. Trader may face large unexpected hedging costs |
-| Implied vol significantly above realized vol | Option may be overpriced. Buyer should consider whether the risk justifies the premium |
-| Very long-dated option (> 5 years) | Model uncertainty increases. Vol forecasting becomes unreliable. Illiquid |
+| Recon point | What must agree | VO-specific break |
+|-------------|-----------------|-------------------|
+| **Exercise style** | European vs American flag consistent across Murex and exchange/downstream systems | American option booked as European → early-exercise value and assignment risk mis-modelled |
+| **Strike & expiry** | Strike level and expiry date match the termsheet across all systems | Strike or expiry off by a convention (settlement date vs expiry date) → wrong payoff and wrong P&L |
+| **Premium** | Premium amount and settlement date (T+1/T+2) agree between front office and settlements | Premium booked at wrong amount or wrong value date → cash break |
+| **Fixing / settlement type** | Cash vs physical settlement; expiry fixing source matches the termsheet | Physical settlement booked as cash, or wrong expiry fixing used → wrong final payoff |
+| **Exercise capture** | Exercise/assignment flag set correctly on expiry; in-the-money auto-exercise applied | ITM option not exercised, or short position assignment missed → payoff and delivery diverge |
+| **Notional / multiplier** | Contract multiplier and notional consistent across systems | Wrong multiplier (e.g. index point value) → payoff scaled incorrectly |
+| **Greeks / risk** | Position Greeks agree between front-office and risk systems | Sign or magnitude mismatch on delta/gamma/vega |
+| **Margin** | Initial and variation margin (exchange) or collateral (OTC, ISDA/CSA) reconciles to position | Margin call computed on a stale or wrong position → funding and collateral break |
 
-#### §18. Worked Example
+![VANOPT Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/vanopt/controls_vanopt_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | Why It Matters | 2LoD Action |
+|----------|---------------|-------------|
+| Retail client selling naked options | Unlimited loss potential. Suitability risk | Require explicit risk acknowledgment; suitability review |
+| Option price inconsistent with vol surface | Possible mis-mark | Product Control should investigate against the calibrated surface |
+| Large gamma concentration near expiry | Pin risk. Large unexpected hedging costs | Monitor expiry exposure; confirm hedge and exercise plan |
+| Exercise style mismatch (American booked as European) | Early-exercise value and assignment risk mis-modelled | Verify the exercise-style flag against the termsheet across systems |
+| Settlement type confusion (cash vs physical) | Wrong final payoff and delivery logistics | Confirm the settlement convention before expiry |
+| ITM option not auto-exercised / assignment missed | Realised payoff diverges from the model | Verify exercise capture on expiry day for every ITM/assigned line |
+
+**Control implication**
+
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. The dominant control point is **exercise capture**: if an in-the-money option is not exercised, or a short-position assignment is missed on expiry, the realised payoff and the delivery diverge from the model — the buyer's economic outcome and the desk's risk are both misstated at once. An exercise-style mismatch (American booked as European) corrupts the value and the assignment risk; a settlement-type error (physical booked as cash) corrupts the final payoff and the delivery. The reconciliation exists precisely to catch these inconsistencies before settlement crystallises them.
+
+#### §10. Formal Definition
+
+A European **call** option gives the holder the right to buy the underlying at strike K on expiry date T. A European **put** option gives the holder the right to sell at strike K on expiry date T.
+
+**Call payoff:** max(S_T − K, 0)
+**Put payoff:** max(K − S_T, 0)
+
+**Black-Scholes call price:**
+C = S_0 × N(d_1) − K × e^(−rT) × N(d_2)
+
+Where:
+- d_1 = [ln(S_0/K) + (r − q + σ²/2) × T] / (σ × √T)
+- d_2 = d_1 − σ × √T
+- N(·) = standard normal cumulative distribution function
+- σ = implied volatility
+- r = risk-free rate
+- q = dividend yield
+
+**Put-call parity:** C − P = S_0 × e^(−qT) − K × e^(−rT)
+
+This means: Long Call + Short Put = Forward. Options and forwards are connected through put-call parity. This is the foundation of all structured product pricing.
+
+**Key parameters:** option type — call or put; strike — fixed price K; expiry — date T; exercise style — European (exercise only at expiry) or American (exercise any time up to expiry); settlement — cash (net payment) or physical (delivery of underlying vs payment of strike).
+
+#### §11. Lifecycle
+
+| Stage | Timing | Action |
+|-------|--------|--------|
+| **Trade** | T | Buyer pays premium. Writer (desk) receives premium. Position established |
+| **During life** | T to expiry | Desk delta-hedges daily. Mark-to-market based on vol surface, spot, time. For American options: monitor for early exercise |
+| **Near expiry** | T-2 to expiry | Gamma increases for near-the-money options. Pin risk: large hedging flows near the strike. Exercise decisions for American/Bermudan |
+| **Expiry** | Expiry date | European: automatic exercise if in-the-money (by convention, > threshold). American: final exercise decision. Assignment for short positions |
+| **Settlement** | Expiry+2 | Cash settlement: net payment. Physical settlement: delivery of underlying vs payment of strike |
+
+#### §12. Worked Example (both lenses)
 
 **Terms:**
 - Long 1 European put option on SPX
@@ -17301,89 +17348,97 @@ Exercise and assignment. On expiry day, operations must process thousands of exe
 - Expiry: 6 months
 - Notional multiplier: $100
 
+*Investor lens:*
+
 **Black-Scholes pricing:**
-- d_1 = [ln(5200/5000) + (0.04 - 0.015 + 0.0162) × 0.5] / (0.18 × √0.5)
+- d_1 = [ln(5200/5000) + (0.04 − 0.015 + 0.0162) × 0.5] / (0.18 × √0.5)
 - d_1 = [0.0392 + 0.0206] / 0.1273 = 0.4695
-- d_2 = 0.4695 - 0.1273 = 0.3422
-- N(-d_1) = N(-0.4695) = 0.3193
-- N(-d_2) = N(-0.3422) = 0.3661
-- P = 5000 × e^(-0.02) × 0.3661 - 5200 × e^(-0.0075) × 0.3193
-- P = 4901 × 0.3661 - 5161 × 0.3193
-- P = 1794 - 1648 = $146 per unit
+- d_2 = 0.4695 − 0.1273 = 0.3422
+- N(−d_1) = N(−0.4695) = 0.3193
+- N(−d_2) = N(−0.3422) = 0.3661
+- P = 5000 × e^(−0.02) × 0.3661 − 5200 × e^(−0.0075) × 0.3193
+- P = 4901 × 0.3661 − 5161 × 0.3193
+- P = 1794 − 1648 = $146 per unit
 
-**Premium paid:** $146 × 100 = $14,600
+**Premium paid:** $146 × 100 = $14,600.
 
-**Greeks at inception:**
-- Delta: -0.32 (put moves $0.32 for each $1 drop in SPX)
-- Gamma: 0.0018
-- Vega: $730 per 1% vol increase
-- Theta: -$3.50 per day
+The buyer pays $14,600 for downside protection on SPX below 5,000. Maximum loss is the premium — $14,600 — if SPX finishes at or above 5,000 at expiry. Below 5,000, the put gains value point-for-point against the index decline.
 
-#### §19. Knowledge Check
+*Bank lens:*
+
+The desk is **short** the put — the writer — and receives the $14,600 premium. At inception the desk's Greeks (mirror of the buyer's long position) are: Delta −0.32 (the put moves $0.32 for each $1 drop in SPX), Gamma 0.0018, Vega $730 per 1% vol increase, Theta −$3.50 per day. The desk delta-hedges the short put and collects theta as the option ages, profiting if realized vol stays below the 18% implied vol it sold. Product Control performs independent valuation and vol surface verification on the position. The 2nd line confirms the exercise style (European — exercise at expiry only), the strike (5,000) and expiry, the cash-vs-physical settlement convention, the notional multiplier ($100), and the premium settlement before relying on the valuation.
+
+#### §13. Knowledge Check
 
 **Review Questions:**
-1. What is the fundamental difference between a call option and a put option?
-2. Why does an option have time value in addition to intrinsic value?
-3. What is put-call parity, and why is it important for structured products?
-4. What is pin risk, and when does it occur?
-5. How do options serve as building blocks for structured products? Give three examples.
+1. *(Investor)* What is the fundamental difference between a call option and a put option?
+2. *(Investor)* Why does an option have time value in addition to intrinsic value?
+3. *(Investor)* What is the break-even on a long call, and why is it not the strike price?
+4. *(Investor)* What is put-call parity, and why is it important for structured products?
+5. *(Investor)* How do options serve as building blocks for structured products? Give three examples.
+6. *(Desk economics / 1LoD)* The investor is long the option; what is the desk, and which way do the desk's gamma, vega, and theta point? Where does the desk's margin come from?
+7. *(Controls / 2LoD)* Which booking fields must reconcile for a vanilla option, and why is exercise capture the dominant control point on expiry day?
 
 **Scenario Questions:**
-1. You own a portfolio of stocks worth $1M and want to protect against a 10% decline over 3 months. Implied vol is 20%. How would you use put options, and approximately what would it cost?
-2. Implied vol on a stock is 25%. Realized vol over the past month has been 15%. If you sell a 1-month ATM call, under what conditions do you profit?
-3. A trader is short 1,000 call options on XYZ at strike $50, delta-hedged. XYZ is at $49.95 on expiry day. Describe the pin risk problem.
+1. A buyer owns a portfolio of stocks worth $1M and wants to protect against a 10% decline over 3 months. Implied vol is 20%. How would the buyer use put options, and approximately what would it cost?
+2. Implied vol on a stock is 25%. Realized vol over the past month has been 15%. If the desk sells (writes) a 1-month ATM call, under what conditions does the desk profit?
+3. The desk is short 1,000 call options on XYZ at strike $50, delta-hedged. XYZ is at $49.95 on expiry day. Describe the pin risk problem.
 
-**Desk Question:**
-A junior trader says: "Selling options is better than buying them because most options expire worthless — so the seller wins most of the time." Evaluate this statement, discussing expected value, tail risk, portfolio impact, and the concept of "picking up nickels in front of a steamroller."
+**Mental Models**
 
-**Interview Layer Candidates:** Q3, Q5, Desk Q1
-**Examiner Notes Candidates:** Q5, Desk Q1
+| Concept | Mental Model |
+|---------|-------------|
+| Vanilla option | A rain check at a store — the right, not the obligation, to buy at a fixed price |
+| Premium | The non-refundable cost of the rain check — lost if never used |
+| Long the option (investor) | The buyer holds the rain check; most they can lose is its cost |
+| Short the option (desk) | The store that wrote the promise — collects the fee, bears the obligation |
+| Intrinsic vs time value | Intrinsic = what the rain check saves today; time value = the worth of having until expiry |
+| Theta | The rain check expiring a little more each day |
+| Gamma near expiry / pin risk | A rush of last-minute redemptions clustered at exactly the offered price |
+| Exercise capture (2LoD) | The clerk confirming which rain checks were actually redeemed before reconciling the till |
 
-#### §20. Common Mistakes
+**Key Takeaways**
 
-1. **Buying options without understanding theta.** Time decay is relentless. Buying OTM short-dated options is the most common way retail traders lose money
-2. **Selling options without understanding tail risk.** Options sellers win small amounts frequently and lose large amounts rarely. The average is not the experience
-3. **Using Black-Scholes blindly.** The model assumes constant vol, log-normal returns, and continuous hedging — none of which hold exactly. The market prices in skew and smile for a reason
-4. **Confusing implied vol with realized vol.** Implied vol is the market's expectation embedded in option prices. Realized vol is what actually happened. The difference drives P&L for vol traders
-5. **Ignoring early exercise for American options.** Deep ITM American puts and calls on high-dividend stocks may be exercised early. Ignoring this undervalues the option
+1. A vanilla option is the right, not the obligation, to buy (call) or sell (put) at strike K by expiry. It is the building block of all structured products.
+2. The investor is the buyer — **long** the option: downside limited to the premium, leveraged upside (call) or downside protection (put), long volatility.
+3. The break-even on a long call is strike + premium, not the strike itself.
+4. The desk is the writer — **short** the option: it receives the premium, delta-hedges, and is short gamma and vega while collecting theta.
+5. The premium decomposes into intrinsic value + time value; for an at-the-money option the whole premium is time value.
+6. Buyers face theta and total premium loss; writers face large (call) or substantial (put) tail exposure, managed by hedging.
+7. For the 2nd line, the dominant control points are exercise style, strike & expiry, fixing/settlement type, exercise capture, and margin — each can misstate the payoff or the delivery.
 
-#### §21. Visual Specifications
+#### §14. Common Mistakes
 
-| # | Priority | Visual | Type | Description |
-|:-:|:--------:|--------|------|-------------|
-| 1 | P1 | Call and put payoff diagrams (long and short) | Payoff set | Four hockey sticks: long call, short call, long put, short put |
-| 2 | P1 | Option P&L including premium | Payoff | Same four payoffs shifted down by premium amount. Shows break-even points |
-| 3 | P2 | Greeks visualization (delta, gamma, vega, theta vs spot) | Multi-panel chart | Four charts showing each Greek as function of spot price |
-| 4 | P2 | Volatility surface (3D) | Surface chart | Strike × expiry × implied vol. Shows smile/skew |
-| 5 | P3 | Put-call parity diagram | Construction | Long call + short put = forward. Visual decomposition |
-| 6 | P3 | Options as building blocks | Structure | How call + put combinations build RC, PPN, collar, spread |
-
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Options: calls, puts, strikes, premium | Section 1.2 (Options From Zero) |
-| Greeks: delta, gamma, vega, theta | Section 1.4 (Greeks) |
-| Volatility: implied vs realized, surface | Section 1.5 (Volatility) |
-| Forward pricing, put-call parity | Forward (5.6.2) — preceding chapter |
-| Product decomposition | Section 2.2 (Product Construction) |
-| Murex booking | Section 2.8 (Systems Primer) |
+1. **Buying options without understanding theta.** Time decay is relentless. Buying OTM short-dated options is the most common way buyers lose money.
+2. **Writing options without understanding tail risk.** Option writers win small amounts frequently and lose large amounts rarely. The average is not the experience.
+3. **Using Black-Scholes blindly.** The model assumes constant vol, log-normal returns, and continuous hedging — none of which hold exactly. The market prices in skew and smile for a reason.
+4. **Confusing implied vol with realized vol.** Implied vol is the market's expectation embedded in option prices. Realized vol is what actually happened. The difference drives P&L for vol traders.
+5. **Ignoring early exercise for American options.** Deep ITM American puts and calls on high-dividend stocks may be exercised early. Ignoring this undervalues the option.
+6. **(Controls)** **Trusting that an ITM option was exercised without confirming capture.** Exercise and assignment flags must be verified on expiry day — a missed exercise or assignment makes the realised payoff and delivery diverge from the model for both the buyer and the desk.
 
 ---
 
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking / fixing / event-capture fields must reconcile, and which is the most common break?
+
+**Dual-lens visuals (generated):**
+- `assets/vanopt/controls_vanopt_recon_08.svg` `[generated]`
+- `assets/vanopt/payoff_vanopt_01.svg` `[generated]`
+- `assets/vanopt/waterfall_vanopt_09.svg` `[generated]`
 ### 5.6.4 Equity-Linked Option (ELO)
 
 ---
 
-*Vanilla Options (Section 5.6.3) are traded between institutional counterparties via exchanges or OTC markets. The Equity-Linked Option wraps the identical option payoff in a retail-friendly product format — term sheet, minimum ticket, simplified documentation — making vanilla option economics accessible to private banking and mass affluent clients who cannot or do not trade options directly.*
+*Vanilla Options (Section 5.6.3) are traded between institutional counterparties via exchanges or OTC markets. The Equity-Linked Option wraps the identical option payoff in a retail-friendly product format — term sheet, minimum ticket, simplified documentation — making vanilla option economics accessible to private banking and mass affluent clients who cannot or do not trade options directly. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Imagine you believe a particular stock — say, Apple — is going to rise over the next year. You could buy the stock for $200, but that means putting $200 at risk. Instead, your bank offers you an **Equity-Linked Option** (ELO): pay $15 today, and if Apple is above $200 in one year, you receive the difference. If Apple finishes at $230, you collect $30. If Apple finishes below $200, you lose only the $15 premium.
+Consider an investor who believes a particular stock — say, Apple — will rise over the next year. The investor could buy the stock for $200, putting $200 at risk. Instead, the bank offers an **Equity-Linked Option** (ELO): the investor pays $15 today, and if Apple is above $200 in one year, the investor receives the difference. If Apple finishes at $230, the investor collects $30. If Apple finishes below $200, the investor loses only the $15 premium.
 
 An ELO is a vanilla option — typically a call — packaged and sold as a standalone investment product to retail or mass affluent clients. It is NOT structurally different from the vanilla options described in Section 5.6.3. The difference is in the packaging: an ELO is marketed as a product with a term sheet, minimum ticket, and retail distribution infrastructure, whereas a vanilla option is a trading instrument.
 
-The ELO bridges the gap between the options desk (which trades vanilla options all day) and the retail client (who wants a simple, branded product with defined terms).
+The ELO bridges the gap between the options desk (which trades vanilla options all day) and the retail client (who wants a simple, branded product with defined terms). The investor is **long** the embedded option; the bank, as writer and market-maker, is **short** it.
 
 #### §2. Real-World Analogy
 
@@ -17398,7 +17453,7 @@ In an ELO:
 - The **retail markup** is the bank's structuring and distribution margin
 - The **perfume counter** is the retail distribution network
 
-The client pays a premium for convenience, simplicity, and access to a product they might not know how to buy on their own.
+The investor pays a premium for convenience, simplicity, and access to a product they might not know how to buy on their own.
 
 #### §3. What Problem Does This Solve?
 
@@ -17409,8 +17464,8 @@ Most retail investors cannot or do not trade options directly. Exchange membersh
 | Barrier | How ELO Solves It |
 |---------|------------------|
 | Options approval | Not required — ELO is sold as investment product, not derivative trade |
-| Margin requirements | Not required — client pays premium upfront. No margin calls |
-| Strike/expiry selection | Pre-selected by structurer. Client chooses from menu of products |
+| Margin requirements | Not required — the investor pays premium upfront. No margin calls |
+| Strike/expiry selection | Pre-selected by structurer. The investor chooses from menu of products |
 | Documentation | Simplified term sheet instead of ISDA/exchange rules |
 
 #### §4. Product DNA
@@ -17459,7 +17514,7 @@ Most retail investors cannot or do not trade options directly. Exchange membersh
 | **Structurer** | Selects underlying, strike, tenor. Designs term sheet. Sets retail pricing with margin above theoretical value |
 | **Trader** | Prices the underlying vanilla option. Delta-hedges. Same as vanilla option trading |
 | **Sales** | Primary distribution to retail/private banking. Explains scenarios, max loss, break-even |
-| **Risk** | Monitors Greeks, counterparty exposure (limited — client prepays premium) |
+| **Risk** | Monitors Greeks, counterparty exposure (limited — the investor prepays premium) |
 | **Product Control** | Verifies pricing margin. Independent valuation |
 | **Operations** | Premium collection. Maturity processing. Client communication at expiry |
 | **Legal/Compliance** | Product governance. KYD. Suitability. Marketing material review |
@@ -17472,27 +17527,27 @@ Most retail investors cannot or do not trade options directly. Exchange membersh
 | **1990s** | Banks begin repackaging OTC options as retail products. "Warrant" and "ELO" labels emerge |
 | **2000s** | Structured product desks build ELO factories. Menu-based approach: pick stock, pick tenor, get price |
 | **2010s** | Listed structured products (certificati, turbos) compete with bank-issued ELOs. Fee transparency increases |
-| **2020s** | Retail options trading explodes via apps (Robinhood). Traditional ELOs face competition from direct option access. Banks pivot to more complex payoffs (barriers, digitals) to differentiate |
+| **2020s** | Retail options trading expands via apps (Robinhood). Traditional ELOs face competition from direct option access. Banks pivot to more complex payoffs (barriers, digitals) to differentiate |
 
-#### §7. How the Bank Makes Money
+---
 
-| Component | Detail |
-|-----------|--------|
-| **Option theoretical value** | Calculated via Black-Scholes or local vol model. Example: $14.20 |
-| **Structuring margin** | Bank adds 3-5% markup. Example: $0.50 |
-| **Distribution fee** | Sales channel takes 1-2%. Example: $0.30 |
-| **Client price** | $14.20 + $0.50 + $0.30 = $15.00 |
+#### §7. THE INVESTOR LENS
 
-The bank profits from the difference between the client price and the theoretical value. Since the client cannot easily compare the ELO price to the exchange-traded option price (different format, different terms), the margin is less transparent than for vanilla options.
+**Why the investor buys it**
 
-#### §8. Why This Product Exists (Client Perspective)
+1. **Simplicity.** The investor receives a term sheet with three scenarios. No option chain to navigate.
+2. **Defined risk.** The maximum loss is the premium paid. No margin calls, no early exercise surprises.
+3. **Access.** No options approval, no exchange membership, no margin account required.
+4. **Leverage.** A small premium controls large exposure. A $15 premium on a $200 stock is roughly 13× leverage.
+5. **Directional view expression.** An investor with a bullish view (call) or bearish view (put) can monetise it with a known, bounded cost.
 
-1. **Simplicity.** Client receives a term sheet with three scenarios. No option chain to navigate
-2. **Defined risk.** Maximum loss is the premium paid. No margin calls, no early exercise surprises
-3. **Access.** No options approval, no exchange membership, no margin account required
-4. **Leverage.** Small premium controls large exposure. $15 premium on $200 stock = 13× leverage
+**Position taken**
 
-#### §9. The Three Scenarios
+The investor is **long** the embedded vanilla option (a call in the most common form, or a put). Net, the investor is **long volatility** (helped by larger moves and rising implied vol — long vega), exposed to time decay (long theta exposure works against them), and carries directional delta. With a single underlying there is no correlation exposure; on a basket the investor is additionally exposed to correlation.
+
+**Payoff & scenarios**
+
+The investor's payoff is the standard option hockey stick. For a call ELO, below the strike at expiry the option expires worthless and the investor loses the entire premium; above the strike the payoff is `max(S_T − K, 0)` per share, and the investor breaks even only once the underlying rises past strike + premium. The maximum loss is the premium; the upside (call) is unbounded.
 
 **Terms:** ELO on ABC Corp. Strike: $200. Premium: $15. Notional: 100 shares. Tenor: 1 year. European call.
 
@@ -17502,96 +17557,123 @@ The bank profits from the difference between the client price and the theoretica
 | **Base** | $215 | $15 per share | $0 × 100 = $0 (break-even) |
 | **Bear** | $180 | $0 (expires worthless) | -$15 × 100 = -$1,500 (premium lost) |
 
-#### §10. What Happens When Markets Move
+A subtle scenario catches retail investors off guard: the stock can finish above the strike yet the ELO still loses money, because the move was smaller than the premium paid. If the stock finishes at $215 in the table above, the $15 payoff exactly equals the $15 premium — break-even — and any finish between strike and break-even is a net loss despite the stock having risen.
 
-The ELO is a vanilla option — all Greeks behave identically to those described in §5.6.3. What differs is the client experience and the practical consequences for each scenario.
+![ELO Payoff at Maturity — Investor Lens](assets/elo/payoff_elo_01.svg)
 
-**Scenario 1 — Stock rises steadily (bull case).** Apple climbs from $200 to $240 over the year. The ELO's intrinsic value rises in lockstep. The client receives $40 per share at expiry, netting $18.79 per share after the $21.21 premium. The bank's delta hedge captures the same move in the opposite direction — the bank is indifferent to the direction. The client sees a simple maturity statement: "Your ELO paid $40 per share."
+**Risks to the investor**
 
-**Scenario 2 — Stock drops below strike (bear case).** Apple falls to $170. The ELO expires worthless. The client loses the entire $10,605 premium. Unlike a stock investor who lost $15,000 on paper but still holds shares that might recover, the ELO client's loss is final — there are no shares to hold. The defined-loss feature is also the no-recovery feature.
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Total premium loss** | If the underlying does not move past the strike, the option expires worthless and the investor loses 100% of the premium. Unlike a stock investor, there are no shares left to recover. | High |
+| **Theta decay** | Time value erodes daily, accelerating in the final months. A flat or modestly favourable move can still lose money once theta is accounted for. | High |
+| **Break-even gap** | The underlying must move past strike + premium for the investor to profit. For an ATM ELO this can require a 5–15% move. | Medium |
+| **Liquidity / lock-in** | Early redemption is at the bank's discretion, typically at bid. A mid-life vol spike cannot easily be monetised — the investor is generally locked in until expiry. | Medium |
+| **Issuer credit risk** | The investor is exposed to the issuing bank's creditworthiness. | Medium |
+| **Mis-selling / suitability** | A retail investor may not understand that most options expire near or below break-even. | Medium |
 
-**Scenario 3 — Stock hovers near strike (theta decay).** Apple trades sideways between $195 and $210 all year. The ELO's time value erodes daily, accelerating in the final months. If Apple finishes at $210, the client receives $10 per share but paid $21.21 — a net loss of $11.21 per share despite the stock being above the strike. This scenario catches retail clients off guard: the stock went up, but the ELO lost money because the move was smaller than the premium.
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
 
-**Scenario 4 — Volatility spike without directional move.** A market shock sends Apple's implied vol from 22% to 45%, but the stock itself stays near $200. If the client could sell the ELO mid-life, it would be worth significantly more (higher vol = higher option value). But most ELO programs do not offer liquid secondary markets. The client cannot monetise the vol spike — they must wait for expiry. This is the key difference from a vanilla option: institutional traders can sell the vol; ELO clients are locked in until maturity.
+**What the desk books**
 
-#### §11. Formal Definition
+The desk's position is the mirror image of the investor's. Where the investor is long the embedded option, the desk is **short** that option — it is the writer / market-maker. The desk receives the full client premium upfront and delta-hedges the resulting exposure in the underlying. The investor's premium is, to the desk, the theoretical option value plus the structuring and distribution margin baked on top.
 
-ELO payoff is identical to the vanilla option payoff:
+**Greeks & hedging**
 
-**ELO Call payoff:** max(S_T - K, 0)
-**ELO Put payoff:** max(K - S_T, 0)
+Short the call (or put), the desk is **short gamma** and **short vega** while collecting **theta**, and it delta-hedges by trading the underlying (shares or futures). The desk is indifferent to direction once delta-hedged — it captures the same move in the opposite direction to the investor. The day-one structuring margin is realised at inception; thereafter desk P&L is driven by realized-versus-implied volatility on the hedge. Single-stock ELOs can be harder to hedge than index products because of single-stock liquidity and borrow costs; risk management may impose limits on concentrated single-name exposure.
+
+**How the bank makes money**
+
+| Component | Detail |
+|-----------|--------|
+| **Option theoretical value** | Calculated via Black-Scholes or local vol model. Example: $20.30 |
+| **Structuring margin** | Bank adds 3-5% markup. Example (3%): $0.61 |
+| **Distribution fee** | Sales channel takes 1-2%. Example (1.5%): $0.30 |
+| **Client price** | $20.30 + $0.61 + $0.30 = $21.21 per share |
+
+The bank profits from the difference between the client price and the theoretical value. Since the investor cannot easily compare the ELO price to the exchange-traded option price (different format, different terms), the margin is less transparent than for vanilla options.
+
+**The premium decomposition:**
+
+The client premium decomposes into the option's **intrinsic value** + **time value**, plus the bank's margin. For the ATM example, intrinsic value is $0 (strike equals spot), so the entire $20.30 theoretical value is time value; the remaining $0.91 ($0.61 structuring + $0.30 distribution) is the bank's margin on top. For an at-the-money option the whole theoretical premium is time value — the value the desk collects as theta over the life of the trade, against which it pays away gamma and vega.
+
+![ELO Premium Decomposition — Bank Lens (Desk Economics)](assets/elo/waterfall_elo_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by realized-versus-implied volatility on the delta hedge, moves in the underlying (gamma), the mark-to-market of the embedded option, and the day-one structuring/distribution margin captured at inception. Product Control verifies the pricing margin and performs independent valuation of the option component against the same models used for vanilla options.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
+
+| Aspect | Detail |
+|--------|--------|
+| **Primary system** | Murex |
+| **Booking structure** | Vanilla option + wrapper identifier linking to the term sheet |
+| **Valuation model** | Black-Scholes / local vol (identical to vanilla options) |
+| **Market data** | Same as vanilla options: spot, vol surface, rates, dividends |
+| **Settlement** | Cash settlement at maturity |
+| **Key booking fields** | Strike, expiry, exercise style (European/American), fixing/settlement source, notional, underlying ID, wrapper identifier |
+
+**Reconciliation points**
+
+| Recon point | What must agree | ELO-specific break |
+|-------------|-----------------|--------------------|
+| **Strike & expiry** | Strike level and expiry date match the term sheet and the booked option | Wrapper term sheet shows one strike/expiry; the underlying option booked in Murex shows another |
+| **Exercise style** | European vs American consistent across wrapper and option leg | Term sheet says European but the option is booked American → early-exercise risk mispriced |
+| **Fixing/settlement** | Final fixing source and settlement type (cash) match the term sheet | Different vendors report different closing prices on the expiry fixing |
+| **Exercise capture** | ITM option flagged exercised; cash settlement amount captured | Option finishes ITM but the auto-exercise flag is not set → the investor's payoff and the desk's obligation diverge from the model |
+| **Listing / wrapper** | Wrapper identifier correctly links the retail note to the underlying option position | Wrapper detached from the option leg → position appears unhedged or double-counted |
+| **Premium / pricing margin** | Client premium = theoretical value + structuring + distribution margin | Margin mis-booked → day-one P&L and IPV disagree |
+| **Notional / share count** | Notional and contract multiplier reconcile to payoff per share × shares | Wrong share count → payoff and premium scaled incorrectly |
+| **Corporate actions** | Strike/expiry adjusted for dividends, splits, special dividends | Special dividend or split not propagated → strike off, payoff misstated |
+
+![ELO Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/elo/controls_elo_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Structuring margin > 10% of premium | Excessive — the investor is overpaying relative to theoretical value | Challenge pricing; confirm IPV against independent theoretical value |
+| ELO on illiquid stock | Delta-hedging difficult; wide bid-offer passes through to client pricing | Confirm hedgeability and that pricing reflects realistic borrow/liquidity |
+| Short-dated ELO (< 3 months) | Rapid theta decay; likely to expire worthless unless deep ITM | Confirm suitability disclosure and scenario analysis present |
+| Exercise style mismatch between wrapper and option leg | European wrapper booked against an American option (or vice versa) | Reconcile exercise style across the wrapper and the underlying option |
+| Expiry fixing price mismatch | Different data sources report different closing prices | Use the fixing source specified in the term sheet |
+| Wrapper detached from option position | Listing/wrapper identifier not linked to the hedging option | Confirm the wrapper maps one-to-one to the booked option before relying on either valuation |
+
+**Control implication**
+
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. A strike or expiry mismatch between the wrapper and the underlying option misstates the entire payoff. An exercise-style mismatch misprices early-exercise risk and can change the settlement amount. A missed exercise capture on an ITM option makes the realised payoff and the desk's obligation diverge from the model for both the investor and the desk simultaneously. A fixing mismatch breaks valuation and the final payoff at once. A detached wrapper makes the position look unhedged or double-counted. The reconciliation exists precisely to catch these inconsistencies before settlement crystallises them.
+
+#### §10. Formal Definition
+
+An **Equity-Linked Option** (ELO) is a vanilla option repackaged as a retail investment product. Its payoff is identical to the vanilla option payoff:
+
+**ELO Call payoff:** max(S_T − K, 0)
+**ELO Put payoff:** max(K − S_T, 0)
 
 Where K = strike price, S_T = underlying at expiry.
 
 The ELO price = Black-Scholes theoretical value + structuring margin + distribution fee.
 
-There is no structural difference from a vanilla option. The formal definition, decomposition, and pricing are identical. The difference is purely in distribution wrapper, documentation, and client channel.
+There is no structural difference from a vanilla option. The formal definition, decomposition, and pricing are identical. The difference is purely in distribution wrapper, documentation, and client channel. There is no product construction in the structured-product sense — the ELO does not combine a bond with an option; it IS the option, repackaged.
 
-#### §12. Product Construction
+**Key parameters:** strike — pre-selected by the structurer; option type — call (most common) or put; exercise style — typically European; underlying — single stock (most common), index, or basket; maturity — typically 6 months to 2 years; settlement — cash.
 
-| Component | Purpose |
-|-----------|---------|
-| Vanilla call or put option | Core exposure |
-| Term sheet wrapper | Client-friendly documentation |
-| Structuring margin | Bank profit |
-| Distribution channel | Retail/private banking access |
-
-**There is no product construction in the structured product sense.** The ELO does not combine a bond with an option. It IS the option, repackaged.
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Timing | Action |
 |-------|--------|--------|
-| **Product design** | T-30 | Structurer selects stock/strike/tenor menu for upcoming issuance cycle |
+| **Product design** | T-30 | Structurer selects stock/strike/tenor menu for the upcoming issuance cycle |
 | **Marketing** | T-14 to T | Sales prepares indicative terms. Distribution to client advisors |
-| **Subscription** | T-3 to T | Clients subscribe. Premium collected |
-| **Trade date** | T | ELO issued. Bank books hedge (delta-hedge the vanilla option position) |
-| **During life** | T to expiry | No client-facing events. Trader manages hedge. Client receives periodic valuation statements |
-| **Expiry** | Maturity | Option exercised automatically if ITM. Cash settlement to client's account |
-| **Post-expiry** | T+2 | Settlement. Client notified of outcome |
+| **Subscription** | T-3 to T | Investors subscribe. Premium collected |
+| **Trade date** | T | ELO issued. Bank books the short option position and hedges (delta-hedge the vanilla option) |
+| **During life** | T to expiry | No client-facing events. Trader manages the hedge. The investor receives periodic valuation statements |
+| **Expiry** | Maturity | Option exercised automatically if ITM. Cash settlement to the investor's account |
+| **Post-expiry** | T+2 | Settlement. The investor is notified of the outcome |
 
-#### §14. Desk Reality
-
-**What traders think about:**
-ELOs are vanilla options. The trader prices and hedges them identically. The only difference is the hedge has an additional margin baked in (the structuring fee), which provides a small day-one P&L. Volume of ELOs helps the desk build a diversified option book. Single-stock ELOs can be harder to hedge than index products due to single-stock liquidity and borrow costs.
-
-**What structurers think about:**
-Which stocks and strikes will sell. The structurer curates a menu — popular stocks, round strikes, attractive break-even levels. The game is margin maximization: find the sweet spot where the margin is large enough for the bank but the product is still attractive vs. alternatives (ETFs, direct stock, competing banks).
-
-**What operations thinks about:**
-Volume. ELO programs can produce hundreds of individual positions per issuance cycle. Each has slightly different terms. Maturity processing must be automated. Client communication (maturity notices, outcome letters) must be templated.
-
-#### §15. Risk Analysis
-
-Identical to Vanilla Options (§5.6.3 §15). Additional risks:
-
-| Risk | Severity | Description |
-|------|:--------:|------------|
-| **Reputational risk** | Medium | If ELOs consistently expire worthless, retail clients may perceive the bank as selling "losing products." Suitability documentation critical |
-| **Concentration risk** | Medium | If many ELOs are written on the same popular stock, the desk accumulates concentrated single-stock exposure |
-| **Mis-selling risk** | Medium | Retail clients may not understand that most options expire near or below break-even. Clear scenario disclosure required |
-
-#### §16. Booking and Systems
-
-| Dimension | Detail |
-|-----------|--------|
-| **Primary system** | Murex |
-| **Booking model** | Vanilla option + wrapper identifier linking to term sheet |
-| **Valuation model** | Black-Scholes / local vol (identical to vanilla options) |
-| **Market data** | Same as vanilla options: spot, vol surface, rates, dividends |
-| **Settlement** | Cash settlement at maturity |
-
-#### §17. Red Flags
-
-| Red Flag | Why It Matters |
-|----------|---------------|
-| Structuring margin > 10% of premium | Excessive. Client is overpaying relative to theoretical value |
-| ELO on illiquid stock | Delta-hedging difficult. Wide bid-offer on underlying passes through to client pricing |
-| Short-dated ELO (< 3 months) | Theta decay rapid. Likely to expire worthless unless deep ITM |
-| Client portfolio concentrated in ELOs | Client may not understand aggregate risk. Suitability review needed |
-| No scenario analysis in term sheet | Regulatory and suitability red flag. Client must see loss scenario |
-
-#### §18. Worked Example
+#### §12. Worked Example (both lenses)
 
 **Terms:**
 - Underlying: Apple Inc. (AAPL)
@@ -17610,92 +17692,87 @@ Identical to Vanilla Options (§5.6.3 §15). Additional risks:
 - Client price: $21.21 per share
 - Notional: 500 shares. Total premium: $10,605
 
-**Outcome — AAPL at $230 at expiry:**
-- Payoff: ($230 - $200) × 500 = $15,000
-- Net P&L: $15,000 - $10,605 = +$4,395 (+41.4% return on premium)
+*Investor lens:*
+- **Outcome — AAPL at $230 at expiry:** Payoff: ($230 − $200) × 500 = $15,000. Net P&L: $15,000 − $10,605 = **+$4,395 (+41.4% return on premium)**. The investor is long the call and captures the upside above the strike, less premium.
+- **Outcome — AAPL at $200 at expiry:** Payoff: $0. Net P&L: **−$10,605 (total premium lost)**. The option expires worthless; the investor's loss is final, with no shares to hold.
+- **Break-even:** $200 + $21.21 = **$221.21** (AAPL must rise 10.6% for the investor to break even).
 
-**Outcome — AAPL at $200 at expiry:**
-- Payoff: $0
-- Net P&L: -$10,605 (total premium lost)
+*Bank lens:*
+- In the $230 scenario the desk, short the call and delta-hedged, owes the $15,000 payoff but has captured the offsetting move on its hedge and keeps the $0.91/share margin ($455 on 500 shares) plus net hedging P&L. Product Control confirms the option MTM and the margin booked at inception.
+- In the $200 scenario the desk's short call expires worthless; the desk keeps the full premium against a zero payoff, retaining its margin and net hedging P&L. The 2nd line confirms the expiry fixing, the exercise (non-exercise) capture, and that the wrapper and option leg agree before settlement.
 
-**Break-even:** $200 + $21.21 = $221.21 (AAPL must rise 10.6% for client to break even)
+#### §13. Knowledge Check
 
-#### §19. Knowledge Check
+1. **What is the difference between an ELO and a vanilla option?** (Answer: none structurally — only packaging, documentation, and distribution channel.)
+2. **What is the maximum loss on a call ELO, and who bears the corresponding gain?** (Answer: the investor's max loss is the premium; the desk, short the option, retains it when the option expires worthless.)
+3. **Why does an ELO cost more than the equivalent exchange-traded option?** Decompose the premium.
+4. **Why might a stock finish above the strike yet the investor still lose money on a call ELO?**
+5. **What is the break-even on the worked example, and what move does it require?**
+6. **(Desk economics / 1LoD)** The investor is long the call; what is the desk, and which way do the desk's gamma, vega, and theta point? Where does the desk's day-one margin come from, and what drives its P&L thereafter?
+7. **(Controls / 2LoD)** Name three reconciliation breaks specific to an ELO and the consequence of each for the investor's payoff or the desk's obligation.
 
-**Review Questions:**
-1. What is the difference between an ELO and a vanilla option?
-2. Why does an ELO cost more than the equivalent exchange-traded option?
-3. What is the maximum loss on an ELO?
-4. Why might a bank prefer to sell ELOs rather than letting clients trade options directly?
-5. How does the bank hedge an ELO?
+**Mental Models**
 
-**Scenario Questions:**
-1. Two banks offer ELOs on the same stock, same strike, same tenor. Bank A charges $21, Bank B charges $24. The Black-Scholes value is $20.30. What explains the difference, and which should the client choose?
-2. A private banking client wants to buy 50 ELOs on Tesla with a 3-month expiry. Implied vol is 45%. What concerns would you raise?
-3. Apple announces a $5 special dividend after an ELO is issued at strike $200. How does this affect the ELO holder?
+| Concept | Mental Model |
+|---------|-------------|
+| ELO | A pre-packaged gift set at a perfume counter — the same option, in a retail box at a markup |
+| Premium | The investor's defined, bounded cost — the most that can be lost |
+| Intrinsic + time value | The perfume itself (intrinsic) plus the wait (time value); for an ATM option the whole theoretical premium is time value |
+| Break-even | The strike plus the premium — the stock must clear both before the investor profits |
+| Desk position | The writer at the counter — short the option, delta-hedged, indifferent to direction |
+| 2LoD reconciliation | The stocktaker — confirms the wrapper, strike, expiry and exercise capture match before anyone is paid |
 
-**Desk Question:**
-A competitor begins offering ELOs with zero structuring margin (charging only the theoretical option value). How should the bank respond? Discuss sustainability, client acquisition cost, and cross-selling strategy.
+**Key Takeaways**
 
-**Interview Layer Candidates:** Q1, Q2, Desk Q1
-**Examiner Notes Candidates:** Q2, Desk Q1
+1. An ELO is a vanilla option repackaged for retail — same economics, different wrapper, documentation, and distribution.
+2. The investor is the buyer — **long** the option: max loss is the premium, leveraged upside (call) or downside profit (put), long volatility.
+3. The break-even on a long call ELO is strike + premium, not the strike itself.
+4. The desk is the writer — **short** the option: it receives the premium, delta-hedges, and is short gamma and vega while collecting theta.
+5. The premium decomposes into intrinsic value + time value, plus the bank's structuring and distribution margin; for an ATM option the whole theoretical premium is time value.
+6. The investor faces theta and total premium loss; the desk profits from the margin regardless of outcome because the option payoff is hedged away.
+7. For the 2nd line, the dominant control points are strike & expiry, exercise style, fixing/settlement, exercise capture, and the listing/wrapper link — each can misstate the payoff or the delivery.
 
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
-1. **Thinking the ELO is a different product from a vanilla option.** It is the same product. The only difference is packaging and distribution
-2. **Ignoring the structuring margin.** The gap between the ELO price and the theoretical option value is pure profit for the bank. Sophisticated clients compare
-3. **Assuming the bank wants the ELO to expire worthless.** The bank is delta-hedged. It profits from the margin regardless of the outcome. The P&L from the option payoff is hedged away
-4. **Comparing ELO return to stock return.** The ELO has leverage — $21 controls $200 of exposure. Percentage returns on premium are not comparable to percentage returns on stock. Risk-adjusted comparison needed
-5. **Not understanding break-even.** The stock must rise past strike + premium for the client to profit. For an ATM ELO, this can require a 5-15% move
+1. **Thinking the ELO is a different product from a vanilla option.** It is the same product. The only difference is packaging and distribution.
+2. **Ignoring the structuring margin.** The gap between the ELO price and the theoretical option value is pure profit for the bank. Sophisticated clients compare.
+3. **Assuming the bank wants the ELO to expire worthless.** The desk is delta-hedged. It profits from the margin regardless of outcome — the P&L from the option payoff is hedged away.
+4. **Comparing ELO return to stock return.** The ELO has leverage — $21 controls $200 of exposure. Percentage returns on premium are not comparable to percentage returns on stock; a risk-adjusted comparison is needed.
+5. **Not understanding break-even.** The stock must rise past strike + premium for the investor to profit. For an ATM ELO this can require a 5–15% move.
+6. **(Controls)** **Trusting that an ITM ELO was exercised without confirming capture.** The exercise flag and the wrapper-to-option link must be verified on expiry day — a missed exercise or a detached wrapper makes the realised payoff and the cash settlement diverge from the model for both the investor and the desk.
 
-#### §21. Visual Specifications
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking / fixing / event-capture fields must reconcile, and which is the most common break?
 
-| # | Priority | Visual | Type | Description |
-|:-:|:--------:|--------|------|-------------|
-| 1 | P1 | ELO payoff vs direct stock purchase | Payoff comparison | ELO (hockey stick from premium) vs stock (linear from purchase price). Shows leverage and break-even |
-| 2 | P1 | ELO pricing waterfall | Waterfall | Theoretical → structuring margin → distribution fee → client price |
-| 3 | P2 | ELO vs vanilla option: same product, different wrapper | Comparison diagram | Side-by-side: same option, different term sheet, different distribution channel |
-| 4 | P2 | Break-even analysis sensitivity | Chart | Break-even as function of implied vol, tenor, strike |
-| 5 | P3 | ELO lifecycle timeline | Timeline | Product design → marketing → subscription → trade → expiry → settlement |
-| 6 | P3 | ELO decision tree for client | Decision tree | Should you buy ELO vs stock vs ETF vs option? Based on risk tolerance, access, view strength |
-
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Options: calls, puts, premium, payoff | Section 1.2 (Options From Zero) |
-| Greeks: delta, gamma, vega, theta | Section 1.4 (Greeks) |
-| Volatility, implied vs realized | Section 1.5 (Volatility) |
-| Black-Scholes pricing | Vanilla Options (5.6.3) |
-| Product distribution, margin | Section 2.2 (Product Construction) |
-| Murex booking | Section 2.8 (Systems Primer) |
-
----
-
+**Dual-lens visuals (generated):**
+- `assets/elo/controls_elo_recon_08.svg` `[generated]`
+- `assets/elo/payoff_elo_01.svg` `[generated]`
+- `assets/elo/waterfall_elo_09.svg` `[generated]`
 ### 5.6.5 Option on Reverse Convertible (Option on RC)
 
 ---
 
-*Vanilla Options (Section 5.6.3) gave the right to buy or sell an asset. The Option on Reverse Convertible gives the right to enter into an RC (Section 5.1.2) at a future date — it is an option on a structured product, not an option on a single asset. This adds a layer of optionality: the investor decides whether the RC's terms are attractive at the option's expiry before committing.*
+*Vanilla Options (Section 5.6.3) gave the right to buy or sell an asset. The Option on Reverse Convertible gives the right to enter into an RC (Section 5.1.2) at a future date — it is an option on a structured product, not an option on a single asset. This adds a layer of optionality: the investor decides whether the RC's terms are attractive at the option's expiry before committing. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-You already know what a Reverse Convertible (RC) is from Section 5.1.2: a product that pays a high coupon but risks converting your principal into shares if the stock falls below a barrier. Now imagine a product where you have the **right but not the obligation** to enter into an RC at a future date.
+A Reverse Convertible (RC, Section 5.1.2) is a product that pays a high coupon but risks converting principal into shares if the stock falls below a barrier. An **Option on a Reverse Convertible** is a product that gives the holder the right — but not the obligation — to enter into an RC with pre-agreed terms on a future date.
 
-An **Option on a Reverse Convertible** gives the holder the right to purchase (or be entered into) an RC with pre-agreed terms on a future date. If market conditions at that future date make the RC attractive, the holder exercises. If conditions are unfavorable, the holder walks away, losing only the premium paid for the option.
+If market conditions at that future date make the RC attractive, the holder exercises and enters the RC. If conditions are unfavorable, the holder walks away, losing only the premium paid for the option.
 
-This creates a two-layer product: the outer layer is an option (the right to enter), and the inner layer is an RC (the product you may or may not enter). The combination produces a product with a deferred entry decision — the client does not commit to the RC today but reserves the right to enter later.
+This creates a two-layer product: the outer layer is an option (the right to enter), and the inner layer is an RC (the product that may or may not be entered). The combination produces a product with a deferred entry decision — the investor does not commit to the RC today but reserves the right to enter later.
 
-In practice, this is used when a client wants RC-like income but is uncertain about timing or market conditions. The option gives them the flexibility to observe the market before committing.
+In practice, this structure is used when an investor wants RC-like income but is uncertain about timing or market conditions. The option gives the flexibility to observe the market before committing. Because the right to enter an option-bearing note is itself an option, this is a **compound option** — an option on an option.
 
 #### §2. Real-World Analogy
 
 An Option on an RC is like a reservation deposit for a timeshare.
 
-You pay $500 to hold the right to sign a timeshare contract at a fixed price ($20,000/year) at any point in the next 3 months. During those 3 months, you visit the property, check the neighborhood, and evaluate whether the rental income covers your costs.
+A $500 deposit holds the right to sign a timeshare contract at a fixed price ($20,000/year) at any point in the next 3 months. During those 3 months, the holder visits the property, checks the neighborhood, and evaluates whether the rental income covers the costs.
 
-If the property looks good: you sign the timeshare contract (exercise the option → enter the RC).
-If the property looks bad: you walk away and lose the $500 deposit (let the option expire).
+If the property looks good: the holder signs the timeshare contract (exercise the option → enter the RC).
+If the property looks bad: the holder walks away and loses the $500 deposit (let the option expire).
 
 In an Option on RC:
 - The **$500 deposit** is the option premium
@@ -17704,7 +17781,7 @@ In an Option on RC:
 - The **rental income** is the RC coupon
 - The **property value risk** is the downside conversion risk of the RC
 
-The key insight: you are paying for the right to defer your decision. The timeshare (RC) is risky — you want more information before committing.
+The key insight: the holder is paying for the right to defer a decision. The timeshare (RC) is risky — the holder wants more information before committing.
 
 #### §3. What Problem Does This Solve?
 
@@ -17780,23 +17857,24 @@ An investor who wants RC income faces a dilemma: enter now (when conditions may 
 | **2010s** | Post-crisis, product use declines. Clients burned by RC conversions are cautious about even deferred RC entry. Demand shifts to simpler products |
 | **2020s** | Modest revival in private banking as rising rates make RC coupons more attractive. Option layer provides comfort for cautious yield seekers |
 
-#### §7. How the Bank Makes Money
+---
 
-| Component | Detail |
-|-----------|--------|
-| **Option premium** | Client pays premium for the right to enter RC. Bank earns margin on option pricing |
-| **RC margin (if exercised)** | If client exercises, the bank earns the standard RC structuring margin (short put premium minus coupon obligation) |
-| **Vol carry** | Bank is short compound vol. If realized vol < implied vol, bank profits on the option layer |
-| **Non-exercise profit** | If client does not exercise, the bank keeps the full premium with no further obligation |
+#### §7. THE INVESTOR LENS
 
-#### §8. Why This Product Exists (Client Perspective)
+**Why the investor buys it**
 
-1. **Timing flexibility.** Lock in attractive RC terms without immediate commitment
-2. **Defined risk during waiting.** Maximum loss is the option premium until the exercise decision
-3. **Information advantage.** Observe market conditions, earnings, dividends before deciding
-4. **Psychological comfort.** Easier to commit to paying a small premium than to entering a risky RC immediately
+1. **Timing flexibility.** The investor can lock in attractive RC terms without immediate commitment — a way to reserve a future yield-enhancement entry.
+2. **Defined risk during waiting.** Maximum loss is the option premium until the exercise decision is made.
+3. **Information advantage.** The investor can observe market conditions, earnings, and dividends before deciding whether the RC is worth entering.
+4. **Psychological comfort.** It is easier to commit to paying a small premium than to enter a risky RC immediately.
 
-#### §9. The Three Scenarios
+**Position taken**
+
+The investor is **long a compound option** — long a call on the RC. The investor holds the right (not the obligation) to enter the RC at the option's expiry on pre-agreed terms. During the option period the investor is **long optionality** (helped by uncertainty before the decision point), and carries no barrier risk and no equity downside until exercise. Only if the option is exercised does the investor then take on the underlying RC position (long bond, short knock-in put), at which point standard RC exposures apply. Net of premium, the maximum loss during the option period is bounded at the premium paid.
+
+**Payoff & scenarios**
+
+The investor's payoff has two phases. During the option period the only exposure is the premium at risk. At option expiry the investor compares the RC's market value with the option strike and exercises only when entering the RC is attractive; otherwise the option lapses and the premium is lost. After exercise, the payoff is the standard RC payoff — full principal plus coupon above the barrier, or a principal reduction proportional to the stock's decline below the barrier.
 
 **Terms:** Option on RC. Option premium: 2% of notional. Option expiry: 3 months. RC terms if exercised: 12% annual coupon, 60% barrier, 1-year tenor. Notional: $100,000.
 
@@ -17806,25 +17884,98 @@ An investor who wants RC income faces a dilemma: enter now (when conditions may 
 | **Base** | Stock flat, vol elevated | Exercise. RC coupon = 12%. Barrier not breached | Net: +12% coupon - 2% premium = +10% |
 | **Bear** | Stock -25%, vol spiking | Do NOT exercise. Walk away | Net: -2% (premium lost). Avoided RC that would have converted |
 
-**Key insight:** In the bear scenario, the option saved the client from a 25%+ loss. The 2% premium was insurance against entering a bad RC.
+**Key insight:** In the bear scenario, the option saved the investor from a 25%+ loss. The 2% premium was insurance against entering a bad RC.
 
-#### §10. What Happens When Markets Move
+**Risks to the investor**
 
-| Market Condition | Impact on Option on RC |
-|-----------------|----------------------|
-| **Underlying rises** | RC becomes more valuable (farther from barrier). Option to enter RC gains value |
-| **Underlying falls sharply** | RC becomes risky (closer to barrier). Option to enter loses value — but max loss is premium |
-| **Volatility rises** | Complex effect. Option layer gains value (higher optionality). RC layer loses value (barrier more likely to breach). Net effect depends on which dominates |
-| **Volatility falls** | Option layer loses value. RC layer gains value. Net effect: typically negative for the option holder |
-| **Time passes (during option period)** | Option value decays (theta). Approaching decision point |
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Premium loss risk** | If the investor does not exercise, the 2% premium is lost. Known and bounded. | Low-Medium |
+| **Compound complexity** | The two-layer structure is harder to evaluate than a single RC. The exercise decision requires assessing the RC's full fair value at option expiry, not just spot. | Medium |
+| **Exercise decision risk** | The investor may exercise into a losing RC or fail to exercise into a winning one if the decision is made on gut feeling rather than fair value. | Medium |
+| **Post-exercise RC risks** | Once exercised, all standard RC risks apply — barrier breach, conversion, credit, illiquidity. | High (post-exercise) |
+| **Conflicting volatility effect** | Higher vol makes the option layer more valuable but the RC layer less valuable (more barrier-breach risk); the net effect on the holder is ambiguous. | Medium |
+| **Issuer credit risk** | The investor is exposed to the bank's creditworthiness across both phases. | Medium |
 
-#### §11. Formal Definition
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
 
-An Option on RC is a compound option: an option whose underlying is itself a derivative product (the RC).
+**What the desk books**
+
+The desk's position is the mirror image of the investor's. Where the investor is long the compound option, the desk is **short** that compound option (the call on the RC sold to the investor). The desk receives the option premium up front and carries the obligation to deliver the RC at the pre-agreed terms if the investor exercises. In booking terms this is a Phase 1 short compound call; on exercise it becomes a Phase 2 RC position (the desk long the embedded RC put, with the note as a funding liability).
+
+**Compound/forward-vol risk & hedging**
+
+The compound option's Greeks are non-trivial. The delta of the option on RC depends on the delta of the RC itself, which depends on the underlying, barrier, and vol. Gamma is second-order compound — effectively "gamma of gamma." Vega is particularly tricky: higher vol makes the option layer more valuable but makes the RC layer less valuable (more barrier-breach risk), so the desk must judge which effect dominates and hedge accordingly. The desk is also exposed to **forward volatility** — the volatility that will prevail over the RC period as seen from the option-expiry date — which requires a term structure across the compound tenor. The desk delta-hedges the position using single-layer options and the underlying, and rehedges as the RC value (and therefore the compound delta) moves.
+
+**How the bank makes money**
+
+| Revenue Component | Detail |
+|------------------|--------|
+| **Option premium** | The investor pays a premium for the right to enter the RC. The desk earns margin on the compound-option pricing. |
+| **RC margin (if exercised)** | If the investor exercises, the desk earns the standard RC structuring margin (short put premium minus coupon obligation). |
+| **Vol carry** | The desk is short compound vol. If realized vol < implied vol, the desk profits on the option layer. |
+| **Non-exercise profit** | If the investor does not exercise, the desk keeps the full premium with no further obligation. |
+
+**The premium decomposition:**
+
+The compound-option premium charged to the investor breaks into the desk's component costs and margin. For a 2% premium: the compound-option fair value (option-on-RC time value, ~1.4%) is the core; forward-vol carry (the desk's expected gain from being short forward vol, ~0.3%) reduces the net cost; the desk's structuring margin (~0.4%) and a hedging/FTP cost reserve (~0.1%) make up the balance; **net premium 2.0%**. The compound-option fair value is the key term — it is the cost of the deferred-entry optionality sold to the investor.
+
+![Option-on-RC Premium Decomposition — Bank Lens (Desk Economics)](assets/optrc/waterfall_optrc_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by realized-versus-implied volatility on the compound hedge (including forward vol), moves in the underlying that change the RC value and therefore the compound delta, the mark-to-market of the compound option, and funding. Product Control performs independent valuation of the compound structure, verifies layer consistency, and attributes P&L between the option-layer MTM and (post-exercise) the RC components.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
+
+| Aspect | Detail |
+|--------|--------|
+| **Primary system** | Murex |
+| **Booking structure** | Phase 1: compound call option. Phase 2 (if exercised): RC (bond + short put) |
+| **Valuation model** | Compound option model (nested Black-Scholes or Monte Carlo for path-dependent RC variants) |
+| **Market data** | Spot, vol surface (with term structure for compound tenor), rates, dividends, barrier parameters |
+| **Key booking fields** | Compound exercise date, option strike (K_opt), RC terms (coupon, barrier and convention, tenor), underlying ID |
+| **Settlement** | Premium at trade date. RC settlement at RC maturity (if exercised) |
+| **Critical event** | Exercise decision at option expiry — the booking transitions from compound option to active RC |
+
+**Reconciliation points**
+
+| Recon point | What must agree | Opt-on-RC-specific break |
+|-------------|-----------------|--------------------------|
+| **Compound exercise date** | Option expiry date matches across the termsheet, the Murex booking, and the exercise-processing calendar | Exercise window booked a day off → decision processed against the wrong RC value |
+| **Option strike (K_opt)** | The compound strike (often 100% of RC notional) matches the termsheet | Strike convention (% of RC notional vs absolute) inconsistent across systems |
+| **Underlying RC terms locked in** | RC coupon, barrier **and convention**, tenor agreed at trade date carry through to the activated RC | RC barrier stored as % in one place, absolute in another → wrong RC activated on exercise |
+| **Exercise capture** | Exercise/non-exercise flag set consistently and the booking transitions from compound option to RC | Exercise confirmed with client but booking not transitioned → option lingers, RC not activated |
+| **Fixing** | The RC's initial fixing at exercise (and final fixing at RC maturity) uses the termsheet source | Different vendors report different closes on the exercise/observation date |
+| **Volatility surface** | Forward-vol / term-structure inputs to the compound model agree between front-office and risk | Stale or mismatched vol surface → compound MTM and Greeks diverge |
+| **P&L attribution** | Option-layer MTM, plus (post-exercise) RC coupon accrual and put MTM, reconciles to total | Unexplained P&L points to a stale vol surface or a wrong fixing |
+| **Settlement** | Premium at trade date; RC redemption (cash vs physical, shares = notional / strike) at RC maturity | Premium settled but RC leg not staged, or physical delivery booked as cash |
+
+![OPTRC Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/optrc/controls_optrc_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Exercise decision made without analysis | The investor (or processing) treats exercise as automatic rather than evaluating RC fair value at expiry | Confirm the exercise instruction against a fair-value check before transitioning the booking |
+| Booking not transitioned on exercise | Exercise confirmed but Murex still shows the compound option, not the active RC | Verify the Phase 1 → Phase 2 transition completed and the RC lifecycle started |
+| RC terms drift from trade date | Coupon, barrier, or tenor of the activated RC differs from what was locked in at trade | Reconcile the activated RC terms against the original termsheet |
+| Barrier convention mismatch (% vs absolute) | The underlying RC barrier is stored inconsistently across systems | Verify both systems use the same convention before relying on either valuation |
+| Stale vol surface on compound model | Forward-vol inputs out of date → wrong compound MTM and Greeks | Confirm the vol surface (term structure across the compound tenor) is current |
+
+**Control implication**
+
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. A wrong compound exercise date or a missed booking transition means the investor's exercise is processed against the wrong RC — or not processed at all — corrupting both desk risk and the client's position. A drift in the locked-in RC terms activates the wrong product on exercise, driving the wrong coupon, barrier, and redemption. A fixing or vol-surface mismatch breaks the compound valuation and, post-exercise, the RC redemption at once. The reconciliation exists precisely to catch these inconsistencies before the exercise event crystallises them.
+
+#### §10. Formal Definition
+
+An **Option on RC** is a compound option: an option whose underlying is itself a derivative product (the RC).
 
 **Value at option expiry T_opt:**
 
-V(T_opt) = max(RC_value(T_opt) - K_opt, 0)
+V(T_opt) = max(RC_value(T_opt) − K_opt, 0)
 
 Where:
 - RC_value(T_opt) = mark-to-market value of the RC at the option expiry date
@@ -17832,77 +17983,23 @@ Where:
 
 **If exercised:** The holder enters the RC with pre-agreed terms. From this point, the product behaves as a standard RC (Bond + Short Put, barrier-dependent principal).
 
-**RC value at T_opt depends on:**
-- Current spot level relative to RC barrier
-- Remaining RC tenor
-- Implied volatility
-- Interest rates
-- Dividend forecasts
+**RC value at T_opt depends on:** current spot level relative to the RC barrier; remaining RC tenor; implied volatility; interest rates; and dividend forecasts.
 
 **Compound option feature:** Pricing requires modeling the distribution of the RC value at T_opt, which itself depends on the distribution of the underlying at RC maturity. This is a two-layer stochastic problem.
 
-#### §12. Product Construction
-
-| Component | Value | Purpose |
-|-----------|:-----:|---------|
-| Call option on RC | ~2% of notional | Right to enter the RC. Premium is the cost of flexibility |
-| RC (conditional) | Activated only upon exercise | Income-generating product. Bond (100% notional) + short put (barrier, coupon funding) |
-| Two-phase timeline | Option phase + RC phase | Separates decision period from exposure period |
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Timing | Action |
 |-------|--------|--------|
-| **Trade date** | T | Client pays option premium. Bank books compound option |
-| **Option period** | T to T+3M | Client observes market. Bank manages compound option hedge. No coupon, no barrier monitoring |
-| **Option expiry** | T+3M | Client decides: exercise (enter RC) or expire (walk away) |
-| **If exercise:** | T+3M | RC starts. Coupon accrual begins. Barrier monitoring begins |
+| **Trade date** | T | The investor pays the option premium. The desk books the compound option. RC terms locked in |
+| **Option period** | T to T+3M | The investor observes the market. The desk manages the compound-option hedge. No coupon, no barrier monitoring |
+| **Option expiry** | T+3M | The investor decides: exercise (enter RC) or expire (walk away) |
+| **If exercise** | T+3M | RC starts. Booking transitions from compound option to active RC. Coupon accrual begins. Barrier monitoring begins |
 | **RC period** | T+3M to T+15M | Standard RC lifecycle. Coupon payments. Barrier observation |
 | **RC maturity** | T+15M | RC settles: full principal (if barrier unbreached) or shares (if breached) |
-| **If no exercise:** | T+3M | Product terminates. Premium lost. No further obligations |
+| **If no exercise** | T+3M | Product terminates. Premium lost. No further obligations |
 
-#### §14. Desk Reality
-
-**What traders think about:**
-Compound option Greeks are non-trivial. The delta of the option on RC depends on the delta of the RC itself, which depends on the underlying, barrier, and vol. Gamma is second-order compound — "gamma of gamma." Vega is particularly tricky: higher vol makes the option more valuable (option layer) but makes the RC less valuable (more barrier breach risk). The trader must decide which effect dominates and hedge accordingly.
-
-**What structurers think about:**
-Option on RC exists because clients want RC income but fear commitment. The structurer must set the option premium low enough to be attractive (otherwise the client just buys the RC directly) but high enough to cover the compound option cost. The RC terms must be competitive even with the added premium cost.
-
-**What operations thinks about:**
-The exercise decision is the critical operational event. On option expiry day, operations must: (1) confirm exercise/non-exercise with client, (2) if exercise: transition the booking from compound option to active RC, (3) begin RC lifecycle management (coupon, barrier, settlement). This transition must be seamless.
-
-#### §15. Risk Analysis
-
-| Risk | Severity | Description |
-|------|:--------:|------------|
-| **Compound model risk** | High | Pricing a compound option requires assumptions about the distribution of the RC value, not just the underlying. Model uncertainty is higher than single-layer products |
-| **Vega-vega risk** | Medium-High | Sensitivity to changes in the volatility of volatility. Difficult to hedge |
-| **Exercise decision risk** | Medium | Client may exercise into a losing RC or fail to exercise into a winning one. Bank must provide clear decision framework |
-| **Premium loss risk** | Low-Medium | If client does not exercise, 2% premium is lost. Known and bounded |
-| **Post-exercise risks** | Same as RC | Barrier breach, conversion, coupon, credit — all standard RC risks |
-
-#### §16. Booking and Systems
-
-| Dimension | Detail |
-|-----------|--------|
-| **Primary system** | Murex |
-| **Booking model** | Phase 1: Compound call option. Phase 2 (if exercised): RC (bond + short put) |
-| **Valuation model** | Compound option model (nested Black-Scholes or Monte Carlo for path-dependent RC variants) |
-| **Market data** | Spot, vol surface (with term structure for compound tenor), rates, dividends, barrier parameters |
-| **Settlement** | Premium at trade date. RC settlement at RC maturity (if exercised) |
-
-#### §17. Red Flags
-
-| Red Flag | Why It Matters |
-|----------|---------------|
-| Option premium > 5% of notional | Expensive optionality. Client should consider entering RC directly |
-| Option period > 6 months | Theta decay erodes option value. Long option periods rarely justified |
-| RC barrier > 80% (shallow) | RC is already risky. Adding an option layer doesn't fix bad RC terms |
-| Client does not understand two-phase structure | High mis-selling risk. Must confirm client understands both the option and the underlying RC |
-| Exercise decision made without analysis | Client should evaluate RC fair value at option expiry, not exercise based on gut feeling |
-
-#### §18. Worked Example
+#### §12. Worked Example (both lenses)
 
 **Terms:**
 - Notional: €200,000
@@ -17910,84 +18007,84 @@ The exercise decision is the critical operational event. On option expiry day, o
 - Option period: 3 months. Option premium: 1.5% (€3,000)
 - RC terms (if exercised): 10% annual coupon, 65% barrier, 1-year tenor
 
-**Scenario A — Exercise, barrier unbreached:**
-- At option expiry (3M): EuroStoxx at 4,600. RC looks attractive. Client exercises
-- RC period: EuroStoxx never drops below 2,925 (65% × 4,500). Coupon: 10% × €200,000 = €20,000
-- Final payout: €200,000 + €20,000 = €220,000
-- Net P&L: €220,000 - €200,000 - €3,000 = +€17,000 (+8.5% on notional)
+*Investor lens:*
 
-**Scenario B — Exercise, barrier breached:**
-- At option expiry: client exercises
-- RC period: EuroStoxx drops to 2,800 (below 2,925 barrier). Closes at 3,600 at maturity
-- Client receives: (3,600/4,500) × €200,000 + €20,000 coupon = €160,000 + €20,000 = €180,000
-- Net P&L: €180,000 - €200,000 - €3,000 = -€23,000 (-11.5%)
+- **Scenario A — Exercise, barrier unbreached:**
+  - At option expiry (3M): EuroStoxx at 4,600. RC looks attractive. The investor exercises.
+  - RC period: EuroStoxx never drops below 2,925 (65% × 4,500). Coupon: 10% × €200,000 = €20,000.
+  - Final payout: €200,000 + €20,000 = €220,000.
+  - Net P&L: €220,000 − €200,000 − €3,000 = **+€17,000 (+8.5% on notional)**.
+- **Scenario B — Exercise, barrier breached:**
+  - At option expiry: the investor exercises.
+  - RC period: EuroStoxx drops to 2,800 (below 2,925 barrier). Closes at 3,600 at maturity.
+  - The investor receives: (3,600/4,500) × €200,000 + €20,000 coupon = €160,000 + €20,000 = €180,000.
+  - Net P&L: €180,000 − €200,000 − €3,000 = **−€23,000 (−11.5%)**.
+- **Scenario C — No exercise:**
+  - At option expiry: EuroStoxx at 3,200 (−29%). RC would be dangerous. The investor does not exercise.
+  - Net P&L: **−€3,000** (premium lost). The investor avoided a potential −35%+ loss in the RC.
 
-**Scenario C — No exercise:**
-- At option expiry: EuroStoxx at 3,200 (-29%). RC would be dangerous. Client does not exercise
-- Net P&L: -€3,000 (premium lost). Client avoided potential -35%+ loss in RC
+*Bank lens:*
+- In Scenario A the desk's short compound option is exercised; the desk delivers the activated RC and earns the standard RC structuring margin plus the retained €3,000 premium, having funded the €20,000 coupon. The 2nd line confirms the booking transitioned from compound option to active RC and that the locked-in terms (10% coupon, 65% barrier, 1-year tenor) carried through.
+- In Scenario C the option lapses unexercised: the desk keeps the full €3,000 premium with no further obligation. Product Control confirms the compound-option MTM rolls to zero and the position closes out.
 
-#### §19. Knowledge Check
+#### §13. Knowledge Check
 
-**Review Questions:**
-1. What is a compound option, and how does the Option on RC qualify as one?
-2. Why does volatility have conflicting effects on the two layers of this product?
-3. Under what market conditions should the holder exercise the option?
-4. What is the maximum loss during the option period? After exercise?
-5. How does the Option on RC differ from a forward-starting RC?
+1. **What is a compound option, and how does the Option on RC qualify as one?**
+2. **Why does volatility have conflicting effects on the two layers of this product?**
+3. **Under what market conditions should the holder exercise the option?**
+4. **What is the maximum loss during the option period? After exercise?**
+5. **How does the Option on RC differ from a forward-starting RC?**
+6. **A client says: "If I pay a 1.5% premium and still take RC risk, why not just buy the RC directly and earn 1.5% more in coupon?"** Explain the value of optionality.
+7. **(Desk economics / 1LoD)** What position does the desk hold against the investor, and why is forward volatility — not just spot vol — central to hedging the compound option? Where does the desk's margin come from whether or not the investor exercises?
+8. **(Controls / 2LoD)** Name three reconciliation points specific to an Option on RC (across the compound exercise date, locked-in RC terms, and exercise capture) and the consequence of each if it breaks.
 
-**Scenario Questions:**
-1. An Option on RC has an option premium of 3% and the RC offers a 10% coupon for 1 year. If the client believes there is a 50% chance of exercising, what is the expected net return? Is this better than a fixed deposit at 4%?
-2. Implied vol spikes 10 points during the option period. How does this affect the option value and the decision to exercise?
-3. The underlying drops 5% during the option period but stabilizes. Should the client exercise into the RC? What factors determine the answer?
+**Mental Models**
 
-**Desk Question:**
-A client asks: "If I'm going to pay 1.5% premium and then still take RC risk, why not just buy the RC directly and earn 1.5% more in coupon?" Explain the value of optionality, the non-linear nature of the benefit, and when the premium is worth paying.
+| Concept | Mental Model |
+|---------|-------------|
+| Option on RC | A reservation deposit on a timeshare — pay a small amount to hold the right to sign a risky contract later |
+| Compound option | An option on an option — the right to enter an option-bearing note, not the right to buy a stock |
+| Option premium | The cost of deferring the decision — insurance against entering a bad RC |
+| Exercise decision | Inspecting the property before signing — exercise only if the RC's full fair value is attractive |
+| Forward volatility | The weather forecast for the RC period as seen from the option-expiry date — what the desk must hedge |
+| Conflicting vega | Higher vol helps the outer option but hurts the inner RC — the two layers pull in opposite directions |
+| 2LoD reconciliation | The closing agent — confirms the exercise date, locked-in terms, and transition all match before the deal converts |
 
-**Interview Layer Candidates:** Q1, Q5, Desk Q1
-**Examiner Notes Candidates:** Q1, Desk Q1
+**Key Takeaways**
 
-#### §20. Common Mistakes
+1. An Option on RC is a compound option: the investor is **long** the right (not the obligation) to enter an RC at a future date on pre-agreed terms; the desk is **short** that compound option.
+2. During the option period the investor's maximum loss is bounded at the premium; full RC risk applies only after exercise.
+3. The premium buys optionality (deferred-entry flexibility), not yield — it should not be netted naively against the RC coupon.
+4. Volatility has conflicting effects: higher vol helps the option layer but hurts the RC layer; the net effect on the holder is ambiguous.
+5. The desk earns the compound-option premium and is hedged whether or not the investor exercises; key desk risk is compound/forward vol plus the underlying RC's delta, gamma, and vega.
+6. The exercise decision should be driven by the RC's full fair value at option expiry — spot, vol, barrier distance, and rates — not spot alone.
+7. For the 2nd line, the dominant control risks are the compound exercise date, the locked-in RC terms, exercise capture, fixings, and the booking transition — each can corrupt the activated RC or its redemption.
 
-1. **Adding complexity for optionality that is rarely used.** If the client exercises 90% of the time, the option premium is wasted cost with no benefit. Option on RC makes sense only when exercise probability is genuinely uncertain (40-70%)
-2. **Ignoring the compound nature of the Greeks.** The option on RC is not the same as an option on the underlying. Its Greeks depend on the RC value, which itself depends on spot, vol, barrier, and rates. Single-layer hedging is insufficient
-3. **Comparing option premium directly to RC coupon.** The premium buys optionality (flexibility), not yield. Subtracting premium from coupon ignores the insurance value of walking away in adverse scenarios
-4. **Exercising based on spot alone.** The exercise decision should consider the full RC fair value at option expiry — spot, vol, barrier distance, rates — not just whether the stock went up or down
-5. **Assuming the bank wants the client to exercise.** The bank is hedged either way. The bank profits from the margin, not the exercise outcome
+#### §14. Common Mistakes
 
-#### §21. Visual Specifications
+1. **Adding complexity for optionality that is rarely used.** If the investor exercises 90% of the time, the option premium is wasted cost. The Option on RC makes sense only when exercise probability is genuinely uncertain (40-70%).
+2. **Ignoring the compound nature of the Greeks.** The option on RC is not the same as an option on the underlying. Its Greeks depend on the RC value, which itself depends on spot, vol, barrier, and rates. Single-layer hedging is insufficient.
+3. **Comparing option premium directly to RC coupon.** The premium buys optionality (flexibility), not yield. Subtracting premium from coupon ignores the insurance value of walking away in adverse scenarios.
+4. **Exercising based on spot alone.** The exercise decision should consider the full RC fair value at option expiry — spot, vol, barrier distance, rates — not just whether the stock went up or down.
+5. **Assuming the bank wants the investor to exercise.** The desk is hedged either way and profits from the margin, not the exercise outcome.
+6. **(Controls) Trusting a single system's RC terms after exercise.** Because the locked-in coupon, barrier, and tenor can drift or be stored under different conventions, the 2nd line must reconcile the activated RC terms against the trade-date termsheet rather than assume the booking transitioned cleanly.
 
-| # | Priority | Visual | Type | Description |
-|:-:|:--------:|--------|------|-------------|
-| 1 | P1 | Two-phase timeline: option period vs RC period | Timeline | Clear separation of decision phase and exposure phase |
-| 2 | P1 | Payoff comparison: Option on RC vs direct RC | Payoff comparison | Shows the downside truncation during option period |
-| 3 | P2 | Exercise decision tree | Decision tree | At option expiry: spot, vol, barrier distance → exercise/expire |
-| 4 | P2 | Compound Greeks visualization | Multi-panel | How delta, vega of outer option depend on inner RC parameters |
-| 5 | P3 | Premium vs coupon tradeoff | Sensitivity | Net yield as function of exercise probability |
-| 6 | P3 | Scenario matrix (3×2) | Table | Three market scenarios × exercise/no-exercise |
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking / fixing / event-capture fields must reconcile, and which is the most common break?
 
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Options: calls, puts, premium | Section 1.2 (Options From Zero) |
-| Barriers, knock-in/knock-out | Section 1.3 (Barriers and Digitals) |
-| Greeks | Section 1.4 (Greeks) |
-| Reverse Convertible mechanics | RC (5.1.2) |
-| Product construction | Section 2.2 (Product Construction) |
-| Vanilla option pricing | Vanilla Options (5.6.3) |
-| Murex booking | Section 2.8 (Systems Primer) |
-
----
-
+**Dual-lens visuals (generated):**
+- `assets/optrc/controls_optrc_recon_08.svg` `[generated]`
+- `assets/optrc/waterfall_optrc_09.svg` `[generated]`
 ### 5.6.6 Accumulator
 
 ---
 
-*Previous products in this family offered single-point exposure — one forward, one option, one payoff at maturity. The Accumulator creates a series of daily purchase obligations at a discount to market, with a knock-out barrier that terminates the structure if the price rises too far. This makes it a high-frequency directional product with embedded exotic option features.*
+*Previous products in this family offered single-point exposure — one forward, one option, one payoff at maturity. The Accumulator creates a series of periodic purchase obligations at a discount to market, with a knock-out barrier that terminates the structure if the price rises too far. This makes it a high-frequency directional product with embedded exotic option features. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Imagine you want to buy shares of a company over time, like a savings plan. But instead of buying at whatever the market price is each week, your bank offers a deal: "We will sell you shares every week at a fixed discount price — say 10% below today's market price. But there are two conditions: (1) if the stock rises above a certain level, the deal ends automatically, and (2) if the stock falls below the fixed price, you must buy double the amount."
+Consider an investor who wants to buy shares of a company over time, like a savings plan. Instead of buying at whatever the market price is each period, the bank offers a deal: "The bank will sell shares every period at a fixed discount price — say 10% below today's market price. But there are two conditions: (1) if the stock rises above a certain level, the deal ends automatically, and (2) if the stock falls below the fixed price, the investor must buy double the amount."
 
 This is an **Accumulator**. It allows the investor to accumulate shares over time at a pre-agreed discount to the current market price. The trade-off: the investor takes on a leveraged commitment if the stock falls and gives up the product if the stock rises above a knock-out barrier.
 
@@ -17995,12 +18092,12 @@ The street nickname is **"I-kill-you-later"** — a dark pun on "accumulator" th
 
 #### §2. Real-World Analogy
 
-An Accumulator is like a wholesale coffee bean contract with a roaster.
+An Accumulator is like a wholesale coffee bean contract between a café owner and a roaster.
 
-You are a café owner. A coffee roaster says: "I will sell you coffee beans every month at $8/kg — that's 10% below today's market price of $8.90. But here are the rules:
+The café owner is the buyer. A coffee roaster offers: "The roaster will sell coffee beans every month at $8/kg — that is 10% below today's market price of $8.90. But here are the rules:
 
-1. If coffee prices rise above $10/kg, the deal ends automatically (you were getting a good deal, so I cut it off).
-2. If coffee prices drop below $8/kg, you must buy double the usual amount at $8/kg (you committed to this price, and now it's above market).
+1. If coffee prices rise above $10/kg, the deal ends automatically (the café owner was getting a good deal, so the roaster cuts it off).
+2. If coffee prices drop below $8/kg, the café owner must buy double the usual amount at $8/kg (the café owner committed to this price, and now it is above market).
 3. The deal lasts 12 months, with monthly purchases."
 
 In an Accumulator:
@@ -18011,7 +18108,7 @@ In an Accumulator:
 - The **monthly purchases** are the periodic accumulation events
 - The **double amount when below strike** is the gearing (leverage) feature
 
-The café owner gets a guaranteed discount — but if prices crash, they are locked into buying expensive beans at double volume. This is why the product has earned its grim nickname.
+The café owner gets a guaranteed discount — but if prices crash, the café owner is locked into buying expensive beans at double volume. This is why the product has earned its grim nickname.
 
 #### §3. What Problem Does This Solve?
 
@@ -18085,48 +18182,122 @@ Accumulators solve the **discounted acquisition** problem — but create new ris
 | **2010s** | Regulatory scrutiny increases. Stricter suitability requirements. Product survives but with better risk disclosure and lower gearing |
 | **2020s** | Product remains niche. Popular with experienced institutional clients who understand and accept the risk. Retail distribution severely restricted in many jurisdictions |
 
-#### §7. How the Bank Makes Money
+---
 
-| Component | Detail |
-|-----------|--------|
-| **Forward strip pricing** | Bank prices a strip of forward purchases at the accumulation strike. The discount (spot - strike) is funded by the short put (gearing) and knock-out components |
-| **Knock-out value** | The knock-out caps the bank's downside if the stock rises too much. This has positive value to the bank (like a free option) |
-| **Gearing value** | The 2× gearing below strike = the client sells a put option to the bank. The premium from this embedded put funds the strike discount |
-| **Net margin** | Discount offered < value of knock-out + gearing. The difference is bank profit |
+#### §7. THE INVESTOR LENS
 
-**Economic decomposition:** Accumulator = strip of forwards (buy at strike) + short knock-out call (caps upside) + short put (creates gearing). The client gets the discount. The bank gets the embedded optionality.
+**Why the investor enters it**
 
-#### §8. Why This Product Exists (Client Perspective)
+1. **Guaranteed discount.** The investor buys shares at 5-15% below market. Every accumulation event delivers shares at the discount price (as long as spot > strike).
+2. **Zero premium.** No upfront cost. The discount is "free" — funded by the gearing and knock-out the investor has sold to the bank.
+3. **Gradual position building.** The investor accumulates over time rather than buying a large block at once.
+4. **Contrarian view expression.** The investor believes the stock will trade sideways to slightly up — perfect for accumulator economics. The product is moderately bullish: it expects a gradual rise, not a crash.
 
-1. **Guaranteed discount.** Buy shares at 5-15% below market. Every accumulation event delivers shares at the discount price (as long as spot > strike)
-2. **Zero premium.** No upfront cost. The discount is "free" — funded by the gearing and knock-out
-3. **Gradual position building.** Accumulate over time rather than buying a large block at once
-4. **Contrarian view expression.** Client believes the stock will trade sideways to slightly up — perfect for accumulator economics
+**Position taken**
 
-#### §9. The Three Scenarios
+The investor is **short a geared put strip plus short an up-and-out call**. Concretely, across each observation date the investor:
+- holds a strip of long forwards (the obligation to buy N shares at the discounted strike K each period — the discounted acquisition);
+- is **short a strip of puts** of quantity (G−1)×N per observation (the gearing leg — the investor sells the downside to the bank, which creates the obligation to buy double below strike); and
+- is **short an up-and-out call** via the knock-out barrier (the investor sells the upside to the bank, capping the benefit when the stock rises above KO).
+
+Net, the investor carries leveraged equity downside (geared put strip) and capped upside (knock-out). The two embedded short options the investor sells fund the strike discount, which is why the product is zero-premium by design.
+
+**Payoff & scenarios**
+
+The investor's payoff per observation is **asymmetric**: small steady gains while the stock sits between strike and knock-out (shares bought at a discount), capped upside once the stock rises through the knock-out (the product terminates), and large geared losses once the stock falls below the strike (the investor is forced to buy double size well above market). The slope below the strike is roughly twice as steep as a plain forward because of the 2× gearing.
+
+![Accumulator Payoff per Observation — Investor Lens](assets/accum/payoff_accum_01.svg)
 
 **Terms:** Accumulator on ABC Corp. Spot: $100. Strike (accumulation price): $90 (10% discount). Knock-out: $110. Gearing: 2× below strike. Daily accumulation: 100 shares (200 if below strike). Tenor: 250 business days (1 year).
 
-| Scenario | Stock Path | Shares Accumulated | Average Cost | Outcome |
-|----------|:----------:|:------------------:|:------------:|:-------:|
-| **Bull** | Rises gradually to $115 by day 100 | 10,000 shares in 100 days at $90 | $90 | Knock-out triggered. Client owns 10,000 shares bought at $90, worth $115 each. Profit: $250,000 |
-| **Base** | Trades between $90 and $110 all year | 25,000 shares over 250 days at $90 | $90 | Full accumulation. Client owns 25,000 shares at $90 vs current $100. Profit: $250,000 |
-| **Bear** | Falls to $60 over the year | 50,000 shares (2× gearing when below $90) at $90 | $90 | Client owns 50,000 shares at $90 cost basis, worth $60. Loss: ($90-$60) × 50,000 = -$1,500,000 |
+- **Bull — rises gradually to $115 by day 100:** 10,000 shares accumulated in 100 days at $90, average cost $90. Knock-out triggered. The investor owns 10,000 shares bought at $90, worth $115 each. **Profit: $250,000.** The early knock-out caps the benefit but locks in the gain.
+- **Base — trades between $90 and $110 all year:** 25,000 shares accumulated over 250 days at $90, average cost $90. Full accumulation. The investor owns 25,000 shares at $90 vs current $100. **Profit: $250,000.**
+- **Bear — falls to $60 over the year:** 50,000 shares accumulated (2× gearing when below $90) at $90, average cost $90. The investor owns 50,000 shares at $90 cost basis, worth $60. **Loss: ($90−$60) × 50,000 = −$1,500,000.**
 
-**Key insight:** In the bear scenario, gearing doubles the shares accumulated while the stock price falls. The client is forced to buy 200 shares per day at $90 while the stock trades at $60 — and cannot stop. This is the "I-kill-you-later" risk.
+**Key insight:** In the bear scenario, gearing doubles the shares accumulated while the stock price falls. The investor is forced to buy 200 shares per day at $90 while the stock trades at $60 — and cannot stop. This is the "I-kill-you-later" risk: the geared downside dominates the small steady gains earned in benign markets.
 
-#### §10. What Happens When Markets Move
+**Risks to the investor**
 
-| Market Condition | Impact |
-|-----------------|--------|
-| **Stock rises gradually** | Best case. Client accumulates at discount. Knock-out may trigger early, capping the benefit but locking in profit |
-| **Stock rises sharply** | Knock-out triggers quickly. Few shares accumulated. Client profits on small position but loses the ongoing discount |
-| **Stock trades sideways** | Good case. Full accumulation at discount. Client builds large position below market |
-| **Stock falls gradually** | Bad case. Gearing kicks in. Client buys 2× below strike. Cumulative exposure grows. Losses mount |
-| **Stock crashes** | Worst case. Client accumulates massive position at strike price well above market. Losses can be 3-5× the initial notional |
-| **Volatility rises** | Knock-out value increases (good for bank). Gearing risk increases (bad for client). Higher vol = more expensive product at inception |
+| Risk | Severity | Description |
+|------|:--------:|------------|
+| **Leveraged market risk (geared downside)** | Very High | 2× gearing below strike means losses grow twice as fast as the stock drops. In a 50% crash, the loss can be 3-5× the initial notional. This is the dominant risk. |
+| **Concentration risk** | High | The accumulator builds a growing position in a single stock. Position size increases daily, especially in falling markets (gearing) |
+| **Cash flow risk** | High | The investor must fund daily share purchases. In falling markets, 2× accumulation doubles the cash outflow |
+| **Liquidity risk** | High | OTC product with daily obligations. Cannot easily unwind. The investor must negotiate termination with the bank |
+| **Knock-out timing risk** | Medium | The knock-out may trigger early in a short-lived spike, terminating the product before the investor has accumulated meaningfully — capping the benefit |
+| **Counterparty risk** | Medium | Growing exposure over time. If the bank defaults, the investor loses remaining forward strip value |
 
-#### §11. Formal Definition
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk's position is the mirror image of the investor's. Where the investor is short the geared put strip, the desk is **long** that put strip (bought from the investor); where the investor is short the up-and-out call, the desk is long it (the knock-out caps the bank's downside if the stock rises too much, which has positive value to the bank — like a free option). Alongside, the desk holds the offsetting short-forward strip against the investor's long-forward acquisition. The investor's discount is, to the desk, the cost funded by the embedded gearing puts and the knock-out it has bought.
+
+**Greeks & hedging**
+
+The desk is long the strip of forwards and the embedded options and delta-hedges by trading the underlying. The defining feature is that delta exposure **compounds** in a falling market: when the stock is below the strike, the desk's long-put strip grows daily — each observation date adds a new geared put on top of the existing position. In a crash, the hedge book can grow exponentially, and barrier (digital) risk near the knock-out makes hedging error-prone. The knock-out is the desk's relief valve — when it triggers, all remaining forward and put obligations disappear and the desk books a gain on the remaining option strip. The desk monitors delta and gamma closely; risk management stress-tests gearing scenarios and tracks counterparty exposure that grows daily.
+
+**How the bank makes money**
+
+| Component | Detail |
+|-----------|--------|
+| **Forward strip pricing** | The bank prices a strip of forward purchases at the accumulation strike. The discount (spot − strike) is funded by the short put (gearing) and knock-out components |
+| **Knock-out value** | The knock-out caps the bank's downside if the stock rises too much. This has positive value to the bank (like a free option) |
+| **Gearing value** | The 2× gearing below strike = the investor sells a put option to the bank. The premium from this embedded put funds the strike discount |
+| **Net margin** | Discount offered < value of knock-out + gearing. The difference is bank profit |
+
+**Economic decomposition:** Accumulator = strip of forwards (buy at strike) + short knock-out call (caps upside) + short put (creates gearing). The investor gets the discount. The bank gets the embedded optionality, and the net margin is the gap between the discount given up and the value of the optionality received.
+
+![Accumulator Value Decomposition — Bank Lens (Desk Economics)](assets/accum/waterfall_accum_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by the realized-versus-implied volatility on the daily delta hedge, moves in the underlying near the strike and the knock-out (gamma and barrier/digital risk), the compounding short-put delta as the stock falls below strike, funding and borrow costs, and the mark-to-market of the remaining forward + put + knock-out strip. Product Control performs independent valuation of the remaining strip and attributes P&L across the forward, gearing-put, and knock-out components.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
+
+| Dimension | Detail |
+|-----------|--------|
+| **Primary system** | Murex |
+| **Booking model** | Strip of forwards + embedded puts + knock-out barrier. Single trade with daily accrual schedule |
+| **Valuation model** | Monte Carlo with path-dependent knock-out and gearing. Daily observation grid |
+| **Market data** | Spot, vol surface, dividends, borrow costs, interest rates |
+| **Settlement** | Daily or weekly: shares vs cash. T+2 settlement per observation |
+| **Collateral** | Typically uncollateralized for private banking. Institutional: may require margin |
+
+**Reconciliation points**
+
+| Recon point | What must agree | Accumulator-specific break |
+|-------------|-----------------|----------------------------|
+| **Observation schedule** | The daily/weekly observation calendar and business-day convention used by Murex match the termsheet | A missed or shifted observation date changes the accumulated quantity and the knock-out check |
+| **Strike & KO barrier** | Accumulation strike K and knock-out level KO, **and their convention** (% of initial spot vs absolute price), agree across Murex and the termsheet | Strike or KO stored as % in one place, absolute in another — consistent only if initial spot is the assumed level |
+| **Gearing factor** | The gearing multiplier G (typically 2×) and the quantity rule below strike (G×N) match the termsheet | Gearing booked as 1× (no double-down) or applied above strike — understates downside risk |
+| **Accumulation quantity tracking** | Cumulative shares delivered to date reconcile to the schedule (N per day above strike, G×N below) | Cumulative count drifts from the schedule — wrong cost basis and wrong cumulative exposure |
+| **Knock-out capture** | The knock-out event flag is set consistently the moment S ≥ KO at an observation | Knock-out breached but flag not set → product keeps accumulating; or set late → over-accumulation |
+| **Settlement** | Per-observation share delivery and cash collection (shares × strike), DvP, T+2 | Delivery booked as cash, wrong share count, or settlement on a knocked-out date |
+| **Counterparty exposure** | Cumulative mark-to-market and forward-strip exposure agree between front-office and risk/credit systems | Growing daily exposure understated → margin or limit breach missed |
+| **P&L attribution** | Split across forward, gearing-put, and knock-out MTM reconciles to total | Unexplained P&L points to a stale vol surface, wrong fixing, or mis-tracked accumulation |
+
+![ACCUM Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/accum/controls_accum_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | Why It Matters | 2LoD Action |
+|----------|---------------|-------------|
+| Gearing > 2× | Extreme downside leverage. The investor's losses can grow 3-4× in falling markets | Confirm the booked gearing factor matches the termsheet and is applied only below strike |
+| Strike discount > 15% | Looks too attractive. Usually funded by aggressive gearing or a tight knock-out | Verify the strike/KO/gearing combination reconciles to the booked economics |
+| Knock-out flagged but not captured intraday/at observation | Daily-close checks may miss the moment S ≥ KO | Ensure the knock-out check runs on the contractual observation and the flag terminates accumulation |
+| Cumulative accumulation count drifts from the schedule | Wrong cost basis and wrong cumulative exposure | Reconcile cumulative shares delivered against the N / G×N schedule every observation |
+| Gearing applied on the wrong side of strike | Double-down booked above strike, or single-size below | Verify the quantity rule: N above strike, G×N below strike |
+| Settlement after a knock-out date | Product should have terminated; further delivery is erroneous | Confirm no obligations settle after the knock-out flag is set |
+
+**Control implication**
+
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. The two control risks that dominate this product are **the gearing factor and accumulation-quantity tracking**: if the gearing multiplier is mis-booked or applied on the wrong side of the strike, the entire downside exposure is misstated; and if the cumulative accumulation count drifts from the schedule, the cost basis, the cumulative exposure, and the counterparty credit number all diverge at once. A missed knock-out compounds both — the product keeps geared-accumulating when it should have terminated. The daily reconciliation exists precisely to catch these before settlement crystallises them.
+
+#### §10. Formal Definition
 
 An Accumulator obliges the buyer to purchase N shares at each observation date t_i at the accumulation strike K, subject to:
 
@@ -18146,76 +18317,22 @@ An Accumulator obliges the buyer to purchase N shares at each observation date t
 - T = final maturity
 
 **Decomposition:**
-- Accumulator = Σ_i [Long Forward(K, t_i) + Short Put(K, t_i, quantity=(G-1)×N)] × Knock-out(KO)
+- Accumulator = Σ_i [Long Forward(K, t_i) + Short Put(K, t_i, quantity=(G−1)×N)] × Knock-out(KO)
 - The strip of forwards provides the discounted acquisition
 - The strip of short puts creates the gearing
 - The knock-out caps the upside
 
-#### §12. Product Construction
-
-| Component | Value | Purpose |
-|-----------|:-----:|---------|
-| Strip of forward purchases | N shares at K per observation | Discounted share acquisition |
-| Strip of short puts | (G-1)×N shares at K per observation | Funds the discount. Creates gearing below strike |
-| Knock-out barrier (up-and-out) | KO level (103-115% of spot) | Caps upside. Terminates product if stock rises too much |
-| Net premium | Zero (by design) | Forward discount funded by embedded puts and knock-out |
-
-**Zero-premium mechanics:** The value of the discount (buying below spot) is funded by two features: (1) the gearing puts (client sells downside to the bank), and (2) the knock-out call (client sells upside to the bank). These two embedded options offset the cost of the discount. The structurer balances strike, knock-out, and gearing to achieve zero premium.
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Timing | Action |
 |-------|--------|--------|
 | **Trade date** | T | Terms agreed. No premium. ISDA confirmation |
 | **Daily observations** | T+1 to maturity | Each business day: check spot vs knock-out. If no knock-out: if spot ≥ strike, deliver N shares at strike. If spot < strike, deliver G×N shares at strike |
-| **Settlement** | Each observation + 2bd | Shares delivered. Cash collected from client |
+| **Settlement** | Each observation + 2bd | Shares delivered. Cash collected from the investor |
 | **Knock-out event** | Any day S ≥ KO | Product terminates. Final settlement of that day's accumulation. No further obligations |
 | **Maturity** | T+12M (if no KO) | Final observation and settlement. Product ends |
 
-#### §14. Desk Reality
-
-**What traders think about:**
-Accumulators are hedging nightmares in stressed markets. When the stock is falling below the strike, the trader's short put exposure grows daily (new put obligation every observation date). The delta exposure compounds — each day adds more short put delta on top of the existing position. In a crash, the trader's hedge book can grow exponentially. The knock-out is the trader's relief valve — when it triggers, all the remaining forward+put obligations disappear, and the trader books a gain on the remaining option strip.
-
-**What structurers think about:**
-Pricing the zero-premium balance. The strike discount, knock-out level, and gearing ratio are interconnected. More discount → needs more gearing or lower knock-out. Higher knock-out → needs more gearing or less discount. The structurer's art is finding the combination that looks attractive to the client (large discount, distant knock-out) while maintaining sufficient gearing to fund the product.
-
-**What operations thinks about:**
-Daily processing. Each observation date requires: (1) spot level capture, (2) knock-out check, (3) accumulation quantity calculation (N or G×N), (4) share delivery instruction, (5) cash settlement processing. For a book of 100 accumulators, this means 100 daily calculations and settlements. System automation is essential.
-
-#### §15. Risk Analysis
-
-| Risk | Severity | Description |
-|------|:--------:|------------|
-| **Leveraged market risk** | Very High | 2× gearing below strike means losses grow twice as fast as the stock drops. In a 50% crash, the loss can be 3-5× the initial notional |
-| **Concentration risk** | High | Accumulator builds a growing position in a single stock. Position size increases daily, especially in falling markets (gearing) |
-| **Liquidity risk** | High | OTC product with daily obligations. Cannot easily unwind. Must negotiate termination with bank |
-| **Knock-out timing risk** | Medium | Knock-out may trigger early in a short-lived spike, terminating the product before the client has accumulated meaningfully |
-| **Counterparty risk** | Medium | Growing exposure over time. If bank defaults, client loses remaining forward strip value |
-| **Cash flow risk** | High | Client must fund daily share purchases. In falling markets, 2× accumulation doubles the cash outflow |
-
-#### §16. Booking and Systems
-
-| Dimension | Detail |
-|-----------|--------|
-| **Primary system** | Murex |
-| **Booking model** | Strip of forwards + embedded puts + knock-out barrier. Single trade with daily accrual schedule |
-| **Valuation model** | Monte Carlo with path-dependent knock-out and gearing. Daily observation grid |
-| **Market data** | Spot, vol surface, dividends, borrow costs, interest rates |
-| **Settlement** | Daily or weekly: shares vs cash. T+2 settlement per observation |
-| **Collateral** | Typically uncollateralized for private banking. Institutional: may require margin |
-
-#### §17. Red Flags
-
-| Red Flag | Why It Matters |
-|----------|---------------|
-| Gearing > 2× | Extreme downside leverage. Client losses can grow 3-4× in falling markets |
-| Strike discount > 15% | Looks too attractive. Usually funded by aggressive gearing or tight knock-out |
-| Client lacks cash reserves for geared accumulation | If stock falls and gearing doubles the required purchases, client may face liquidity crisis |
-| Multiple accumulators on correlated stocks | Concentrated directional risk. Portfolio of accumulators on tech stocks = leveraged tech bet |
-| No loss simulation shown to client | Client must see the bear scenario with gearing. Suitability failure if not disclosed |
-
-#### §18. Worked Example
+#### §12. Worked Example (both lenses)
 
 **Terms:**
 - Underlying: Samsung Electronics
@@ -18226,6 +18343,8 @@ Daily processing. Each observation date requires: (1) spot level capture, (2) kn
 - Accumulation: 500 shares per trading day (1,000 if below strike)
 - Tenor: 250 trading days (1 year)
 - No premium
+
+*Investor lens:*
 
 **Scenario A — Knock-out at day 80:**
 - Stock rises to KRW 77,000 on day 80
@@ -18247,72 +18366,77 @@ Daily processing. Each observation date requires: (1) spot level capture, (2) kn
 - Total shares: 225,000 at 63,000
 - Total cost: KRW 14.175B
 - Market value (at 40,000): KRW 9.0B
-- Loss: KRW 5.175B (-36.5%)
+- Loss: KRW 5.175B (−36.5%)
 
-#### §19. Knowledge Check
+*Bank lens:*
+- In Scenario A the up-and-out call the desk is long triggers: the knock-out terminates the structure on day 80, the remaining forward + gearing-put strip disappears, and the desk books a gain on the cancelled remaining optionality. The 2nd line must confirm the knock-out flag is set on day 80 and that no obligations settle after it.
+- In Scenario C the desk's long geared put strip is deep in the money and its short-forward hedge offsets the investor's purchases at KRW 63,000 against a KRW 40,000 market. The compounding short-put delta the desk hedged is realised as the mirror of the investor's KRW 5.175B loss. The 2nd line must confirm the cumulative accumulation count (25,000 + 200,000 = 225,000 shares), that gearing of 2× was applied only below strike, and that Murex and the risk system agree on cumulative exposure before settlement.
+
+#### §13. Knowledge Check
 
 **Review Questions:**
-1. Why is the Accumulator sometimes called "I-kill-you-later"?
-2. How does the zero-premium structure work? What funds the strike discount?
-3. What happens to the client's obligation when the stock drops below the strike?
-4. Why does the knock-out exist, and whose interest does it serve?
-5. How does the Accumulator decompose into forwards, puts, and a knock-out?
+1. *(Investor)* Why is the Accumulator sometimes called "I-kill-you-later"?
+2. *(Investor)* How does the zero-premium structure work? What funds the strike discount?
+3. *(Investor)* What happens to the investor's obligation when the stock drops below the strike?
+4. *(Investor)* Why does the knock-out exist, and whose interest does it serve?
+5. *(Investor)* How does the Accumulator decompose into forwards, puts, and a knock-out?
+6. *(Desk economics / 1LoD)* What position does the desk hold against the investor, and why does the desk's delta exposure compound in a falling market? Why does this make an accumulator harder to risk-manage than a simple short put of the same notional?
+7. *(Controls / 2LoD)* Which booking fields must reconcile in Murex for an accumulator, and why are the gearing factor and the cumulative accumulation-quantity count the two breaks that most directly misstate the investor's exposure?
 
 **Scenario Questions:**
-1. A client has accumulators on three bank stocks, each with 2× gearing. A financial crisis causes all three stocks to fall 40%. Describe the cascading risk
-2. The knock-out is set at 105% of spot. Compare this to a knock-out at 115%. How does this change the risk/reward for the client?
-3. An accumulator client wants to terminate mid-life. The stock has fallen 20% below the strike. Explain what the termination cost would look like and why
+1. An investor has accumulators on three bank stocks, each with 2× gearing. A financial crisis causes all three stocks to fall 40%. Describe the cascading risk.
+2. The knock-out is set at 105% of spot. Compare this to a knock-out at 115%. How does this change the risk/reward for the investor?
+3. An accumulator investor wants to terminate mid-life. The stock has fallen 20% below the strike. Explain what the termination cost would look like and why.
 
-**Desk Question:**
-The head of risk asks you to explain why accumulators create increasing delta exposure in falling markets, and why this makes them harder to risk-manage than a simple short put of the same notional. Explain the compounding effect of daily gearing.
+**Mental Models**
 
-**Interview Layer Candidates:** Q1, Q5, Desk Q1
-**Examiner Notes Candidates:** Q1, Desk Q1
+| Concept | Mental Model |
+|---------|-------------|
+| Accumulator | A café owner locked into a wholesale coffee contract — a guaranteed discount, but forced to buy double at above-market prices if the price crashes |
+| Strike discount | Not free money — it is funded by the gearing put and the knock-out call the investor has sold to the bank |
+| Gearing | The double-down hook beneath the discount bait — losses grow twice as fast as the stock falls below strike |
+| Knock-out | The bank's relief valve — caps the discount the bank must provide and the investor's upside; it does not protect the downside |
+| "I-kill-you-later" | Frequent small gains in benign markets masking rare, geared, catastrophic losses in a crash |
+| 2LoD daily reconciliation | The daily auditor — confirms each observation's quantity, the gearing rule, and the knock-out flag before settlement crystallises them |
 
-#### §20. Common Mistakes
+**Key Takeaways**
 
-1. **Focusing on the discount and ignoring the gearing.** The 10% discount looks attractive. The 2× gearing in a 30% crash is catastrophic. The discount is the bait; the gearing is the hook
-2. **Treating the accumulator as a dollar-cost averaging plan.** DCA is voluntary — you can stop buying. An accumulator is contractual — you must keep buying, at double size, in the worst scenario
-3. **Not stress-testing the cash flow.** In a falling market, the client must fund 2× the daily accumulation. If the client cannot fund this, they face forced unwind at distressed prices
-4. **Assuming the knock-out protects the client.** The knock-out protects the bank (caps the discount the bank must provide) and limits the client's upside. It does NOT protect against downside
-5. **Ignoring the "maximum pain" scenario.** The stock drops just below the strike all year (gearing active) but recovers just before maturity. Client has accumulated 2× shares at above-market prices for 12 months, with the final price near but still below strike
+1. An accumulator is a strip of discounted forward purchases plus a short geared put strip plus a short up-and-out call — the investor sells downside and upside optionality to fund the discount.
+2. The discount is not free — it is the premium for the gearing put and the knock-out call the investor has sold to the bank.
+3. The payoff is asymmetric: small steady gains while the stock sits between strike and knock-out, capped upside above the knock-out, and large geared losses below the strike.
+4. Gearing is the dominant risk — 2× accumulation below strike means losses can be 3-5× the initial notional in a crash.
+5. The knock-out protects the bank and caps the investor's benefit; it does not protect against downside.
+6. The desk holds the offsetting long geared-put strip and long knock-out call; its delta compounds daily in a falling market, which is what makes hedging hard.
+7. For the 2nd line, the dominant control risks are the gearing factor and accumulation-quantity tracking — each can misstate the investor's exposure, with the observation schedule, strike/KO convention, knock-out capture, and settlement as the supporting recon points.
 
-#### §21. Visual Specifications
+#### §14. Common Mistakes
 
-| # | Priority | Visual | Type | Description |
-|:-:|:--------:|--------|------|-------------|
-| 1 | P1 | Accumulation diagram: daily shares accumulated vs stock path | Dual-axis chart | Stock price (line) vs cumulative shares (stepped area). Shows gearing doubling below strike |
-| 2 | P1 | P&L diagram across stock prices at maturity | Payoff | Non-linear: steep negative slope below strike (geared), moderate positive slope above strike, flat above KO |
-| 3 | P2 | Decomposition: forwards + puts + knock-out | Construction | Visual showing three components combining into accumulator |
-| 4 | P2 | Cash flow timeline in bear scenario | Timeline | Daily cash outflows doubling when stock drops below strike |
-| 5 | P3 | Accumulator vs direct purchase vs DCA | Comparison | Three strategies compared across market scenarios |
-| 6 | P3 | Risk heatmap: loss as function of stock drop and time | Heatmap | Axes: % stock drop × days elapsed. Colors: green (profit) to deep red (severe loss) |
+1. **Focusing on the discount and ignoring the gearing.** The 10% discount looks attractive. The 2× gearing in a 30% crash is catastrophic. The discount is the bait; the gearing is the hook.
+2. **Treating the accumulator as a dollar-cost averaging plan.** DCA is voluntary — the investor can stop buying. An accumulator is contractual — the investor must keep buying, at double size, in the worst scenario.
+3. **Not stress-testing the cash flow.** In a falling market, the investor must fund 2× the daily accumulation. If the investor cannot fund this, they face forced unwind at distressed prices.
+4. **Assuming the knock-out protects the investor.** The knock-out protects the bank (caps the discount the bank must provide) and limits the investor's upside. It does NOT protect against downside.
+5. **Ignoring the "maximum pain" scenario.** The stock drops just below the strike all year (gearing active) but recovers just before maturity. The investor has accumulated 2× shares at above-market prices for 12 months, with the final price near but still below strike.
+6. **(Controls) Trusting a single field for gearing or accumulation count.** Because the gearing factor and the cumulative quantity drive the entire downside exposure, the 2nd line must reconcile the gearing rule and the cumulative shares delivered against the schedule rather than assume Murex and the risk system agree.
 
-#### §22. Related Chapters / Dependency References
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking / fixing / event-capture fields must reconcile, and which is the most common break?
 
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Forward contracts | Forward (5.6.2) |
-| Put options, premium, strike | Section 1.2 (Options From Zero) |
-| Barriers, knock-out | Section 1.3 (Barriers and Digitals) |
-| Delta, gamma, vega | Section 1.4 (Greeks) |
-| Volatility sensitivity | Section 1.5 (Volatility) |
-| Murex booking | Section 2.8 (Systems Primer) |
-| Decumulator (reverse product) | Decumulator (5.6.7) — next chapter |
-
----
-
+**Dual-lens visuals (generated):**
+- `assets/accum/controls_accum_recon_08.svg` `[generated]`
+- `assets/accum/payoff_accum_01.svg` `[generated]`
+- `assets/accum/waterfall_accum_09.svg` `[generated]`
 ### 5.6.7 Decumulator
 
 ---
 
-*The Accumulator (Section 5.6.6) obligated the investor to buy shares daily at a discount. The Decumulator reverses the direction: the investor is obligated to sell shares daily at a premium to market, with a knock-out barrier if the price falls too far. It is the mirror image of the Accumulator, used by shareholders who want to monetise an existing position at above-market prices.*
+*The Accumulator (Section 5.6.6) obligated the investor to buy shares periodically at a discount; the Decumulator reverses the direction. The investor is obligated to sell shares periodically at a premium to market, with a knock-out barrier that terminates the structure if the price falls too far, and a gearing feature that doubles the quantity sold if the price rises above the strike. It is the mirror image of the Accumulator, used by shareholders who want to monetise an existing position at above-market prices. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-If an Accumulator helps you buy shares at a discount over time, a **Decumulator** does the opposite: it helps you sell shares at a premium over time.
+If an Accumulator helps an investor buy shares at a discount over time, a **Decumulator** does the opposite: it helps an investor sell shares at a premium over time.
 
-Imagine you own a large block of shares — perhaps you are a company founder, an early employee with stock options, or a fund manager reducing a position. You want to sell gradually (to avoid crashing the market price) and you want a guaranteed minimum selling price. Your bank offers a Decumulator: "We will buy your shares every week at a fixed price — say 5% above today's market price. But if the stock drops below a certain level, the deal ends automatically, and if the stock rises above the fixed price, you must sell double the amount."
+Consider an investor who owns a large block of shares — perhaps a company founder, an early employee with stock options, or a fund manager reducing a position. The investor wants to sell gradually (to avoid crashing the market price) and wants a guaranteed minimum selling price. The bank offers a Decumulator: "The bank will buy shares every period at a fixed price — say 5% above today's market price. But if the stock drops below a certain level, the deal ends automatically, and if the stock rises above the fixed price, the investor must sell double the amount."
 
 The structure is exactly the mirror image of the Accumulator:
 - **Accumulator** = discounted buying + gearing if stock falls + knock-out if stock rises
@@ -18322,10 +18446,10 @@ The structure is exactly the mirror image of the Accumulator:
 
 A Decumulator is like a harvest contract for a vineyard owner.
 
-You own a vineyard and need to sell your grape harvest over the next 12 months. A wine merchant offers a contract: "I will buy your grapes every month at $12/kg — that is 10% above today's market price of $11/kg. But:
+The vineyard owner needs to sell the grape harvest over the next 12 months. A wine merchant offers a contract: "The merchant will buy grapes every month at $12/kg — that is 10% above today's market price of $11/kg. But:
 
-1. If grape prices drop below $9/kg, the deal ends automatically (the market has moved too far against me).
-2. If grape prices rise above $12/kg, you must sell me double the usual amount at $12/kg (you committed to this price, and now it is below market).
+1. If grape prices drop below $9/kg, the deal ends automatically (the market has moved too far against the merchant).
+2. If grape prices rise above $12/kg, the owner must sell double the usual amount at $12/kg (the owner committed to this price, and now it is below market).
 3. The deal lasts 12 months."
 
 In a Decumulator:
@@ -18336,7 +18460,7 @@ In a Decumulator:
 - The **monthly sales** are the periodic decumulation events
 - The **double amount when above strike** is the gearing feature
 
-The vineyard owner gets a guaranteed premium price — but if grape prices soar, they must sell at double volume at the now-below-market fixed price. The pain is symmetric to the Accumulator, but in the opposite direction.
+The vineyard owner gets a guaranteed premium price — but if grape prices soar, the owner must sell at double volume at the now-below-market fixed price. The pain is symmetric to the Accumulator, but in the opposite direction.
 
 #### §3. What Problem Does This Solve?
 
@@ -18393,8 +18517,8 @@ Decumulators solve the **orderly disposal** problem for large shareholders.
 | Role | Responsibility |
 |------|---------------|
 | **Structurer** | Sets strike premium, knock-out level, gearing ratio, decumulation frequency. Mirror of Accumulator design |
-| **Trader** | Prices strip of forward sales with knock-out and gearing. Manages daily hedging — must buy shares as client sells them |
-| **Sales** | Offers to institutional clients, founders, insiders. Must ensure client understands gearing risk if stock rallies |
+| **Trader** | Prices strip of forward sales with knock-out and gearing. Manages daily hedging — must buy shares as the investor sells them |
+| **Sales** | Offers to institutional clients, founders, insiders. Must ensure the investor understands gearing risk if the stock rallies |
 | **Risk** | Monitors cumulative selling exposure. Stress-tests gearing scenarios in rising markets |
 | **Product Control** | Independent valuation of remaining forward strip + knock-out + gearing |
 | **Operations** | Daily/weekly settlement processing. Track cumulative shares sold. Monitor knock-out event. Coordinate with custody for share delivery |
@@ -18406,52 +18530,124 @@ Decumulators solve the **orderly disposal** problem for large shareholders.
 | Era | Development |
 |-----|------------|
 | **2000s** | Decumulators emerge alongside Accumulators. Used primarily by founders and insiders seeking orderly disposal with premium pricing |
-| **2007-2008** | Financial crisis: Decumulator holders benefit — knock-out triggers as stocks crash, limiting further selling obligations. But product also terminates, leaving holders with remaining shares at depressed prices |
+| **2007-2008** | Financial crisis: Decumulator holders benefit — knock-out triggers as stocks crash, limiting further selling obligations. But the product also terminates, leaving holders with remaining shares at depressed prices |
 | **2010s** | Insider compliance regimes tighten. Decumulators must be structured to comply with 10b5-1 plans (US) and similar regimes globally |
 | **2020s** | Tech sector IPOs and SPAC mergers create new demand. Founders with large post-lockup positions use Decumulators for orderly selling |
 
-#### §7. How the Bank Makes Money
+---
+
+#### §7. THE INVESTOR LENS
+
+**Why the investor enters it**
+
+1. **Guaranteed premium.** The investor sells shares at 5-10% above market. Every decumulation event delivers proceeds above current market value (as long as the product remains active).
+2. **Zero premium.** No upfront cost. The premium selling is "free" — funded by the gearing and knock-out the investor has sold to the bank.
+3. **Orderly disposal.** The investor avoids market impact from block sales, spreading selling over 6-12 months.
+4. **Compliance-friendly.** A pre-programmed selling schedule can be structured as a 10b5-1 plan for insider compliance. The product is moderately bearish to neutral: it expects sideways to slight decline, not a sharp rally.
+
+**Position taken**
+
+The investor is **short a geared call strip plus short a down-and-out put**. Concretely, across each observation date the investor:
+- holds a strip of short forwards (the obligation to sell N shares at the premium strike K each period — the premium disposal);
+- is **short a strip of calls** of quantity (G−1)×N per observation (the gearing leg — the investor sells the upside to the bank, which creates the obligation to sell double above strike); and
+- is **short a down-and-out put** via the knock-out barrier (the investor sells the bank's downside protection away, so the floor disappears when the stock falls below KO and the product terminates).
+
+Net, the investor carries leveraged upside opportunity cost (geared call strip) and a floor that vanishes on a downside breach (knock-out). The two embedded short options the investor sells fund the strike premium, which is why the product is zero-premium by design.
+
+**Payoff & scenarios**
+
+The investor's payoff per observation is **asymmetric**: small steady gains while the stock sits between knock-out and strike (shares sold at a premium), an early knock-out once the stock falls through the barrier (the product terminates, locking in gains but ending the premium selling), and large geared losses once the stock rises above the strike (the investor is forced to sell double size well below market). The slope above the strike is roughly twice as steep as a plain forward because of the 2× gearing — the geared upside loss is the dominant risk and is the exact mirror of the Accumulator's geared downside.
+
+**Terms:** Decumulator on XYZ Corp. Spot: $100. Strike (selling price): $108 (8% premium). Knock-out: $85 (down). Gearing: 2× above strike. Daily decumulation: 1,000 shares (2,000 if above strike). Tenor: 250 trading days. Investor holds 400,000 shares.
+
+- **Bear — falls to $85, knock-out triggers day 60:** 60,000 shares sold at $108 in 60 days, against a market of $85. Knock-out triggered. Excellent exit on those shares; 340,000 remain (at the depressed price).
+- **Base — trades $85-$108 all year:** 250,000 shares sold at $108 over the full year. Full decumulation at the premium; 150,000 remain.
+- **Bull — rises to $140:** the investor must sell 2× daily at $108 while the stock trades at $140 — roughly 500,000 shares at $108 (2× geared). Selling at $32 below market. Opportunity cost on the geared volume.
+
+**Key insight:** In the bull scenario, gearing doubles the shares sold while the stock price rises. The investor is forced to sell 2,000 shares per day at $108 while the stock trades at $140 — a 23% discount to the $140 market price — and cannot stop. This is the dominant risk: the geared upside opportunity cost dwarfs the small steady premium earned in benign markets.
+
+**Risks to the investor**
+
+| Risk | Severity | Description |
+|------|:--------:|------------|
+| **Geared upside loss (opportunity cost)** | Very High | 2× gearing above strike means the investor sells double volume at the strike while the market is far higher. Selling at $108 when the market is $140 at 2× volume. This is the dominant risk and the mirror of the Accumulator's geared downside. |
+| **Exhaustion risk** | High | If gearing forces 2× selling, the investor may exhaust the share position before maturity. Must verify sufficient shares are available |
+| **Insider compliance risk** | High | If the seller is an insider, any deviation from the pre-arranged plan may constitute insider trading. Zero flexibility once entered |
+| **Knock-out timing risk** | Medium | The down knock-out may trigger on a brief dip, terminating the product prematurely. The investor retains remaining shares at depressed prices |
+| **Counterparty risk** | Medium | If the bank defaults, the investor loses the guaranteed premium on the remaining forward strip |
+
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk's position is the mirror image of the investor's. Where the investor is short the geared call strip, the desk is **long** that call strip (bought from the investor); where the investor is short the down-and-out put, the desk is long it (the knock-out caps the bank's obligation if the stock crashes, which has positive value to the bank — like a free option). Alongside, the desk holds the offsetting long-forward strip against the investor's short-forward disposal (the desk buys the shares the investor sells). The investor's premium is, to the desk, the cost funded by the embedded gearing calls and the knock-out it has bought.
+
+**Greeks & hedging**
+
+The desk is long the strip of forwards and the embedded options and delta-hedges by trading the underlying. The defining feature is the mirror of the Accumulator: when the stock rises above the strike, the desk's long-call strip grows daily — each observation adds a new geared call on top of the existing position, so the desk must buy more shares to offset the investor's geared selling, building an increasing short-delta exposure in a rallying market. Barrier (digital) risk near the down knock-out makes hedging error-prone. The down knock-out is the desk's relief valve on the downside — when it triggers, all remaining forward and call obligations disappear and the desk books a gain on the remaining option strip. The desk monitors delta and gamma closely; risk management stress-tests gearing scenarios in rising markets and tracks counterparty exposure that grows daily.
+
+**How the bank makes money**
 
 | Component | Detail |
 |-----------|--------|
-| **Forward strip pricing** | Bank prices a strip of forward purchases from client at the decumulation strike. The premium (strike - spot) is funded by the short call (gearing) and knock-out |
-| **Knock-out value** | Down knock-out caps bank's obligation if stock crashes. Positive value to bank |
-| **Gearing value** | 2× gearing above strike = client sells a call option to bank. Premium from embedded call funds the strike premium |
-| **Net margin** | Premium offered < value of knock-out + gearing. Difference is bank profit |
+| **Forward strip pricing** | The bank prices a strip of forward purchases from the investor at the decumulation strike. The premium (strike − spot) is funded by the short call (gearing) and knock-out components |
+| **Knock-out value** | The down knock-out caps the bank's obligation if the stock crashes. This has positive value to the bank |
+| **Gearing value** | The 2× gearing above strike = the investor sells a call option to the bank. The premium from this embedded call funds the strike premium |
+| **Net margin** | Premium offered < value of knock-out + gearing. The difference is bank profit |
 
-**Economic decomposition:** Decumulator = strip of forward sales (sell at strike) + short knock-out put (caps downside protection) + short call (creates gearing). Mirror image of Accumulator decomposition.
+**Economic decomposition:** Decumulator = strip of forward sales (sell at strike) + short call (creates gearing) + short down-and-out put (the floor that vanishes on a downside breach). The investor gets the premium. The bank gets the embedded optionality, and the net margin is the gap between the premium given up and the value of the optionality received. Mirror image of the Accumulator decomposition.
 
-#### §8. Why This Product Exists (Client Perspective)
+![Decumulator Value Decomposition — Bank Lens (Desk Economics)](assets/decum/waterfall_decum_09.svg)
 
-1. **Guaranteed premium.** Sell shares at 5-10% above market. Every decumulation event delivers proceeds above current market value
-2. **Zero premium.** No cost to enter. Premium selling is "free" — funded by gearing and knock-out
-3. **Orderly disposal.** Avoid market impact from block sales. Spread selling over 6-12 months
-4. **Compliance-friendly.** Pre-programmed selling schedule can be structured as a 10b5-1 plan for insider compliance
+**P&L drivers**
 
-#### §9. The Three Scenarios
+Day to day, desk P&L is driven by the realized-versus-implied volatility on the daily delta hedge, moves in the underlying near the strike and the knock-out (gamma and barrier/digital risk), the compounding long-call delta as the stock rises above strike, funding and borrow costs, and the mark-to-market of the remaining forward + call + knock-out strip. Product Control performs independent valuation of the remaining strip and attributes P&L across the forward, gearing-call, and knock-out components.
 
-**Terms:** Decumulator on XYZ Corp. Spot: $100. Strike (selling price): $108 (8% premium). Knock-out: $85 (down). Gearing: 2× above strike. Daily decumulation: 1,000 shares (2,000 if above strike). Tenor: 250 trading days. Client holds 400,000 shares.
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
 
-| Scenario | Stock Path | Shares Sold | Average Price | Outcome |
-|----------|:----------:|:-----------:|:-------------:|:-------:|
-| **Bear** | Falls to $85, knock-out triggers day 60 | 60,000 shares at $108 | $108 | KO triggered. Sold 60,000 at $108 vs market $85. Excellent exit on those shares. 340,000 remain |
-| **Base** | Trades $85-$108 all year | 250,000 shares at $108 | $108 | Full decumulation. Sold 250,000 at premium. 150,000 remain |
-| **Bull** | Rises to $140 | ~500,000 shares at $108 (2× geared) | $108 | Client must sell 2× daily at $108 while stock is at $140. Selling at $32 below market. Opportunity cost on 2× volume |
+**Booking & systems**
 
-**Key insight:** In the bull scenario, gearing forces the client to sell at double volume at a price well below market. If the stock rises from $100 to $140, the client sells at $108 — a 23% discount to the $140 market price. With 2× gearing, the opportunity cost is massive.
+| Dimension | Detail |
+|-----------|--------|
+| **Primary system** | Murex |
+| **Booking model** | Strip of forward sales + embedded calls + down-and-out knock-out barrier. Single trade with daily accrual schedule |
+| **Valuation model** | Monte Carlo with path-dependent knock-out and gearing (mirror of Accumulator model). Daily observation grid |
+| **Market data** | Spot, vol surface, dividends, borrow costs, interest rates |
+| **Settlement** | Daily or weekly: shares (from the investor) vs cash (from the bank). T+2 settlement per observation |
+| **Compliance** | 10b5-1 plan documentation (if insider). Pre-clearance records |
 
-#### §10. What Happens When Markets Move
+**Reconciliation points**
 
-| Market Condition | Impact |
-|-----------------|--------|
-| **Stock falls gradually** | Good for client. Selling at premium above declining market. Knock-out may trigger, capping the benefit but locking in gains |
-| **Stock falls sharply** | Knock-out triggers quickly. Few shares sold at premium. Product terminates. Client retains remaining shares at depressed value |
-| **Stock trades sideways** | Good case. Full decumulation at premium |
-| **Stock rises gradually** | Bad case. Gearing kicks in. Client sells 2× above strike at below-market price. Opportunity cost grows |
-| **Stock rallies sharply** | Worst case. Client sells massive volume at strike price well below market. Opportunity cost can exceed the premium benefit multiple times over |
-| **Volatility rises** | Knock-out value changes. Gearing risk increases |
+| Recon point | What must agree | Decumulator-specific break |
+|-------------|-----------------|----------------------------|
+| **Observation schedule** | The daily/weekly observation calendar and business-day convention used by Murex match the termsheet | A missed or shifted observation date changes the decumulated quantity and the knock-out check |
+| **Strike & KO barrier** | Decumulation strike K and down knock-out level KO, **and their convention** (% of initial spot vs absolute price), agree across Murex and the termsheet | Strike or KO stored as % in one place, absolute in another — consistent only if initial spot is the assumed level |
+| **Gearing factor** | The gearing multiplier G (typically 2×) and the quantity rule above strike (G×N) match the termsheet | Gearing booked as 1× (no double-up) or applied below strike — understates upside opportunity-cost risk |
+| **Decumulation quantity tracking** | Cumulative shares sold to date reconcile to the schedule (N per day below strike, G×N above) | Cumulative count drifts from the schedule — wrong proceeds and wrong cumulative exposure |
+| **Knock-out capture** | The knock-out event flag is set consistently the moment S ≤ KO at an observation | Knock-out breached but flag not set → product keeps decumulating; or set late → over-decumulation |
+| **Settlement** | Per-observation share delivery (from the investor) and cash payment (shares × strike), DvP, T+2 | Delivery booked as cash, wrong share count, or settlement on a knocked-out date |
+| **Counterparty exposure** | Cumulative mark-to-market and forward-strip exposure agree between front-office and risk/credit systems | Growing daily exposure understated → margin or limit breach missed |
+| **P&L attribution** | Split across forward, gearing-call, and knock-out MTM reconciles to total | Unexplained P&L points to a stale vol surface, wrong fixing, or mis-tracked decumulation |
 
-#### §11. Formal Definition
+![DECUM Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/decum/controls_decum_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | Why It Matters | 2LoD Action |
+|----------|---------------|-------------|
+| Gearing > 2× | Extreme opportunity cost in a rally. The investor's losses can exceed total premium benefit | Confirm the booked gearing factor matches the termsheet and is applied only above strike |
+| Strike premium very high | Looks too attractive. Usually funded by aggressive gearing or a tight knock-out | Verify the strike/KO/gearing combination reconciles to the booked economics |
+| Knock-out flagged but not captured intraday/at observation | Daily-close checks may miss the moment S ≤ KO | Ensure the knock-out check runs on the contractual observation and the flag terminates decumulation |
+| Cumulative decumulation count drifts from the schedule | Wrong proceeds and wrong cumulative exposure | Reconcile cumulative shares sold against the N / G×N schedule every observation |
+| Gearing applied on the wrong side of strike | Double-up booked below strike, or single-size above | Verify the quantity rule: N below strike, G×N above strike |
+| Settlement after a knock-out date | Product should have terminated; further delivery is erroneous | Confirm no obligations settle after the knock-out flag is set |
+| Investor does not have enough shares for full geared decumulation | If the stock rallies and gearing doubles the selling, the investor may run out of shares to deliver | Confirm share availability against the maximum geared schedule before relying on settlement |
+
+**Control implication**
+
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. The two control risks that dominate this product are **the gearing factor and decumulation-quantity tracking**: if the gearing multiplier is mis-booked or applied on the wrong side of the strike, the entire upside opportunity-cost exposure is misstated; and if the cumulative decumulation count drifts from the schedule, the proceeds, the cumulative exposure, and the counterparty credit number all diverge at once. A missed knock-out compounds both — the product keeps geared-decumulating when it should have terminated. The daily reconciliation exists precisely to catch these before settlement crystallises them.
+
+#### §10. Formal Definition
 
 A Decumulator obliges the seller to sell N shares at each observation date t_i at the decumulation strike K, subject to:
 
@@ -18471,71 +18667,23 @@ A Decumulator obliges the seller to sell N shares at each observation date t_i a
 - T = final maturity
 
 **Decomposition:**
-- Decumulator = Σ_i [Short Forward(K, t_i) + Short Call(K, t_i, quantity=(G-1)×N)] × Knock-out(KO, down)
-- Mirror image of Accumulator
+- Decumulator = Σ_i [Short Forward(K, t_i) + Short Call(K, t_i, quantity=(G−1)×N)] × Knock-out(KO, down)
+- The strip of forwards provides the premium disposal
+- The strip of short calls creates the gearing
+- The down knock-out removes the floor below the barrier
+- Mirror image of the Accumulator
 
-#### §12. Product Construction
-
-| Component | Value | Purpose |
-|-----------|:-----:|---------|
-| Strip of forward sales | N shares at K per observation | Premium share disposal |
-| Strip of short calls | (G-1)×N shares at K per observation | Funds the premium. Creates gearing above strike |
-| Knock-out barrier (down-and-out) | KO level (80-90% of spot) | Terminates product if stock falls too far. Caps bank's obligation |
-| Net premium | Zero (by design) | Selling premium funded by embedded calls and knock-out |
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Timing | Action |
 |-------|--------|--------|
 | **Trade date** | T | Terms agreed. No premium. ISDA confirmation. Pre-clearance (if insider) |
 | **Daily observations** | T+1 to maturity | Each business day: check spot vs knock-out. If no knock-out: if spot ≤ strike, sell N shares at strike. If spot > strike, sell G×N shares at strike |
-| **Settlement** | Each observation + 2bd | Client delivers shares. Bank pays strike price × quantity |
+| **Settlement** | Each observation + 2bd | The investor delivers shares. The bank pays strike price × quantity |
 | **Knock-out event** | Any day S ≤ KO | Product terminates. Final settlement. No further obligations |
 | **Maturity** | T+12M (if no KO) | Final observation and settlement |
 
-#### §14. Desk Reality
-
-**What traders think about:**
-Decumulator hedging is the mirror of Accumulator hedging. When the stock rises above the strike, the trader must buy more shares (to offset the geared selling from the client). In a rallying market, this creates an increasing short delta position. The trader's relief is the knock-out on the downside — if the stock crashes, the remaining forward+call obligations disappear.
-
-**What structurers think about:**
-Decumulator clients are typically founders or insiders. The structurer must work closely with Legal to ensure the product complies with insider trading regulations. The structure must qualify as a pre-arranged trading plan (e.g., Rule 10b5-1 in the US). This limits flexibility: once entered, the terms cannot be modified.
-
-**What operations thinks about:**
-Share delivery logistics. The client must deliver physical shares each observation date. Custody coordination is critical. If the client's shares are locked up, pledged, or subject to transfer restrictions, the decumulator may fail to settle. Pre-trade confirmation of share availability is essential.
-
-#### §15. Risk Analysis
-
-| Risk | Severity | Description |
-|------|:--------:|------------|
-| **Opportunity cost risk** | Very High | In a rallying market, geared selling at strike creates massive opportunity cost. Selling at $108 when market is $140 at 2× volume |
-| **Exhaustion risk** | High | If gearing forces 2× selling, the client may exhaust their share position before maturity. Must verify sufficient shares |
-| **Insider compliance risk** | High | If seller is insider, any deviation from pre-arranged plan may constitute insider trading. Zero flexibility |
-| **Knock-out timing risk** | Medium | Down knock-out may trigger on a brief dip, terminating the product prematurely. Client retains shares at depressed prices |
-| **Counterparty risk** | Medium | If bank defaults, client loses the guaranteed premium on remaining forward strip |
-
-#### §16. Booking and Systems
-
-| Dimension | Detail |
-|-----------|--------|
-| **Primary system** | Murex |
-| **Booking model** | Strip of forward sales + embedded calls + down-and-out knock-out barrier |
-| **Valuation model** | Monte Carlo with path-dependent knock-out and gearing (mirror of Accumulator model) |
-| **Market data** | Spot, vol surface, dividends, borrow costs, interest rates |
-| **Settlement** | Daily or weekly: shares (from client) vs cash (from bank). T+2 settlement |
-| **Compliance** | 10b5-1 plan documentation (if insider). Pre-clearance records |
-
-#### §17. Red Flags
-
-| Red Flag | Why It Matters |
-|----------|---------------|
-| Client does not have enough shares for full geared decumulation | If stock rallies and gearing doubles the selling, client may run out of shares to deliver. Settlement failure |
-| Gearing > 2× | Extreme opportunity cost in rally. Client losses can exceed total premium benefit |
-| Insider client modifying terms after trade | 10b5-1 plan violation. Regulatory and legal risk |
-| Knock-out very close to spot (< 10%) | Product may terminate quickly on minor dip, providing little value |
-| No rally stress test shown to client | Client must understand the opportunity cost of geared selling at $108 when stock is at $150+ |
-
-#### §18. Worked Example
+#### §12. Worked Example (both lenses)
 
 **Terms:**
 - Underlying: Meta Platforms (META)
@@ -18545,7 +18693,9 @@ Share delivery logistics. The client must deliver physical shares each observati
 - Gearing: 2× above strike
 - Decumulation: 200 shares per trading day (400 if above strike)
 - Tenor: 250 trading days
-- Client's total holding: 150,000 shares
+- Investor's total holding: 150,000 shares
+
+*Investor lens:*
 
 **Scenario A — Stock falls to KO ($425, day 100):**
 - 100 days below strike: sell 200/day × 100 = 20,000 shares at $540
@@ -18569,70 +18719,78 @@ Share delivery logistics. The client must deliver physical shares each observati
 - Opportunity cost: $14.4M
 - Remaining: 60,000 shares (but missed $160/share on 80,000 geared shares)
 
-#### §19. Knowledge Check
+*Bank lens:*
+- In Scenario A the down-and-out put the desk is long triggers: the knock-out terminates the structure on day 100, the remaining forward + gearing-call strip disappears, and the desk books a gain on the cancelled remaining optionality. The 2nd line must confirm the knock-out flag is set on day 100 and that no obligations settle after it.
+- In Scenario C the desk's long geared call strip is deep in the money and its long-forward hedge offsets the investor's sales at $540 against a $700 market. The compounding long-call delta the desk hedged is realised as the mirror of the investor's $14.4M opportunity cost. The 2nd line must confirm the cumulative decumulation count (10,000 + 80,000 = 90,000 shares), that gearing of 2× was applied only above strike, and that Murex and the risk system agree on cumulative exposure before settlement.
+
+#### §13. Knowledge Check
 
 **Review Questions:**
-1. How is a Decumulator the mirror image of an Accumulator?
-2. What funds the selling premium in a zero-premium Decumulator?
-3. Under what circumstances does gearing hurt the Decumulator client?
-4. Why is insider trading compliance particularly important for Decumulators?
-5. What is the maximum number of shares a client might sell over the life of the product?
+1. *(Investor)* How is a Decumulator the mirror image of an Accumulator?
+2. *(Investor)* What funds the selling premium in a zero-premium Decumulator?
+3. *(Investor)* Under what circumstances does gearing hurt the Decumulator investor, and why is this the dominant risk?
+4. *(Investor)* Why is insider trading compliance particularly important for Decumulators?
+5. *(Investor)* What is the maximum number of shares an investor might sell over the life of the product?
+6. *(Desk economics / 1LoD)* What position does the desk hold against the investor, and why does the desk's delta exposure grow more negative (the desk must buy more shares) in a rising market? Why does this make a decumulator harder to risk-manage than a simple short call of the same notional?
+7. *(Controls / 2LoD)* Which booking fields must reconcile in Murex for a decumulator, and why are the gearing factor and the cumulative decumulation-quantity count the two breaks that most directly misstate the investor's exposure?
 
 **Scenario Questions:**
-1. A founder holds 500,000 shares of a company trading at $50. They enter a Decumulator at $54 strike, $42.50 knock-out, 2× gearing, 500 shares/day for 250 days. Calculate the maximum shares sold if: (a) stock stays between $42.50 and $54, (b) stock rises above $54 immediately
-2. The stock drops to $43 (just above the $42.50 knock-out) and stays there for 200 days, then drops to $42 triggering knock-out. How many shares were sold? At what premium to the final market price?
-3. A competitor offers a Decumulator with the same strike premium but no gearing and no knock-out. How would the pricing differ? Why can't this be zero-premium?
+1. A founder holds 500,000 shares of a company trading at $50. They enter a Decumulator at $54 strike, $42.50 knock-out, 2× gearing, 500 shares/day for 250 days. Calculate the maximum shares sold if: (a) stock stays between $42.50 and $54, (b) stock rises above $54 immediately.
+2. The knock-out is set at 85% of spot. Compare this to a knock-out at 75%. How does this change the risk/reward for the investor?
+3. A competitor offers a Decumulator with the same strike premium but no gearing and no knock-out. How would the pricing differ, and why can't this be zero-premium?
 
-**Desk Question:**
-A client says: "The Decumulator is strictly better than selling shares on the open market — I get an 8% premium with no cost." Explain why this is wrong, covering: gearing risk, knock-out termination, lock-in, and opportunity cost. When IS a Decumulator better than market selling?
+**Mental Models**
 
-**Interview Layer Candidates:** Q1, Q2, Desk Q1
-**Examiner Notes Candidates:** Q1, Desk Q1
+| Concept | Mental Model |
+|---------|-------------|
+| Decumulator | A vineyard owner locked into a harvest contract — a guaranteed premium price, but forced to sell double at below-market prices if the price soars |
+| Strike premium | Not free money — it is funded by the gearing call and the down-and-out put the investor has sold to the bank |
+| Gearing | The double-up hook beneath the premium bait — losses (opportunity cost) grow twice as fast as the stock rises above strike |
+| Knock-out | The bank's relief valve — caps the premium the bank must pay if the stock crashes; it does not protect the investor's remaining shares |
+| Geared selling in a rally | Frequent small premium gains in benign markets masking rare, geared, catastrophic opportunity cost in a sharp rally |
+| 2LoD daily reconciliation | The daily auditor — confirms each observation's quantity, the gearing rule, and the knock-out flag before settlement crystallises them |
 
-#### §20. Common Mistakes
+**Key Takeaways**
 
-1. **Thinking the premium selling is free.** The premium is funded by the gearing (client sells a call) and the knock-out (client gives up protection). The premium is compensation for risk, not a gift
-2. **Underestimating the rally scenario.** Founders often believe their stock will not rally significantly — this is anchoring bias. If the stock doubles, the geared selling creates opportunity cost that far exceeds the premium earned
-3. **Not verifying share availability.** If gearing forces 2× selling for an extended period, the client must have sufficient unencumbered shares. Pledged, locked-up, or restricted shares cannot be delivered
-4. **Conflating Decumulator with a trading plan.** A 10b5-1 trading plan sells at market prices. A Decumulator sells at a fixed premium but with gearing and knock-out. The regulatory wrapper may be similar but the economic exposure is fundamentally different
-5. **Ignoring knock-out as a risk.** The down knock-out terminates the product when the client most needs it (stock is falling). After knock-out, the client is left with remaining shares at depressed prices and no premium selling mechanism
+1. A Decumulator is a strip of premium forward sales plus a short geared call strip plus a short down-and-out put — the investor sells upside and downside-protection optionality to fund the premium.
+2. The premium is not free — it is the price for the gearing call and the knock-out the investor has sold to the bank.
+3. The payoff is asymmetric: small steady gains while the stock sits between knock-out and strike, an early knock-out below the barrier, and large geared losses (opportunity cost) above the strike.
+4. Gearing is the dominant risk — 2× decumulation above strike means the opportunity cost can exceed the total premium benefit multiple times over in a rally.
+5. The knock-out protects the bank and caps the premium it must pay; it does not protect the investor's remaining shares from a falling market.
+6. The desk holds the offsetting long geared-call strip and long down-and-out put; its delta grows more negative daily in a rising market (the desk must buy more shares), which is what makes hedging hard.
+7. For the 2nd line, the dominant control risks are the gearing factor and decumulation-quantity tracking — each can misstate the investor's exposure, with the observation schedule, strike/KO convention, knock-out capture, and settlement as the supporting recon points.
 
-#### §21. Visual Specifications
+#### §14. Common Mistakes
 
-| # | Priority | Visual | Type | Description |
-|:-:|:--------:|--------|------|-------------|
-| 1 | P1 | Decumulation diagram: daily shares sold vs stock path | Dual-axis chart | Stock price (line) vs cumulative shares sold (stepped area). Mirror of Accumulator visual |
-| 2 | P1 | P&L/opportunity cost diagram | Payoff | Premium captured below strike, opportunity cost above strike (geared). Knock-out truncation |
-| 3 | P2 | Accumulator vs Decumulator mirror comparison | Side-by-side | Same structure, opposite direction. Highlights symmetry |
-| 4 | P2 | Share inventory depletion in rally scenario | Bar chart | Starting shares → daily sales → geared sales → remaining shares over time |
-| 5 | P3 | Insider compliance timeline | Timeline | Pre-clearance → trade date → observation period → 10b5-1 documentation |
-| 6 | P3 | Decumulator decision framework | Decision tree | When Decumulator > market selling, when market selling > Decumulator |
+1. **Focusing on the premium and ignoring the gearing.** The 8% premium looks attractive. The 2× gearing in a 40% rally is catastrophic in opportunity-cost terms. The premium is the bait; the gearing is the hook.
+2. **Treating the decumulator as a flexible VWAP selling program.** A VWAP program is voluntary — the seller can stop or adjust. A decumulator is contractual — the investor must keep selling, at double size, in the worst (rally) scenario.
+3. **Not stress-testing share availability.** In a rallying market, the investor must deliver 2× the daily decumulation. If the investor runs out of shares to deliver, they face settlement failure.
+4. **Assuming the knock-out protects the investor.** The down knock-out protects the bank (caps the premium the bank must pay) and terminates the product on a crash. It does NOT protect the investor's remaining shares.
+5. **Ignoring the "maximum pain" scenario.** The stock rises just above the strike all year (gearing active) but the investor is forced to sell 2× shares at the now-below-market strike for 12 months while the market runs away above.
+6. **(Controls) Trusting a single field for gearing or decumulation count.** Because the gearing factor and the cumulative quantity drive the entire upside opportunity-cost exposure, the 2nd line must reconcile the gearing rule and the cumulative shares sold against the schedule rather than assume Murex and the risk system agree.
 
-#### §22. Related Chapters / Dependency References
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking / fixing / event-capture fields must reconcile, and which is the most common break?
 
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Forward contracts, obligation | Forward (5.6.2) |
-| Call options, premium, strike | Section 1.2 (Options From Zero) |
-| Barriers, knock-out (down-and-out) | Section 1.3 (Barriers and Digitals) |
-| Delta, gamma, vega | Section 1.4 (Greeks) |
-| Accumulator (mirror product) | Accumulator (5.6.6) — preceding chapter |
-| Insider trading, compliance | Section 1.9 (Credit Risk — corporate governance context) |
-| Murex booking | Section 2.8 (Systems Primer) |
-
+**Dual-lens visuals (generated):**
+- `assets/decum/controls_decum_recon_08.svg` `[generated]`
+- `assets/decum/waterfall_decum_09.svg` `[generated]`
 ### 5.6.8 Dual Currency Investment (DCI)
-
-*How This Differs From Structured Deposit (5.6.1): The Structured Deposit links your interest to an equity index. The DCI links your principal repayment to a foreign exchange rate. Both are deposit wrappers. Both guarantee your principal under certain conditions. But where the Structured Deposit risks earning zero interest, the DCI risks receiving your principal back in a weaker currency — which means the actual amount you get could be worth less than what you deposited.*
 
 ---
 
+*A Dual Currency Investment is a short-term deposit paying an enhanced yield, where the depositor sells the bank an FX option. At maturity the principal is repaid in the original (base) currency if the FX rate stays favourable, but is converted into the alternative — potentially weaker — currency at the strike if the rate crosses it. The enhanced interest is the option premium passed back to the depositor. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+
+*How This Differs From Structured Deposit (5.6.1): The Structured Deposit links interest to an equity index. The DCI links the principal repayment to a foreign exchange rate. Both are deposit wrappers. Both guarantee principal under certain conditions. But where the Structured Deposit risks earning zero interest, the DCI risks returning principal in a weaker currency — which means the actual amount the investor gets back could be worth less than what was deposited.*
+
 #### §1. Explain Like I'm New
 
-Imagine you are standing at an airport currency exchange booth. You have $100,000 in US dollars, and you are about to fly to Europe. The exchange booth offers you a deal: "Deposit your dollars with us for 3 months. We will pay you 8% annualised interest — four times what your bank offers. But here is the catch: if the euro weakens below a certain level during those 3 months, we will return your money in euros instead of dollars."
+Picture a currency exchange booth at an airport. An investor holds $100,000 in US dollars and is about to fly to Europe. The booth offers a deal: "Deposit the dollars for 3 months. We will pay 8% annualised interest — four times a standard bank rate. The catch: if the euro weakens below a certain level over those 3 months, we will return the money in euros instead of dollars."
 
-You think about it. Right now, €1 = $1.10. The exchange booth sets the strike at $1.08. If the euro stays above $1.08, you get your dollars back plus the high interest. If the euro falls below $1.08, you receive euros — and those euros are now worth less than your original dollars.
+Right now €1 = $1.10. The booth sets the strike at $1.08. If the euro stays above $1.08, the investor gets the dollars back plus the high interest. If the euro falls below $1.08, the investor receives euros — and those euros are now worth less than the original dollars.
 
-This is a **Dual Currency Investment**. You deposit money in one currency. You earn an above-market interest rate. But the bank has the right to repay your principal in a different, potentially weaker, currency. You are selling a currency option to the bank, and the option premium is paid to you as enhanced interest.
+This is a **Dual Currency Investment**. The investor deposits money in one currency and earns an above-market interest rate. In exchange, the bank has the right to repay the principal in a different, potentially weaker, currency. The investor is **selling a currency option to the bank**, and the option premium is paid to the investor as enhanced interest.
 
 The DCI is the most common FX-linked structured product in private banking. It is simple, short-term, and widely offered across Asia, Switzerland, and the Middle East.
 
@@ -18640,16 +18798,16 @@ The DCI is the most common FX-linked structured product in private banking. It i
 
 A DCI is like an airport currency exchange booth with a loyalty programme.
 
-You deposit $100 at the booth. The booth says: "Leave your money here for a month. We will pay you $2 in interest — much better than the bank. But if the exchange rate moves against you, we will give you back your money in the foreign currency instead of your home currency."
+An investor deposits $100 at the booth. The booth says: "Leave the money here for a month. We will pay $2 in interest — much better than the bank. But if the exchange rate moves against you, we will give the money back in the foreign currency instead of the home currency."
 
 In this analogy:
-- The **deposit** is your principal
+- The **deposit** is the investor's principal
 - The **$2 interest** is the enhanced coupon (funded by the option premium)
 - The **foreign currency return** is the conversion risk
 - The **exchange rate threshold** is the strike price
 - The **booth** is the issuing bank
 
-The booth benefits because it has acquired an FX option from you cheaply. You benefit if exchange rates cooperate. You lose if the foreign currency weakens significantly and you receive back less purchasing power than you deposited.
+The booth benefits because it has acquired an FX option from the investor cheaply. The investor benefits if exchange rates cooperate, and loses if the foreign currency weakens significantly and the principal comes back with less purchasing power than was deposited.
 
 #### §3. What Problem Does This Solve?
 
@@ -18661,7 +18819,7 @@ DCIs solve the **yield enhancement in low-rate environments** problem for client
 | Corporate treasurer | Holds surplus foreign currency that will be needed later | Earns enhanced yield on idle FX balances. Accepts conversion into a currency they also use |
 | Expatriate | Holds savings in home currency, earns local currency salary | Enhanced yield on home-currency deposits. Conversion into local currency is acceptable |
 
-The key insight: DCIs work best for clients who are genuinely comfortable receiving either currency. A client who will be devastated by conversion into the alternate currency should not buy a DCI.
+The key insight: DCIs work best for clients who are genuinely comfortable receiving either currency. A client who would be devastated by conversion into the alternate currency should not buy a DCI.
 
 #### §4. Product DNA
 
@@ -18725,7 +18883,65 @@ The key insight: DCIs work best for clients who are genuinely comfortable receiv
 | **2010s** | Regulatory focus on suitability. Some jurisdictions classify DCIs as derivatives (requiring ISDA). Others maintain deposit classification. Asian markets continue strong demand |
 | **2020s** | Digital platforms enable automated DCI pricing and execution. Ultra-short tenors (1 week, 2 weeks) become standard. Remains a core private banking product |
 
-#### §7. How the Bank Makes Money
+---
+
+#### §7. THE INVESTOR LENS
+
+**Why the investor buys it**
+
+1. **Enhanced yield.** In a world of near-zero deposit rates, a DCI paying 6-10% annualised is compelling — for an investor who accepts the conversion risk. The yield is 3-10× the market deposit rate.
+2. **Natural multi-currency exposure.** A client who holds both USD and JPY, or both EUR and CHF, may genuinely not care which currency the principal is returned in.
+3. **Short tenor.** Most DCIs mature in 1-4 weeks. If converted, the investor can simply hold the alternate currency and wait for a better rate to convert back.
+4. **No complexity premium.** The DCI is simple enough that the investor can understand the risk. There is no hidden optionality or path dependency to confuse the outcome.
+
+**Position taken**
+
+The investor simultaneously holds a time deposit in the base currency and is **short** an FX put option on the base currency versus the alternate currency, struck at the conversion rate K. The investor has **sold** that option to the bank — selling FX optionality in exchange for the enhanced yield. Net, the investor is **short volatility** (hurt by volatile FX markets) and **short FX downside**: if the base currency falls below the strike, the principal is converted into the weaker alternate currency. With a single currency pair there is no correlation exposure.
+
+**Payoff & scenarios**
+
+The investor's payoff is a digital/step profile against the FX rate. If the FX rate stays at or above the strike at maturity, the investor receives 100% of principal in the base currency plus the enhanced coupon. If the FX rate finishes below the strike, conversion triggers: the principal is converted into the alternate currency at the strike rate, and the investor still receives the enhanced coupon. Below the strike the investor bears the full FX shortfall — the enhanced coupon is a partial buffer, not protection.
+
+**Terms:** USD 1,000,000 DCI. Base currency: USD. Alternate currency: EUR. Spot: EUR/USD 1.1000. Strike: 1.0800. Tenor: 1 month. Enhanced coupon: 8% annualised (= 0.667% for 1 month = $6,667).
+
+| Scenario | EUR/USD at Maturity | Outcome | Investor Receives |
+|----------|:-------------------:|---------|:---------------:|
+| **Bull (EUR strong)** | 1.1200 | No conversion. EUR above strike | $1,000,000 + $6,667 interest |
+| **Base** | 1.0800 | At the strike. No conversion (at-the-money) | $1,000,000 + $6,667 interest |
+| **Bear (EUR weak)** | 1.0400 | Conversion. EUR below strike | €925,926 + $6,667 interest |
+
+**Bear scenario analysis:**
+- The investor deposited $1,000,000. Receives €925,926 (= $1,000,000 / 1.0800 strike rate).
+- Those euros are now worth: €925,926 × 1.0400 = $962,963.
+- Net position: $962,963 + $6,667 interest = $969,630.
+- Loss vs original deposit: $30,370 (3.0%).
+- The enhanced coupon ($6,667) partially offsets the conversion loss, but not fully.
+
+**Key insight:** The DCI coupon is high because the investor is selling an option. In the bear scenario, the option is exercised against the investor. The coupon never fully compensates for a large adverse FX move — it is a partial buffer, not protection.
+
+![DCI Payoff vs FX Rate — Investor Lens](assets/dci/payoff_dci_01.svg)
+
+**Risks to the investor**
+
+| Risk | Severity | Description |
+|------|:--------:|------------|
+| **Conversion into the weaker currency** | High | If the base currency falls below the strike, principal is converted into the alternate currency at the strike. If that alternate currency then depreciates, the investor holds a depreciating asset — unlimited downside in base-currency terms |
+| **Opportunity cost** | Medium | If the base currency strengthens significantly, the investor would have been better off with a regular deposit plus a separate FX trade |
+| **Reinvestment / round-trip** | Medium | After conversion, the investor holds the alternate currency. Rolling into a new DCI in the opposite direction may lock in losses, which compound across repeated round trips |
+| **Issuer risk** | Low | Structured as a deposit — may be covered by deposit insurance (jurisdiction-dependent, subject to limits) |
+| **Liquidity risk** | Low | Short tenor means limited lock-up. Early termination usually possible with penalty |
+
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk's position is the mirror image of the investor's. Where the investor is **short** the FX put option, the desk is **long** that put (bought from the investor); alongside it the desk has taken in a deposit, which is a funding liability. The investor's enhanced coupon is, to the desk, the cost of the FX put premium plus deposit funding, returned to the client. The DCI generates large volumes of short-dated FX options (1 week to 3 months), so the aggregate DCI book is a sizeable long-option position.
+
+**FX option risk & hedging**
+
+The desk is long the embedded FX put across the DCI book and delta-hedges the aggregate FX exposure by trading spot and forward FX. Because the puts are typically out-of-the-money, smile/skew matters: the implied vol used for pricing includes the skew premium, and gamma accelerates as spot approaches the strike. The main risk is gap moves over weekends or holidays when the FX market is closed but positions are live. Risk monitors aggregate FX exposure and watches for concentration in single currency pairs.
+
+**How the bank makes money**
 
 | Component | Detail |
 |-----------|--------|
@@ -18741,136 +18957,86 @@ The key insight: DCIs work best for clients who are genuinely comfortable receiv
 - Bank retains: ~0.2% = $2,000 per $1M per month
 - High volume, low margin. Profitability comes from scale — a large private bank may have $5-10 billion in DCIs outstanding at any time.
 
-#### §8. Why This Product Exists (Client Perspective)
+![DCI Yield Decomposition — Bank Lens (Desk Economics)](assets/dci/waterfall_dci_09.svg)
 
-1. **Yield enhancement.** In a world of near-zero deposit rates, a DCI paying 6-10% annualised is compelling — if you accept the conversion risk
-2. **Natural multi-currency exposure.** A client who holds both USD and JPY, or both EUR and CHF, may genuinely not care which currency their principal is returned in
-3. **Short tenor.** Most DCIs mature in 1-4 weeks. If converted, the client can simply hold the alternate currency and wait for a better rate to convert back
-4. **No complexity premium.** The DCI is simple enough that clients understand the risk. There is no hidden optionality or path dependency to confuse the outcome
+**P&L drivers**
 
-#### §9. The Three Scenarios
+Day to day, desk P&L is driven by realized-versus-implied FX volatility on the delta hedge, moves in spot near the strike (gamma), the skew embedded in the out-of-the-money puts, deposit funding, and the mark-to-market of the embedded FX option. Product Control verifies DCI pricing against the FX option market and checks that the enhanced coupon corresponds to a fair option premium.
 
-**Terms:** USD 1,000,000 DCI. Base currency: USD. Alternate currency: EUR. Spot: EUR/USD 1.1000. Strike: 1.0800. Tenor: 1 month. Enhanced coupon: 8% annualised (= 0.667% for 1 month = $6,667).
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
 
-| Scenario | EUR/USD at Maturity | Outcome | Client Receives |
-|----------|:-------------------:|---------|:---------------:|
-| **Bull (EUR strong)** | 1.1200 | No conversion. EUR above strike | $1,000,000 + $6,667 interest |
-| **Base** | 1.0800 | At the strike. No conversion (at-the-money) | $1,000,000 + $6,667 interest |
-| **Bear (EUR weak)** | 1.0400 | Conversion. EUR below strike | €925,926 + $6,667 interest |
-
-**Bear scenario analysis:**
-- Client deposited $1,000,000. Receives €925,926 (= $1,000,000 / 1.0800 strike rate).
-- Those euros are now worth: €925,926 × 1.0400 = $962,963.
-- Net position: $962,963 + $6,667 interest = $969,630.
-- Loss vs original deposit: $30,370 (3.0%).
-- The enhanced coupon ($6,667) partially offsets the conversion loss, but not fully.
-
-**Key insight:** The DCI coupon is high because the client is selling an option. In the bear scenario, the option is exercised against the client. The coupon never fully compensates for a large adverse FX move — it is a partial buffer, not protection.
-
-#### §10. What Happens When Markets Move
-
-| Market Condition | Impact on DCI Holder |
-|-----------------|---------------------|
-| **Base currency strengthens** (alternate weakens) | Conversion probability increases. If converted, client receives alternate currency worth less. Higher risk |
-| **Base currency weakens** (alternate strengthens) | Conversion probability decreases. Client likely receives base currency back. Lower risk |
-| **FX volatility rises** | Future DCIs offer higher coupons (option premium increases). Existing DCIs: conversion risk increases |
-| **Interest rates rise (base currency)** | Deposit rate increases. DCI coupon may increase slightly. Forward FX rate shifts |
-| **Interest rates rise (alternate currency)** | Forward FX rate shifts in favour of alternate currency. Conversion less likely |
-
-#### §11. Formal Definition
-
-A Dual Currency Investment is a short-term deposit in a base currency, combined with a short put option on the base currency versus an alternate currency, struck at a pre-agreed conversion rate.
-
-**Payoff at maturity:**
-
-If S_T ≥ K: Principal returned in base currency + enhanced coupon
-If S_T < K: Principal converted to alternate currency at rate K + enhanced coupon in base currency
-
-Where:
-- S_T = spot FX rate at maturity (alternate currency per unit of base currency)
-- K = strike (conversion) rate
-- Enhanced coupon = deposit interest + option premium retained by client
-
-**Decomposition:**
-
-DCI = Time Deposit (base currency) + Short Put Option (base vs alternate, strike K)
-
-The short put premium is paid to the client as the difference between the enhanced coupon and the market deposit rate.
-
-#### §12. Product Construction
-
-| Component | Value | Purpose |
-|-----------|:-----:|---------|
-| Time deposit (base currency) | ~100% of principal | Capital base. Earns market deposit rate |
-| Short FX put option | Premium ~0.5-1.5% | Client sells right for bank to convert principal. Premium funds enhanced coupon |
-| Structuring margin | ~15-30% of option premium | Bank's profit |
-
-**If you remember only one thing from this chapter, remember this:** A DCI is a deposit where you sell a currency option to the bank. The option premium is your enhanced interest. If the option is exercised, your money comes back in a different currency.
-
-#### §13. Lifecycle
-
-| Stage | Timing | Action |
-|-------|--------|--------|
-| **Pricing** | T-1 to T | Bank prices FX put option. Sets strike and coupon based on client's yield target and acceptable conversion probability |
-| **Trade date** | T | Client places deposit. DCI terms confirmed. No separate option documentation (embedded in deposit terms) |
-| **During life** | T to T+1M | Deposit accrues interest. Bank hedges FX exposure. No interim payments or observations |
-| **Fixing** | T+1M-2BD | FX rate fixed against agreed source (typically ECB, WMR, or Bloomberg) |
-| **Maturity** | T+1M | If no conversion: principal + interest in base currency. If conversion: principal converted at strike rate + interest in base currency |
-| **Reinvestment** | T+1M+1BD | Client frequently rolls into new DCI (common pattern: continuous rolling DCIs) |
-
-#### §14. Desk Reality
-
-**What traders think about:**
-DCIs generate large volumes of short-dated FX options (1 week to 3 months). The DCI book creates a significant short gamma position — the bank is long the put options that clients have sold. Traders manage this by delta-hedging the aggregate FX exposure. The main risk is gap moves over weekends or holidays when the FX market is closed but positions are live. Smile/skew is important: the puts are typically out-of-the-money, so the implied vol used for pricing includes the skew premium.
-
-**What structurers think about:**
-Strike selection. The strike determines both the coupon and the conversion probability. Clients want high coupons (deep strikes) but low conversion probability (far-from-spot strikes). These are contradictory — the structurer must find the right balance. The "sweet spot" is typically a 10-25 delta put (10-25% probability of conversion).
-
-**What operations thinks about:**
-Currency settlement logistics. If conversion triggers, operations must deliver the alternate currency to the client's account. For some currency pairs (emerging markets), settlement can take T+2 or longer. Clients must have accounts in both currencies. The highest-volume DCI days create settlement peaks that require operational capacity planning.
-
-#### §15. Risk Analysis
-
-| Risk | Severity | Description |
-|------|:--------:|------------|
-| **Conversion risk** | High | Principal returned in weaker currency. Unlimited downside in base-currency terms if alternate currency depreciates sharply |
-| **Opportunity cost** | Medium | If base currency strengthens significantly, client would have been better off with a regular deposit + separate FX trade |
-| **Reinvestment risk** | Medium | After conversion, client holds alternate currency. Rolling into a new DCI in the opposite direction may lock in losses |
-| **Issuer risk** | Low | Structured as deposit — may be covered by deposit insurance (jurisdiction-dependent, subject to limits) |
-| **Liquidity risk** | Low | Short tenor means limited lock-up. Early termination usually possible with penalty |
-
-**Greeks profile:**
-
-| Greek | Value | Significance |
-|-------|:-----:|-------------|
-| Delta | Short (client is short the put) | FX spot move toward strike increases conversion probability |
-| Gamma | Short | Acceleration near strike — small FX moves have increasing impact on conversion probability |
-| Vega | Short | Higher vol increases option value — bad for client (higher conversion risk), offset by higher future coupons |
-| Theta | Long | Time decay benefits client — each day that passes without conversion reduces remaining risk |
-| Rho | Mixed | Interest rate differentials affect forward FX rate and therefore strike positioning |
-
-#### §16. Booking and Systems
+**Booking & systems**
 
 | Dimension | Detail |
 |-----------|--------|
 | **Primary system** | Murex (FX options desk) or Treasury system (deposit desk) |
-| **Booking model** | Deposit + embedded FX put option. Some banks book as single structured deposit; others book deposit and option separately |
+| **Booking model** | Deposit + embedded FX put option. Some banks book as a single structured deposit; others book deposit and option separately |
 | **Valuation model** | Garman-Kohlhagen (Black-Scholes adapted for FX). Standard closed-form. No Monte Carlo needed |
 | **Market data** | Spot FX rate, FX implied volatility surface (smile/skew), interest rate curves for both currencies |
 | **Settlement** | Base currency or alternate currency depending on fixing vs strike |
 | **Regulatory treatment** | Jurisdiction-dependent: deposit (bank regulation) vs derivative (securities regulation). Affects capital treatment and investor protection |
 
-#### §17. Red Flags
+**Reconciliation points**
 
-| Red Flag | Why It Matters |
-|----------|---------------|
-| Client has no use for the alternate currency | Conversion creates a forced FX position the client must unwind — possibly at further loss |
-| Strike very close to spot (high delta) | Conversion is likely. Client is selling a near-the-money option for an only modestly enhanced coupon. Poor risk/reward |
-| Very long tenor DCI (> 6 months) | Unusual. Conversion probability increases with tenor. Client should understand the extended exposure |
-| Rolling DCIs after conversion | Client converts to EUR, then rolls into EUR/USD DCI. If converted again, back to USD at a worse rate. "Round-trip" losses compound |
-| DCI on volatile or illiquid currency pair | Emerging market pairs can gap. Coupon may not compensate for tail risk. Suitability concern |
+| Recon point | What must agree | DCI-specific break |
+|-------------|-----------------|--------------------|
+| **Currency pair & strike** | Base/alternate pair, quote direction, and strike (conversion) rate K consistent across systems and termsheet | Strike stored as base/alternate in one system and inverted (alternate/base) in another → conversion direction reversed |
+| **FX fixing source & time** | Fixing source (ECB, WMR, or Bloomberg) and fixing time match the termsheet | Different vendors/cut times report different rates at the observation → conversion wrongly triggered or missed |
+| **Conversion determination** | Whether S_T crossed K, and the at-the-money/at-strike convention, consistent across systems | Boundary case at exactly the strike resolved differently in two systems |
+| **Settlement currency** | Settlement currency (base if no conversion, alternate if converted) and converted amount = principal × K | Settlement booked in the wrong currency, or converted amount uses spot instead of strike |
+| **Deposit booking** | Notional, base currency, tenor, enhanced coupon rate, day-count, and maturity date | Coupon day-count or tenor mismatch between Treasury system and Murex |
+| **Option economics** | Embedded FX put premium, strike, expiry match between deposit leg and option leg | Premium not reconciled to coupon enhancement → fair-value drift |
+| **Greeks / risk** | Position Greeks (delta, vega) agree between front-office and risk systems | Sign or magnitude mismatch on FX delta/vega across the DCI book |
+| **P&L attribution** | Split between deposit interest accrual and FX option MTM reconciles to total | Unexplained P&L points to a stale vol surface or a wrong fixing |
 
-#### §18. Worked Example
+![DCI Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/dci/controls_dci_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Strike stored with inverted quote direction | Base/alternate vs alternate/base ambiguity reverses the conversion test | Verify quote convention and strike direction across systems before relying on either valuation |
+| Fixing source or cut time mismatch | Different vendors report different rates at the observation | Use the fixing source and time specified in the termsheet for the conversion determination |
+| Conversion determined inconsistently at the strike | At-strike boundary resolved as conversion in one system, no-conversion in another | Confirm the at-the-money convention against the termsheet |
+| Settlement booked in the wrong currency | Investor due alternate currency but booked in base (or vice versa) | Confirm settlement currency follows the conversion result; converted amount = principal × strike |
+| Converted amount uses spot rather than strike | Conversion math applied at maturity spot instead of strike K | Recompute converted principal at the strike rate K |
+
+**Control implication**
+
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. The dominant control risks for a DCI are the **FX fixing** (source and time) and the **settlement-currency capture** (which currency the principal is returned in, and whether the converted amount uses the strike). A fixing-source or cut-time error misstates whether conversion was triggered — driving the wrong settlement currency and the wrong client payout. A settlement-currency or quote-direction error returns the principal in the wrong currency or at the wrong rate. The reconciliation exists precisely to catch these inconsistencies before settlement crystallises them.
+
+#### §10. Formal Definition
+
+A **Dual Currency Investment** is a short-term deposit in a base currency, combined with a short put option on the base currency versus an alternate currency, struck at a pre-agreed conversion rate.
+
+**Payoff at maturity:**
+
+- If S_T ≥ K: Principal returned in base currency + enhanced coupon
+- If S_T < K: Principal converted to alternate currency at rate K + enhanced coupon in base currency
+
+Where:
+- S_T = spot FX rate at maturity (alternate currency per unit of base currency)
+- K = strike (conversion) rate
+- Enhanced coupon = deposit interest + option premium retained by the investor
+
+**Decomposition:**
+
+DCI = Time Deposit (base currency) + Short Put Option (base vs alternate, strike K)
+
+The short put premium is paid to the investor as the difference between the enhanced coupon and the market deposit rate.
+
+#### §11. Lifecycle
+
+| Stage | Timing | Action |
+|-------|--------|--------|
+| **Pricing** | T-1 to T | Bank prices FX put option. Sets strike and coupon based on the client's yield target and acceptable conversion probability |
+| **Trade date** | T | Investor places deposit. DCI terms confirmed. No separate option documentation (embedded in deposit terms) |
+| **During life** | T to T+1M | Deposit accrues interest. Bank hedges FX exposure. No interim payments or observations |
+| **Fixing** | T+1M-2BD | FX rate fixed against agreed source (typically ECB, WMR, or Bloomberg) |
+| **Maturity** | T+1M | If no conversion: principal + interest in base currency. If conversion: principal converted at strike rate + interest in base currency |
+| **Reinvestment** | T+1M+1BD | Investor frequently rolls into a new DCI (common pattern: continuous rolling DCIs) |
+
+#### §12. Worked Example (both lenses)
 
 **Terms:**
 - Principal: USD 1,000,000
@@ -18881,124 +19047,129 @@ Currency settlement logistics. If conversion triggers, operations must deliver t
 - Enhanced coupon: 7.2% annualised (= 0.60% for 1 month = $6,000)
 - Market deposit rate: 1.5% annualised (= $1,250 for 1 month)
 - Implied option premium: ~0.80% of notional = $8,000
-- Client receives: $6,000 (75% of premium). Bank retains: $2,000 (25%)
+- Investor receives: $6,000 (75% of premium). Bank retains: $2,000 (25%)
 
-**At maturity — Scenario A (USD/CHF = 0.9000, USD strengthens):**
-- CHF has weakened vs USD. But the strike is in USD/CHF terms.
-- Actually: if we quote USD/CHF, higher = USD stronger. Strike 0.8600 means "bank can convert USD to CHF at 0.8600."
-- Convention: client deposits USD. Bank has right to return CHF instead.
-- At 0.9000: USD is stronger than strike. No conversion.
-- Client receives: $1,000,000 + $6,000 = $1,006,000
+*Investor lens:*
 
-**At maturity — Scenario B (USD/CHF = 0.8400, USD weakens):**
+**Scenario A (USD/CHF = 0.9000, USD strengthens):**
+- CHF has weakened vs USD. The strike is in USD/CHF terms.
+- Strike 0.8600 means "bank can convert USD to CHF at 0.8600."
+- The investor deposits USD; the bank has the right to return CHF instead.
+- At 0.9000: USD is stronger than the strike. No conversion.
+- Investor receives: $1,000,000 + $6,000 = $1,006,000
+
+**Scenario B (USD/CHF = 0.8400, USD weakens):**
 - USD/CHF at 0.8400 < strike 0.8600. Conversion triggers.
-- Client receives: $1,000,000 × 0.8600 = CHF 860,000 + $6,000 interest
+- Investor receives: $1,000,000 × 0.8600 = CHF 860,000 + $6,000 interest
 - CHF 860,000 converted back to USD at spot 0.8400: CHF 860,000 / 0.8400 = $1,023,810
 - Net position: $1,023,810 + $6,000 = $1,029,810
-- In this case, conversion actually benefits the client — they received CHF at a rate better than current spot.
+- In this case, conversion actually benefits the investor — they received CHF at a rate better than current spot.
 
-**At maturity — Scenario C (USD/CHF = 0.8000, USD weakens sharply):**
-- Conversion triggers. Client receives CHF 860,000 + $6,000.
+**Scenario C (USD/CHF = 0.8000, USD weakens sharply):**
+- Conversion triggers. Investor receives CHF 860,000 + $6,000.
 - CHF 860,000 at spot 0.8000 = $1,075,000.
 - Net: $1,081,000. Even better — the "worst case" of receiving CHF when CHF is strengthening is actually favourable.
 
-**Key insight for DCI:** The "risk" of conversion is receiving the alternate currency. Whether that is actually harmful depends on which direction the exchange rate moved. The risk is real when the alternate currency weakens after conversion — the client holds a depreciating asset.
+**Key insight for DCI:** The "risk" of conversion is receiving the alternate currency. Whether that is actually harmful depends on which direction the exchange rate moved. The risk is real when the alternate currency weakens after conversion — the investor holds a depreciating asset.
 
-#### §19. Knowledge Check
+*Bank lens:*
 
-**Review Questions:**
-1. What is the embedded option in a DCI, and who is the buyer and seller of that option?
-2. Why does a DCI pay a higher interest rate than a standard deposit?
-3. What happens at maturity if the FX rate is exactly at the strike level?
-4. Why are short-tenor DCIs (1-4 weeks) more common than long-tenor DCIs?
-5. How does FX volatility affect the coupon offered on a new DCI?
+- In Scenario A the desk's long FX put expires worthless; the desk keeps its $2,000 structuring margin and net hedging P&L, having funded the $6,000 of enhanced interest. Product Control confirms the FX option MTM rolls to zero and the deposit interest accrual closes out.
+- In Scenarios B and C the desk's long put is in the money: the bank exercises its right to deliver CHF 860,000 against the $1,000,000 deposit, funded at the strike of 0.8600. The 2nd line must confirm the converted amount (principal × strike = CHF 860,000), the settlement currency (CHF, not USD), the fixing source and time used for the conversion determination, and that the deposit system and Murex agree before settlement.
 
-**Scenario Questions:**
-1. A private banking client holds USD 5M and needs EUR in 3 months for a property purchase. They are considering a 1-month USD/EUR DCI. If converted, they receive euros early. Is this a good use case? What are the risks?
-2. A client has been rolling weekly USD/JPY DCIs for 6 months. The yen has weakened from 145 to 155 during that period. The client has been converted twice and converted back twice. What is the likely net outcome, and why might this pattern be problematic?
-3. Two DCIs on the same currency pair and tenor are offered: one with a 5% coupon and 15-delta strike, another with 9% coupon and 30-delta strike. Which is riskier, and why?
+#### §13. Knowledge Check
 
-**Desk Question:**
-A client complains: "I keep getting converted in my DCIs. I have been rolled three times and each time I end up worse off." How would you diagnose the problem, and what would you recommend?
+1. *(Investor)* What is the embedded option in a DCI, and who is the buyer and seller of that option? (Answer: a short FX put on the base currency; the investor sells it, the bank buys it.)
+2. *(Investor)* Why does a DCI pay a higher interest rate than a standard deposit? Decompose it.
+3. *(Investor)* What happens at maturity if the FX rate is exactly at the strike level?
+4. *(Investor)* Why are short-tenor DCIs (1-4 weeks) more common than long-tenor DCIs?
+5. *(Investor)* How does FX volatility affect the coupon offered on a new DCI?
+6. **(Desk economics / 1LoD)** The investor is short the FX put; what is the desk, and which way do the desk's FX delta, gamma, and vega point across the DCI book? Where does the desk's structuring margin come from, and why are weekend/holiday gap moves the main risk?
+7. **(Controls / 2LoD)** Name three reconciliation breaks specific to a DCI and the consequence of each for the investor's settlement — including which single field most often determines whether conversion was triggered.
 
-**Interview Layer Candidates:** Q1, Q5, Desk Q1
-**Examiner Notes Candidates:** Q1, Desk Q1
+**Mental Models**
 
-#### §20. Common Mistakes
+| Concept | Mental Model |
+|---------|-------------|
+| Dual Currency Investment | An airport exchange booth with a loyalty programme — enhanced interest in exchange for the booth's right to return a different currency |
+| Enhanced coupon | Not free money — it is the premium the bank pays the investor for selling FX optionality |
+| Strike | The exchange-rate threshold at which conversion into the alternate currency kicks in |
+| Conversion | The FX option is exercised against the investor — principal comes back in the alternate currency |
+| Coupon vs conversion loss | The coupon is the investor's premium income; the conversion loss is the FX shortfall when the alternate currency is weak |
+| 2LoD reconciliation | The booth's auditor — confirms the fixing source, the strike direction, and the settlement currency match before anyone is paid out |
 
-1. **Treating the enhanced coupon as "free yield."** The coupon is funded by an option premium the client has sold. It is compensation for risk, not free money
-2. **Ignoring the "round-trip" problem.** Client converts USD to EUR. Rolls into EUR/USD DCI. Converts back to USD at a worse rate. Each conversion crystallises a loss. Continuous rolling can compound these losses
-3. **Using DCIs on currencies the client does not want.** A DCI works when the client is genuinely happy with either currency. If conversion into the alternate currency is unacceptable, the client should not sell the option
-4. **Confusing deposit insurance coverage.** DCI may or may not be covered by deposit guarantee schemes depending on jurisdiction and structure. Clients should verify before assuming protection
-5. **Pricing only the at-the-money vol.** DCI puts are typically out-of-the-money. The skew premium matters. Using ATM vol underprices the option and overprices the DCI coupon
+**Key Takeaways**
 
-#### §21. Visual Specifications
+1. A DCI is a base-currency deposit + a short FX put. The investor earns an enhanced coupon by selling FX optionality to the bank.
+2. The coupon is not free — it is the premium for the FX option the investor has sold to the bank.
+3. If the FX rate stays at or above the strike, the investor keeps full principal in the base currency plus the coupon. If it crosses below, the principal is converted into the alternate currency at the strike.
+4. The conversion is only harmful if the alternate currency then weakens — the investor holds a depreciating asset. The coupon is a partial buffer, not protection.
+5. The payoff is a digital/step profile at the strike — a small FX difference at the boundary decides whether the principal returns in the base or the alternate currency.
+6. The round-trip risk is dominant for rollers — repeated conversions in opposite directions can compound losses.
+7. DCIs are short volatility products for the investor — the investor benefits from calm FX markets and is hurt by volatile ones; the desk holds the offsetting long-put position across the book.
+8. For the 2nd line, the dominant control risks are the FX fixing (source and time), the strike/quote direction, and the settlement-currency capture — each can misstate whether conversion triggered and which currency the principal is returned in.
 
-| # | Priority | Visual | Type | Description |
-|:-:|:--------:|--------|------|-------------|
-| 1 | P1 | DCI payoff diagram | Payoff | Two-regime payoff: flat (base currency returned) above strike, sloping (alternate currency value) below strike. Shows conversion threshold |
-| 2 | P1 | DCI vs standard deposit comparison | Comparison | Side-by-side: standard deposit (flat low yield) vs DCI (high yield with conversion zone). Shows the risk-return tradeoff |
-| 3 | P2 | DCI construction waterfall | Waterfall | Deposit base → short FX put → premium → enhanced coupon. Shows how the coupon is funded |
-| 4 | P2 | Currency conversion flow | Flow | Two paths: no conversion (base currency returned) vs conversion (alternate currency delivered). Settlement mechanics |
-| 5 | P3 | DCI rolling pattern diagram | Timeline | Shows 4 consecutive DCIs with 2 conversions and 2 non-conversions. Illustrates the "round-trip" risk |
-| 6 | P3 | Strike selection sensitivity | Sensitivity | Coupon vs conversion probability at different strike levels. Shows the tradeoff curve |
+#### §14. Common Mistakes
 
-#### §22. Related Chapters / Dependency References
+1. **Treating the enhanced coupon as "free yield."** The coupon is funded by an FX option premium the investor has sold. It is compensation for risk, not free money.
+2. **Ignoring the "round-trip" problem.** The investor converts USD to EUR, rolls into a EUR/USD DCI, then converts back to USD at a worse rate. Each conversion crystallises a loss. Continuous rolling can compound these losses.
+3. **Using DCIs on currencies the investor does not want.** A DCI works when the investor is genuinely happy with either currency. If conversion into the alternate currency is unacceptable, the investor should not sell the option.
+4. **Confusing deposit insurance coverage.** A DCI may or may not be covered by deposit guarantee schemes depending on jurisdiction and structure. The investor should verify before assuming protection.
+5. **Pricing only the at-the-money vol.** DCI puts are typically out-of-the-money. The skew premium matters. Using ATM vol underprices the option and overprices the DCI coupon.
+6. **(Controls) Trusting a single system's fixing or strike direction.** Because the conversion test depends on the fixing source/time and the quote direction of the strike, the 2nd line must reconcile the fixing source and the strike convention across the deposit system and Murex rather than assume they agree.
 
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Options (puts) | Section 1.2 (Options From Zero) |
-| Barriers and digitals | Section 1.3 (Barriers and Digitals) |
-| Delta, gamma, vega | Section 1.4 (Greeks) |
-| Volatility, smile/skew | Section 1.5 (Volatility) |
-| Deposit wrapper structure | Section 5.6.1 (Structured Deposit) |
-| Short put economics (yield enhancement) | Section 5.1.2 (Reverse Convertible) |
-| Forward FX rates | Section 1.7 (Yield Curves) |
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking / fixing / event-capture fields must reconcile, and which is the most common break?
 
+**Dual-lens visuals (generated):**
+- `assets/dci/controls_dci_recon_08.svg` `[generated]`
+- `assets/dci/payoff_dci_01.svg` `[generated]`
+- `assets/dci/waterfall_dci_09.svg` `[generated]`
 ### 5.6.9 Shark Fin Note
-
-*How This Differs From PPN (5.1.1): The PPN gives you capital protection plus upside participation with no ceiling. The Shark Fin also gives you capital protection plus upside participation — but adds a barrier. If the underlying rises too much and breaches the barrier, your participation is capped at a fixed rebate instead of the full gain. You still profit, but less than you would have without the barrier. The barrier does not destroy your return — it merely reduces it.*
 
 ---
 
+*The PPN (Section 5.1.1) protected 100% of the investor's principal and gave uncapped upside participation. The Shark Fin Note also protects principal and participates in the upside — but adds an upper knock-out barrier. If the underlying rises far enough to touch the barrier, the participation is extinguished and the investor receives a small fixed rebate instead of the full gain. The investor still profits in that case, but by less than the unbarriered participation would have delivered: the barrier reduces the return, it does not erase it. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+
 #### §1. Explain Like I'm New
 
-Imagine you go on a fishing trip with a catch limit. The fishing company says: "You can keep every fish you catch, up to a point. If you catch more than 20 fish, the game warden steps in — you must return everything over 20, but you still get to keep a consolation prize of 10 fish."
+A bank advisor offers a conservative client capital protection plus equity upside. A standard PPN does this, but the participation rate it can fund is low when interest rates are low. The natural question is: how can the participation be raised without giving up the capital guarantee?
 
-Without the limit, catching 30 fish means keeping 30. With the limit, catching 30 fish means keeping only 10. You still walk away with something, but far less than you earned.
+The answer is that the investor gives up the extreme upside. In a **Shark Fin Note**, the investor holds a capital-protected note that participates in the rise of an underlying asset — **up to** an upper knock-out barrier. If the underlying ever touches that barrier during the life of the note, the participation is knocked out and the investor receives a fixed **rebate** instead. If the barrier is never touched, the investor keeps the full participation.
 
-A **Shark Fin Note** works the same way. It is a capital-protected note where you participate in the upside of an underlying asset — unless the asset rises too much and breaches an upper barrier. If the barrier is breached, your upside is capped at a fixed rebate. If the barrier is never breached, you keep the full participation.
+The tradeoff: the investor sells the "very strong rally" scenario back to the bank, and that premium funds a higher participation rate than a comparable PPN. The investor keeps full upside in a moderate rally, loses it (down to the rebate) only if the rally is so strong that the barrier is breached, and never loses principal.
 
-The payoff chart has a distinctive shape: a rising line that abruptly drops to a flat level at the barrier, creating the profile of a shark's dorsal fin — hence the name.
-
-The Shark Fin is popular in Asian private banking markets, particularly Hong Kong, Taiwan, and mainland China. It appeals to conservative investors who want upside exposure but are willing to accept a cap in exchange for capital protection.
+The payoff chart has a distinctive shape: a rising line that abruptly drops to a flat rebate level at the barrier, resembling a shark's dorsal fin — hence the name. The product is popular in Asian private banking markets, particularly Hong Kong, Taiwan, and mainland China, with conservative investors who want upside exposure but accept a cap in exchange for capital protection.
 
 #### §2. Real-World Analogy
 
-A Shark Fin Note is like a fishing trip with a catch limit.
+A Shark Fin Note is like a fishing charter with a catch limit.
 
-You pay for a fishing charter. The captain guarantees you will not lose your charter fee (capital protection). If you catch fish, you keep them (participation in upside). But the harbour has a conservation rule: if any angler catches more than 20 fish in a day, the excess must be released and the angler receives a fixed consolation award of 10 fish.
+A client pays for a fishing charter. The captain guarantees the charter fee will not be lost (capital protection). Any fish caught, the angler keeps (participation in upside). But the harbour has a conservation rule: if any angler catches more than 20 fish in a day, the excess must be released and the angler instead receives a fixed consolation award of 10 fish.
 
 In this analogy:
-- The **charter fee** is your invested principal (protected)
-- The **fish you catch** is the underlying asset's return
+- The **charter fee** is the invested principal (protected)
+- The **fish caught** is the underlying asset's return
 - The **20-fish limit** is the knock-out barrier
 - The **10-fish consolation** is the fixed rebate
 - The **conservation rule** is the barrier observation
 
-If the fishing is moderate (underlying rises but stays below the barrier), you keep everything. If the fishing is spectacular (underlying breaches the barrier), you receive the rebate — still positive, but less than the full catch.
+If the fishing is moderate (the underlying rises but stays below the barrier), the angler keeps everything. If the fishing is spectacular (the underlying breaches the barrier), the angler receives the consolation award — still positive, but less than the full catch. The investor is the angler; the bank is the harbour authority that takes back the excess catch in exchange for funding a more generous quota.
 
 #### §3. What Problem Does This Solve?
 
-Shark Fins solve the **"I want upside but fear overpaying for it"** problem.
+Shark Fins solve the **"I want upside but find the protection too expensive"** problem.
 
-| User | Problem | Shark Fin Solution |
+When interest rates are low, the zero-coupon bond that funds a PPN's capital guarantee is expensive, leaving little budget for the call option — so PPN participation is thin. A Shark Fin frees up budget by selling barrier optionality, raising the participation rate for the same protection.
+
+| Investor | Problem | Shark Fin Solution |
 |------|---------|-------------------|
-| Conservative investor | Wants equity exposure with capital protection, but finds PPN participation too expensive | Sells barrier optionality (up-and-out) to cheapen the participation. Gets higher participation rate than PPN for the same cost |
-| Wealth manager | Needs to offer clients capital-protected equity exposure in a low-rate environment | Shark Fin offers better participation than PPN because the barrier optionality funds a cheaper call option |
-| Institutional allocator | Wants structured equity exposure with a defined worst case | Capital protection ensures no loss. Barrier cap limits maximum gain but defines the return envelope precisely |
+| Conservative investor | Wants equity exposure with capital protection, but finds PPN participation too expensive | Sells barrier optionality (up-and-out) to cheapen the participation. Gets a higher participation rate than a PPN for the same cost |
+| Wealth manager | Needs to offer clients capital-protected equity exposure in a low-rate environment | Shark Fin offers better participation than a PPN because the barrier optionality funds a cheaper call option |
+| Institutional allocator | Wants structured equity exposure with a defined worst case | Capital protection ensures no loss. The barrier cap limits the maximum gain but defines the return envelope precisely |
 
-The key trade-off: compared to a PPN, the Shark Fin offers higher participation (or lower cost) in exchange for accepting the barrier cap. The investor bets that the underlying will rise moderately, not dramatically.
+The key trade-off: compared to a PPN, the Shark Fin offers higher participation (or lower cost) in exchange for the barrier cap. The investor bets the underlying will rise moderately, not dramatically.
 
 #### §4. Product DNA
 
@@ -19013,16 +19184,16 @@ The key trade-off: compared to a PPN, the Shark Fin offers higher participation 
 | **Capital Protection** | 100% at maturity (principal guaranteed) |
 | **Coupon Type** | None — return delivered as participation in underlying at maturity |
 | **Maturity** | Typically 1-3 years |
-| **Liquidity** | Secondary market with bid-offer spread. Less liquid than standard PPN |
+| **Liquidity** | Secondary market with bid-offer spread. Less liquid than a standard PPN |
 | **Four-Leg Product** | No |
 | **Primary System** | Murex |
 | **ISDA Required** | No — issued as note (securities law) |
 
 **DNA Atlas Fields:**
-- Primary Risk: Barrier breach caps the return at rebate level. Opportunity cost if underlying surges
+- Primary Risk: Barrier breach caps the return at the rebate level. Opportunity cost if the underlying surges
 - Typical Buyer: Conservative private banking clients seeking capital-protected equity exposure with enhanced participation
-- Typical Use Case: Capital-protected equity participation with higher participation rate than vanilla PPN
-- Building Blocks: Zero-coupon bond + up-and-in call spread (or: long call + short up-and-out call with rebate)
+- Typical Use Case: Capital-protected equity participation with a higher participation rate than a vanilla PPN
+- Building Blocks: Zero-coupon bond + up-and-out call with rebate (equivalently: long call + short up-and-out call with rebate)
 - Key Hedge: Long up-and-out call replication via dynamic barrier hedging
 - Similar Products: PPN (5.1.1 — no barrier), Bonus Certificate (5.1.8 — barrier below, not above)
 - Most Important Greek: Delta (equity exposure), Vega (vol affects barrier probability and participation cost)
@@ -19037,7 +19208,7 @@ The key trade-off: compared to a PPN, the Shark Fin offers higher participation 
 - Volatility Sensitivity: Mixed — higher vol increases barrier breach probability but also makes participation cheaper
 - Correlation Sensitivity: None (single underlying)
 - Client Type: Private banking / Conservative institutional
-- Market Environment: Best when expecting moderate upside. Poor when expecting sharp rally (barrier likely breached)
+- Market Environment: Best when expecting moderate upside. Poor when expecting a sharp rally (barrier likely breached)
 
 #### §5. Who Touches This Product
 
@@ -19046,287 +19217,274 @@ The key trade-off: compared to a PPN, the Shark Fin offers higher participation 
 | **Structurer** | Sets barrier level, participation rate, and rebate. Optimises the three-way tradeoff: higher barrier → higher participation but lower rebate. Prices the up-and-out call option |
 | **Trader** | Hedges the barrier risk dynamically. Manages delta near the barrier — gamma increases sharply as the underlying approaches the knock-out level |
 | **Sales** | Positions to conservative clients as "PPN with better participation." Explains the barrier cap. Most common objection: "What if I miss a big rally?" |
-| **Risk** | Monitors barrier proximity. Watches for pin risk near the barrier level. Aggregate exposure to barrier breach across Shark Fin book |
-| **Product Control** | Verifies barrier pricing (up-and-out call vs standard call). Checks rebate calculation. Validates participation rate against market |
+| **Risk Management** | Monitors barrier proximity. Watches for pin risk near the barrier level. Aggregates exposure to barrier breach across the Shark Fin book |
+| **Product Control** | Verifies barrier pricing (up-and-out call vs standard call). Checks rebate calculation. Validates the participation rate against market |
 | **Operations** | Barrier monitoring (continuous or discrete observation). Settlement in either participation or rebate mode. Fixing source verification |
-| **Legal/Compliance** | Note prospectus. Barrier observation terms. Rebate calculation methodology. Client suitability for barrier products |
+| **Legal / Compliance** | Note prospectus. Barrier observation terms. Rebate calculation methodology. Client suitability for barrier products |
 | **Quantitative Analytics** | Barrier option pricing (analytical or Monte Carlo for discrete barriers). Smile/skew impact on barrier probability. Rebate valuation |
 
 #### §6. Product Evolution
 
 | Era | Development |
 |-----|------------|
-| **Early 2000s** | Shark Fin Notes emerge in Hong Kong and Taiwan as alternatives to PPNs. Low interest rates make PPN participation expensive — barrier reduces cost |
+| **Early 2000s** | Shark Fin Notes emerge in Hong Kong and Taiwan as alternatives to PPNs. Low interest rates make PPN participation expensive — the barrier reduces cost |
 | **2005-2007** | Rapid growth in Asian private banking. Variants appear: bull Shark Fin (upside barrier), bear Shark Fin (downside barrier), double Shark Fin (both barriers) |
-| **2008-2010** | Crisis validates capital protection feature. Shark Fins with no barrier breach return 100%. Products with breached barriers return the rebate — still positive |
-| **2010s** | Continuous barrier observation becomes standard (vs discrete). Digital platforms enable automated pricing. Product remains a staple in HK, TW, China |
-| **2020s** | Post-pandemic demand surge. Ultra-low rates make participation expensive — Shark Fin's barrier-funded enhancement is attractive. ESG-linked Shark Fins appear |
+| **2008-2010** | Crisis validates the capital protection feature. Shark Fins with no barrier breach return 100%. Products with breached barriers return the rebate — still positive |
+| **2010s** | Continuous barrier observation becomes standard (vs discrete). Digital platforms enable automated pricing. The product remains a staple in HK, TW, China |
+| **2020s** | Post-pandemic demand surge. Ultra-low rates make participation expensive — the Shark Fin's barrier-funded enhancement is attractive. ESG-linked Shark Fins appear |
 
-#### §7. How the Bank Makes Money
+---
 
-| Component | Detail |
-|-----------|--------|
-| **Zero-coupon bond** | Purchased at discount. Matures at par = capital protection. Bank earns funding spread |
-| **Option budget** | Bond discount − 100 = available premium for options |
-| **Long call option** | Purchased with option budget. Provides upside participation |
-| **Short up-and-out feature** | Client implicitly sells the knock-out feature. Premium received reduces the call cost, enabling higher participation |
-| **Rebate** | Funded from the residual up-and-out premium. Small cost to the bank |
-| **Structuring margin** | 0.5-1.5% of notional. Embedded in participation rate (client gets slightly less participation than theoretical) |
+#### §7. THE INVESTOR LENS
 
-**Why the Shark Fin gives better participation than PPN:**
-A standard PPN uses the entire option budget to buy a vanilla call. A Shark Fin uses the option budget to buy a call AND sells the knock-out feature. The knock-out premium subsidises the call purchase, enabling a higher participation rate for the same option budget.
+**Why the investor buys it**
 
-#### §8. Why This Product Exists (Client Perspective)
+1. **Better participation than a PPN.** The barrier optionality subsidises the call option, giving the investor a higher participation rate for the same principal protection.
+2. **Defined return envelope.** The investor knows exactly the range of outcomes: 0% (flat or down market), the rebate% (barrier breached), or full participation% (market rises but stays below the barrier).
+3. **Capital protection.** 100% of principal is returned at maturity regardless of market outcome.
+4. **Moderate-bull view.** Ideal for an investor who expects the market to rise moderately (10-30%) but not dramatically (50%+). The barrier penalty only bites if the market surges.
 
-1. **Better participation than PPN.** The barrier optionality subsidises the call option, giving the client a higher participation rate for the same principal protection
-2. **Defined return envelope.** The investor knows exactly the range of outcomes: 0% (flat market) to rebate% (barrier breached) to full participation% (market rises but stays below barrier)
-3. **Capital protection.** 100% principal returned at maturity regardless of market outcome
-4. **Moderate-bull view.** Ideal for clients who expect the market to rise moderately (10-30%) but not dramatically (50%+). The barrier penalty only hurts if the market surges
+**Position taken**
 
-#### §9. The Three Scenarios
+The investor is **long** an up-and-out (knock-out) call on the underlying plus a capital-protected note (a zero-coupon bond that matures at par). The knock-out feature embedded in that call is, in effect, sold by the investor to the bank: the premium it generates funds the enhanced participation. Net, the investor is **long equity** up to the barrier (positive delta that vanishes if the barrier is touched) and carries no principal downside. With a single underlying there is no correlation exposure; the investor is also exposed to volatility through the barrier-breach probability (see §8).
 
-**Terms:** USD 1,000,000 Shark Fin Note. Underlying: S&P 500. Maturity: 2 years. Participation: 80%. Barrier: 140% of initial (up-and-out, continuous). Rebate: 5% of notional.
+**Payoff & scenarios**
 
-| Scenario | S&P Performance | Barrier Breached? | Client Return | Client Receives |
+The investor's payoff has two regimes. If the barrier is **never** breached: payoff = 100% + max(0, Participation × (S_T/S_0 − 1)) — full protected principal plus the participated upside. If the barrier **is** breached at any time during the life: payoff = 100% + Rebate% — protected principal plus the fixed rebate, regardless of where the underlying finishes. The participated leg is a rising line; at the barrier it drops abruptly to the flat rebate level — the shark-fin profile.
+
+![Shark Fin Payoff at Maturity — Investor Lens](assets/sharkfin/payoff_sharkfin_01.svg)
+
+**Product:** USD 1,000,000 Shark Fin Note. Underlying: S&P 500. Maturity: 2 years. Participation: 80%. Barrier: 140% of initial (up-and-out, continuous). Rebate: 5% of notional.
+
+| Scenario | S&P Performance | Barrier Breached? | Investor Return | Investor Receives |
 |----------|:---------------:|:-----------------:|:-------------:|:---------------:|
 | **Bull (moderate)** | +25% | No | 80% × 25% = 20% | $1,200,000 |
 | **Bull (strong)** | +50% | Yes (crossed 140%) | Rebate = 5% | $1,050,000 |
 | **Bear** | -15% | No | 0% (capital protected) | $1,000,000 |
 
-**Key insight:** The strong bull scenario is the "worst" positive outcome. The investor would have earned 80% × 50% = 40% without the barrier, but receives only 5%. The barrier costs the investor 35% of return in this scenario. This is the price paid for the enhanced participation rate in the moderate-bull scenario.
+**Key insight:** The strong-bull scenario is the "worst" positive outcome. The investor would have earned 80% × 50% = 40% without the barrier, but receives only 5%. The barrier costs the investor 35% of return in this scenario. This is the price paid for the enhanced participation rate available in the moderate-bull scenario.
 
-#### §10. What Happens When Markets Move
+**Risks to the investor**
 
-| Market Condition | Impact on Shark Fin Holder |
-|-----------------|--------------------------|
-| **Underlying rises moderately** | Best case — full participation, no barrier breach |
-| **Underlying rises sharply** | Barrier breached — return capped at rebate. Worst positive outcome |
-| **Underlying falls** | Capital protected — principal returned. No participation (zero coupon) |
-| **Volatility rises** | Mixed — barrier breach more likely (bad), but future Shark Fins offer better terms |
-| **Interest rates rise** | Zero-coupon bond cheaper → more option budget → better participation or higher rebate |
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Barrier breach (opportunity cost)** | If the underlying surges past the barrier, the investor receives only the rebate — potentially missing a 30-40% gain. The defining risk of the product. | High |
+| **Zero return (flat/down market)** | Capital is protected but no return is earned. Opportunity cost versus a fixed deposit that would have paid interest. | Medium |
+| **Issuer credit risk** | Capital protection is only as good as the issuer's ability to pay at maturity. | Medium |
+| **Liquidity risk** | A secondary market exists, but bid-offer spreads widen near the barrier or in stressed markets. | Low-Medium |
+| **Gap / continuous-observation risk** | With continuous observation, an intraday spike can breach the barrier even if the closing level stays below — the investor may not appreciate that any intraday touch counts. | Medium |
+| **Model risk** | Barrier option pricing depends on the volatility model; discrete vs continuous observation changes the breach probability and the mark. | Low |
 
-#### §11. Formal Definition
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
 
-A Shark Fin Note is a capital-protected structured note combining a zero-coupon bond with a long up-and-out call option and a rebate.
+**What the desk books**
+
+The desk's position is the mirror image of the investor's. Where the investor is long the up-and-out call, the desk is **short** that up-and-out call (it has sold the participation), and alongside it the desk has issued a note funded by a zero-coupon bond bought at a discount — a funding liability that matures at par to deliver the capital protection. The knock-out feature the investor implicitly sells is, to the desk, premium received that cheapens the call it must deliver, enabling a higher participation rate than a PPN.
+
+**Barrier-option risk & hedging**
+
+The desk is short the embedded up-and-out call and delta-hedges by trading the underlying. Because the payoff is discontinuous at the knock-out barrier, the option's gamma spikes as the underlying approaches the barrier and hedging becomes expensive and error-prone — a Shark Fin book with barriers at 140% sees hedging cost spike when the index is at 135-139% of initial. If the barrier is breached, all delta disappears instantly — the payout becomes fixed at par plus rebate. This "cliff" in the Greeks, together with pin risk (the underlying hovering near the barrier at observation times), is where the desk's structuring margin is earned or lost. Risk Management monitors barrier proximity and may impose limits on concentrated barrier exposure.
+
+**How the bank makes money**
+
+| Revenue Component | Detail |
+|------------------|--------|
+| **Zero-coupon bond / funding** | Bond purchased at a discount, matures at par (capital protection). The desk earns the funding spread |
+| **Short up-and-out feature** | The investor implicitly sells the knock-out feature; the premium received reduces the call cost and enables a higher participation rate |
+| **Structuring margin** | 0.5-1.5% of notional, embedded in the participation rate (the investor gets slightly less participation than theoretical) |
+| **Hedging P&L** | Delta-hedging the short up-and-out call captures the spread between realized and implied vol |
+
+**The participation budget decomposition:**
+
+A standard PPN uses the entire option budget to buy a vanilla call. A Shark Fin uses the option budget to buy a call **and** sells the knock-out feature; the knock-out premium subsidises the call purchase, enabling a higher participation rate for the same option budget. Conceptually: Option budget = Bond discount; Call cost − Knock-out premium received + Rebate funding + Desk margin = Option budget — so for a given budget, the knock-out premium buys more participation than a PPN can fund.
+
+![Shark Fin Value Decomposition — Bank Lens (Desk Economics)](assets/sharkfin/waterfall_sharkfin_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by realized-versus-implied volatility on the delta hedge, moves in the underlying near the barrier (gamma and pin risk), the funding spread on the zero-coupon bond, and the mark-to-market of the embedded up-and-out call (sensitive to the skew of the vol surface, since the barrier is out-of-the-money). Product Control verifies the barrier pricing (up-and-out call vs standard call), checks the rebate calculation, and validates the participation rate against market.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
+
+| Aspect | Detail |
+|--------|--------|
+| **Primary system** | Murex |
+| **Booking model** | Zero-coupon bond + up-and-out call option (with rebate). May be booked as a single exotic option or decomposed |
+| **Valuation model** | Analytical (closed-form for continuous barrier) or Monte Carlo (for discrete barrier observation). Smile-adjusted barrier pricing |
+| **Key booking fields** | Notional, initial level, participation rate, barrier level, barrier observation type (continuous/discrete), rebate %, maturity, underlying(s) |
+| **Market data** | Underlying spot, implied volatility surface (skew matters for OTM barriers), interest rate curve, dividend yield |
+| **Barrier monitoring** | Continuous (intraday high) or discrete (daily close). Must be specified at inception |
+
+**Reconciliation points**
+
+| Recon point | What must agree | Shark-Fin-specific break |
+|-------------|-----------------|-------------------|
+| **KO barrier & observation** | Barrier level **and convention** (% vs absolute), observation type (continuous intraday high vs discrete daily close) | Continuous barrier flagged but only daily closes monitored → intraday breaches missed; or barrier stored as % in one place and absolute index level in another |
+| **Participation** | Participation rate matches the termsheet and the priced up-and-out call | Participation booked at theoretical instead of the margin-adjusted rate → misstated payout and P&L |
+| **Rebate** | Rebate % and the condition under which it replaces participation | Rebate omitted or wrong %, so a knocked-out trade redeems at par instead of par + rebate |
+| **Knock-out capture** | Knock-out flag consistent across systems; participation extinguished once set | Barrier touched intraday but the flag is not set → trade values as if still participating; redemption miscalculated |
+| **Fixings** | Initial level and the barrier-observation source/time match the termsheet | Different vendors report different intraday highs / closes → disputed breach |
+| **Corporate actions** | Initial level and barrier adjusted for dividends, splits, mergers | Underlying split not propagated → barrier off by the split ratio |
+| **P&L attribution** | Zero-coupon accrual + up-and-out call MTM reconciles to total | Unexplained P&L points to a stale/wrong skew surface or a wrong fixing |
+| **Settlement** | Cash at maturity; participation amount or rebate depending on barrier status; DvP | Participation paid on a knocked-out trade (should be rebate), or rebate paid when the barrier was never touched |
+
+![SHARKFIN Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/sharkfin/controls_sharkfin_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Continuous barrier flagged but no intraday monitoring | Daily-close checks miss intraday touches of the knock-out level | Ensure real-time / intraday monitoring against the specified barrier source is in place |
+| Barrier stored as % in one system, absolute index level in another | Consistent only if the initial level matches exactly | Verify both systems use the same convention before relying on either valuation |
+| Knock-out flag not set after an intraday touch | The trade values as if still participating; redemption overstated | Confirm the knock-out flag is set and participation is extinguished |
+| Rebate missing or wrong % | A knocked-out trade redeems at par instead of par + rebate | Verify the rebate % and the trigger condition against the termsheet |
+| Participation booked at theoretical, not margin-adjusted | Misstates both client payout and desk margin | Reconcile the booked participation to the priced up-and-out call |
+| Disputed barrier breach (intraday high vs close) | Different sources disagree on whether the barrier was touched | Use the fixing source and observation convention specified in the termsheet |
+
+**Control implication**
+
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. **Knock-out capture** and **participation** are the dominant control risks: a missed knock-out leaves the trade valuing as if still participating — overstating the investor's upside and understating the desk's freed risk — while a wrong participation rate or missing rebate drives the wrong redemption in exactly the scenario (a strong rally) where the amounts are largest. A barrier-convention or fixing mismatch determines whether a breach is even recognised, breaking valuation and redemption at once. The reconciliation exists precisely to catch these inconsistencies before settlement crystallises them.
+
+#### §10. Formal Definition
+
+A **Shark Fin Note** is a capital-protected structured note combining a zero-coupon bond with a long up-and-out call option and a rebate.
 
 **Payoff at maturity:**
 
-If barrier never breached:
-  Payoff = 100% + max(0, Participation × (S_T/S_0 - 1)) × 100%
-
-If barrier breached at any time during life:
-  Payoff = 100% + Rebate%
+- If the barrier is **never** breached: **Payoff = 100% + max(0, Participation × (S_T/S_0 − 1)) × 100%**
+- If the barrier **is** breached at any time during the life: **Payoff = 100% + Rebate%**
 
 Where:
 - S_T = underlying level at maturity
 - S_0 = underlying level at inception
 - Participation = participation rate (e.g., 80%)
 - Barrier = knock-out level (e.g., 140% of S_0), observed continuously
-- Rebate = fixed percentage paid if barrier is breached (e.g., 5%)
+- Rebate = fixed percentage paid if the barrier is breached (e.g., 5%)
 
-**Decomposition:**
+**Decomposition:** Shark Fin = Zero-coupon bond (100% at maturity) + Long call (strike = S_0) − Short up-and-out call premium + Rebate on knock-out. Equivalently: Shark Fin = Zero-coupon bond + Up-and-out call with rebate.
 
-Shark Fin = Zero-coupon bond (100% at maturity) + Long call (strike = S_0) − Short up-and-out call premium + Rebate on knock-out
+**Key parameters:** participation rate (e.g. 80-85%); barrier — knock-out level above the initial (e.g. 130-140%); barrier observation — continuous (intraday high) or discrete (daily close); rebate — fixed percentage paid on knock-out (e.g. 5-6%); underlying — equity index, single stock, or commodity; maturity — typically 1-3 years; capital protection — 100% at maturity.
 
-Alternatively: Shark Fin = Zero-coupon bond + Up-and-out call with rebate
+#### §11. Lifecycle
 
-#### §12. Product Construction
+| Stage | Detail |
+|-------|--------|
+| **Pricing (T-5 to T)** | Structurer prices the up-and-out call option. Sets participation, barrier, and rebate to match the investor's view and market conditions |
+| **Trade date (T)** | Note issued. Zero-coupon bond purchased. Barrier option executed. Capital protection locked. Book in Murex; set initial level, participation, barrier, observation type, rebate |
+| **During life (T to maturity)** | Continuous barrier monitoring via market data feed. No interim payments. If the underlying touches the barrier, the product switches to rebate mode |
+| **Barrier event (if triggered)** | Barrier breach recorded; knock-out flag set. From this point the maturity payout is fixed at 100% + rebate. Remaining optionality extinguished |
+| **Maturity** | If no breach: 100% + participation × underlying return. If breach: 100% + rebate. Settle cash |
 
-| Component | Value | Purpose |
-|-----------|:-----:|---------|
-| Zero-coupon bond | ~92-96% of notional (2yr) | Capital protection at maturity |
-| Up-and-out call option (with rebate) | ~4-8% of notional | Upside participation if barrier not breached; rebate if breached |
-| Structuring margin | ~0.5-1.5% | Bank profit (embedded in participation rate) |
+#### §12. Worked Example (both lenses)
 
-**If you remember only one thing from this chapter, remember this:** The Shark Fin gives you better participation than a PPN by adding a barrier that caps your return if the market rises too much. You are selling the "home run" scenario to fund better participation in the "base hit" scenario.
-
-#### §13. Lifecycle
-
-| Stage | Timing | Action |
-|-------|--------|--------|
-| **Pricing** | T-5 to T | Structurer prices up-and-out call option. Sets participation, barrier, and rebate to match client's view and market conditions |
-| **Trade date** | T | Note issued. Zero-coupon bond purchased. Barrier option executed. Capital protection locked |
-| **During life** | T to T+2Y | Continuous barrier monitoring. If underlying touches barrier, product switches to rebate mode. No interim payments |
-| **Barrier event** | If triggered | Barrier breach recorded. From this point, maturity payout is fixed at 100% + rebate. Remaining optionality extinguished |
-| **Maturity** | T+2Y | If no breach: 100% + participation × underlying return. If breach: 100% + rebate |
-
-#### §14. Desk Reality
-
-**What traders think about:**
-Barrier hedging near the knock-out level. As the underlying approaches the barrier, delta and gamma become unstable. A trader holding a Shark Fin book with barriers at 140% will see hedging costs spike when the index is at 135-139% of initial. If the barrier is breached, all delta disappears instantly — the payout becomes fixed. This "cliff" in the Greeks is the primary risk management challenge. Traders also watch for "pin risk" — the underlying hovering near the barrier at observation times.
-
-**What structurers think about:**
-The three-way optimisation: participation rate, barrier level, and rebate. Client wants high participation (80%+), high barrier (150%+), and high rebate (10%+). These are contradictory — increasing one requires decreasing another. The structurer's job is finding the combination that matches the client's market view. A client expecting 20% upside wants a barrier above 120% — but that makes the knock-out cheap and barely improves participation vs a PPN.
-
-**What operations thinks about:**
-Barrier monitoring. Continuous observation requires real-time data feeds. The barrier source (exchange closing price vs intraday high) must be clearly specified. A disputed barrier breach — "did the index really touch 140%?" — creates operational and legal risk. Clean data and documented methodology matter.
-
-#### §15. Risk Analysis
-
-| Risk | Severity | Description |
-|------|:--------:|------------|
-| **Barrier breach (opportunity cost)** | High | If the underlying surges past the barrier, the investor receives only the rebate — potentially missing a 30-40% gain |
-| **Zero return (flat/down market)** | Medium | Capital is protected but no return earned. Opportunity cost vs holding a fixed deposit |
-| **Issuer credit risk** | Medium | Capital protection is only as good as the issuer's ability to pay at maturity |
-| **Liquidity risk** | Low-Medium | Secondary market exists but bid-offer spreads widen near barrier or in stressed markets |
-| **Model risk** | Low | Barrier option pricing depends on volatility model. Discrete vs continuous barrier can create pricing differences |
-
-**Greeks profile:**
-
-| Greek | Value | Significance |
-|-------|:-----:|-------------|
-| Delta | Positive (if no barrier breach) | Exposure to underlying. Drops to zero if barrier breached |
-| Gamma | Positive far from barrier; spikes near barrier | Hedging difficulty increases sharply near barrier level |
-| Vega | Mixed | Higher vol increases barrier probability (bad) but cheapens future structures |
-| Theta | Slightly positive | Time decay of barrier probability benefits holder slightly |
-
-#### §16. Booking and Systems
-
-| Dimension | Detail |
-|-----------|--------|
-| **Primary system** | Murex |
-| **Booking model** | Zero-coupon bond + up-and-out call option (with rebate). May be booked as single exotic option or decomposed |
-| **Valuation model** | Analytical (closed-form for continuous barrier) or Monte Carlo (for discrete barrier observation). Smile-adjusted barrier pricing |
-| **Market data** | Underlying spot, implied volatility surface (skew matters for OTM barriers), interest rate curve, dividend yield |
-| **Settlement** | Cash at maturity. Participation amount or rebate depending on barrier status |
-| **Barrier monitoring** | Continuous (intraday high) or discrete (daily close). Must be specified at inception |
-
-#### §17. Red Flags
-
-| Red Flag | Why It Matters |
-|----------|---------------|
-| Barrier too close to spot (e.g., 110%) | High probability of breach. Client likely receives rebate, not participation. Poor structure |
-| Rebate is zero or near-zero | Client receives nothing if barrier breached. All upside sacrificed for marginally better participation |
-| Client expects strong bull market | Shark Fin is wrong product — barrier will likely be breached. Client should buy a PPN or direct equity |
-| Continuous barrier on volatile underlying | Intraday spikes can breach the barrier even if closing prices stay below. Client may not understand continuous observation |
-| Very long maturity (> 5 years) | Barrier breach probability increases with time. Capital protection value eroded by inflation |
-
-#### §18. Worked Example
-
-**Terms:**
-- Notional: USD 1,000,000
-- Underlying: Hang Seng Index (HSI)
-- HSI initial level: 20,000
-- Maturity: 2 years
-- Participation: 85%
-- Barrier: 130% of initial = 26,000 (continuous observation)
-- Rebate: 6%
-- Capital protection: 100%
+**Terms:** USD 1,000,000 Shark Fin Note. Underlying: Hang Seng Index (HSI). HSI initial level: 20,000. Maturity: 2 years. Participation: 85%. Barrier: 130% of initial = 26,000 (continuous observation). Rebate: 6%. Capital protection: 100%.
 
 **Construction:**
 - 2-year zero-coupon bond at 96.5% = $965,000 cost → matures at $1,000,000
-- Option budget: $1,000,000 - $965,000 - $10,000 (margin) = $25,000
+- Option budget: $1,000,000 − $965,000 − $10,000 (margin) = $25,000
 - Up-and-out call (85% participation, barrier 130%, rebate 6%): costs ~$25,000
 
-**At maturity — Scenario A (HSI = 24,000, +20%, barrier NOT breached):**
-- Return = 85% × 20% = 17%
-- Client receives: $1,000,000 × (1 + 0.17) = $1,170,000
-- Profit: $170,000
+*Investor lens:*
+- **Scenario A (HSI = 24,000, +20%, barrier NOT breached):** Return = 85% × 20% = 17%. The investor receives $1,000,000 × (1 + 0.17) = **$1,170,000**. Profit: $170,000.
+- **Scenario B (HSI peaked at 27,000 then fell to 22,000, barrier WAS breached):** Barrier breached when HSI hit 26,000. Rebate mode activated. Return = 6% (fixed rebate, regardless of final level). The investor receives $1,000,000 × (1 + 0.06) = **$1,060,000**. Profit: $60,000. Without the barrier, the participation would have earned 85% × 10% = 8.5% = $85,000; the barrier cost the investor $25,000.
+- **Scenario C (HSI = 17,000, -15%, barrier NOT breached):** Capital protection. Return = 0%. The investor receives **$1,000,000**. Compared to a direct HSI investment, this saved a $150,000 loss.
 
-**At maturity — Scenario B (HSI peaked at 27,000 then fell to 22,000, barrier WAS breached):**
-- Barrier breached when HSI hit 26,000. Rebate mode activated.
-- Return = 6% (fixed rebate, regardless of final level)
-- Client receives: $1,000,000 × (1 + 0.06) = $1,060,000
-- Profit: $60,000
-- Without barrier: would have earned 85% × 10% = 8.5% = $85,000. Barrier cost client $25,000
+*Bank lens:*
+- In Scenario A the desk's short up-and-out call is in the money to the investor; the desk delivers the 17% participation funded by its hedge and keeps its $10,000 structuring margin and net hedging P&L. Product Control confirms the call MTM rolls to the participation payout and the zero-coupon accrual closes out at par.
+- In Scenario B the barrier was touched, so the desk's short up-and-out call is knocked out — the desk's delta disappears at the touch and it owes only the fixed 6% rebate ($60,000) on top of par. The 2nd line must confirm the knock-out flag was set when HSI hit 26,000, that the redemption is par + rebate (not participation), and that Murex's booking agrees with the observed barrier source before settlement.
 
-**At maturity — Scenario C (HSI = 17,000, -15%, barrier NOT breached):**
-- Capital protection. Return = 0%
-- Client receives: $1,000,000
-- Compared to direct HSI investment: saved $150,000 loss
+#### §13. Knowledge Check
 
-#### §19. Knowledge Check
+1. *(Investor)* **What is the investor really holding when they buy a Shark Fin Note?** (Answer: a capital-protected note (zero-coupon bond) plus a long up-and-out call — and they implicitly sell the knock-out feature to fund the enhanced participation.)
+2. *(Investor)* **Why does a Shark Fin Note offer higher participation than an equivalent PPN?** Decompose it.
+3. *(Investor)* **What is the rebate, and when is it paid instead of participation?**
+4. *(Investor)* **How does the barrier observation method (continuous vs discrete) affect the probability of a barrier breach, and which is riskier for the investor's upside?**
+5. *(Investor)* **What type of market view makes a Shark Fin attractive compared to a standard PPN?**
+6. *(Investor)* **Draw the payoff diagram of a Shark Fin at maturity, showing both the participated and knocked-out outcomes.**
+7. **(Desk economics / 1LoD)** What position does the desk hold against the investor, how does the desk's gamma behave as the underlying approaches the knock-out barrier, and what happens to the desk's delta the instant the barrier is touched? Why is that where the margin is made or lost?
+8. **(Controls / 2LoD)** Name three reconciliation breaks specific to a Shark Fin and the consequence of each for the investor's redemption — including which single field most often determines whether the participation was extinguished.
 
-**Review Questions:**
-1. Why does a Shark Fin Note offer higher participation than an equivalent PPN?
-2. What is the rebate, and when is it paid instead of participation?
-3. How does the barrier observation method (continuous vs discrete) affect the probability of a barrier breach?
-4. What type of market view makes a Shark Fin attractive compared to a standard PPN?
-5. How does a Shark Fin differ from a Bonus Certificate in its use of barriers?
+**Mental Models**
 
-**Scenario Questions:**
-1. You hold a 2-year Shark Fin on the S&P 500 with barrier at 140%. After 6 months, the S&P is at 135% of initial and rising steadily. What are you hoping happens, and what is the trader on the other side hoping for?
-2. A client is choosing between: (A) PPN with 60% participation and no barrier, or (B) Shark Fin with 85% participation and barrier at 130% with 5% rebate. Under what market scenario does each product outperform the other?
-3. Two Shark Fins on the same underlying and maturity are offered: one with barrier at 120%/rebate 8%, another at 150%/rebate 3%. Which has more barrier risk and why?
+| Concept | Mental Model |
+|---------|-------------|
+| Shark Fin Note | A fishing charter with a catch limit — keep every fish up to a cap, above which only a fixed consolation prize is paid |
+| Enhanced participation | Not free — it is funded by the knock-out feature the investor sells to the bank |
+| Knock-out barrier | The catch limit — the level above which the full upside is taken back and replaced by the rebate |
+| Continuous vs discrete observation | A warden watching 24/7 (continuous) vs a single daily headcount (discrete) |
+| Knock-out event | The limit is hit — participation is extinguished and the rebate locks in |
+| Participation vs rebate | The participated gain is the full catch; the rebate is the fixed consolation award once the limit trips |
+| 2LoD reconciliation | The harbour auditor — confirms whether the limit was truly hit and that the consolation amount and quota match before anyone is paid out |
 
-**Desk Question:**
-A client holds a Shark Fin where the underlying is at 128% of initial with 2 months to maturity, and the barrier is at 130%. The client asks: "Should I try to sell this in the secondary market before the barrier is breached?" How would you think about this question?
+**Key Takeaways**
 
-**Interview Layer Candidates:** Q1, Q5, Desk Q1
-**Examiner Notes Candidates:** Q2, Desk Q1
+1. A Shark Fin is a zero-coupon bond + a long up-and-out call with a rebate. The investor earns enhanced participation by selling the knock-out (the strong-rally scenario) to the bank.
+2. The enhanced participation is not free — it is funded by the knock-out premium the investor implicitly sells.
+3. If the barrier is never breached, the investor keeps full participation plus protected principal. If breached, the upside is replaced by the fixed rebate.
+4. Continuous observation is riskier for the investor's upside than discrete — any intraday touch knocks out, not just a closing breach.
+5. The payoff is discontinuous at the barrier — the rising participation line drops abruptly to the flat rebate level (the shark-fin shape).
+6. The dominant risk is opportunity cost: a strong rally past the barrier caps the return at the rebate, forgoing a large participated gain. Capital is never at risk.
+7. Shark Fins suit a moderate-bull view; the desk holds the offsetting short up-and-out call, with positive delta that vanishes at the barrier.
+8. For the 2nd line, the dominant control risks are knock-out capture, participation, the barrier convention/observation, the rebate, and the fixing — each can misstate the redemption.
 
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
-1. **Ignoring the barrier in the "best case" analysis.** Clients and salespeople calculate the "best case" as participation × maximum expected return, ignoring that a strong rally breaches the barrier and caps the return at the rebate
-2. **Confusing Shark Fin barrier with RC barrier.** In an RC, the barrier causes capital loss. In a Shark Fin, the barrier caps the gain but preserves capital. These are fundamentally different — one is a downside risk event, the other is an upside limitation event
-3. **Underestimating continuous barrier risk.** Intraday volatility means the underlying can breach a barrier even if it closes below it. A barrier at 130% that is "safe" on closing prices may be breached by intraday spikes
-4. **Setting the barrier too low for the client's view.** If a client expects 25% upside and the barrier is at 120%, the barrier will almost certainly be breached. The structure defeats its own purpose
-5. **Ignoring the rebate level.** A zero-rebate Shark Fin means the client receives nothing for the knock-out scenario. The rebate is the consolation prize — it should be meaningful
+1. **Treating the enhanced participation as "free yield."** The higher participation is funded by the knock-out feature the investor sells. It is compensation for giving up the strong-rally scenario, not free money.
+2. **Assuming the barrier caps only "excess" gain harmlessly.** Once breached, the entire participated upside is replaced by the small rebate — in a strong rally the investor can forgo a 30-40% gain for a 5-6% rebate.
+3. **Ignoring the barrier observation type.** Continuous (intraday-high) barriers are breached far more often than discrete (daily-close) barriers because any intraday touch counts. The participation uplift may not compensate for the higher breach probability.
+4. **Buying a Shark Fin with a strong-bull view.** If the investor expects a sharp rally, the barrier will likely be breached and the product underperforms a plain PPN or direct equity. The Shark Fin is a moderate-upside instrument.
+5. **Setting the barrier too close to spot or the rebate near zero.** A 110% barrier is very likely to breach (the investor receives the rebate, not participation); a near-zero rebate sacrifices all upside on breach for only marginally better participation.
+6. **(Controls) Trusting a single system's barrier value or knock-out status.** Because the barrier can be stored as a percentage or an absolute index level, and because an intraday touch must set the knock-out flag, the 2nd line must reconcile the barrier convention, the observation source, and the knock-out flag across systems rather than assume they agree.
 
-#### §21. Visual Specifications
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking / fixing / event-capture fields must reconcile, and which is the most common break?
 
-| # | Priority | Visual | Type | Description |
-|:-:|:--------:|--------|------|-------------|
-| 1 | P1 | Shark Fin payoff diagram | Payoff | Distinctive "fin" shape: rising line (participation) from 100% up to barrier, then horizontal drop to rebate level. Capital protection floor at 100% below |
-| 2 | P1 | Shark Fin vs PPN payoff comparison | Comparison | PPN (smooth rising line, lower slope) vs Shark Fin (steeper line, then drop at barrier). Shows participation tradeoff |
-| 3 | P2 | Construction waterfall | Waterfall | Bond (96.5%) + up-and-out call (3.5%) + margin → 100% protected + participation if no breach + rebate if breach |
-| 4 | P2 | Barrier observation diagram | Timeline | Shows continuous vs discrete barrier monitoring. Intraday spike breaches continuous barrier but not discrete |
-| 5 | P3 | Greeks near barrier | Multi-panel | Delta, gamma behaviour as underlying approaches barrier. Shows the "cliff" effect at barrier breach |
-| 6 | P3 | Three-way tradeoff sensitivity | Surface | Participation vs barrier vs rebate: shows how changing one affects the others |
-
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Capital protection, zero-coupon bond construction | Section 5.1.1 (PPN) |
-| Barriers and knock-out mechanics | Section 1.3 (Barriers and Digitals) |
-| Options, call payoff | Section 1.2 (Options From Zero) |
-| Delta, gamma, vega | Section 1.4 (Greeks) |
-| Volatility, smile/skew | Section 1.5 (Volatility) |
-| Structured Deposit (deposit wrapper comparison) | Section 5.6.1 (Structured Deposit) |
-| Bonus Certificate (barrier below, not above) | Section 5.1.8 (Bonus / Participation Note) |
-
+**Dual-lens visuals (generated):**
+- `assets/sharkfin/controls_sharkfin_recon_08.svg` `[generated]`
+- `assets/sharkfin/payoff_sharkfin_01.svg` `[generated]`
+- `assets/sharkfin/waterfall_sharkfin_09.svg` `[generated]`
 ### 5.6.10 Snowball Note
-
-*How This Differs From Phoenix Autocallable (5.1.3): The Phoenix has a "memory" feature: if a coupon is missed and the condition is later met, the missed coupon is paid. But each coupon is a fixed amount. The Snowball has a fundamentally different mechanism: missed coupons are not just remembered — they accumulate. Each period without a coupon payment, the "snowball" of owed coupons grows. When the condition is finally met, the entire accumulated snowball is paid at once. This means each observation date becomes more consequential as the snowball grows — creating a dramatically different risk profile from the Phoenix.*
 
 ---
 
+*The Phoenix Autocallable (Section 5.1.3) carries a "memory" feature: if a coupon is missed and the condition is later met, the missed coupon is paid — but each coupon is a fixed amount. The Snowball Note has a fundamentally different mechanism: missed coupons are not just remembered, they accumulate. Each period without a coupon payment, the "snowball" of owed coupons grows. When the condition is finally met, the entire accumulated snowball is paid at once. Each observation date therefore becomes more consequential as the snowball grows, creating a different risk profile from the Phoenix. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+
 #### §1. Explain Like I'm New
 
-Imagine a snowball rolling downhill. It starts small. Each metre it rolls, it picks up more snow. The longer it rolls, the bigger it gets. If someone catches it after 3 metres, they hold a modest snowball. If it rolls for 30 metres, they hold a boulder of snow.
+A snowball rolling downhill starts small and picks up more snow with every metre it rolls. Caught after 3 metres it is a modest snowball; left for 30 metres it is a boulder of snow.
 
-A **Snowball Note** works exactly like this. The investor earns a coupon each period — but only if the underlying asset is above a certain level. If the underlying falls below that level, the coupon is not paid. Instead, the unpaid coupon is added to a growing "snowball." On the next observation date where the underlying recovers above the threshold, the entire snowball — all accumulated missed coupons — is paid at once.
+A **Snowball Note** behaves the same way. The investor earns a coupon each period — but only if the underlying asset is above a certain level. If the underlying falls below that level, the coupon is not paid that period. Instead, the unpaid coupon is added to a growing accumulator. On the next observation date where the underlying recovers above the threshold, the entire accumulated amount — all the missed coupons — is paid at once.
 
-The longer the underlying stays below the threshold, the larger the snowball grows. When it finally pays out, the accumulated amount can be enormous. But if the underlying never recovers, or if the product is autocalled early, the snowball may never fully pay out.
-
-This is the most popular structured product in China and one of the most-traded in South Korea. It combines the autocall mechanics of a Phoenix with a cumulative coupon mechanism that creates a fundamentally different investment experience.
+The longer the underlying stays below the threshold, the larger the accumulated coupon grows. When it finally pays out, the accumulated amount can be large. But if the underlying never recovers, or if the product is autocalled early, the full accumulation may never be paid out. This is the most popular structured product in China and one of the most-traded in South Korea. It combines the autocall mechanics of a Phoenix with a cumulative coupon mechanism that creates a different investment experience.
 
 #### §2. Real-World Analogy
 
-A Snowball Note is like a rolling snowball downhill.
+A Snowball Note is like a snowball rolling downhill.
 
-A child pushes a small snowball at the top of a hill. Each second it rolls, it picks up more snow and grows. If it hits a tree (coupon barrier met), the child collects the snowball — the longer it rolled, the more snow they get. If it reaches the bottom of the hill without hitting anything (maturity without coupon trigger), the child gets nothing — the snow melts. If a park ranger stops the snowball early (autocall), the child gets whatever has accumulated so far.
+A small snowball is pushed at the top of a hill. Each second it rolls, it picks up more snow and grows. If it hits a tree (coupon barrier met), the snowball is collected — the longer it rolled, the more snow there is. If it reaches the bottom of the hill without hitting anything (maturity without a coupon trigger), nothing is collected — the snow melts. If a park ranger stops it early (autocall), whatever has accumulated so far is collected.
 
 In this analogy:
-- The **initial push** is the starting coupon amount per period
-- The **rolling and growing** is the accumulation of missed coupons
-- The **tree** is the coupon observation barrier
-- The **park ranger** is the autocall trigger
-- The **hill bottom** is maturity
-- The **melting** is the potential loss at maturity if the underlying has fallen significantly
+- The **initial push** is the starting coupon amount per period.
+- The **rolling and growing** is the accumulation of missed coupons.
+- The **tree** is the coupon observation barrier.
+- The **park ranger** is the autocall trigger.
+- The **hill bottom** is maturity.
+- The **melting** is the potential loss at maturity if the underlying has fallen significantly.
 
-The critical insight: the snowball only grows when it is NOT paid. Periods of non-payment make the eventual payout larger — but also increase the risk that the payout never comes.
+The critical insight: the accumulator only grows when the coupon is NOT paid. Periods of non-payment make the eventual payout larger — but also increase the risk that the payout never comes. In this analogy the investor collects the accumulated snowball and bears the tail if the underlying never recovers, while the bank holds the right to stop the structure early via autocall.
 
 #### §3. What Problem Does This Solve?
 
-Snowballs solve the **"I want higher coupons for waiting"** problem.
+The Snowball solves the **"higher coupons for waiting"** problem.
 
-| User | Problem | Snowball Solution |
+| Investor Need | Why Standard Products Fall Short | What the Snowball Offers |
 |------|---------|------------------|
-| Yield-seeking investor | Standard autocallable coupons are modest. Wants compensation for taking risk over extended periods | Snowball accumulates missed coupons. If the product survives and the condition is eventually met, the payout is much larger than individual fixed coupons |
-| Client with recovery view | Believes the market is temporarily depressed and will recover | Snowball rewards patience. The longer the market stays depressed before recovering, the larger the coupon payout when it does recover |
-| Asian private banking client | Wants structured yield product aligned with local market preference | Snowball is the dominant product type in China and Korea. Familiar structure with known risk profile |
+| Yield-seeking investor wanting compensation for taking risk over extended periods | Standard autocallable coupons are modest | The accumulator rolls up missed coupons. If the product survives and the condition is eventually met, the payout is much larger than individual fixed coupons |
+| Investor with a recovery view | Wants to express the view that the market is temporarily depressed and will recover | The accumulator rewards patience — the longer the market stays depressed before recovering, the larger the coupon payout when it does |
+| Asian private banking client | Wants a structured yield product aligned with local market preference | The Snowball is the dominant product type in China and Korea — a familiar structure with a known risk profile |
 
 #### §4. Product DNA
 
@@ -19372,11 +19530,11 @@ Snowballs solve the **"I want higher coupons for waiting"** problem.
 | Role | Responsibility |
 |------|---------------|
 | **Structurer** | Designs the accumulation mechanism, sets coupon rate per period, autocall barrier, knock-in barrier, and observation frequency. Balances yield enhancement against capital risk |
-| **Trader** | Hedges the autocall and barrier exposure. Manages the vol surface risk. Snowball creates a complex delta profile — delta depends on how much coupon has accumulated |
+| **Trader** | Hedges the autocall and barrier exposure. Manages the vol surface risk. The Snowball creates a complex delta profile — delta depends on how much coupon has accumulated |
 | **Sales** | Core product in Asia-Pacific markets. Explains the accumulation mechanics and the distinction from Phoenix memory. Manages client expectations about path dependency |
-| **Risk** | Monitors aggregate exposure to barrier breach. Watches for concentration in single underlyings. Stress-tests the impact of prolonged market downturns on snowball accumulation and capital risk |
+| **Risk** | Monitors aggregate exposure to barrier breach. Watches for concentration in single underlyings. Stress-tests the impact of prolonged market downturns on accumulation and capital risk |
 | **Product Control** | Verifies snowball accumulation calculations. Checks autocall probability. Validates coupon amounts against observation history |
-| **Operations** | Tracks cumulative coupon counter across observation dates. Records barrier status (breached/not breached). Manages autocall settlements and coupon payments |
+| **Operations** | Tracks the cumulative coupon counter across observation dates. Records barrier status (breached/not breached). Manages autocall settlements and coupon payments |
 | **Legal/Compliance** | Suitability for retail investors. Disclosure of maximum loss. Regulatory classification (OTC vs note). Client understanding of accumulation mechanics |
 | **Quantitative Analytics** | Monte Carlo pricing (analytical solutions not available for cumulative structures). Path-dependent payoff modelling. Autocall probability calibration |
 
@@ -19386,157 +19544,159 @@ Snowballs solve the **"I want higher coupons for waiting"** problem.
 |-----|------------|
 | **2010s** | Snowball Notes emerge in China as a variation on autocallable structures. Chinese investors familiar with structured deposits seek higher yield |
 | **2015-2018** | Rapid adoption in China and South Korea. CSI 300 and KOSPI become dominant underlyings. Product volumes grow to hundreds of billions of RMB |
-| **2019** | Snowball becomes the #1 structured product by volume in China. Regulatory attention increases. CSRC monitors systemic risk from concentrated Snowball positions |
+| **2019** | The Snowball becomes the #1 structured product by volume in China. Regulatory attention increases. CSRC monitors systemic risk from concentrated Snowball positions |
 | **2020-2021** | COVID volatility triggers widespread barrier breaches. Some investors face large losses. Regulatory tightening: minimum investment thresholds raised, suitability requirements strengthened |
 | **2022-2025** | Market maturation. Better risk disclosure. Institutional adoption alongside retail. Product design evolves: longer no-call periods, more conservative barriers |
 
-#### §7. How the Bank Makes Money
+---
 
-| Component | Detail |
-|-----------|--------|
-| **Option premium (implicit)** | Client is short a knock-in put (capital risk) and short autocall optionality. Combined premium funds the cumulative coupon |
-| **Structuring margin** | 1-3% of notional. Higher than standard autocallable due to complexity premium |
-| **Hedging profit** | Dynamic hedging of the autocall and barrier. Banks earn bid-offer on the vol surface and autocall replication |
-| **Funding benefit** | Client's principal funds the bank for the product's life. Bank earns the spread between deposit rate and wholesale funding cost |
+#### §7. THE INVESTOR LENS
 
-**Snowball economics differ from Phoenix:**
-In a Phoenix, the missed coupon (when paid via memory) is the same fixed amount. In a Snowball, the accumulated coupon grows each period. This means the bank's potential payout liability increases over time — the longer the coupon goes unpaid, the larger the eventual bill. The bank prices this by charging a higher effective structuring margin upfront.
+**Why the investor buys it**
 
-#### §8. Why This Product Exists (Client Perspective)
+1. **Compensation for patience.** If the market dips temporarily and recovers, the Snowball pays all accumulated coupons at once — rewarding the investor for staying through the downturn.
+2. **Higher potential yield.** The accumulation mechanism means a single coupon payment can equal 6-12 months of missed individual coupons. Annualised return can far exceed standard autocallable rates.
+3. **Recovery play.** An investor who believes a market downturn is temporary can use the Snowball to earn enhanced returns on the recovery.
+4. **Market familiarity (Asia).** In China and Korea, the Snowball is as familiar as the RC is in Switzerland. Clients understand the structure and can compare offerings easily.
 
-1. **Compensation for patience.** If the market dips temporarily and recovers, the Snowball pays all missed coupons at once — rewarding the investor for staying through the downturn
-2. **Higher potential yield.** The accumulation mechanism means a single coupon payment can equal 6-12 months of missed individual coupons. Annualised return can far exceed standard autocallable rates
-3. **Recovery play.** Investors who believe a market downturn is temporary can use Snowballs to earn enhanced returns on the recovery
-4. **Market familiarity (Asia).** In China and Korea, the Snowball is as familiar as the RC is in Switzerland. Clients understand the structure and can compare offerings easily
+**Position taken**
 
-#### §9. The Three Scenarios
+The investor simultaneously holds a long note (lends principal to the issuer) and a set of **short** embedded options sold to the bank: a **short** knock-in put (capital risk) and a **short** autocall option (the bank's right to redeem early). The accumulating coupon is the compensation for selling that optionality. Net, the investor is **short volatility** (hurt by volatile markets) and carries full equity downside below the strike once the knock-in barrier is breached. With a single underlying there is no correlation exposure; the basket (worst-of) variant additionally exposes the investor to correlation — set by the worst performer, the investor is structurally **short** the correlation premium but **long correlation under the MTM convention**, since rising correlation reduces worst-of risk.
+
+**Payoff & scenarios**
+
+The investor's payoff is path-dependent — the outcome depends on the entire sequence of observations, not just the final level. On each observation date the underlying is checked against two thresholds: at or above the **coupon barrier**, the accumulated coupon (current period plus all prior missed periods) is paid and the accumulator resets; below the coupon barrier, nothing is paid and the period's coupon is added to the accumulator. After the no-call period, the underlying is also checked against the **autocall barrier**: at or above it, the note redeems early at 100% plus the accumulated coupon. If the note runs to maturity, the **knock-in barrier** determines whether principal is returned in full (plus the accumulated coupon) or reduced by the underlying's decline.
 
 **Terms:** USD 1,000,000 Snowball on CSI 300. Maturity: 1 year (12 monthly observations). Coupon: 2% per month (24% annualised). Autocall barrier: 100% of initial. Coupon barrier: 80% of initial. Knock-in barrier: 75% of initial (continuous). No-call period: 3 months.
 
-| Scenario | Path | Outcome | Client Receives |
+| Scenario | Path | Outcome | Investor Receives |
 |----------|------|---------|:---------------:|
-| **Autocall (Month 6)** | CSI below 100% for months 1-5 (5 missed coupons), above 100% at month 6 | Autocalled. Snowball pays accumulated coupons: 6 × 2% = 12% | $1,120,000 |
-| **Full ride (no autocall, no KI)** | CSI stays between 75-100% for all 12 months. Above 80% at month 12 | Maturity. Snowball pays 12 × 2% = 24% | $1,240,000 |
-| **Knock-in loss** | CSI drops below 75% (KI breached). Finishes at 70% of initial | Capital loss. No snowball coupon. Principal reduced by market decline | $700,000 |
+| **Autocall (Month 6)** | CSI below 100% for months 1-5 (5 missed coupons), above 100% at month 6 | Autocalled. Accumulator pays accumulated coupons: 6 × 2% = 12% | $1,120,000 |
+| **Full ride (no autocall, no KI)** | CSI stays between 75-100% for all 12 months. Above 80% at month 12 | Maturity. Accumulator pays 12 × 2% = 24% | $1,240,000 |
+| **Knock-in loss** | CSI drops below 75% (KI breached). Finishes at 70% of initial | Capital loss. No accumulated coupon. Principal reduced by market decline | $700,000 |
 
 **Key insight:** The "full ride" scenario is the best possible outcome — 12 months of accumulated coupons paid at once. But this requires the underlying to stay in a narrow band (above knock-in but below autocall) for the entire year. This is the paradox of the Snowball: the best outcome requires the underlying to perform poorly enough to avoid autocall but well enough to avoid knock-in.
 
-#### §10. What Happens When Markets Move
+**Risks to the investor**
 
-| Market Condition | Impact on Snowball Holder |
-|-----------------|--------------------------|
-| **Underlying rises above autocall** | Product autocalled. Accumulated snowball paid. Positive outcome but limits further accumulation |
-| **Underlying stays in range (above KI, below autocall)** | Snowball continues growing. Each month adds another coupon to the accumulation. Best for eventual payout but extends risk period |
-| **Underlying falls below knock-in** | Capital at risk. If underlying stays below strike at maturity, investor loses principal. Snowball coupon may not be paid |
-| **Underlying recovers after near-miss** | Snowball pays out all accumulated coupons. The recovery reward is proportional to how long the market was depressed |
-| **Volatility rises** | Autocall and KI barrier probabilities both change. Higher vol generally increases barrier breach risk |
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Capital loss (knock-in + below strike)** | If the barrier is breached and the underlying is below strike at maturity, the investor loses principal proportionally. No floor. | Very High |
+| **Accumulation concentration (path/autocall)** | A large accumulated coupon creates an "all-or-nothing" dynamic — the payout is either very large (if triggered) or zero (if the barrier is breached). Early autocall limits accumulation; late autocall maximises it but extends the risk period. | High |
+| **Market gap risk** | A sudden market drop can breach the continuous knock-in barrier without passing through intermediate levels — common in Asian equity indices. | Medium |
+| **Issuer / counterparty credit risk** | OTC format. A large accumulated coupon represents significant exposure to the issuer/counterparty if the payout is triggered. | Medium |
+| **Volatility** | Higher volatility raises both autocall and knock-in barrier breach probabilities; the short-vol investor is hurt through barrier risk. | Medium |
 
-#### §11. Formal Definition
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
 
-A Snowball Note is an autocallable structured note with a cumulative coupon mechanism where unpaid coupons accumulate and are paid in full when the coupon condition is next met or upon autocall.
+**What the desk books**
+
+The desk's position is the mirror image of the investor's. Where the investor is short the embedded options, the desk is **long** them (bought from the investor): long the knock-in put (capital risk) and long the autocall option (the right to redeem the note early). Alongside these the desk has issued a note, which is a funding liability. The investor's accumulating coupon is, to the desk, the cost of the option premiums plus funding, returned to the client. The accumulation provision is the structural difference from a Phoenix: in a Phoenix, the missed coupon (when paid via memory) is the same fixed amount; in a Snowball, the accumulated coupon grows each period, so the desk's potential payout liability increases the longer the coupon goes unpaid.
+
+**Greeks, hedging & autocall replication**
+
+The desk dynamically delta-hedges by trading the underlying, and must manage delta and gamma as the accumulator grows: a Snowball that has accumulated 6 months of unpaid coupons has a much larger potential payout — and therefore a larger delta — than one with 1 month accumulated. Because the payoff is discontinuous, gamma spikes near the **autocall barrier**: if the underlying is just below the autocall barrier on an observation date, a small move up triggers a large discontinuous payout (the entire accumulated coupon plus principal redemption), forcing the desk to unwind a large hedge if the note autocalls or carry it if it does not. This **pin risk near the autocall barrier** grows with the accumulator and is the desk's signature exposure. The knock-in put adds a second region of sharp convexity near the capital barrier. Risk management monitors barrier proximity and may impose limits on concentrated barrier and autocall exposure.
+
+**How the bank makes money**
+
+| Revenue Component | Detail |
+|------------------|--------|
+| **Option premium (implicit)** | The investor is short a knock-in put (capital risk) and short autocall optionality. The combined premium funds the cumulative coupon |
+| **Structuring margin** | 1-3% of notional. Higher than a standard autocallable due to the complexity premium |
+| **Hedging profit** | Dynamic hedging of the autocall and barrier. The bank earns bid-offer on the vol surface and autocall replication |
+| **Funding benefit** | The investor's principal funds the bank for the product's life. The bank earns the spread between deposit rate and wholesale funding cost |
+
+**The coupon decomposition:**
+
+Net coupon = Knock-in put premium + Autocall option premium − Funds Transfer Pricing (FTP) − Desk margin
+
+The dominant blocks are the premiums the investor pays away by selling the knock-in put and the autocall option; the bank funds the bond/credit leg and recovers FTP and desk margin. Because the accumulated coupon can equal up to 12 months of unpaid coupons paid at once in the worst-case accumulation scenario, the structurer must ensure the option premium is sufficient to fund these coupons even at full accumulation. Mispricing the accumulation risk is the biggest structuring error, and the bank prices the larger potential payout liability by charging a higher effective structuring margin upfront than on a Phoenix.
+
+![Snowball Coupon Decomposition — Bank Lens (Desk Economics)](assets/snowball/waterfall_snowball_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by realized-versus-implied volatility on the delta hedge, moves in the underlying near the autocall and knock-in barriers (gamma and pin risk, scaled by the size of the accumulator), funding, and the mark-to-market of the embedded options. Because the Snowball has a cumulative path-dependent payoff with no analytical solution, Monte Carlo simulation (typically 50,000-100,000 paths) is required to revalue it. Product Control attributes P&L between note accrual and option MTM and performs independent price verification.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
+
+| Aspect | Detail |
+|--------|--------|
+| **Primary system** | Murex |
+| **Booking model** | Path-dependent exotic option. Must track observation history and the accumulation counter |
+| **Booking structure** | Single note with embedded knock-in put + autocall option + cumulative coupon counter |
+| **Four-leg framework?** | No |
+| **Key booking fields** | Notional, initial level, autocall barrier, coupon barrier, knock-in barrier, barrier types, coupon rate per period, observation frequency, no-call period, accumulation counter, maturity, underlying(s) |
+| **Valuation model** | Monte Carlo simulation (required — no analytical solution for the cumulative payoff). Typically 50,000-100,000 paths |
+| **Observation dates** | Monthly (typically) — each date requires checking the coupon barrier (pay or accumulate) and, after the no-call period, the autocall barrier (redeem or continue) |
+| **Settlement** | Cash at autocall or maturity. Payment = 100% × notional + accumulated coupon × notional |
+
+**Reconciliation points**
+
+| Recon point | What must agree | Snowball-specific break |
+|-------------|-----------------|-------------------------|
+| **Snowball accumulator tracking** | The cumulative coupon counter — how many periods are accumulated and the accumulated amount — agrees across systems on every observation date | Murex and the downstream record disagree on the accumulator → wrong catch-up payment; a single counter error propagates to all future calculations |
+| **Observation schedule** | The full set of observation dates, the no-call period, and the autocall start date agree across systems | A missing or misdated observation skips a coupon check or an autocall check entirely |
+| **Autocall event capture** | The autocall trigger flag and the early-redemption date are consistent across systems | Autocall condition met but not processed (or processed late) → note carried when it should have terminated, and the wrong accumulated coupon paid |
+| **Knock-in event capture** | The continuous knock-in flag is consistent across systems | Intraday/continuous breach missed → capital protection wrongly assumed and redemption miscalculated |
+| **Fixings** | The fixing source for each observation level matches the termsheet | Different vendors report different closes → wrong barrier comparison and wrong accumulator update |
+| **Coupon barrier capture** | The coupon-paid vs coupon-accumulated flag for each observation date is consistent | Coupon paid when the underlying was below the coupon barrier (accumulator not reset), or accumulated when it was above (catch-up not triggered) |
+| **P&L attribution** | Note accrual + option MTM reconciles to total | Unexplained P&L points to a stale vol surface or a wrong fixing |
+| **Settlement** | Cash at autocall/maturity: 100% × notional + accumulated coupon × notional; delivery-versus-payment | Accumulated coupon mis-totalled, or capital-loss redemption (notional × final/initial) booked at par |
+
+![SNOWBALL Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/snowball/controls_snowball_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Accumulator counter mismatch | Murex and the downstream record disagree on how many periods are accumulated | Manually trace each observation date's pay/accumulate decision and reconcile the counter; a single error propagates to every later calculation |
+| Autocall not triggered when it should have been | A data error on the observation date stopped the autocall from processing | Check the fixing data; if the autocall condition was met, process retroactively and recompute the accumulated coupon paid |
+| Knock-in breach missed | Continuous barrier monitored only on daily closes | Ensure real-time/intraday monitoring is in place; a missed breach overstates capital protection |
+| Coupon paid below the coupon barrier | The accumulator was not reset, or a coupon was paid when none was due | Investigate; may require reversal, recompute of the accumulator, and client notification |
+| Very high coupon rate (> 30% annualised) | May indicate aggressive barrier levels — the coupon is funded by risk | Confirm barrier levels and suitability; higher coupon = more accumulation and capital risk |
+
+**Control implication**
+
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. The control point that distinguishes the Snowball from a simple barrier note is **snowball accumulator tracking**: because the accumulated coupon grows each period a coupon is missed, a single error in the counter propagates to every future calculation and to the eventual catch-up payment — paying the investor too little or too much and breaking P&L attribution at the same time. Autocall and knock-in event capture both feed that accumulator (the autocall crystallises and pays it; a knock-in can wipe it). The reconciliation must therefore run on **every observation date**, not just at maturity, tracking the full observation history rather than the current state alone — to catch these inconsistencies before settlement crystallises them.
+
+#### §10. Formal Definition
+
+A **Snowball Note** is an autocallable structured note with a cumulative coupon mechanism where unpaid coupons accumulate and are paid in full when the coupon condition is next met or upon autocall.
 
 **Coupon at observation date t:**
 
-If underlying ≥ coupon barrier at date t:
-  Coupon_t = coupon rate per period × number of periods since last coupon payment (or since inception)
+- If underlying ≥ coupon barrier at date t: Coupon_t = coupon rate per period × number of periods since the last coupon payment (or since inception). The accumulator resets to 0.
+- If underlying < coupon barrier at date t: Coupon_t = 0. The unpaid amount is added to the accumulator.
 
-If underlying < coupon barrier at date t:
-  Coupon_t = 0. Unpaid amount added to snowball accumulator.
+**Autocall at observation date t (after the no-call period):**
 
-**Autocall at observation date t (after no-call period):**
-
-If underlying ≥ autocall barrier:
-  Product redeems at 100% + Coupon_t (which includes all accumulated unpaid coupons)
+- If underlying ≥ autocall barrier: the product redeems at 100% + Coupon_t (which includes all accumulated unpaid coupons).
 
 **At maturity (if not autocalled):**
 
-If knock-in barrier was never breached:
-  Payoff = 100% + Coupon_T (accumulated)
-
-If knock-in barrier was breached AND underlying < strike at maturity:
-  Payoff = 100% × (S_T / S_0). Capital loss. No coupon.
-
-If knock-in barrier was breached AND underlying ≥ strike at maturity:
-  Payoff = 100% + Coupon_T (accumulated)
+- If the knock-in barrier was never breached: Payoff = 100% + Coupon_T (accumulated).
+- If the knock-in barrier was breached AND underlying < strike at maturity: Payoff = 100% × (S_T / S_0). Capital loss. No coupon.
+- If the knock-in barrier was breached AND underlying ≥ strike at maturity: Payoff = 100% + Coupon_T (accumulated).
 
 **Accumulation formula:**
-Snowball_t = Σ (coupon rate × 1 period) for each period from last payment date to current date
+Snowball_t = Σ (coupon rate × 1 period) for each period from the last payment date to the current date.
 
-#### §12. Product Construction
-
-| Component | Value | Purpose |
-|-----------|:-----:|---------|
-| Principal investment | 100% | Investor's capital at risk |
-| Short knock-in put | Premium funds part of coupon | Client sells capital protection — premium flows to coupon |
-| Short autocall option | Premium funds part of coupon | Client sells early redemption right — premium flows to coupon |
-| Cumulative coupon counter | 2% per month, accumulating | Tracks unpaid coupons and pays them on trigger or maturity |
-
-**If you remember only one thing from this chapter, remember this:** The Snowball grows when you do NOT get paid. Each missed coupon makes the next payout bigger — but also increases the stakes if the payout never comes. The product rewards patience but punishes a market that never recovers.
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Timing | Action |
 |-------|--------|--------|
-| **Trade date** | T | Snowball Note issued. Initial observation level set. Snowball counter = 0 |
-| **No-call period** | Months 1-3 | Coupon observations occur but autocall cannot trigger. Snowball may begin accumulating |
-| **Monthly observations** | Months 1-12 | On each date: check coupon barrier (pay or accumulate), check autocall barrier (redeem or continue) |
-| **Coupon payment** | When triggered | If underlying ≥ coupon barrier: pay accumulated snowball. Counter resets to 0 |
+| **Trade date** | T | Snowball Note issued. Initial observation level set. Accumulation counter = 0. Book in Murex |
+| **No-call period** | Months 1-3 | Coupon observations occur but autocall cannot trigger. The accumulator may begin building |
+| **Monthly observations** | Months 1-12 | On each date: check the coupon barrier (pay or accumulate), then check the autocall barrier (redeem or continue) |
+| **Coupon payment** | When triggered | If underlying ≥ coupon barrier: pay the accumulated coupon. Counter resets to 0 |
 | **Autocall** | Months 4-12 | If underlying ≥ autocall barrier: redeem at 100% + accumulated coupon |
-| **Barrier monitoring** | Continuous | Knock-in barrier observed continuously. If breached, capital protection removed |
+| **Barrier monitoring** | Continuous | The knock-in barrier is observed continuously. If breached, capital protection is removed |
 | **Maturity** | Month 12 | If not autocalled: pay 100% + accumulated coupon (if no KI or if above strike). OR pay market value (if KI and below strike) |
 
-#### §14. Desk Reality
-
-**What traders think about:**
-The Snowball creates a non-linear hedging problem. As the snowball accumulates, the bank's potential payout liability grows — which changes the delta and gamma profile of the hedge. A Snowball that has accumulated 6 months of unpaid coupons has a much larger potential payout than one with 1 month accumulated. The trader must dynamically adjust hedges as the accumulation grows. Near autocall observation dates, the hedging becomes especially complex: if the underlying is just below the autocall barrier, a small move up triggers a large payout (the entire accumulated snowball), creating a discontinuous payoff.
-
-**What structurers think about:**
-Calibrating the coupon rate. In China, competition drives Snowball coupons to aggressive levels (20-30% annualised). The structurer must ensure the option premium from the knock-in put and autocall optionality is sufficient to fund these coupons even in the worst-case accumulation scenario (12 months of unpaid coupons paid at once). Mispricing the accumulation risk is the biggest structuring error.
-
-**What operations thinks about:**
-Tracking the snowball counter accurately. Each observation date requires: (1) fixing the underlying level, (2) comparing to coupon barrier and autocall barrier, (3) updating the accumulation counter, (4) calculating any coupon payment including the accumulated amount. A single error in the counter propagates to all future calculations. Systems must track the full observation history, not just the current state.
-
-#### §15. Risk Analysis
-
-| Risk | Severity | Description |
-|------|:--------:|------------|
-| **Capital loss (knock-in + below strike)** | Very High | If barrier breached and underlying below strike at maturity, investor loses principal proportionally. No floor |
-| **Accumulation concentration** | High | Large accumulated snowball creates "all-or-nothing" dynamic. The payout is either very large (if triggered) or zero (if barrier breached) |
-| **Autocall timing** | Medium | Early autocall limits accumulation. Late autocall maximises accumulation but extends risk period |
-| **Market gap risk** | Medium | Sudden market drop can breach knock-in barrier without passing through intermediate levels. Common in Asian equity indices |
-| **Counterparty risk** | Medium | OTC format. Large accumulated snowball represents significant counterparty exposure if payout is triggered |
-
-**Greeks profile:**
-
-| Greek | Value | Significance |
-|-------|:-----:|-------------|
-| Delta | Varies with accumulation | Larger accumulation = larger delta near autocall barrier (bigger payout = bigger hedge) |
-| Gamma | Very high near autocall barrier | Small move triggers large discontinuous payout. Hedging difficulty peaks |
-| Vega | Short | Investor is short options. Higher vol hurts through barrier risk |
-| Theta | Complex | Time brings each observation closer — affects both autocall probability and barrier risk |
-
-#### §16. Booking and Systems
-
-| Dimension | Detail |
-|-----------|--------|
-| **Primary system** | Murex |
-| **Booking model** | Path-dependent exotic option. Must track observation history and accumulation counter |
-| **Valuation model** | Monte Carlo simulation (required — no analytical solution for cumulative payoff). Typically 50,000-100,000 paths |
-| **Market data** | Underlying spot, implied volatility surface, interest rate curve, dividend yield, correlation (for basket variants) |
-| **Settlement** | Cash at autocall or maturity. Payment = 100% × notional + accumulated coupon × notional |
-| **Special requirements** | Observation date calendar, barrier monitoring system, accumulation counter logic |
-
-#### §17. Red Flags
-
-| Red Flag | Why It Matters |
-|----------|---------------|
-| Very high coupon rate (> 30% annualised) | May indicate aggressive barrier levels. The coupon is funded by risk — higher coupon = more risk |
-| Knock-in barrier close to spot (e.g., 70-75% for volatile underlying) | High probability of capital loss in a significant downturn. CSI 300 dropped 30%+ multiple times in 2015-2022 |
-| Client does not understand accumulation vs memory | Will expect Phoenix-style fixed coupon payouts and be confused by the growing snowball amount |
-| No-call period is very short (1 month) | Product likely autocalls early with minimal accumulation. Client receives a small coupon and must reinvest |
-| Concentrated exposure (single stock, not index) | Single-stock Snowballs have much higher barrier breach risk than index-linked. Suitability concern |
-
-#### §18. Worked Example
+#### §12. Worked Example (both lenses)
 
 **Terms:**
 - Notional: RMB 10,000,000 (USD ~1,400,000)
@@ -19565,86 +19725,84 @@ Tracking the snowball counter accurately. Each observation date requires: (1) fi
 **Annualised return:** 1,400,000 / 10,000,000 / (7/12) = 24%
 **Total received at autocall:** RMB 10,000,000 + 200,000 = RMB 10,200,000 (plus prior coupons)
 
-**Key observation:** Month 5 paid out 3 months of accumulated coupons at once (RMB 600,000). This is the snowball effect — the missed months 3-4 made the month 5 payout 3× a normal coupon.
+*Investor lens:* The investor collects RMB 1,400,000 of coupons — including the RMB 600,000 month-5 payout, which is 3 months of accumulated coupons (months 3-4 missed, plus month 5) paid at once — and receives full principal back when the note autocalls at month 7. Month 5 paid out 3× a normal coupon: this is the snowball effect — the missed months 3-4 made the month 5 payout three times a single coupon.
 
-#### §19. Knowledge Check
+*Bank lens:* The desk holds the long embedded options against the investor. Through months 3-4 the underlying is below the 80% coupon barrier (but above the 75% knock-in barrier), so no coupon is paid and the accumulator builds to 6%; the desk carries the growing potential payout in its delta. At month 5 the desk funds the RMB 600,000 catch-up as the accumulator resets, and at month 7 the autocall (CSI at 102.5%, above the 100% autocall barrier) terminates the structure and the desk unwinds the hedge. The 2nd line must confirm on each observation date that the accumulator counter (built to 6% by month 4, reset at month 5), the coupon-paid flags, the continuous knock-in status, and the month-7 autocall event all agree in Murex before each payment and the final redemption settle.
 
-**Review Questions:**
-1. How does the Snowball accumulation mechanism differ from the Phoenix memory feature?
-2. What happens to the accumulated snowball if the knock-in barrier is breached?
-3. Why does the "full ride" scenario (no autocall, no knock-in, all 12 months accumulated) represent both the best and riskiest outcome?
-4. How does the snowball accumulation affect the bank's hedging challenge?
-5. Why are Snowball Notes particularly popular in China compared to standard Phoenix Autocallables?
+#### §13. Knowledge Check
 
-**Scenario Questions:**
-1. A Snowball has accumulated 8 months of unpaid coupons (8 × 2% = 16% of notional). The underlying is at 99% of initial with 1 month to maturity. Autocall barrier is 100%. What is the trader on the other side of this trade thinking?
-2. Two identical Snowballs are issued on the same day. One autocalls at month 3 (small snowball). The other autocalls at month 11 (large snowball). Which client earned more in absolute terms? Which earned a better annualised return?
-3. A client is choosing between a Snowball with 2% monthly coupon and 75% KI barrier, and a Phoenix with 1.5% monthly coupon and 70% KI barrier. Under what market paths does each product outperform?
+1. **How does the Snowball accumulation mechanism differ from the Phoenix memory feature?** *(Investor)*
+2. **What happens to the accumulated coupon if the knock-in barrier is breached and the underlying is below strike at maturity?** *(Investor)*
+3. **Why does the "full ride" scenario (no autocall, no knock-in, all 12 months accumulated) represent both the best and the riskiest outcome?** *(Investor)*
+4. **Why are Snowball Notes particularly popular in China compared to standard Phoenix Autocallables?** *(Investor)*
+5. **A Snowball has accumulated 8 months of unpaid coupons (8 × 2% = 16% of notional). The underlying is at 99% of initial with 1 month to maturity, autocall barrier at 100%. Describe the payoff if it finishes at 101% versus 70%.** *(Investor)*
+6. **(Desk economics / 1LoD)** What package of embedded options does the desk hold long against the investor, and how does the desk's delta and gamma change as the accumulator grows? Explain the pin risk near the autocall barrier and why it is the desk's signature exposure.
+7. **(Controls / 2LoD)** On each observation date, which fields must reconcile in Murex for a Snowball, and why is snowball accumulator tracking the break most specific to this product? What is the consequence if the counter is wrong?
 
-**Desk Question:**
-A client holds a Snowball that has accumulated 6 months of coupons (12% of notional). The underlying has just breached the knock-in barrier. The client asks: "Do I still get my accumulated coupons?" What is the answer, and what are the client's remaining outcomes?
+**Mental Models**
 
-**Interview Layer Candidates:** Q1, Q3, Desk Q1
-**Examiner Notes Candidates:** Q1, Desk Q1
+| Concept | Mental Model |
+|---------|-------------|
+| Snowball Note | A snowball rolling downhill — it grows only while it is NOT collected |
+| Accumulating coupon | Missed coupons are not lost — they roll up into a growing pot paid all at once on recovery |
+| Coupon barrier | The tree the snowball must hit to be collected (and the accumulator reset) |
+| Autocall barrier | The park ranger who stops the snowball early — paying whatever has accumulated |
+| Knock-in barrier | The bottom of the hill where the snow can melt — capital at risk |
+| The Snowball paradox | The best outcome needs the underlying to stay low enough to avoid autocall but high enough to avoid knock-in |
+| 2LoD reconciliation | The auditor who re-runs every observation — confirming the accumulator, the pay/accumulate flag, and the autocall and knock-in flags agree before any payment |
 
-#### §20. Common Mistakes
+**Key Takeaways**
 
-1. **Confusing Snowball accumulation with Phoenix memory.** Phoenix memory pays the same fixed coupon retroactively. Snowball accumulates actual missed amounts — the payout grows with each missed period. Different mechanics, different risk
-2. **Assuming the snowball always pays out.** The snowball only pays when the coupon condition is met. If the underlying stays below the coupon barrier permanently, or if the knock-in is breached and the underlying finishes below strike, the accumulated snowball is lost
-3. **Ignoring the "sweet spot" paradox.** The best outcome requires the underlying to stay in the range between knock-in and autocall for as long as possible. This is a narrow band that requires a specific market path — not a general bullish or bearish view
-4. **Underestimating the discontinuity at autocall.** An accumulated snowball of 10% of notional creates a large discontinuous payout at the autocall barrier. A tiny move from 99.9% to 100.1% triggers a massive payment. This creates hedging challenges for the bank and "near-miss" frustration for the investor
-5. **Not tracking the accumulation counter.** Operational errors in the counter propagate forward. A missed observation or incorrect fixing cascades through all subsequent calculations
+1. A Snowball is an autocallable note plus a cumulative coupon counter plus a knock-in put. The investor earns an accumulating coupon by selling the knock-in put and the autocall optionality to the bank.
+2. The accumulator grows when the coupon is NOT paid. Each missed coupon makes the next payout bigger — but also raises the stakes if the payout never comes. The product rewards patience but punishes a market that never recovers.
+3. If the knock-in barrier is breached and the underlying is below strike at maturity, the investor loses principal proportionally and the accumulated coupon may not be paid.
+4. The product is path-dependent: the entire sequence of observations determines the total return, and Monte Carlo is required to value it.
+5. The "full ride" is both the best and the riskiest outcome — it needs the underlying to stay above knock-in but below autocall for the full life.
+6. The desk holds the offsetting long-option package and carries pin risk near the autocall barrier that scales with the size of the accumulator.
+7. For the 2nd line, the dominant control risk is snowball accumulator tracking, supported by observation-schedule integrity, autocall capture, knock-in capture, and fixings — each must be reconciled on every observation date, not just at maturity, because a single counter error propagates to all future calculations.
 
-#### §21. Visual Specifications
+#### §14. Common Mistakes
 
-| # | Priority | Visual | Type | Description |
-|:-:|:--------:|--------|------|-------------|
-| 1 | P1 | Snowball accumulation timeline | Timeline | Monthly observations showing accumulation growing (months with missed coupons) and snowball payouts (months where condition met). Shows the "growing snowball" effect |
-| 2 | P1 | Snowball vs Phoenix coupon comparison | Comparison | Side-by-side: Phoenix (fixed coupons, memory pays same amount) vs Snowball (accumulated coupons, payout grows). Shows the mechanical difference |
-| 3 | P2 | Three-scenario path diagram | Path | Three paths through observation dates: autocall (early exit), full ride (best case), knock-in (worst case). Shows the narrow "sweet spot" band |
-| 4 | P2 | Accumulated coupon vs time chart | Bar chart | Growing bar chart showing accumulated snowball at each observation date. Highlights the increasing stake as time passes |
-| 5 | P3 | Hedging challenge near autocall | Delta diagram | Delta profile with small vs large accumulated snowball. Shows how accumulation amplifies the hedging discontinuity |
-| 6 | P3 | Snowball payoff at maturity (with and without KI) | Payoff | Two-regime payoff: with accumulated coupon (above strike) vs capital loss (below strike, after KI). Shows the binary outcome |
+1. **Confusing accumulation with memory.** The Phoenix memory feature pays back missed coupons at the same fixed amount; the Snowball accumulator rolls them up into a single growing payout. Expecting Phoenix-style fixed payouts leads to surprise at the growing snowball amount.
+2. **Treating the accumulated coupon as guaranteed.** It is "all-or-nothing": either the condition is eventually met and the full accumulation pays, or the barrier is breached and it is lost.
+3. **Assuming a 75% knock-in barrier caps the loss at 25%.** The barrier determines *when* capital loss starts, not *how much*. If the underlying finishes at 70%, the investor loses 30% of principal; a deeper decline means a deeper loss with no floor.
+4. **Ignoring a very short no-call period.** A 1-month no-call period means the product likely autocalls early with minimal accumulation — the investor receives a small coupon and must reinvest.
+5. **Comparing high Snowball coupons without adjusting for risk.** A coupon above 30% annualised usually signals aggressive barrier levels; the coupon is funded by capital risk, not free yield.
+6. **(Controls) Reconciling only at maturity.** The Snowball must be reconciled on every observation date — the accumulator counter, the pay/accumulate flag, and the autocall and continuous knock-in status can each drift in Murex at any observation, long before maturity, and a single counter error propagates to every later calculation.
 
-#### §22. Related Chapters / Dependency References
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking / fixing / event-capture fields must reconcile, and which is the most common break?
 
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Autocall mechanics, observation dates | Section 5.1.3 (Phoenix Autocallable) |
-| Memory coupon feature | Section 5.1.3 (Phoenix Autocallable) |
-| Fixed coupon autocallable | Section 5.1.9 (FCN) |
-| Knock-in barrier (capital risk) | Section 1.3 (Barriers and Digitals), Section 5.1.2 (RC) |
-| Target accumulation (different concept: accumulates received, not missed) | Section 5.4.4 (TARN Steepener) |
-| Delta, gamma, hedging discontinuity | Section 1.4 (Greeks) |
-| Volatility, path dependency | Section 1.5 (Volatility) |
-| Correlation (for basket variants) | Section 1.6 (Correlation and Baskets) |
-
+**Dual-lens visuals (generated):**
+- `assets/snowball/controls_snowball_recon_08.svg` `[generated]`
+- `assets/snowball/waterfall_snowball_09.svg` `[generated]`
 ### 5.6.11 Cliquet / Ratchet Note
-
-*How This Differs From PPN (5.1.1) and Shark Fin (5.6.9): The PPN and Shark Fin both measure performance from start to finish — a single observation of where the underlying ends relative to where it started. The Cliquet breaks the investment period into multiple sub-periods and measures performance separately in each one. Each sub-period's return is locked in (or "ratcheted"), subject to caps and floors. The total return is the sum of all the locked-in sub-period returns. This means the path matters in a fundamentally different way: a stock that rises 5% per quarter for four quarters gives a different result than a stock that rises 20% in the last quarter alone.*
 
 ---
 
+*How This Differs From PPN (5.1.1) and Shark Fin (5.6.9): The PPN and Shark Fin both measure performance from start to finish — a single observation of where the underlying ends relative to where it started. The Cliquet breaks the investment period into multiple sub-periods and measures performance separately in each one. Each sub-period's return is locked in (or "ratcheted"), subject to caps and floors. The total return is the sum of all the locked-in sub-period returns. This means the path matters in a fundamentally different way: a stock that rises 5% per quarter for four quarters gives a different result than a stock that rises 20% in the last quarter alone. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+
 #### §1. Explain Like I'm New
 
-Imagine you are paid a monthly salary with a performance bonus. Each month, your bonus is calculated based on that month's results — not the year's results. If you have a great January, that bonus is locked in. If February is terrible, you might get zero bonus for February, but your January bonus is safe. At year end, your total bonus is the sum of all monthly bonuses.
+Consider a worker paid a monthly salary with a performance bonus. Each month, the bonus is calculated on that month's results — not the year's results. A great January locks in that bonus. If February is terrible, the bonus for February may be zero, but the January bonus is safe. At year end, the total bonus is the sum of all monthly bonuses.
 
-Now add a twist: each month's bonus is capped at $500 (no matter how great the month) and floored at $0 (you never owe money back for a bad month). Over 12 months, your maximum bonus is $6,000 (12 × $500) and your minimum is $0 (12 × $0).
+Now add a twist: each month's bonus is capped at $500 (no matter how great the month) and floored at $0 (a bad month never claws back money). Over 12 months, the maximum bonus is $6,000 (12 × $500) and the minimum is $0 (12 × $0).
 
 A **Cliquet Note** (also called a Ratchet Note) works exactly like this. The investment period is divided into sub-periods (monthly, quarterly, or annually). In each sub-period, the underlying's return is measured, capped at a local maximum, and floored at a local minimum. At maturity, the total return is the sum of all sub-period returns, possibly subject to a global cap and floor on the total.
 
-The Cliquet is one of the most mathematically elegant structured products. Beneath its surface, it decomposes into a strip of **forward-starting options** — each sub-period is essentially a separate option that begins when the previous one ends. Understanding this decomposition is the key to understanding the product.
+Beneath its surface, the Cliquet decomposes into a strip of **forward-starting options** — each sub-period is essentially a separate option that begins when the previous one ends, with its strike resetting ("ratcheting") to the prevailing level. The investor is long this strip; the bank's desk is short it. Understanding this decomposition is the key to understanding the product.
 
 #### §2. Real-World Analogy
 
 A Cliquet is like a monthly salary with a performance cap.
 
-You work for a company that pays a base salary plus a performance component. Each month:
-- If your performance metric is positive, you earn a bonus equal to the percentage gain, capped at 3%
-- If your performance metric is negative, you earn zero bonus (floor at 0%)
-- Your bonus is locked in and cannot be clawed back
+A company pays a base salary plus a performance component. Each month:
+- If the performance metric is positive, a bonus is earned equal to the percentage gain, capped at 3%
+- If the performance metric is negative, the bonus is zero (floor at 0%)
+- The bonus is locked in and cannot be clawed back
 
-At the end of the year, your total performance pay is the sum of all 12 monthly bonuses.
+At the end of the year, the total performance pay is the sum of all 12 monthly bonuses.
 
 In this analogy:
 - Each **month** is a sub-period (reset period)
@@ -19658,7 +19816,7 @@ The key difference from a standard investment: a standard investment measures pe
 
 #### §3. What Problem Does This Solve?
 
-Cliquets solve the **"I want to lock in gains along the way"** problem.
+Cliquets solve the **"lock in gains along the way"** problem.
 
 | User | Problem | Cliquet Solution |
 |------|---------|-----------------|
@@ -19702,7 +19860,7 @@ The trade-off: the local cap limits each period's contribution. In a strong tren
 - Credit Exposure: Issuer (note format)
 - Liquidity: Secondary market (model-dependent)
 - Path Dependency: Very high — periodic returns, not final level, determine payoff
-- Volatility Sensitivity: Long vega (long forward-starting options). Forward vol curve matters
+- Volatility Sensitivity: Investor long vega (long forward-starting options); desk short. Forward vol curve matters
 - Correlation Sensitivity: None (single underlying)
 - Client Type: Insurance / Private banking / Conservative institutional
 - Market Environment: Best in choppy/range-bound markets. Poor in strong trending markets (cap binds repeatedly)
@@ -19730,27 +19888,24 @@ The trade-off: the local cap limits each period's contribution. In a strong tren
 | **2008-2010** | Crisis reveals hedging challenges. Many Cliquet books suffer losses from vol surface moves. Simplification trend begins |
 | **2010s-2020s** | Standardisation. Simple annual-reset Cliquets with clear caps/floors remain popular. Insurance-linked demand steady. Exotic variants decline |
 
-#### §7. How the Bank Makes Money
+---
 
-| Component | Detail |
-|-----------|--------|
-| **Zero-coupon bond** | Purchased at discount. Matures at par = capital protection |
-| **Option budget** | Bond discount − par = available premium for the option strip |
-| **Forward-starting call strip** | Purchased with option budget. Each call covers one sub-period. Local cap makes each call a call spread (long call + short call at cap) |
-| **Structuring margin** | 0.5-1.5% embedded in local cap level. Client gets slightly lower cap than theoretical |
-| **Vol surface profit** | Bank prices forward vol, hedges at realised. Spread between implied forward vol and realised vol is a profit source |
+#### §7. THE INVESTOR LENS
 
-**Why the cap exists:**
-Without a local cap, each sub-period would require a full call option, which is expensive. With a cap, each sub-period is a call spread (long call at reset strike, short call at cap), which is much cheaper. The cap is not a design choice — it is an economic necessity to make the product affordable within the option budget.
+**Why the investor buys it**
 
-#### §8. Why This Product Exists (Client Perspective)
+1. **Lock-in of gains.** Each period's positive return is locked in and cannot be lost to future market declines. This is the core appeal — protection against giving back gains.
+2. **Reduced timing risk.** Performance is measured over many short periods, not one long period. A client who invests at a market peak still captures gains from any positive sub-periods along the way.
+3. **Capital protection with equity upside.** The Cliquet combines 100% capital protection with equity participation — funded by the cap on each period.
+4. **Consistent returns in choppy markets.** A market that rises 3% and falls 3% repeatedly gives a Cliquet a positive return (3% locked in each up period, 0% in each down period) while giving a direct investment approximately zero return.
 
-1. **Lock-in of gains.** Each period's positive return is locked in and cannot be lost to future market declines. This is the core appeal — protection against giving back gains
-2. **Reduced timing risk.** Performance is measured over many short periods, not one long period. A client who invests at a market peak still captures gains from any positive sub-periods along the way
-3. **Capital protection with equity upside.** The Cliquet combines 100% capital protection with equity participation — funded by the cap on each period
-4. **Consistent returns in choppy markets.** A market that rises 3% and falls 3% repeatedly gives a Cliquet a positive return (3% locked in each up period, 0% in each down period) while giving a direct investment approximately zero return
+**Position taken**
 
-#### §9. The Three Scenarios
+The investor is **long a strip of forward-starting (cliquet) options** — one per sub-period — wrapped around a zero-coupon bond for capital protection. Each sub-period is a long forward-starting call spread (long call at the reset strike, short call at the local cap), so the investor is **long forward volatility** across the whole term structure and benefits when forward vol is high. The strike **resets** to the prevailing level at each reset date, ratcheting the locked-in returns. With a single underlying there is no correlation exposure; only a worst-of / best-of basket cliquet adds correlation.
+
+**Payoff & scenarios**
+
+The investor's payoff is the sum of periodic returns, each locally capped and floored, then subject to a global cap and global floor, on top of 100% protected principal. The path matters: the same total market move produces different outcomes depending on how it is distributed across periods.
 
 **Terms:** USD 1,000,000 Cliquet on EuroStoxx 50. Maturity: 4 years. Reset: annual (4 periods). Local cap: 5% per year. Local floor: 0% per year. Global floor: 0%. Global cap: 20%.
 
@@ -19762,7 +19917,7 @@ Without a local cap, each sub-period would require a full call option, which is 
 | 4 | +3% | +3% (uncapped) |
 
 **Total Cliquet return:** 5% + 0% + 5% + 3% = 13%
-**Client receives:** $1,000,000 × (1 + 13%) = $1,130,000
+**Investor receives:** $1,000,000 × (1 + 13%) = $1,130,000
 
 **Comparison to direct investment:**
 EuroStoxx total return: (1.08)(0.88)(1.15)(1.03) - 1 = +12.6%
@@ -19784,19 +19939,100 @@ Direct investment: $1,000,000 × (1.126) = $1,126,000
 
 **In a strong bull market, the Cliquet massively underperforms** (20% vs 59.3%) because the cap binds every year.
 
-#### §10. What Happens When Markets Move
+**Risks to the investor**
 
-| Market Condition | Impact on Cliquet Holder |
-|-----------------|--------------------------|
-| **Strong trending bull market** | Cap binds every period. Cliquet significantly underperforms direct investment. Worst relative outcome |
-| **Choppy/range-bound market** | Cap and floor alternate. Cliquet often outperforms because floors protect in down periods. Best relative outcome |
-| **Strong bear market** | Floor protects each period. Capital protection at maturity. Cliquet returns 0% (or global floor) |
-| **Volatile with moderate trend** | Mixed. Some periods capped, some floored. Cliquet smooths the experience |
-| **Forward volatility changes** | Directly affects pricing. Higher forward vol = higher option value = better terms for future Cliquets |
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Cap drag (trending market)** | In a strong bull market, the cap binds every period. The Cliquet dramatically underperforms direct investment. This is the primary risk — opportunity cost, not capital loss | High |
+| **Capped periodic upside** | Each period's contribution is limited to the local cap, and the total is limited by the global cap. The investor cannot fully participate in any single strong period | High |
+| **Global cap limitation** | Even if each period contributes its maximum, the global cap limits total return. The investor may not realise the global cap binds | Medium |
+| **Issuer credit risk** | Capital protection depends on issuer solvency over a multi-year term | Medium |
+| **Model risk / illiquidity** | Forward vol surface modelling is complex; different models produce different prices. Selling before maturity involves a model-dependent spread | Medium |
 
-#### §11. Formal Definition
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
 
-A Cliquet Note divides the investment period into N sub-periods. In each sub-period, the underlying's return is measured, subject to a local cap C_L and local floor F_L. The total return is the sum of all sub-period returns, subject to a global cap C_G and global floor F_G.
+**What the desk books**
+
+The desk's position is the mirror image of the investor's. Where the investor is long the strip of forward-starting (cliquet) options, the desk is **short** that strip (it has sold the cliquet to the client); alongside it the desk has issued a note backed by a zero-coupon bond, which is a funding liability that delivers capital protection at maturity. The investor's periodic locked-in returns are, to the desk, the payoff it owes on the short forward-starting option strip.
+
+**Forward-vol risk & hedging**
+
+The hard risk is **forward volatility** — the desk is short a strip of forward-starting options, so it is short forward-forward volatility across the entire term structure, and exposed to **forward skew** and **vol-of-vol**. Period 1 uses spot vol; period 2 uses 1Y-forward-1Y vol; period 3 uses 2Y-forward-1Y vol. If the forward vol surface shifts, the entire strip reprices against the desk. At each reset date, one forward-starting option becomes a vanilla option (repriced using current spot vol) and the remaining options are still forward-starting, so the desk's exposure evolves through the product's life. Gamma is concentrated in the current (live) period — where the option behaves like a vanilla — and attenuated for future, still-forward-starting periods. The desk hedges with vanilla options and forward-vol instruments and rebalances delta/gamma as each period goes live.
+
+**How the bank makes money**
+
+| Component | Detail |
+|-----------|--------|
+| **Zero-coupon bond** | Purchased at discount. Matures at par = capital protection |
+| **Option budget** | Bond discount − par = available premium for the option strip |
+| **Forward-starting call strip** | Sold to the client with the option budget. Each call covers one sub-period. The local cap makes each call a call spread (long call + short call at cap) — cheaper to provide |
+| **Structuring margin** | 0.5-1.5% embedded in local cap level. Client gets slightly lower cap than theoretical |
+| **Vol surface profit** | Bank prices forward vol, hedges at realised. Spread between implied forward vol and realised vol is a profit source |
+
+**Why the cap exists:**
+Without a local cap, each sub-period would require a full call option, which is expensive. With a cap, each sub-period is a call spread (long call at reset strike, short call at cap), which is much cheaper. The cap is not a design choice — it is an economic necessity to make the product affordable within the option budget.
+
+**Value decomposition (typical 4yr build):**
+
+| Component | Value | Purpose |
+|-----------|:-----:|---------|
+| Zero-coupon bond | ~85-92% of notional | Capital protection at maturity |
+| Strip of forward-starting call spreads | ~8-15% of notional | Periodic participation with local cap |
+| Global floor | Typically 0% | Ensures total return ≥ 0% (funded by the cap) |
+| Global cap | Typically 15-25% | Limits maximum total return. Funds better periodic caps |
+| Structuring margin | ~0.5-1.5% | Embedded in local cap level |
+
+![Cliquet Value Decomposition — Bank Lens (Desk Economics)](assets/cliquet/waterfall_cliquet_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by moves in the forward vol surface (the entire short strip reprices), forward skew and vol-of-vol, realised-versus-implied vol on the live-period hedge, and the mark-to-market of the forward-starting call spreads. Because valuation depends on a full implied vol surface across all tenors and strikes, mark-to-market can vary between models and dealers. Product Control verifies each period's return calculation, checks local cap/floor application, and validates the global cap/floor interaction at maturity.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
+
+| Dimension | Detail |
+|-----------|--------|
+| **Primary system** | Murex |
+| **Booking model** | Zero-coupon bond + strip of forward-starting call spreads. May be booked as single exotic or decomposed into individual call spreads per period |
+| **Valuation model** | Closed-form (if local caps/floors only) or Monte Carlo (if global caps/floors or auto-correlation modelling). Forward vol surface calibration required |
+| **Market data** | Underlying spot, full implied volatility surface (all tenors and strikes), interest rate curve, dividend term structure |
+| **Settlement** | Cash at maturity. Sum of periodic returns + 100% |
+| **Special requirements** | Reset calendar, reset fixing source, forward vol surface calibration, running total tracker |
+
+**Reconciliation points**
+
+| Recon point | What must agree | Cliquet-specific break |
+|-------------|-----------------|------------------------|
+| **Reset schedule** | Reset calendar and frequency (annual/quarterly/monthly) consistent across systems and termsheet | A reset date missed or misdated shifts every subsequent period |
+| **Reset levels** | Each reset fixing S_i becomes the next period's starting strike — must match across booking, risk, and the running total | A 0.1% error in one reset propagates through all subsequent periods |
+| **Local cap/floor** | Per-period cap C_L and floor F_L applied to each period return | Cap/floor stored per-period in one system but as a single global value in another |
+| **Global floor** | Global floor F_G applied to the summed return | Global floor omitted → total return understated below the guaranteed minimum |
+| **Periodic-return accumulation** | Running total = Σ of locked-in periodic returns, before global cap/floor | Accumulator out of step with locked periods → wrong total at maturity |
+| **Fixings** | Reset and final fixing **source**, methodology, and time match the termsheet | Different vendors report different closes on a reset date |
+| **Global cap** | Global cap C_G applied to the summed return at maturity | Global cap binds before all local caps contribute and is not flagged |
+| **Settlement** | Cash at maturity = 100% + R_total | Settlement computed on raw sum, ignoring an applicable global cap/floor |
+
+![CLIQUET Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/cliquet/controls_cliquet_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Reset level mismatch across systems | The new starting strike differs between booking and risk → every later period is wrong | Reconcile each reset fixing before locking the period; confirm against the fixing source |
+| Local cap very low (< 2% per period) | Limited upside per period; total may be unimpressive even in favourable markets | Confirm the cap is correctly stored per period and matches the termsheet |
+| Periodic-return accumulator out of step | Running total does not equal the sum of locked periods | Re-derive the running total from the per-period returns each reset |
+| Global cap too low relative to sum of local caps | Global cap binds before all local caps contribute | Verify global cap/floor application order at maturity |
+| Reset/final fixing source mismatch | Different data sources report different reset closes | Use the fixing source, methodology, and time specified in the termsheet |
+
+**Control implication**
+
+The dominant control risks for the Cliquet are the **reset levels** and the **periodic-return accumulation**. A reset-level error misstates the starting strike for the next forward-starting option and propagates through every subsequent period — corrupting both valuation and the locked-in return. A break in the periodic-return accumulator misstates the running total, so the maturity payout (and any global cap/floor interaction) is computed on the wrong base. A fixing mismatch breaks the reset and the valuation at once. The reconciliation exists to catch these inconsistencies at each reset, before they compound across the multi-year life of the trade.
+
+#### §10. Formal Definition
+
+A **Cliquet Note** divides the investment period into N sub-periods. In each sub-period, the underlying's return is measured, subject to a local cap C_L and local floor F_L. The total return is the sum of all sub-period returns, subject to a global cap C_G and global floor F_G.
 
 **Periodic return for sub-period i:**
 
@@ -19819,21 +20055,9 @@ Each sub-period is equivalent to:
 - Short a forward-starting call option (strike = S_{i-1} × (1 + C_L), starts at same time)
 - The combination is a forward-starting call spread per period
 
-The full Cliquet = zero-coupon bond + Σ (forward-starting call spreads) + global floor put + short global cap call
+The full Cliquet (investor side) = zero-coupon bond + Σ (forward-starting call spreads) + global floor put + short global cap call. The desk holds the mirror — short the forward-starting call spread strip.
 
-#### §12. Product Construction
-
-| Component | Value | Purpose |
-|-----------|:-----:|---------|
-| Zero-coupon bond | ~85-92% of notional (4yr) | Capital protection at maturity |
-| Strip of forward-starting call spreads | ~8-15% of notional | Periodic participation with local cap |
-| Global floor | Typically 0% | Ensures total return ≥ 0% (funded by the cap) |
-| Global cap | Typically 15-25% | Limits maximum total return. Funds better periodic caps |
-| Structuring margin | ~0.5-1.5% | Embedded in local cap level |
-
-**If you remember only one thing from this chapter, remember this:** A Cliquet is a series of separate options, one for each sub-period, chained together. Each option starts fresh at the previous one's ending level. Understanding this — that a single complex product decomposes into many simple options — is the key to pricing and hedging it.
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Timing | Action |
 |-------|--------|--------|
@@ -19843,58 +20067,7 @@ The full Cliquet = zero-coupon bond + Σ (forward-starting call spreads) + globa
 | **Subsequent periods** | T+1Y to T+4Y | Same process. Each reset locks in the periodic return and starts a new option at the current level |
 | **Maturity** | T+4Y | Sum of all periodic returns calculated. Global cap/floor applied. Total return + principal paid |
 
-#### §14. Desk Reality
-
-**What traders think about:**
-Forward vol. The Cliquet is a strip of forward-starting options, so the trader is exposed to forward-forward volatility across the entire term structure. Period 1 uses spot vol. Period 2 uses 1Y-forward-1Y vol. Period 3 uses 2Y-forward-1Y vol. If the forward vol surface shifts, the entire strip reprices. This makes Cliquets a primary source of forward vol exposure on the trading desk. At each reset date, one forward-starting option becomes a vanilla option (repriced using current spot vol), and the remaining options are still forward-starting. The trader's exposure "evolves" through the product's life.
-
-**What structurers think about:**
-The local cap calibration. A higher local cap gives the client better per-period participation but reduces the number of periods that can be funded (or requires a lower global cap). The structurer models multiple cap/floor combinations under different market scenarios (trending, choppy, crisis) to find the combination that gives the most attractive expected return profile. The forward vol surface determines the cost of each forward-starting call spread — and this surface can change significantly between pricing and execution.
-
-**What operations thinks about:**
-Reset observation accuracy. Each reset requires a precise fixing of the underlying level, which becomes the new starting level for the next period. A 0.1% error in a reset observation propagates through all subsequent periods. The fixing source, methodology, and time must be exactly specified. For multi-year Cliquets, operational continuity across staff changes is important — the person managing resets in year 4 may not be the person who set up the trade in year 1.
-
-#### §15. Risk Analysis
-
-| Risk | Severity | Description |
-|------|:--------:|------------|
-| **Cap drag (trending market)** | High | In a strong bull market, the cap binds every period. The Cliquet dramatically underperforms. This is the primary risk — opportunity cost, not capital loss |
-| **Forward vol risk** | High | The Cliquet is sensitive to the shape of the forward vol surface. Changes in forward vol reprices the entire option strip |
-| **Global cap limitation** | Medium | Even if each period contributes its maximum, the global cap limits total return. Client may not realise the global cap binds |
-| **Issuer credit risk** | Medium | Capital protection depends on issuer solvency over a multi-year term |
-| **Model risk** | Medium | Forward vol surface modelling is complex. Different models produce different prices. Mark-to-market can vary between dealers |
-
-**Greeks profile:**
-
-| Greek | Value | Significance |
-|-------|:-----:|-------------|
-| Delta | Varies per period | Current period has standard delta. Future periods have forward-starting delta |
-| Gamma | Low for future periods (forward-starting) | Current period has normal gamma. Future periods have attenuated gamma |
-| Vega | Long, spread across forward vol surface | Primary risk. Each period's option is sensitive to its specific forward vol |
-| Theta | Small per period | Current period decays. Future periods are less sensitive to time |
-
-#### §16. Booking and Systems
-
-| Dimension | Detail |
-|-----------|--------|
-| **Primary system** | Murex |
-| **Booking model** | Zero-coupon bond + strip of forward-starting call spreads. May be booked as single exotic or decomposed into individual call spreads per period |
-| **Valuation model** | Closed-form (if local caps/floors only) or Monte Carlo (if global caps/floors or auto-correlation modelling). Forward vol surface calibration required |
-| **Market data** | Underlying spot, full implied volatility surface (all tenors and strikes), interest rate curve, dividend term structure |
-| **Settlement** | Cash at maturity. Sum of periodic returns + 100% |
-| **Special requirements** | Reset calendar, reset fixing source, forward vol surface calibration, running total tracker |
-
-#### §17. Red Flags
-
-| Red Flag | Why It Matters |
-|----------|---------------|
-| Local cap very low (< 2% per period) | Limited upside per period. Even in favourable markets, total return may be unimpressive. Client may feel the product "never works" |
-| Long maturity with annual resets and no global floor | Many periods with small caps may sum to a disappointing total. Client expected more from 5 years of equity exposure |
-| Client expects trending bull market | Cliquet will massively underperform. Cap binds every period. Wrong product for this view |
-| Forward vol surface inverted or steep | Pricing may be unfavourable. Far-dated forward-starting options may be expensive if forward vol is high |
-| Global cap too low relative to sum of local caps | Global cap binds before all local caps contribute. Client should understand the binding constraint |
-
-#### §18. Worked Example
+#### §12. Worked Example (both lenses)
 
 **Terms:**
 - Notional: EUR 1,000,000
@@ -19917,112 +20090,115 @@ Reset observation accuracy. Each reset requires a precise fixing of the underlyi
 | 4 | -8% | -1% (floored) | 5% |
 | 5 | +6% | +4% (capped) | 9% |
 
+*Investor lens:*
+
 **Total return:** 9% (below global cap of 18%)
-**Client receives:** EUR 1,090,000
+**Investor receives:** EUR 1,090,000
 
 **EuroStoxx total (buy-and-hold):** (1.07)(0.95)(1.03)(0.92)(1.06) - 1 = +1.8%
 **Direct investment:** EUR 1,018,000
 
 **Cliquet outperforms by EUR 72,000** in this choppy scenario because the floors limited losses and the caps still allowed meaningful gains.
 
-**Option decomposition for this example:**
+Option decomposition for the investor in this example:
 - Period 1: Long call (strike = 100%), short call (strike = 104%), long put (strike = 99%). All starting at inception.
 - Period 2: Long call (strike = S_1), short call (strike = 1.04 × S_1), long put (strike = 0.99 × S_1). Forward-starting at year 1.
 - Periods 3-5: Same structure, each forward-starting at the previous reset.
 
-#### §19. Knowledge Check
+*Bank lens:*
+- The desk holds the mirror — **short** the strip of forward-starting call spreads (and short the local-floor protection) — against a zero-coupon bond funding the EUR 1,000,000 capital protection. Over the choppy path the desk owes the EUR 90,000 of locked-in periodic returns; its P&L depends on whether it hedged the forward vol of each period more cheaply than the 9% it must deliver. Product Control verifies each year's capped/floored return and the running total (4% → 3% → 6% → 5% → 9%).
+- The 2nd line must confirm each reset level S_1…S_4 used to set the next period's strike, the per-period cap/floor application, the periodic-return accumulation, and that the global cap (18%) and global floor (0%) were correctly not binding before EUR 1,090,000 settles.
 
-**Review Questions:**
-1. How does a Cliquet decompose into forward-starting options?
-2. What is the difference between the local cap/floor and the global cap/floor?
-3. In what type of market environment does a Cliquet outperform direct investment? When does it underperform?
-4. Why is forward volatility (not just spot volatility) important for Cliquet pricing?
-5. What is the "ratchet" feature, and why does it give the product its name?
+#### §13. Knowledge Check
 
-**Scenario Questions:**
-1. A 4-year Cliquet with annual resets has a local cap of 5% and local floor of 0%. After 3 years, the periodic returns have been: +5%, +5%, +5%. What is the total so far, and what range of outcomes is possible in the final year?
-2. Two Cliquets on the same underlying: one with quarterly resets and 2% local cap, another with annual resets and 6% local cap. Both are 4 years. Which structure benefits more from a choppy market? Which benefits more from a trending market?
-3. A client holds a Cliquet where the underlying dropped 20% in year 1 but has since recovered. The local floor limited year 1's contribution to -2%. The client says: "I wish I had bought a standard PPN instead." Under what subsequent market path would the Cliquet outperform the PPN? When would the PPN win?
+1. **How does a Cliquet decompose into forward-starting options, and which side is the investor on?** (Answer: a strip of forward-starting call spreads, one per sub-period; the investor is long the strip, the desk is short.)
+2. **What is the difference between the local cap/floor and the global cap/floor?**
+3. **In what type of market environment does a Cliquet outperform direct investment? When does it underperform?**
+4. **Why is forward volatility (not just spot volatility) important for Cliquet pricing?**
+5. **What is the "ratchet" feature, and why does it give the product its name?**
+6. **(Desk economics / 1LoD)** The investor is long the forward-starting option strip; what is the desk, and which way does the desk's forward-vol exposure point? At a reset date, what happens to the current period's option, and why does that change the desk's gamma profile?
+7. **(Controls / 2LoD)** Name three reconciliation breaks specific to a Cliquet — including reset levels and periodic-return accumulation — and the consequence of each for the maturity payout.
 
-**Desk Question:**
-A trader has a large Cliquet book with annual resets. The next reset is in 2 weeks. The current period's return is +3.8% (close to the 4% local cap). Explain what happens to the trader's hedging if the underlying rises another 0.5% versus falls 0.5% in the next 2 weeks.
+**Mental Models**
 
-**Interview Layer Candidates:** Q1, Q4, Desk Q1
-**Examiner Notes Candidates:** Q1, Desk Q1
+| Concept | Mental Model |
+|---------|-------------|
+| Cliquet | A monthly salary with a performance bonus that is capped, floored, and locked in each month |
+| Ratchet | A wrench that only turns one way — each period's gain clicks into place and cannot reverse |
+| Forward-starting option | A new option that starts fresh at the previous period's ending level — the strike resets each period |
+| Local cap / floor | The per-month bonus cap and the no-clawback floor |
+| Global cap / floor | The annual total bonus cap and the guaranteed minimum |
+| Forward vol (desk) | The desk is short volatility-of-future-volatility across all the periods at once |
+| 2LoD reconciliation | The payroll auditor — confirms each month's reset level and the running bonus total before the year-end payout |
 
-#### §20. Common Mistakes
+**Key Takeaways**
 
-1. **Comparing Cliquet returns to buy-and-hold without accounting for path.** A Cliquet that returns 12% over 5 years may look disappointing vs a market that returned 40% — but the Cliquet holder never experienced the drawdowns that the buy-and-hold investor suffered
-2. **Ignoring the global cap.** A 5-year Cliquet with 5% local cap has a theoretical maximum of 25% per year (5 × 5%). But a global cap of 18% means the actual maximum is 18%. Clients often focus on the local cap and miss the global limit
-3. **Treating all sub-periods as independent.** While each sub-period's option is technically independent, the global cap/floor creates dependence. If early periods contribute a lot, later periods' contributions may be capped by the global limit
-4. **Using spot vol for all periods.** Period 1 is priced with spot vol. Period 3 is priced with 2Y-forward-1Y vol. These can be very different. Using spot vol for all periods misprices the product
-5. **Confusing Cliquet with Asian option.** An Asian option averages the underlying's level over time. A Cliquet sums capped/floored periodic returns. These are different: the Asian option smooths the level, the Cliquet smooths the returns
+1. A Cliquet is a series of separate options, one per sub-period, chained together — each starting fresh at the previous one's ending level. The strike ratchets to the prevailing level at each reset.
+2. The investor is long the strip of forward-starting call spreads (long forward vol) wrapped around a zero-coupon bond; the desk is short the strip (short forward vol).
+3. Each period's return is locally capped and floored, locked in, and summed; the total is subject to a global cap and global floor.
+4. The Cliquet outperforms in choppy, range-bound markets and underperforms badly in strong trending bull markets where the cap binds every period.
+5. The primary investor risk is opportunity cost (cap drag), not capital loss — capital is protected by the zero-coupon bond.
+6. The desk's hard risk is forward volatility / forward skew / vol-of-vol across the term structure; it hedges with vanilla and forward-vol instruments, with gamma concentrated in the live period.
+7. The local cap is an economic necessity — it turns each expensive call into a cheap call spread that fits inside the option budget.
+8. For the 2nd line, the dominant control risks are the reset levels and the periodic-return accumulation — each propagates through every subsequent period and corrupts the maturity payout.
 
-#### §21. Visual Specifications
+#### §14. Common Mistakes
 
-| # | Priority | Visual | Type | Description |
-|:-:|:--------:|--------|------|-------------|
-| 1 | P1 | Cliquet periodic return diagram | Bar chart | Stacked bar chart showing each period's contribution (capped/floored). Shows how total return is built from individual periods |
-| 2 | P1 | Cliquet vs buy-and-hold in choppy market | Comparison | Two lines: buy-and-hold (volatile, ending near start) vs Cliquet (smooth staircase, ending higher). Shows the lock-in advantage |
-| 3 | P2 | Forward-starting option decomposition | Structure | Strip of call spreads, each starting at the previous reset level. Shows the "chain of options" structure |
-| 4 | P2 | Local cap/floor and global cap/floor interaction | Payoff diagram | Nested constraints: local cap per period, global cap on total. Shows how both can bind |
-| 5 | P3 | Cliquet in trending vs choppy markets | Dual scenario | Side-by-side: same total market return achieved via trending path (Cliquet loses) vs choppy path (Cliquet wins) |
-| 6 | P3 | Forward vol surface sensitivity | Heat map | How changes in forward vol at different tenors affect the Cliquet price. Shows which periods contribute most to vol risk |
+1. **Treating the Cliquet like a single-period participation note.** It is not — performance is measured period by period and summed. A stock that rises 5% per quarter for four quarters gives a different result than one that rises 20% in the final quarter alone.
+2. **Expecting a trending bull market to pay off.** In a strong bull market the cap binds every period and the Cliquet massively underperforms direct investment (e.g. 20% vs 59.3%). It is the wrong product for a strongly bullish view.
+3. **Ignoring the global cap.** Even if every period contributes its maximum, the global cap limits the total return. The investor should understand which constraint binds first.
+4. **Pricing on spot vol alone.** The Cliquet is a strip of forward-starting options — forward vol, forward skew, and vol-of-vol drive the value, not spot vol. The whole strip reprices when the forward vol surface shifts.
+5. **Assuming the local floor protects capital outright.** A local floor of -1% per period means the investor absorbs the first 1% of decline each period; only the global floor and the zero-coupon bond guarantee 100% of principal.
+6. **(Controls) Trusting a single reset fixing without reconciling it.** Each reset level sets the next period's strike; a 0.1% error or a wrong fixing source propagates through every remaining period, so the 2nd line must reconcile each reset level and the running periodic-return total rather than assume the systems agree.
 
-#### §22. Related Chapters / Dependency References
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking / fixing / event-capture fields must reconcile, and which is the most common break?
 
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Call and put options, payoff charts | Section 1.2 (Options From Zero) |
-| Delta, gamma, vega | Section 1.4 (Greeks) |
-| Volatility, implied vol surface | Section 1.5 (Volatility) |
-| Forward rates, term structure | Section 1.7 (Yield Curves) |
-| Capital protection, zero-coupon bond construction | Section 5.1.1 (PPN) |
-| Barrier as participation modifier | Section 5.6.9 (Shark Fin Note) |
-| Target accumulation (related accumulation concept) | Section 5.4.4 (TARN Steepener) |
-| Vanilla options (building block for Cliquet decomposition) | Section 5.6.3 (Vanilla Options) |
-
+**Dual-lens visuals (generated):**
+- `assets/cliquet/controls_cliquet_recon_08.svg` `[generated]`
+- `assets/cliquet/waterfall_cliquet_09.svg` `[generated]`
 ### 5.6.12 Worst-of Autocallable
-
-*How This Differs From Phoenix Autocallable (5.1.3): The Phoenix Autocallable is linked to a single underlying — one stock or one index. The Worst-of Autocallable is linked to a basket of multiple stocks (typically 3-5). Every observation — autocall, coupon, and barrier — is determined by whichever stock in the basket has performed the worst. This "worst-of" mechanism fundamentally changes the product's risk profile: the investor is now exposed to correlation risk. When stocks move independently (low correlation), the probability that at least one stock falls below the barrier is much higher than for a single stock. The bank compensates for this risk with a significantly higher coupon.*
 
 ---
 
+*The Phoenix Autocallable (Section 5.1.3) is linked to a single underlying — one stock or one index. The Worst-of Autocallable is linked to a basket of multiple stocks (typically 3-5). Every observation — autocall, coupon, and barrier — is determined by whichever stock in the basket has performed the worst. This "worst-of" mechanism fundamentally changes the product's risk profile: the investor is now exposed to correlation. When stocks move independently (low correlation), the probability that at least one stock falls below the barrier is much higher than for a single stock; the bank compensates for this risk with a significantly higher coupon. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+
 #### §1. Explain Like I'm New
 
-Imagine you are running a relay race with a team of four runners. The team's time is not the average of all four runners — it is determined by the **slowest runner**. If three runners are fast but one trips and crawls, the team's official time is terrible.
+A relay team's finishing time is not the average of its runners — it is set by the **slowest runner**. If three runners are fast but one trips and crawls, the team's official time is poor.
 
-A **Worst-of Autocallable** works the same way. It is linked to a basket of stocks — say Apple, Toyota, and Nestlé. The product pays a high coupon and has autocall and barrier features, just like a Phoenix Autocallable. But every single feature is evaluated based on whichever stock has performed the worst:
+A **Worst-of Autocallable** works the same way. It is linked to a basket of stocks — for example Apple, Toyota, and Nestlé. The product pays a high coupon and has autocall and barrier features, just like a Phoenix Autocallable (Section 5.1.3). But every single feature is evaluated using whichever stock has performed the worst:
 
-- **Autocall?** Only if the worst-performing stock is above the autocall level
-- **Coupon?** Only if the worst-performing stock is above the coupon barrier
-- **Barrier breach?** Triggered if the worst-performing stock falls below the knock-in barrier
+- **Autocall?** Only if the worst-performing stock is above the autocall level — the product redeems early and the investor is returned principal plus due coupons.
+- **Coupon?** Only if the worst-performing stock is above the coupon barrier.
+- **Barrier breach?** Triggered if the worst-performing stock falls below the knock-in barrier — the investor's capital is then at risk.
 
-The worst-of mechanism means the investor is betting that ALL stocks in the basket will perform acceptably. Even if four out of five stocks are up 20%, a single stock down 40% can trigger a barrier breach and cause a loss.
+The worst-of mechanism means the investor is taking the view that ALL stocks in the basket will perform acceptably. Even if four out of five stocks are up 20%, a single stock down 40% can trigger a barrier breach and cause a loss for the investor.
 
-Why would anyone accept this risk? Because the coupon is much higher. A single-stock Phoenix might pay 6% per year. A worst-of Phoenix on three stocks might pay 12-15% per year. The extra coupon compensates for the correlation risk — the risk that the stocks will move independently and one will drag the basket down.
+Why would an investor accept this risk? Because the coupon is much higher. A single-stock Phoenix might pay 6% per year; a worst-of Phoenix on three stocks might pay 12-15% per year. The extra coupon compensates the investor for taking correlation risk — the risk that the stocks will move independently and one will drag the basket down.
 
-This is the **most-traded structured product in the world**. Every structured products desk globally prices and hedges worst-of autocallables. It is the final product in this book because it draws on concepts from every prior chapter: options, barriers, autocall mechanics, Greeks, volatility, and — critically — correlation.
+This is the most-traded structured product in the world. Every structured products desk globally prices and hedges worst-of autocallables. It draws on concepts from every prior chapter: options, barriers, autocall mechanics, Greeks, volatility, and — critically — correlation.
 
 #### §2. Real-World Analogy
 
 A Worst-of Autocallable is like a relay race judged by the slowest runner.
 
-A coach enters a team of four runners in a relay race. The race sponsor offers a deal: "If all four runners finish under 12 seconds, your team wins $1,000. If any runner finishes over 15 seconds, your team is disqualified and must pay a penalty."
+A coach enters a team of four runners in a relay race. The sponsor offers a deal: "If all four runners finish under 12 seconds, the team wins $1,000. If any runner finishes over 15 seconds, the team is disqualified and must pay a penalty."
 
 The coach's calculation:
-- Each runner individually is fast — only 10% chance of exceeding 15 seconds
-- But the question is: what is the probability that at least ONE of the four exceeds 15 seconds?
-- If the runners are perfectly synchronised (high correlation — they train together, run in similar conditions), the probability is close to 10%
-- If the runners are independent (low correlation — different sports, different conditions), the probability is much higher: roughly 1 - (0.9)^4 = 34%
+- Each runner individually is fast — only a 10% chance of exceeding 15 seconds.
+- But the real question is: what is the probability that at least ONE of the four exceeds 15 seconds?
+- If the runners are highly synchronised (high correlation — they train together, run in similar conditions), the probability is close to 10%.
+- If the runners are independent (low correlation — different sports, different conditions), the probability is much higher: roughly 1 − (0.9)^4 = 34%.
 
 In this analogy:
-- Each **runner** is a stock in the basket
-- The **12-second threshold** is the autocall barrier
-- The **15-second threshold** is the knock-in barrier
-- The **$1,000 prize** is the coupon
-- The **penalty** is the capital loss
-- The **team synchronisation** is correlation
+- Each **runner** is a stock in the basket.
+- The **12-second threshold** is the autocall barrier.
+- The **15-second threshold** is the knock-in barrier.
+- The **$1,000 prize** is the coupon.
+- The **penalty** is the capital loss.
+- The **team synchronisation** is correlation.
 
 The key insight: adding more runners (stocks) to the team (basket) always increases the probability that at least one will perform poorly. This is why worst-of products pay higher coupons than single-stock products — and why understanding correlation is essential.
 
@@ -20030,11 +20206,11 @@ The key insight: adding more runners (stocks) to the team (basket) always increa
 
 Worst-of Autocallables solve the **"I need higher yield than a single-stock autocallable provides"** problem.
 
-| User | Problem | Worst-of Solution |
-|------|---------|-------------------|
-| Yield-seeking investor | Single-stock autocallable coupon (5-8%) is insufficient for return targets | Worst-of pays 10-18% by adding correlation risk. Higher coupon for higher risk |
-| Private banking client | Wants structured yield exposure across multiple blue-chip names | Basket provides diversification in name exposure while the worst-of mechanism provides yield enhancement |
-| Bank structurer | Needs to create competitive yield products in a low-vol environment | Correlation premium allows higher coupons even when single-stock vol is low. Worst-of is the primary tool for yield enhancement |
+| Investor Need | Why a Single-Stock Autocallable Falls Short | What the Worst-of Offers |
+|--------------|---------------------------------------------|--------------------------|
+| Yield above 8% | Single-stock autocallable coupon (5-8%) is insufficient for return targets | Worst-of pays 10-18% by adding correlation risk — higher coupon for higher risk |
+| Structured yield across multiple blue-chip names | One name gives no name diversification | Basket provides name diversification while the worst-of mechanism provides yield enhancement |
+| Competitive yield in a low-vol environment | Low single-stock vol means low coupons | The correlation premium allows higher coupons even when single-stock vol is low — the primary tool for yield enhancement |
 
 #### §4. Product DNA
 
@@ -20055,25 +20231,25 @@ Worst-of Autocallables solve the **"I need higher yield than a single-stock auto
 | **ISDA Required** | Yes (OTC derivative) or No (note format, jurisdiction-dependent) |
 
 **DNA Atlas Fields:**
-- Primary Risk: Worst-performing stock drives all outcomes. Low correlation increases risk of at least one stock breaching barrier. Capital loss if barrier breached and worst-of below strike at maturity
+- Primary Risk: Worst-performing stock drives all outcomes. Low correlation increases the risk of at least one stock breaching the barrier. Capital loss if the barrier is breached and the worst-of is below strike at maturity
 - Typical Buyer: Yield-seeking private banking and retail investors globally
-- Typical Use Case: Enhanced yield from correlation premium. Blue-chip basket with above-market coupons
-- Building Blocks: Autocallable note (Phoenix mechanics) + worst-of observation on basket + knock-in put on worst performer
+- Typical Use Case: Enhanced yield from the correlation premium. Blue-chip basket with above-market coupons
+- Building Blocks: Autocallable note (Phoenix mechanics) + worst-of observation on basket + knock-in put on the worst performer
 - Key Hedge: Basket option replication. Delta hedging each stock. Correlation exposure hedged via dispersion trades or basket vs single-stock vol
 - Similar Products: Phoenix Autocallable (5.1.3 — single stock), FCN (5.1.9 — single stock, fixed coupon), Snowball (5.6.10 — cumulative coupon)
 - Most Important Greek: Correlation (drives the worst-of premium), Delta (per stock), Vega (per stock and basket)
 
 **Comparison Matrix Fields:**
 - Complexity: 8
-- Yield Potential: Very high (10-18% annualised for 3-stock basket)
-- Capital Protection: Conditional (knock-in barrier on worst-of)
+- Yield Potential: Very high (10-18% annualised for a 3-stock basket)
+- Capital Protection: Conditional (knock-in barrier on the worst-of)
 - Credit Exposure: Issuer or counterparty
 - Liquidity: OTC / model-dependent
 - Path Dependency: Yes (autocall observations, barrier monitoring)
 - Volatility Sensitivity: Short vega (short options via barrier and autocall). Each stock's vol matters independently
-- Correlation Sensitivity: Very high. Low correlation = higher risk, higher coupon. High correlation = lower risk, lower coupon
+- Correlation Sensitivity: Very high. Low correlation = higher risk, higher coupon. High correlation = lower risk, lower coupon. The investor is **long correlation** under the MTM convention
 - Client Type: Private banking / Retail
-- Market Environment: Best when expecting stable markets across all basket constituents. Worst when any single stock faces idiosyncratic risk
+- Market Environment: Best when stable markets are expected across all basket constituents. Worst when any single stock faces idiosyncratic risk
 
 #### §5. Who Touches This Product
 
@@ -20082,179 +20258,194 @@ Worst-of Autocallables solve the **"I need higher yield than a single-stock auto
 | **Structurer** | Selects basket stocks (sector diversification, vol level, correlation). Sets coupon, barriers, and tenor. Optimises the three-way tradeoff: coupon vs barrier vs correlation |
 | **Trader** | Hedges each stock's delta and vega independently. Manages correlation exposure — the hardest risk to hedge. Uses dispersion trades (long single-stock vol, short basket vol) to manage correlation |
 | **Sales** | Highest-volume structured product globally. Explains worst-of mechanics and correlation risk. Key client education: "Why does adding a third stock increase the coupon?" |
-| **Risk** | Monitors aggregate correlation exposure across worst-of book. Watches for name concentration (many products on the same stocks). Stress-tests under correlation break scenarios |
+| **Risk** | Monitors aggregate correlation exposure across the worst-of book. Watches for name concentration (many products on the same stocks). Stress-tests under correlation-break scenarios |
 | **Product Control** | Verifies worst-of pricing against individual stock vol, pairwise correlations, and basket vol. Checks that implied correlation is consistent across products |
 | **Operations** | Tracks each stock in the basket at every observation. Determines the worst performer. Manages corporate actions (dividends, stock splits, M&A) on any basket constituent — a single corporate action can change the worst-of dynamics |
 | **Legal/Compliance** | Basket composition disclosure. Suitability for retail (worst-of is complex). Prospectus must clearly explain the worst-of mechanism. MiFID/PRIIPs KID complexity classification |
-| **Quantitative Analytics** | Multi-asset option pricing. Correlation modelling (Gaussian copula, local correlation, stochastic correlation). Quanto adjustment for cross-listed stocks. Monte Carlo with correlation matrix |
+| **Quantitative Analytics** | Multi-asset option pricing. Correlation modelling (Gaussian copula, local correlation, stochastic correlation). Quanto adjustment for cross-listed stocks. Monte Carlo with a correlation matrix |
 
 #### §6. Product Evolution
 
 | Era | Development |
 |-----|------------|
 | **Late 1990s** | Worst-of payoffs emerge in OTC exotic options. Initially bespoke institutional trades |
-| **2000-2005** | Swiss and German banks begin issuing worst-of autocallables to retail investors. Coupon enhancement from correlation premium proves popular |
+| **2000-2005** | Swiss and German banks begin issuing worst-of autocallables to retail investors. Coupon enhancement from the correlation premium proves popular |
 | **2006-2007** | Rapid growth. 3-stock worst-of becomes the standard format. Banks build dedicated worst-of pricing and hedging infrastructure |
-| **2008-2010** | Financial crisis: correlations spike to near 1.0, then collapse. Many worst-of barriers breached when individual stocks fall sharply while others recover. Banks suffer hedging losses as correlation models fail under stress |
+| **2008-2010** | Financial crisis: correlations spike to near 1.0, then collapse. Many worst-of barriers are breached when individual stocks fall sharply while others recover. Banks suffer hedging losses as correlation models fail under stress |
 | **2010s** | Market maturation. Better risk disclosure. Regulatory scrutiny (EU PRIIPs KID, MiFID suitability). Worst-of becomes the #1 structured product globally by issuance volume |
 | **2020s** | COVID volatility creates another correlation stress test. Post-COVID: worst-of volumes recover rapidly. Product remains dominant. ESG-screened baskets emerge. Autocall step-down features become standard |
 
-#### §7. How the Bank Makes Money
+---
 
-| Component | Detail |
-|-----------|--------|
-| **Correlation premium** | The primary source. The bank sells the worst-of product at an implied correlation lower than the expected realised correlation. If realised correlation is higher than implied (stocks move together more than priced), the bank profits |
-| **Single-stock vol bid-offer** | Bank buys and sells vol on each stock. Spread is amplified by the number of stocks in the basket |
-| **Structuring margin** | 1-3% of notional. Higher than single-stock autocallable due to complexity premium and correlation risk |
-| **Autocall reinvestment** | When products autocall, clients typically reinvest immediately. The bank earns margin again on the new product. High autocall rates generate continuous flow |
-| **Dividend estimation** | Bank uses its dividend forecast for pricing. If actual dividends differ from implied, P&L is generated |
+#### §7. THE INVESTOR LENS
 
-**Why worst-of coupons are so much higher than single-stock:**
-A single-stock RC with 70% barrier might pay 6%. A 3-stock worst-of with the same 70% barrier on each stock might pay 14%. The extra 8% comes from the correlation premium — the investor is selling the right for the bank to deliver the worst-performing stock. The bank can hedge this by buying correlation (long basket vol, short single-stock vol). The spread between the investor's implied correlation and the hedge cost is the bank's profit.
+**Why the investor buys it**
 
-#### §8. Why This Product Exists (Client Perspective)
+1. **Yield enhancement.** Worst-of coupons are 1.5-3× higher than equivalent single-stock products — 10-18% vs 5-8%. In a low-yield world, this premium is compelling.
+2. **Blue-chip basket.** The investor perceives the basket as "diversified" — exposure to Apple, Toyota, and Nestlé, not a single risky stock. This perception is partly correct (name diversification) and partly wrong (worst-of concentrates risk on the weakest name).
+3. **Familiarity.** The worst-of autocallable is the most commonly offered structured product globally. The investor understands the format, can compare offerings, and has a track record of investing in them.
+4. **Market-view alignment.** An investor who believes blue-chip stocks will remain stable can monetise that view through the correlation premium — in effect selling insurance against idiosyncratic stock risk.
+5. **Autocall liquidity.** The investor is not locked in for the full maturity. If the worst-of is above the autocall barrier on an observation date, the product redeems early and returns principal for reinvestment.
 
-1. **Yield enhancement.** Worst-of coupons are 1.5-3× higher than equivalent single-stock products. In a low-yield world, this premium is compelling
-2. **Blue-chip basket.** Clients perceive the basket as "diversified" — they own exposure to Apple, Toyota, and Nestlé, not a single risky stock. This perception is partially correct (name diversification) and partially wrong (worst-of concentrates risk on the weakest name)
-3. **Familiarity.** The worst-of autocallable is the most commonly offered structured product globally. Clients understand the format, can compare offerings, and have a track record of investing in them
-4. **Market view alignment.** Clients who believe blue-chip stocks will remain stable can monetise that view through the correlation premium. They are selling insurance against idiosyncratic stock risk
+**Position & correlation direction**
 
-#### §9. The Three Scenarios
+The investor simultaneously holds a long bond (lends principal to the issuer) and a series of **short** embedded options sold to the bank: a short worst-of knock-in put (capital risk on the worst performer), a series of short digital coupon options (the conditional coupons), and a short autocall option (the bank's right to redeem early). Net, the investor is **short volatility** below the barrier (hurt by volatile markets) and carries full equity downside below the strike of the worst performer.
+
+On correlation, the investor is **long correlation under the MTM convention**: rising correlation reduces worst-of risk, because when stocks move together the worst performer is less likely to lag the others, so the probability that any one stock breaches a barrier falls — which benefits the note holder. The investor is *structurally* short, having sold the correlation premium embedded in the worst-of coupon, but the mark-to-market sensitivity is **long correlation**: the position gains value as correlation rises and loses value as stocks move independently. (Never read this as "the investor is short correlation" without the structurally-short-but-MTM-long qualification.)
+
+**Payoff & scenarios**
+
+The investor's payoff is path-dependent — the outcome depends on the entire sequence of observations, not just the final level. On each observation date the worst performer is checked against the barriers in turn: at or above the autocall barrier redeems the note early at par plus all due coupons; at or above the coupon barrier pays the coupon (with memory if applicable); below the coupon barrier pays nothing (the coupon may be memorized). If the note runs to maturity without autocalling, the knock-in barrier determines whether principal is returned in full or reduced by the worst performer's decline.
+
+![Worst-of Autocallable Risk vs Correlation — Investor Lens](assets/woauto/payoff_woauto_01.svg)
 
 **Terms:** USD 1,000,000 Worst-of Autocallable. Basket: Apple (AAPL), Toyota (TM), Nestlé (NESN). Maturity: 2 years (quarterly observations). Coupon: 3.5% per quarter (14% annualised) with memory. Autocall barrier: 100%. Coupon barrier: 70%. Knock-in barrier: 60% (continuous). No-call period: 6 months.
 
-| Scenario | Stock Performances | Worst-of | Outcome | Client Receives |
-|----------|-------------------|:--------:|---------|:---------------:|
+| Scenario | Stock Performances | Worst-of | Outcome | Investor Receives |
+|----------|-------------------|:--------:|---------|:-----------------:|
 | **Autocall (Q3)** | AAPL +15%, TM +8%, NESN +5% | NESN at 105% | Autocalled. 3 coupons paid | $1,000,000 + $105,000 |
-| **Full ride** | All stay 70-100% for 2 years. At maturity: AAPL +20%, TM -5%, NESN +10% | TM at 95% (above coupon barrier) | 8 coupons paid. Principal returned | $1,000,000 + $280,000 |
-| **Barrier breach** | AAPL +10%, TM -5%, NESN -45% (Nestlé crisis) | NESN at 55% (below 60% KI) | KI breached. At maturity NESN at 60% | NESN shares worth $600,000 |
+| **Full ride** | All stay 70-100% for 2 years. At maturity: AAPL +20%, TM −5%, NESN +10% | TM at 95% (above coupon barrier) | 8 coupons paid. Principal returned | $1,000,000 + $280,000 |
+| **Barrier breach** | AAPL +10%, TM −5%, NESN −45% (Nestlé crisis) | NESN at 55% (below 60% KI) | KI breached. At maturity NESN at 60% | NESN shares worth $600,000 |
 
-**Key insight — Scenario 3:** Apple and Toyota performed fine. But Nestlé had a company-specific crisis. The investor loses 40% of principal because of a single stock. This is the defining risk of worst-of: one bad stock ruins the basket. The coupon (14% annualised) partially compensates, but a 40% loss on principal overwhelms the coupons received.
+**Key insight — barrier-breach scenario:** Apple and Toyota performed fine. But Nestlé had a company-specific crisis. The investor loses 40% of principal because of a single stock. This is the defining risk of worst-of: one bad stock ruins the basket. The 14% annualised coupon partially compensates, but a 40% loss on principal overwhelms the coupons received.
 
-**Why correlation matters:**
-- **High correlation:** All three stocks tend to move together. If NESN falls 45%, AAPL and TM probably also fell significantly. The worst-of is bad, but it would have been bad even with a single stock. Risk is similar to single-stock.
-- **Low correlation:** NESN can fall 45% while AAPL and TM are fine. The investor suffers a worst-of-specific loss — one they would not have experienced with a single well-chosen stock. This is the correlation risk being sold.
+**Why correlation matters to the investor:**
+- **High correlation:** All three stocks tend to move together. If NESN falls 45%, AAPL and TM probably also fell significantly. The worst-of is bad, but it would have been bad even with a single stock. Risk is similar to single-stock — which is why high correlation *benefits* the long-correlation investor.
+- **Low correlation:** NESN can fall 45% while AAPL and TM are fine. The investor suffers a worst-of-specific loss — one they would not have experienced with a single well-chosen stock. This is the correlation risk the investor was paid to take, and why low correlation hurts the long-correlation MTM position.
 
-#### §10. What Happens When Markets Move
+**Risks to the investor**
 
-| Market Condition | Impact on Worst-of Holder |
-|-----------------|--------------------------|
-| **All stocks rise** | Best case — autocall triggers, coupons paid. Product behaves like a single-stock autocallable |
-| **One stock falls, others rise** | Worst-of mechanism activates. Coupon may be missed (if worst-of below coupon barrier). Barrier breach if one stock falls significantly |
-| **All stocks fall together** | Barrier breach likely. But this is also when correlation is high — the worst-of penalty is smallest because all stocks are similarly affected |
-| **Correlation drops** | Stocks move independently. Probability that at least one breaches the barrier increases. Worst scenario for worst-of holder |
-| **Volatility rises** | Individual stock barrier breach probability increases. More vol on any stock increases worst-of risk |
-| **Corporate action on one stock** | Dividend cut, M&A, or scandal on a single stock can cause idiosyncratic crash. Worst-of amplifies this single-stock event |
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Idiosyncratic stock crash** | One stock in the basket collapses while others are fine. The worst-of mechanism delivers the entire loss to the investor. The defining risk | Very High |
+| **Correlation breakdown** | Stocks that historically moved together begin moving independently. The probability of at least one breaching the barrier increases — adverse for the long-correlation (MTM) investor | High |
+| **Capital loss (KI + worst-of below strike)** | If the barrier is breached, the investor receives shares of the worst-performing stock — potentially at a large loss | High |
+| **Autocall / path risk** | If the product autocalls early, the investor received a high annualised return but must reinvest at potentially less attractive terms. If the worst-of lingers below the coupon barrier, coupons are intermittent (memory helps but does not eliminate missed income) | Medium |
+| **Issuer credit risk** | The investor is exposed to the issuer's creditworthiness. If the issuer defaults, the investor may not receive coupons or principal | Medium |
+| **Model risk** | Correlation modelling is inherently uncertain. Copula models (Gaussian, Student-t) can produce materially different prices and marks | Medium |
+| **Quanto risk** | If the basket contains stocks denominated in different currencies, FX adjustments introduce additional risk factors | Medium |
 
-#### §11. Formal Definition
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
 
-A Worst-of Autocallable is an autocallable structured note where all payoff-relevant observations (autocall, coupon, barrier) are evaluated using the worst-performing stock in a basket of N underlyings.
+**What the desk books**
+
+The desk's position is the mirror image of the investor's. Where the investor is short the embedded options, the desk is **long** them (bought from the investor): long the worst-of knock-in put (capital risk on the worst performer), long the series of digital coupon options, and long the autocall option (the right to redeem the note early). Alongside these the desk has issued a note, which is a funding liability. The investor's conditional coupon is, to the desk, the cost of the option premiums plus funding, returned to the client.
+
+On correlation, the desk's **raw** position is **short correlation** — the exact mirror of the investor's long-correlation MTM sensitivity. The desk profits when realised correlation is higher than the implied correlation priced into the worst-of, and loses when stocks move more independently than priced. This raw short-correlation exposure is then hedged (see below), so the desk's *net* correlation position after dispersion hedging is far smaller than the raw figure; raw and net must be qualified whenever the desk's correlation is discussed.
+
+**Correlation/path risk & hedging**
+
+The desk delta-hedges the basket by trading each underlying, and must manage delta and gamma across all basket names simultaneously because the worst-of payoff couples them. The product is path-dependent, so the hedge changes as each observation date approaches. Gamma spikes near the **knock-in barrier** (the worst-of put becomes sharply convex on whichever name is worst) and near the **autocall barrier** (the autocall replication produces a large jump in the hedge as the note approaches early redemption) — the desk's signature pin risk. Delta "jumps" between stocks as the worst-of identity changes.
+
+The desk's primary unique risk, however, is **correlation**. The raw short-correlation exposure is hedged via **dispersion** trades — buying single-stock volatility and selling basket volatility. When realised correlation is lower than implied (stocks move independently), dispersion gains offset worst-of losses, and vice versa. Idiosyncratic risk is the second concern: a single stock crashing (CEO scandal, accounting fraud, product recall) triggers barrier breach on many worst-of products at once, so the desk monitors name concentration across the book (if AAPL appears in 200 worst-of products, an Apple-specific crash is a systemic hedging challenge).
+
+**How the bank makes money**
+
+| Revenue Component | Detail |
+|------------------|--------|
+| **Correlation premium** | The primary source. The bank sells the worst-of at an implied correlation below the expected realised correlation. If realised correlation is higher than implied (stocks move together more than priced), the bank profits |
+| **Single-stock vol bid-offer** | The bank buys and sells vol on each stock. The spread is amplified by the number of stocks in the basket |
+| **Structuring margin** | 1-3% of notional. Higher than a single-stock autocallable due to the complexity premium and correlation risk |
+| **Autocall reinvestment** | When products autocall, clients typically reinvest immediately. The bank earns margin again on the new product. High autocall rates generate continuous flow |
+| **Dividend estimation** | The bank uses its dividend forecast for pricing. If actual dividends differ from implied, P&L is generated |
+
+**The coupon decomposition:**
+
+A single-stock RC with a 70% barrier might pay 6%. A 3-stock worst-of with the same 70% barrier on each stock might pay 14%. The extra ~8% comes from the **correlation premium** — the investor has sold the right for the bank to deliver the worst-performing stock. Conceptually: bond interest (the bank's credit curve) + net option premium (the worst-of knock-in put, digital coupon options and autocall option the investor sells) − Funds Transfer Pricing − desk margin = net coupon. The correlation premium is the block that makes the worst-of coupon so much larger than a single-stock coupon. The bank hedges the raw short-correlation exposure by trading dispersion — long single-stock vol + short basket vol, which is a short-correlation trade; the spread between the investor's implied correlation and the hedge cost is the bank's profit.
+
+![Worst-of Autocallable Coupon Decomposition — Bank Lens (Desk Economics)](assets/woauto/waterfall_woauto_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by realised-versus-implied volatility on the delta hedge across the basket, moves in the underlyings near the knock-in and autocall barriers (gamma and pin risk), the correlation mark on the worst-of (raw short, partly offset by the dispersion hedge), funding, and the mark-to-market of the embedded options. Because the worst-of has multiple embedded options and a multi-asset path-dependent payoff with no analytical solution, Monte Carlo simulation (typically 100,000+ paths) is required to revalue it. Product Control attributes P&L between note accrual and option MTM and performs independent price verification, checking implied correlation against single-stock and basket vols.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
+
+| Aspect | Detail |
+|--------|--------|
+| **Primary system** | Murex |
+| **Booking model** | Multi-asset exotic option. Requires basket definition, correlation matrix, per-stock barriers |
+| **Valuation model** | Monte Carlo simulation (required — no analytical solution for multi-asset barriers). Correlation matrix calibrated from implied correlations (basket vol vs single-stock vols). Typically 100,000+ paths |
+| **Key booking fields** | Notional, underlyings (basket), per-stock initial levels, autocall barrier, coupon barrier, knock-in barrier, barrier types, coupon rate, coupon frequency, observation dates, memory (Y/N), maturity |
+| **Market data** | Per-stock: spot, implied vol surface, dividend forecast, borrow cost. Basket: implied correlation matrix, basket vol (if traded). FX rates for quanto adjustment |
+| **Settlement** | Cash or physical delivery of the worst-performing stock |
+| **Special requirements** | Corporate-action handling for each stock. Quanto adjustment engine. Correlation-matrix maintenance |
+
+**Reconciliation points**
+
+| Recon point | What must agree | Worst-of-specific break |
+|-------------|-----------------|-------------------------|
+| **Basket underlyings & initial fixings** | The full set of basket constituents (identifiers) and each stock's initial fixing level **and source** match the termsheet | Wrong fixing source on one stock, or a missing/extra constituent — cascades through the entire worst-of determination |
+| **Worst-of determination** | On each observation date, both systems use the same initial levels and fixing sources to identify the worst performer and compute its level **and barrier convention** (% vs absolute) | Systems disagree on which stock is worst → wrong barrier comparison, wrong coupon/autocall decision |
+| **Autocall event capture** | The autocall trigger flag and early-redemption date are consistent across systems | Autocall condition met (worst-of ≥ autocall barrier) but not processed, or processed late → note carried when it should have terminated |
+| **Knock-in event capture** | The continuous knock-in flag (any stock below its individual KI level = KI% × S_i(0)) is consistent across systems | Intraday knock-in on one stock missed, or barrier checked against the average/best performer instead of the worst |
+| **Correlation model inputs** | The implied correlation matrix, per-stock vols and basket vol used to mark the trade agree across pricing and risk | Stale or inconsistent correlation matrix → MTM and Greeks diverge; raw vs net correlation mis-stated |
+| **Coupon / memory accrual** | Coupon-paid vs coupon-missed flag (and the memorized-coupon counter, if memory) for each observation date is consistent | Coupon paid when the worst performer was below the coupon barrier, or memory counter disagrees → wrong catch-up payment |
+| **Corporate actions** | Strike/barrier and worst-of inputs adjusted for dividends, splits, mergers on **any** constituent | A split on one stock not propagated → that stock's level and barrier off by the split ratio, distorting the worst-of |
+| **Settlement** | Cash vs physical; shares = notional / strike of the worst performer; delivery-versus-payment | Physical delivery of the worst-of stock booked as cash, or the wrong share count delivered |
+
+![WOAUTO Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/woauto/controls_woauto_recon_08.svg)
+
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Wrong fixing source on one basket stock | The most common worst-of operational error — one mis-sourced fixing cascades through the worst-of determination | Verify every constituent's fixing source against the termsheet on each observation date |
+| Worst-of determination error | Systems disagree on which stock is the worst performer | Verify that both systems use the same initial levels and fixing sources before relying on either decision |
+| Autocall not triggered when it should have been | A data error on the observation date meant the worst-of ≥ autocall barrier was not processed | Check fixing data; if the autocall condition was met, process retroactively |
+| Knock-in applied to the wrong stock | The barrier was checked against the average or best performer, not the worst | Verify the worst-of logic in the booking |
+| Correlation matrix stale or inconsistent | Pricing and risk systems use different implied correlations → MTM and Greeks diverge | Reconcile the correlation inputs; confirm raw vs net correlation is correctly labelled |
+
+**Control implication**
+
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. The control points that distinguish the worst-of from a single-name autocallable are the **basket fixings**, the **worst-of determination on every observation date**, and the **correlation model inputs**. A mis-sourced fixing on one constituent corrupts the worst-of determination — driving the wrong coupon, autocall and knock-in decisions all at once. A worst-of error checked against the wrong stock understates desk risk and overstates the investor's protection simultaneously. A stale correlation matrix mis-states both the MTM (raw short vs net) and the Greeks. Because every decision depends on a correct worst-of determination on every scheduled date, the reconciliation must run on each observation date — not just at maturity — to catch these inconsistencies before settlement crystallises them.
+
+#### §10. Formal Definition
+
+A **Worst-of Autocallable** is an autocallable structured note where all payoff-relevant observations (autocall, coupon, barrier) are evaluated using the worst-performing stock in a basket of N underlyings.
 
 **Worst-of performance at time t:**
 
 WO_t = min(S_i(t) / S_i(0)) for i = 1 to N
 
-Where S_i(t) is the price of stock i at time t and S_i(0) is its initial price.
+where S_i(t) is the price of stock i at time t and S_i(0) is its initial price.
 
-**Autocall at observation date t (after no-call period):**
+**Autocall at observation date t (after the no-call period):**
 
-If WO_t ≥ Autocall Barrier: Product redeems at 100% + due coupons
+If WO_t ≥ Autocall Barrier: the product redeems at 100% + due coupons.
 
 **Coupon at observation date t:**
 
-If WO_t ≥ Coupon Barrier: Coupon paid (with memory if applicable)
-If WO_t < Coupon Barrier: Coupon missed
+If WO_t ≥ Coupon Barrier: coupon paid (with memory if applicable).
+If WO_t < Coupon Barrier: coupon missed.
 
 **Knock-in barrier (continuous):**
 
-If min(S_i(t) / S_i(0)) < KI Barrier for any stock i at any time t: Barrier breached
+If min(S_i(t) / S_i(0)) < KI Barrier for any stock i at any time t: barrier breached.
 
 **At maturity (if not autocalled):**
 
-If KI not breached: 100% + final coupon (if applicable)
-If KI breached AND WO_T ≥ Strike: 100% + final coupon
-If KI breached AND WO_T < Strike: Physical delivery of worst-performing stock (or cash equivalent)
+If KI not breached: 100% + final coupon (if applicable).
+If KI breached AND WO_T ≥ Strike: 100% + final coupon.
+If KI breached AND WO_T < Strike: physical delivery of the worst-performing stock (or cash equivalent).
 
-**Physical delivery:** Client receives N_shares of the worst-performing stock, where N_shares = Notional / (Strike Price of worst-performing stock)
+**Physical delivery:** the investor receives N_shares of the worst-performing stock, where N_shares = Notional / (Strike Price of the worst-performing stock).
 
-#### §12. Product Construction
+#### §11. Lifecycle
 
-| Component | Value | Purpose |
-|-----------|:-----:|---------|
-| Principal investment | 100% | Investor's capital at risk |
-| Short worst-of knock-in put | Large premium | Client sells put on worst-of. Premium funds coupons. Correlation premium is the key driver |
-| Short autocall option (worst-of) | Premium | Client sells autocall right. Additional coupon funding |
-| Conditional coupon mechanism | 3.5%/quarter | Paid from option premiums. Conditional on worst-of above coupon barrier |
+| Stage | Detail |
+|-------|--------|
+| **Trade date** | Note issued. Initial levels for all basket stocks recorded. Barriers set as percentages of initial levels. Book in Murex with the basket definition and correlation matrix |
+| **No-call period** | Months 1-6: coupon observations occur, autocall cannot trigger, barrier monitoring is active |
+| **Quarterly observations** | On each date: determine the worst-of level; check the coupon barrier and the autocall barrier; apply memory if applicable; pay coupon plus any memorized coupons, or record a missed coupon |
+| **Continuous barrier** | Throughout: monitor each stock individually. If any stock falls below its individual KI level (= KI% × S_i(0)), the barrier is breached |
+| **Autocall** | From Q3 onward: if the worst-of ≥ autocall barrier, redeem at 100% + accumulated coupons |
+| **Maturity** | If not autocalled: assess KI status and the worst-of level. Pay principal + coupon, or deliver the worst-of stock |
+| **Corporate action** | If triggered: dividend adjustments, stock splits, M&A on any basket stock require contract adjustment and recalculation of barriers and the worst-of determination. Disruption-event provisions may apply |
 
-**If you remember only one thing from this chapter, remember this:** A Worst-of Autocallable is a bet that ALL stocks in the basket will behave. The coupon is high because one bad stock can ruin the deal — and the probability that at least one stock misbehaves is much higher than the probability that any specific stock misbehaves. This gap between "any one" and "at least one" is correlation risk, and it is the engine that powers the entire worst-of market.
-
-#### §13. Lifecycle
-
-| Stage | Timing | Action |
-|-------|--------|--------|
-| **Trade date** | T | Note issued. Initial levels for all basket stocks recorded. Barriers set as percentages of initial levels |
-| **No-call period** | Months 1-6 | Coupon observations occur. Autocall cannot trigger. Barrier monitoring active |
-| **Quarterly observations** | Q1-Q8 | On each date: determine worst-of level. Check coupon barrier, autocall barrier. Apply memory if applicable |
-| **Continuous barrier** | Throughout | Monitor each stock individually. If any stock falls below its individual KI level (= KI% × S_i(0)), barrier is breached |
-| **Autocall** | Q3-Q8 | If worst-of ≥ autocall barrier: redeem at 100% + accumulated coupons |
-| **Maturity** | Q8 (2 years) | If not autocalled: assess KI status and worst-of level. Pay principal + coupon, or deliver worst-of stock |
-| **Corporate action** | If triggered | Dividend adjustments, stock splits, M&A on any basket stock require contract adjustment. Disruption event provisions may apply |
-
-#### §14. Desk Reality
-
-**What traders think about:**
-Correlation. The worst-of trader's primary risk is correlation exposure. The bank is structurally long correlation (benefits when stocks move together). The trader hedges this by trading **dispersion** — buying single-stock volatility and selling basket volatility. When realised correlation is lower than implied (stocks move independently), dispersion profits offset worst-of losses, and vice versa.
-
-The second concern is idiosyncratic risk. A single stock crashing (CEO scandal, accounting fraud, product recall) is the nightmare scenario — it triggers barrier breach on many worst-of products simultaneously. Traders monitor name concentration across their book: if AAPL appears in 200 worst-of products, an Apple-specific crash creates a systemic hedging challenge.
-
-**What structurers think about:**
-Basket selection. The ideal basket has: (1) moderately high implied vol on each stock (generates option premium for coupons), (2) moderate pairwise correlations (not too high — low correlation premium; not too low — too risky), (3) liquid single-stock options (for hedging), (4) no upcoming corporate events (M&A, spinoffs). Cross-sector baskets (tech + auto + consumer staples) typically offer the best correlation premium because sectors tend to have lower cross-sector correlation than within-sector.
-
-**What operations thinks about:**
-Multiple stocks mean multiple fixing sources, multiple dividend schedules, multiple corporate action calendars. A single stock split or special dividend on one basket constituent requires recalculation of all barriers and the worst-of determination. Operations must track N stocks × M observation dates. The most common operational error: using the wrong fixing source for one stock, which cascades through the worst-of determination.
-
-#### §15. Risk Analysis
-
-| Risk | Severity | Description |
-|------|:--------:|------------|
-| **Idiosyncratic stock crash** | Very High | One stock in the basket collapses while others are fine. Worst-of mechanism delivers the entire loss. The defining risk |
-| **Correlation breakdown** | High | Stocks that historically moved together begin moving independently. Probability of at least one breaching barrier increases |
-| **Capital loss (KI + worst-of below strike)** | High | If barrier breached, investor receives shares of the worst-performing stock — potentially at a large loss |
-| **Coupon miss** | Medium | If worst-of is between coupon barrier and autocall barrier, coupons may be intermittent. Memory helps but does not eliminate missed income |
-| **Model risk** | Medium | Correlation modelling is inherently uncertain. Copula models (Gaussian, Student-t) can produce materially different prices |
-| **Quanto risk** | Medium | If basket contains stocks denominated in different currencies, FX adjustments introduce additional risk factors |
-
-**Greeks profile:**
-
-| Greek | Value | Significance |
-|-------|:-----:|-------------|
-| Delta | Per stock: depends on worst-of status | Worst-performing stock has the highest delta. Delta "jumps" between stocks as worst-of identity changes |
-| Gamma | Per stock: highest for worst-of stock near barriers | Barrier proximity creates gamma spikes. Multiple barriers = multiple gamma concentrations |
-| Vega | Per stock: short | Higher vol on any stock increases worst-of risk. Bank is long vol through the hedge |
-| Correlation | Long | Higher correlation benefits worst-of holder. Lower correlation benefits bank. This is the primary risk factor unique to worst-of |
-
-#### §16. Booking and Systems
-
-| Dimension | Detail |
-|-----------|--------|
-| **Primary system** | Murex |
-| **Booking model** | Multi-asset exotic option. Requires basket definition, correlation matrix, per-stock barriers |
-| **Valuation model** | Monte Carlo simulation (required — no analytical solution for multi-asset barriers). Correlation matrix calibrated from implied correlations (basket vol vs single-stock vols). Typically 100,000+ paths |
-| **Market data** | Per-stock: spot, implied vol surface, dividend forecast, borrow cost. Basket: implied correlation matrix, basket vol (if traded). FX rates for quanto adjustment |
-| **Settlement** | Cash or physical delivery of worst-performing stock |
-| **Special requirements** | Corporate action handling for each stock. Quanto adjustment engine. Correlation matrix maintenance |
-
-#### §17. Red Flags
-
-| Red Flag | Why It Matters |
-|----------|---------------|
-| Basket contains highly correlated stocks (same sector) | Low correlation premium = low extra coupon for worst-of. Client gets worst-of risk with minimal yield enhancement over single-stock |
-| Basket contains stock with upcoming corporate event | M&A, spinoff, or restructuring on one stock creates operational and pricing uncertainty |
-| Very high coupon (> 20% annualised) | Usually indicates very low implied correlation or very close barriers. The risk is proportional to the coupon |
-| Client does not understand that ONE stock drives the outcome | Most common misunderstanding. Client thinks "diversified basket" means "diversified risk." The opposite is true for worst-of |
-| Knock-in barrier tight (70%+ of initial) | Moderate decline in any single stock triggers capital risk. In a 5-stock basket, the probability is significant |
-
-#### §18. Worked Example
+#### §12. Worked Example (both lenses)
 
 **Terms:**
 - Notional: EUR 500,000
@@ -20279,76 +20470,66 @@ Multiple stocks mean multiple fixing sources, multiple dividend schedules, multi
 
 **Total received:** 5 × €15,000 + €500,000 = €575,000
 **Return:** 15% over 15 months = 12% annualised
-**KI barrier was never breached** (ASML's lowest was 75%, above 60% KI)
+**KI barrier was never breached** (ASML's lowest was 75%, above the 60% KI).
 
-**Key observation:** ASML was the worst-of stock in every single quarter. The product's fate was entirely determined by ASML's performance. Siemens and LVMH were irrelevant to the payout — only ASML mattered. This is the reality of worst-of: one stock dominates.
+*Investor lens:* ASML was the worst-of stock in every single quarter. The product's fate was entirely determined by ASML's performance — Siemens and LVMH were irrelevant to the payout. The investor collects 5 × €15,000 = €75,000 in coupons and full €500,000 principal back when the note autocalls at Q5, for €575,000 total: a 15% return over 15 months (12% annualised). This is the reality of worst-of: one stock dominates.
+
+*Bank lens:* The desk holds the long embedded options (worst-of knock-in put, digital coupon options, autocall option) against the investor and is raw short correlation, hedged via dispersion. ASML stays the worst performer throughout, so the desk's worst-of put tracks ASML's distance to the 60% KI; at Q5 the autocall terminates the structure and the desk unwinds the basket hedge. The 2nd line must confirm on each observation date that the basket fixings, the worst-of determination (ASML each quarter), the coupon-paid flags, the correlation inputs, and the Q5 autocall event all agree in Murex before each payment and the final redemption settle.
 
 **What if ASML had fallen to 55% in Q2?**
-- KI barrier breached (55% < 60%)
+- KI barrier breached (55% < 60%).
 - If at maturity ASML finishes at 65%: **below strike (100%)**, so **physical delivery applies**. Shares delivered: €500,000 / €700 = 714 ASML shares. Worth 714 × (0.65 × €700) = €324,870. Loss: €175,130 (partially offset by coupons received).
-- If at maturity ASML finishes at 55%: below strike. Physical delivery: €500,000 / €700 = 714 ASML shares. Worth 714 × (0.55 × €700) = €274,890. Loss: €225,110
+- If at maturity ASML finishes at 55%: below strike. Physical delivery: €500,000 / €700 = 714 ASML shares. Worth 714 × (0.55 × €700) = €274,890. Loss: €225,110.
 
-#### §19. Knowledge Check
+#### §13. Knowledge Check
 
-**Review Questions:**
-1. Why does a worst-of autocallable pay a higher coupon than an equivalent single-stock autocallable?
-2. How does correlation between basket stocks affect the risk and pricing of a worst-of product?
-3. What is dispersion trading, and how does the bank use it to hedge worst-of correlation exposure?
-4. Why is the barrier on a worst-of product more dangerous than the same barrier on a single-stock product?
-5. What is the "one bad stock" risk, and how does basket composition affect it?
+1. **Why does a worst-of autocallable pay a higher coupon than an equivalent single-stock autocallable?** *(Investor)*
+2. **How does correlation between basket stocks affect the risk and pricing of a worst-of product, and why is the investor *long* correlation under the MTM convention despite having *structurally sold* the correlation premium?** *(Investor)*
+3. **Why is the barrier on a worst-of product more dangerous than the same barrier on a single-stock product?** *(Investor)*
+4. **What is the "one bad stock" risk, and how does basket composition affect it?** *(Investor)*
+5. **A 3-stock worst-of basket has AAPL, TM, and NESN. After 6 months AAPL is at 115%, TM at 105%, and NESN at 72%. The coupon barrier is 70% and the KI barrier is 60%. What is the investor's primary concern at this point?** *(Investor)*
+6. **(Desk economics / 1LoD)** What package of embedded options does the desk hold long against the investor, what is the desk's **raw** correlation position, and how does it hedge that exposure with dispersion (long single-stock vol, short basket vol)? Why does the net correlation differ from the raw?
+7. **(Controls / 2LoD)** On each observation date, which fields must reconcile in Murex for a worst-of product, and why are the basket fixings and the worst-of determination the breaks most specific to this product?
 
-**Scenario Questions:**
-1. A 3-stock worst-of basket has AAPL, TM, and NESN. After 6 months, AAPL is at 115%, TM at 105%, and NESN at 72%. The coupon barrier is 70% and the KI barrier is 60%. What is the client's primary concern, and what is the trader's primary concern at this point?
-2. Two worst-of products have identical terms except the basket: Product A has 3 tech stocks (high intra-sector correlation), Product B has a tech stock, a utility stock, and a consumer staple (low cross-sector correlation). Which product pays a higher coupon and why?
-3. A client holds a worst-of autocallable where the knock-in barrier has been breached by Stock C (which fell to 58%). Stocks A and B are at 110% and 105%. Stock C has recovered to 75%. It is 3 months before maturity. What are the possible outcomes?
+**Mental Models**
 
-**Desk Question:**
-A junior structurer proposes a 5-stock worst-of autocallable with stocks from 5 different countries, denominated in 5 different currencies. The coupon would be 22% annualised. As a senior structurer, what concerns would you raise?
+| Concept | Mental Model |
+|---------|-------------|
+| Worst-of Autocallable | A relay race judged by the slowest runner — the team's time is set by the weakest member |
+| Worst-of mechanism | A chain is only as strong as its weakest link; one bad stock sets every outcome |
+| Correlation (investor, MTM) | Synchronised runners (high correlation) are the investor's friend — the worst is less likely to lag; independent runners (low correlation) are the enemy. The investor is **long correlation** |
+| Correlation premium | The extra coupon is the price the bank pays the investor for selling insurance against idiosyncratic stock risk |
+| Autocall | The early buyout — if the worst-of is strong, both sides walk away and the investor reinvests |
+| Dispersion hedge | The desk is raw short correlation and offsets it by buying single-stock vol and selling basket vol |
+| 2LoD reconciliation | The auditor who re-runs every observation date — confirming the basket fixings, the worst-of determination, and the autocall/KI flags agree before any payment is made |
 
-**Interview Layer Candidates:** Q1, Q2, Desk Q1
-**Examiner Notes Candidates:** Q2, Desk Q1
+**Key Takeaways**
 
-#### §20. Common Mistakes
+1. A worst-of autocallable applies Phoenix mechanics to a basket: autocall, coupon and knock-in are all evaluated on the **worst-performing** stock.
+2. More stocks means more risk, not less — the probability that at least one stock breaches a barrier is much higher than the probability for any single stock.
+3. The investor is **long correlation under the MTM convention** — higher correlation reduces worst-of risk and benefits the note holder. The investor *structurally sold* the correlation premium, but the economic sensitivity is long: rising correlation gains value.
+4. The high coupon (10-18%) is the correlation premium — payment for taking the risk that stocks move independently and one drags the basket down.
+5. The defining risk is an idiosyncratic crash in a single constituent; the average basket performance is irrelevant — only the worst performer matters.
+6. The desk holds the offsetting long-option package, is **raw short correlation**, and hedges via dispersion (long single-stock vol, short basket vol); raw and net correlation must be qualified.
+7. For the 2nd line, the dominant control risks are the basket fixings, the worst-of determination, autocall and knock-in event capture, and the correlation model inputs — each must be reconciled on every observation date in Murex, not just at maturity.
 
-1. **Thinking "basket" means "diversified."** In worst-of, more stocks = more risk, not less. Each additional stock increases the probability that at least one will underperform. The basket does not diversify — it concentrates risk on the weakest link
-2. **Ignoring correlation.** The worst-of coupon is funded by correlation risk. When correlations break down (stocks move independently), the probability of barrier breach increases sharply. Clients who do not understand correlation should not hold worst-of products
-3. **Focusing on the average basket performance.** The average performance of 3 stocks can be +10% while the worst-of is -30%. Average performance is irrelevant — only the worst performer matters
-4. **Underestimating idiosyncratic risk.** A company-specific event (fraud, product recall, regulatory action) can crash a single stock while the market is fine. This is the exact scenario where worst-of delivers the maximum loss
-5. **Not checking quanto risk.** A basket with stocks in different currencies introduces FX risk. AAPL in USD, Toyota in JPY, Nestlé in CHF — the performance of each must be measured in the product's base currency. Quanto adjustments can be material
+#### §14. Common Mistakes
 
-#### §21. Visual Specifications
+1. **Thinking "basket" means "diversified."** In worst-of, more stocks = more risk, not less. Each additional stock increases the probability that at least one will underperform. The basket does not diversify — it concentrates risk on the weakest link.
+2. **Calling the investor "short correlation."** The investor *structurally sold* the correlation premium, but the MTM sensitivity is **long correlation**: rising correlation reduces worst-of risk and benefits the note holder. The bare "short correlation" label belongs to the desk's raw position, not the investor.
+3. **Focusing on the average basket performance.** The average of three stocks can be +10% while the worst-of is −30%. Average performance is irrelevant — only the worst performer matters.
+4. **Underestimating idiosyncratic risk.** A company-specific event (fraud, product recall, regulatory action) can crash a single stock while the market is fine. This is the exact scenario where worst-of delivers the maximum loss.
+5. **Not checking quanto risk.** A basket with stocks in different currencies introduces FX risk — AAPL in USD, Toyota in JPY, Nestlé in CHF. Each performance must be measured in the product's base currency, and quanto adjustments can be material.
+6. **(Controls) Reconciling only at maturity.** The worst-of must be reconciled on every observation date — the basket fixings, the worst-of determination, the autocall/knock-in flags and the correlation inputs can each drift in Murex at any quarterly check, long before maturity.
 
-| # | Priority | Visual | Type | Description |
-|:-:|:--------:|--------|------|-------------|
-| 1 | P1 | Worst-of observation diagram | Multi-stock chart | 3 stock lines showing divergent paths. Worst-of line (lowest at each point) highlighted. Shows how one stock determines the basket |
-| 2 | P1 | Correlation impact on worst-of probability | Comparison | Two scenarios: high correlation (stocks move together, worst-of close to average) vs low correlation (stocks diverge, worst-of much lower than average). Shows why correlation matters |
-| 3 | P2 | Worst-of autocall decision tree | Decision tree | Quarterly observation: check worst-of vs autocall barrier, vs coupon barrier, vs KI. Shows the three-level evaluation |
-| 4 | P2 | Single-stock vs worst-of coupon comparison | Bar chart | Same barrier, same tenor: single-stock coupon (6%) vs 3-stock worst-of (14%). Shows the correlation premium |
-| 5 | P3 | Basket selection criteria | Matrix | Sector, vol, correlation, liquidity for typical basket combinations. Shows what makes a good vs bad basket |
-| 6 | P3 | Dispersion hedging diagram | Flow | Bank's hedge: long single-stock vol + short basket vol = **short** correlation (dispersion trade). Shows how the bank manages worst-of risk |
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book against the investor, and what is its primary Greek / hedging risk?
+- *(Controls / 2LoD)* Which booking / fixing / event-capture fields must reconcile, and which is the most common break?
 
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Options, puts, calls | Section 1.2 (Options From Zero) |
-| Barriers and knock-in | Section 1.3 (Barriers and Digitals) |
-| Delta, gamma, vega | Section 1.4 (Greeks) |
-| Volatility, implied vol surface | Section 1.5 (Volatility) |
-| Correlation, worst-of payoff, baskets | Section 1.6 (Correlation and Baskets) |
-| Autocall mechanics, memory coupon, observation dates | Section 5.1.3 (Phoenix Autocallable) |
-| Fixed coupon autocallable | Section 5.1.9 (FCN) |
-| Reverse Convertible (short put economics) | Section 5.1.2 (Reverse Convertible) |
-| Cumulative coupon (related mechanism) | Section 5.6.10 (Snowball Note) |
-| Forward-starting options | Section 5.6.11 (Cliquet / Ratchet Note) |
-
-
-# PART 6 — THE OPERATIONAL ECOSYSTEM
-
-*How the infrastructure around structured products works — from market conventions to regulatory compliance. Part 5 told you what each product is and how it works. Part 6 tells you how those products are documented, valued, controlled, and governed in practice.*
-
----
-
+**Dual-lens visuals (generated):**
+- `assets/woauto/controls_woauto_recon_08.svg` `[generated]`
+- `assets/woauto/payoff_woauto_01.svg` `[generated]`
+- `assets/woauto/waterfall_woauto_09.svg` `[generated]`
 ## 6.1 Market Conventions
 
 *How the market speaks — the conventions that govern when, how, and on what basis payments are calculated*

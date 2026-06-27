@@ -191,6 +191,10 @@ def lnt_cor_02(doc, n):
     line = doc.line(n)
     if STRUCTURALLY.search(line):
         return None
+    # Skip correct desk raw/net statements ("the desk's raw position is short
+    # correlation — the mirror of the investor's long-correlation sensitivity").
+    if RAW_HEDGED.search(line) and re.search(r"\b(desk|bank|dealer)\b", line, re.IGNORECASE):
+        return None
     # same-line: "short correlation ... profit/benefit ... high/rises"
     if re.search(
         r"short correlation.{0,200}?(benefit|profit|gain|improve|risk decreases)"
@@ -290,6 +294,12 @@ def lnt_cor_07(doc, n):
 def lnt_cor_08(doc, n):
     win = doc.window(n, 1, 1)
     if STRUCTURALLY.search(win):
+        return None
+    # Skip correct dual-lens / desk-raw framing in the window: if the window also
+    # labels something "long correlation" (the investor, correctly) or carries a
+    # raw/net desk qualifier, the "short" belongs to the desk, not the investor.
+    if re.search(r"long correlation", win, re.IGNORECASE) or \
+       (RAW_HEDGED.search(win) and re.search(r"\b(desk|bank|dealer)\b", win, re.IGNORECASE)):
         return None
     if re.search(r"worst-of.{0,150}?investor.{0,80}?short correlation", win,
                  re.IGNORECASE | re.DOTALL):
