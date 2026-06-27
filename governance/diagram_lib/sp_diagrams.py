@@ -544,6 +544,55 @@ def payoff_range_accrual(
 
 
 # --------------------------------------------------------------------------- #
+# 1k. Steepener coupon vs curve slope (STEG family)
+# --------------------------------------------------------------------------- #
+def payoff_steepener(
+    out_svg: str | Path,
+    *,
+    leverage: float,
+    floor_coupon: float = 0.0,
+    cap_coupon: Optional[float] = None,
+    strike_spread: float = 0.0,
+    title: str = "Steepener Coupon vs Curve Slope",
+    lens: str = LENS_INVESTOR,
+    slope_min: float = -50.0,
+    slope_max: float = 300.0,
+    preview: bool = True,
+) -> str:
+    """Coupon = clip( leverage × max(0, (slope − strike)/100), floor, cap ), where
+    slope is the long−short CMS spread in bp. Long-slope payoff with a kink at the
+    strike, a floor, and an optional cap."""
+    _apply_style()
+    fig, ax = plt.subplots(figsize=(7.2, 4.4))
+    x = np.linspace(slope_min, slope_max, 400)
+    c = leverage * np.maximum(0.0, (x - strike_spread) / 100.0)
+    c = np.maximum(c, floor_coupon)
+    if cap_coupon is not None:
+        c = np.minimum(c, cap_coupon)
+    ax.plot(x, c, color=NAVY, lw=2.6, label=f"Coupon = {leverage:g} × max(0, slope − {strike_spread:g}bp)")
+    ax.fill_between(x, c, floor_coupon, color=SLATE, alpha=0.12)
+    ax.axvline(strike_spread, color=GREY, lw=0.9, ls=":")
+    ax.text(strike_spread + 4, floor_coupon + 0.3, f"Kink @ {strike_spread:g}bp", fontsize=8, color=GREY)
+    ax.axvline(0, color=SLATE, lw=0.8)
+    if cap_coupon is not None:
+        ax.axhline(cap_coupon, color=ACCENT, lw=1.0, ls=(0, (4, 3)))
+        ax.text(slope_max - 4, cap_coupon + 0.2, f"Cap {cap_coupon:g}%", fontsize=8, color=ACCENT, ha="right")
+    ax.axhline(floor_coupon, color=GOLD, lw=1.0, ls=":")
+    ax.text(slope_min + 4, floor_coupon + 0.2, f"Floor {floor_coupon:g}%", fontsize=8, color=GOLD)
+    ax.text(slope_min + 10, (cap_coupon or 12) * 0.5, "Flatter ←", fontsize=9, color=GREY)
+    ax.text(slope_max - 10, (cap_coupon or 12) * 0.5, "→ Steeper", fontsize=9, color=GREY, ha="right")
+    ax.set_xlabel("Curve slope: long-tenor − short-tenor CMS (bp)")
+    ax.set_ylabel("Coupon paid (%)")
+    ax.set_title(f"{title} — {lens}", color=NAVY, fontsize=13, fontweight="bold", loc="left")
+    ax.set_xlim(slope_min, slope_max)
+    ax.set_ylim(min(floor_coupon - 0.5, -0.5), (cap_coupon or leverage * (slope_max - strike_spread) / 100.0) * 1.15 + 0.5)
+    ax.grid(True, color=LIGHT, lw=1)
+    ax.set_axisbelow(True)
+    ax.legend(loc="upper left", frameon=False, fontsize=8.5)
+    return _finish(fig, out_svg, preview)
+
+
+# --------------------------------------------------------------------------- #
 # 2. Desk gamma / hedge profile (Bank Lens — Desk Economics)
 # --------------------------------------------------------------------------- #
 def desk_gamma_profile(

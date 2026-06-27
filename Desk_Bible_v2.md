@@ -13146,25 +13146,26 @@ The desk holds the mirror position — short the digital cap — and pays the $3
 
 ---
 
+*A Vanilla Steepener Note is a Structured Rate Trade booked in Murex with the four-leg structure (Note, Issuer, Deposit, Hedge). Its coupon depends on the slope of the yield curve: the coupon equals a leverage factor times the difference between a long-tenor CMS rate and a short-tenor CMS rate (CMS30Y − CMS2Y), floored at 0% and capped. The investor is long the curve slope — the coupon rises as the curve steepens and falls to the floor if the curve flattens or inverts. Economically the desk is short the CMS spread and hedges with CMS spread swaps and CMS cap/floor options. This chapter reads the product through two lenses: what it means for **the investor** (the note holder whose coupon tracks the curve slope), and what it means for **the bank** — the latter split into the desk's rate economics (1st line of defence) and the controls and reconciliation that surround the four-leg booking (2nd line of defence).*
+
 #### §1. Explain Like I'm New
 
-Chen Wei manages a $2 billion fixed-income portfolio at a Chinese insurance company. He believes the yield curve will remain steep — that 30-year interest rates will stay well above 2-year rates — for the next five years. Ordinary bonds pay him a fixed coupon regardless of the curve's shape. Chen wants an investment that rewards him for being right about the curve. The Vanilla Steepener Note gives him exactly this: a leveraged coupon based on the difference between the 30-year swap rate (CMS30Y) and the 2-year swap rate (CMS2Y). In Year 1, he receives a fixed 5.00%. From Year 2 onward, his coupon equals 4 times the CMS spread — if 30-year rates are 4.50% and 2-year rates are 3.80%, the spread is 0.70%, and his coupon is 4 × 0.70% = 2.80%. If the curve steepens further, his coupon rises. If it flattens or inverts, his coupon drops to zero.
+Consider a portfolio manager running a $2 billion fixed-income book at a Chinese insurance company. The manager believes the yield curve will remain steep — that 30-year interest rates will stay well above 2-year rates — for the next five years. Ordinary bonds pay a fixed coupon regardless of the curve's shape. The manager wants an investment that rewards a correct view about the curve. The Vanilla Steepener Note delivers exactly this: a leveraged coupon based on the difference between the 30-year swap rate (CMS30Y) and the 2-year swap rate (CMS2Y). In Year 1 the note pays a fixed 5.00%. From Year 2 onward, the coupon equals 4 times the CMS spread — if 30-year rates are 4.50% and 2-year rates are 3.80%, the spread is 0.70%, and the coupon is 4 × 0.70% = 2.80%. If the curve steepens further, the coupon rises. If it flattens or inverts, the coupon drops to zero.
 
 #### §2. Core Analogy
 
-Think of a hydroelectric dam. The electricity generated depends on the height difference between the water reservoir above and the turbine below — the greater the drop, the more power produced. If the reservoir level falls to match the turbine level, the water stops flowing and no electricity is generated. The CMS30Y rate is the reservoir level, the CMS2Y rate is the turbine level, and the coupon is the electricity. A steep curve is a tall dam with strong flow. A flat curve is a dam with no drop.
+A Vanilla Steepener resembles a hydroelectric dam. The electricity generated depends on the height difference between the water reservoir above and the turbine below — the greater the drop, the more power produced. If the reservoir level falls to match the turbine level, the water stops flowing and no electricity is generated. The CMS30Y rate is the reservoir level, the CMS2Y rate is the turbine level, and the coupon is the electricity. A steep curve is a tall dam with strong flow. A flat curve is a dam with no drop, and produces no coupon.
 
 #### §3. What Problem Does It Solve
 
-| Client Need | How the Product Delivers |
+| Investor Need | How the Product Delivers |
 |------------|------------------------|
-| Express a view on yield curve slope | Coupon directly linked to CMS30Y - CMS2Y spread |
-| Earn above-market yield when curve is steep | Leverage factor (4×) amplifies a positive spread into a meaningful coupon |
+| Express a view on yield curve slope | Coupon directly linked to the CMS30Y − CMS2Y spread |
+| Earn above-market yield when the curve is steep | Leverage factor (4×) amplifies a positive spread into a meaningful coupon |
 | Benefit from central bank policy divergence | Short end driven by policy rates, long end by growth/inflation expectations — divergence = steeper curve |
 | Diversify rate exposure beyond absolute level | Return depends on curve shape, not on whether rates are high or low |
 
 #### §4. Product DNA
-
 
 | **Field** | **Value** |
 |---|---|
@@ -13172,7 +13173,7 @@ Think of a hydroelectric dam. The electricity generated depends on the height di
 | **Abbreviation** | Vanilla STEG |
 | **Family** | Steepener Notes |
 | **Complexity Score** | 5 / 10 |
-| **Complexity Rationale** | Leveraged CMS spread coupon (CMS30Y - CMS2Y). Floor, cap. CMS convexity adjustment. Building block for STEG family |
+| **Complexity Rationale** | Leveraged CMS spread coupon (CMS30Y − CMS2Y). Floor, cap. CMS convexity adjustment. Building block for STEG family |
 | **Underlying Asset Class** | Rates (CMS30Y − CMS2Y swap curve slope) |
 | **Capital Protection** | 100% at maturity |
 | **Coupon Type** | Leveraged CMS spread coupon with floor and cap |
@@ -13181,11 +13182,10 @@ Think of a hydroelectric dam. The electricity generated depends on the height di
 | **Primary System** | Murex (primary), Sophis (risk) |
 | **ISDA Required** | No — issued as note |
 
-
 **DNA Atlas Fields:**
-- Primary Risk: Curve flattening or inversion. Coupon = CMS30 - CMS2 (or similar). If spread narrows, coupon drops. Can reach zero
-- Typical Buyer: Institutional investors with steepening view on yield curve
-- Typical Use Case: Express curve steepening view with leveraged exposure
+- Primary Risk: Curve flattening or inversion. Coupon = CMS30 − CMS2 (or similar). If the spread narrows, the coupon drops. Can reach zero
+- Typical Buyer: Institutional investors with a steepening view on the yield curve
+- Typical Use Case: Express a curve-steepening view with leveraged exposure
 - Building Blocks: Fixed-rate note + CMS spread option (long CMS30, short CMS2)
 - Key Hedge: CMS spread swaps, CMS cap/floor
 - Similar Products: RA STEG (5.4.2 — adds range), Callable STEG (5.4.3 — adds call), IRS (5.2.1 — linear rate)
@@ -13208,7 +13208,7 @@ Think of a hydroelectric dam. The electricity generated depends on the height di
 ```
 Rates
 └── Steepener Notes (STEG)
-    └── Vanilla Steepener  ← You are here
+    └── Vanilla Steepener Note  ← chapter focus
 ```
 
 #### §6. Product Evolution
@@ -13219,110 +13219,38 @@ Rates
 | 2 | CMS swap | Reference to a constant maturity point on the curve | Allows exposure to a specific tenor of the curve that resets periodically |
 | 3 | Vanilla Steepener | Coupon = leveraged difference between two CMS rates | Allows investors to express a view on curve shape, not just level |
 
-#### §7. Why The Market Invented This Product
+Through the 2000s and 2010s, institutional investors observed that yield curves in major economies were persistently upward-sloping — 30-year rates consistently exceeded 2-year rates by 50-200 basis points. Yet no standard fixed-income product rewarded investors for this structural feature; a vanilla bond paid the same coupon regardless of the curve's shape. The steepener note filled this gap by linking the coupon directly to the slope. Banks could manufacture the product by entering offsetting CMS swaps — receiving CMS30Y and paying CMS2Y — and passing the spread, scaled by leverage, to the investor. The CMS convexity adjustment, a technical pricing nuance unique to CMS products, created a structuring opportunity: the "fair" spread was slightly different from the quoted CMS rates, and the bank captured the difference.
 
-Through the 2000s and 2010s, institutional investors observed that yield curves in major economies were persistently upward-sloping — 30-year rates consistently exceeded 2-year rates by 50-200 basis points. Yet no standard fixed-income product rewarded investors for this structural feature. A vanilla bond paid the same coupon regardless of the curve's shape. The steepener note filled this gap by linking the coupon directly to the slope. Banks could manufacture the product by entering offsetting CMS swaps — receiving CMS30Y and paying CMS2Y — and passing the spread (with leverage) to the investor. The CMS convexity adjustment, a technical pricing nuance unique to CMS products, created a structuring opportunity: the "fair" spread was slightly different from the quoted CMS rates, and the bank captured the difference.
+---
 
-#### §8. Why Clients Buy It
+#### §7. THE INVESTOR LENS
 
-1. **Curve view expression** — direct exposure to yield curve slope, not available from vanilla bonds
-2. **Leveraged coupon** — 4× leverage turns a 0.70% spread into a 2.80% coupon
-3. **Year 1 fixed coupon** — 5.00% in Year 1 provides income certainty while the investor evaluates the curve
-4. **Structural view** — investors who believe the curve will remain steep earn a persistent income stream
-5. **Downside floor** — coupon is floored at 0%, so the investor never owes money if the curve inverts
+**Why the investor buys it**
 
-#### §9. Why This Product Exists
+1. **Curve view expression** — direct exposure to yield curve slope, not available from vanilla bonds.
+2. **Leveraged coupon** — 4× leverage turns a 0.70% spread into a 2.80% coupon.
+3. **Year 1 fixed coupon** — 5.00% in Year 1 provides income certainty while the investor evaluates the curve.
+4. **Structural view** — investors who believe the curve will remain steep earn a persistent income stream.
+5. **Downside floor** — coupon is floored at 0%, so the investor never owes money if the curve inverts.
 
-**Typical Buyer:** Insurance companies and pension funds with a structural view that the yield curve will remain upward-sloping. Typically institutional, $1B+ AUM, high derivatives sophistication.
+The product suits insurance companies and pension funds with a structural view that the yield curve will remain upward-sloping — typically institutional, $1B+ AUM, with high derivatives sophistication. It is a poor choice for investors who need income certainty (the leveraged coupon is volatile), who expect curve flattening or inversion, or who cannot tolerate zero-coupon quarters.
 
-**Problem Being Solved:** Curve view monetization. Clients want to profit from the shape of the yield curve, not just the level of rates.
+**Position & slope coupon**
 
-**How The Client Makes Money:** If the CMS spread averages 1.00% over 5 years, Chen earns an average leveraged coupon of 4.00% (4 × 1.00%). On $50M notional, that is $2,000,000 per year, or $10,000,000 total — comparable to a vanilla bond at 4.00% but with exposure to a different risk factor.
+The Vanilla Steepener is built from three components from the investor's perspective:
 
-**How The Bank Makes Money:**
-
-| Area | Detail |
-|------|--------|
-| **Client economics** | Client receives Year 1 fixed 5.00%, then 4 × max(0, CMS30Y - CMS2Y), capped at 10.00%. Downside: $0 if curve flattens or inverts |
-| **Bank economics** | CMS convexity adjustment creates structuring margin of 8-15bp. The bank captures the difference between the theoretical CMS spread and the coupon paid to the client |
-| **Hedging economics** | Rates desk hedges with CMS swaps: receive CMS30Y, pay CMS2Y. The leverage is hedged by scaling the CMS swap notional. Residual risk: CMS convexity, correlation between 2Y and 30Y points |
-| **Distribution economics** | Sales credit 5-8bp on notional. Steepeners are popular in Asia and Europe |
-
-**Market Conditions Where Demand Increases:** Demand rises when the curve is steep (clients want to lock in the favorable spread), when central banks are expected to cut short-term rates (steepening the curve), and when inflation expectations push long-end rates higher.
-
-**When This Product Makes Sense:** For investors who believe the yield curve will remain steep or steepen further, and who want leveraged exposure to the curve slope rather than the absolute rate level.
-
-**When This Product Is Usually A Poor Choice:** For investors who need income certainty (the leveraged coupon is volatile), who expect curve flattening or inversion, or who cannot tolerate zero-coupon quarters.
-
-**Yield Curve Dynamics:**
-
-The steepener's coupon depends on the shape of the swap curve. Three curve regimes:
-
-```
-Rate (%)
-  │
-  │    Steep curve (CMS30Y >> CMS2Y)
-  │    ╱──────────────────────── CMS30Y = 5.00%
-  │   ╱                          Spread = 2.00%
-  │  ╱                           Coupon = 4 × 2.00% = 8.00%
-  │ ╱──────────────────────────── CMS2Y = 3.00%
-  │
-  │    Flat curve (CMS30Y ≈ CMS2Y)
-  │    ════════════════════════ CMS30Y = 4.00%
-  │    ════════════════════════ CMS2Y = 4.00%
-  │                              Spread = 0, Coupon = 0%
-  │
-  │    Inverted curve (CMS30Y < CMS2Y)
-  │    ────────────────────────── CMS2Y = 4.50%
-  │    ──────────────────── CMS30Y = 4.00%
-  │                              Spread = -0.50%, Floor → Coupon = 0%
-  ├──────────────────────────────── Tenor
-  2Y                            30Y
-```
-
-#### §10. What Happens If...
-
-**Scenario A — Curve steepens (CMS30Y=5.50%, CMS2Y=3.00%):** Spread = 2.50%. Coupon = 4 × 2.50% = 10.00% (at cap). Quarterly payment = $50M × 10.00% / 4 = $1,250,000. Best outcome.
-
-**Scenario B — Curve stays moderately steep (spread ~0.70%):** Coupon = 2.80%. Quarterly = $350,000. Acceptable — comparable to vanilla rates.
-
-**Scenario C — Curve flattens (CMS30Y=4.00%, CMS2Y=4.00%):** Spread = 0. Coupon = 0%. Chen receives nothing. His Year 1 fixed coupon ($2,500,000) is the only income.
-
-**Scenario D — Curve inverts (CMS30Y=3.50%, CMS2Y=4.50%):** Spread = -1.00%. Floor at 0% protects Chen from negative coupons, but he earns nothing until the curve normalizes.
-
-#### §11. Formal Definition
-
-A Vanilla Steepener Note is a structured rate product whose coupon is a leveraged function of the CMS spread — the difference between a long-term constant maturity swap rate and a short-term constant maturity swap rate. The coupon formula is: Coupon = Leverage × max(0, CMS_Long - CMS_Short), subject to a cap. Typically, Year 1 pays a fixed coupon to provide initial income certainty, while subsequent years pay the leveraged CMS spread. The product is booked in Murex with four legs: Note (CMS spread-linked coupon), Issuer (bank funding), Deposit (client collateral), and Hedge (CMS swaps — receive CMS_Long, pay CMS_Short). The CMS convexity adjustment — a technical pricing correction arising from the fact that CMS rates have a different payment frequency than the rates they reference — creates the structuring margin.
-
-#### §12. Product Construction
-
-The Vanilla Steepener is built from three components:
-
-1. **CMS receiver swap (30Y)** — receive the 30-year swap rate quarterly
-2. **CMS payer swap (2Y)** — pay the 2-year swap rate quarterly
-3. **Leverage + floor + cap** — 4× the net spread, floored at 0%, capped at 10%
+1. **CMS receiver exposure (30Y)** — the investor benefits from a rising long-tenor swap rate.
+2. **CMS payer exposure (2Y)** — the investor benefits from a falling short-tenor swap rate.
+3. **Leverage + floor + cap** — 4× the net spread, floored at 0%, capped at 10%.
 
 ```
 Year 1:     Fixed coupon:           5.00%
 Year 2-5:   4 × max(0, CMS30Y − CMS2Y), cap 10%
 ```
 
-> **Professor Note:** If you remember only one thing from this chapter, remember this: a steepener pays you for the shape of the yield curve, not the level. You can earn a high coupon when rates are low (if the curve is steep) or earn nothing when rates are high (if the curve is flat). Shape, not level, drives your return.
+The investor is therefore **long the curve slope** (long the CMS spread): the coupon rises when the curve steepens and falls when it flattens. Because the investor holds a long CMS spread option, the investor is **long vega** on the CMS spread — a rise in the relevant implied volatility raises the value of the position. The Year 1 fixed coupon (5.00%) is a marketing feature that provides initial income certainty; from Year 2 the coupon is entirely a function of the curve's shape, not its level.
 
-(See Figure 5.4.1-01)
-
-#### §13. Product Lifecycle
-
-| Stage | What Happens | Who Is Involved | What Can Go Wrong |
-|:-----:|-------------|----------------|-------------------|
-| **Pre-trade** | Structurer prices the CMS spread with convexity adjustment. Leverage, floor, and cap calibrated. Year 1 fixed coupon negotiated | Structurer, Sales, Client | CMS convexity mispriced — coupon set too high (bank loses) or too low (client walks) |
-| **Trade date** | Four legs booked in Murex: Note leg (CMS spread coupon), Issuer (funding), Deposit (collateral), Hedge (CMS30Y receiver + CMS2Y payer swaps) | Operations, Trader | CMS fixing source misspecified — wrong rate published |
-| **During life** | On each quarterly fixing date, CMS30Y and CMS2Y are observed. Coupon = 4 × max(0, spread), capped. Payment settled | Product Control, Operations | CMS fixing methodology changes (LIBOR→SOFR transition disrupted CMS calculations globally) |
-| **Maturity** | Final CMS observation, final coupon, principal returned, all legs closed | Operations, Product Control | Final fixing disputed due to holiday calendar mismatch |
-
-(See Figure 5.4.1-02)
-
-#### §14. Payoff Logic
+**Payoff & scenarios**
 
 The steepener coupon is a leveraged, floored, capped function of the CMS spread:
 
@@ -13343,54 +13271,137 @@ Coupon (%)
 ```
 *Caption: Vanilla Steepener coupon — 4× leverage with 0% floor and 10% cap. Breakeven spread: 0%.*
 
-(See Figure 5.4.1-03)
+- **Scenario A — Curve steepens (CMS30Y=5.50%, CMS2Y=3.00%):** Spread = 2.50%. Coupon = 4 × 2.50% = 10.00% (at cap). Quarterly payment = $50M × 10.00% / 4 = $1,250,000. Best outcome.
+- **Scenario B — Curve stays moderately steep (spread ~0.70%):** Coupon = 2.80%. Quarterly = $350,000. Acceptable — comparable to vanilla rates.
+- **Scenario C — Curve flattens (CMS30Y=4.00%, CMS2Y=4.00%):** Spread = 0. Coupon = 0%. The investor receives nothing. The Year 1 fixed coupon ($2,500,000) is the only income.
+- **Scenario D — Curve inverts (CMS30Y=3.50%, CMS2Y=4.50%):** Spread = −1.00%. The floor at 0% protects the investor from negative coupons, but the investor earns nothing until the curve normalizes.
 
-#### §15. Risks
+![Vanilla Steepener Coupon vs Curve Slope — Investor Lens](assets/vsteg/payoff_vsteg_01.svg)
+
+**Risks**
 
 | Risk | Description | Severity |
 |------|------------|:--------:|
-| **Curve flattening risk** | If CMS30Y - CMS2Y compresses to zero, the coupon drops to zero | High |
+| **Curve flattening risk** | If CMS30Y − CMS2Y compresses to zero, the coupon drops to zero | High |
 | **Curve inversion risk** | If short rates exceed long rates, the floor protects but the investor earns nothing indefinitely | High |
 | **CMS convexity risk** | The theoretical relationship between CMS rates and their underlying swap rates has a convexity bias that can shift | Medium |
 | **Leverage amplification** | 4× leverage amplifies both gains and losses in coupon terms | Medium |
 | **Year 1 vs Year 2+ disconnect** | The Year 1 fixed coupon creates expectations that may not be met by the leveraged CMS coupon | Low |
 | **Credit risk** | Counterparty default risk on the issuing bank | Low |
 
-**Curve Risk Explanation:** The steepener's sensitivity to curve changes can be decomposed into two key rate durations:
-- **CMS30Y sensitivity (positive):** When CMS30Y rises, the spread widens and the coupon increases
-- **CMS2Y sensitivity (negative):** When CMS2Y rises, the spread narrows and the coupon decreases
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
 
-A parallel shift in the curve (both rates move equally) has minimal effect. A curve flattening (CMS2Y rises while CMS30Y falls) has maximum negative impact.
+**What the desk books**
 
-#### §16. Booking And Systems
+The trade is booked in Murex with four legs, and the desk takes the offsetting side of the investor's position:
+
+- **Note leg** — the client-facing CMS spread coupon: $50M, Y1 fixed 5.00%, Y2-5 = 4 × max(0, CMS30Y − CMS2Y) cap 10%, quarterly.
+- **Issuer leg** — bank funding: SOFR + spread.
+- **Deposit leg** — client collateral: $50M cash deposit.
+- **Hedge leg** — the rates desk's offsetting positions: a CMS30Y receiver swap and a CMS2Y payer swap, scaled for 4× leverage, with cap and floor swaption overlays.
+
+Where the investor is long the curve slope (long the CMS spread), the desk is **short the CMS spread** — it has sold the investor a leveraged claim on CMS30Y − CMS2Y and warehouses the offsetting curve risk. Economically the desk receives CMS30Y and pays CMS2Y on its hedge swaps, scaling the notional for the 4× leverage, and overlays cap/floor swaptions to match the investor's floored and capped payoff. It hedges that curve and spread optionality rather than holding the raw slope risk.
+
+**Curve/correlation risk & hedging**
+
+The rates desk hedges the slope exposure with CMS swaps — receive CMS30Y, pay CMS2Y — and scales the CMS swap notional for the 4× leverage. The residual risks are CMS convexity and the correlation between the 2Y and 30Y points of the curve. The steepener's sensitivity to curve changes decomposes into two key rate durations: positive CMS30Y sensitivity (a rise in CMS30Y widens the spread and raises the coupon) and negative CMS2Y sensitivity (a rise in CMS2Y narrows the spread and lowers the coupon). A parallel shift in the curve (both rates move equally) has minimal effect; a curve flattening (CMS2Y rises while CMS30Y falls) has maximum negative impact for the long-slope investor and therefore maximum positive impact for the short-slope desk before hedging. Because the embedded coupon is a long CMS spread option from the investor's side, the desk is short that option and short vega on the spread; it hedges with cap/floor swaption overlays. A central bank meeting that flattens the curve overnight is the desk's main concern — a $2B steepener book can move $5-10M in a single session, and a 50bp flattening (2Y up 25bp, 30Y down 25bp) with 4× leverage shifts the annual coupon by 2.00% on the whole book. The dangerous junior error is hedging only the net DV01 (the difference between 30Y and 2Y sensitivity): the net can be zero while the individual key-rate sensitivities are enormous, so a curve twist produces massive P&L despite a "hedged" net position.
+
+**How the bank makes money**
+
+| Area | Detail |
+|------|--------|
+| **Client economics** | The investor receives Year 1 fixed 5.00%, then 4 × max(0, CMS30Y − CMS2Y), capped at 10.00%. Downside: $0 if the curve flattens or inverts |
+| **Bank economics** | The CMS convexity adjustment creates a structuring margin of 8-15bp. The bank captures the difference between the theoretical CMS spread and the coupon paid to the client |
+| **Hedging economics** | Rates desk hedges with CMS swaps: receive CMS30Y, pay CMS2Y. The leverage is hedged by scaling the CMS swap notional. Residual risk: CMS convexity, correlation between 2Y and 30Y points |
+| **Distribution economics** | Sales credit 5-8bp on notional. Steepeners are popular in Asia and Europe |
+
+Demand rises when the curve is steep (clients want to lock in the favorable spread), when central banks are expected to cut short-term rates (steepening the curve), and when inflation expectations push long-end rates higher.
+
+**Coupon decomposition**
+
+The investor's coupon decomposes into the raw CMS spread received on the hedge swaps, scaled by leverage, less the CMS convexity adjustment the bank prices and the structuring margin it retains:
+
+```
+CMS30Y received:            4.50%
+− CMS2Y paid:               3.80%
+─────────────────────────────────
+Raw CMS spread:             0.70%
+× 4 leverage:               2.80%   → investor coupon (this fixing)
+```
+
+Within the spread the bank prices the CMS convexity adjustment and retains a structuring margin of 8-15bp, taking sales credit of 5-8bp on notional at distribution. (The source quotes the 8-15bp structuring margin from the CMS convexity adjustment and the 5-8bp sales credit; the explicit split of the raw 0.70% spread into convexity-adjustment-versus-retained components is inferred from those ranges, not stated verbatim.)
+
+![Vanilla Steepener Coupon Decomposition — Bank Lens (Desk Economics)](assets/vsteg/waterfall_vsteg_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by: moves in the 2s30s curve slope against the warehoused CMS spread DV01 on the hedge swaps (a flattening twist is the dominant risk); shifts in the CMS convexity adjustment, which can generate hedge-leg P&L even when the CMS spread itself has not moved; changes in the correlation between the 2Y and 30Y points and in the implied vol used for the cap/floor overlays; and the structuring margin and bid-offer captured at inception. A $2B-$3B steepener book approaching a central-bank policy meeting that could flatten the curve is the desk's main concentration concern — the entire book's slope sensitivity reprices in a single session.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
 
 | Field | Value |
 |-------|-------|
 | **Booking system** | Murex |
 | **Pricing system** | Murex (CMS convexity model) |
 | **Four-Leg** | Yes |
-| **Note leg** | CMS spread coupon: $50M, Y1 fixed 5.00%, Y2-5 = 4 × max(0, CMS30Y - CMS2Y) cap 10%, quarterly |
+| **Note leg** | CMS spread coupon: $50M, Y1 fixed 5.00%, Y2-5 = 4 × max(0, CMS30Y − CMS2Y) cap 10%, quarterly |
 | **Issuer leg** | Bank funding: SOFR + spread |
-| **Deposit leg** | Client collateral: $50M cash |
+| **Deposit leg** | Client collateral: $50M cash deposit |
 | **Hedge leg** | CMS30Y receiver swap + CMS2Y payer swap, scaled for 4× leverage, with cap and floor swaption overlays |
-| **ISDA documentation** | Not required from client (note format) |
+| **ISDA documentation** | Not required from client (note format). Bank hedges under ISDA/CSA |
 | **CMS fixing** | ICESWAP (30Y and 2Y USD swap rates) |
 | **Day count** | 30/360 |
 | **Payment frequency** | Quarterly |
 
-#### §17. Red Flags
+All four legs are booked in Murex as a single structured note. The 2nd line's first concern is that the four legs are booked net and consistent — matching notionals and dates — and that the Hedge leg (the CMS30Y receiver + CMS2Y payer swaps scaled for leverage) genuinely offsets the client-facing Note leg.
+
+**Reconciliation points**
+
+| Recon point | What must agree | Steepener-specific break |
+|-------------|-----------------|---------------------------|
+| **Four-leg net (Note vs Issuer vs Deposit vs Hedge)** | All four legs booked with matching notional, dates, and conventions; legs net to the intended structured position | Legs booked asynchronously with a notional error — e.g. Deposit leg shows a different notional than the Note leg |
+| **CMS long-tenor fixing (CMS30Y)** | CMS30Y observed on the correct fixing date from ICESWAP at the contractual publication time | Wrong CMS30Y fixing source/time misstates the long leg of the spread and the net coupon |
+| **CMS short-tenor fixing (CMS2Y)** | CMS2Y observed on the same fixing date and from the same source (ICESWAP) as CMS30Y | CMS30Y and CMS2Y taken from different publication sources or times — the spread, and the coupon, are wrong |
+| **Leverage & floor/cap** | Leverage = 4×; coupon = 4 × max(0, spread) floored at 0% and capped at 10%, applied correctly each period | Floor not functioning (system uses absolute value of spread) or cap not applied (Year 2 coupon exceeds 10% annualized) |
+| **Day-count** | 30/360 applied correctly to each coupon | Day-count fraction error — Year 1 coupon differs from $625,000 |
+| **CMS convexity model** | Convexity adjustment calibrated to the current vol surface and consistent between pricing and risk | Hedge leg shows large P&L when the CMS spread has not moved — convexity adjustment has shifted |
+| **Hedge offset (Note vs Hedge P&L)** | Hedge leg P&L offsets Note leg P&L within tolerance | Hedge leg P&L diverges from Note leg P&L — hedge tenors/notionals or leverage scaling do not match the structured note |
+| **Collateral / four-leg settlement** | On each coupon date all four legs settle in line; deposit released when the Note leg matures | Settlement timing mismatch between the four legs — Note leg pays but Deposit leg not released, trapping client cash |
+
+![VSTEG Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/vsteg/controls_vsteg_recon_08.svg)
+
+**Common breaks & red flags**
 
 | Red Flag | What It Means | Action |
 |----------|--------------|--------|
 | Coupon payment in Year 2 is higher than 10% annualized | Cap was not applied correctly | Verify cap logic in the booking system |
 | CMS30Y and CMS2Y fixings are from different publication sources | Rates must be from the same source and same fixing time | Reconcile fixing sources to the term sheet |
-| Coupon is non-zero when CMS30Y < CMS2Y | Floor is not functioning — system may be using absolute value of spread | Check that the max(0, ...) floor is correctly implemented |
-| Hedge leg shows large P&L when CMS spread hasn't moved | CMS convexity adjustment may have shifted | Recalibrate the CMS convexity model |
+| Coupon is non-zero when CMS30Y < CMS2Y | Floor is not functioning — system may be using absolute value of the spread | Check that the max(0, ...) floor is correctly implemented |
+| Hedge leg shows large P&L when the CMS spread hasn't moved | CMS convexity adjustment may have shifted | Recalibrate the CMS convexity model |
 | Year 1 coupon payment differs from $625,000 | Notional or rate error | Verify: $50M × 5.00% / 4 = $625,000 |
 
-#### §18. Worked Example
+**Control implication**
 
-**Terms:** $50M notional, 5-year, Year 1 fixed 5.00%, Years 2-5 = 4 × max(0, CMS30Y - CMS2Y), floor 0%, cap 10%, quarterly.
+For a Vanilla Steepener the dominant 2nd-line controls are the **four-leg net** and the **two CMS fixings**. The four legs (Note, Issuer, Deposit, Hedge) must be booked with matching notionals and dates so that they net to the intended structured position and the Hedge leg genuinely offsets the client-facing Note leg — a notional or date mismatch on any leg breaks the net P&L and can trap client cash on a settlement date. The two CMS fixings net the coupon: CMS30Y and CMS2Y must be observed on the same fixing date, from the same source (ICESWAP), at the same publication time — because the coupon is 4 × (CMS30Y − CMS2Y), a fixing taken from a different source or time on either leg directly misstates the spread and therefore the payment (a 1bp difference on a $1B book is $100,000 of coupon). Around these, the leverage & floor/cap logic, the 30/360 day-count, the CMS convexity calibration, and the collateral/settlement checks ensure each quarterly coupon is correct. The reconciliation exists precisely to catch these inconsistencies before a coupon settles.
+
+#### §10. Formal Definition
+
+A **Vanilla Steepener Note** is a structured rate product whose coupon is a leveraged function of the CMS spread — the difference between a long-tenor constant maturity swap rate and a short-tenor constant maturity swap rate. The coupon formula is: Coupon = Leverage × max(0, CMS_Long − CMS_Short), subject to a cap. Typically, Year 1 pays a fixed coupon to provide initial income certainty, while subsequent years pay the leveraged CMS spread. The investor is long the curve slope (long the CMS spread); the desk is short it. The product is booked in Murex with four legs: Note (CMS spread-linked coupon), Issuer (funding), Deposit (collateral), and Hedge (CMS swaps — receive CMS_Long, pay CMS_Short, with cap/floor overlays). The CMS convexity adjustment — a technical pricing correction arising from the fact that CMS rates have a different payment frequency than the rates they reference — creates the structuring margin.
+
+#### §11. Lifecycle
+
+| Stage | What Happens | Who Is Involved | What Can Go Wrong |
+|:-----:|-------------|----------------|-------------------|
+| **Pre-trade** | Structurer prices the CMS spread with convexity adjustment. Leverage, floor, and cap calibrated. Year 1 fixed coupon negotiated | Structurer, Sales, Client | CMS convexity mispriced — coupon set too high (bank loses) or too low (client walks) |
+| **Trade date** | Four legs booked in Murex: Note leg (CMS spread coupon), Issuer (funding), Deposit (collateral), Hedge (CMS30Y receiver + CMS2Y payer swaps) | Operations, Trader | CMS fixing source misspecified, or four legs booked with mismatched notionals/dates |
+| **During life** | On each quarterly fixing date, CMS30Y and CMS2Y are observed. Coupon = 4 × max(0, spread), capped. Payment settled | Product Control, Operations | CMS fixing methodology changes (LIBOR→SOFR transition disrupted CMS calculations globally); floor/cap mis-applied |
+| **Maturity** | Final CMS observation, final coupon, principal returned, all four legs closed | Operations, Product Control | Final fixing disputed due to holiday calendar mismatch; settlement timing mismatch between the four legs |
+
+#### §12. Worked Example (both lenses)
+
+**Terms:** $50M notional, 5-year, Year 1 fixed 5.00%, Years 2-5 = 4 × max(0, CMS30Y − CMS2Y), floor 0%, cap 10%, quarterly (30/360).
 
 **Year 1 (fixed):** $50M × 5.00% / 4 = $625,000 per quarter. Total: $2,500,000.
 
@@ -13404,20 +13415,24 @@ A parallel shift in the curve (both rates move equally) has minimal effect. A cu
 | Q8 | 4.00% | 4.20% | -0.20% | Floor | 0.00% | $0 |
 | **Year 2 Total** | | | | | | **$650,000** |
 
-**Effective Year 2 rate:** $650,000 / $50,000,000 = 1.30%
+**Effective Year 2 rate:** $650,000 / $50,000,000 = 1.30%.
 
-The curve flattened significantly during Year 2. Q8's inversion produced a zero coupon. Year 2's effective rate (1.30%) was well below Year 1's fixed rate (5.00%).
+*Investor lens:*
+In Year 1 the investor receives the fixed 5.00% — $625,000 per quarter, $2,500,000 total. From Year 2 the coupon tracks the curve slope. The curve flattened significantly during Year 2: Q5's 0.70% spread leveraged to a 2.80% coupon ($350,000), but the spread compressed each quarter, and Q8's inversion (−0.20% spread) produced a zero coupon under the floor. Year 2's effective rate of 1.30% was well below Year 1's fixed 5.00%. Being long the curve slope, the investor was rewarded while the curve was steep and earned nothing once it flattened — the floor at 0% ensured the investor never owed money, but the leveraged coupon delivered no income in the flat/inverted quarters.
 
-(See Figure 5.4.1-04)
+*Bank lens:*
+The desk holds the four legs and is short the CMS spread, hedged with the offsetting CMS30Y receiver + CMS2Y payer swaps scaled for the 4× leverage, plus cap/floor swaption overlays. As the curve flattened through Year 2, the investor's coupon fell toward the floor while the desk's short-slope hedge position offset the move; the desk retains the structuring margin (8-15bp from the CMS convexity adjustment) and the bid-offer on the CMS swap hedge. The 2nd line must confirm each quarter's coupon against the two CMS fixings observed on the same date from ICESWAP (the 4.50%/3.80%, 4.40%/3.90%, 4.20%/4.10%, 4.00%/4.20% pairs), that the 4× leverage and the 0% floor / 10% cap were applied (so Q8's −0.20% spread floors to $0), the 30/360 day-count, and that all four legs settled together each quarter.
 
-#### §19. Interview Questions
+#### §13. Knowledge Check
 
-1. What two CMS rates determine the steepener's coupon?
-2. If CMS30Y is 4.00% and CMS2Y is 4.00%, what is the coupon on a 4× steepener?
-3. Why does the steepener include a Year 1 fixed coupon instead of starting immediately with the CMS spread?
-4. What is the CMS convexity adjustment and why does it matter for pricing steepeners?
-5. Your desk has $1B in steepener notes. The Fed raises short-term rates by 75bp while long-term rates rise only 25bp. Describe the impact on the steepener book.
-
+1. What two CMS rates determine the steepener's coupon, and which way does the investor want the slope to move? *(Investor)*
+2. If CMS30Y is 4.00% and CMS2Y is 4.00%, what is the coupon on a 4× steepener? *(Investor)*
+3. Why does the steepener include a Year 1 fixed coupon instead of starting immediately with the CMS spread? *(Investor)*
+4. What is the maximum coupon the investor can earn per quarter, and what limits it? *(Investor)*
+5. How does a parallel rate shift (both CMS30Y and CMS2Y move equally) affect the steepener coupon? *(Investor)*
+6. CMS30Y drops from 4.50% to 4.00% while CMS2Y rises from 3.80% to 4.20%. What happens to the coupon and why? *(Investor)*
+7. **(Desk economics / 1LoD)** When the investor enters a Vanilla Steepener, what position does the desk take in the CMS spread (long or short the slope), how does it hedge a 4× steepener with CMS swaps, and why is hedging only the net 2s30s DV01 dangerous? Where does the desk's retained margin come from?
+8. **(Controls / 2LoD)** Name three reconciliation breaks specific to a Vanilla Steepener — covering the four-leg net, the two CMS fixings (CMS30Y and CMS2Y) and their source, and the floor/cap — and the consequence of each for the net coupon.
 
 **Mental Models**
 
@@ -13425,21 +13440,23 @@ The curve flattened significantly during Year 2. Q8's inversion produced a zero 
 |---------|-------------|
 | Steepener | Hydroelectric dam — power depends on the height difference, not the absolute water level |
 | CMS spread | The slope of a hill — steeper hill = more energy, flat ground = no movement |
-| Leverage | Gearing on a bicycle — amplifies each pedal stroke, but also makes you feel every bump |
-| Floor at 0% | Safety net — you can stop earning but you never owe |
-| Cap at 10% | Speed limit — limits how fast your coupon can grow even on the steepest curve |
+| Leverage | Gearing on a bicycle — amplifies each pedal stroke, but also transmits every bump |
+| Floor at 0% | Safety net — the investor can stop earning but never owes |
+| Cap at 10% | Speed limit — limits how fast the coupon can grow even on the steepest curve |
 | Curve flattening | The dam reservoir dropping to match the turbine — water stops flowing |
-
+| Investor long the slope / desk short it | The investor owns the dam's drop; the desk sold it and hedges the curve |
 
 **Key Takeaways**
 
-1. A Vanilla Steepener pays a leveraged coupon based on the CMS spread — the difference between long-term and short-term swap rates.
+1. A Vanilla Steepener pays a leveraged coupon based on the CMS spread — the difference between long-tenor and short-tenor swap rates; the investor is long the curve slope, the desk is short it.
 2. Insurance companies and pension funds buy it to monetize a structural view that the curve will remain steep.
-3. Curve flattening and inversion are the core dangers — both produce zero coupons.
+3. Curve flattening and inversion are the core dangers — both produce zero coupons under the floor.
 4. The 4× leverage amplifies both the upside and the sensitivity to spread compression.
-5. All STEG products are booked in Murex with four legs, with the Hedge leg containing offsetting CMS swaps.
+5. All STEG products are booked in Murex with four legs (Note, Issuer, Deposit, Hedge), with the Hedge leg containing offsetting CMS swaps (receive CMS30Y, pay CMS2Y) scaled for leverage.
+6. The desk warehouses the short CMS spread, hedges curve slope (2s30s key-rate DV01) and CMS convexity/correlation risk, and retains the structuring margin (8-15bp from the convexity adjustment) plus the CMS-swap bid-offer.
+7. For the 2nd line, the dominant control risks are the four-leg net (matching notionals/dates so the Hedge offsets the Note) and the two CMS fixings (CMS30Y and CMS2Y observed on the same date, from the same source, at the same time, since the coupon is 4 × the spread between them), supported by leverage/floor/cap, day-count, convexity-calibration, and four-leg collateral/settlement checks — each can misstate a coupon or trap client cash.
 
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
 **1. Confusing the CMS spread with the absolute rate level.** The steepener pays based on CMS30Y minus CMS2Y, not on either rate individually. Both rates can rise (rates are "high") but if they rise equally, the spread is unchanged and the coupon stays the same.
 
@@ -13447,202 +13464,39 @@ The curve flattened significantly during Year 2. Q8's inversion produced a zero 
 
 **3. Ignoring the cap when modeling upside.** In a strongly steepening environment, the coupon hits 10% and stays there. The cap limits total return even in the best-case scenario.
 
-**4. Treating the 4× leverage as "free" amplification.** Leverage works in both directions — a 0.25% spread narrowing reduces the coupon by 1.00% (4 × 0.25%). The client is taking 4× the curve risk.
+**4. Treating the 4× leverage as "free" amplification.** Leverage works in both directions — a 0.25% spread narrowing reduces the coupon by 1.00% (4 × 0.25%). The investor is taking 4× the curve risk.
 
-**5. Not understanding that CMS rates are different from spot swap rates.** CMS rates are constant maturity swap rates that reset periodically — they are not the same as the spot 30-year or 2-year swap rate. The CMS convexity adjustment accounts for the difference between CMS and spot rates.
+**5. Confusing the investor's slope position with the desk's.** The investor is long the curve slope (long the CMS spread) and profits when the curve steepens; the desk is short the slope and hedges with CMS spread swaps. Mixing up the direction reverses every hedge and P&L sign.
 
----
+**6. (Controls) Taking the two CMS fixings from different sources or times.** CMS30Y and CMS2Y must be observed on the same fixing date, from the same source (ICESWAP), at the same publication time — because the coupon is 4 × (CMS30Y − CMS2Y), any mismatch on either fixing directly corrupts the spread and the payment. The 2nd line must reconcile both fixings to the term sheet and confirm the four-leg net settlement.
 
-**Who Touches This Product**
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book across the four legs, what is its slope/convexity risk, and how does it hedge with CMS swaps?
+- *(Controls / 2LoD)* Which four-leg / CMS-fixing / leverage-floor-cap / accrual fields must reconcile, and which is the most common break?
 
-| Role | Responsibility | Primary Concern | Typical Question |
-|------|---------------|----------------|-----------------|
-| **Trader** | Manages CMS swap hedges, monitors curve slope exposure | "What is the aggregate Dollar Value of One Basis Point (DV01) on the 2Y and 30Y points of the curve?" | "If the 2s30s spread narrows 20bp, what is the P&L impact across the steepener book?" |
-| **Structurer** | Prices CMS spread with convexity adjustment, designs leverage/floor/cap | "Is the CMS convexity adjustment correctly calibrated to the current vol surface?" | "Can I offer 5× leverage instead of 4× if I lower the cap from 10% to 8%?" |
-| **Sales** | Presents the curve view story, manages expectations about Year 2+ income | "Does the client understand that Year 2 income depends entirely on the curve shape?" | "Chen earned 5.00% in Year 1 and 1.30% in Year 2 — how do I explain the drop?" |
-| **Risk** | Monitors curve exposure, key rate durations at 2Y and 30Y points | "What is the portfolio's sensitivity to a parallel shift vs a twist?" | "How does the 4× leverage affect the DV01 decomposition?" |
-| **Product Control** | Values the CMS spread daily, verifies coupon calculations | "Does the CMS convexity model produce consistent valuations?" | "The Q8 coupon was $0 — is the floor correctly applied?" |
-| **Operations** | Processes CMS fixings, calculates quarterly coupons, settles payments | "Is the CMS fixing source (ICESWAP) correctly configured?" | "The fixing for Q7 shows CMS30Y at 4.20% but the market screen shows 4.22% — which is correct?" |
-| **Legal** | Reviews CMS definitions, fixing source specifications, fallback language | "What happens if the CMS fixing source is discontinued?" | "Does the ISDA CMS fallback apply to structured notes?" |
-| **Model Validation** | Validates the CMS convexity model and pricing methodology | "Is the convexity adjustment consistent with market-implied volatilities?" | "What is the model risk from using a simplified convexity correction vs a full Monte Carlo?" |
-
----
-
-**Desk Reality**
-
-**What keeps traders awake:** A central bank meeting that could flatten the curve overnight — if the Fed raises short-term rates aggressively while long-term rates stay anchored, a $2B steepener book can lose $5-10M in a single session.
-
-**Most important risk:** Curve twist — when 2-year and 30-year rates move in opposite directions. A 50bp flattening (2Y up 25bp, 30Y down 25bp) with 4× leverage reduces the annual coupon by 2.00% on the entire book.
-
-**Typical junior mistake:** Hedging only the net DV01 (the difference between 30Y and 2Y sensitivity) instead of hedging each key rate duration separately. The net DV01 can be zero while the individual sensitivities are enormous — a curve twist would produce massive P&L despite the "hedged" net position.
-
-**Hardest operational issue:** CMS fixing source reconciliation. The term sheet may reference "USD CMS 30Y as published by ICESWAP" but the exact publication time, rounding convention, and holiday calendar can differ between sources. A 1bp difference on a $1B book is $100,000 of coupon.
-
-**Most misunderstood concept:** CMS convexity. When a client asks "why does the bank charge me for CMS convexity?", the answer is: CMS rates are not the same as spot swap rates because they reset at a frequency that differs from the underlying swap's fixed leg. This mismatch creates a systematic bias that must be priced — it is not a bank fee, it is a genuine pricing component.
-
----
-
-**Knowledge Check**
-
-*Review Questions:*
-1. What does "CMS" stand for and how does a CMS rate differ from a spot swap rate?
-2. What are the four legs of a STEG trade in Murex?
-3. Why does the Vanilla Steepener include a Year 1 fixed coupon?
-4. What is the maximum coupon the investor can earn per quarter?
-5. How does a parallel rate shift (both CMS30Y and CMS2Y move equally) affect the steepener coupon?
-
-*Scenario Questions:*
-6. CMS30Y drops from 4.50% to 4.00% while CMS2Y rises from 3.80% to 4.20%. What happens to the coupon and why?
-7. An investor holds a 4× steepener and a 2× steepener on the same notional. The CMS spread narrows by 30bp. Which product loses more coupon income and by how much?
-8. You are asked to price a steepener using CMS10Y - CMS2Y instead of CMS30Y - CMS2Y. How would you expect the coupon to differ and why?
-
-*Desk Question:*
-9. Your steepener book is $3B with an average leverage of 4×. A Fed meeting is in two days. Markets expect a 50bp short-rate hike with 10bp long-rate increase. Walk through your pre-meeting risk management plan.
-
----
-
-#### §21. Visual Specifications
-
-**Visual 1:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.1-01 |
-| **Visual ID** | FLOW_VSTEG_01 |
-| **Type** | Cash Flow Diagram |
-| **Priority** | P1 |
-| **Purpose** | Show the four-leg structure with CMS spread coupon mechanism |
-| **Visual Description** | Four-panel diagram with the Note leg showing a coupon arrow whose height varies with the CMS spread. A "yield curve slope meter" between the CMS30Y and CMS2Y inputs feeds into the leverage multiplier, then into the coupon. Deposit and Issuer legs static |
-| **Diagram Elements** | Four boxes (Note, Issuer, Deposit, Hedge), yield curve slope meter, leverage multiplier, variable coupon arrow, CMS30Y and CMS2Y input labels |
-| **Axis Definitions** | N/A (flow diagram) |
-| **Caption** | Vanilla Steepener four-leg structure: CMS spread drives the leveraged coupon |
-| **Location** | §12 |
-| **Reuse Potential** | High — template for all STEG products |
-| **Future Asset Filename** | flow_vsteg_01.svg |
-
-**Visual 2:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.1-02 |
-| **Visual ID** | LIFECYCLE_VSTEG_01 |
-| **Type** | Lifecycle Diagram |
-| **Priority** | P1 |
-| **Purpose** | Show the steepener lifecycle from Year 1 fixed through leveraged CMS spread |
-| **Visual Description** | Horizontal timeline: Year 1 shows fixed coupon bars at $625K. Years 2-5 show variable coupon bars whose height depends on the CMS spread. A yield curve shape indicator above each quarter shows the curve slope at that fixing |
-| **Diagram Elements** | Timeline, fixed coupon bars (Year 1), variable bars (Years 2-5), curve shape indicators, CMS fixing annotations |
-| **Axis Definitions** | X: Time (years/quarters), Y: Coupon Payment ($) |
-| **Caption** | Vanilla Steepener lifecycle: fixed Year 1 followed by CMS spread-dependent coupons |
-| **Location** | §13 |
-| **Reuse Potential** | High — steepener lifecycle template |
-| **Future Asset Filename** | lifecycle_vsteg_01.svg |
-
-**Visual 3:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.1-03 |
-| **Visual ID** | PAYOFF_VSTEG_01 |
-| **Type** | Payoff Diagram |
-| **Priority** | P2 |
-| **Purpose** | Show the leveraged coupon as a function of CMS spread with floor and cap |
-| **Visual Description** | Kinked line: flat at 0% from negative spreads to 0%, then 4× slope from 0% to 2.50%, then flat at 10% (cap). Three scenario markers: steep (2.00% spread, 8.00% coupon), moderate (0.70%, 2.80%), flat (0%, 0%) |
-| **Diagram Elements** | Payoff line, floor label, cap label, leverage slope annotation, three scenario markers |
-| **Axis Definitions** | Y: Annual Coupon (%), X: CMS Spread (CMS30Y - CMS2Y) (%) |
-| **Caption** | Steepener payoff: 4× leverage with 0% floor and 10% cap |
-| **Location** | §14 |
-| **Reuse Potential** | High — leveraged spread payoff template |
-| **Future Asset Filename** | payoff_vsteg_01.svg |
-
-**Visual 4:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.1-04 |
-| **Visual ID** | TIMELINE_VSTEG_01 |
-| **Type** | Timeline |
-| **Priority** | P2 |
-| **Purpose** | Show the worked example quarterly payments |
-| **Visual Description** | 8 quarterly bars: 4 fixed at $625K (Year 1), then 4 variable ($350K, $250K, $50K, $0). CMS spread values annotated above each bar. Curve flattening visible in the declining bar heights |
-| **Diagram Elements** | 8 bars (4 fixed, 4 variable), CMS spread labels, payment annotations, Year 1/Year 2 separator |
-| **Axis Definitions** | X: Quarter, Y: Coupon Payment ($) |
-| **Caption** | Vanilla Steepener worked example: Year 1 fixed $625K/quarter; Year 2 drops as the curve flattens |
-| **Location** | §18 |
-| **Reuse Potential** | Medium — steepener worked example template |
-| **Future Asset Filename** | timeline_vsteg_01.svg |
-
-**Visual 5:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.1-05 |
-| **Visual ID** | CURVE_VSTEG_01 |
-| **Type** | Yield Curve Diagram |
-| **Priority** | P3 |
-| **Purpose** | Show three curve regimes and their impact on the steepener coupon |
-| **Visual Description** | Three yield curves plotted on the same axes: steep (upward sloping, large spread), flat (horizontal, zero spread), inverted (downward sloping, negative spread). Each annotated with the resulting coupon. Arrow from the 2Y and 30Y points showing the spread measurement |
-| **Diagram Elements** | Three yield curves, 2Y and 30Y markers, spread measurement arrows, coupon annotations |
-| **Axis Definitions** | Y: Rate (%), X: Tenor (2Y to 30Y) |
-| **Caption** | Yield curve shapes: steep (high coupon), flat (zero coupon), inverted (zero coupon, floor protects) |
-| **Location** | §9 |
-| **Reuse Potential** | High — yield curve regime diagram for all STEG products |
-| **Future Asset Filename** | curve_vsteg_01.svg |
-
-**Visual 6:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.1-06 |
-| **Visual ID** | WATERFALL_VSTEG_01 |
-| **Type** | Waterfall Diagram |
-| **Priority** | P3 |
-| **Purpose** | Show the construction decomposition: CMS receiver + CMS payer + leverage |
-| **Visual Description** | Three-step waterfall: CMS30Y received (4.50%), minus CMS2Y paid (3.80%), equals raw spread (0.70%), times 4× leverage = 2.80% coupon. Convexity adjustment shown as a small deduction |
-| **Diagram Elements** | Waterfall bars, rate labels, leverage multiplier, convexity deduction |
-| **Axis Definitions** | Y: Rate (%), X: Component |
-| **Caption** | Vanilla Steepener construction: receive CMS30Y, pay CMS2Y, apply leverage, adjust for convexity |
-| **Location** | §12 |
-| **Reuse Potential** | Medium — CMS spread construction template |
-| **Future Asset Filename** | waterfall_vsteg_01.svg |
-
----
-
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Yield curves, spot rates, forward rates | Section 1.7 (Yield Curves) |
-| CMS rates, benchmark rates | Section 1.8 (Benchmark Rates) |
-| Swaptions, caps, floors | Section 1.8 (Caps, Floors, Swaptions) |
-| Interest rate swap mechanics | Section 5.2.1 (IRS) |
-| VLSP as simplest swap | Section 5.2.8 (VLSP) |
-| Four-leg SRT structure | Section 5.3.1 (IR Callable) |
-| Range accrual concept | Section 5.3.3 (NCRA) |
-| Four-leg structure | Section 2.7 (The Four-Leg Structure) |
-| Murex booking | Section 2.8 (Systems Primer) |
-| DV01, curve risk | Section 5.2.8 (VLSP) |
-
----
-
+**Dual-lens visuals (spec-only — require rendering):**
+- `assets/vsteg/payoff_vsteg_01.svg` `[spec-only — requires rendering]`
+- `assets/vsteg/waterfall_vsteg_01.svg` `[spec-only — requires rendering]`
+- `assets/vsteg/controls_vsteg_recon_01.svg` `[spec-only — requires rendering]`
 ### 5.4.2 Range Accrual Steepener (RA STEG)
 
 ---
 
-*The Vanilla Steepener paid a coupon directly based on the CMS spread level. The Range Accrual Steepener takes a different approach: instead of paying the spread itself, it pays a fixed coupon rate on the days when the CMS spread stays within a predefined range. This is the same range accrual mechanism you learned in Section 5.3.3 (NCRA) and Section 5.1.10 (CRA ELN), but applied to the yield curve slope instead of a single interest rate.*
+*A Range Accrual Steepener is a Structured Rate Trade booked in Murex with the four-leg structure (Note, Issuer, Deposit, Hedge). Where the Vanilla Steepener pays a coupon directly based on the CMS spread level, the Range Accrual Steepener pays a fixed coupon rate only on the days when the CMS spread (CMS30Y − CMS2Y) stays within a predefined range. It applies the same range accrual mechanism used in Section 5.3.3 (NCRA) and Section 5.1.10 (CRA ELN), but to the yield-curve slope rather than a single interest rate. Economically the investor is short a strip of digital spread options on the slope (long the slope-staying-in-range view); the bank's desk is long that strip. This chapter reads the product through two lenses: what it means for **the investor** (the note holder who receives the conditional accrual coupon), and what it means for **the bank** — the latter split into the desk's rate economics (1st line of defence) and the controls and reconciliation that surround the four-leg booking (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Yuna manages the fixed-income allocation at a Korean insurance company. She believes the yield curve will stay moderately steep — not collapsing to flat, but not steepening dramatically either. The Vanilla Steepener would reward an extremely steep curve but pay nothing if the curve flattens. Yuna wants a product that rewards curve stability — her view is about where the slope will stay, not where it will go. The RA STEG gives her a 5.50% coupon on the days when the CMS spread (CMS30Y - CMS2Y) stays between 0.25% and 2.50%. If the spread is too narrow (below 0.25%) or too wide (above 2.50%), she earns nothing for those days.
+Consider a portfolio manager running the fixed-income allocation at a Korean insurance company. The view is that the yield curve will stay moderately steep — not collapsing to flat, but not steepening dramatically either. A Vanilla Steepener would reward an extremely steep curve but pay nothing if the curve flattens; the investor here wants a product that rewards curve stability — the view is about where the slope will stay, not where it will go. The RA STEG pays a 5.50% coupon on the days when the CMS spread (CMS30Y − CMS2Y) stays between 0.25% and 2.50%. If the spread is too narrow (below 0.25%) or too wide (above 2.50%), the investor earns nothing for those days.
 
 #### §2. Core Analogy
 
-Think of a greenhouse with climate control. Plants grow best when the temperature difference between inside and outside falls within a specific range — say, 10°C to 25°C warmer inside. Too little difference (no heating advantage) and growth stops. Too much difference (overheating) and the plants wilt. The greenhouse produces a crop only on the days when the differential is in the optimal zone. The CMS spread is the temperature differential, the range is the growing zone, and the coupon is the crop yield.
+An RA STEG resembles a greenhouse with climate control. Plants grow best when the temperature difference between inside and outside falls within a specific range — say, 10°C to 25°C warmer inside. Too little difference (no heating advantage) and growth stops. Too much difference (overheating) and the plants wilt. The greenhouse produces a crop only on the days when the differential is in the optimal zone. The CMS spread is the temperature differential, the range is the growing zone, and the coupon is the crop yield.
 
-The counterintuitive twist: a heatwave (dramatically steep curve) is just as damaging as a cold snap (flat curve). You don't get extra crop for extra warmth — once the differential leaves the optimal zone in either direction, production stops entirely. This is what distinguishes the RA STEG from the Vanilla Steepener, which always rewards more steepness.
+The counterintuitive twist: a heatwave (dramatically steep curve) is just as damaging as a cold snap (flat curve). There is no extra crop for extra warmth — once the differential leaves the optimal zone in either direction, production stops entirely. This is what distinguishes the RA STEG from the Vanilla Steepener, which always rewards more steepness.
 
 #### §3. What Problem Does It Solve
 
-| Client Need | How the Product Delivers |
+| Investor Need | How the Product Delivers |
 |------------|------------------------|
 | Express a view on curve shape stability | Coupon accrues only when the CMS spread stays within a predicted range |
 | Earn above-market yield for accepting conditionality | 5.50% exceeds vanilla bond yield (~3.80%) because the coupon is conditional on spread range |
@@ -13650,7 +13504,6 @@ The counterintuitive twist: a heatwave (dramatically steep curve) is just as dam
 | Combine range accrual expertise from rates with curve exposure | Borrows the range accrual mechanism from NCRA and applies it to the CMS spread |
 
 #### §4. Product DNA
-
 
 | **Field** | **Value** |
 |---|---|
@@ -13666,7 +13519,6 @@ The counterintuitive twist: a heatwave (dramatically steep curve) is just as dam
 | **Liquidity** | OTC — model-dependent |
 | **Primary System** | Murex (primary), Sophis (risk) |
 | **ISDA Required** | No — issued as note |
-
 
 **DNA Atlas Fields:**
 - Primary Risk: Dual risk — curve must steepen AND reference rate must stay in range. Two conditions must be met simultaneously
@@ -13695,7 +13547,7 @@ The counterintuitive twist: a heatwave (dramatically steep curve) is just as dam
 Rates
 └── Steepener Notes (STEG)
     ├── Vanilla Steepener (5.4.1)
-    └── Range Accrual Steepener  ← You are here
+    └── Range Accrual Steepener  ← chapter focus
 ```
 
 #### §6. Product Evolution
@@ -13706,77 +13558,29 @@ Rates
 | 2 | Vanilla STEG (5.4.1) | Leveraged CMS spread coupon | Curve slope as the payoff driver |
 | 3 | RA STEG | Range accrual applied to CMS spread | Combines the observation mechanism (NCRA) with the spread driver (STEG) |
 
-#### §7. Why The Market Invented This Product
-
 By the late 2010s, institutional investors had two curve products available: the Vanilla Steepener (which rewarded maximum steepness) and the NCRA (which rewarded rate-level stability). Neither rewarded curve shape stability. The RA STEG filled this gap by applying the range accrual mechanism to the CMS spread. Investors who believed the curve would stay moderately steep — not flattening or steepening dramatically — could now monetize that view. The hedging complexity was higher (digital options on a spread rather than a single rate), but the structuring margin was also larger, making it profitable for banks.
 
-#### §8. Why Clients Buy It
+---
 
-1. **Curve stability view** — rewards the view that the CMS spread will stay within a specific corridor
-2. **Premium coupon** — 5.50% exceeds both vanilla bonds (~3.80%) and moderate Vanilla STEG coupons
-3. **Different risk profile** — RA STEG benefits from stability, unlike Vanilla STEG which benefits from maximum steepness
-4. **Proven mechanism** — range accrual is well-understood from NCRA and CRA ELN
-5. **Daily observation** — maximizes accrual opportunity (every day in range counts)
+#### §7. THE INVESTOR LENS
 
-#### §9. Why This Product Exists
+**Why the investor buys it**
 
-**Typical Buyer:** Korean and Japanese insurance companies with a view that the yield curve slope will remain stable in a moderate range. Typically institutional, $1B+ AUM.
+1. **Curve stability view** — the product rewards the view that the CMS spread will stay within a specific corridor.
+2. **Premium coupon** — 5.50% exceeds both vanilla bonds (~3.80%) and moderate Vanilla STEG coupons.
+3. **Different risk profile** — the RA STEG benefits from stability, unlike the Vanilla STEG which benefits from maximum steepness.
+4. **Proven mechanism** — range accrual is well-understood from NCRA and CRA ELN.
+5. **Daily observation** — every day in range counts, maximizing accrual opportunity.
 
-**Problem Being Solved:** Yield enhancement through curve-stability expression. Clients want to earn a premium for the view that the curve will remain moderately steep.
+The product suits investors who believe the curve will stay moderately steep — not flattening to zero but not steepening dramatically. It is a poor choice for investors who expect the curve to steepen significantly (a Vanilla STEG fits better) or who expect flattening or inversion (a vanilla bond fits better). The typical buyer is a Korean or Japanese insurance company with a view that the yield-curve slope will remain stable in a moderate range, typically institutional with $1B+ AUM.
 
-**How The Client Makes Money:** If the CMS spread stays in [0.25%, 2.50%] every day, Yuna earns the full 5.50% — $3,300,000 per year on $60M. If the spread is in range 80% of the time, she earns $2,640,000 — still above vanilla.
+**Position & accrual mechanism**
 
-**How The Bank Makes Money:**
+The RA STEG is built from three components from the investor's perspective:
 
-| Area | Detail |
-|------|--------|
-| **Client economics** | Client receives 5.50% × (days in range / total days). Maximum = 5.50%, minimum = 0% |
-| **Bank economics** | Structuring spread: 12-18bp. Digital spread options are more complex to price than single-rate digitals, creating wider margins |
-| **Hedging economics** | Rates desk hedges with digital cap and floor on the CMS spread. Residual: correlation between CMS30Y and CMS2Y affects the spread distribution and hence the digital option value |
-| **Distribution economics** | Sales credit 5-8bp on notional |
-
-**Yield Curve Dynamics:**
-
-```
-CMS Spread (%)
-  │
-  │── 2.50% ──── Upper boundary ────────
-  │          │                          │
-  │          │   ACCRUAL ZONE           │
-  │          │   (Coupon accrues)       │
-  │          │                          │
-  │── 0.25% ──── Lower boundary ────────
-  │          │
-  │── 0.00% ──── Flat curve
-  │
-  ├──────────────────────────────── Time
-```
-
-**When This Product Makes Sense:** For investors who believe the curve will stay moderately steep — not flattening to zero but not steepening dramatically.
-
-**When This Product Is Usually A Poor Choice:** For investors who expect the curve to steepen significantly (use a Vanilla STEG) or who expect flattening or inversion (use a vanilla bond).
-
-#### §10. What Happens If...
-
-**Scenario A — CMS spread stays in [0.25%, 2.50%] every day:** Full coupon: $60M × 5.50% = $3,300,000 per year. Best outcome.
-
-**Scenario B — Spread in range 80% of days:** $3,300,000 × 80% = $2,640,000 per year. Still above vanilla.
-
-**Scenario C — Curve flattens, spread drops below 0.25% for an entire quarter:** That quarter's coupon = $0. If other quarters are fully in range, annual coupon ≈ $2,475,000 (75%).
-
-**Scenario D — Curve steepens dramatically, spread exceeds 2.50%:** Paradoxically, a very steep curve produces zero coupons. The investor is penalized for being "too right" about steepening.
-
-#### §11. Formal Definition
-
-A Range Accrual Steepener (RA STEG) is a structured rate product that pays a conditional coupon based on the number of days the CMS spread (CMS_Long - CMS_Short) stays within a predefined range during each accrual period. The coupon formula is: Coupon = Notional × Accrual Rate × (Days In Range / Total Days) / Periods Per Year. The range is defined by upper and lower bounds on the CMS spread, not on individual rates. The product is booked in Murex with four legs: Note (conditional coupon), Issuer (funding), Deposit (collateral), and Hedge (digital spread option strip — caps and floors on the CMS spread).
-
-#### §12. Product Construction
-
-The RA STEG is built from three components:
-
-1. **Long digital floor on CMS spread** — pays $1 for each day spread is above the lower bound (0.25%)
-2. **Short digital cap on CMS spread** — cancels payout for each day spread exceeds the upper bound (2.50%)
-3. **Fixed coupon rate** — 5.50% applied to the fraction of accrual days
+1. **Long digital floor on CMS spread** — accrues for each day the spread is above the lower bound (0.25%).
+2. **Short digital cap on CMS spread** — cancels accrual for each day the spread exceeds the upper bound (2.50%).
+3. **Fixed coupon rate** — 5.50% applied to the fraction of accrual days.
 
 ```
 If CMS30Y - CMS2Y ∈ [0.25%, 2.50%]:  Accrue at 5.50%
@@ -13784,22 +13588,13 @@ If spread < 0.25%:                     No accrual
 If spread > 2.50%:                     No accrual
 ```
 
-> **Professor Note:** If you remember only one thing from this chapter, remember this: the RA STEG pays you for the yield curve being "just right" — not too flat and not too steep. Unlike the Vanilla Steepener which rewards maximum steepness, the RA STEG rewards curve stability in a Goldilocks zone.
+Each business day the CMS spread is observed and the day either qualifies (spread in range) or does not. The coupon accrues in proportion to the qualifying days:
 
-(See Figure 5.4.2-01)
+**Coupon formula per quarter:** $60M × 5.50% × (Days In Range / Total Days) / 4
 
-#### §13. Product Lifecycle
+The investor is therefore **short a strip of digital spread options** on the slope (a long digital floor at 0.25% combined with a short digital cap at 2.50%) — long the view that the slope stays steep enough but not too steep. Because the investor sells the digital strip, the accrual rate (5.50%) exceeds the Vanilla STEG's expected coupon: the premium is compensation for the conditionality. Sensitivity is dual — short vega on the range and long vega on the curve — and the spread's behaviour is driven by the correlation between CMS30Y and CMS2Y.
 
-| Stage | What Happens | Who Is Involved | What Can Go Wrong |
-|:-----:|-------------|----------------|-------------------|
-| **Pre-trade** | Structurer prices the digital spread option strip. Range boundaries chosen based on historical CMS spread distribution | Structurer, Sales, Client | Range set based on current spread without considering that the spread distribution may shift |
-| **Trade date** | Four legs booked in Murex. Daily observation mechanism configured for CMS spread | Operations, Trader | CMS30Y and CMS2Y observation sources mismatched — spread calculation uses rates from different fixing times |
-| **During life** | Each business day, CMS30Y and CMS2Y are observed and the spread calculated. Accrual counter tracks days in range | Product Control, Operations | CMS fixing source change (e.g., LIBOR transition) invalidates spread observations |
-| **Maturity** | Final quarterly coupon, principal returned, all legs closed | Operations, Product Control | Final-quarter spread observation disputed — CMS rate on the boundary |
-
-(See Figure 5.4.2-02)
-
-#### §14. Payoff Logic
+**Payoff & scenarios**
 
 ```
 Quarterly
@@ -13815,11 +13610,14 @@ Coupon ($)
 ```
 *Caption: RA STEG quarterly coupon — linear in days the CMS spread is in range.*
 
-**Coupon formula per quarter:** $60M × 5.50% × (Days In Range / Total Days) / 4
+- **Scenario A — CMS spread stays in [0.25%, 2.50%] every day:** Full coupon: $60M × 5.50% = $3,300,000 per year. Best outcome.
+- **Scenario B — Spread in range 80% of days:** $3,300,000 × 80% = $2,640,000 per year. Still above vanilla.
+- **Scenario C — Curve flattens, spread drops below 0.25% for an entire quarter:** That quarter's coupon = $0. If other quarters are fully in range, annual coupon ≈ $2,475,000 (75%).
+- **Scenario D — Curve steepens dramatically, spread exceeds 2.50%:** Paradoxically, a very steep curve produces zero coupons. The investor is penalized for being "too right" about steepening.
 
-(See Figure 5.4.2-03)
+![RA Steepener Coupon vs Days-Slope-In-Range — Investor Lens](assets/rasteg/payoff_rasteg_01.svg)
 
-#### §15. Risks
+**Risks**
 
 | Risk | Description | Severity |
 |------|------------|:--------:|
@@ -13830,9 +13628,61 @@ Coupon ($)
 | **Boundary risk** | When the spread is near 0.25% or 2.50%, small movements create volatile accrual | Medium |
 | **Credit risk** | Counterparty default risk on the issuing bank | Low |
 
-**Curve Risk Explanation:** The RA STEG has a unique risk profile: it loses value from both curve flattening (spread < 0.25%) AND extreme steepening (spread > 2.50%). The hedge must protect against both tails of the spread distribution, making it more complex than the Vanilla STEG's one-directional risk.
+The RA STEG has a unique risk profile: it loses value from both curve flattening (spread < 0.25%) AND extreme steepening (spread > 2.50%). The hedge must protect against both tails of the spread distribution, making it more complex than the Vanilla STEG's one-directional risk.
 
-#### §16. Booking And Systems
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The trade is booked in Murex with four legs, and the desk takes the offsetting side of the investor's position:
+
+- **Note leg** — the client-facing conditional coupon: $60M, 5.50% × (days CMS spread in [0.25%, 2.50%] / total days), quarterly, Act/360.
+- **Issuer leg** — bank funding: SOFR + spread.
+- **Deposit leg** — client collateral: $60M cash.
+- **Hedge leg** — the rates desk's offsetting position: a strip of daily digital spread caps (strike 2.50%) and spread floors (strike 0.25%) on CMS30Y − CMS2Y.
+
+Where the investor is short the digital spread strip on the slope, the desk is **long the digital strip** — long the daily digital floors and caps on the CMS spread, hedged with a CMS spread swap and the digital option strip rather than holding the raw curve risk. The strip is a digital on the *spread*, not the combination of two individual rate digitals: the CMS30Y−CMS2Y correlation affects the spread distribution in ways individual rate digitals cannot replicate.
+
+**Curve/correlation risk & hedging**
+
+The rates desk hedges with a CMS spread swap plus digital caps and floors on the CMS spread (strike 2.50% and 0.25%). The dominant residual is **correlation** between CMS30Y and CMS2Y, which determines the spread distribution and hence the breakout probability and digital-option value. High correlation means the two rates move together — stable spread, low breakout risk, healthy accrual. Low correlation means the spread is volatile and boundary crossings become frequent. A market shock that spikes 2-year rates while 30-year rates stay anchored breaks the correlation and collapses the spread, triggering lower-boundary breakouts across the entire RA STEG book. There is **pin risk** at the 0.25% and 2.50% thresholds: when the spread sits near a boundary, small movements flip days in and out of accrual, and the digital gamma is largest there. The desk hedges the upper boundary separately from the lower boundary because the risk is two-sided.
+
+![RA Steepener Desk Position & Hedge — Bank Lens (Desk Economics)](assets/rasteg/desk_rasteg_gamma_07.svg)
+
+**How the bank makes money**
+
+| Area | Detail |
+|------|--------|
+| **Client economics** | Client receives 5.50% × (days in range / total days). Maximum = 5.50%, minimum = 0% |
+| **Bank economics** | Structuring spread: 12-18bp. Digital spread options are more complex to price than single-rate digitals, creating wider margins |
+| **Hedging economics** | Rates desk hedges with digital cap and floor on the CMS spread. Residual: correlation between CMS30Y and CMS2Y affects the spread distribution and hence the digital option value |
+| **Distribution economics** | Sales credit 5-8bp on notional |
+
+Demand rises when investors expect stable rates and a moderately steepening curve, and when the structuring margin on the digital spread strip is attractive relative to single-rate digitals.
+
+**Coupon decomposition**
+
+The investor's conditional 5.50% accrual rate decomposes into the digital-spread-strip value the investor sells, less the structuring spread and sales credit the bank retains:
+
+```
+Digital spread strip value (max accrual rate):   5.50%
+− Structuring spread (12-18bp):                  ~0.15%
+− Sales credit (5-8bp):                          ~0.065%
+─────────────────────────────────────────────────────
+Net passed to investor (realized accrual):       ≈ 5.29%
+```
+
+The source quotes the 5.50% accrual rate, the 12-18bp structuring spread, and the 5-8bp sales credit. The precise split of the 5.50% into retained-versus-passed-through is **inferred** from those ranges (mid-points), not stated verbatim in the source.
+
+![RA Steepener Coupon Decomposition — Bank Lens (Desk Economics)](assets/rasteg/waterfall_rasteg_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by: moves in the CMS spread relative to the 0.25% and 2.50% boundaries against the warehoused digital strip (pin risk is largest when the spread sits on a boundary); changes in the CMS30Y−CMS2Y correlation against the long digital-strip position (correlation is the most important driver — the value of the digital strip can swing materially with correlation even when the spread level does not move); the realized daily accrual count versus the modelled one; and the structuring spread (12-18bp) and bid-offer captured at inception. A $500M RA STEG book in which the CMS spread sits near a boundary while correlation is shifting is the desk's main concentration concern — a correlation regime change can trigger boundary breakouts across the entire book in a single move.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
 
 | Field | Value |
 |-------|-------|
@@ -13842,13 +13692,30 @@ Coupon ($)
 | **Note leg** | Conditional coupon: $60M, 5.50% × (days CMS spread in [0.25%, 2.50%] / total days), quarterly |
 | **Issuer leg** | Bank funding: SOFR + spread |
 | **Deposit leg** | Client collateral: $60M cash |
-| **Hedge leg** | Strip of daily digital spread caps (strike 2.50%) + spread floors (strike 0.25%) on CMS30Y - CMS2Y |
+| **Hedge leg** | Strip of daily digital spread caps (strike 2.50%) + spread floors (strike 0.25%) on CMS30Y − CMS2Y |
 | **ISDA documentation** | Not required from client (note format) |
 | **Observation rates** | CMS30Y and CMS2Y (daily ICESWAP fixing) |
-| **Range** | CMS30Y - CMS2Y ∈ [0.25%, 2.50%] |
+| **Range** | CMS30Y − CMS2Y ∈ [0.25%, 2.50%] |
 | **Day count** | Act/360 |
 
-#### §17. Red Flags
+All four legs are booked in Murex as a single structured note. The 2nd line's first concern is that the four legs are booked net and consistent — matching notionals and dates — and that the Hedge leg (the digital spread strip) genuinely offsets the client-facing Note leg.
+
+**Reconciliation points**
+
+| Recon point | What must agree | RA-STEG-specific break |
+|-------------|-----------------|------------------------|
+| **Four-leg net (Note vs Issuer vs Deposit vs Hedge)** | All four legs booked with matching notional, dates, and conventions; legs net to the intended structured position | Legs booked asynchronously with a notional error — e.g. Deposit leg shows a different notional ($60M) than the Note leg |
+| **Accrual factor / daily slope observation count** | The accrual fraction in Murex equals (days CMS spread in [0.25%, 2.50%] / total days) per the daily observation log | Accrual counter shows days in range when the spread was outside the corridor, or defaults to 100% — e.g. Q3 shows 50/92 but the daily log disagrees |
+| **CMS fixings & source (two rates)** | CMS30Y and CMS2Y both sourced from the same publication (daily ICESWAP), same time, same methodology, so the spread is consistent | CMS30Y and CMS2Y observed from different fixing times/sources — spurious spread observation includes or excludes a day |
+| **Threshold / boundary convention** | Range bounds 0.25% and 2.50% booked correctly; inclusive-vs-exclusive boundary matches the term sheet | Spread exactly 0.25% or 2.50% with disputed accrual — inclusive/exclusive boundary mis-booked |
+| **Day-count** | Act/360 applied correctly to each conditional coupon | Day-count fraction error — quarterly coupon exceeds the $825,000 maximum |
+| **Digital spread hedge parameters** | Digital cap (2.50%) and floor (0.25%) strikes, correlation, and CMS convexity match the trade | Hedge leg shows large P&L when the CMS spread hasn't moved — correlation shift or mispriced spread digital |
+| **Hedge offset (Note vs Hedge P&L)** | Hedge leg (digital strip) P&L offsets Note leg accrual P&L within tolerance | Hedge leg P&L diverges from Note leg P&L — strip tenors/strikes do not match the structured note |
+| **Collateral / four-leg settlement** | All four legs settle consistently; deposit ($60M) released when the Note leg terminates at maturity | Settlement timing mismatch — Note leg coupon settled but Deposit leg not released, trapping client cash |
+
+![RASTEG Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/rasteg/controls_rasteg_recon_08.svg)
+
+**Common breaks & red flags**
 
 | Red Flag | What It Means | Action |
 |----------|--------------|--------|
@@ -13858,9 +13725,26 @@ Coupon ($)
 | Full accrual for 5 consecutive quarters despite CMS spread volatility | Counter may be defaulting to 100% | Audit daily observation log |
 | Hedge leg shows large P&L when CMS spread hasn't moved | Digital spread option may be mispriced due to correlation shift | Recalibrate with updated CMS30Y-CMS2Y correlation |
 
-#### §18. Worked Example
+**Control implication**
 
-**Terms:** $60M notional, 5-year, accrual rate 5.50%, range [0.25%, 2.50%] on CMS30Y - CMS2Y, quarterly, Act/360.
+For an RA STEG the dominant 2nd-line control is the **accrual factor** — the daily count of slope-in-range days. The four legs (Note, Issuer, Deposit, Hedge) must be booked with matching notionals and dates so that they net to the intended structured position and the Hedge leg (the digital spread strip) genuinely offsets the client-facing Note leg. The accrual fraction in Murex must equal the count of days the CMS spread (CMS30Y − CMS2Y) stayed in [0.25%, 2.50%] per the daily observation log, and that count is only as good as the two CMS fixings behind it: CMS30Y and CMS2Y must be sourced from the same publication, time, and methodology, or a spurious spread observation will incorrectly include or exclude a day. Around these, the threshold/boundary convention (inclusive vs exclusive at 0.25% / 2.50%), the Act/360 day-count, and the four-leg collateral/settlement checks ensure each conditional coupon and the final maturity settlement are correct. The reconciliation exists precisely to catch these inconsistencies before a coupon settles.
+
+#### §10. Formal Definition
+
+A **Range Accrual Steepener (RA STEG)** is a structured rate product that pays a conditional coupon based on the number of days the CMS spread (CMS_Long − CMS_Short) stays within a predefined range during each accrual period. The coupon formula is: Coupon = Notional × Accrual Rate × (Days In Range / Total Days) / Periods Per Year. The range is defined by upper and lower bounds on the CMS spread, not on individual rates. Economically the investor is short a strip of digital spread options on the slope (a long digital floor at the lower bound combined with a short digital cap at the upper bound); the bank's desk is long that strip. The product is booked in Murex with four legs: Note (conditional coupon), Issuer (funding), Deposit (collateral), and Hedge (digital spread option strip — caps and floors on the CMS spread).
+
+#### §11. Lifecycle
+
+| Stage | What Happens | Who Is Involved | What Can Go Wrong |
+|:-----:|-------------|----------------|-------------------|
+| **Pre-trade** | Structurer prices the digital spread option strip. Range boundaries chosen based on historical CMS spread distribution | Structurer, Sales, Client | Range set based on current spread without considering that the spread distribution may shift |
+| **Trade date** | Four legs booked in Murex. Daily observation mechanism configured for the CMS spread | Operations, Trader | CMS30Y and CMS2Y observation sources mismatched — spread calculation uses rates from different fixing times |
+| **During life** | Each business day, CMS30Y and CMS2Y are observed and the spread calculated. Accrual counter tracks days in range | Product Control, Operations | CMS fixing source change (e.g., LIBOR transition) invalidates spread observations |
+| **Maturity** | Final quarterly coupon, principal returned, all legs closed | Operations, Product Control | Final-quarter spread observation disputed — CMS rate on the boundary |
+
+#### §12. Worked Example (both lenses)
+
+**Terms:** $60M notional, 5-year, accrual rate 5.50%, range [0.25%, 2.50%] on CMS30Y − CMS2Y, quarterly, Act/360.
 
 **Year 1 detail:**
 
@@ -13874,18 +13758,22 @@ Coupon ($)
 
 **Effective Year 1 rate:** $2,695,900 / $60,000,000 = 4.49%
 
-In Q3, the CMS spread steepened beyond 2.50% for 42 days — an extreme steepening event that paradoxically reduced Yuna's income. The other quarters' moderate steepening kept the spread in range.
+*Investor lens:*
+In Q3, the CMS spread steepened beyond 2.50% for 42 days — an extreme steepening event that paradoxically reduced the investor's income, cutting Q3 accrual to 50/92 days (54.3%, $448,370). The other quarters' moderate steepening kept the spread in range, producing $687,500 (Q1), $797,802 (Q2), and $762,228 (Q4). The full Year 1 coupon of $2,695,900 represents an effective rate of 4.49% — still above the ~3.80% vanilla bond yield, but below the 5.50% maximum because the investor was "too right" about steepening in Q3. The maximum any quarter can pay is $60M × 5.50% / 4 = $825,000 (100% in range).
 
-(See Figure 5.4.2-04)
+*Bank lens:*
+The desk holds the four legs and is long the digital spread strip (digital floor at 0.25%, digital cap at 2.50% on CMS30Y − CMS2Y), hedged with the CMS spread swap and the strip. It retains the structuring spread (12-18bp of the 5.50% accrual rate) and the bid-offer on the digital-strip hedge. When the spread broke above 2.50% in Q3, the short digital cap cancelled accrual on 42 days, and the desk's hedge had to absorb the boundary pin risk and any correlation move. The 2nd line must confirm Q3's 50/92 days-in-range against the daily CMS30Y − CMS2Y observation log, that both CMS fixings came from the same source/time, that each coupon respects the Act/360 day count and the $825,000 maximum, and that the four legs net correctly.
 
-#### §19. Interview Questions
+#### §13. Knowledge Check
 
-1. Why can the RA STEG investor lose income from both curve flattening AND extreme steepening?
-2. How does the RA STEG's range accrual mechanism differ from the NCRA's?
-3. If the CMS spread is exactly at 2.50% (the upper boundary), does the day count as in range?
-4. Why is the RA STEG's hedge more complex than the NCRA's hedge?
-5. Your desk has $500M in RA STEG notes with a range of [0.25%, 2.50%]. The CMS spread has been at 0.30% for 5 days and is trending downward. Describe your risk management approach.
-
+1. What determines the RA STEG's quarterly coupon? *(Investor)*
+2. How does the RA STEG differ from the NCRA in terms of the observation variable? *(Investor)*
+3. Why does the RA STEG have an upper boundary on the CMS spread range? *(Investor)*
+4. If the CMS spread is exactly at 2.50% (the upper boundary), does the day count as in range? *(Investor)*
+5. The CMS spread has been at 2.45% for 5 days and is trending upward. What risks does the RA STEG investor face? *(Investor)*
+6. CMS30Y rises from 4.50% to 5.00% while CMS2Y rises from 3.50% to 4.10%. Did the CMS spread widen or narrow, and what is the impact on the RA STEG? *(Investor)*
+7. **(Desk economics / 1LoD)** When the investor enters an RA STEG, what position does the desk take in the embedded digital spread strip (long or short the strip), what is its dominant risk, and how does the desk hedge the two boundaries (0.25% and 2.50%) on CMS30Y − CMS2Y? Where does the desk's retained profit come from?
+8. **(Controls / 2LoD)** Name three reconciliation breaks specific to an RA STEG — covering the four-leg net, the accrual factor (daily slope-in-range observation count), and the two CMS fixings/source — and the consequence of each for the accrual count, the net coupon, or trapped client cash.
 
 **Mental Models**
 
@@ -13896,17 +13784,20 @@ In Q3, the CMS spread steepened beyond 2.50% for 42 days — an extreme steepeni
 | Upper boundary breakout | Overheating — too much steepening kills the crop |
 | Lower boundary breakout | No heating advantage — flat curve provides no growth conditions |
 | Daily observation | Daily temperature check — each day either produces or doesn't |
-
+| Investor short the digital strip / desk long it | The investor sells the both-boundary digital strip; the desk warehouses it |
+| Four-leg structure | Four interconnected gears — Note, Issuer, Deposit, Hedge — all must turn together |
 
 **Key Takeaways**
 
-1. An RA STEG pays a conditional coupon based on the fraction of days the CMS spread stays within a predefined range.
-2. Unlike the Vanilla STEG, the RA STEG penalizes extreme steepening — the investor wants stability, not maximum slope.
-3. The hedge involves digital spread options (on CMS30Y - CMS2Y), which are more complex than single-rate digitals.
-4. The correlation between CMS30Y and CMS2Y drives the spread distribution and breakout probability.
-5. The accrual rate (5.50%) exceeds the Vanilla STEG's expected coupon because the investor is selling digital spread options.
+1. An RA STEG pays a conditional coupon based on the fraction of days the CMS spread (CMS30Y − CMS2Y) stays within a predefined range [0.25%, 2.50%].
+2. Unlike the Vanilla STEG, the RA STEG penalizes extreme steepening — the investor wants stability, not maximum slope; a spread above 2.50% produces zero accrual.
+3. The hedge involves digital spread options (on CMS30Y − CMS2Y), which are more complex than single-rate digitals; the desk is long the strip while the investor is short it.
+4. The correlation between CMS30Y and CMS2Y drives the spread distribution and breakout probability and is the desk's most important risk.
+5. The accrual rate (5.50%) exceeds the Vanilla STEG's expected coupon because the investor is selling digital spread options at both boundaries.
+6. All SRT products are booked in Murex with four legs: Note, Issuer, Deposit, and Hedge; the desk retains the structuring spread (12-18bp) plus the digital-strip bid-offer.
+7. For the 2nd line, the dominant control is the accrual factor — the daily count of slope-in-range days — which is only as reliable as the two CMS fixings (CMS30Y and CMS2Y from the same source/time) behind it, supported by four-leg net, threshold/boundary, day-count, and collateral/settlement checks; each can misstate the accrual count, the coupon, or trap client cash.
 
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
 **1. Assuming the RA STEG always benefits from a steep curve.** Unlike the Vanilla STEG, the RA STEG has an upper boundary. Extreme steepening (spread > 2.50%) produces zero coupons — being "too right" about steepening is penalized.
 
@@ -13914,210 +13805,47 @@ In Q3, the CMS spread steepened beyond 2.50% for 42 days — an extreme steepeni
 
 **3. Setting the range based on the current spread without considering historical distribution.** If the CMS spread is currently 1.50% and the range is [0.25%, 2.50%], it looks centered. But the historical distribution may be skewed — spreads may be more likely to compress than to widen.
 
-**4. Ignoring the correlation between CMS30Y and CMS2Y.** If the two rates are highly correlated, the spread is stable and breakout probability is low. If correlation breaks down, the spread can move violently.
+**4. Hedging the spread digital as two single-rate digitals.** The spread digital is NOT the combination of one digital on CMS30Y and one on CMS2Y — the CMS30Y−CMS2Y correlation affects the spread distribution in ways individual rate digitals cannot replicate. The desk is long a digital on the *spread*.
 
-**5. Comparing the RA STEG coupon directly to the NCRA coupon.** The NCRA's accrual depends on a single rate level; the RA STEG's accrual depends on a spread between two rates. The risk factors are fundamentally different.
+**5. (Controls) Trusting the accrual counter without auditing the daily observation log.** Full accrual for 5 consecutive quarters despite CMS spread volatility, or days counted in range when the spread was outside [0.25%, 2.50%], signals the counter may default to 100% or use mismatched CMS30Y/CMS2Y fixing times. The 2nd line must reconcile the accrual fraction to the day-by-day CMS spread observations and confirm both CMS rates share one source and time.
 
----
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book across the four legs, and what is its primary curve/correlation risk and hedge?
+- *(Controls / 2LoD)* Which four-leg / CMS-fixing / accrual fields must reconcile, and which is the most common break?
 
-**Who Touches This Product**
-
-| Role | Responsibility | Primary Concern | Typical Question |
-|------|---------------|----------------|-----------------|
-| **Trader** | Manages digital spread option hedge, monitors CMS spread proximity to boundaries | "What is the spread delta when CMS30Y - CMS2Y is 5bp from a boundary?" | "Should I hedge the upper boundary separately from the lower boundary?" |
-| **Structurer** | Prices digital spread options with CMS convexity and correlation adjustments | "Is the CMS30Y-CMS2Y correlation assumption in the pricing model still valid?" | "If I narrow the range by 25bp on each side, how much can I increase the coupon?" |
-| **Sales** | Explains the "penalized for extreme steepening" concept to clients | "Does the client understand that the RA STEG is a stability bet, not a steepening bet?" | "Yuna earned 4.49% last year — how does she feel about Q3's steepening-induced loss?" |
-| **Risk** | Monitors aggregate digital spread exposure and correlation risk | "What is the book's sensitivity to a correlation breakdown between CMS30Y and CMS2Y?" | "How many RA STEG trades have spreads within 10bp of either boundary?" |
-| **Product Control** | Validates daily CMS spread observations, verifies accrual counters | "Is the daily CMS spread calculation using consistent fixing sources?" | "Q3 shows 50/92 days in range — does this match the daily CMS30Y - CMS2Y observations?" |
-| **Operations** | Processes daily observations of two CMS rates, calculates quarterly coupons | "Are both CMS30Y and CMS2Y observed from the same source at the same time?" | "The client disputes Q3's accrual — how do I verify the day-by-day CMS spread observations?" |
-| **Legal** | Reviews the CMS spread definition, boundary rules, and CMS fallback provisions | "If one CMS rate's fixing methodology changes but the other doesn't, what happens to the spread definition?" | "Does the contract define the spread as CMS30Y minus CMS2Y, or could it be computed differently?" |
-| **Model Validation** | Validates the digital spread option pricing model and correlation assumptions | "Does the model correctly capture the bimodal breakout risk (both upper and lower boundaries)?" | "What is the model risk from assuming constant correlation between CMS30Y and CMS2Y?" |
-
----
-
-**Desk Reality**
-
-**What keeps traders awake:** A regime change in the CMS30Y-CMS2Y correlation. In normal markets, the two rates move together (high correlation = stable spread = low breakout risk). If a market shock causes 2-year rates to spike while 30-year rates stay anchored, the correlation breaks and the spread collapses — triggering lower-boundary breakouts across the entire RA STEG book.
-
-**Most important risk:** Correlation. The CMS30Y-CMS2Y correlation drives the spread distribution. High correlation means the spread is stable and the accrual is healthy. Low correlation means the spread is volatile and boundary crossings become frequent.
-
-**Typical junior mistake:** Hedging the RA STEG with individual CMS rate digitals (one digital on CMS30Y and one on CMS2Y) instead of a digital on the spread itself. The spread digital is NOT the combination of two individual digitals — the correlation affects the spread distribution in ways that individual rate digitals cannot replicate.
-
-**Hardest operational issue:** Calculating the daily CMS spread from two separate fixings. Both CMS30Y and CMS2Y must be sourced from the same publication, at the same time, using the same methodology. Any mismatch creates a spurious spread observation that could incorrectly include or exclude a day from the accrual count.
-
-**Most misunderstood concept:** The upper boundary. Clients often ask "why should I be penalized for the curve steepening?" The answer is: the RA STEG is designed for curve stability, not maximum steepness. If you want unlimited upside from steepening, buy a Vanilla STEG. The RA STEG pays a premium coupon specifically because you are selling digital spread options at both boundaries — the upper boundary is part of what makes your coupon higher than the Vanilla STEG's expected coupon.
-
----
-
-**Knowledge Check**
-
-*Review Questions:*
-1. What determines the RA STEG's quarterly coupon?
-2. How does the RA STEG differ from the NCRA in terms of the observation variable?
-3. Why does the RA STEG have an upper boundary on the CMS spread range?
-4. What role does the CMS30Y-CMS2Y correlation play in pricing?
-5. What is the maximum quarterly coupon for the worked example?
-
-*Scenario Questions:*
-6. The CMS spread has been at 2.45% for 5 days and is trending upward. What risks does the RA STEG investor face?
-7. An RA STEG has a range of [0.50%, 3.00%] while another has [0.10%, 2.00%]. Both have the same notional. Which has a higher accrual rate and why?
-8. CMS30Y rises from 4.50% to 5.00% while CMS2Y rises from 3.50% to 4.10%. Did the CMS spread widen or narrow? What is the impact on the RA STEG?
-
-*Desk Question:*
-9. Your RA STEG book has $800M outstanding. The CMS30Y-CMS2Y correlation has dropped from 0.90 to 0.75 over the past month. Walk through your risk assessment and hedging adjustments.
-
----
-
-#### §21. Visual Specifications
-
-**Visual 1:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.2-01 |
-| **Visual ID** | FLOW_RASTEG_01 |
-| **Type** | Cash Flow Diagram |
-| **Priority** | P1 |
-| **Purpose** | Show the four-leg structure with CMS spread range gate |
-| **Visual Description** | STEG four-panel diagram with a "spread range gate" between the CMS30Y - CMS2Y calculation and the coupon. When spread is in [0.25%, 2.50%], gate opens; otherwise closed. Accrual counter shown |
-| **Diagram Elements** | Four boxes, spread calculation, range gate, variable coupon arrow, accrual counter |
-| **Axis Definitions** | N/A (flow diagram) |
-| **Caption** | RA STEG: coupon flows only when the CMS spread passes through the range gate |
-| **Location** | §12 |
-| **Reuse Potential** | Medium — spread range accrual template |
-| **Future Asset Filename** | flow_rasteg_01.svg |
-
-**Visual 2:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.2-02 |
-| **Visual ID** | LIFECYCLE_RASTEG_01 |
-| **Type** | Lifecycle Diagram |
-| **Priority** | P1 |
-| **Purpose** | Show the RA STEG lifecycle with daily spread observation |
-| **Visual Description** | Timeline with quarterly segments. Within each quarter, a mini-chart shows the CMS spread path relative to [0.25%, 2.50%] boundaries. Days inside green, outside red. Variable coupon arrows |
-| **Diagram Elements** | Timeline, quarterly segments, mini spread-path charts, boundary lines, shading, variable coupons |
-| **Axis Definitions** | X: Time (quarters), Y within mini-charts: CMS Spread (%) |
-| **Caption** | RA STEG lifecycle: daily CMS spread observations determine quarterly coupons |
-| **Location** | §13 |
-| **Reuse Potential** | Medium — spread range lifecycle template |
-| **Future Asset Filename** | lifecycle_rasteg_01.svg |
-
-**Visual 3:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.2-03 |
-| **Visual ID** | PAYOFF_RASTEG_01 |
-| **Type** | Payoff Diagram |
-| **Priority** | P2 |
-| **Purpose** | Show the linear accrual relationship |
-| **Visual Description** | Linear from (0%, $0) to (100%, $825,000). Worked example markers at Q1-Q4 accrual fractions |
-| **Diagram Elements** | Linear line, four scenario markers, dollar annotations |
-| **Axis Definitions** | Y: Quarterly Coupon ($), X: % Days CMS Spread in Range |
-| **Caption** | RA STEG payoff: coupon is linear in the fraction of days the CMS spread is in the range |
-| **Location** | §14 |
-| **Reuse Potential** | Medium — spread accrual payoff template |
-| **Future Asset Filename** | payoff_rasteg_01.svg |
-
-**Visual 4:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.2-04 |
-| **Visual ID** | TIMELINE_RASTEG_01 |
-| **Type** | Timeline |
-| **Priority** | P2 |
-| **Purpose** | Show the worked example quarterly results |
-| **Visual Description** | Four bars: Q1 (83.3%, $687.5K), Q2 (96.7%, $797.8K), Q3 (54.3%, $448.4K), Q4 (92.4%, $762.2K). CMS spread path above |
-| **Diagram Elements** | Four accrual bars, max line ($825K), CMS spread context, annotations |
-| **Axis Definitions** | X: Quarter, Y: Coupon Amount ($) |
-| **Caption** | RA STEG Year 1: Q3's extreme steepening beyond the upper boundary cut accrual to 54.3% |
-| **Location** | §18 |
-| **Reuse Potential** | Low — specific to RA STEG worked example |
-| **Future Asset Filename** | timeline_rasteg_01.svg |
-
-**Visual 5:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.2-05 |
-| **Visual ID** | DIAGRAM_RASTEG_01 |
-| **Type** | Comparison Chart |
-| **Priority** | P3 |
-| **Purpose** | Compare Vanilla STEG vs RA STEG response to different curve regimes |
-| **Visual Description** | Side-by-side bar chart: for three regimes (moderate steep, very steep, flat), show the coupon from each product. Vanilla STEG earns most in "very steep"; RA STEG earns most in "moderate steep" |
-| **Diagram Elements** | Six bars (2 products × 3 regimes), labels, "RA wins" / "Vanilla wins" annotations |
-| **Axis Definitions** | Y: Annual Coupon (%), X: Curve Regime |
-| **Caption** | Vanilla STEG vs RA STEG: the RA STEG outperforms in moderate steepening but underperforms in extreme steepening |
-| **Location** | §9 |
-| **Reuse Potential** | Low — specific to STEG comparison |
-| **Future Asset Filename** | diagram_rasteg_01.svg |
-
-**Visual 6:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.2-06 |
-| **Visual ID** | DECISION_TREE_RASTEG_01 |
-| **Type** | Decision Tree |
-| **Priority** | P3 |
-| **Purpose** | Show the daily CMS spread observation decision logic |
-| **Visual Description** | Decision tree: "Is today's CMS30Y - CMS2Y ≥ 0.25% AND ≤ 2.50%?" → YES: accrue → NO: don't accrue. Loop to next day. Sum for quarterly coupon |
-| **Diagram Elements** | Decision diamond, YES/NO branches, accrual/no-accrual outcomes, loop arrow |
-| **Axis Definitions** | N/A (decision tree) |
-| **Caption** | RA STEG daily observation: one spread check determines each day's accrual |
-| **Location** | §11 |
-| **Reuse Potential** | Medium — spread observation decision template |
-| **Future Asset Filename** | decision_tree_rasteg_01.svg |
-
----
-
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Range accrual mechanism (single rate) | Section 5.3.3 (NCRA) |
-| Range accrual on equity | Section 5.1.10 (CRA ELN) |
-| Vanilla Steepener and CMS spread | Section 5.4.1 (Vanilla STEG) |
-| CMS rates, benchmark rates | Section 1.8 (Benchmark Rates) |
-| Yield curves | Section 1.7 (Yield Curves) |
-| Digital options concept | Section 1.3 (Barrier and Digital Options) |
-| Four-leg structure | Section 2.7 (The Four-Leg Structure) |
-| Murex booking | Section 2.8 (Systems Primer) |
-
----
-
+**Dual-lens visuals (generated):**
+- `assets/rasteg/controls_rasteg_recon_08.svg` `[generated]`
+- `assets/rasteg/desk_rasteg_gamma_07.svg` `[generated]`
+- `assets/rasteg/payoff_rasteg_01.svg` `[generated]`
+- `assets/rasteg/waterfall_rasteg_09.svg` `[generated]`
 ### 5.4.3 Callable Steepener (Callable STEG)
 
 ---
 
-*The Vanilla Steepener paid a leveraged CMS spread coupon for the full term. The Callable Steepener adds the bank's right to terminate early — the same callable feature from Section 5.3.1 (IR Callable). The result: a higher leverage factor (4.5× instead of 4×) and a higher Year 1 fixed coupon (6.00% instead of 5.00%) because the client is selling both curve exposure and a call option.*
+*A Callable Steepener (Callable STEG) is a Steepener Note booked in Murex with the four-leg structure (Note, Issuer, Deposit, Hedge). It pays a leveraged CMS spread coupon on the slope of the curve — leverage × max(0, CMS_Long − CMS_Short) — packaged as a note, in which the issuing bank holds the right to terminate the trade early on predetermined call dates. Relative to the Vanilla Steepener, the investor receives a higher leverage factor (4.5× instead of 4×) and a higher Year 1 fixed coupon (6.00% instead of 5.00%) in exchange for granting the bank that call right. Economically the investor is long the curve slope and short a Bermudan call (the issuer's termination right); the bank's desk is short the slope and long the call. This chapter reads the product through two lenses: what it means for **the investor** (the note holder who receives the enhanced slope-linked coupon), and what it means for **the bank** — the latter split into the desk's curve and rate economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Ricardo is an asset manager at a Brazilian investment firm. He believes the yield curve will stay steep for at least two years, and he wants the highest possible coupon from a curve product. The Vanilla Steepener offers 4× leverage with a 5.00% Year 1 coupon. The Callable STEG offers 4.5× leverage with a 6.00% Year 1 coupon — a significant uplift. The catch: the bank can call the note after two years. If the curve flattens (reducing the bank's coupon obligation), the bank terminates the trade and Ricardo must reinvest.
+Consider an asset manager at a Brazilian investment firm who believes the yield curve will stay steep for at least two years and wants the highest possible coupon from a curve product. The Vanilla Steepener offers 4× leverage with a 5.00% Year 1 coupon. The Callable STEG offers 4.5× leverage with a 6.00% Year 1 coupon — a significant uplift. The catch: the bank can call the note after two years. If the curve flattens (reducing the bank's coupon obligation), the bank terminates the trade and the investor must reinvest.
 
-Why would Ricardo accept this? Because his conviction is specifically about the near term — he believes the curve will steepen over the next two to three years. If he's right, the bank won't call (the coupon obligation is justified by the hedge economics), and Ricardo earns a coupon that no non-callable product can match. If the curve eventually flattens in year four or five, the bank calls — but by then Ricardo has already collected three or four years of elevated coupons. He is trading long-term certainty for short-term outperformance.
+Why would an investor accept this? Because the conviction is specifically about the near term — a belief that the curve will steepen over the next two to three years. If that view is right, the bank will not call (the coupon obligation is justified by the hedge economics), and the investor earns a coupon that no non-callable product can match. If the curve eventually flattens in year four or five, the bank calls — but by then the investor has already collected three or four years of elevated coupons. The investor is trading long-term certainty for short-term outperformance.
 
 #### §2. Core Analogy
 
-Think of a seasonal fruit stand at a farmers' market. Your profit depends on the spread between wholesale prices (2-year rate) and retail prices (30-year rate) — the wider the spread, the bigger your margin. You earn more than a permanent store because you accept a revocable market license: the market authority can close your stall at any quarterly review. As long as margins are healthy, they keep you. But when margins shrink, they revoke your license and give your spot to someone else.
+A Callable STEG resembles a seasonal fruit stand at a farmers' market. Profit depends on the spread between wholesale prices (the 2-year rate) and retail prices (the 30-year rate) — the wider the spread, the bigger the margin. The stallholder earns more than a permanent store because the stall operates under a revocable market license: the market authority can close the stall at any quarterly review. As long as margins are healthy, the license is renewed. But when margins shrink, the authority revokes the license and gives the spot to someone else.
 
-Here's what makes the deal interesting: when the market authority revokes your license, it's precisely when fruit margins are thin everywhere. You're forced to look for a new stall at a time when no location offers good margins. This is the reinvestment trap — the call happens exactly when alternatives are worst.
+What makes the arrangement notable is that the market authority revokes the license precisely when fruit margins are thin everywhere. The stallholder is forced to look for a new stall at a time when no location offers good margins. This is the reinvestment trap — the call happens exactly when alternatives are worst. The market authority holds the revocation right; the stallholder has granted it.
 
 #### §3. What Problem Does It Solve
 
-| Client Need | How the Product Delivers |
+| Investor Need | How the Product Delivers |
 |------------|------------------------|
 | Maximum coupon from curve exposure | Dual premium: curve view + call option = highest available STEG coupon |
 | Higher leverage than Vanilla STEG | 4.5× vs 4× — the call premium funds the additional leverage |
-| Express view that curve will stay steep for the near term | Non-call period provides guaranteed exposure during the conviction window |
+| Express view that the curve will stay steep for the near term | Non-call period provides guaranteed exposure during the conviction window |
 | Accept reinvestment risk for a higher return | Call risk traded for enhanced leverage and fixed coupon |
 
 #### §4. Product DNA
-
 
 | **Field** | **Value** |
 |---|---|
@@ -14134,11 +13862,10 @@ Here's what makes the deal interesting: when the market authority revokes your l
 | **Primary System** | Murex (primary) |
 | **ISDA Required** | No — issued as note |
 
-
 **DNA Atlas Fields:**
 - Primary Risk: Callability risk + curve risk. Bank calls when steepener coupon is high (good for investor). Reinvestment risk
 - Typical Buyer: Institutional investors selling call optionality for enhanced steepener coupon
-- Typical Use Case: Yield pickup over vanilla STEG by selling bank's right to terminate early
+- Typical Use Case: Yield pickup over vanilla STEG by selling the bank's right to terminate early
 - Building Blocks: Vanilla STEG + Bermudan swaption sold to bank
 - Key Hedge: CMS spread swap + Bermudan swaption
 - Similar Products: Vanilla STEG (5.4.1 — without call), IR Callable (5.3.1 — without curve), Callable STEG variants
@@ -14163,7 +13890,7 @@ Rates
 └── Steepener Notes (STEG)
     ├── Vanilla Steepener (5.4.1)
     ├── Range Accrual Steepener (5.4.2)
-    └── Callable Steepener  ← You are here
+    └── Callable Steepener  ← chapter focus
 ```
 
 #### §6. Product Evolution
@@ -14174,62 +13901,30 @@ Rates
 | 2 | IR Callable (5.3.1) | Call right (no CMS spread) | Bank's termination right for premium |
 | 3 | Callable STEG | Leveraged CMS spread + call right | Maximum STEG coupon through dual premium |
 
-#### §7. Why The Market Invented This Product
+The Vanilla Steepener was limited in the leverage it could offer because the bank retained the curve risk for the full term. Adding a call option allowed banks to manage their exposure — if the curve flattened, they could terminate rather than continuing to pay a coupon on a trade that had become unprofitable to hedge. This risk transfer (the call option) freed capital for higher leverage, creating a product with superior coupon economics for investors willing to accept reinvestment risk. The structure combines two well-understood features from earlier chapters — the leveraged CMS spread coupon of the Vanilla STEG (5.4.1) and the issuer call right of the IR Callable (5.3.1) — into a single dual-premium note.
 
-The Vanilla Steepener was limited in the leverage it could offer because the bank retained the curve risk for the full term. Adding a call option allowed banks to manage their exposure — if the curve flattened, they could terminate rather than continuing to pay a coupon on a trade that had become unprofitable to hedge. This risk transfer (call option) freed capital for higher leverage, creating a product with superior coupon economics for investors willing to accept reinvestment risk.
+---
 
-#### §8. Why Clients Buy It
+#### §7. THE INVESTOR LENS
 
-1. **Highest STEG coupon** — dual premium (curve view + call option) = maximum leverage and fixed coupon
-2. **Higher Year 1 fixed** — 6.00% vs 5.00% for the Vanilla STEG
-3. **Higher leverage** — 4.5× vs 4× amplifies a given CMS spread into a larger coupon
-4. **Proven structure** — combines two well-understood features from earlier chapters
-5. **Near-term view expression** — investors confident about the next 2 years of curve shape
+**Why the investor buys it**
 
-#### §9. Why This Product Exists
+1. **Highest STEG coupon** — the dual premium (curve view + call option) delivers the maximum available leverage and fixed coupon.
+2. **Higher Year 1 fixed** — 6.00% vs 5.00% for the Vanilla STEG.
+3. **Higher leverage** — 4.5× vs 4× amplifies a given CMS spread into a larger coupon.
+4. **Proven structure** — combines two well-understood features from earlier chapters.
+5. **Near-term view expression** — the non-call period gives guaranteed exposure for investors confident about the next 2 years of curve shape.
 
-**Typical Buyer:** Asset managers and insurance companies seeking the highest coupon from curve-linked products. Typically institutional, $500M+ AUM.
+The product suits investors with high conviction about curve steepness in the near term who are comfortable with reinvestment risk after the non-call period. It is a poor choice for investors who need guaranteed long-term income (the call can truncate the income stream) or who expect curve flattening.
 
-**Problem Being Solved:** Maximum yield from curve view expression plus willingness to accept reinvestment risk.
+**Position & slope + call**
 
-**How The Client Makes Money:** If the CMS spread averages 1.00% and the note is never called, Ricardo earns Year 1 at 6.00% ($3,000,000) plus Years 2-7 at 4.50% average (4.5 × 1.00%). Over 7 years: approximately $16,500,000 total.
+The Callable STEG is built from two components from the investor's perspective:
 
-**How The Bank Makes Money:**
+1. **Leveraged CMS spread (long the slope)** — the investor receives 4.5 × max(0, CMS30Y − CMS2Y), capped at 12%. The investor is **long the curve slope**: the coupon rises as the long-maturity rate (CMS30Y) pulls away from the short-maturity rate (CMS2Y), and falls toward the floor as the curve flattens.
+2. **Short the issuer call (short a Bermudan swaption)** — the investor sells the bank the right to terminate the note early on quarterly call dates after the non-call period.
 
-| Area | Detail |
-|------|--------|
-| **Client economics** | Year 1 fixed 6.00%, then 4.5 × max(0, CMS30Y - CMS2Y) cap 12%. Callable quarterly after NC2 |
-| **Bank economics** | CMS convexity adjustment + swaption premium. Combined structuring spread: 12-20bp |
-| **Hedging economics** | CMS swaps (scaled 4.5×) + Bermudan swaption. Residual: CMS convexity × swaption interaction |
-| **Distribution economics** | Sales credit 5-8bp |
-
-**When This Product Makes Sense:** For investors with high conviction about curve steepness in the near term, comfortable with reinvestment risk after the non-call period.
-
-**When This Product Is Usually A Poor Choice:** For investors who need guaranteed long-term income (the call can truncate the income stream) or who expect curve flattening.
-
-#### §10. What Happens If...
-
-**Scenario A — Curve stays steep, never called:** Full 7-year term at elevated coupons. Best outcome.
-
-**Scenario B — Curve flattens, called after year 2:** Ricardo earns $3,000,000 (Year 1 fixed) + $1,350,000 (Year 2 CMS spread) = $4,350,000 total. Must reinvest at lower curve-linked returns.
-
-**Scenario C — Curve steepens dramatically:** Coupon hits the 12% cap. Bank does not call — the note is profitable for the client but the bank's hedge cost is manageable.
-
-**Scenario D — Curve inverts in Year 2, called after NC period:** Ricardo earns Year 1 fixed ($3,000,000), Year 2 zero ($0), and is called. Worst outcome: one year of fixed income, one year of nothing, then forced reinvestment.
-
-#### §11. Formal Definition
-
-A Callable Steepener (Callable STEG) is a structured rate product that combines a leveraged CMS spread coupon with the issuing bank's right to terminate on predetermined call dates. The coupon formula after Year 1 is: Coupon = Leverage × max(0, CMS_Long - CMS_Short), capped, with the bank's call right exercisable quarterly after a non-call period. The product is booked in Murex with four legs: Note (CMS spread coupon with call), Issuer, Deposit, Hedge (CMS swaps + Bermudan swaption). The enhanced leverage and Year 1 coupon reflect the embedded swaption premium.
-
-#### §12. Product Construction
-
-```
-Year 1:     Fixed coupon:                6.00%
-Year 2-7:   4.5 × max(0, CMS30Y − CMS2Y), cap 12%
-Call right:  Quarterly after Year 2 (NC2)
-```
-
-The extra coupon vs Vanilla STEG comes from two sources:
+The investor's position is therefore: **long the curve slope** (receive the enhanced leveraged CMS spread, subject to the 0% floor and 12% cap), and **short the bank's Bermudan call right**. Because the investor is short optionality, the investor is **short vega** — a rise in implied swaption volatility lowers the mark-to-market value of the position for the investor. The extra leverage (4.5× vs 4×) and the higher Year 1 fixed (6.00% vs 5.00%) are not free money:
 
 ```
 Vanilla STEG leverage:         4.0×
@@ -14243,55 +13938,94 @@ Vanilla STEG Year 1:           5.00%
 Callable STEG Year 1:          6.00%
 ```
 
-> **Professor Note:** If you remember only one thing from this chapter, remember this: the extra coupon and leverage in a Callable Steepener are not free — they are the premium you earn for giving the bank the right to end the trade when the curve turns against you. Higher coupon, shorter expected holding period.
+The 0.5× of extra leverage and the 1.00% of extra Year 1 coupon are the premium the investor earns for selling the bank an option to terminate the trade when the curve moves in the bank's favour — that is, when the curve flattens and the coupon obligation becomes cheap for the bank to walk away from.
 
-(See Figure 5.4.3-01)
+**Payoff & scenarios**
 
-#### §13. Product Lifecycle
-
-| Stage | What Happens | Who Is Involved | What Can Go Wrong |
-|:-----:|-------------|----------------|-------------------|
-| **Pre-trade** | Structurer prices CMS spread with convexity + swaption. Leverage, fixed coupon, and NC period calibrated | Structurer, Sales, Client | Mispricing the interaction between CMS convexity and call exercise |
-| **Trade date** | Four legs in Murex: Note (callable CMS coupon), Issuer, Deposit, Hedge (CMS swaps + swaption) | Operations, Trader | Swaption hedge mismatched to call schedule |
-| **During life** | Quarterly CMS fixings → coupon calculation. On each call date post-NC, bank decides whether to call | Product Control, Trader (call), Operations | Call decision timing conflicts with CMS fixing date |
-| **Termination** | If called: all four legs close, partial quarter settled. If matured: final coupon, principal returned | Operations, Product Control | Four-leg settlement coordination on call date |
-
-(See Figure 5.4.3-02)
-
-#### §14. Payoff Logic
+The product construction sets the coupon profile:
 
 ```
-Annual
-Coupon (%)
-  │
-  │── 12.00% ───── Cap ───────────────
-  │              ╱
-  │            ╱  Slope = 4.5× leverage
-  │          ╱
-  │── 0.00% ╱──── Floor ──────────────
-  │
-  ├──────────────────────────────── CMS Spread (%)
- -1.0%  0%   1.0%   2.0%   2.67%+
-  
-  CALL EVENT: Bank may terminate quarterly after NC2.
+Year 1:     Fixed coupon:                6.00%
+Year 2-7:   4.5 × max(0, CMS30Y − CMS2Y), cap 12%
+Call right:  Quarterly after Year 2 (NC2)
 ```
 
-**Max quarterly coupon:** $50M × 12.00% / 4 = $1,500,000
+The 12% cap is reached when the CMS spread exceeds 2.67% (12% / 4.5). The maximum quarterly coupon is $50M × 12.00% / 4 = $1,500,000. The investor's return depends both on the realised curve slope and on how long the note survives before the bank calls.
 
-(See Figure 5.4.3-03)
+- **Scenario A — Curve stays steep, never called:** Full 7-year term at elevated coupons. Best outcome.
+- **Scenario B — Curve flattens, called after year 2:** The investor earns $3,000,000 (Year 1 fixed) + $1,350,000 (Year 2 CMS spread) = $4,350,000 total, then must reinvest at lower curve-linked returns.
+- **Scenario C — Curve steepens dramatically:** The coupon hits the 12% cap. The bank does not call — the note is profitable for the investor but the bank's hedge cost is manageable.
+- **Scenario D — Curve inverts in Year 2, called after NC period:** The investor earns Year 1 fixed ($3,000,000), Year 2 zero ($0), and is called. Worst outcome: one year of fixed income, one year of nothing, then forced reinvestment.
 
-#### §15. Risks
+![Callable Steepener Coupon vs Curve Slope — Investor Lens](assets/callablesteg/payoff_callablesteg_01.svg)
+
+**Risks**
 
 | Risk | Description | Severity |
 |------|------------|:--------:|
 | **Curve flattening risk** | Reduced CMS spread → lower or zero coupons | High |
-| **Reinvestment risk** | Bank calls when curve flattens → forced reinvestment at lower spread levels | High |
+| **Reinvestment risk** | Bank calls when the curve flattens → forced reinvestment at lower spread levels | High |
 | **Call-curve correlation** | Bank calls precisely when reinvestment options are worst | Medium |
 | **CMS convexity × swaption interaction** | Combined hedge has cross-Greeks that are difficult to manage | Medium |
 | **Leverage amplification** | 4.5× magnifies both gains and losses | Medium |
-| **Credit risk** | Counterparty default risk | Low |
+| **Swaption volatility (vega)** | Changes in implied volatility affect the value of the embedded call, impacting MTM; the investor is short vega | Medium |
+| **Credit risk** | Counterparty / issuer default risk (note format) | Low |
 
-#### §16. Booking And Systems
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The trade is booked in Murex with four legs, and the desk takes the offsetting side of the investor's position:
+
+- **Note leg** — the client-facing callable CMS coupon: $50M, Y1 fixed 6.00%, Y2-7 = 4.5 × max(0, CMS30Y − CMS2Y) cap 12%, callable NC2 quarterly.
+- **Issuer leg** — bank funding: SOFR + spread.
+- **Deposit leg** — client collateral: $50M cash deposit.
+- **Hedge leg** — the rates desk's offsetting positions: CMS30Y receiver + CMS2Y payer (4.5× scaled) + a **Bermudan swaption** (quarterly exercise after NC2) + cap swaption overlay.
+
+Where the investor is long the curve slope and short the call, the desk is **short the curve slope and long the call**. On the slope, the desk receives the short-maturity rate and pays the long-maturity rate through the CMS swaps (CMS2Y payer offset / CMS30Y receiver hedge scaled 4.5×), so the desk is short the CMS spread that the investor is long. On the call, the desk holds the right to terminate the note when the curve flattens — economically the desk is **long a Bermudan swaption** (the call schedule has multiple quarterly exercise dates after NC2), and it hedges that optionality rather than holding the raw curve and rate risk.
+
+**Curve/vol risk & hedging**
+
+The rates desk hedges the leveraged CMS spread with CMS swaps scaled to 4.5× and the call right with a Bermudan swaption, with a cap swaption overlay for the 12% cap. The residual risks are the **CMS convexity × swaption interaction** (cross-Greeks between the curve hedge and the call) and the correlation between curve shape and call exercise. Because the desk is long the embedded Bermudan swaption, it is **long vega** — its position gains value when implied volatility rises (the investor, who sold it, is short vega). A quarterly callable after NC2 has many call dates, so the hedge must be a Bermudan swaption (or a strip matched to the call schedule), not a single European swaption. The desk monitors CMS spread delta (curve sensitivity) and vega (vol sensitivity) across the callable STEG book; the dominant concentration concern is a large callable STEG book approaching the end of the non-call period when the curve has been flattening — a single call decision can affect $500M+ of notes simultaneously, each triggering CMS swap unwinds and swaption expiry.
+
+**How the bank makes money**
+
+| Area | Detail |
+|------|--------|
+| **Client economics** | Year 1 fixed 6.00%, then 4.5 × max(0, CMS30Y - CMS2Y) cap 12%. Callable quarterly after NC2 |
+| **Bank economics** | CMS convexity adjustment + swaption premium. Combined structuring spread: 12-20bp |
+| **Hedging economics** | CMS swaps (scaled 4.5×) + Bermudan swaption. Residual: CMS convexity × swaption interaction |
+| **Distribution economics** | Sales credit 5-8bp |
+
+Demand rises when the curve is steep (more premium for selling curve optionality), when implied swaption volatility is high (larger embedded option premium = higher leverage and fixed coupon), and when central bank policy is expected to keep the curve gradually steepening (investors believe the curve will not flatten enough to trigger the call).
+
+**Coupon decomposition**
+
+The investor's enhanced coupon decomposes into the Vanilla STEG terms plus the swaption premium the investor pays for selling the call. The extra coupon vs Vanilla STEG comes from two sources:
+
+```
+Vanilla STEG leverage:         4.0×
++ Swaption premium (leverage):  0.5× additional
+─────────────────────────────────
+Callable STEG leverage:        4.5×
+
+Vanilla STEG Year 1:           5.00%
++ Swaption premium (fixed):    1.00%
+─────────────────────────────────
+Callable STEG Year 1:          6.00%
+```
+
+Within the embedded swaption premium the investor grants, the bank retains a combined structuring spread of 12-20bp (CMS convexity adjustment + swaption premium) and passes the remainder back to the investor as the enhanced 4.5× leverage and 6.00% Year 1 coupon; sales credit of 5-8bp is taken on distribution. (The source quotes the 12-20bp combined structuring spread and the 5-8bp sales credit, and the 0.5×-leverage / 1.00%-fixed split versus Vanilla STEG; the precise division of the swaption premium into retained-versus-passed-through is inferred from those figures, not stated verbatim.)
+
+![Callable Steepener Coupon Decomposition — Bank Lens (Desk Economics)](assets/callablesteg/waterfall_callablesteg_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by: moves in the curve slope (the CMS30Y − CMS2Y spread) against the warehoused 4.5×-scaled CMS swap position; changes in implied swaption volatility against the long-vega position embedded in the call (the value of the Bermudan swaption can swing with vol even when the curve does not move); the CMS convexity × swaption interaction as the curve approaches the level where the call becomes optimal; the realised call schedule versus the modelled one as the curve flattens toward the call trigger; and the combined structuring spread (12-20bp) and sales credit (5-8bp) captured at inception. A callable STEG book with staggered NC periods all approaching their first call dates while the CMS spread declines is the desk's main concentration concern — calling $500M+ of notes in one session requires CMS swap unwinds and swaption expiry to be executed cleanly. The correct price requires a model that captures the interaction: the CMS convexity adjustment changes when the swaption is exercised, because the hedge portfolio changes at the call date — pricing the CMS component and the swaption component independently and adding them together is a junior mistake.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
 
 | Field | Value |
 |-------|-------|
@@ -14305,7 +14039,24 @@ Coupon (%)
 | **Call dates** | Quarterly after Year 2 |
 | **Day count** | 30/360 |
 
-#### §17. Red Flags
+All four legs are booked in Murex as a single structured note. The 2nd line's first concern is that the four legs are booked net and consistent — matching notionals and dates — and that the Hedge leg genuinely offsets the client-facing Note leg.
+
+**Reconciliation points**
+
+| Recon point | What must agree | Callable-STEG-specific break |
+|-------------|-----------------|------------------------------|
+| **Four-leg net (Note vs Issuer vs Deposit vs Hedge)** | All four legs booked with matching notional, dates, and conventions; legs net to the intended structured position | Legs booked asynchronously with a notional error — e.g. Deposit leg shows a different notional than the Note leg |
+| **CMS30Y fixing (long leg)** | CMS30Y fixing source and date convention match the termsheet; the long-tenor rate feeds the spread correctly | Wrong CMS30Y source/date overstates or understates the spread and the coupon |
+| **CMS2Y fixing (short leg)** | CMS2Y fixing source and date convention match the termsheet; the short-tenor rate feeds the spread correctly | Wrong CMS2Y source/date misstates the spread; two CMS fixings from inconsistent sources break the slope |
+| **Call schedule** | The call dates and non-call period in Murex match the trade confirmation (NC2 = callable quarterly after year 2) | Call exercised during the non-call period — NC2 not correctly set in booking |
+| **Call notice & exercise capture** | Each call decision is recorded within the contractual window; exercise/notice issued on time | Call notice not issued within the contractual window; deposit not released within T+2 of call |
+| **Leverage & floor** | Leverage 4.5× and floor 0% / cap 12% applied correctly to the spread | Coupon exceeds 12% annualized (cap not applied); floor not applied on a negative spread |
+| **Day-count** | 30/360 applied correctly to each coupon; Year 1 fixed = $750,000/quarter | Year 1 coupon differs from $750,000/quarter — notional or rate error |
+| **Collateral / four-leg settlement** | On a call date all four legs settle simultaneously; deposit released when the Note leg terminates; partial-quarter accrual to the call date | Settlement timing mismatch — Note leg terminated but Deposit leg not released within T+2, trapping client cash |
+
+![CALLABLESTEG Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/callablesteg/controls_callablesteg_recon_08.svg)
+
+**Common breaks & red flags**
 
 | Red Flag | What It Means | Action |
 |----------|--------------|--------|
@@ -14314,8 +14065,26 @@ Coupon (%)
 | Swaption P&L diverges from Note leg P&L | Swaption may reference wrong call dates | Reconcile swaption parameters |
 | Year 1 coupon differs from $750,000/quarter | Notional or rate error | Verify: $50M × 6.00% / 4 = $750,000 |
 | Deposit not released within T+2 of call | Operational delay in four-leg settlement | Escalate to Operations |
+| Note leg shows a coupon after the call | Coupon accrual not stopped — or a legitimate partial quarter | Confirm partial-quarter accrual stops at the call date |
 
-#### §18. Worked Example
+**Control implication**
+
+For a Callable STEG the dominant 2nd-line controls are the **two CMS fixings** (CMS30Y and CMS2Y, each with the correct source and date) and the **call-exercise capture**. The coupon is driven by the slope CMS30Y − CMS2Y, so both fixings must be reconciled against the termsheet from consistent sources — a wrong source or date on either tenor misstates the spread, the leverage applies the error 4.5×, and the floor/cap can be mis-triggered. The call schedule and each call notice/exercise must be captured within the contractual window: a call exercised inside the non-call period (NC2 mis-booked), a call notice not issued on time, or a coupon that fails to stop on the call date each has direct P&L and client-cash consequences. Around these, the four-leg net, the leverage/floor/cap application, the day-count, and the collateral/settlement checks ensure each quarterly coupon and the final four-leg settlement are correct. The reconciliation exists precisely to catch these inconsistencies before a coupon settles or a call date passes.
+
+#### §10. Formal Definition
+
+A **Callable Steepener (Callable STEG)** is a structured rate product that combines a leveraged CMS spread coupon with the issuing bank's right to terminate on predetermined call dates. The coupon formula after Year 1 is: Coupon = Leverage × max(0, CMS_Long − CMS_Short), capped, with the bank's call right exercisable quarterly after a non-call period. The investor is long the curve slope and short the call (a Bermudan swaption sold to the bank); the bank's desk is short the slope and long the call. The product is booked in Murex with four legs: Note (callable CMS spread coupon), Issuer (funding), Deposit (collateral), and Hedge (CMS swaps + Bermudan swaption). The enhanced leverage (4.5×) and Year 1 coupon (6.00%) reflect the embedded swaption premium. Callable structures are described as "Non-Call N" where N is the lockout period in years (e.g., NC2 = callable after 2 years).
+
+#### §11. Lifecycle
+
+| Stage | What Happens | Who Is Involved | What Can Go Wrong |
+|:-----:|-------------|----------------|-------------------|
+| **Pre-trade** | Structurer prices the CMS spread with convexity + swaption. Leverage, fixed coupon, and NC period calibrated | Structurer, Sales, Client | Mispricing the interaction between CMS convexity and call exercise |
+| **Trade date** | Four legs booked in Murex: Note (callable CMS coupon), Issuer, Deposit, Hedge (CMS swaps + swaption) | Operations, Trader | Swaption hedge mismatched to the call schedule |
+| **During life** | Quarterly CMS fixings → coupon calculation. On each call date post-NC, the bank decides whether to call | Product Control, Trader (call), Operations | Call decision timing conflicts with the CMS fixing date |
+| **Termination** | If called: all four legs close, partial quarter settled. If matured: final coupon, principal returned | Operations, Product Control | Four-leg settlement coordination on the call date |
+
+#### §12. Worked Example (both lenses)
 
 **Terms:** $50M notional, 7-year NC2, Year 1 fixed 6.00%, Years 2-7 = 4.5 × max(0, CMS30Y - CMS2Y), floor 0%, cap 12%, quarterly.
 
@@ -14331,39 +14100,46 @@ Coupon (%)
 | Q8 | 4.20% | 4.30% | -0.10% | Floor | 0.00% | $0 |
 | **Year 2 Total** | | | | | | **$1,350,000** |
 
-**If called after Year 2:** Total income = $3,000,000 + $1,350,000 = $4,350,000. Ricardo must reinvest $50M at prevailing (likely lower) CMS spread levels.
+*Investor lens:*
+If the CMS spread averages 1.00% and the note is never called, the investor earns Year 1 at 6.00% ($3,000,000) plus Years 2-7 at 4.50% average (4.5 × 1.00%), approximately $16,500,000 over 7 years. If called after Year 2, total income = $3,000,000 + $1,350,000 = $4,350,000, and the investor must reinvest $50M at prevailing (likely lower) CMS spread levels. The enhanced 4.5× leverage and 6.00% Year 1 coupon were the premium for selling the bank the call; being called early — precisely when the curve has flattened — is the reinvestment risk that premium compensated.
 
-(See Figure 5.4.3-04)
+*Bank lens:*
+The desk holds the four legs and is short the slope (the 4.5×-scaled CMS swaps) and long the call (the Bermudan swaption), hedged with the cap swaption overlay. It retains the combined structuring spread (12-20bp) plus the swaption-hedge economics; if the curve flattens to the level seen in Q8 (spread −0.10%, coupon floored at $0), the desk exercises the call after Year 2 and unwinds all four legs simultaneously. The 2nd line must confirm each quarter's coupon against the two CMS fixings (the $506,250 / $618,750 / $225,000 / $0 amounts and the 30/360 day count), that the Year 2 total reconciles to $1,350,000, that the call decision after Q8 was captured within the window, and that all four legs settled together with the partial quarter accrued to the call date.
 
-#### §19. Interview Questions
+#### §13. Knowledge Check
 
-1. Why does the Callable STEG offer higher leverage than the Vanilla STEG?
-2. What two embedded options is the investor effectively selling?
-3. If the bank calls the note when the CMS spread is at zero, what is the investor's reinvestment challenge?
-4. How does the NC2 period affect the Year 1 fixed coupon?
-5. Your Callable STEG book has $1B outstanding with NC periods ending next month. The CMS spread has narrowed from 1.20% to 0.30%. Describe the call decision process and its implications.
-
+1. What two embedded premiums fund the Callable STEG's higher leverage and fixed coupon? *(Investor)*
+2. How does the non-call period (NC2) affect the Year 1 fixed coupon and the swaption's value? *(Investor)*
+3. Why does the bank call the note when the curve flattens? *(Investor)*
+4. What is the maximum quarterly coupon for the worked example, and at what CMS spread is the 12% cap reached? *(Investor)*
+5. A Callable STEG is called after Year 2 with $4,350,000 earned. The best available reinvestment is a Vanilla STEG at 3.5× leverage. Describe the investor's reinvestment challenge. *(Investor)*
+6. Implied swaption volatility has risen since trade inception, with no change in the curve slope. How does this affect the MTM of the Callable STEG from the investor's perspective, and why? *(Investor)*
+7. **(Desk economics / 1LoD)** When the investor enters a Callable STEG, what position does the desk take on the curve slope and on the embedded call (short or long each), what are its dominant Greeks, and how does the desk hedge a quarterly callable after NC2? Where does the desk's retained profit come from?
+8. **(Controls / 2LoD)** Name three reconciliation breaks specific to a Callable STEG — covering the two CMS fixings (CMS30Y and CMS2Y source/date), the call notice/exercise capture, and the leverage/floor — and the consequence of each for the coupon, the call decision, or trapped client cash.
 
 **Mental Models**
 
 | Concept | Mental Model |
 |---------|-------------|
-| Callable STEG | Seasonal fruit stand with revocable market license — higher margins but the authority can close you |
-| Dual premium | Two insurance policies — earn premiums for selling both curve view and call option |
+| Callable STEG | Seasonal fruit stand with a revocable market license — higher margins, but the authority can close the stall |
+| Dual premium | Two insurance policies — the investor earns premiums for selling both the curve view and the call option |
 | Non-call period | Guaranteed market license duration before reviews begin |
 | Higher leverage | Bigger inventory — more produce to sell, more to lose if margins collapse |
-| Call decision | Market authority reviewing whether your stall is still viable |
-
+| Call decision | Market authority reviewing whether the stall is still viable |
+| Investor long the slope / short the call; desk short the slope / long the call | The stallholder grants the revocation right; the market authority holds it |
+| Four-leg structure | Four interconnected gears — Note, Issuer, Deposit, Hedge — all must turn together |
 
 **Key Takeaways**
 
-1. A Callable STEG combines leveraged CMS spread coupons with the bank's call right for the highest STEG coupon.
-2. The enhanced leverage (4.5×) and Year 1 fixed (6.00%) are funded by the embedded swaption premium.
-3. Reinvestment risk from the call compounds curve flattening risk — both can coincide.
-4. The hedge is complex: CMS swaps at 4.5× scale plus a Bermudan swaption.
+1. A Callable STEG combines leveraged CMS spread coupons (long the curve slope) with the bank's call right for the highest STEG coupon.
+2. The enhanced leverage (4.5×) and Year 1 fixed (6.00%) are funded by the embedded swaption premium — the investor is short the call, the desk is long it.
+3. Reinvestment risk from the call compounds curve flattening risk — both can coincide, because the bank calls precisely when the curve flattens and reinvestment options are worst.
+4. The hedge is complex: CMS swaps at 4.5× scale plus a Bermudan swaption, with residual CMS convexity × swaption interaction; the desk is short the slope and long vega.
 5. Near-term view expression: the non-call period provides guaranteed exposure before the call right activates.
+6. All STEG products are booked in Murex with four legs: Note, Issuer, Deposit, and Hedge.
+7. For the 2nd line, the dominant control risks are the two CMS fixings (CMS30Y and CMS2Y, each with the correct source and date so the slope is right) and the call notice/exercise capture (recording each call decision within the window, NC2 set correctly), supported by leverage/floor, day-count, and four-leg collateral/settlement checks — each can misstate a coupon, miss a call decision, or trap client cash.
 
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
 **1. Comparing Year 1 fixed coupons across STEG products as a quality indicator.** The higher Year 1 coupon (6.00% vs 5.00%) is compensation for the call risk, not evidence that the Callable STEG is a "better" product.
 
@@ -14373,195 +14149,35 @@ Coupon (%)
 
 **4. Quoting the 12% cap as the "upside potential."** The cap is reached when the CMS spread exceeds 2.67% (12% / 4.5). The probability of sustained spreads above 2.67% is historically low.
 
-**5. Forgetting the partial-quarter accrual on a mid-quarter call.** Same issue as CRA SRT — the CMS fixing and coupon must be calculated up to the call date, not quarter-end.
+**5. Confusing the investor's position with the bank's call right.** In a Callable STEG, the BANK calls, not the investor. The investor is long the curve slope and short the call, and has no right to terminate early; the desk is short the slope and long the call.
 
----
+**6. (Controls) Forgetting the partial-quarter accrual and four-leg settlement on a mid-quarter call.** The two CMS fixings and coupon must be calculated up to the call date, not quarter-end, and all four legs must settle simultaneously — if the Note leg is terminated but the Deposit leg is not released within T+2, client cash is trapped. The 2nd line must confirm the partial accrual, the four-leg net settlement, and that the call exercise was captured within the contractual window.
 
-**Who Touches This Product**
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book across the four legs, and what is its primary curve/vol risk and hedge (short the slope, long the Bermudan call, long vega)?
+- *(Controls / 2LoD)* Which two CMS fixings / call-exercise / leverage-floor fields must reconcile, and which is the most common break?
 
-| Role | Responsibility | Primary Concern | Typical Question |
-|------|---------------|----------------|-----------------|
-| **Trader** | Manages combined CMS swap + swaption hedge, makes call decisions | "Is the curve flat enough to justify calling vs holding for remaining swaption value?" | "The CMS spread is 0.15% — should I call now or wait one more quarter?" |
-| **Structurer** | Prices combined CMS spread + call structure | "Is the CMS convexity adjustment properly scaled for 4.5× leverage?" | "If I extend the NC from 2 to 3 years, how much leverage can I add?" |
-| **Sales** | Presents the enhanced coupon story, manages call expectations | "Does Ricardo understand that Year 1's 6.00% includes a call premium?" | "How do I explain the call decision when Ricardo asks why the bank terminated his high-coupon note?" |
-| **Risk** | Monitors combined CMS + swaption exposure | "What is the aggregate vega exposure from the swaption overlay on the STEG book?" | "If we call $500M of Callable STEGs, what is the impact on our CMS swap book?" |
-| **Product Control** | Values the combined structure, verifies call events terminate coupons | "Does the system stop coupon accrual on the call date?" | "The Note leg shows a coupon after the call — is this a legitimate partial quarter?" |
-| **Operations** | Manages CMS fixings + call processing | "Was the call notice issued within the contractual window?" | "When should the deposit leg release after a call exercise?" |
-| **Legal** | Reviews callable provisions and CMS definitions | "If the bank misses a call notification deadline, does the call right lapse?" | "Can the client challenge a call decision?" |
-| **Model Validation** | Validates CMS convexity × swaption combined pricing | "Does the model correctly capture the interaction between CMS convexity and call exercise?" | "What is the model risk from pricing the CMS component and swaption component independently?" |
-
----
-
-**Desk Reality**
-
-**What keeps traders awake:** A large callable STEG book approaching the end of the non-call period when the curve has been flattening. The call decision affects $500M+ of notes simultaneously, and each call triggers CMS swap unwinds and swaption expiry — a complex operational event that must be executed cleanly.
-
-**Most important risk:** Call-curve correlation. When the curve flattens, the bank's optimal call strategy produces maximum reinvestment pain for the investor. The bank calls precisely when the investor's alternative investments offer the lowest curve-linked returns.
-
-**Typical junior mistake:** Pricing the CMS component and the swaption component independently and adding them together. The correct price requires a model that captures the interaction — the CMS convexity adjustment changes when the swaption is exercised, because the hedge portfolio changes at the call date.
-
-**Hardest operational issue:** Simultaneously processing the call exercise, final partial coupon, four-leg settlement, and CMS swap unwind. Each step has dependencies: the partial coupon depends on the CMS fixing, the fixing depends on the call date, the four-leg settlement depends on the coupon calculation, and the CMS swap unwind depends on the four-leg settlement.
-
-**Most misunderstood concept:** That the Callable STEG's higher Year 1 coupon is the call premium, not a prediction of future performance. Investors who see 6.00% Year 1 and expect similar performance from Years 2+ are conflating the fixed period with the floating period.
-
----
-
-**Knowledge Check**
-
-*Review Questions:*
-1. What two premiums fund the Callable STEG's higher leverage and fixed coupon?
-2. How does the non-call period affect the swaption's value?
-3. What is the maximum quarterly coupon for the worked example?
-4. Why does the bank call when the curve flattens?
-5. How does the Callable STEG differ from the CRA SRT (Section 5.3.4)?
-
-*Scenario Questions:*
-6. A Callable STEG has leverage of 5× and cap of 15%. The CMS spread is 3.20%. What is the coupon rate?
-7. Ricardo's Callable STEG is called after Year 2. He earned $4,350,000 total. The best available reinvestment option is a Vanilla STEG at 3.5× leverage. Is he better or worse off than if he'd bought the Vanilla STEG originally?
-8. The bank has $2B in Callable STEGs with NC2. The non-call period expires next month. CMS spread is at 0.40%. Walk through the call vs hold analysis.
-
-*Desk Question:*
-9. Your callable STEG book has staggered NC periods. Three tranches ($300M each) have NC periods expiring in March, June, and September. The CMS spread has been declining steadily. How do you manage the staggered call decisions?
-
----
-
-#### §21. Visual Specifications
-
-**Visual 1:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.3-01 |
-| **Visual ID** | FLOW_CSTEG_01 |
-| **Type** | Cash Flow Diagram |
-| **Priority** | P1 |
-| **Purpose** | Show the four-leg structure with CMS spread coupon and call overlay |
-| **Visual Description** | Vanilla STEG flow with dashed call option overlay on the Note leg. CMS spread feeds into leverage multiplier, then into coupon, with call gate that can terminate all flows |
-| **Diagram Elements** | Four boxes, CMS spread input, leverage multiplier, coupon arrow, call overlay dashed line, NC period shading |
-| **Axis Definitions** | N/A (flow diagram) |
-| **Caption** | Callable STEG: leveraged CMS spread coupon with the bank's right to terminate after NC2 |
-| **Location** | §12 |
-| **Reuse Potential** | Medium — callable steepener template |
-| **Future Asset Filename** | flow_csteg_01.svg |
-
-**Visual 2:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.3-02 |
-| **Visual ID** | LIFECYCLE_CSTEG_01 |
-| **Type** | Lifecycle Diagram |
-| **Priority** | P1 |
-| **Purpose** | Show the callable steepener lifecycle with NC period and call decisions |
-| **Visual Description** | Timeline: Year 1 fixed bars, then CMS spread bars. NC2 shading. Call decision diamonds at each quarterly date post-NC. "Called"/"Not Called" branches |
-| **Diagram Elements** | Timeline, fixed/variable bars, NC shading, call diamonds, branches |
-| **Axis Definitions** | X: Time (years/quarters) |
-| **Caption** | Callable STEG lifecycle: fixed Year 1, then CMS spread coupons with quarterly call decisions after NC2 |
-| **Location** | §13 |
-| **Reuse Potential** | Medium — callable steepener lifecycle |
-| **Future Asset Filename** | lifecycle_csteg_01.svg |
-
-**Visual 3:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.3-03 |
-| **Visual ID** | PAYOFF_CSTEG_01 |
-| **Type** | Payoff Diagram |
-| **Priority** | P2 |
-| **Purpose** | Compare Callable STEG payoff (4.5× leverage, 12% cap) to Vanilla STEG (4× leverage, 10% cap) |
-| **Visual Description** | Two kinked lines on the same axes. Callable STEG has steeper slope (4.5×) and higher cap (12%). Vanilla STEG has lower slope (4×) and lower cap (10%). Annotation: "Higher leverage = higher reward AND higher sensitivity" |
-| **Diagram Elements** | Two payoff lines, leverage labels, cap labels, comparison annotations |
-| **Axis Definitions** | Y: Annual Coupon (%), X: CMS Spread (%) |
-| **Caption** | Callable STEG vs Vanilla STEG: higher leverage and cap, funded by the call option premium |
-| **Location** | §14 |
-| **Reuse Potential** | Low — specific to STEG comparison |
-| **Future Asset Filename** | payoff_csteg_01.svg |
-
-**Visual 4:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.3-04 |
-| **Visual ID** | TIMELINE_CSTEG_01 |
-| **Type** | Timeline |
-| **Priority** | P2 |
-| **Purpose** | Show the worked example with Year 1 fixed + Year 2 CMS spread + call |
-| **Visual Description** | 8 quarterly bars: 4 fixed at $750K, 4 variable ($506K, $619K, $225K, $0). "CALLED" marker after Q8. Dotted continuation shows missed coupons |
-| **Diagram Elements** | 8 bars, call marker, dotted continuation, dollar annotations |
-| **Axis Definitions** | X: Quarter, Y: Coupon Payment ($) |
-| **Caption** | Callable STEG worked example: $4,350,000 earned over 2 years before call — dotted line shows missed future income |
-| **Location** | §18 |
-| **Reuse Potential** | Low — specific to Callable STEG worked example |
-| **Future Asset Filename** | timeline_csteg_01.svg |
-
-**Visual 5:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.3-05 |
-| **Visual ID** | CURVE_CSTEG_01 |
-| **Type** | Yield Curve Diagram |
-| **Priority** | P3 |
-| **Purpose** | Show the curve shape evolution that triggers a call decision |
-| **Visual Description** | Two yield curves: inception (steep, large spread) and call date (flat, zero spread). Arrow showing the flattening. Annotation: "Spread narrowing triggers the call" |
-| **Diagram Elements** | Two yield curves, spread measurement arrows, call decision annotation |
-| **Axis Definitions** | Y: Rate (%), X: Tenor (2Y to 30Y) |
-| **Caption** | Callable STEG call trigger: curve flattening reduces the coupon and motivates the bank to terminate |
-| **Location** | §10 |
-| **Reuse Potential** | Medium — curve evolution diagram |
-| **Future Asset Filename** | curve_csteg_01.svg |
-
-**Visual 6:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.3-06 |
-| **Visual ID** | DIAGRAM_CSTEG_01 |
-| **Type** | Comparison Chart |
-| **Priority** | P3 |
-| **Purpose** | Compare Year 1 fixed coupons and leverage across all STEG products |
-| **Visual Description** | Grouped bar chart: for Vanilla STEG, RA STEG, and Callable STEG, show Year 1 fixed rate and leverage factor. Callable STEG has both the highest Year 1 and highest leverage |
-| **Diagram Elements** | Three product groups, two bars each (Year 1, leverage), annotations |
-| **Axis Definitions** | Y: Rate (%) / Leverage (×), X: Product |
-| **Caption** | STEG comparison: Callable STEG offers the highest fixed coupon and leverage, funded by the call option |
-| **Location** | §9 |
-| **Reuse Potential** | Low — specific to STEG family comparison |
-| **Future Asset Filename** | diagram_csteg_01.svg |
-
----
-
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Vanilla Steepener and CMS spread | Section 5.4.1 (Vanilla STEG) |
-| IR Callable and call mechanics | Section 5.3.1 (IR Callable) |
-| Callable Range Accrual | Section 5.3.4 (CRA SRT) |
-| CMS rates | Section 1.8 (Benchmark Rates) |
-| Swaptions | Section 1.8 (Caps, Floors, Swaptions) |
-| Four-leg structure | Section 2.7 (The Four-Leg Structure) |
-| Murex booking | Section 2.8 (Systems Primer) |
-
----
-
+**Dual-lens visuals (generated):**
+- `assets/callablesteg/controls_callablesteg_recon_08.svg` `[generated]`
+- `assets/callablesteg/payoff_callablesteg_01.svg` `[generated]`
+- `assets/callablesteg/waterfall_callablesteg_09.svg` `[generated]`
 ### 5.4.4 TARN Steepener
 
 ---
 
-*The previous three steepener products — Vanilla, Range Accrual, and Callable — differ in their coupon mechanism but share one feature: the note has a fixed maturity date. The TARN Steepener introduces a fundamentally different concept: a Target Accumulation Redemption Note. The note redeems automatically when cumulative coupons reach a predetermined target. The product has no fixed maturity — it terminates whenever the target is hit, whether that takes two years or ten.*
+*A TARN Steepener (Target Accumulation Redemption Note Steepener) is a Steepener Note booked in Murex with the four-leg structure (Note, Issuer, Deposit, Hedge). Its coupon is a leveraged function of the yield-curve slope — leverage × max(0, CMS30Y − CMS2Y) — but the note has no fixed maturity: it auto-redeems early once cumulative coupons reach a predetermined target percentage of notional. Economically the investor is long the curve slope and short the target-redemption optionality, while the bank's desk is short the slope and long the auto-call. This chapter reads the product through two lenses: what it means for **the investor** (the note holder who receives the slope-linked coupon up to the target), and what it means for **the bank** — the latter split into the desk's rate economics (1st line of defence) and the controls and reconciliation that surround the four-leg booking (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-Fatima manages a fixed-income portfolio at a UAE sovereign wealth fund. She wants exposure to the yield curve slope but with a built-in "take profit" mechanism. She doesn't want to hold a steepener for 10 years — she wants to earn a total return of 15% and then exit. The TARN Steepener gives her exactly this: a 5× leveraged CMS spread coupon that accumulates quarter by quarter. When cumulative coupons reach 15% of the notional ($6,000,000 on a $40M note), the note automatically redeems at par and terminates. If the curve is steep, she reaches the target quickly. If the curve flattens, it takes longer — potentially up to the 10-year maximum maturity.
+Consider a fixed-income portfolio manager at a UAE sovereign wealth fund who wants exposure to the yield-curve slope but with a built-in "take profit" mechanism. The manager does not want to hold a steepener for 10 years; the aim is to earn a total return of 15% and then exit. The TARN Steepener delivers exactly this: a 5× leveraged CMS spread coupon that accumulates quarter by quarter. When cumulative coupons reach 15% of the notional ($6,000,000 on a $40M note), the note automatically redeems at par and terminates. If the curve is steep, the target is reached quickly. If the curve flattens, it takes longer — potentially up to the 10-year maximum maturity. The investor is long the curve slope and has sold the bank the optionality embedded in the automatic redemption.
 
 #### §2. Core Analogy
 
-Think of a loyalty card at a coffee shop. Every time you buy a coffee, you earn a stamp. Once you collect 10 stamps, you automatically redeem a free coffee and start over with a new card. The size of each stamp depends on the quality of the coffee — premium blends (steep curve) earn larger stamps, drip coffee (flat curve) earns smaller stamps. If you only buy drip coffee, it takes many visits to fill the card. If you buy premium espresso every time, you fill it quickly. The TARN works the same way: each quarter's coupon is a "stamp," and the 15% target is the "full card."
+A TARN Steepener resembles a loyalty card that redeems automatically. Each purchase earns a stamp; once the card holds ten stamps, it is redeemed automatically and a new card begins. The size of each stamp depends on quality — premium blends (a steep curve) earn larger stamps, while drip coffee (a flat curve) earns smaller stamps. A card filled only with small stamps takes many visits to complete; a card filled with large stamps completes quickly. The TARN works the same way: each quarter's coupon is a "stamp," and the 15% target is the "full card." The card holder collects the stamps (the investor is long the slope), but the redemption is triggered automatically rather than at the holder's discretion.
 
 #### §3. What Problem Does It Solve
 
-| Client Need | How the Product Delivers |
+| Investor Need | How the Product Delivers |
 |------------|------------------------|
 | Defined total return target | Note automatically redeems when cumulative coupons reach 15% |
 | Built-in "take profit" mechanism | No need to actively decide when to sell — redemption is automatic |
@@ -14569,7 +14185,6 @@ Think of a loyalty card at a coffee shop. Every time you buy a coffee, you earn 
 | High leverage for faster target achievement | 5× leverage accelerates coupon accumulation |
 
 #### §4. Product DNA
-
 
 | **Field** | **Value** |
 |---|---|
@@ -14586,14 +14201,12 @@ Think of a loyalty card at a coffee shop. Every time you buy a coffee, you earn 
 | **Primary System** | Murex (primary), Sophis (risk) |
 | **ISDA Required** | No — issued as note |
 
-
 **DNA Atlas Fields:**
 - Primary Risk: Target reached = early termination. If curve steepens rapidly, target met quickly and product terminates. Reinvestment risk in favourable environment
 - Typical Buyer: Institutional investors wanting defined total return from curve steepening
 - Typical Use Case: Target total coupon from steepener — product terminates once total paid reaches target
 - Building Blocks: Vanilla STEG + target accumulation trigger + early termination mechanism
 - Key Hedge: CMS spread swap + path-dependent autocall replication
-- Similar Products: Vanilla STEG (5.4.1), Callable STEG (5.4.3 — bank calls vs auto-terminate), Snowball (5.6.10 — accumulation)
 - Most Important Greek: CMS spread delta + path-dependent gamma
 
 **Comparison Matrix Fields:**
@@ -14616,7 +14229,7 @@ Rates
     ├── Vanilla Steepener (5.4.1)
     ├── Range Accrual Steepener (5.4.2)
     ├── Callable Steepener (5.4.3)
-    └── TARN Steepener  ← You are here
+    └── TARN Steepener  ← chapter focus
 ```
 
 #### §6. Product Evolution
@@ -14627,56 +14240,30 @@ Rates
 | 2 | Callable STEG (5.4.3) | Bank's early termination right | Banks wanted exit flexibility |
 | 3 | TARN STEG | Target-based automatic redemption | Investors wanted a defined total return with automatic exit |
 
-#### §7. Why The Market Invented This Product
+Institutional investors liked the steepener concept but had two concerns: (1) uncertain holding period — a 10-year steepener might produce volatile income for a decade, and (2) no automatic profit-taking mechanism — they had to actively decide when to sell. The TARN solved both by setting a cumulative coupon target that, once reached, automatically redeemed the note. This appealed to sovereign wealth funds and pension funds with defined-return targets — they could allocate to a "15% total return product" rather than an "unknown-return-for-10-years product." The path dependency made the TARN more complex to price (requiring Monte Carlo simulation), but the clarity of the return target made it easier to sell.
 
-Institutional investors liked the steepener concept but had two concerns: (1) uncertain holding period — a 10-year steepener might produce volatile income for a decade, and (2) no automatic profit-taking mechanism — they had to actively decide when to sell. The TARN solved both problems by setting a cumulative coupon target that, once reached, automatically redeemed the note. This appeal to sovereign wealth funds and pension funds with defined-return targets — they could allocate to a "15% total return product" rather than an "unknown-return-for-10-years product." The path dependency made the TARN more complex to price (requiring Monte Carlo simulation) but the clarity of the return target made it easier to sell.
+---
 
-#### §8. Why Clients Buy It
+#### §7. THE INVESTOR LENS
 
-1. **Defined total return** — 15% target is known at inception, providing return certainty
-2. **Automatic profit-taking** — no active management needed to realize the target
-3. **High leverage** — 5× CMS spread accelerates target achievement
-4. **Maximum maturity safety valve** — 10-year cap ensures the note eventually terminates
-5. **View expression** — steep curve = fast target achievement = higher annualized return
+**Why the investor buys it**
 
-#### §9. Why This Product Exists
+1. **Defined total return** — the 15% target is known at inception, providing return certainty.
+2. **Automatic profit-taking** — no active management is needed to realize the target; redemption is automatic.
+3. **High leverage** — 5× CMS spread accelerates target achievement.
+4. **Maximum maturity safety valve** — the 10-year cap ensures the note eventually terminates.
+5. **View expression** — a steep curve produces fast target achievement and a higher annualized return.
 
-**Typical Buyer:** Sovereign wealth funds and pension funds with specific return targets. Typically institutional, $5B+ AUM, high derivatives sophistication.
+The product suits investors with a specific total return target, who want automatic redemption, and who accept uncertainty about the holding period. It is a poor choice for investors who need income certainty per period (coupons vary), who want a guaranteed short holding period (curve flattening extends it), or who cannot tolerate the path dependency.
 
-**Problem Being Solved:** Defined-return investing within a structured rate product. Clients want to know their total return at inception while accepting uncertainty about the holding period.
+**Position & target mechanism**
 
-**How The Client Makes Money:** Fatima's target is 15% of $40M = $6,000,000. If the curve is steep, she reaches the target in 2.5 years (annualized ~6.00%). If the curve is moderate, she reaches it in 5 years (~3.00%). If the curve flattens significantly, she may take 10 years (~1.50%). The total return is the same ($6,000,000); only the time to achieve it varies.
+The TARN is built from two components from the investor's perspective:
 
-**How The Bank Makes Money:**
+1. **Leveraged CMS steepener** — the investor is long the curve slope, receiving 5 × max(0, CMS30Y − CMS2Y) each quarter, with no per-period cap.
+2. **Short the target-redemption optionality** — the investor has granted the auto-redemption feature: once cumulative coupons reach the 15% target, the note redeems at par and terminates, and the final coupon is truncated to exactly reach the target.
 
-| Area | Detail |
-|------|--------|
-| **Client economics** | Client receives 5 × max(0, CMS30Y - CMS2Y), no cap. Once cumulative coupons reach 15% of notional ($6M), note redeems. Max maturity 10 years |
-| **Bank economics** | Structuring spread: 15-25bp. Monte Carlo pricing creates wider margins due to model complexity |
-| **Hedging economics** | CMS swaps (5× scaled). Path-dependent target mechanism cannot be perfectly hedged — residual risk on the timing of target achievement. Banks often hedge with a combination of CMS swaps and digital corridor options |
-| **Distribution economics** | Sales credit 5-10bp. TARN products command premium sales credit due to complexity |
-
-**When This Product Makes Sense:** For investors with a specific total return target, who want automatic redemption, and who accept uncertainty about the holding period.
-
-**When This Product Is Usually A Poor Choice:** For investors who need income certainty per period (coupons vary), who want a guaranteed short holding period (curve flattening extends it), or who cannot tolerate the path dependency.
-
-#### §10. What Happens If...
-
-**Scenario A — Steep curve, fast target:** CMS spread averages 1.50%, coupon ~7.50% per year. Target reached in approximately 2 years. Annualized return: ~7.50%. Best outcome — high annualized return.
-
-**Scenario B — Moderate curve, medium target:** CMS spread averages 0.80%, coupon ~4.00%. Target reached in approximately 3.75 years. Annualized return: ~4.00%.
-
-**Scenario C — Curve flattens for 3 years, then steepens:** Zero coupons for 12 quarters, then rapid accumulation. Target eventually reached in year 7. Annualized return: ~2.14%. The total return is the same ($6M), but the time value is lower.
-
-**Scenario D — Curve inverts for the full 10 years:** Zero coupons for the entire term. At maturity, cumulative coupons are $0 and the note redeems at par. The client receives principal back but earned nothing. Worst outcome.
-
-#### §11. Formal Definition
-
-A TARN Steepener is a structured rate product whose coupon is a leveraged function of the CMS spread, with an automatic early redemption feature triggered when cumulative coupons reach a predetermined target. The coupon formula per period is: Coupon = Leverage × max(0, CMS_Long - CMS_Short). Cumulative coupons are tracked quarter by quarter. When the cumulative total reaches the target percentage of notional, the note pays a truncated final coupon (exactly reaching the target) and redeems at par. If the target is not reached by the maximum maturity, the note redeems at par with whatever cumulative coupons were earned. The product is path-dependent: the order and magnitude of quarterly coupons determine the redemption date. Pricing requires Monte Carlo simulation. Booked in Murex with four legs: Note (TARN coupon), Issuer, Deposit, Hedge (CMS swaps + path-dependent overlay).
-
-#### §12. Product Construction
-
-The TARN STEG combines a high-leverage steepener with a target accumulation mechanism:
+The investor is therefore **long the slope and short the auto-call**: long the steepening of the curve, but short the optionality that automatically redeems the note (and truncates the last coupon) once the target is met. The target mechanism acts as a natural cap on total return — the note can never pay more than 15% — which is what allows the higher 5× leverage to be offered. The accumulation logic is path-dependent: the order and magnitude of the quarterly coupons determine the redemption date.
 
 ```
 Each quarter:  Coupon = 5 × max(0, CMS30Y − CMS2Y)
@@ -14687,67 +14274,92 @@ Trigger:       When cumulative ≥ target → redeem at par
 Max maturity:  10 years (safety valve)
 ```
 
-> **Professor Note:** If you remember only one thing from this chapter, remember this: the TARN Steepener guarantees your total return (15%) but not your holding period. A steep curve gets you there faster — a flat curve makes you wait. The total destination is fixed; the speed of the journey is not.
+**Payoff & scenarios**
 
-(See Figure 5.4.4-01)
+The investor's total return is fixed at the $6,000,000 target (15% of notional); only the time to achieve it varies. If the curve is steep, the target is reached in roughly 2.5 years (annualized ~6.00%). If the curve is moderate, it is reached in about 5 years (~3.00%). If the curve flattens significantly, it may take 10 years (~1.50%). The total return is the same; only the speed differs.
 
-#### §13. Product Lifecycle
+- **Scenario A — Steep curve, fast target:** The CMS spread averages 1.50%, coupon ~7.50% per year. Target reached in approximately 2 years. Annualized return: ~7.50%. Best outcome — high annualized return.
+- **Scenario B — Moderate curve, medium target:** The CMS spread averages 0.80%, coupon ~4.00%. Target reached in approximately 3.75 years. Annualized return: ~4.00%.
+- **Scenario C — Curve flattens for 3 years, then steepens:** Zero coupons for 12 quarters, then rapid accumulation. Target eventually reached in year 7. Annualized return: ~2.14%. The total return is the same ($6M), but the time value is lower.
+- **Scenario D — Curve inverts for the full 10 years:** Zero coupons for the entire term. At maturity, cumulative coupons are $0 and the note redeems at par. The investor receives principal back but earned nothing. Worst outcome.
 
-| Stage | What Happens | Who Is Involved | What Can Go Wrong |
-|:-----:|-------------|----------------|-------------------|
-| **Pre-trade** | Structurer prices with Monte Carlo simulation modeling the CMS spread distribution and target achievement timing. Leverage and target calibrated | Structurer, Sales, Client | Monte Carlo model underestimates spread volatility → target achievement probability mispriced |
-| **Trade date** | Four legs in Murex. Target accumulation counter initialized at 0% | Operations, Trader | Target counter not correctly linked to coupon accumulation logic |
-| **During life** | Each quarter: CMS fixing → coupon calculation → accumulation counter update. When counter ≥ target, trigger early redemption | Product Control, Operations | Counter not updated correctly — misses the target achievement quarter |
-| **Termination** | Target reached: final truncated coupon paid, principal returned, all legs closed. OR maturity: final coupon (if any), principal returned | Operations, Product Control | Truncated final coupon calculation error — pays over or under the target |
+The TARN has asymmetric timing risk for the investor. A steep curve in early quarters reaches the target fast — the investor gets the same $6M but in less time (higher annualized return). A flat curve in early quarters extends the holding period — the investor eventually gets $6M but the annualized return is lower. In the extreme, the curve inverts for 10 years and the investor gets nothing.
 
-(See Figure 5.4.4-02)
-
-#### §14. Payoff Logic
-
-The TARN's cumulative return has a ceiling:
-
-```
-Cumulative
-Coupons (%)
-  │
-  │── 15.00% ── TARGET ──── REDEMPTION ──
-  │                       ╱
-  │                    ╱
-  │                 ╱   (steep curve → fast)
-  │              ╱
-  │           ╱
-  │        ╱     (moderate curve → medium)
-  │     ╱
-  │  ╱
-  │╱─────────────── (flat curve → slow/never)
-  ├──────────────────────────────── Time
-  0   1   2   3   4   5   ...  10 years
-```
-*Caption: TARN accumulation paths — steeper curves reach the target faster, but the total return is the same.*
-
-(See Figure 5.4.4-03)
-
-#### §15. Risks
+**Risks**
 
 | Risk | Description | Severity |
 |------|------------|:--------:|
 | **Extension risk** | Curve flattening delays target achievement, extending the holding period | High |
+| **Reinvestment risk** | If the curve steepens fast the target is hit quickly, giving a short life and forcing the investor to reinvest in a still-favourable environment | High |
 | **Path dependency risk** | The order of coupon payments matters — early zero coupons are worse than late zero coupons due to time value | Medium |
 | **Truncation risk** | The final coupon is truncated to exactly hit the target — the investor may "leave money on the table" if the last quarter's CMS spread would have produced a large coupon | Medium |
 | **No periodic income certainty** | Each quarter's coupon depends on the CMS spread — no guaranteed minimum | Medium |
 | **Model risk** | Monte Carlo pricing is sensitive to assumed CMS spread distribution and correlation | Medium |
-| **Credit risk** | Counterparty default before target achievement | Low |
+| **Credit risk** | Counterparty (issuer) default before target achievement | Low |
 
-**Curve Risk Explanation:** The TARN has asymmetric timing risk. A steep curve in early quarters reaches the target fast — the investor gets the same $6M but in less time (higher annualized return). A flat curve in early quarters extends the holding period — the investor eventually gets $6M but the annualized return is lower. In the extreme, the curve inverts for 10 years and the investor gets nothing.
+![TARN Steepener Coupon vs Curve Slope — Investor Lens](assets/tarnsteg/payoff_tarnsteg_01.svg)
 
-#### §16. Booking And Systems
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The trade is booked in Murex with four legs, and the desk takes the offsetting side of the investor's position:
+
+- **Note leg** — the client-facing TARN coupon: $40M, 5 × max(0, CMS30Y − CMS2Y), target 15% ($6M), max 10yr.
+- **Issuer leg** — bank funding.
+- **Deposit leg** — client collateral: $40M cash.
+- **Hedge leg** — the rates desk's offsetting positions: a CMS30Y receiver + CMS2Y payer (5× scaled) — i.e. the desk is **short the CMS spread** — with a path-dependent digital corridor overlay against the target mechanism.
+
+Where the investor is long the slope and short the auto-call, the desk is **short the curve slope (short the CMS spread) and long the TARN auto-call** — it holds the optionality that automatically redeems the note once cumulative coupons reach the target. The desk hedges the slope exposure and the path/timing exposure rather than holding the raw curve risk.
+
+**Curve/path risk & hedging**
+
+The rates desk hedges the slope coupon with CMS swaps scaled 5× and the target mechanism with a path-dependent digital corridor overlay. The residual risks are the path dependency and the timing of target achievement: the auto-redemption cannot be perfectly hedged because the redemption date depends on the entire distribution of CMS spread paths, not the expected path. The desk monitors CMS spread delta and path-dependent gamma across the TARN book; as trades approach their targets, the gamma on the redemption trigger sharpens, since a small move in the CMS spread can flip a trade between "not yet redeemed" and "redeemed this quarter." A cluster of trades approaching their targets simultaneously in a steep-curve environment is the desk's main concentration concern — if many trades trigger redemption in the same quarter, the CMS swap unwinds hit the market at once, a concentrated event that can move CMS rates and disrupt the hedging of the remaining TARN trades. The bank prefers structuring over holding the risk: the slope exposure is hedged immediately, leaving the structuring spread as retained profit.
+
+**How the bank makes money**
+
+| Area | Detail |
+|------|--------|
+| **Client economics** | The investor receives 5 × max(0, CMS30Y − CMS2Y), no per-period cap. Once cumulative coupons reach 15% of notional ($6M), the note redeems. Max maturity 10 years |
+| **Bank economics** | Structuring spread: 15-25bp. Monte Carlo pricing creates wider margins due to model complexity |
+| **Hedging economics** | CMS swaps (5× scaled). The path-dependent target mechanism cannot be perfectly hedged — residual risk on the timing of target achievement. Banks often hedge with a combination of CMS swaps and digital corridor options |
+| **Distribution economics** | Sales credit 5-10bp. TARN products command premium sales credit due to complexity |
+
+Demand rises when investors hold a defined-return objective, when the curve is expected to steepen moderately (too fast triggers early termination and reinvestment), and when the leverage-plus-target combination prices attractively against the structuring margin.
+
+**Coupon decomposition**
+
+The investor's leveraged slope coupon decomposes into the value of the underlying CMS-spread exposure the desk warehouses, less the value of the auto-redemption optionality the investor grants, plus the bank's retained structuring spread and sales credit:
+
+```
+CMS-spread (slope) exposure value:        ~17.5%   (gross leveraged steepener value)
+− Auto-redemption optionality (granted):  ~(2.5%)  (target cap / truncation the investor sells)
+─────────────────────────────────────────────────
+= Investor target return:                  15.00%  ($6,000,000 on $40M)
+
+Within the bank's margin:
++ Structuring spread:                       15-25bp
++ Sales credit (distribution):              5-10bp
+```
+
+(The source quotes the 15% target, the 15-25bp structuring spread, and the 5-10bp sales credit verbatim. The split of the gross leveraged-steepener value into the slope-exposure component versus the auto-redemption optionality the investor grants is **inferred** to net to the stated 15% target — the source does not decompose the 15% into these two components, so the ~17.5% / ~2.5% figures are illustrative of the direction, not stated verbatim.)
+
+![TARN Steepener Coupon Decomposition — Bank Lens (Desk Economics)](assets/tarnsteg/waterfall_tarnsteg_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by: moves in the curve slope against the warehoused CMS spread delta on the hedge swaps; path-dependent gamma as trades approach their targets and the redemption trigger sharpens (the dominant driver — the timing of target achievement is a nonlinear event that the deterministic hedge cannot fully neutralize); the realized accumulation path versus the modelled one as the CMS spread moves; CMS30Y-CMS2Y correlation assumptions feeding the Monte Carlo valuation; and the structuring spread and bid-offer captured at inception. A cluster of TARN trades approaching their targets simultaneously in a wide-spread environment is the desk's main concentration concern — simultaneous redemptions create a cliff in the desk's CMS swap exposure that is difficult to manage smoothly.
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
 
 | Field | Value |
 |-------|-------|
 | **Booking system** | Murex |
 | **Pricing system** | Murex (Monte Carlo with CMS convexity and target logic) |
 | **Four-Leg** | Yes |
-| **Note leg** | TARN CMS coupon: $40M, 5 × max(0, CMS30Y - CMS2Y), target 15% ($6M), max 10yr |
+| **Note leg** | TARN CMS coupon: $40M, 5 × max(0, CMS30Y − CMS2Y), target 15% ($6M), max 10yr |
 | **Issuer leg** | Bank funding |
 | **Deposit leg** | Client collateral: $40M cash |
 | **Hedge leg** | CMS30Y receiver + CMS2Y payer (5× scaled), with path-dependent digital corridor overlay |
@@ -14755,19 +14367,52 @@ Coupons (%)
 | **Max maturity** | 10 years |
 | **Day count** | 30/360 |
 
-#### §17. Red Flags
+All four legs are booked in Murex as a single structured note. The 2nd line's first concern is that the four legs are booked net and consistent — matching notionals and dates — and that the Hedge leg genuinely offsets the client-facing Note leg.
+
+**Reconciliation points**
+
+| Recon point | What must agree | TARN-STEG-specific break |
+|-------------|-----------------|--------------------------|
+| **Four-leg net (Note vs Issuer vs Deposit vs Hedge)** | All four legs booked with matching notional, dates, and conventions; legs net to the intended structured position | Legs booked asynchronously with a notional error — e.g. Deposit leg shows a different notional than the Note leg |
+| **CMS fixings & source (CMS30Y and CMS2Y)** | Both CMS30Y and CMS2Y fixings use the correct source and date convention from the termsheet; the spread is computed from the matching pair | Wrong fixing source/date on either CMS leg misstates the spread and the quarterly coupon |
+| **Cumulative-coupon vs target tracking** | The accumulation counter sums each quarter's coupon correctly and is compared against the 15% ($6M) target each period | Counter not linked to coupon payments — shows 0% after positive coupons, or fails to flag that the target has been reached |
+| **Auto-redemption trigger capture** | When cumulative ≥ target, early redemption is triggered and the final coupon truncated to exactly reach $6M | Cumulative counter exceeds 15.00% (truncation failed), or the note keeps paying coupons after the target was reached (trigger not fired) |
+| **Leverage / floor** | The 5× leverage and the max(0, ·) floor are applied correctly so no negative coupon accrues and the multiplier matches the termsheet | Wrong leverage multiplier or floor not applied — coupon over/understated, or a negative spread produces a negative coupon |
+| **Day-count** | 30/360 applied correctly to each coupon | Day-count fraction error — quarterly coupon differs from the expected amount |
+| **Collateral / four-leg settlement** | On the redemption date all four legs settle simultaneously; deposit released and CMS hedge unwound when the Note leg terminates | Hedge leg remains active after early redemption, or Note leg terminated but Deposit leg not released, trapping client cash |
+
+![TARNSTEG Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/tarnsteg/controls_tarnsteg_recon_08.svg)
+
+**Common breaks & red flags**
 
 | Red Flag | What It Means | Action |
 |----------|--------------|--------|
 | Cumulative counter exceeds 15.00% | Truncation logic failed — the final coupon was not properly capped | Calculate the correct truncated coupon and adjust the final payment |
-| Note continues to pay coupons after the target was reached | System did not trigger early redemption | Verify target trigger logic and process manual redemption |
+| Note continues to pay coupons after the target was reached | System did not trigger early redemption | Verify the target trigger logic and process manual redemption |
 | Hedge leg remains active after early redemption | Four-leg settlement not coordinated | Unwind the CMS swap positions and close all legs |
 | Monte Carlo valuation differs from market mid by > 5% | Model calibration issue — CMS spread distribution assumptions may be stale | Recalibrate the Monte Carlo with current CMS volatility and correlation |
 | Target counter shows 0% after 8 quarters of positive coupons | Counter not linked to coupon payments | Manually reconstruct the counter from payment history |
 
-#### §18. Worked Example
+**Control implication**
 
-**Terms:** $40M notional, 10-year max, 5 × max(0, CMS30Y - CMS2Y), target 15% ($6,000,000).
+For a TARN Steepener the dominant 2nd-line controls are the **cumulative-coupon vs target tracking** and the **auto-redemption trigger capture**. The accumulation counter must sum each quarter's coupon correctly and be compared against the 15% ($6M) target every period — a counter that is not linked to coupon payments (showing 0% after positive coupons, or failing to flag the target) breaks the entire redemption logic and can let the note pay beyond what is owed. When the cumulative total reaches the target, the early redemption must fire and the final coupon must be truncated to exactly $6M — a failure here either overshoots the target (truncation failed) or keeps the note alive after it should have redeemed. Around these, the four-leg net, the two CMS fixings & source, the leverage/floor, the day-count, and the collateral/four-leg settlement checks ensure each quarterly coupon is correct and that, on redemption, all four legs settle together and the CMS hedge is unwound. The reconciliation exists precisely to catch these inconsistencies before a coupon settles or a redemption date passes.
+
+#### §10. Formal Definition
+
+A **TARN Steepener** is a structured rate product whose coupon is a leveraged function of the CMS spread, with an automatic early redemption feature triggered when cumulative coupons reach a predetermined target. The coupon formula per period is: Coupon = Leverage × max(0, CMS_Long − CMS_Short). Cumulative coupons are tracked quarter by quarter. When the cumulative total reaches the target percentage of notional, the note pays a truncated final coupon (exactly reaching the target) and redeems at par. If the target is not reached by the maximum maturity, the note redeems at par with whatever cumulative coupons were earned. The product is path-dependent: the order and magnitude of quarterly coupons determine the redemption date. Economically the investor is long the curve slope and short the auto-redemption optionality (the bank's desk is short the slope and long the auto-call). Pricing requires Monte Carlo simulation. The product is booked in Murex with four legs: Note (TARN coupon), Issuer (funding), Deposit (collateral), and Hedge (CMS swaps + path-dependent overlay).
+
+#### §11. Lifecycle
+
+| Stage | What Happens | Who Is Involved | What Can Go Wrong |
+|:-----:|-------------|----------------|-------------------|
+| **Pre-trade** | Structurer prices with Monte Carlo simulation modeling the CMS spread distribution and target achievement timing. Leverage and target calibrated | Structurer, Sales, Client | Monte Carlo model underestimates spread volatility → target achievement probability mispriced |
+| **Trade date** | Four legs booked in Murex. Target accumulation counter initialized at 0% | Operations, Trader | Target counter not correctly linked to coupon accumulation logic |
+| **During life** | Each quarter: CMS fixing → coupon calculation → accumulation counter update. When the counter ≥ target, trigger early redemption | Product Control, Operations | Counter not updated correctly — misses the target achievement quarter |
+| **Termination** | Target reached: final truncated coupon paid, principal returned, all legs closed. OR maturity: final coupon (if any), principal returned, legs unwound | Operations, Product Control | Truncated final coupon calculation error — pays over or under the target |
+
+#### §12. Worked Example (both lenses)
+
+**Terms:** $40M notional, 10-year max, 5 × max(0, CMS30Y − CMS2Y), target 15% ($6,000,000).
 
 | Quarter | CMS30Y | CMS2Y | Spread | × 5 | Full Payment | Cumulative | Status |
 |:-------:|:------:|:-----:|:------:|:---:|:----------:|:----------:|:------:|
@@ -14784,226 +14429,67 @@ Coupons (%)
 
 **Q10 truncation:** The full quarterly coupon would have been $40M × 11.50% / 4 = $1,150,000. But only $50,000 was needed to reach the $6,000,000 target. The note pays $50,000, redeems at par, and terminates.
 
-**Total return:** $6,000,000 over 10 quarters (2.5 years). Annualized: 6.00%.
+*Investor lens:*
+Total return: $6,000,000 over 10 quarters (2.5 years). Annualized: 6.00%. If the curve had been steeper (all quarters at 1.50% spread), the target is reached in ~8 quarters (2 years), annualized ~7.50%. If the curve had been flatter (all quarters at 0.50% spread), the target is reached in ~24 quarters (6 years), annualized ~2.50%. The total return ($6M) is the same in every case; only the time to achieve it — and therefore the annualized return — varies. At Q10 the investor receives only the truncated $50,000 rather than the full $1,150,000: the "lost" $1,100,000 was never owed because the target was already nearly reached.
 
-**If the curve had been steeper (all quarters at 1.50% spread):** Target reached in ~8 quarters (2 years). Annualized: ~7.50%.
+*Bank lens:*
+The desk holds the four legs and is short the CMS spread (CMS30Y receiver + CMS2Y payer, 5× scaled) and long the TARN auto-call, hedged with the CMS swaps and the path-dependent digital corridor overlay. It retains the structuring spread (15-25bp) and the sales credit (5-10bp). As the cumulative counter climbs from $5,950,000 (Q9) toward the $6M target, the path-dependent gamma sharpens, and at Q10 the redemption triggers and the desk unwinds all four legs simultaneously. The 2nd line must confirm each quarter's coupon against the 5× leverage, the max(0, ·) floor and the 30/360 day count, that the cumulative counter (e.g. $5,950,000 at Q9) was tracked correctly against the $6M target, that the Q10 truncated coupon equals exactly target minus cumulative ($6,000,000 − $5,950,000 = $50,000), and that all four legs settled together when the auto-redemption fired.
 
-**If the curve had been flatter (all quarters at 0.50% spread):** Target reached in ~24 quarters (6 years). Annualized: ~2.50%.
+#### §13. Knowledge Check
 
-(See Figure 5.4.4-04)
-
-#### §19. Interview Questions
-
-1. What determines when a TARN Steepener redeems?
-2. Why is the TARN path-dependent?
-3. If the final quarter's full coupon would be $1,150,000 but only $50,000 is needed to reach the target, what happens to the remaining $1,100,000?
-4. How does the TARN's total return compare across different curve environments?
-5. Your desk has a $500M TARN STEG portfolio. Half the trades have accumulated 12% toward a 15% target. The CMS spread has been widening. What is your expected hedging challenge over the next few quarters?
-
+1. What triggers the TARN Steepener's automatic early redemption? *(Investor)*
+2. Why is the TARN path-dependent, and why does it require Monte Carlo simulation rather than a sum of independent caplets? *(Investor)*
+3. If the final quarter's full coupon would be $1,150,000 but only $50,000 is needed to reach the target, what does the investor receive and why? *(Investor)*
+4. How does the TARN's total return compare across steep, moderate, and flat curve environments, and what varies? *(Investor)*
+5. The CMS spread has been zero for 12 quarters (3 years), then jumps to 2.00% and stays there. How quickly does the TARN reach its 15% target from this point, and what risk has the investor borne? *(Investor)*
+6. The curve steepens fast and the target is hit in two years rather than the expected five. What risk does the early redemption create for the investor? *(Investor)*
+7. **(Desk economics / 1LoD)** When the investor enters a TARN Steepener, what position does the desk take across the four legs (long or short the curve slope, long or short the auto-call), what is its dominant Greek as trades approach the target, and how does the desk hedge the slope and the path/timing exposure? Where does the desk's retained profit come from?
+8. **(Controls / 2LoD)** Name three reconciliation breaks specific to a TARN Steepener — covering the cumulative-coupon vs target tracking, the auto-redemption trigger capture, and the two CMS fixings/source — and the consequence of each for the redemption logic, the truncated final coupon, or the quarterly coupon.
 
 **Mental Models**
 
 | Concept | Mental Model |
 |---------|-------------|
-| TARN | Coffee shop loyalty card — collect stamps (coupons) until you reach the target (free coffee), then start over (redeem) |
-| Target accumulation | Savings jar — each quarter drops in a coin (coupon), and when the jar is full, you empty it and take the cash |
+| TARN | Loyalty card that redeems automatically — collect stamps (coupons) until the card is full (the target), then it redeems on its own |
+| Target accumulation | Savings jar — each quarter drops in a coin (coupon); when the jar is full, it is emptied automatically |
 | Truncated final coupon | Last coin in the jar — only the amount needed to fill the jar, not the whole coin |
-| Path dependency | Two routes to the summit — same destination, different speed depending on the trail (curve shape) |
-| Extension risk | Traffic jam on the way to the summit — you still arrive, but much later than planned |
-| 10-year max maturity | Highway toll deadline — if you haven't reached the summit by the deadline, you get off wherever you are |
-
+| Path dependency | Two routes to the same summit — same destination, different speed depending on the trail (curve shape) |
+| Extension risk | Traffic jam on the way to the summit — the destination is still reached, but much later than planned |
+| 10-year max maturity | Toll deadline — if the summit is not reached by the deadline, the note gets off wherever it is |
+| Investor long slope / short the auto-call; desk short slope / long the auto-call | The investor collects the stamps but cannot stop the card redeeming; the desk warehouses the offsetting slope and holds the auto-redemption trigger |
 
 **Key Takeaways**
 
-1. A TARN Steepener automatically redeems when cumulative coupons reach a predetermined target — the total return is known at inception.
-2. Sovereign wealth funds and pension funds buy it for defined-return investing with automatic profit-taking.
-3. Extension risk is the core danger — curve flattening delays target achievement and reduces the annualized return.
-4. The final coupon is truncated to exactly reach the target — the investor cannot overshoot.
+1. A TARN Steepener automatically redeems when cumulative coupons reach a predetermined target (15%) — the total return is known at inception, but the holding period is not.
+2. Sovereign wealth funds and pension funds buy it for defined-return investing with automatic profit-taking; the investor is long the curve slope and short the auto-redemption optionality.
+3. Extension risk and reinvestment risk are the core dangers — curve flattening delays the target and lowers the annualized return, while a fast steepening hits the target quickly and forces reinvestment in a still-favourable environment.
+4. The final coupon is truncated to exactly reach the target — the investor cannot overshoot, and the target mechanism is a natural cap that allows the higher 5× leverage.
 5. Pricing requires Monte Carlo simulation due to path dependency, making the TARN the most complex STEG product.
+6. The desk is short the CMS spread (CMS30Y receiver + CMS2Y payer, 5× scaled) and long the TARN auto-call, hedges the slope and the path/timing exposure with CMS swaps plus a digital corridor overlay, and retains the structuring spread (15-25bp) plus sales credit (5-10bp).
+7. For the 2nd line, the dominant control risks are the cumulative-coupon vs target tracking and the auto-redemption trigger capture (with the final-coupon truncation), supported by the four-leg net, two CMS fixings/source, leverage/floor, day-count, and four-leg collateral/settlement checks — each can break the redemption logic, mis-pay the truncated coupon, misstate a quarterly coupon, or trap client cash.
 
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
-**1. Assuming the annualized return is fixed at 6%.** The total return ($6M = 15%) is fixed, but the time to achieve it varies. Annualized return ranges from ~1.5% (10 years) to ~7.5% (2 years) depending on the curve path.
+**1. Assuming the annualized return is fixed at 6%.** The total return ($6M = 15%) is fixed, but the time to achieve it varies. The annualized return ranges from ~1.5% (10 years) to ~7.5% (2 years) depending on the curve path.
 
 **2. Ignoring the truncation on the final coupon.** In the worked example, Q10 would have paid $1,150,000 but the investor received only $50,000. The "lost" $1,100,000 is not a loss — it was never owed because the target was already nearly reached.
 
-**3. Comparing the TARN's 5× leverage to other STEGs' leverage.** The TARN has no cap (unlike the Vanilla and Callable STEGs). The target mechanism acts as a natural cap on total return, so a higher leverage can be offered without unlimited bank liability.
+**3. Comparing the TARN's 5× leverage to other STEGs' leverage.** The TARN has no per-period cap (unlike the Vanilla and Callable STEGs). The target mechanism acts as a natural cap on total return, so a higher leverage can be offered without unlimited bank liability.
 
-**4. Not understanding that zero-coupon quarters extend the holding period.** If the curve flattens for 8 quarters, the target counter stays frozen. Those 2 years of zero income are "wasted" — the investor receives nothing and the clock runs down toward the 10-year max.
+**4. Not understanding that zero-coupon quarters extend the holding period.** If the curve flattens for 8 quarters, the target counter stays frozen. Those two years of zero income are "wasted" — the investor receives nothing and the clock runs down toward the 10-year max.
 
-**5. Modeling the TARN as a series of independent caplets.** The TARN is path-dependent — the value of each future coupon depends on all prior coupons (because they accumulate toward the target). A simple sum of independent caplets misses this dependency entirely.
+**5. Confusing the investor's position with the bank's auto-call.** The investor is long the slope and short the auto-redemption optionality; the redemption fires automatically, not at the investor's discretion. The desk is short the slope and long the auto-call. Modeling the TARN as a series of independent caplets misses the path dependency entirely — the value of each future coupon depends on all prior coupons because they accumulate toward the target.
 
----
+**6. (Controls) Forgetting that the cumulative counter must drive the redemption and the truncation.** If the counter is not linked to the coupon payments, it can show 0% after positive coupons or fail to flag that the target has been reached — so the note keeps paying beyond $6M, or the truncated final coupon is mis-calculated. The 2nd line must confirm the cumulative-coupon vs target tracking and the auto-redemption trigger capture, and that all four legs settle together on the redemption date.
 
-**Who Touches This Product**
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* What does the desk book across the four legs, what curve and path risk does it carry, and how does it hedge the slope and the timing of target achievement?
+- *(Controls / 2LoD)* Which cumulative-coupon / auto-redemption / CMS-fixing fields must reconcile, and which is the most common break?
 
-| Role | Responsibility | Primary Concern | Typical Question |
-|------|---------------|----------------|-----------------|
-| **Trader** | Manages CMS swap hedge, monitors target accumulation and expected redemption timing | "How close are the largest TARN trades to their target?" | "If the CMS spread jumps 30bp, how many TARNs trigger redemption this quarter?" |
-| **Structurer** | Prices with Monte Carlo, designs target and leverage parameters | "Is the Monte Carlo calibration using current CMS volatility and correlation?" | "If I raise the target from 15% to 20%, how does the expected maturity change?" |
-| **Sales** | Presents the defined-return concept, manages expectation about timing uncertainty | "Does Fatima understand that 15% is guaranteed only if the target is reached?" | "The TARN has been accumulating slowly — how do I frame the longer-than-expected holding period?" |
-| **Risk** | Monitors path-dependent exposure, aggregate target proximity across the TARN book | "What fraction of the TARN book is within 2% of their target?" | "If 20% of the book triggers simultaneously, what is the CMS swap unwind impact?" |
-| **Product Control** | Validates cumulative counter, verifies truncation logic | "Is the counter correctly accumulating across quarters?" | "The Q10 coupon was $50,000 — does this match target minus cumulative?" |
-| **Operations** | Manages quarterly accumulation updates, processes early redemption | "Has the target been reached? If so, when should the four-leg settlement occur?" | "The target was reached mid-quarter — how do I calculate the exact truncated coupon?" |
-| **Legal** | Reviews target mechanics, truncation provisions, and max maturity terms | "What happens if the target is reached between two fixing dates?" | "Does the max maturity provision override the target mechanism?" |
-| **Model Validation** | Validates the Monte Carlo pricing model and path-dependent logic | "Does the Monte Carlo correctly handle the target trigger and truncation?" | "What is the model risk from the assumed CMS30Y-CMS2Y correlation over 10 years?" |
-
----
-
-**Desk Reality**
-
-**What keeps traders awake:** A cluster of TARN STEGs all approaching their targets simultaneously during a steep-curve environment. If 30 trades with $2B total notional all trigger redemption in the same quarter, the CMS swap unwinds hit the market at once — a concentrated market event that can move CMS rates and disrupt the hedging of remaining TARN trades.
-
-**Most important risk:** Target clustering. When the CMS spread is wide, many TARNs accumulate quickly and approach their targets at the same time. The resulting simultaneous redemptions create a cliff in the desk's CMS swap exposure that is difficult to manage smoothly.
-
-**Typical junior mistake:** Valuing the TARN using a deterministic (single-path) CMS spread forecast instead of a full Monte Carlo simulation. The TARN's value depends on the entire distribution of possible CMS spread paths, not just the expected path, because the target trigger is a nonlinear event.
-
-**Hardest operational issue:** Calculating the truncated final coupon. The system must detect that the cumulative counter has reached (or exceeded) the target during a quarter, compute the exact shortfall, and limit the coupon to that shortfall. Many booking systems do not handle this automatically and require manual intervention.
-
-**Most misunderstood concept:** That the TARN's "guaranteed" 15% return is conditional on the curve eventually producing positive coupons. If the curve stays flat or inverted for 10 years, the note matures with zero coupons paid. The 15% is a target, not a guarantee — the guarantee is only that the note will never pay MORE than 15%.
-
----
-
-**Knowledge Check**
-
-*Review Questions:*
-1. What triggers the TARN Steepener's automatic early redemption?
-2. Why is the TARN the most complex product in the STEG family?
-3. What happens to the final coupon when the target is reached mid-quarter?
-4. How does the 10-year maximum maturity function as a safety valve?
-5. Why does the TARN have no cap on the coupon rate?
-
-*Scenario Questions:*
-6. A TARN STEG has a 20% target and 5× leverage. The CMS spread has averaged 0.80% over 8 quarters. How much has accumulated? How many more quarters at this pace to reach the target?
-7. Two TARN STEGs have the same leverage but different targets: 10% and 25%. Which will have a higher annualized return in a consistently steep environment, and why?
-8. The CMS spread has been zero for 12 quarters (3 years). Then it jumps to 2.00% and stays there. How quickly does the TARN reach its 15% target from this point?
-
-*Desk Question:*
-9. Your TARN book has 50 trades totaling $4B. Of these, 15 trades ($1.2B) have accumulated between 13% and 14.5% toward their 15% target. The CMS spread is currently 1.80% and rising. Walk through your risk management for the next two quarters.
-
----
-
-#### §21. Visual Specifications
-
-**Visual 1:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.4-01 |
-| **Visual ID** | FLOW_TARNSTEG_01 |
-| **Type** | Cash Flow Diagram |
-| **Priority** | P1 |
-| **Purpose** | Show the four-leg structure with target accumulation counter |
-| **Visual Description** | STEG four-panel diagram with a prominent "target accumulation counter" gauge on the Note leg. Counter shows fill level (e.g., 75% of target reached). When counter reaches 100%, a "REDEEM" signal triggers four-leg settlement |
-| **Diagram Elements** | Four boxes, CMS spread input, leverage multiplier, coupon arrow, accumulation gauge, REDEEM trigger |
-| **Axis Definitions** | N/A (flow diagram) |
-| **Caption** | TARN STEG: coupon accumulates toward a 15% target — redemption triggers automatically when the gauge reaches 100% |
-| **Location** | §12 |
-| **Reuse Potential** | Medium — target accumulation template |
-| **Future Asset Filename** | flow_tarnsteg_01.svg |
-
-**Visual 2:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.4-02 |
-| **Visual ID** | LIFECYCLE_TARNSTEG_01 |
-| **Type** | Lifecycle Diagram |
-| **Priority** | P1 |
-| **Purpose** | Show the TARN lifecycle from inception to target achievement or maturity |
-| **Visual Description** | Timeline with quarterly bars of varying height (coupon amounts). Running cumulative line climbs toward the 15% target. When the line reaches the target, a "REDEEMED" marker terminates the timeline. Alternative dotted path shows slower accumulation reaching 10-year max |
-| **Diagram Elements** | Quarterly bars, cumulative line, target threshold, REDEEMED marker, alternative slow path (dotted) |
-| **Axis Definitions** | X: Time (quarters), Y: Cumulative Coupons (% of notional) |
-| **Caption** | TARN lifecycle: fast accumulation reaches the target in 10 quarters; slow path (dotted) may take the full 10 years |
-| **Location** | §13 |
-| **Reuse Potential** | Medium — target accumulation lifecycle |
-| **Future Asset Filename** | lifecycle_tarnsteg_01.svg |
-
-**Visual 3:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.4-03 |
-| **Visual ID** | PAYOFF_TARNSTEG_01 |
-| **Type** | Payoff Diagram |
-| **Priority** | P2 |
-| **Purpose** | Show multiple accumulation paths to the same target |
-| **Visual Description** | Three curved lines all ending at the 15% target: fast (steep curve, reaches in ~2yr), medium (~4yr), slow (~8yr). Horizontal dashed line at 15%. 10-year max maturity marker. Annotation: "Same destination, different journey" |
-| **Diagram Elements** | Three accumulation paths, target line, maturity marker, speed annotations |
-| **Axis Definitions** | Y: Cumulative Coupons (% of notional), X: Time (years) |
-| **Caption** | TARN accumulation paths: steep, moderate, and flat curves all aim for 15% but arrive at different speeds |
-| **Location** | §14 |
-| **Reuse Potential** | Medium — target accumulation paths diagram |
-| **Future Asset Filename** | payoff_tarnsteg_01.svg |
-
-**Visual 4:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.4-04 |
-| **Visual ID** | TIMELINE_TARNSTEG_01 |
-| **Type** | Timeline |
-| **Priority** | P2 |
-| **Purpose** | Show the worked example 10-quarter accumulation |
-| **Visual Description** | 10 quarterly bars with amounts ($550K, $550K, $400K, $250K, $600K, $750K, $850K, $950K, $1,050K, $50K truncated). Running cumulative total reaching $6,000,000. Q10 bar shown in different color (truncated) |
-| **Diagram Elements** | 10 bars (9 full, 1 truncated), cumulative line, target line, truncation annotation |
-| **Axis Definitions** | X: Quarter, Y: Coupon Amount ($) |
-| **Caption** | TARN worked example: 9 full coupons plus one truncated coupon reach the $6M target in 2.5 years |
-| **Location** | §18 |
-| **Reuse Potential** | Low — specific to TARN worked example |
-| **Future Asset Filename** | timeline_tarnsteg_01.svg |
-
-**Visual 5:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.4-05 |
-| **Visual ID** | DIAGRAM_TARNSTEG_01 |
-| **Type** | Comparison Chart |
-| **Priority** | P3 |
-| **Purpose** | Compare all four STEG products' key characteristics |
-| **Visual Description** | Four-column comparison table rendered as a visual: Vanilla STEG (4×, 10% cap, fixed maturity), RA STEG (5.50% conditional, range), Callable STEG (4.5×, 12% cap, callable), TARN STEG (5×, no cap, target). Highlights: TARN has highest leverage and no cap but target-limited total return |
-| **Diagram Elements** | Four product columns, key metrics (leverage, cap, termination type, max coupon), comparison arrows |
-| **Axis Definitions** | N/A (comparison table) |
-| **Caption** | STEG family comparison: four products with different coupon mechanisms, termination triggers, and risk profiles |
-| **Location** | §9 |
-| **Reuse Potential** | Low — specific to STEG family comparison |
-| **Future Asset Filename** | diagram_tarnsteg_01.svg |
-
-**Visual 6:**
-
-| Field | Value |
-|-------|-------|
-| **Figure Number** | Figure 5.4.4-06 |
-| **Visual ID** | CURVE_TARNSTEG_01 |
-| **Type** | Yield Curve Diagram |
-| **Priority** | P3 |
-| **Purpose** | Show how different curve shapes affect accumulation speed |
-| **Visual Description** | Two side-by-side panels: Left shows a steep yield curve with "Fast accumulation" annotation; Right shows a flat curve with "Slow accumulation." Below each, a mini accumulation gauge showing 75% full (steep) vs 15% full (flat) after the same number of quarters |
-| **Diagram Elements** | Two yield curves, accumulation gauges, speed annotations |
-| **Axis Definitions** | Y: Rate (%), X: Tenor (2Y to 30Y) |
-| **Caption** | TARN: curve steepness determines accumulation speed — same target, different pace |
-| **Location** | §10 |
-| **Reuse Potential** | Low — specific to TARN curve relationship |
-| **Future Asset Filename** | curve_tarnsteg_01.svg |
-
----
-
-#### §22. Related Chapters / Dependency References
-
-| Concept Used | Where It Was Taught |
-|-------------|-------------------|
-| Vanilla Steepener and CMS spread | Section 5.4.1 (Vanilla STEG) |
-| Callable Steepener and call mechanics | Section 5.4.3 (Callable STEG) |
-| CMS rates, benchmark rates | Section 1.8 (Benchmark Rates) |
-| Yield curves | Section 1.7 (Yield Curves) |
-| Path dependency concept | Section 5.1.3 (Phoenix Autocallable — memory feature) |
-| Monte Carlo pricing | Section 1.6 (Simulation Methods) |
-| Four-leg structure | Section 2.7 (The Four-Leg Structure) |
-| Murex booking | Section 2.8 (Systems Primer) |
-
----
-
+**Dual-lens visuals (generated):**
+- `assets/tarnsteg/controls_tarnsteg_recon_08.svg` `[generated]`
+- `assets/tarnsteg/payoff_tarnsteg_01.svg` `[generated]`
+- `assets/tarnsteg/waterfall_tarnsteg_09.svg` `[generated]`
 ## 5.5 CREDIT-LINKED NOTES
 
 ---
