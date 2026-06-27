@@ -16534,7 +16534,7 @@ The desk's position is the mirror image of the investor's. Where the investor is
 
 **Greeks & hedging**
 
-The desk is short the embedded call and delta-hedges by trading the underlying (futures or vanilla options). Delta runs from 0 toward 1 as the underlying rises into the money; gamma is moderate near the strike (highest sensitivity near ATM); the desk is long vol (vega positive — it benefits from a vol increase); theta is negative (time decay works against the option component); rho is positive (higher rates raise the option budget at inception). The main day-to-day risk is vega: if implied volatility drops after issuance, the mark-to-market on the hedge book falls. Because the product is held to maturity by retail clients, the bank rarely faces early-termination requests.
+The desk is short the embedded call and delta-hedges by trading the underlying (futures or vanilla options). Delta runs from 0 toward 1 as the underlying rises into the money; gamma is moderate near the strike (highest sensitivity near ATM); to deliver the upside the desk buys a matching call in the market (funded by the option budget), so its net option position is roughly flat: short the call to the client, long the hedge call. The residual day-to-day risk is the vega/skew spread between the price shown to the client and the market hedge, plus the cost of running the delta hedge. Because the product is held to maturity by retail clients, the bank rarely faces early-termination requests.
 
 **How the bank makes money**
 
@@ -16712,7 +16712,7 @@ This is economically identical to a PPN. The distinction is legal (deposit vs no
 3. If the market rises, the investor earns participation × the gain. If it falls or is flat, the investor receives full principal and a 0% return.
 4. The deposit wrapper adds deposit-guarantee eligibility — protection a PPN cannot offer — but only up to the scheme limit; the excess carries bank credit risk.
 5. The real cost is opportunity cost: the forgone guaranteed interest, potentially 3-7% over the product's life.
-6. The investor is long the embedded call; the desk holds the offsetting short-call position and is long vol.
+6. The investor is long the embedded call; the desk is short that call to the client but buys a matching call to hedge, leaving its net option position roughly flat (residual risk is the vega/skew spread).
 7. For the 2nd line, the dominant control risks are deposit-scheme eligibility, the option terms (strike, participation, cap), and the fixings — each can misstate the variable return or the protection the investor was sold.
 
 #### §14. Common Mistakes
@@ -17918,7 +17918,7 @@ The compound option's Greeks are non-trivial. The delta of the option on RC depe
 
 **The premium decomposition:**
 
-The compound-option premium charged to the investor breaks into the desk's component costs and margin. For a 2% premium: the compound-option fair value (option-on-RC time value, ~1.4%) is the core; forward-vol carry (the desk's expected gain from being short forward vol, ~0.3%) reduces the net cost; the desk's structuring margin (~0.4%) and a hedging/FTP cost reserve (~0.1%) make up the balance; **net premium 2.0%**. The compound-option fair value is the key term — it is the cost of the deferred-entry optionality sold to the investor.
+The compound-option premium charged to the investor breaks into the desk's component costs and margin. For a 2% premium: the compound-option fair value (option-on-RC time value, ~1.8%) is the core; forward-vol carry (the desk's expected gain from being short forward vol, ~0.3%) reduces the net cost; the desk's structuring margin (~0.4%) and a hedging/FTP cost reserve (~0.1%) make up the balance; **net premium 2.0%**. The compound-option fair value is the key term — it is the cost of the deferred-entry optionality sold to the investor.
 
 ![Option-on-RC Premium Decomposition — Bank Lens (Desk Economics)](assets/optrc/waterfall_optrc_09.svg)
 
@@ -18584,7 +18584,7 @@ The desk's position is the mirror image of the investor's. Where the investor is
 
 **Greeks & hedging**
 
-The desk is long the strip of forwards and the embedded options and delta-hedges by trading the underlying. The defining feature is the mirror of the Accumulator: when the stock rises above the strike, the desk's long-call strip grows daily — each observation adds a new geared call on top of the existing position, so the desk must buy more shares to offset the investor's geared selling, building an increasing short-delta exposure in a rallying market. Barrier (digital) risk near the down knock-out makes hedging error-prone. The down knock-out is the desk's relief valve on the downside — when it triggers, all remaining forward and call obligations disappear and the desk books a gain on the remaining option strip. The desk monitors delta and gamma closely; risk management stress-tests gearing scenarios in rising markets and tracks counterparty exposure that grows daily.
+The desk is long the strip of forwards and the embedded options and delta-hedges by trading the underlying. The defining feature is the mirror of the Accumulator: when the stock rises above the strike, the desk's long-call strip grows daily — each observation adds a new geared call on top of the existing position, so the desk's long-call delta grows more **positive** in a rallying market, and it delta-hedges by **selling** shares. (Separately, at each settlement the desk receives the shares the investor is forced to deliver — an inventory flow distinct from the hedge delta.) Barrier (digital) risk near the down knock-out makes hedging error-prone. The down knock-out is the desk's relief valve on the downside — when it triggers, all remaining forward and call obligations disappear and the desk books a gain on the remaining option strip. The desk monitors delta and gamma closely; risk management stress-tests gearing scenarios in rising markets and tracks counterparty exposure that grows daily.
 
 **How the bank makes money**
 
@@ -18731,7 +18731,7 @@ A Decumulator obliges the seller to sell N shares at each observation date t_i a
 3. *(Investor)* Under what circumstances does gearing hurt the Decumulator investor, and why is this the dominant risk?
 4. *(Investor)* Why is insider trading compliance particularly important for Decumulators?
 5. *(Investor)* What is the maximum number of shares an investor might sell over the life of the product?
-6. *(Desk economics / 1LoD)* What position does the desk hold against the investor, and why does the desk's delta exposure grow more negative (the desk must buy more shares) in a rising market? Why does this make a decumulator harder to risk-manage than a simple short call of the same notional?
+6. *(Desk economics / 1LoD)* What position does the desk hold against the investor, and why does the desk's delta exposure grow more positive (so it delta-hedges by selling shares) in a rising market? Why does this make a decumulator harder to risk-manage than a simple short call of the same notional?
 7. *(Controls / 2LoD)* Which booking fields must reconcile in Murex for a decumulator, and why are the gearing factor and the cumulative decumulation-quantity count the two breaks that most directly misstate the investor's exposure?
 
 **Scenario Questions:**
@@ -18757,7 +18757,7 @@ A Decumulator obliges the seller to sell N shares at each observation date t_i a
 3. The payoff is asymmetric: small steady gains while the stock sits between knock-out and strike, an early knock-out below the barrier, and large geared losses (opportunity cost) above the strike.
 4. Gearing is the dominant risk — 2× decumulation above strike means the opportunity cost can exceed the total premium benefit multiple times over in a rally.
 5. The knock-out protects the bank and caps the premium it must pay; it does not protect the investor's remaining shares from a falling market.
-6. The desk holds the offsetting long geared-call strip and long down-and-out put; its delta grows more negative daily in a rising market (the desk must buy more shares), which is what makes hedging hard.
+6. The desk holds the offsetting long geared-call strip and long down-and-out put; its delta grows more **positive** daily in a rising market (it delta-hedges by **selling** shares), which is what makes hedging hard.
 7. For the 2nd line, the dominant control risks are the gearing factor and decumulation-quantity tracking — each can misstate the investor's exposure, with the observation schedule, strike/KO convention, knock-out capture, and settlement as the supporting recon points.
 
 #### §14. Common Mistakes
@@ -19051,26 +19051,24 @@ The short put premium is paid to the investor as the difference between the enha
 
 *Investor lens:*
 
-**Scenario A (USD/CHF = 0.9000, USD strengthens):**
-- CHF has weakened vs USD. The strike is in USD/CHF terms.
-- Strike 0.8600 means "bank can convert USD to CHF at 0.8600."
-- The investor deposits USD; the bank has the right to return CHF instead.
-- At 0.9000: USD is stronger than the strike. No conversion.
-- Investor receives: $1,000,000 + $6,000 = $1,006,000
+The strike is in USD/CHF terms: 0.8600 means the bank has the right to repay the deposit in CHF, converting at 0.8600 (delivering CHF 1,000,000 × 0.8600 = CHF 860,000). The bank exercises this right only when it favours the bank — when USD/CHF has risen **above** the strike (CHF has weakened), so the CHF it delivers is worth less than the original USD.
 
-**Scenario B (USD/CHF = 0.8400, USD weakens):**
-- USD/CHF at 0.8400 < strike 0.8600. Conversion triggers.
-- Investor receives: $1,000,000 × 0.8600 = CHF 860,000 + $6,000 interest
-- CHF 860,000 converted back to USD at spot 0.8400: CHF 860,000 / 0.8400 = $1,023,810
-- Net position: $1,023,810 + $6,000 = $1,029,810
-- In this case, conversion actually benefits the investor — they received CHF at a rate better than current spot.
+**Scenario A (USD/CHF = 0.8500, CHF stronger — at/below strike):**
+- USD/CHF 0.8500 < strike 0.8600. Converting would cost the bank, so it does **not** convert.
+- Investor receives: $1,000,000 + $6,000 = **$1,006,000**. Best case — full principal plus the enhanced coupon (+0.6%).
 
-**Scenario C (USD/CHF = 0.8000, USD weakens sharply):**
+**Scenario B (USD/CHF = 0.9000, CHF weakens):**
+- USD/CHF 0.9000 > strike 0.8600. Conversion triggers.
+- Investor receives: $1,000,000 × 0.8600 = CHF 860,000 + $6,000 interest.
+- CHF 860,000 converted back to USD at spot 0.9000: CHF 860,000 / 0.9000 = **$955,556**.
+- Net: $955,556 + $6,000 = **$961,556**. **Loss: $38,444 (−3.8%)** — the 7.2% annualised coupon did not compensate for the CHF depreciation.
+
+**Scenario C (USD/CHF = 0.9500, CHF weakens sharply):**
 - Conversion triggers. Investor receives CHF 860,000 + $6,000.
-- CHF 860,000 at spot 0.8000 = $1,075,000.
-- Net: $1,081,000. Even better — the "worst case" of receiving CHF when CHF is strengthening is actually favourable.
+- CHF 860,000 at spot 0.9500 = **$905,263**.
+- Net: $911,263. **Loss: $88,737 (−8.9%)** — this is the real DCI risk: being repaid in the alternate currency precisely when it has weakened.
 
-**Key insight for DCI:** The "risk" of conversion is receiving the alternate currency. Whether that is actually harmful depends on which direction the exchange rate moved. The risk is real when the alternate currency weakens after conversion — the investor holds a depreciating asset.
+**Key insight for DCI:** conversion always delivers the alternate currency (CHF) at the strike, and the bank exercises it precisely when that currency has weakened (USD/CHF above strike). The investor therefore receives a depreciating asset worth less than the original deposit — the enhanced coupon is the compensation for taking that conversion risk.
 
 *Bank lens:*
 
@@ -19727,7 +19725,7 @@ Snowball_t = Σ (coupon rate × 1 period) for each period from the last payment 
 
 *Investor lens:* The investor collects RMB 1,400,000 of coupons — including the RMB 600,000 month-5 payout, which is 3 months of accumulated coupons (months 3-4 missed, plus month 5) paid at once — and receives full principal back when the note autocalls at month 7. Month 5 paid out 3× a normal coupon: this is the snowball effect — the missed months 3-4 made the month 5 payout three times a single coupon.
 
-*Bank lens:* The desk holds the long embedded options against the investor. Through months 3-4 the underlying is below the 80% coupon barrier (but above the 75% knock-in barrier), so no coupon is paid and the accumulator builds to 6%; the desk carries the growing potential payout in its delta. At month 5 the desk funds the RMB 600,000 catch-up as the accumulator resets, and at month 7 the autocall (CSI at 102.5%, above the 100% autocall barrier) terminates the structure and the desk unwinds the hedge. The 2nd line must confirm on each observation date that the accumulator counter (built to 6% by month 4, reset at month 5), the coupon-paid flags, the continuous knock-in status, and the month-7 autocall event all agree in Murex before each payment and the final redemption settle.
+*Bank lens:* The desk holds the long embedded options against the investor. Through months 3-4 the underlying is below the 80% coupon barrier (but above the 75% knock-in barrier), so no coupon is paid and the accumulator builds to 4%; the desk carries the growing potential payout in its delta. At month 5 the desk funds the RMB 600,000 catch-up as the accumulator resets, and at month 7 the autocall (CSI at 102.5%, above the 100% autocall barrier) terminates the structure and the desk unwinds the hedge. The 2nd line must confirm on each observation date that the accumulator counter (built to 4% by month 4; the 6% month-5 payout = 4% carried + 2% current, then reset), the coupon-paid flags, the continuous knock-in status, and the month-7 autocall event all agree in Murex before each payment and the final redemption settle.
 
 #### §13. Knowledge Check
 
@@ -20095,10 +20093,10 @@ The full Cliquet (investor side) = zero-coupon bond + Σ (forward-starting call 
 **Total return:** 9% (below global cap of 18%)
 **Investor receives:** EUR 1,090,000
 
-**EuroStoxx total (buy-and-hold):** (1.07)(0.95)(1.03)(0.92)(1.06) - 1 = +1.8%
-**Direct investment:** EUR 1,018,000
+**EuroStoxx total (buy-and-hold):** (1.07)(0.95)(1.03)(0.92)(1.06) - 1 = +2.10%
+**Direct investment:** EUR 1,021,030
 
-**Cliquet outperforms by EUR 72,000** in this choppy scenario because the floors limited losses and the caps still allowed meaningful gains.
+**Cliquet outperforms by EUR 68,970** in this choppy scenario because the floors limited losses and the caps still allowed meaningful gains.
 
 Option decomposition for the investor in this example:
 - Period 1: Long call (strike = 100%), short call (strike = 104%), long put (strike = 99%). All starting at inception.
