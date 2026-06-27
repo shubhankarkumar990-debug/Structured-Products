@@ -8166,6 +8166,7 @@ The desk issues a turbo call warrant with a KO barrier at €85 on a stock tradi
 
 ---
 
+*Where a Reverse Convertible (Section 5.1.1) embeds an option inside a note, an Interest Rate Swap embeds nothing — it is a bilateral OTC contract in which two parties exchange two streams of interest payments on a notional that is never itself exchanged. There is no bond wrapper, no barrier, no embedded put or call: just a fixed leg and a floating leg. This chapter reads the product through two lenses: what it means for **the client** (the counterparty entering the swap), and what it means for **the bank** — the latter split into the desk's rate economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -8183,7 +8184,6 @@ The solution: they agree to swap their interest payments. **A pays B's variable 
 
 This is an **Interest Rate Swap**. It is the most heavily traded derivative in the world, with hundreds of trillions of dollars in notional outstanding. Banks, corporations, pension funds, and governments all use interest rate swaps to manage their interest rate exposure.
 
-
 #### §2. Real-World Analogy
 
 An IRS is like two farmers exchanging crops.
@@ -8193,7 +8193,6 @@ Farmer A grows wheat but wants corn. Farmer B grows corn but wants wheat. Instea
 An IRS works the same way. Company A has a fixed-rate obligation but wants floating exposure. Company B has a floating-rate obligation but wants fixed certainty. They swap the interest payments. Neither changes their actual loan — they just exchange the cash flow difference.
 
 The key insight: a swap does not require either party to take out a new loan or cancel an existing one. It is an overlay that transforms the nature of an existing obligation.
-
 
 #### §3. What Problem Does This Solve?
 
@@ -8207,7 +8206,6 @@ Companies, banks, and governments frequently find themselves on the wrong side o
 | Pension fund with fixed-rate investments | Needs to match floating-rate liabilities | Enter a swap: receive fixed, pay floating. Transforms asset to floating |
 | Bank with deposits (floating) funding fixed-rate mortgages | Rate increase raises deposit costs but mortgage income stays flat | Enter a swap: pay fixed, receive floating. Aligns asset and liability |
 | Government issuing floating-rate bonds | Wants budget certainty on debt service costs | Enter a swap: pay fixed, receive floating. Locks in debt service cost |
-
 
 #### §4. Product DNA
 
@@ -8268,7 +8266,61 @@ Companies, banks, and governments frequently find themselves on the wrong side o
 | 2 | Interest rate swap | Periodic cash flow exchange | Transform rate exposure between fixed and floating |
 | 3 | Interest Rate Swap | Specific swap features added | Extended swap concept: Fixed-for-floating rate exchange. Most liquid OTC derivative. Foundation for all structured rate products |
 
-#### §7. How the Bank Makes Money
+---
+
+#### §7. THE INVESTOR LENS
+
+**Why the client enters it**
+
+1. **Risk management.** The client can convert floating-rate exposure to fixed (or vice versa) without restructuring existing debt.
+2. **Cost optimization.** If Company A can borrow cheaply at fixed rates and Company B can borrow cheaply at floating rates, a swap allows both to achieve their preferred exposure at lower total cost (comparative advantage).
+3. **View expression.** A client who expects rates to fall can enter a receive-fixed swap — profiting as the fixed rate they receive becomes more valuable relative to the falling floating rate.
+4. **Asset-liability matching.** The client aligns the interest rate profile of assets with liabilities.
+5. **No upfront cost.** Unlike buying a bond or an option, entering a swap typically requires no upfront payment (the swap is priced so that its initial value is zero).
+
+**Legs & position**
+
+An IRS has two legs, and the client's position is defined entirely by which leg they pay and which they receive. There is no embedded option, no premium, no barrier — only the directional exposure that the leg choice creates.
+
+![IRS Cashflow Legs — Investor Lens](assets/irs/legs_irs_01.svg)
+
+- **Pay-fixed / receive-floating client** is **short rates**: they pay a fixed rate and receive a floating rate that rises with the market. If rates rise, the floating leg they receive grows while the fixed leg they pay stays constant — the swap gains value for them. A company hedging a floating-rate loan typically takes this side, locking in a fixed cost.
+- **Receive-fixed / pay-floating client** is **long rates**: they receive a fixed rate and pay a floating rate. If rates fall, the floating leg they pay shrinks while the fixed leg they receive stays constant — the swap gains value for them. A pension fund transforming fixed-rate assets to match floating liabilities, or a client expressing a view that rates will fall, takes this side.
+
+The client's rate risk is measured by **DV01** — the change in the swap's mark-to-market value for a 1 basis point move in rates. The longer the tenor, the larger the DV01 and the more the position moves per basis point.
+
+**Cashflows & scenarios**
+
+On each payment date only the **net** difference between the two legs is exchanged. The notional is never paid — it is purely a reference figure for calculating each leg.
+
+**Product:** 5-year IRS, $10 million notional. Company pays fixed 3.5%, receives floating SOFR. Payments are annual. (The company is therefore the pay-fixed / receive-floating, short-rates counterparty.)
+
+- **Scenario 1 — Rates rise (SOFR goes to 5.0%):** Company pays $10M × 3.5% = $350,000; company receives $10M × 5.0% = $500,000. **Net: Company receives $150,000.** The swap is profitable — the company locked in at 3.5% when the market rate is now 5.0%.
+- **Scenario 2 — Rates fall (SOFR drops to 2.0%):** Company pays $10M × 3.5% = $350,000; company receives $10M × 2.0% = $200,000. **Net: Company pays $150,000.** The swap costs money — the company is paying 3.5% when they could be paying only 2.0%. But if the company entered the swap to hedge a floating-rate loan, the lower loan cost offsets this.
+- **Scenario 3 — Rates stay at 3.5%:** Company pays $350,000; company receives $350,000. **Net: zero.** The swap has no net cost. The company achieved certainty at no net cost.
+- **Scenario 4 — Rates are volatile (alternate between 2% and 5%):** Some years the swap costs money, some years it saves money. Over time, the fixed rate represents the market's average expectation. The company has traded uncertainty for certainty.
+
+**Risks to the client**
+
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Interest rate risk** | The core risk. If rates move against the position, the swap loses mark-to-market value for the client. | High |
+| **Counterparty credit risk** | If the other party defaults, the client may not receive the payments owed to them. Mitigated by collateral agreements (CSA/ISDA). | Medium |
+| **Basis risk** | The floating rate on the swap (SOFR) may not move exactly in line with the rate on the underlying obligation the client is hedging. | Low-Medium |
+| **Liquidity risk** | Standard swaps are highly liquid. Non-standard tenors or currencies may be less liquid, widening the cost to unwind early. | Low |
+| **Curve risk** | The swap's value depends on the entire yield curve, not just a single rate. Changes in the shape of the curve (steepening, flattening) affect valuation. | Medium |
+
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk takes the other side of the client's swap and books it as a two-leg trade (fixed leg + floating leg) in its rates book. Where the client pays fixed and receives floating, the desk receives fixed and pays floating — the mirror leg. No principal is booked, no option is embedded; the position is the present value of the remaining net cash flows. The desk does not want a directional rate view from a single client trade — it warehouses the resulting rate risk and hedges it down.
+
+**Rate risk & hedging**
+
+The desk's primary risk is **DV01** — the dollar value of a 1 basis point move in rates — measured tenor by tenor across the curve, not as a single number. A swap is a **linear** product: there is no equity-style gamma, no barrier, no discontinuity. The P&L changes proportionally with rate moves. The desk hedges the warehoused DV01 with **offsetting swaps, futures strips, or (for any optionality) swaptions**, and manages the residual **curve risk** — the exposure to the curve steepening or flattening across the many tenors the book spans. Concentration of DV01 at a particular tenor is the main risk-management concern.
+
+**How the bank makes money**
 
 | Revenue Component | Detail |
 |------------------|--------|
@@ -8277,49 +8329,60 @@ Companies, banks, and governments frequently find themselves on the wrong side o
 | **Funding benefit** | Earns funding spread on collateral received under CSA |
 | **Structuring fee** | Fee for custom features beyond vanilla terms |
 
-#### §8. Why This Product Exists (Client Perspective)
+**The desk spread decomposition:**
 
-1. **Risk management.** Convert floating-rate exposure to fixed (or vice versa) without restructuring existing debt.
-2. **Cost optimization.** If Company A can borrow cheaply at fixed rates and Company B can borrow cheaply at floating rates, a swap allows both to achieve their preferred exposure at lower total cost (comparative advantage).
-3. **Speculation.** A trader who expects rates to fall can enter a receive-fixed swap — profiting as the fixed rate they receive becomes more valuable relative to the falling floating rate.
-4. **Asset-liability matching.** Align the interest rate profile of assets with liabilities.
-5. **No upfront cost.** Unlike buying a bond or an option, entering a swap typically requires no upfront payment (the swap is priced so that its initial value is zero).
+Unlike an ELN, an IRS has no coupon to decompose — the client pays no premium and there is no embedded option. The desk's economics come instead from the spread it charges around the mid-market swap rate, plus the funding benefit on CSA collateral. For a vanilla swap quoted at a 3.5% mid, the desk's gross spread can be decomposed roughly as: bid-offer spread (the markup around mid, the dominant component); hedging P&L (realized versus implied carry on the offsetting hedge); CSA funding benefit (the funding spread earned on collateral received); less the desk's own hedging and funding costs to run the position. The bid-offer and the CSA funding benefit are the two structural sources; the hedging P&L is the variable, market-dependent one.
 
+![IRS Desk Spread Decomposition — Bank Lens (Desk Economics)](assets/irs/waterfall_irs_09.svg)
 
-#### §9. The Three Scenarios
+**P&L drivers**
 
-| Scenario | Market Condition | Outcome for Investor |
-|----------|-----------------|---------------------|
-| **Best case** | Underlying performs strongly | Maximum return captured (subject to any participation cap or barrier) |
-| **Base case** | Underlying is flat or moderately positive | Moderate return or coupon income depending on structure |
-| **Worst case** | Underlying declines significantly | Capital at risk if below protection level; coupon may partially offset |
+Day to day, desk P&L is driven by moves in the yield curve against the warehoused DV01, the realized-versus-implied carry on the hedge portfolio, changes in the shape of the curve (steepening/flattening) against residual curve risk, and the funding spread earned on CSA collateral. Product Control attributes P&L daily and verifies swap valuations independently; curve construction methodology (which points on the curve are used and how they are interpolated) is the most common source of valuation differences.
 
-*Detailed scenario analysis with specific numbers follows in §10.*
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
 
-#### §10. What Happens When Markets Move
+**Booking & systems**
 
-**Product:** 5-year IRS, $10 million notional. Company pays fixed 3.5%, receives floating SOFR. Payments are annual.
+| Aspect | Detail |
+|--------|--------|
+| **Book of record** | Murex |
+| **Pricing/Risk system** | Murex |
+| **Booking structure** | Two-leg trade (fixed leg + floating leg) |
+| **Four-leg framework?** | No (IRS is a standalone derivative, not a structured note) |
+| **Key booking fields** | Notional, fixed rate, floating rate index (SOFR/EURIBOR), tenor, payment frequency, day-count convention, start date, end date, counterparty |
+| **Payment schedule** | Regular payments (quarterly/semi-annually/annually) — net settlement on each date |
+| **ISDA documentation** | Governed by ISDA Master Agreement and Credit Support Annex (CSA) |
 
-**Scenario 1 — Rates rise (SOFR goes to 5.0%):**
-- Company pays: $10M × 3.5% = $350,000
-- Company receives: $10M × 5.0% = $500,000
-- **Net: Company receives $150,000.** The swap is profitable — the company locked in at 3.5% when the market rate is now 5.0%.
+**Reconciliation points**
 
-**Scenario 2 — Rates fall (SOFR drops to 2.0%):**
-- Company pays: $10M × 3.5% = $350,000
-- Company receives: $10M × 2.0% = $200,000
-- **Net: Company pays $150,000.** The swap costs money — the company is paying 3.5% when they could be paying only 2.0%. But if the company entered the swap to hedge a floating-rate loan, the lower loan cost offsets this.
+| Recon point | What must agree | IRS-specific break |
+|-------------|-----------------|--------------------|
+| **ISDA / CSA terms** | Master Agreement and Credit Support Annex governing the trade — collateral eligibility, thresholds, netting set | Trade executed before ISDA/CSA is in place, or against the wrong netting set |
+| **Trade economics** | Notional, fixed rate, floating index, tenor, payment frequency, start/end dates, counterparty | One system records $10M, another $10.5M after an amend; or wrong counterparty |
+| **Reset / fixing source** | The floating-rate fixing — the benchmark, the fixing date convention, and the publishing source (e.g. SOFR published by the Federal Reserve Bank of New York) | System uses a different SOFR observation date than the contract (SOFR typically fixes T-2) |
+| **Day-count / calendar** | Fixed-leg and floating-leg day-count conventions (e.g. 30/360 fixed, ACT/360 floating) and the payment calendar | A system applies the wrong convention to a leg, so the payment amount differs |
+| **Leg PV reconciliation** | Present value of the fixed leg and the floating leg agree between front office and risk | Curve construction / interpolation differs, so leg PVs and total MTM diverge |
+| **Payment netting** | On each date only the net of fixed and floating is exchanged | Gross payment sent instead of net, or netting applied to the wrong pair of legs |
+| **Collateral (CSA)** | Daily MTM, margin call amount, and posted collateral agree with the counterparty | Counterparty disputes the MTM and the required collateral amount |
+| **Novation / clearing** | If the trade is novated or cleared, the new counterparty / CCP and the trade record agree | Novation booked on one side only, or cleared trade not removed from the bilateral book |
 
-**Scenario 3 — Rates stay at 3.5%:**
-- Company pays: $350,000
-- Company receives: $350,000
-- **Net: zero.** The swap has no net cost. The company achieved certainty at no net cost.
+![IRS Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/irs/controls_irs_recon_08.svg)
 
-**Scenario 4 — Rates are volatile (alternate between 2% and 5%):**
-Some years the swap costs money, some years it saves money. Over time, the fixed rate represents the market's average expectation. The company has traded uncertainty for certainty.
+**Common breaks & red flags**
 
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Day count mismatch | Fixed leg uses 30/360, floating leg uses ACT/360 — this is normal and correct, but if one system applies the wrong convention, payments will differ | Verify conventions match the confirmation |
+| Fixing date mismatch | System uses a different date for SOFR observation than specified in the contract | Check ISDA fixing conventions; SOFR typically fixes T-2 |
+| Notional discrepancy | One system records $10M, another records $10.5M (e.g., after an amend) | Verify against trade confirmation |
+| Collateral dispute | Counterparty disagrees on MTM and required collateral amount | Reconcile valuations; differences often stem from curve construction methodology |
+| Accrued interest error | System calculates accrued interest using the wrong period | Verify start/end dates for the current accrual period |
 
-#### §11. Formal Definition
+**Control implication**
+
+For an IRS the dominant controls are the **floating-rate fixing source**, the **reset / payment schedule**, and the **collateral (CSA) process** — together they determine whether each net payment and each daily margin call is correct. A wrong fixing source or fixing date misstates the floating leg, driving the wrong net payment to the wrong party. A reset or day-count error on either leg breaks the payment amount even when the rate is right. A CSA valuation difference — most often rooted in curve construction — breaks the daily collateral call, leaving the bank under- or over-collateralised against a live counterparty exposure. The reconciliation exists precisely to catch these inconsistencies before a payment settles or a margin call is made.
+
+#### §10. Formal Definition
 
 An **Interest Rate Swap (IRS)** is a derivative contract in which two parties agree to exchange interest rate payments on a specified notional amount for a defined period.
 
@@ -8334,114 +8397,20 @@ An **Interest Rate Swap (IRS)** is a derivative contract in which two parties ag
 - **Day count convention:** The method for calculating the exact fraction of a year for each period. ACT/360 divides the actual number of days by 360; 30/360 treats every month as exactly 30 days. Different conventions produce slightly different payment amounts on the same notional.
 - **Netting:** On each payment date, only the difference between the two legs is exchanged. If the fixed payment is $350,000 and the floating payment is $500,000, the net payment is $150,000 from the floating payer to the fixed payer.
 
-
-#### §12. Product Construction
-
-Unlike structured notes (which are bonds + derivatives), an IRS is a pure derivative — there is no bond component.
-
-```
-Fixed Payer (Company)              Floating Payer (Bank)
-         │                                  │
-         │──── Fixed Rate (3.5%) ──────────→│
-         │                                  │
-         │←── Floating Rate (SOFR) ─────────│
-         │                                  │
-```
-
-No principal is exchanged. No option is embedded. The swap is simply an agreement to exchange two streams of cash flows over time.
-
-**At inception, the swap has zero market value.** The fixed rate is set so that the present value of expected fixed payments equals the present value of expected floating payments. This is why no money changes hands at the start.
-
-**As rates change, the swap develops value.** If rates rise after inception, the receive-floating position gains value (receiving more than expected). If rates fall, it loses value.
-
-> **Professor Note:** If you remember only one thing from this chapter, remember this: an IRS does not move money at inception. It creates two future payment streams that offset each other at the start. Value emerges only when rates move away from what was expected. The swap rate is the market's best estimate of where rates will average over the life of the swap.
-
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Detail |
 |-------|--------|
-| **Trade date** | Terms agreed: notional, tenor, rate conventions, special features. ISDA documentation |
+| **Trade date** | Terms agreed: notional, tenor, rate conventions, special features. ISDA documentation. Book in Murex — both legs entered with matching notional, dates, and conventions |
 | **Effective date** | Swap becomes active. First accrual period begins |
-| **Periodic payments** | Scheduled cash flow exchanges on payment dates. Netting applied |
-| **Maturity** | Final exchange of cash flows. Trade terminated. Collateral returned |
+| **Rate fixing** | Before each floating payment, the floating rate is "fixed" — observed and recorded from the benchmark source (e.g. SOFR published by the Federal Reserve Bank of New York) |
+| **Periodic payments** | Scheduled cash flow exchanges on payment dates. Net settlement applied on each date |
+| **Collateral management** | Under the CSA, the party with a negative mark-to-market posts collateral to the other party. Collateral amounts are recalculated daily |
+| **Maturity** | Final net exchange of cash flows. Trade terminated. Collateral returned |
 
-#### §14. Desk Reality
+#### §12. Worked Example (both lenses)
 
-Unlike options and structured notes, an IRS has a **linear payoff**. There are no barriers, no knock-ins, no discontinuities. The P&L changes proportionally with rate movements.
-
-For the fixed payer:
-- **Rates rise → positive P&L** (receiving more floating, paying same fixed)
-- **Rates fall → negative P&L** (receiving less floating, paying same fixed)
-
-The swap's mark-to-market value at any point is the present value of all remaining net cash flows, discounted at current market rates.
-
-```
-P&L for
-Fixed Payer
-    |
-    |              ╱
-    |            ╱
-    |          ╱
-    |        ╱
-  0 |------*----------  ← At inception: zero value
-    |    ╱ (swap rate)
-    |  ╱
-    |╱
-    +──────────────────→ Market Rate
-```
-
-
-#### §15. Risk Analysis
-
-| Risk | Description | Severity |
-|------|------------|:--------:|
-| **Interest rate risk** | The core risk. If rates move against the position, the swap loses value. | High |
-| **Counterparty credit risk** | If the other party defaults, you may not receive the floating payments owed to you. Mitigated by collateral agreements (CSA/ISDA). | Medium |
-| **Basis risk** | The floating rate on the swap (SOFR) may not move exactly in line with the rate on the underlying obligation being hedged. | Low-Medium |
-| **Liquidity risk** | Standard swaps are highly liquid. Non-standard tenors or currencies may be less liquid. | Low |
-| **Curve risk** | The swap's value depends on the entire yield curve, not just a single rate. Changes in the shape of the curve (steepening, flattening) affect valuation. | Medium |
-
-
-#### §16. Booking and Systems
-
-| Aspect | Detail |
-|--------|--------|
-| **Book of record** | Murex |
-| **Pricing/Risk system** | Murex |
-| **Booking structure** | Two-leg trade (fixed leg + floating leg) |
-| **Four-leg framework?** | No (IRS is a standalone derivative, not a structured note) |
-| **Key booking fields** | Notional, fixed rate, floating rate index (SOFR/EURIBOR), tenor, payment frequency, day-count convention, start date, end date, counterparty |
-| **Payment schedule** | Regular payments (quarterly/semi-annually/annually) — net settlement on each date |
-| **ISDA documentation** | Governed by ISDA Master Agreement and Credit Support Annex (CSA) |
-
-**Lifecycle events:**
-- **Trade date:** Book in Murex. Both legs entered with matching notional, dates, and conventions.
-- **Each payment date:** Calculate fixed amount and floating amount. Net the two. Transfer the net payment.
-- **Rate fixing:** Before each floating payment, the floating rate must be "fixed" — observed and recorded from the benchmark source (e.g., SOFR published by the Federal Reserve Bank of New York).
-- **Collateral management:** Under the CSA, the party with a negative mark-to-market posts collateral to the other party. Collateral amounts are recalculated daily.
-- **Maturity:** Final net payment is exchanged. Swap is closed.
-
-
-#### §17. Red Flags
-
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| Day count mismatch | Fixed leg uses 30/360, floating leg uses ACT/360 — this is normal and correct, but if one system applies the wrong convention, payments will differ | Verify conventions match the confirmation |
-| Fixing date mismatch | System uses a different date for SOFR observation than specified in the contract | Check ISDA fixing conventions; SOFR typically fixes T-2 |
-| Notional discrepancy | One system records $10M, another records $10.5M (e.g., after an amend) | Verify against trade confirmation |
-| Collateral dispute | Counterparty disagrees on MTM and required collateral amount | Reconcile valuations; differences often stem from curve construction methodology |
-| Accrued interest error | System calculates accrued interest using the wrong period | Verify start/end dates for the current accrual period |
-
-
-#### §18. Worked Example
-
-**Product:** 3-year IRS
-**Notional:** $50,000,000
-**Company pays:** Fixed 3.0%
-**Company receives:** Floating SOFR
-**Payment frequency:** Annual
-**Day count:** ACT/360 (floating), 30/360 (fixed)
+**Product:** 3-year IRS. **Notional:** $50,000,000. **Company pays:** Fixed 3.0%. **Company receives:** Floating SOFR. **Payment frequency:** Annual. **Day count:** ACT/360 (floating), 30/360 (fixed). (The company is the pay-fixed / receive-floating, short-rates counterparty; the desk takes the receive-fixed / pay-floating side.)
 
 | Year | SOFR (avg) | Fixed Payment | Floating Receipt | Net |
 |:----:|:----------:|:------------:|:----------------:|----:|
@@ -8451,61 +8420,56 @@ Fixed Payer
 
 **3-year net result:** -$250,000 + $400,000 + $750,000 = **Company received $900,000 net** over three years.
 
-The company locked in at 3.0% when rates averaged 3.6% over the period. The swap was profitable in hindsight — but its purpose was certainty, not speculation. Even if rates had fallen, the company would have had predictable costs.
+*Client lens:*
+The company locked in at 3.0% when rates averaged 3.6% over the period. The swap was profitable in hindsight — but its purpose was certainty, not speculation. Even if rates had fallen, the company would have had predictable costs. The pay-fixed position is short rates, so it gains as SOFR rises through Years 2 and 3.
 
+*Bank lens:*
+The desk holds the mirror position — receive-fixed, pay-floating — and is therefore long rates on this single trade, which it warehouses and hedges with offsetting swaps so the book's net DV01 stays within limit. Across the three years the desk pays the $900,000 net to the company, funded against its hedge P&L, the bid-offer earned at execution, and the CSA funding benefit on collateral. The 2nd line must confirm each year's floating fixing against the termsheet source, that each net amount (not gross) settled, and that the daily CSA collateral tracked the changing MTM as SOFR rose.
 
-#### §19. Knowledge Check
+#### §13. Knowledge Check
 
-1. **What is an interest rate swap? Describe it in one sentence.**
-2. **Why does no money change hands at inception?** What determines the fixed rate?
-3. **A company has a floating-rate loan and wants to fix its borrowing cost. What swap does it enter?** (Pay fixed, receive floating.)
-4. **If rates rise after entering a pay-fixed swap, does the swap gain or lose value for the fixed payer?** Why?
-5. **What is the notional of a swap? Is it exchanged?**
-6. **What is netting, and why is it important for swap cash flows?**
-7. **Explain counterparty credit risk in a swap and how it is mitigated.**
-
+1. **What is an interest rate swap? Describe it in one sentence.** *(Investor)*
+2. **Why does no money change hands at inception?** What determines the fixed rate? *(Investor)*
+3. **A company has a floating-rate loan and wants to fix its borrowing cost. What swap does it enter?** (Pay fixed, receive floating.) *(Investor)*
+4. **If rates rise after entering a pay-fixed swap, does the swap gain or lose value for the fixed payer?** Why? *(Investor)*
+5. **What is the notional of a swap? Is it exchanged?** *(Investor)*
+6. **What is netting, and why is it important for swap cash flows?** *(Investor)*
+7. **Explain counterparty credit risk in a swap and how it is mitigated.** *(Investor)*
+8. **(Desk economics / 1LoD)** When a client enters a pay-fixed swap, what position does the desk take, what is its dominant rate Greek, and how does the desk hedge the warehoused risk? Where does the desk's spread come from given there is no coupon to decompose?
+9. **(Controls / 2LoD)** Name three reconciliation breaks specific to an IRS — covering the floating fixing, the legs, and collateral — and the consequence of each for the net payment or the margin call.
 
 **Mental Models**
 
 | Concept | Mental Model |
 |---------|-------------|
 | Interest Rate Swap | Two farmers exchanging crops — each gets what they want without changing their farm |
-| Fixed payer | Wants certainty — locks in a known cost |
+| Fixed payer | Wants certainty — locks in a known cost; short rates, gains if rates rise |
 | Floating receiver | Profits if rates rise above the fixed rate |
 | Notional | A reference number — like a ruler used to measure, never exchanged |
 | Zero initial value | The swap is a fair bet at inception — both sides agree the expected value is equal |
 | Netting | Only the difference is exchanged — like settling poker debts at the end of the night |
-
+| DV01 | The desk's speedometer for rate risk — dollars of P&L per 1 basis point move, summed across the curve |
+| CSA collateral | The daily deposit each side posts so neither is over-exposed if the other defaults |
 
 **Key Takeaways**
 
 1. An IRS exchanges fixed interest payments for floating interest payments on a notional amount.
 2. No principal is exchanged — the notional is a reference for calculating payments.
 3. At inception, the swap has zero value. Value develops as rates diverge from the fixed rate.
-4. The swap is a linear instrument — no barriers, no knock-ins, no optionality.
+4. The swap is a linear instrument — no barriers, no knock-ins, no optionality; the client's position is set purely by which leg they pay and which they receive (pay-fixed = short rates, receive-fixed = long rates).
 5. IRS is the most liquid derivative in the world. It is the foundation for all structured rate products (SRT, STEG).
-6. Swaps are booked in Murex and governed by ISDA Master Agreements.
-7. Understanding the IRS is prerequisite for understanding CMS rates, which drive Steepener Notes.
+6. The desk takes the mirror legs, warehouses the rate risk, and manages it by DV01 and curve risk — earning the bid-offer and the CSA funding benefit rather than a coupon spread.
+7. Swaps are booked in Murex and governed by ISDA Master Agreements.
+8. For the 2nd line, the dominant control risks are the floating-rate fixing source, the reset/day-count schedule, leg PV reconciliation, payment netting, and CSA collateral — each can misstate a net payment or a daily margin call.
 
-
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
 1. **Thinking the notional is exchanged.** It is not. The notional is only a reference for calculating payments.
-2. **Confusing "pay fixed" with "pay a premium."** There is no upfront cost to enter a swap. "Pay fixed" means you make regular fixed payments and receive regular floating payments.
+2. **Confusing "pay fixed" with "pay a premium."** There is no upfront cost to enter a swap. "Pay fixed" means the client makes regular fixed payments and receives regular floating payments.
 3. **Thinking the fixed rate is set by the bank.** The fixed rate (swap rate) is determined by the market — it reflects the market's expectation of where floating rates will average over the life of the swap.
 4. **Ignoring the difference between hedging and speculation.** A company hedging a floating-rate loan with a pay-fixed swap is reducing risk. A hedge fund entering the same swap without an underlying exposure is speculating on rates.
-5. **Forgetting about basis risk.** If the company's floating-rate loan is based on a different rate than the swap's floating leg (e.g., loan based on prime rate, swap based on SOFR), the hedge is imperfect.
-
-### Desk Perspective
-
-| Role | What the IRS Means to Them |
-|------|--------------------------|
-| **Trader** | IRS positions are the largest component of rates trading books. Hedging is straightforward (offset with other swaps) but requires careful management of curve risk across many tenors. |
-| **Structurer** | The IRS is a building block. Understanding it is essential for constructing SRT and STEG products, which embed swap-like features in a note wrapper. |
-| **Product Control** | Verify swap valuations daily. Curve construction methodology (which points on the yield curve are used, interpolation method) is the most common source of valuation differences. |
-| **Risk** | Monitor DV01 (Dollar Value of a 01 — the P&L impact of a 1 basis point rate move) across the curve. Concentration risk arises from large positions at specific tenors. |
-| **Operations** | Process regular net payments, manage rate fixings, and handle collateral calls under the CSA. ISDA documentation must be in place before trading. |
-
+5. **Forgetting about basis risk.** If the client's floating-rate loan is based on a different rate than the swap's floating leg (e.g., loan based on prime rate, swap based on SOFR), the hedge is imperfect.
+6. **(Controls) Trusting a single system's floating fixing or curve.** Because the floating leg depends on the fixing source and date, and the MTM depends on curve construction, the 2nd line must reconcile the fixing against the termsheet and the leg PVs across systems rather than assume they agree.
 ### Knowledge Check
 
 **Review Questions:**
@@ -8515,6 +8479,10 @@ The company locked in at 3.0% when rates averaged 3.6% over the period. The swap
 4. What happens to the value of a pay-fixed swap if interest rates rise?
 5. How does a company use an IRS to convert a floating-rate loan to a fixed-rate obligation?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* Which side of the swap does the desk take, and what is its primary risk (rate/curve/financing) and how is it hedged?
+- *(Controls / 2LoD)* Which leg/fixing/collateral fields must reconcile across systems for this swap, and which is the most common break?
 **Scenario Questions:**
 1. A pension fund has fixed-rate bond investments and floating-rate liabilities. What swap should it enter to reduce its mismatch, and why?
 2. The 5-year swap rate is 3.5%. SOFR is currently 2.8%. Does this mean the fixed payer is overpaying? Explain.
@@ -8577,6 +8545,11 @@ A trader notices that the 5-year swap rate has moved from 3.5% to 3.8% over the 
 - **Diagram elements:** Three rate path scenarios (rates up, stable, down) showing P&L impact. Clearly labelled outcomes
 - **Reuse status:** Adapt from scenario template
 
+
+**Dual-lens visuals (generated):**
+- `assets/irs/controls_irs_recon_08.svg` `[generated]`
+- `assets/irs/legs_irs_01.svg` `[generated]`
+- `assets/irs/waterfall_irs_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -8589,10 +8562,9 @@ A trader notices that the 5-year swap rate has moved from 3.5% to 3.8% over the 
 | VLSP | 5.2.8 — vanilla swap plus |
 ### 5.2.2 Total Return Swap (TRS)
 
-*The IRS exchanged fixed interest payments for floating interest payments — both parties exchanged interest, nothing more. The Total Return Swap goes further: one party pays the entire economic return on an asset (capital gains plus income), while the other pays a financing rate. The TRS gives synthetic ownership — all the economics of holding an asset without ever buying it.*
+---
 
-**How This Differs From the IRS (5.2.1):** In an IRS, both legs are interest payments — fixed versus floating. In a TRS, one leg is the total return on a reference asset (price change + dividends or coupons), and the other leg is a financing rate (typically SOFR + a spread). The IRS transfers interest rate risk. The TRS transfers asset ownership risk.
-
+*The IRS (Section 5.2.1) exchanged fixed interest payments for floating interest payments — both parties exchanged interest, nothing more. The Total Return Swap goes further: one party pays the entire economic return on a reference asset (capital gains plus income), while the other pays a financing rate. The TRS gives the client synthetic ownership — all the economics of holding an asset without ever buying it. This chapter reads the product through two lenses: what it means for **the client** (the total-return receiver), and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -8602,17 +8574,17 @@ A **Total Return Swap** solves all three problems. Dmitri enters a TRS with a ba
 
 If the portfolio rises 15%, the bank pays Dmitri 15% of the notional. If the portfolio falls 10%, Dmitri pays the bank 10% plus the financing cost. The TRS gives Dmitri exactly the returns of ownership — and exactly the risks.
 
+There is no note, no barrier, and no embedded option in a TRS. It is a bilateral OTC swap: the total-return receiver (the client) gets the asset's total return; the total-return payer (the bank) pays that and receives the funding leg in exchange.
 
 #### §2. Real-World Analogy
 
 A Total Return Swap is like renting a car on a long-term lease with full economic exposure.
 
-You pay a monthly rental fee (the financing rate) to the car dealership. In exchange, you get all the benefits of the car: you drive it, use it, benefit from it. If the car appreciates (a classic car that gains value), you benefit at the end of the lease. If the car depreciates (normal wear), you bear the cost.
+The lessee pays a monthly rental fee (the financing rate) to the car dealership. In exchange, the lessee gets all the benefits of the car: they drive it, use it, benefit from it. If the car appreciates (a classic car that gains value), the lessee benefits at the end of the lease. If the car depreciates (normal wear), the lessee bears the cost.
 
-You never own the car. You never took out a loan to buy it. But economically, you experienced everything an owner would — the appreciation, the depreciation, the running costs. The rental fee is the price you pay for this synthetic ownership.
+The lessee never owns the car. The lessee never took out a loan to buy it. But economically, the lessee experienced everything an owner would — the appreciation, the depreciation, the running costs. The rental fee is the price paid for this synthetic ownership.
 
-A TRS works identically: the total return receiver gets all the economics of asset ownership (price changes + income) while paying a rental fee (financing rate). The total return payer (the bank) holds the actual asset and passes through its returns.
-
+A TRS works identically: the total-return receiver (the client) gets all the economics of asset ownership (price changes + income) while paying a rental fee (financing rate). The total-return payer (the bank) holds the actual asset and passes through its returns.
 
 #### §3. What Problem Does This Solve?
 
@@ -8625,6 +8597,7 @@ The TRS addresses the **synthetic exposure** need:
 | Regulatory or structural barriers | Access restricted markets, securities, or asset classes through a swap |
 | Balance sheet optimization | Assets stay off the client's balance sheet |
 
+When a client cannot, should not, or prefers not to buy an asset outright — because of capital constraints, cross-border settlement complexity, or fund-structure restrictions — the TRS still lets them capture its full return stream through a swap.
 
 #### §4. Product DNA
 
@@ -8683,167 +8656,38 @@ The TRS addresses the **synthetic exposure** need:
 |:-----:|---------|---------------|-----|
 | 1 | Loan / deposit | — (baseline) | Simple lending/borrowing relationship |
 | 2 | Interest rate swap | Periodic cash flow exchange | Transform rate exposure between fixed and floating |
-| 3 | Total Return Swap | Specific swap features added | Extended swap concept: Exchange total return of reference asset for funding rate. Synthetic asset ownership without balance sheet impact |
+| 3 | Total Return Swap | Total-return leg added | Extended swap concept: exchange total return of reference asset for funding rate. Synthetic asset ownership without balance sheet impact |
 
-#### §7. How the Bank Makes Money
+---
 
-| Revenue Component | Detail |
-|------------------|--------|
-| **Bid-offer spread** | Captures spread between buy and sell pricing |
-| **Hedging P&L** | Profits from managing hedge portfolio (realized vs implied) |
-| **Funding benefit** | Earns funding spread on collateral received under CSA |
-| **Structuring fee** | Fee for custom features beyond vanilla terms |
+#### §7. THE INVESTOR LENS
 
-#### §8. Why This Product Exists (Client Perspective)
+**Why the client enters it**
 
-1. **Leverage.** A $100M TRS requires only margin (e.g., $10M), not the full $100M purchase price.
-2. **Market access.** Access assets that are difficult to buy directly (foreign securities, restricted shares, illiquid bonds).
-3. **Balance sheet treatment.** The asset does not appear on the client's balance sheet, which may have regulatory or accounting advantages.
-4. **Operational simplicity.** No custody, no settlement, no corporate action processing — the bank handles all of this.
-5. **Short exposure.** A TRS can be structured to give the client short exposure (paying total return = profiting from decline).
+1. **Leverage.** A $100M TRS requires only margin (e.g. $10M), not the full $100M purchase price. The client controls a large notional with a small capital outlay.
+2. **Market access.** The client accesses assets that are difficult to buy directly — foreign securities, restricted shares, illiquid bonds.
+3. **Balance sheet treatment.** The reference asset does not appear on the client's balance sheet, which may carry regulatory or accounting advantages.
+4. **Operational simplicity.** No custody, no settlement, no corporate-action processing — the bank handles all of it.
+5. **Short exposure.** A TRS can be structured so the client pays the total return (profiting from a decline) rather than receiving it.
 
-#### Why This Product Exists
+**Legs & position**
 
-**1. Typical Buyer**
+The client is the **total-return receiver**: the client **receives** the total return on the reference asset (price change + income) and **pays** the funding leg (SOFR + spread). Net, the client holds synthetic, leveraged long exposure to the reference asset — all the economics of ownership without legal ownership, no shares, no note, no embedded option. (A TRS can also be entered the other way, with the client paying total return to take synthetic short exposure; the receiver direction is the standard client case below.)
 
-Hedge funds seeking leveraged equity or credit exposure. Asset managers accessing restricted or foreign markets. Banks optimizing balance sheet usage. Prime brokerage clients seeking financing for large positions.
+![TRS Cashflow Legs — Investor Lens](assets/trs/legs_trs_01.svg)
 
-**2. Problem Being Solved**
+**Cashflows & scenarios**
 
-The TRS provides economic ownership without legal ownership. Clients who cannot, should not, or prefer not to buy an asset outright can still capture its full return stream through a swap.
+**Product:** 1-year TRS on a stock portfolio. **Notional:** $50,000,000. **Client receives:** total return on portfolio (price change + dividends). **Client pays:** SOFR + 0.50% (assume SOFR = 4.5%, so 5.0% total).
 
-**3. How The Client Makes Money**
+- **Scenario 1 — Portfolio rises 12%, pays 2% dividends:** Client receives $50M × (12% + 2%) = $7,000,000. Client pays $50M × 5.0% = $2,500,000. **Net: client receives $4,500,000.** Leveraged profit.
+- **Scenario 2 — Portfolio flat, pays 2% dividends:** Client receives $50M × 2% = $1,000,000. Client pays $2,500,000. **Net: client pays $1,500,000.** Dividends do not cover the financing cost.
+- **Scenario 3 — Portfolio falls 8%, pays 2% dividends:** Client receives $50M × (−8% + 2%) = −$3,000,000 net return. Client also pays $2,500,000 financing. **Net: client pays $5,500,000.** Leverage amplifies losses.
+- **Scenario 4 — Portfolio rises 25%:** Client receives $50M × 25% = $12,500,000. Client pays $2,500,000. **Net: client receives $10,000,000.** The TRS delivered $10M profit on margin of ~$5M — a 200% return on capital deployed.
 
-Best case: the reference asset appreciates significantly — the client receives large total return payments while paying only a small financing spread. A $100M TRS on an asset that rises 20% pays $20M minus financing costs (~$1.5M), netting ~$18.5M. Typical successful outcome: moderate asset appreciation exceeds the financing cost, generating leveraged returns.
+The break-even point is where the asset's total return equals the financing rate. Below that point, the receiver loses money; the financing cost shifts the break-even to the right.
 
-**4. How The Bank Makes Money**
-
-The bank earns revenue from:
-- **Financing spread:** The spread above SOFR (e.g., +50bp) is the bank's primary income — compensation for funding the asset
-- **Bid-offer spread:** The bank earns the spread on entering and unwinding the swap
-- **Delta hedging P&L:** The bank holds the reference asset to hedge, and may earn carry or lending fees
-- **Prime brokerage margin:** Margin posted by the client can be deployed
-
-The bank's profitability depends on its funding cost — a bank that can fund cheaply profits more from the financing spread.
-
-**5. Market Conditions Where Demand Increases**
-
-Demand rises when: equity markets are trending (clients want leveraged directional exposure), cross-border barriers increase (regulatory changes restrict direct ownership), or prime brokerage financing becomes competitive (lower TRS spreads attract more flow).
-
-**6. When This Product Makes Sense**
-
-Suitable for sophisticated institutional investors who understand leverage, have strong views on asset returns, and benefit from off-balance-sheet treatment or operational simplicity. Ideal when the client has a capital constraint but a high-conviction trade.
-
-**7. When This Product Is Usually A Poor Choice**
-
-Unsuitable for investors who cannot manage leveraged exposure or do not understand that the TRS amplifies losses as well as gains. A poor choice when the financing spread exceeds expected asset returns, or when the client needs actual ownership rights (voting, governance). Not appropriate for retail investors.
-
-
-#### §9. The Three Scenarios
-
-| Scenario | Market Condition | Outcome for Investor |
-|----------|-----------------|---------------------|
-| **Best case** | Underlying performs strongly | Maximum return captured (subject to any participation cap or barrier) |
-| **Base case** | Underlying is flat or moderately positive | Moderate return or coupon income depending on structure |
-| **Worst case** | Underlying declines significantly | Capital at risk if below protection level; coupon may partially offset |
-
-*Detailed scenario analysis with specific numbers follows in §10.*
-
-#### §10. What Happens When Markets Move
-
-**Product:** 1-year TRS on a stock portfolio
-**Notional:** $50,000,000
-**Client receives:** Total return on portfolio (price change + dividends)
-**Client pays:** SOFR + 0.50% (assume SOFR = 4.5%, so 5.0% total)
-
-**Scenario 1 — Portfolio rises 12%, pays 2% dividends:**
-Client receives: $50M × (12% + 2%) = $7,000,000. Client pays: $50M × 5.0% = $2,500,000. **Net: Client receives $4,500,000.** Leveraged profit.
-
-**Scenario 2 — Portfolio flat, pays 2% dividends:**
-Client receives: $50M × 2% = $1,000,000. Client pays: $2,500,000. **Net: Client pays $1,500,000.** Dividends do not cover financing cost.
-
-**Scenario 3 — Portfolio falls 8%, pays 2% dividends:**
-Client receives: $50M × (−8% + 2%) = −$3,000,000 net return. Client also pays: $2,500,000 financing. **Net: Client pays $5,500,000.** Leverage amplifies losses.
-
-**Scenario 4 — Portfolio rises 25%:**
-Client receives: $50M × 25% = $12,500,000. Client pays: $2,500,000. **Net: Client receives $10,000,000.** The TRS delivered $10M profit on margin of ~$5M — a 200% return on capital deployed.
-
-
-#### §11. Formal Definition
-
-A **Total Return Swap (TRS)** is a derivative contract in which:
-
-**Total return leg:** One party (the total return payer, typically the bank) pays the total economic return on a reference asset — comprising capital appreciation (or depreciation) and any income (dividends, coupons).
-
-**Financing leg:** The other party (the total return receiver, typically the client) pays a financing rate, usually a benchmark rate (SOFR/EURIBOR) plus a spread.
-
-**Key terms:**
-- **Reference asset:** The asset whose returns are swapped (stock, index, bond, loan, or portfolio)
-- **Notional:** The amount on which returns and financing are calculated
-- **Reset frequency:** How often the total return is calculated and settled (monthly, quarterly)
-- **Financing spread:** The bank's spread above the benchmark rate
-
-If the reference asset declines, the total return receiver pays the bank the depreciation amount plus the financing rate.
-
-
-#### §12. Product Construction
-
-```
-Total Return Receiver (Client)          Total Return Payer (Bank)
-         │                                        │
-         │←── Total Return (price Δ + income) ────│
-         │                                        │
-         │──── Financing Rate (SOFR + spread) ───→│
-         │                                        │
-                                          Bank holds the
-                                          reference asset
-                                          as hedge
-```
-
-The TRS is a pure derivative — no bond component, no embedded option. The bank typically holds the reference asset to hedge its obligation, but this is a hedging choice, not a structural requirement.
-
-**Value at inception:** Near zero, like an IRS. The financing spread is set so that the expected total return equals the financing cost.
-
-> **Professor Note:** If you remember only one thing from this chapter, remember this: a TRS gives you all the returns of owning an asset without actually owning it. The financing rate is the price you pay for this synthetic ownership. If the asset's return exceeds the financing rate, you profit. If not, you lose — and leverage makes the loss larger.
-
-
-#### §13. Lifecycle
-
-| Stage | Detail |
-|-------|--------|
-| **Trade date** | Terms agreed: notional, tenor, rate conventions, special features. ISDA documentation |
-| **Effective date** | Swap becomes active. First accrual period begins |
-| **Periodic payments** | Scheduled cash flow exchanges on payment dates. Netting applied |
-| **Maturity** | Final exchange of cash flows. Trade terminated. Collateral returned |
-
-#### §14. Desk Reality
-
-The TRS has a **linear payoff** — no barriers, no knock-ins, no discontinuities.
-
-For the total return receiver:
-- **Asset rises → positive P&L** (receives total return, pays financing)
-- **Asset falls → negative P&L** (pays depreciation plus financing)
-
-```
-P&L for Total
-Return Receiver
-    |
-    |              ╱
-    |            ╱
-    |          ╱
-    |        ╱
-  0 |------*──────────  ← Break-even: total return = financing cost
-    |    ╱
-    |  ╱
-    |╱
-    +──────────────────→ Reference Asset Return (%)
-         Financing cost shifts the break-even to the right
-```
-
-The break-even point is where the asset's total return equals the financing rate. Below this point, the receiver loses money.
-
-
-#### §15. Risk Analysis
+**Risks to the client**
 
 | Risk | Description | Severity |
 |------|------------|:--------:|
@@ -8852,47 +8696,112 @@ The break-even point is where the asset's total return equals the financing rate
 | **Counterparty risk** | If the bank defaults, the client may not receive owed total return payments | Medium |
 | **Leverage risk** | Small asset declines create large percentage losses on the margin deployed | High |
 | **Liquidity risk** | Unwinding a TRS before maturity may involve a wide bid-offer spread | Medium |
-| **Dividend/income risk** | If expected dividends are cut, total return is lower than anticipated | Low-Medium |
+| **Dividend/income risk** | If expected dividends are cut, the total return is lower than anticipated | Low-Medium |
 
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
 
-#### §16. Booking and Systems
+**What the desk books**
 
-| Field | Value |
-|-------|-------|
+The desk is the other side of the swap: the **total-return payer**. The desk **pays** the total return on the reference asset to the client and **receives** the funding leg (SOFR + spread). To neutralise the market risk it has taken on, the desk typically **holds the physical reference asset** (or borrows it) as a hedge, so the appreciation and income it owes the client are matched by what the held asset throws off. Holding the asset is a hedging choice, not a structural requirement, but it is the standard play.
+
+**Risk & hedging**
+
+The TRS has a **linear payoff** — no barriers, no knock-ins, no discontinuities. The desk's primary risk is delta on the reference asset, which it hedges by holding (or borrowing) the asset directly or via a proxy. Because the desk is long the asset against a short-total-return obligation, day-to-day market moves on the asset are largely offset; residual risks are financing cost, dividend timing, and corporate actions on the reference asset. The desk must fund the asset position, and its profitability turns on funding cheaply relative to the spread it charges. Risk management monitors concentrated counterparty exposure, because a large leveraged book creates significant credit exposure if a client cannot meet margin calls during a market decline.
+
+**How the bank makes money**
+
+| Revenue Component | Detail |
+|------------------|--------|
+| **Financing spread** | The spread above SOFR (e.g. +50bp) is the bank's primary income — compensation for funding the asset |
+| **Bid-offer spread** | The bank earns the spread on entering and unwinding the swap |
+| **Funding benefit** | Earns a funding benefit on collateral received under the CSA |
+| **Delta-hedging P&L** | The bank holds the reference asset to hedge, and may earn carry or lending fees |
+
+The financing spread is the core of the trade. A bank that can fund cheaply profits more from that spread. The structurer sets the spread based on the bank's funding cost, the credit quality of the client, and the liquidity of the reference asset — more liquid assets command tighter spreads.
+
+**The financing-spread decomposition:**
+
+The gross spread the client pays above the benchmark is built up from the bank's funding cost, the credit/financing charge on the client, the asset-financing and lending economics, and the desk margin that is left over. For an illustrative +50bp gross spread: the bank's funding/FTP cost consumes part of it, a counterparty credit/financing charge takes another part, asset-lending carry can add back a small benefit, and the residual is desk margin. (The source does not break out these component values numerically; the decomposition below is an inferred, illustrative split of the +50bp spread, not a sourced figure.)
+
+![TRS Desk Funding Spread Decomposition — Bank Lens (Desk Economics)](assets/trs/waterfall_trs_09.svg)
+
+**P&L drivers**
+
+Day to day, desk P&L is driven by the financing spread accrual, the bank's realised funding cost versus the charged spread, dividend timing on the reference asset, and the mark-to-market of the reference-asset hedge versus the total-return leg owed to the client. Product Control runs daily P&L attribution for the book and performs independent price verification, verifying the total-return calculation on each reset (price change + income events).
+
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
+
+**Booking & systems**
+
+| Aspect | Detail |
+|--------|--------|
 | **Booking system** | Murex |
 | **Pricing system** | Murex |
-| **Four-Leg** | No |
+| **Four-leg framework?** | No |
 | **Product type** | Total Return Swap |
 | **Key booking fields** | Notional, reference asset, financing spread, reset frequency, start/end dates, counterparty |
 | **Payment schedule** | Periodic resets (monthly or quarterly): net total return versus financing |
 | **ISDA documentation** | Governed by ISDA Master Agreement and CSA. TRS-specific terms under ISDA Equity Definitions |
 
-**Lifecycle events:**
-- **Trade date:** Book in Murex. Record reference asset, notional, financing spread, reset schedule.
-- **Each reset date:** Calculate total return on reference asset (price change + accrued dividends). Calculate financing amount. Net settle.
-- **Margin management:** Client posts initial margin and variation margin based on mark-to-market.
-- **Corporate actions:** Dividends, splits, and mergers on the reference asset are passed through to the total return receiver.
-- **Maturity/termination:** Final reset and settlement. Any open total return is settled.
+**Reconciliation points**
 
+| Recon point | What must agree | TRS-specific break |
+|-------------|-----------------|--------------------|
+| **ISDA / CSA** | ISDA Master Agreement and CSA in place and terms captured before trading | Trade booked before the CSA is executed → uncollateralised exposure |
+| **Reset / valuation dates** | Reset and valuation dates in the system match the confirmation | System resets on a different date than the contract specifies |
+| **Reference-asset price source** | Reference asset price from the contractual exchange, source, and fixing time | Price taken from a different exchange or time zone than specified |
+| **Dividend / income pass-through** | All income (dividends, coupons) is captured in the total-return calculation | Dividend not included → total return understated to the receiver |
+| **Leg PV** | PV of the total-return leg and the financing leg reconcile to the trade MTM | Stale price or wrong notional misstates one leg's PV |
+| **Netting** | Net of total-return leg versus financing leg settles correctly each reset | Legs settled gross or on the wrong sign |
+| **Financing accrual** | Financing applied to the current live notional and correct day-count | Notional adjusted on a partial unwind but the system still accrues on the original |
+| **Collateral** | Variation/initial margin posted matches the mark-to-market under the CSA | Margin call sized off a stale MTM |
 
-#### §17. Red Flags
+![TRS Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/trs/controls_trs_recon_08.svg)
 
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| **Dividend not included in total return** | Total return must include income (dividends/coupons), not just price change | Verify that all income events are captured in the total return calculation |
-| **Financing rate on wrong notional** | If the notional has been adjusted (e.g., partial unwind) and the system still uses the original notional | Verify current notional matches the live trade |
+**Common breaks & red flags**
+
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| **Dividend not included in total return** | Total return must include income (dividends/coupons), not just price change | Verify that all income events are captured in the total-return calculation |
+| **Financing rate on wrong notional** | The notional has been adjusted (e.g. partial unwind) but the system still uses the original notional | Verify current notional matches the live trade |
 | **Price source mismatch** | Reference asset price from a different exchange or time zone than specified | Use the contractual price source and fixing time |
 | **Reset date misalignment** | System resets on a different date than the contract specifies | Verify reset dates match the confirmation |
 | **Corporate action adjustment missed** | A stock split changes the reference price but the system does not adjust | Monitor corporate actions and apply adjustments per ISDA rules |
 
+**Control implication**
 
-#### §18. Worked Example
+Each break has a direct consequence the 2nd line must size before it reaches the books or the client. A wrong **reference-asset price source** misstates the total-return leg on both the reset payment and the MTM — the receiver is paid the wrong amount. A missed **dividend pass-through** silently understates the total return owed to the client, since income is part of the contractual return, not just price change. A **collateral** call sized off a stale mark leaves the bank under-collateralised against a leveraged counterparty exactly when the market is moving against the client. The reconciliation exists precisely to catch these inconsistencies before settlement crystallises them.
 
-**Product:** 1-year TRS on the S&P 500 Total Return Index
-**Notional:** $100,000,000
-**Client receives:** Total return on S&P 500 TR
-**Client pays:** SOFR + 0.40% (assume SOFR = 4.5%, so 4.9% total)
-**Reset:** Quarterly
+#### §10. Formal Definition
+
+A **Total Return Swap (TRS)** is a derivative contract in which:
+
+**Total return leg:** One party (the total-return payer, typically the bank) pays the total economic return on a reference asset — comprising capital appreciation (or depreciation) and any income (dividends, coupons).
+
+**Financing leg:** The other party (the total-return receiver, typically the client) pays a financing rate, usually a benchmark rate (SOFR/EURIBOR) plus a spread.
+
+**Key terms:**
+- **Reference asset:** The asset whose returns are swapped (stock, index, bond, loan, or portfolio)
+- **Notional:** The amount on which returns and financing are calculated
+- **Reset frequency:** How often the total return is calculated and settled (monthly, quarterly)
+- **Financing spread:** The bank's spread above the benchmark rate
+
+If the reference asset declines, the total-return receiver pays the bank the depreciation amount plus the financing rate. Value at inception is near zero, like an IRS: the financing spread is set so that the expected total return equals the financing cost.
+
+#### §11. Lifecycle
+
+| Stage | Detail |
+|-------|--------|
+| **Trade date** | Terms agreed: notional, tenor, rate conventions, special features. Book in Murex; record reference asset, notional, financing spread, reset schedule. ISDA documentation |
+| **Effective date** | Swap becomes active. First accrual period begins |
+| **Each reset date** | Calculate total return on reference asset (price change + accrued dividends). Calculate financing amount. Net settle |
+| **Margin management** | Client posts initial margin and variation margin based on mark-to-market |
+| **Corporate actions** | Dividends, splits, and mergers on the reference asset are passed through to the total-return receiver |
+| **Maturity / termination** | Final reset and settlement. Any open total return is settled. Collateral returned |
+
+#### §12. Worked Example (both lenses)
+
+**Product:** 1-year TRS on the S&P 500 Total Return Index. **Notional:** $100,000,000. **Client receives:** total return on S&P 500 TR. **Client pays:** SOFR + 0.40% (assume SOFR = 4.5%, so 4.9% total). **Reset:** quarterly.
 
 | Quarter | S&P 500 TR Return | Total Return Received | Financing Paid | Net |
 |:-------:|:-----------------:|:--------------------:|:--------------:|----:|
@@ -8901,58 +8810,52 @@ The break-even point is where the asset's total return equals the financing rate
 | Q3 | +5.0% | $5,000,000 | $1,225,000 | Client receives **$3,775,000** |
 | Q4 | +3.0% | $3,000,000 | $1,225,000 | Client receives **$1,775,000** |
 
-**Annual total return:** +10.0%. Client received: $10,000,000 total return − $4,900,000 financing = **$5,100,000 net.**
+*Client lens:*
+**Annual total return:** +10.0%. Client received: $10,000,000 total return − $4,900,000 financing = **$5,100,000 net.** If the client posted $10M margin, the return on capital deployed was 51%.
 
-If the client posted $10M margin, the return on capital deployed was 51%.
+*Bank lens:*
+The desk pays the +10.0% total return ($10,000,000) to the client and receives $4,900,000 of financing, the net of which is matched by the appreciation and income on the reference asset it holds as a hedge — leaving the desk its financing spread and net hedging carry rather than asset risk. Product Control verifies each quarterly reset (price change + income) and reconciles the index performance between Murex and market data, while the 2nd line confirms the leg PVs net correctly, the financing accrues on the live $100,000,000 notional, and collateral matches the mark before each settlement.
 
-
-#### §19. Knowledge Check
+#### §13. Knowledge Check
 
 1. **What is the difference between a TRS and an IRS?**
 2. **Why would a hedge fund use a TRS instead of buying the asset directly?**
 3. **What components make up the "total return" in a TRS?**
 4. **If the reference asset declines, who pays whom?**
 5. **Explain how leverage works in a TRS and why it amplifies both gains and losses.**
-
+6. **Draw the receiver's P&L as a function of the reference-asset return, marking the break-even where total return equals the financing cost.**
+7. **(Desk economics / 1LoD)** What position does the desk hold against the client, how does it hedge it, and where does its margin come from given that the asset moves are largely offset?
+8. **(Controls / 2LoD)** Name three reconciliation breaks specific to a TRS and the consequence of each for the client's reset payment or the bank's collateral.
 
 **Mental Models**
 
 | Concept | Mental Model |
 |---------|-------------|
-| Total Return Swap | Car rental — you get all the benefits and costs of driving, but never own the car |
+| Total Return Swap | Car rental — the client gets all the benefits and costs of driving, but never owns the car |
 | Financing rate | The rental fee — the cost of synthetic ownership |
 | Total return | Everything the car delivers: appreciation, depreciation, and fuel savings (income) |
 | Leverage | A small rental deposit controls a large asset |
-| Counterparty risk | If the rental company goes bankrupt, your "lease" may be worthless |
-
+| Counterparty risk | If the rental company goes bankrupt, the "lease" may be worthless |
+| 2LoD reconciliation | The lease auditor — confirms the mileage, the fee, and the deposit all match the contract before any money moves |
 
 **Key Takeaways**
 
 1. A TRS provides the full economic return of an asset (price change + income) without ownership.
-2. The total return receiver pays a financing rate (SOFR + spread) for this synthetic exposure.
+2. The total-return receiver (the client) pays a financing rate (SOFR + spread) for this synthetic exposure.
 3. Leverage amplifies both gains and losses — a 10% asset move can create a much larger return on margin deployed.
 4. TRS is widely used by hedge funds, prime brokerage clients, and institutions seeking balance sheet efficiency.
 5. TRS is booked in Murex, governed by ISDA, and requires careful management of margin, resets, and corporate actions.
+6. The bank holds the asset as a hedge and earns the financing spread; its dominant exposure is counterparty risk on the client, not asset risk.
+7. For the 2nd line, the dominant control risks are the reference-asset price source, dividend pass-through, financing accrual on the live notional, and collateral adequacy — each can misstate a reset payment or leave the bank under-collateralised.
 
-
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
 1. **Forgetting that total return includes income.** Price change alone is not total return. Dividends, coupons, and other income must be included.
 2. **Ignoring financing costs.** The asset must return more than the financing rate for the receiver to profit. In a flat market, the financing cost is a pure loss.
 3. **Underestimating leverage.** A $100M TRS on $10M margin means a 10% asset decline wipes out 100% of the margin. Leverage cuts both ways.
-4. **Assuming the bank bears the asset risk.** The bank holds the asset as a hedge but passes all economic returns and losses to the total return receiver. The bank's risk is counterparty risk on the client, not asset risk.
+4. **Assuming the bank bears the asset risk.** The bank holds the asset as a hedge but passes all economic returns and losses to the total-return receiver. The bank's risk is counterparty risk on the client, not asset risk.
 5. **Conflating TRS with equity swap.** An equity swap is a specific type of TRS where the reference asset is equity. A TRS can reference bonds, loans, indices, or portfolios — it is the broader category.
-
-### Desk Perspective
-
-| Role | What the TRS Means to Them |
-|------|---------------------------|
-| **Trader** | Manages the hedge (typically holding the reference asset). Earns the financing spread. Monitors counterparty exposure, especially on large leveraged positions. Must manage dividend risk and corporate actions |
-| **Structurer** | Sets the financing spread based on the bank's funding cost, credit quality of the client, and the liquidity of the reference asset. More liquid assets command tighter spreads |
-| **Product Control** | Verifies total return calculations on each reset: price change + income events. Reconciles the reference asset's performance between Murex and market data |
-| **Risk** | Monitors concentrated counterparty exposure. A large TRS book creates significant credit exposure if clients cannot meet margin calls during market declines |
-| **Operations** | Processes periodic resets, margin calls, dividend pass-throughs, and corporate actions. Ensures ISDA documentation and CSA are in place before trading |
-
+6. **(Controls) Trusting the booked notional after a partial unwind.** Because financing accrues on the live notional, the 2nd line must confirm the system uses the adjusted notional rather than the original before relying on the financing amount.
 ### Knowledge Check
 
 **Review Questions:**
@@ -8962,6 +8865,10 @@ If the client posted $10M margin, the return on capital deployed was 51%.
 4. How does a TRS provide leverage?
 5. What booking system is used for TRS?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* Which side of the swap does the desk take, and what is its primary risk (rate/curve/financing) and how is it hedged?
+- *(Controls / 2LoD)* Which leg/fixing/collateral fields must reconcile across systems for this swap, and which is the most common break?
 **Scenario Questions:**
 1. A client enters a $200M TRS on a bond portfolio. The portfolio declines 5% and pays 3% income. The financing rate is 5.2%. Calculate the client's net P&L for the period.
 2. A hedge fund uses a TRS to gain $500M equity exposure with $50M margin. The reference index rises 8%. Calculate the return on margin. What happens if the index falls 12% instead?
@@ -9027,6 +8934,11 @@ A prime brokerage client has a $300M TRS on a concentrated portfolio of 5 tech s
 - **Diagram elements:** Three rate path scenarios (rates up, stable, down) showing P&L impact. Clearly labelled outcomes
 - **Reuse status:** Adapt from scenario template
 
+
+**Dual-lens visuals (generated):**
+- `assets/trs/controls_trs_recon_08.svg` `[generated]`
+- `assets/trs/legs_trs_01.svg` `[generated]`
+- `assets/trs/waterfall_trs_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -9037,19 +8949,19 @@ A prime brokerage client has a $300M TRS on a concentrated portfolio of 5 tech s
 | Variance Swap | 5.2.4 — vol exposure |
 ### 5.2.3 Equity Swap
 
-*The TRS gave you the total return on any reference asset — stocks, bonds, loans, or portfolios. The Equity Swap narrows the focus to equities specifically. One party pays the return on a stock or equity index, the other pays a financing rate. Where the TRS is the general concept, the Equity Swap is its most common application.*
+---
+
+*The TRS (Section 5.2.2) gave the client the total return on any reference asset — stocks, bonds, loans, or portfolios. The Equity Swap narrows the focus to equities specifically. It is a bilateral contract: one side receives the equity return (price change plus dividends) on a stock or index and pays a funding leg (a floating rate plus a spread); the other side is the exact reverse. There is no note, no barrier, and no embedded option — the payoff is linear. This chapter reads the product through two lenses: what it means for **the client**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 **How This Differs From the TRS (5.2.2):** The Equity Swap is a TRS where the reference asset is specifically equity — a single stock, basket, or index. The mechanics are identical, but the equity context introduces specific considerations: dividend treatment (gross vs net), equity market conventions, and corporate action complexity.
-
 
 #### §1. Explain Like I'm New
 
 Natasha is a corporate treasurer at a European conglomerate. The company holds a large block of Nestlé shares — a strategic investment worth CHF 500 million. The board wants to reduce equity exposure without selling the shares publicly, which would signal a loss of confidence and depress the share price.
 
-An **Equity Swap** provides the solution. Natasha enters into a swap where the company pays the return on Nestlé to a bank and receives a financing rate (SOFR + 0.30%). If Nestlé rises 5%, the company pays the bank 5% of the notional. If Nestlé falls 5%, the bank pays the company 5%. The company still owns the shares (maintaining voting rights and public appearance) but has transferred the economic exposure to the bank.
+An **Equity Swap** provides the solution. The company enters into a swap where it pays the return on Nestlé to a bank and receives a financing rate (SOFR + 0.30%). If Nestlé rises 5%, the company pays the bank 5% of the notional. If Nestlé falls 5%, the bank pays the company 5%. The company still owns the shares (maintaining voting rights and public appearance) but has transferred the economic exposure to the bank.
 
-The equity swap effectively converts the company's equity position into a cash-like return (the financing rate) without a public sale.
-
+The equity swap effectively converts the company's equity position into a cash-like return (the financing rate) without a public sale. Read the other way round, a client who holds no shares can receive the equity return and pay the financing rate — gaining synthetic exposure to the stock without ever buying it.
 
 #### §2. Real-World Analogy
 
@@ -9058,7 +8970,6 @@ An Equity Swap is like a film royalty deal.
 A film studio owns the distribution rights to a movie. The studio is uncertain about the film's box office performance. It enters into a deal with an investor: the investor pays the studio a guaranteed annual fee (the financing rate), and in return receives all the box office and streaming revenue (equity return). If the film is a hit, the investor profits handsomely. If the film flops, the investor loses money — but the studio has locked in its guaranteed fee.
 
 The equity swap works the same way: one party receives the economic performance of a stock (the "box office") and pays a financing rate (the "guarantee fee"). Neither party transfers ownership of the stock — just the economic return.
-
 
 #### §3. What Problem Does This Solve?
 
@@ -9070,7 +8981,6 @@ The Equity Swap addresses the **equity exposure management** need:
 | Gain equity exposure without buying | Receive equity return from bank, pay financing rate |
 | Tax optimization | Swap returns may receive different tax treatment than dividends |
 | Concentrated stock diversification | Hedge a single-stock position while retaining ownership |
-
 
 #### §4. Product DNA
 
@@ -9094,9 +9004,9 @@ The Equity Swap addresses the **equity exposure management** need:
 - Typical Buyer: Institutional investors, hedge funds, asset managers seeking synthetic equity exposure
 - Typical Use Case: Synthetic equity exposure without share ownership. Dividend capture. Tax efficiency in some jurisdictions
 - Building Blocks: Equity return leg + funding/fixed rate leg
-- Key Hedge: Delta-hedge equity leg, manage dividend risk
+- Key Hedge: Delta-hedge equity leg (hold the physical shares), manage dividend risk
 - Similar Products: TRS (5.2.2 — broader asset class), IRS (5.2.1 — rates only), Variance Swap (5.2.4 — vol not direction)
-- Most Important Greek: Delta (equity sensitivity)
+- Most Important Greek: Delta (equity sensitivity) — delta-one, linear, no gamma
 
 **Comparison Matrix Fields:**
 - Complexity: 5
@@ -9105,7 +9015,7 @@ The Equity Swap addresses the **equity exposure management** need:
 - Credit Exposure: Counterparty
 - Liquidity: OTC
 - Path Dependency: No
-- Volatility Sensitivity: Full equity vol exposure
+- Volatility Sensitivity: Full equity vol exposure (directional, not optionality)
 - Correlation Sensitivity: None (single) or Low (basket)
 - Client Type: Institutional / Hedge funds
 - Market Environment: Used in all equity environments for synthetic exposure
@@ -9114,12 +9024,12 @@ The Equity Swap addresses the **equity exposure management** need:
 
 | Role | Responsibility |
 |------|---------------|
-| **Structurer** | Designs Equity Swap terms: notional, tenor, fixing conventions, special features |
-| **Trader** | Manages Equity Swap book. Delta-hedges primary risk. Manages portfolio Greeks |
+| **Structurer** | Designs Equity Swap terms: notional, tenor, fixing conventions, special features. Sets the financing spread based on funding cost, stock borrow cost, and dividend pass-through economics |
+| **Trader** | Manages Equity Swap book. Delta-hedges the primary risk by holding the reference shares. Manages dividend risk and stock lending income |
 | **Sales** | Presents Equity Swap to clients for hedging or investment. Explains risk-return trade-off |
-| **Risk Management** | Monitors counterparty exposure, MTM limits, Greek limits. Stress-tests Equity Swap portfolio |
-| **Product Control** | Daily P&L attribution for Equity Swap book. Independent price verification |
-| **Operations** | Confirms trade details (ISDA). Processes periodic payments. Manages collateral (CSA) |
+| **Risk Management** | Monitors counterparty exposure, MTM limits, Greek limits. Stress-tests Equity Swap portfolio; watches single-stock concentration |
+| **Product Control** | Daily P&L attribution for Equity Swap book. Independent price verification. Reconciles equity performance between Murex and market data |
+| **Operations** | Confirms trade details (ISDA). Processes periodic payments and dividend pass-throughs. Manages collateral (CSA) |
 | **Legal / Compliance** | ISDA Master Agreement and CSA negotiation. Trade reporting. Regulatory compliance |
 | **Quantitative Analytics** | Prices Equity Swap and calibrates models. Develops risk analytics and sensitivities |
 
@@ -9131,87 +9041,119 @@ The Equity Swap addresses the **equity exposure management** need:
 | 2 | Interest rate swap | Periodic cash flow exchange | Transform rate exposure between fixed and floating |
 | 3 | Equity Swap | Specific swap features added | Extended swap concept: Swap of equity return for fixed or floating rate. Standardised TRS for equity underlyings |
 
-#### §7. How the Bank Makes Money
+---
+
+#### §7. THE INVESTOR LENS
+
+**Why the client enters it**
+
+1. **Synthetic equity exposure.** The client gains the full economic return of a stock or index without owning the shares — avoiding custody, settlement, and the operational burden of a physical holding.
+2. **Monetize without selling.** Read the other direction, a corporate insider or strategic holder can reduce exposure without triggering a public sale, preserving voting rights and public appearance.
+3. **Leverage and access.** Notional is set by agreement, so the client can take amplified exposure for a modest collateral posting, and reach markets where direct ownership is restricted or operationally complex.
+4. **Tax efficiency.** Depending on jurisdiction, swap returns may be taxed differently than dividends or capital gains.
+5. **Short exposure.** By paying the equity return, the client creates a synthetic short position without borrowing shares.
+
+**Legs & position**
+
+The Equity Swap is bilateral and linear. As the typical equity-return receiver, the client **receives the equity return** (price change plus dividends) on the reference equity and **pays the funding leg** (a floating rate, e.g. SOFR, plus a spread). The mirror party receives funding and pays the equity return. There is no note, no barrier, and no embedded put or call — the client's position is simply long the equity (synthetically) and short the funding rate. A return payer is the reverse: short the equity, long funding. With a single underlying there is no correlation exposure; on a basket the receiver is additionally exposed to the basket composition.
+
+![Equity Swap Cashflow Legs — Investor Lens](assets/eqswap/legs_eqswap_01.svg)
+
+**Cashflows & scenarios**
+
+The client's net cashflow each period is the equity return received minus the financing paid. The break-even is the level at which the equity total return (price plus dividends) equals the financing rate; below that, the receiver is net negative.
+
+**Product:** 1-year Equity Swap on Nestlé. **Notional:** CHF 100,000,000. **Client receives:** Nestlé total return (price change + dividends). **Client pays:** SOFR + 0.40% (assume 5.0% total financing).
+
+- **Scenario 1 — Nestlé rises 10%, pays 3% dividend:** Client receives: CHF 100M × 13% = CHF 13,000,000. Client pays: CHF 5,000,000. **Net: CHF 8,000,000 profit.**
+- **Scenario 2 — Nestlé flat, pays 3% dividend:** Client receives: CHF 3,000,000. Client pays: CHF 5,000,000. **Net: CHF 2,000,000 loss.** Dividends do not cover financing.
+- **Scenario 3 — Nestlé falls 15%, pays 3% dividend:** Client receives: CHF 100M × (−15% + 3%) = −CHF 12,000,000. Plus financing: CHF 5,000,000. **Net: CHF 17,000,000 loss.**
+- **Scenario 4 — Pay equity return (hedging a position):** The company pays the Nestlé return and receives financing. Nestlé falls 10%: the company pays −10% (i.e. receives 10% from the bank). Combined with the shares the company holds (which fell 10%), the equity loss is offset. The company earns the financing rate on the hedged position.
+
+**Risks to the client**
+
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Equity market risk** | Full exposure to the reference equity's price movements. As the linear long, the receiver bears the entire downside. | High |
+| **Financing cost risk** | Rising benchmark rates increase the financing leg; in flat markets, financing erodes the whole return. | Medium |
+| **Dividend risk** | Unexpected dividend cuts reduce the total return received. | Medium |
+| **Counterparty risk** | If the bank defaults, owed equity return payments may not be received. | Medium |
+| **Tax risk** | Changes in dividend withholding tax treatment can affect net returns. | Low-Medium |
+| **Liquidity risk** | Unwinding before maturity may involve a wide bid-offer spread, especially for single-stock swaps. | Medium |
+
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk's position is the mirror image of the client's. Where the client receives the equity return and pays funding, the desk **pays the equity return and receives funding** (and vice versa for a return-payer client). There is no embedded option to book — the swap is a pair of legs, an equity-return leg and a funding leg, settled net on each reset. The client's net return is, to the desk, the funding it collects less the equity performance it passes through, plus the structuring spread.
+
+**Risk & hedging**
+
+The desk hedges the equity leg by **holding the physical reference shares** — a **delta-one** hedge. Because the payoff is linear, the equity risk is purely directional: one share held per unit of notional/initial price, with delta of one and **no gamma and no optionality** to manage. If the desk pays the equity return to the client, it buys and holds the shares so its physical gains fund the payments; if it receives the equity return, it shorts (or lends out) the shares. Alongside the price hedge the desk manages **dividend risk** — the difference between declared and expected dividends, and the gross-versus-net pass-through — and earns stock lending income on the shares it holds.
+
+**How the bank makes money**
 
 | Revenue Component | Detail |
 |------------------|--------|
-| **Bid-offer spread** | Captures spread between buy and sell pricing |
-| **Hedging P&L** | Profits from managing hedge portfolio (realized vs implied) |
-| **Funding benefit** | Earns funding spread on collateral received under CSA |
-| **Structuring fee** | Fee for custom features beyond vanilla terms |
+| **Financing spread** | Charged above the benchmark rate (typically 20-100bp depending on client credit and underlying liquidity) |
+| **Bid-offer spread** | On entry and exit |
+| **Stock lending revenue** | The bank may hold the shares as a hedge and earn stock lending fees |
+| **Dividend arbitrage** | Differences between gross and net dividend treatment can create opportunities |
 
-#### §8. Why This Product Exists (Client Perspective)
+**Spread decomposition:**
 
-1. **Monetize without selling.** Corporate insiders and strategic holders can reduce exposure without triggering a public sale.
-2. **Tax efficiency.** Depending on jurisdiction, swap returns may be taxed differently than dividends or capital gains.
-3. **Cross-border access.** Access equity markets where direct ownership is restricted or operationally complex.
-4. **Short exposure.** Pay equity return to create a synthetic short position without borrowing shares.
+The desk's net spread builds up from the funding charge less its own costs. For a representative single-stock swap: financing spread charged to the client ~0.40%; stock lending revenue ~+0.15%; dividend pass-through benefit (gross-vs-net handling retained) ~+0.10%; the desk's own funding cost (FTP) ~−0.25%; bid-offer / hedge slippage ~−0.10%; **net spread ~0.30%**. The financing spread is the anchor; stock-lending and dividend handling on the physically held hedge are the equity-specific add-ons.
 
-#### Why This Product Exists
+![Equity Swap Desk Spread Decomposition — Bank Lens (Desk Economics)](assets/eqswap/waterfall_eqswap_09.svg)
 
-**1. Typical Buyer**
+**P&L drivers**
 
-Corporate treasurers hedging strategic equity holdings. Hedge funds seeking leveraged or short equity exposure. Wealth management clients with concentrated stock positions. Pension funds accessing international equity markets.
+Day to day, desk P&L is driven by the funding spread accrual, stock lending income on the physical hedge, the gap between declared and expected dividends, and small slippage on rebalancing the delta-one hedge across resets. Because the position is linear there is no gamma P&L — the dominant swings are dividend surprises, borrow-cost moves, and funding. Product Control attributes P&L across the equity leg and the funding leg and performs independent price verification of the reference equity's performance.
 
-**2. Problem Being Solved**
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
 
-Equity swaps separate economic ownership from legal ownership. Clients can adjust their equity exposure without buying or selling shares in the market, avoiding market impact, regulatory disclosure, and operational complexity.
+**Booking & systems**
 
-**3. How The Client Makes Money**
+| Aspect | Detail |
+|--------|--------|
+| **Booking system** | Murex |
+| **Pricing/Risk system** | Murex |
+| **Four-leg framework?** | No |
+| **Product type** | Equity Swap |
+| **Key booking fields** | Notional, reference equity, financing spread, dividend treatment (gross/net), reset frequency, counterparty |
+| **Payment schedule** | Periodic resets (monthly/quarterly), net payments exchanged |
+| **ISDA documentation** | ISDA Master Agreement, CSA, ISDA Equity Definitions |
 
-For a return receiver: best case is significant equity appreciation. A $100M equity swap on a stock that rises 20% pays $20M minus financing costs. For a return payer (hedging): the client locks in a financing rate, eliminating equity risk on a concentrated position — "making money" means avoiding losses.
+**Reconciliation points**
 
-**4. How The Bank Makes Money**
+| Recon point | What must agree | EqSwap-specific break |
+|-------------|-----------------|-----------------------|
+| **ISDA / CSA** | Master Agreement, CSA terms, ISDA Equity Definitions match the confirmation | Collateral terms in the CSA not reflected in the margin system |
+| **Reset / valuation dates** | Start/end dates of each reset period match the trade confirmation | Different systems use different start/end dates → reset period misaligned |
+| **Equity price source** | Reference equity fixing source matches the termsheet/confirmation | Different vendors report different closing prices on the valuation date |
+| **Dividend pass-through & withholding** | Gross vs net treatment, and withholding tax %, match the confirmation | One system uses gross dividends, the other net → equity return miscalculated |
+| **Corporate actions** | Stock split, merger, or spin-off adjustment applied per ISDA Equity Definitions | Underlying split not propagated → reference terms off by the split ratio |
+| **Leg PV** | Equity-leg PV and funding-leg PV reconcile to total swap MTM | Unexplained P&L points to a stale dividend assumption or a wrong fixing |
+| **Netting** | Net payment = equity leg − funding leg per the agreed convention | Legs settled gross or netted against the wrong counterparty set |
+| **Collateral** | Posted/received collateral matches MTM under the CSA | Margin call sized off a stale MTM → under- or over-collateralised |
 
-- **Financing spread:** Charged above the benchmark rate (typically 20-100bp depending on client credit and underlying liquidity)
-- **Bid-offer spread:** On entry and exit
-- **Stock lending revenue:** The bank may hold the shares as a hedge and earn stock lending fees
-- **Dividend arbitrage:** Differences between gross and net dividend treatment can create opportunities
+![EQSWAP Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/eqswap/controls_eqswap_recon_08.svg)
 
-**5. Market Conditions Where Demand Increases**
+**Common breaks & red flags**
 
-Demand rises in volatile equity markets (hedging demand increases), during tax-season optimization, when regulatory changes restrict direct ownership, or when a concentrated stock holder faces lock-up expirations and wants synthetic diversification.
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| **Gross vs net dividend mismatch** | One system uses gross dividends, the other net. This changes the equity return calculation. | Verify dividend treatment matches the confirmation before relying on either valuation |
+| **Ex-dividend date alignment** | The system credits the dividend on a different date than the contractual convention. | Verify ex-date treatment per ISDA Equity Definitions |
+| **Currency mismatch** | Reference equity in CHF but swap settled in USD — an FX rate must be applied. | Confirm whether the swap has FX conversion or is quanto |
+| **Corporate action adjustment** | Stock split, merger, or spin-off changes the reference equity's terms. | Apply corporate action adjustments per ISDA rules before the next reset |
+| **Reset period misalignment** | Different systems use different start/end dates for the reset period. | Verify reset dates match the trade confirmation |
 
-**6. When This Product Makes Sense**
+**Control implication**
 
-Suitable for institutional investors with concentrated equity positions, cross-border exposure needs, or leverage requirements. The client should understand that the swap amplifies exposure and that financing costs erode returns in flat markets.
+Each break has a direct consequence the 2nd line must size before it reaches the books or the counterparty. A **dividend pass-through / withholding** error — gross booked where net was agreed — systematically misstates the equity return on every dividend, by 15-30% of the dividend amount, in one party's favour. A **corporate-action** adjustment that is delayed or wrong (e.g. a stock split not propagated) leaves the reference terms off by the split ratio, corrupting every subsequent reset. A **price-source** mismatch breaks both the equity-leg valuation and the net settlement at once. The reconciliation exists precisely to catch these inconsistencies before the reset settlement crystallises them.
 
-**7. When This Product Is Usually A Poor Choice**
-
-Unsuitable when the client values voting rights or governance participation (the swap does not transfer these), when financing costs exceed expected equity returns, or for investors who cannot manage margin calls during market downturns. Not appropriate for retail investors.
-
-
-#### §9. The Three Scenarios
-
-| Scenario | Market Condition | Outcome for Investor |
-|----------|-----------------|---------------------|
-| **Best case** | Underlying performs strongly | Maximum return captured (subject to any participation cap or barrier) |
-| **Base case** | Underlying is flat or moderately positive | Moderate return or coupon income depending on structure |
-| **Worst case** | Underlying declines significantly | Capital at risk if below protection level; coupon may partially offset |
-
-*Detailed scenario analysis with specific numbers follows in §10.*
-
-#### §10. What Happens When Markets Move
-
-**Product:** 1-year Equity Swap on Nestlé
-**Notional:** CHF 100,000,000
-**Client receives:** Nestlé total return (price change + dividends)
-**Client pays:** SOFR + 0.40% (assume 5.0% total financing)
-
-**Scenario 1 — Nestlé rises 10%, pays 3% dividend:**
-Client receives: CHF 100M × 13% = CHF 13,000,000. Client pays: CHF 5,000,000. **Net: CHF 8,000,000 profit.**
-
-**Scenario 2 — Nestlé flat, pays 3% dividend:**
-Client receives: CHF 3,000,000. Client pays: CHF 5,000,000. **Net: CHF 2,000,000 loss.** Dividends do not cover financing.
-
-**Scenario 3 — Nestlé falls 15%, pays 3% dividend:**
-Client receives: CHF 100M × (−15% + 3%) = −CHF 12,000,000. Plus financing: CHF 5,000,000. **Net: CHF 17,000,000 loss.**
-
-**Scenario 4 — Pay equity return (hedging a position):**
-Company pays Nestlé return, receives financing. Nestlé falls 10%: company pays −10% (receives 10% from bank). Combined with the shares the company holds (which fell 10%), the equity loss is offset. The company earns the financing rate on the hedged position.
-
-
-#### §11. Formal Definition
+#### §10. Formal Definition
 
 An **Equity Swap** is a derivative contract in which:
 
@@ -9225,24 +9167,7 @@ The equity swap is a total return swap where the reference asset is specifically
 - **Gross dividends:** The full declared dividend is included in the equity return
 - **Net dividends:** Dividends are adjusted for withholding tax. The termsheet specifies gross or net
 
-
-#### §12. Product Construction
-
-```
-Equity Return Receiver              Equity Return Payer (Bank)
-         │                                        │
-         │←── Equity Return (price Δ + dividends) │
-         │                                        │
-         │──── Financing Rate (SOFR + spread) ───→│
-         │                                        │
-```
-
-Structurally identical to a TRS but with equity-specific conventions. The bank typically holds the reference shares as a Delta hedge.
-
-> **Professor Note:** If you remember only one thing from this chapter, remember this: an equity swap lets you own the economic returns of a stock without owning the stock itself. This separation of economic and legal ownership is the single most powerful concept in equity derivatives.
-
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Detail |
 |-------|--------|
@@ -9251,72 +9176,9 @@ Structurally identical to a TRS but with equity-specific conventions. The bank t
 | **Periodic payments** | Scheduled cash flow exchanges on payment dates. Netting applied |
 | **Maturity** | Final exchange of cash flows. Trade terminated. Collateral returned |
 
-#### §14. Desk Reality
+#### §12. Worked Example (both lenses)
 
-Linear payoff, identical to TRS. For the equity return receiver:
-
-```
-P&L for Equity
-Return Receiver
-    |
-    |              ╱
-    |            ╱
-    |          ╱
-    |        ╱
-  0 |------*──────────  ← Break-even: equity return = financing rate
-    |    ╱
-    |  ╱
-    |╱
-    +──────────────────→ Equity Return (%)
-```
-
-The break-even is where the equity total return (price + dividends) equals the financing rate. Below this, the receiver loses money.
-
-
-#### §15. Risk Analysis
-
-| Risk | Description | Severity |
-|------|------------|:--------:|
-| **Equity market risk** | Full exposure to the reference equity's price movements | High |
-| **Dividend risk** | Unexpected dividend cuts reduce the total return received | Medium |
-| **Financing cost risk** | Rising benchmark rates increase the financing leg | Medium |
-| **Counterparty risk** | If the bank defaults, owed equity return payments may not be received | Medium |
-| **Tax risk** | Changes in dividend withholding tax treatment can affect net returns | Low-Medium |
-| **Liquidity risk** | Unwinding before maturity may involve a wide bid-offer spread, especially for single-stock swaps | Medium |
-
-
-#### §16. Booking and Systems
-
-| Field | Value |
-|-------|-------|
-| **Booking system** | Murex |
-| **Pricing system** | Murex |
-| **Four-Leg** | No |
-| **Product type** | Equity Swap |
-| **Key booking fields** | Notional, reference equity, financing spread, dividend treatment (gross/net), reset frequency, counterparty |
-| **Payment schedule** | Periodic resets (monthly/quarterly) |
-| **ISDA documentation** | ISDA Master Agreement, CSA, ISDA Equity Definitions |
-
-
-#### §17. Red Flags
-
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| **Gross vs net dividend mismatch** | One system uses gross dividends, the other net. This changes the equity return calculation | Verify dividend treatment matches the confirmation |
-| **Ex-dividend date alignment** | The system credits the dividend on a different date than the contractual convention | Verify ex-date treatment per ISDA Equity Definitions |
-| **Currency mismatch** | Reference equity in CHF but swap settled in USD — FX rate must be applied | Confirm whether the swap has FX conversion or is quanto |
-| **Corporate action adjustment** | Stock split, merger, or spin-off changes the reference equity's terms | Apply corporate action adjustments per ISDA rules |
-| **Reset period misalignment** | Different systems use different start/end dates for the reset period | Verify reset dates match the trade confirmation |
-
-
-#### §18. Worked Example
-
-**Product:** 1-year Equity Swap on Nestlé
-**Notional:** CHF 50,000,000
-**Client receives:** Nestlé total return (price + dividends)
-**Client pays:** SOFR + 0.35% (assume 5.0% total)
-**Reset:** Quarterly
-**Nestlé initial price:** CHF 100
+**Product:** 1-year Equity Swap on Nestlé. **Notional:** CHF 50,000,000. **Client receives:** Nestlé total return (price + dividends). **Client pays:** SOFR + 0.35% (assume 5.0% total). **Reset:** Quarterly. **Nestlé initial price:** CHF 100.
 
 | Quarter | Nestlé Return | Equity Received | Financing Paid | Net |
 |:-------:|:------------:|:--------------:|:--------------:|----:|
@@ -9325,17 +9187,21 @@ The break-even is where the equity total return (price + dividends) equals the f
 | Q3 | +4.5% (incl div) | CHF 2,250,000 | CHF 625,000 | Client receives **CHF 1,625,000** |
 | Q4 | +2.0% | CHF 1,000,000 | CHF 625,000 | Client receives **CHF 375,000** |
 
-**Annual result:** Client received CHF 4,000,000 equity return − CHF 2,500,000 financing = **CHF 1,500,000 net profit.**
+*Client lens:*
+- **Annual result:** Client received CHF 4,000,000 equity return − CHF 2,500,000 financing = **CHF 1,500,000 net profit.** The client captured the full Nestlé performance synthetically, paying away the financing rate, never holding a single share.
 
+*Bank lens:*
+- The desk paid the CHF 4,000,000 equity return to the client and collected CHF 2,500,000 in financing, funding the difference from its physically held Nestlé hedge: the shares it bought to hedge the equity leg appreciated by the same CHF 4,000,000 it owed, while it retained the financing spread, stock lending income, and the dividend pass-through margin. The delta-one hedge stays one-for-one across each quarterly reset — there is no gamma to rebalance. The 2nd line must confirm the equity return per quarter (notional × return), the gross/net dividend treatment on the Q2 and Q3 dividend-inclusive figures, the reset dates, and that the equity-leg and funding-leg PVs net correctly in Murex before each settlement.
 
-#### §19. Knowledge Check
+#### §13. Knowledge Check
 
-1. **How does an equity swap differ from a TRS?**
-2. **Explain the difference between gross and net dividend treatment in an equity swap.**
-3. **A corporate insider wants to reduce equity exposure without selling shares. How does an equity swap achieve this?**
-4. **What determines the financing spread on an equity swap?**
-5. **Why might an equity swap receive different tax treatment than direct stock ownership?**
-
+1. *(Investor)* **What is the client really doing when they enter an equity swap as the return receiver?** (Answer: receiving the equity return — price plus dividends — and paying a funding leg, gaining synthetic exposure without owning the shares.)
+2. *(Investor)* **Explain the difference between gross and net dividend treatment in an equity swap.**
+3. *(Investor)* **A corporate insider wants to reduce equity exposure without selling shares. How does an equity swap achieve this, and which leg do they pay?**
+4. *(Investor)* **Why does the receiver lose money in a flat market even when the stock pays a dividend?** Decompose the cashflows.
+5. *(Investor)* **Why might an equity swap receive different tax treatment than direct stock ownership?**
+6. **(Desk economics / 1LoD)** **The client receives the equity return; what does the desk hold as a hedge, and why is the equity risk delta-one rather than gamma? Where does the desk's net spread come from?**
+7. **(Controls / 2LoD)** **Which booking fields must reconcile in Murex for an equity swap, and which single field — if booked gross where net was agreed — systematically misstates the equity return on every dividend?**
 
 **Mental Models**
 
@@ -9345,36 +9211,27 @@ The break-even is where the equity total return (price + dividends) equals the f
 | Economic vs legal ownership | Renting vs owning — all the experience without the title deed |
 | Financing spread | The rental fee for borrowing someone else's equity returns |
 | Dividend treatment | Gross = full box office revenue; Net = revenue after the cinema's cut (tax) |
+| Delta-one hedge | The desk simply holds the shares one-for-one — a mirror, not a moving target; no gamma to chase |
 | Hedging a position | Paying the return away = locking in a financing rate instead of equity risk |
-
+| 2LoD reconciliation | The building inspector — confirms the dividend treatment, reset dates, and corporate-action terms match before any reset pays out |
 
 **Key Takeaways**
 
-1. An equity swap is a TRS specifically referencing equity — the client receives equity returns and pays a financing rate.
+1. An equity swap is a TRS specifically referencing equity — the client receives equity returns and pays a financing rate; the bank takes the mirror leg.
 2. The swap separates economic and legal ownership, enabling exposure changes without public sales.
 3. Dividend treatment (gross vs net) materially affects the economics and must be specified contractually.
-4. The swap is linear — no barriers, no optionality. Gains and losses move proportionally with the equity.
+4. The swap is linear — no barriers, no optionality. Gains and losses move proportionally with the equity, and the desk hedges delta-one by holding the physical shares.
 5. Equity swaps are booked in Murex, governed by ISDA, and settled periodically.
+6. For the 2nd line, the dominant control risks are dividend pass-through / withholding, corporate actions, equity price source, and reset alignment — each can misstate the equity return or the net settlement.
 
-
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
 1. **Ignoring dividend treatment.** The difference between gross and net dividends can be 15-30% of the dividend amount. A swap priced on gross dividends that settles net creates a systematic loss.
 2. **Assuming legal ownership transfers.** The equity swap transfers economic exposure, not legal ownership. The return receiver does not gain voting rights, governance rights, or regulatory disclosure obligations.
 3. **Forgetting the financing cost in flat markets.** If the equity is flat and pays a 2% dividend, but the financing rate is 5%, the receiver loses 3% per year.
 4. **Confusing a hedge with a sale.** A corporate insider paying equity return via a swap is not a sale — they still own the shares. But regulators may treat it as a constructive sale depending on jurisdiction.
 5. **Ignoring quanto risk.** If the swap notional is in USD but the reference equity trades in CHF, FX movements affect the return unless the swap is explicitly "quanto" (FX-hedged).
-
-### Desk Perspective
-
-| Role | What the Equity Swap Means to Them |
-|------|-----------------------------------|
-| **Trader** | Delta-hedges by holding the reference shares. Manages dividend risk (declared vs expected) and stock lending income. Single-stock swaps create concentrated exposure |
-| **Structurer** | Sets the financing spread based on funding cost, stock borrow cost, and dividend pass-through economics. Must specify gross vs net dividend treatment clearly |
-| **Product Control** | Verifies equity return calculations including corporate actions and dividends. Reconciles the reference equity's performance between Murex and market data sources |
-| **Risk** | Monitors equity exposure, counterparty credit (especially for leveraged clients), and concentration risk in single-stock positions. Dividend risk is a distinct factor |
-| **Operations** | Processes dividend pass-throughs, corporate actions, periodic resets, and margin calls. Must coordinate with the stock lending desk when the bank holds shares as hedge |
-
+6. **(Controls) Trusting a single system's dividend or corporate-action figure.** Because dividends can be booked gross or net and a split must be propagated per ISDA Equity Definitions, the 2nd line must reconcile dividend treatment and corporate-action adjustments across the booking and market-data sources rather than assume they agree.
 ### Knowledge Check
 
 **Review Questions:**
@@ -9384,6 +9241,10 @@ The break-even is where the equity total return (price + dividends) equals the f
 4. What happens when the reference equity pays a dividend during the swap?
 5. How does a corporate insider use an equity swap to reduce exposure?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* Which side of the swap does the desk take, and what is its primary risk (rate/curve/financing) and how is it hedged?
+- *(Controls / 2LoD)* Which leg/fixing/collateral fields must reconcile across systems for this swap, and which is the most common break?
 **Scenario Questions:**
 1. A pension fund enters a CHF 200M equity swap receiving the SPI index return, paying 4.8% financing. The SPI returns 7% (including 2% dividends) over the year. Calculate the net P&L. What if the SPI returned −3%?
 2. A corporate insider holds 1 million shares of Company X at €50. They enter an equity swap paying the return on 500,000 shares. Company X rises 20%. What is the insider's net position?
@@ -9449,6 +9310,11 @@ A client has a $500M equity swap receiving the return on a concentrated basket o
 - **Diagram elements:** Three rate path scenarios (rates up, stable, down) showing P&L impact. Clearly labelled outcomes
 - **Reuse status:** Adapt from scenario template
 
+
+**Dual-lens visuals (generated):**
+- `assets/eqswap/controls_eqswap_recon_08.svg` `[generated]`
+- `assets/eqswap/legs_eqswap_01.svg` `[generated]`
+- `assets/eqswap/waterfall_eqswap_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -9461,30 +9327,27 @@ A client has a $500M equity swap receiving the return on a concentrated basket o
 | Variance Swap | 5.2.4 — vol not direction |
 ### 5.2.4 Variance Swap
 
-*The IRS traded interest rate risk. The TRS traded asset return risk. The Variance Swap trades something more abstract: the volatility of an asset's returns. One party pays a fixed amount representing expected variance, and the other pays realized variance — how much the asset actually moved. The Variance Swap is the purest way to trade volatility as a standalone asset.*
+---
 
-**How This Differs From the IRS (5.2.1) and TRS (5.2.2):** The IRS swaps interest rates. The TRS swaps asset returns. The Variance Swap swaps variance — the square of volatility. The payoff depends not on where the asset ends up, but on how much it moved along the way. A stock can finish exactly where it started and still produce a large variance swap payout if it was volatile during the period.
-
+*The IRS traded interest rate risk. The TRS traded asset return risk. The Variance Swap trades something more abstract: the volatility of an asset's returns. It is a pure derivative — no note, no barrier, no embedded put or call — that pays the difference between realized variance and a fixed variance strike at maturity. One party (the long) profits when the asset moves more than expected; the other (the short) profits when it moves less. This chapter reads the product through two lenses: what it means for **the client**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
 Kwame is a risk manager at a sovereign wealth fund. His portfolio contains $20 billion in global equities. He does not want to hedge the direction of the market — he has a long-term bullish view. But he is worried about periods of extreme turbulence: the kind of violent swings that force portfolio rebalancing, trigger risk limits, and create operational stress.
 
-A **Variance Swap** lets Kwame trade volatility directly. He enters a contract where he receives a payment if the market moves more than expected (high realized variance) and pays if the market moves less than expected (low realized variance). If a crisis hits and volatility spikes, the variance swap pays out — offsetting the stress on the rest of his portfolio.
+A **Variance Swap** lets the client trade volatility directly. The client enters a contract that pays out if the market moves more than expected (high realized variance) and costs the client if the market moves less than expected (low realized variance). If a crisis hits and volatility spikes, the variance swap pays out — offsetting the stress on the rest of the portfolio.
 
-The key insight: a Variance Swap does not care whether the market goes up or down. It only cares about how much the market moves. Large daily moves in either direction increase realized variance and generate a payout.
-
+The key insight: a Variance Swap does not care whether the market goes up or down. It only cares about how much the market moves. Large daily moves in either direction increase realized variance and generate a payout to the party that is long variance.
 
 #### §2. Real-World Analogy
 
-A Variance Swap is like weather insurance for a farmer — but instead of insuring against drought or flood, you are insuring against weather unpredictability itself.
+A Variance Swap is like weather insurance for a farmer — but instead of insuring against drought or flood, the contract insures against weather unpredictability itself.
 
 The farmer's crop grows best when the weather is stable: sunny days followed by sunny days, or rainy days followed by rainy days. The crop suffers when the weather is chaotic: sun, then storm, then heatwave, then frost — even if the average temperature over the season is perfectly normal.
 
 A variance swap works the same way. It pays off when market conditions are chaotic (high variance) — regardless of whether the market trends up or down. The "weather insurance" pays the farmer when conditions are turbulent, offsetting crop losses from unpredictable conditions.
 
-The fixed amount the farmer pays (the variance strike) represents the insurer's expectation of how turbulent the season will be. If actual turbulence exceeds this expectation, the insurance pays out. If conditions are calm, the farmer loses the premium.
-
+The fixed amount the farmer pays (the variance strike) represents the insurer's expectation of how turbulent the season will be. If actual turbulence exceeds this expectation, the insurance pays out. If conditions are calm, the farmer loses the premium. In this analogy the long-variance client is the policyholder buying protection, while the short-variance party (often the bank's counterparty, or the bank itself) is the insurer collecting premium.
 
 #### §3. What Problem Does This Solve?
 
@@ -9497,6 +9360,7 @@ The Variance Swap addresses the **pure volatility exposure** need:
 | Tail risk protection | Variance payoff is convex — extreme moves produce disproportionately large payouts |
 | Volatility income | Sell variance — earn premium in calm markets |
 
+When a client needs pure volatility exposure, options fall short: they are "contaminated" by directional risk (delta) and must be continuously re-hedged to isolate the volatility view. A variance swap delivers the volatility exposure cleanly — the payoff depends only on how much the underlying moves, not which direction.
 
 #### §4. Product DNA
 
@@ -9557,86 +9421,122 @@ The Variance Swap addresses the **pure volatility exposure** need:
 | 2 | Interest rate swap | Periodic cash flow exchange | Transform rate exposure between fixed and floating |
 | 3 | Variance Swap | Specific swap features added | Extended swap concept: Swap paying realised variance vs fixed variance strike. Pure volatility exposure without directional bias. Convex payoff |
 
-#### §7. How the Bank Makes Money
+---
+
+#### §7. THE INVESTOR LENS
+
+**Why the client enters it**
+
+1. **Pure volatility exposure.** No directional view required — the payoff depends only on realized variance, not market direction. This is the cleanest instrument for trading the concept taught in Section 1.5 (Volatility).
+2. **Convexity.** The variance payoff is convex: a move from 20% vol to 30% vol pays more than a move from 10% to 20%. This makes long variance a natural tail-risk hedge.
+3. **No delta hedging.** Unlike options (which have delta and must be continuously hedged), a variance swap has zero delta by construction.
+4. **View expression.** A client with a view on whether the market will be more or less volatile than the implied strike can monetize that view directly, going long or short variance.
+5. **Standardized and liquid.** Variance swaps on major indices (S&P 500, EURO STOXX 50) are actively traded with good liquidity.
+
+**Legs & position (long/short variance)**
+
+A variance swap has two sides. The party that is **long variance** profits if realized volatility exceeds the strike — this is the natural tail-risk hedge, profitable when chaos arrives. The party that is **short variance** profits if realized volatility stays below the strike — this is the volatility seller, collecting premium in calm markets but exposed to catastrophic loss in a spike.
+
+There is no bond leg, no embedded put or call, and no barrier. The position is pure: long variance is long volatility (and long tail risk); short variance is short volatility. With a single underlying there is no correlation exposure. A long-variance client running a $10M vega notional against an implied strike of 20% is positioned to receive a large payout if realized volatility spikes to 40-60% in a market crisis; the short-variance party collects the variance premium so long as realized volatility stays below the strike.
+
+**Payoff & scenarios**
+
+The payoff is **linear in variance**, which means it is **convex in volatility**. At maturity the long-variance party receives Variance Notional × (Realized Variance − Variance Strike); when realized variance is below the strike, that quantity is negative and the long pays the short. Because variance is the square of volatility, the same payoff plotted against realized *volatility* is a curve that accelerates as vol rises: payoff = (realized² − strike²) × notional.
+
+![Variance Swap Payoff vs Realized Vol — Investor Lens](assets/varswap/payoff_varswap_01.svg)
+
+**Product:** 1-year Variance Swap on the EURO STOXX 50. **Variance notional:** $250,000 per variance point. **Variance strike:** 20% (expressed in volatility terms; variance strike = 400 in variance terms). **Settlement:** At maturity, based on realized variance over the life.
+
+- **Scenario 1 — Realized vol = 22%:** Realized variance = 22² = 484. Strike variance = 20² = 400. Payoff: $250,000 × (484 − 400) = $250,000 × 84 = **$21,000,000 to long variance.**
+- **Scenario 2 — Realized vol = 18%:** Realized variance = 18² = 324. Payoff: $250,000 × (324 − 400) = $250,000 × (−76) = **$19,000,000 to short variance** (long variance pays).
+- **Scenario 3 — Crisis: Realized vol = 40%:** Realized variance = 40² = 1,600. Payoff: $250,000 × (1,600 − 400) = **$300,000,000 to long variance.** The convexity is dramatic — a doubling of vol produces a 4× increase in variance.
+- **Scenario 4 — Very calm market: Realized vol = 12%:** Realized variance = 12² = 144. Payoff: $250,000 × (144 − 400) = **$64,000,000 to short variance.**
+
+**Risks to the client**
+
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Unlimited loss (short variance)** | Realized variance has no upper bound — a short variance position faces theoretically unlimited loss | Critical |
+| **Convexity risk** | The convex payoff means small changes in realized vol can produce large P&L swings, especially at high vol levels | High |
+| **Gap risk** | Large overnight price moves (gaps) contribute disproportionately to realized variance | High |
+| **Mark-to-market volatility** | The variance swap's value fluctuates with implied volatility, creating interim P&L swings even before settlement | Medium |
+| **Correlation with portfolio** | Long variance typically profits during market crashes — but the timing and magnitude may not perfectly offset portfolio losses | Medium |
+| **Replication risk** | The variance swap's economics rely on a replicating options portfolio that may not perfectly track in illiquid or extreme markets | Medium |
+
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk takes the other side of the client's position. Where the client is long variance, the desk is **short** variance; where the client is short variance, the desk is **long**. The booking is a single Variance Swap with no embedded note, put, or call — the economics are the variance strike, the variance notional, the reference asset, the observation period, and the day count. The client's variance strike is, to the desk, the level at which it has agreed to exchange realized variance for fixed variance.
+
+**Replication & hedging**
+
+The desk does not hold an opposite variance swap; it **replicates** the position. A variance swap can be perfectly replicated by a static strip of out-of-the-money options at every strike, weighted by 1/K² (where K is the strike price), combined with a dynamic delta hedge in the underlying. This is a fundamental result from financial mathematics — variance is the integral of all option prices across the strike spectrum. The desk continuously re-hedges the delta of that option strip as the implied volatility surface moves; because the payoff is convex, the desk's P&L accelerates at high vol levels (the position *is* gamma). The cost of assembling and maintaining the replicating strip is typically less than the variance swap price, creating a structural margin — but in illiquid or extreme markets the strip may not perfectly track, and that replication error is the desk's risk.
+
+**How the bank makes money**
 
 | Revenue Component | Detail |
 |------------------|--------|
-| **Bid-offer spread** | Captures spread between buy and sell pricing |
-| **Hedging P&L** | Profits from managing hedge portfolio (realized vs implied) |
-| **Funding benefit** | Earns funding spread on collateral received under CSA |
+| **Bid-offer spread** | The bank buys variance at a lower implied vol than it sells, capturing the spread on the variance strike |
+| **Replication premium** | The cost of replicating the variance swap with a strip of options is typically less than the variance swap price, creating a structural margin |
+| **Hedging P&L** | Profits from managing the hedge portfolio (realized vs implied) |
+| **Funding benefit** | Earns funding spread on collateral received under the CSA |
 | **Structuring fee** | Fee for custom features beyond vanilla terms |
 
-#### §8. Why This Product Exists (Client Perspective)
+**The desk margin decomposition:**
 
-1. **Pure volatility exposure.** No directional view required — the payoff depends only on realized variance, not market direction.
-2. **Convexity.** Variance payoff is convex: a move from 20% vol to 30% vol pays more than a move from 10% to 20%. This makes long variance a natural tail-risk hedge.
-3. **No Delta hedging.** Unlike options (which have Delta and must be continuously hedged), a variance swap has zero Delta by construction.
-4. **Standardized and liquid.** Variance swaps on major indices (S&P 500, EURO STOXX 50) are actively traded with good liquidity.
+The variance strike the client trades on is built from the cost of the replicating strip plus the desk's margin and bid-offer. In illustrative terms, against a vanilla mid variance strike the desk adds the replication cost it must fund, captures the bid-offer between buy and sell pricing, and retains a structuring margin for custom features. The replication premium — the gap between the variance swap price and the cheaper cost of the option strip — is the structural source of margin; bid-offer and funding sit on top.
 
-#### Why This Product Exists
+![Variance Swap Desk Margin — Bank Lens (Desk Economics)](assets/varswap/waterfall_varswap_09.svg)
 
-**1. Typical Buyer**
+**P&L drivers**
 
-Hedge funds running volatility strategies. Risk managers seeking portfolio-level tail hedges. Insurance companies managing annuity guarantees. Proprietary trading desks expressing volatility views.
+Day to day, desk P&L is driven by realized-versus-implied volatility on the delta-hedged option strip, the convexity of the position as vol moves (P&L accelerating at high vol), funding on collateral, and the mark-to-market of the replicating portfolio against the booked variance swap. The dominant idiosyncratic risks are **replication error** (the strip failing to track the variance swap in illiquid or extreme markets) and **gap risk** (overnight jumps contributing disproportionately to realized variance and to the hedge slippage). Product Control attributes P&L for the variance book and performs independent price verification.
 
-**2. Problem Being Solved**
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
 
-Options provide volatility exposure but are "contaminated" by directional risk (Delta). A variance swap provides pure volatility exposure — the payoff depends only on how much the underlying moves, not which direction. This makes it the cleanest instrument for trading the concept taught in Section 1.5 (Volatility).
+**Booking & systems**
 
-**3. How The Client Makes Money**
+| Aspect | Detail |
+|--------|--------|
+| **Booking system** | Murex |
+| **Pricing system** | Murex |
+| **Four-leg framework?** | No |
+| **Product type** | Variance Swap |
+| **Key booking fields** | Variance notional, variance strike (or vol strike), reference asset, observation period, day count |
+| **Settlement** | At maturity: single payment based on realized variance vs strike |
+| **ISDA documentation** | ISDA Master Agreement, CSA, ISDA Equity Definitions (variance swap supplement) |
 
-Long variance: best case is a market crisis where realized volatility spikes to 40-60% against an implied strike of 20%. On a $10M vega notional, a 20-point variance increase could pay $10-20M. Short variance: best case is a calm market where realized volatility stays below the strike, and the seller collects the variance premium.
+**Reconciliation points**
 
-**4. How The Bank Makes Money**
+| Recon point | What must agree | VarSwap-specific break |
+|-------------|-----------------|------------------------|
+| **ISDA / CSA** | Master Agreement, CSA terms, and ISDA Equity Definitions (variance swap supplement) reference the same confirmation | Trade booked against the wrong CSA or a stale supplement → collateral and netting wrong |
+| **Realized-variance formula & fixing source** | The variance calculation method (close-to-close vs intraday), the fixing source, and the exact annualized variance formula match the confirmation | Close-to-close vs intraday return convention differs between systems → different realized variance |
+| **Sampling frequency / annualization** | Daily sampling, holiday/weekend treatment, and the annualization factor agree with the contract | Non-trading days included in one system, excluded in another → realized variance miscalculated |
+| **Strike** | Variance strike (and the vol-strike it derives from) is consistent across systems and the confirmation | Vol strike stored where variance strike is expected (or vice versa) → payoff off by a square |
+| **Cap** | Whether a realized-variance cap exists (commonly 2.5× strike) and its exact level | Cap present in the confirmation but not flagged in the booking → short-side loss unbounded in system |
+| **Variance notional vs vega notional** | Which notional convention is booked; vega notional × 2 × strike = variance notional | Vega notional booked as variance notional → payoff off by a factor related to the strike |
+| **Leg PV / collateral** | Mark-to-market of the variance swap reconciles to the replicating portfolio; collateral called under the CSA matches the MTM | Stale vol surface → PV and collateral diverge between front office and risk |
+| **Settlement** | Single maturity payment = variance notional × (realized variance − strike), capped if applicable | Settlement computed without the cap, or with the wrong notional convention |
 
-- **Bid-offer spread:** The bank buys variance at a lower implied vol than it sells, capturing the spread
-- **Replication premium:** The bank replicates the variance swap using options across strikes. The cost of replication is typically less than the variance swap price, creating a structural margin
-- **Volatility surface trading:** The bank can express views on the volatility surface while servicing client flow
+![VARSWAP Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/varswap/controls_varswap_recon_08.svg)
 
-**5. Market Conditions Where Demand Increases**
+**Common breaks & red flags**
 
-Demand for long variance increases before anticipated volatility events (elections, central bank decisions, earnings seasons) or during early stages of market stress. Demand for short variance increases in prolonged calm markets when investors seek yield through volatility selling.
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Realized variance calculation methodology | Different methods for calculating daily returns (close-to-close vs intraday) produce different realized variance | Verify the calculation methodology matches the confirmation |
+| Holiday / weekend treatment | How non-trading days are handled in the variance calculation varies by contract | Verify whether weekends/holidays are included or excluded |
+| Variance notional vs vega notional confusion | Vega notional × 2 × strike = variance notional. Confusing the two produces dramatically wrong payoffs | Verify which notional convention is used |
+| Ex-dividend adjustment | Large special dividends can inflate daily returns. Some contracts adjust for dividends, others do not | Check the dividend adjustment clause |
+| Cap on realized variance | Some contracts cap realized variance at 2.5× the strike to limit losses for the short side | Verify whether a cap exists and at what level |
 
-**6. When This Product Makes Sense**
+**Control implication**
 
-Suitable for sophisticated investors who understand variance (not just volatility), convexity, and the distinction between implied and realized volatility. Ideal for tail-risk hedging or expressing pure volatility views.
+The dominant control risk on a variance swap is the **realized-variance calculation itself**: the fixing source, the sampling frequency (and holiday/weekend treatment), and the annualization must reconcile exactly against the confirmation, because small methodology differences produce large payment differences on a convex payoff. Alongside it sits the **cap** (commonly 2.5× strike): if the cap is in the confirmation but not flagged in the booking, the system overstates the short side's loss in a spike and the settlement is computed wrong. A strike or notional-convention error (vol vs variance, vega vs variance) misstates the payoff by a square or by a strike-related factor. The reconciliation exists precisely to catch these inconsistencies before the single maturity settlement crystallises them.
 
-**7. When This Product Is Usually A Poor Choice**
-
-Unsuitable for investors who are actually seeking directional hedges (options are better). Short variance positions carry unlimited loss potential — a poor choice for investors who cannot absorb a realized vol spike to 80%+. Not appropriate for investors who confuse volatility level with volatility direction.
-
-
-#### §9. The Three Scenarios
-
-| Scenario | Market Condition | Outcome for Investor |
-|----------|-----------------|---------------------|
-| **Best case** | Underlying performs strongly | Maximum return captured (subject to any participation cap or barrier) |
-| **Base case** | Underlying is flat or moderately positive | Moderate return or coupon income depending on structure |
-| **Worst case** | Underlying declines significantly | Capital at risk if below protection level; coupon may partially offset |
-
-*Detailed scenario analysis with specific numbers follows in §10.*
-
-#### §10. What Happens When Markets Move
-
-**Product:** 1-year Variance Swap on the EURO STOXX 50
-**Variance notional:** $250,000 per variance point
-**Variance strike:** 20% (expressed in volatility terms; variance strike = 400 in variance terms)
-**Settlement:** At maturity, based on realized variance over the life
-
-**Scenario 1 — Realized vol = 22%:**
-Realized variance = 22² = 484. Strike variance = 20² = 400. Payoff: $250,000 × (484 − 400) = $250,000 × 84 = **$21,000,000 to long variance.**
-
-**Scenario 2 — Realized vol = 18%:**
-Realized variance = 18² = 324. Payoff: $250,000 × (324 − 400) = $250,000 × (−76) = **$19,000,000 to short variance** (long variance pays).
-
-**Scenario 3 — Crisis: Realized vol = 40%:**
-Realized variance = 40² = 1,600. Payoff: $250,000 × (1,600 − 400) = **$300,000,000 to long variance.** The convexity is dramatic — a doubling of vol produces a 4× increase in variance.
-
-**Scenario 4 — Very calm market: Realized vol = 12%:**
-Realized variance = 12² = 144. Payoff: $250,000 × (144 − 400) = **$64,000,000 to short variance.**
-
-
-#### §11. Formal Definition
+#### §10. Formal Definition
 
 A **Variance Swap** is a derivative contract that pays the difference between realized variance and a fixed variance strike.
 
@@ -9650,18 +9550,7 @@ Where:
 
 The payoff is **linear in variance** (which means it is **convex in volatility**). This convexity is the key feature: large volatility moves produce disproportionately large payoffs.
 
-
-#### §12. Product Construction
-
-A variance swap is a pure derivative — no bond, no embedded option in the traditional sense. However, the bank replicates it using a portfolio of options across all strikes on the reference asset.
-
-**Replication:**
-A variance swap can be perfectly replicated by a portfolio of out-of-the-money options at every strike, weighted by 1/K² (where K is the strike price). This is a fundamental result from financial mathematics — variance is the integral of all option prices across the strike spectrum.
-
-> **Professor Note:** If you remember only one thing from this chapter, remember this: a variance swap pays based on how much the market moves, not where it ends up. The payoff is convex — a market that moves twice as much in volatility terms produces four times the variance payout. This convexity makes long variance the most powerful tail-risk hedge available.
-
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Detail |
 |-------|--------|
@@ -9670,90 +9559,29 @@ A variance swap can be perfectly replicated by a portfolio of out-of-the-money o
 | **Periodic payments** | Scheduled cash flow exchanges on payment dates. Netting applied |
 | **Maturity** | Final exchange of cash flows. Trade terminated. Collateral returned |
 
-#### §14. Desk Reality
+#### §12. Worked Example (both lenses)
 
-```
-Payoff ($)
-for Long
-Variance
-    |
-    |                    ╱
-    |                  ╱  ← Payoff is linear in variance
-    |                ╱       (convex in volatility)
-    |              ╱
-    |            ╱
-  0 |──────────*─────────  ← Variance Strike (e.g., 400 = 20²)
-    |        ╱
-    |      ╱
-    |    ╱
-    +──────────────────→ Realized Variance
-         (Realized Vol²)
-```
+**Product:** 6-month Variance Swap on EURO STOXX 50. **Vega notional:** €100,000 per volatility point. **Variance strike:** 22% vol (variance strike = 484). **Variance notional:** €100,000 / (2 × 22) = €2,273 per variance point.
 
-The payoff chart is a straight line in variance space. But because variance = vol², the same chart plotted against volatility would show a curve — accelerating payoff as vol increases.
+*Client lens:*
+- **Realized vol = 28%:** Realized variance = 28² = 784. Payoff: €2,273 × (784 − 484) = €2,273 × 300 = **€681,818 to long variance.** In vega terms: vol moved from the 22% strike to 28% realized = 6 vol points; approximate payout €100,000 × 6 = €600,000. The actual payout (€681,818) is higher due to convexity — the variance swap overperforms a simple vega-based estimate.
+- **If realized vol = 15%:** Realized variance = 225. Payoff: €2,273 × (225 − 484) = €2,273 × (−259) = **€588,636 to short variance.** The long-variance client pays this; the calm market overwhelmed the strike.
 
+*Bank lens:*
+- In the first scenario the desk is short variance against a long client: realized vol (28%) exceeded the strike (22%), so the desk pays €681,818. Its replicating option strip and delta hedge should have accrued gains as vol rose, offsetting the obligation; the convexity means the loss accelerated above the strike, which is why the strip is weighted 1/K². Product Control attributes the P&L between the realized-variance accrual and the replicating-portfolio MTM.
+- In the second scenario realized vol (15%) was below the strike, so the desk (short variance) receives €588,636 from the long client. The 2nd line must confirm the realized-variance calculation (fixing source, sampling, annualization) matches the confirmation, that the variance notional (€2,273, derived as €100,000 / (2 × 22)) was used rather than the vega notional, and that any cap was applied before the single settlement.
 
-#### §15. Risk Analysis
-
-| Risk | Description | Severity |
-|------|------------|:--------:|
-| **Unlimited loss (short variance)** | Realized variance has no upper bound — a short variance position faces theoretically unlimited loss | Critical |
-| **Convexity risk** | The convex payoff means small changes in realized vol can produce large P&L swings, especially at high vol levels | High |
-| **Gap risk** | Large overnight price moves (gaps) contribute disproportionately to realized variance | High |
-| **Mark-to-market volatility** | The variance swap's value fluctuates with implied volatility, creating interim P&L swings even before settlement | Medium |
-| **Correlation with portfolio** | Long variance typically profits during market crashes — but the timing and magnitude may not perfectly offset portfolio losses | Medium |
-| **Replication risk** | The bank's hedge (options portfolio) may not perfectly replicate the variance swap in illiquid or extreme markets | Medium |
-
-
-#### §16. Booking and Systems
-
-| Field | Value |
-|-------|-------|
-| **Booking system** | Murex |
-| **Pricing system** | Murex |
-| **Four-Leg** | No |
-| **Product type** | Variance Swap |
-| **Key booking fields** | Variance notional, variance strike (or vol strike), reference asset, observation period, day count |
-| **Settlement** | At maturity: single payment based on realized variance vs strike |
-| **ISDA documentation** | ISDA Master Agreement, CSA, ISDA Equity Definitions (variance swap supplement) |
-
-
-#### §17. Red Flags
-
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| **Realized variance calculation methodology** | Different methods for calculating daily returns (close-to-close vs intraday) produce different realized variance | Verify the calculation methodology matches the confirmation |
-| **Holiday/weekend treatment** | How non-trading days are handled in the variance calculation varies by contract | Verify whether weekends/holidays are included or excluded |
-| **Variance notional vs vega notional confusion** | Vega notional × 2 × strike = variance notional. Confusing the two produces dramatically wrong payoffs | Verify which notional convention is used |
-| **Ex-dividend adjustment** | Large special dividends can inflate daily returns. Some contracts adjust for dividends, others do not | Check the dividend adjustment clause |
-| **Cap on realized variance** | Some contracts cap realized variance at 2.5× the strike to limit losses for the short side | Verify whether a cap exists and at what level |
-
-
-#### §18. Worked Example
-
-**Product:** 6-month Variance Swap on EURO STOXX 50
-**Vega notional:** €100,000 per volatility point
-**Variance strike:** 22% vol (variance strike = 484)
-**Variance notional:** €100,000 / (2 × 22) = €2,273 per variance point
-
-**Outcome — Realized vol = 28%:**
-Realized variance = 28² = 784.
-Payoff: €2,273 × (784 − 484) = €2,273 × 300 = **€681,818 to long variance.**
-
-**In vega terms:** Vol moved from 22% strike to 28% realized = 6 vol points. Approximate payout: €100,000 × 6 = €600,000. The actual payout (€681,818) is higher due to convexity — the variance swap overperforms a simple vega-based estimate.
-
-**If realized vol = 15%:**
-Realized variance = 225. Payoff: €2,273 × (225 − 484) = €2,273 × (−259) = **€588,636 to short variance.**
-
-
-#### §19. Knowledge Check
+#### §13. Knowledge Check
 
 1. **What does a variance swap pay based on? How is this different from an option?**
 2. **Explain the difference between being "long variance" and "long volatility."**
 3. **Why is the variance swap payoff convex in volatility?**
 4. **A short variance seller says their maximum loss is limited. Are they correct?**
 5. **How is a variance swap replicated using options?**
-
+6. **A client buys a variance swap with a 20% strike and is told "maximum loss is the premium." Is this correct?** Explain.
+7. **Why does a realized-vol spike from 20% to 40% pay 4× the variance move, not 2×?**
+8. **(Controls / 2LoD)** Name three reconciliation breaks specific to a variance swap (across the realized-variance formula, fixing source, sampling/annualization, strike, cap, and notional convention) and the consequence of each for the settlement payment.
+9. **(Desk economics / 1LoD)** What position does the desk hold against a long-variance client, how does it replicate that position with a strip of options weighted 1/K² plus a delta hedge, and where does its margin and replication risk come from?
 
 **Mental Models**
 
@@ -9765,35 +9593,26 @@ Realized variance = 225. Payoff: €2,273 × (225 − 484) = €2,273 × (−259
 | Long variance | Buying storm insurance — profitable when chaos arrives |
 | Short variance | Selling storm insurance — profitable in calm weather, catastrophic in storms |
 | Realized vs implied | Actual weather vs forecasted weather — the difference determines the payout |
-
+| Replication strip | The desk re-creates the insurance from many small option contracts (weighted 1/K²) rather than holding one matching policy |
+| 2LoD reconciliation | The claims adjuster — confirms the realized-variance calculation and cap match the contract before the single payment |
 
 **Key Takeaways**
 
-1. A variance swap pays the difference between realized variance and a fixed strike, providing pure volatility exposure.
+1. A variance swap pays the difference between realized variance and a fixed strike, providing pure volatility exposure — no note, no barrier, no embedded put or call.
 2. The payoff is linear in variance, which means it is convex in volatility — large vol moves produce disproportionately large payoffs.
-3. Long variance is a natural tail-risk hedge: it profits most during market crises when vol spikes.
-4. Short variance carries unlimited loss potential — selling variance is like selling storm insurance.
+3. Long variance is a natural tail-risk hedge: it profits most during market crises when vol spikes. Short variance carries unlimited loss potential — selling variance is like selling storm insurance.
+4. The client is long or short variance; the desk takes the other side and replicates it with a static strip of options weighted 1/K² plus a dynamic delta hedge, earning the bid-offer and replication premium and bearing replication error and gap risk.
 5. Variance swaps are booked in Murex and settled at maturity based on the observed daily returns of the reference asset.
+6. For the 2nd line, the dominant control risks are the realized-variance calculation (fixing source, sampling/annualization), the strike and notional convention (vol vs variance, vega vs variance), and the cap (commonly 2.5× strike) — each can misstate the single settlement.
 
-
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
 1. **Confusing variance with volatility.** Variance = vol². A move from 20% to 30% vol is a 10-point vol move but a 500-point variance move (900 − 400). The payout is in variance, not vol.
 2. **Underestimating short variance risk.** Realized vol can spike to 80%+ in crises. Short variance on a €100K vega notional could lose €10M+ in such an event.
 3. **Confusing vega notional with variance notional.** These are different conventions. Using the wrong one produces payoffs that are off by a factor related to the strike.
 4. **Thinking variance swaps have directional exposure.** They do not. A stock can rise 20% and produce high variance if it did so with large daily swings. Direction does not matter — only magnitude of moves.
 5. **Ignoring the cap.** Many variance swaps include a cap on realized variance (e.g., 2.5× strike). This limits the short side's exposure but also caps the long side's payout. Always check.
-
-### Desk Perspective
-
-| Role | What the Variance Swap Means to Them |
-|------|-------------------------------------|
-| **Trader** | Replicates the variance swap using a strip of options across all strikes. Must continuously re-hedge as the implied volatility surface moves. Convexity means P&L accelerates at high vol levels |
-| **Structurer** | Prices the variance strike by reading the implied volatility surface. Must explain convexity to clients: "If vol doubles, your payout quadruples." Sets cap levels for short variance clients |
-| **Product Control** | Verifies realized variance calculations daily: accumulates squared daily returns. Must reconcile against the contractual calculation methodology (close-to-close, holiday treatment) |
-| **Risk** | Monitors aggregate variance exposure across the book. Long variance positions profit in crises but bleed premium in calm markets. Short variance positions are the most dangerous exposure on the desk |
-| **Operations** | Processes the single settlement payment at maturity. Must verify the realized variance calculation matches the contractual specification — small differences in methodology produce large payment differences |
-
+6. **(Controls) Trusting a single system's realized-variance figure.** Because close-to-close vs intraday returns, holiday/weekend treatment, and annualization can differ between systems, the 2nd line must reconcile the realized-variance methodology and fixing source against the confirmation rather than assume the systems agree.
 ### Knowledge Check
 
 **Review Questions:**
@@ -9803,6 +9622,10 @@ Realized variance = 225. Payoff: €2,273 × (225 − 484) = €2,273 × (−259
 4. How is a variance swap replicated?
 5. What is a variance cap and why does it exist?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* Which side of the swap does the desk take, and what is its primary risk (rate/curve/financing) and how is it hedged?
+- *(Controls / 2LoD)* Which leg/fixing/collateral fields must reconcile across systems for this swap, and which is the most common break?
 **Scenario Questions:**
 1. A variance swap has a strike of 18% vol and €50,000 vega notional. Realized vol is 25%. Calculate the approximate payoff using vega notional. Then calculate the exact payoff using variance notional. Why do they differ?
 2. A hedge fund sells variance on the S&P 500 with a strike of 15% and $500,000 vega notional. A market crash causes realized vol to reach 60%. Calculate the loss. Explain why selling variance is described as "picking up pennies in front of a steamroller."
@@ -9868,6 +9691,11 @@ The desk has sold $2M vega notional of variance swaps on the EURO STOXX 50 at a 
 - **Diagram elements:** Three rate path scenarios (rates up, stable, down) showing P&L impact. Clearly labelled outcomes
 - **Reuse status:** Adapt from scenario template
 
+
+**Dual-lens visuals (generated):**
+- `assets/varswap/controls_varswap_recon_08.svg` `[generated]`
+- `assets/varswap/payoff_varswap_01.svg` `[generated]`
+- `assets/varswap/waterfall_varswap_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -9880,30 +9708,29 @@ The desk has sold $2M vega notional of variance swaps on the EURO STOXX 50 at a 
 | TRS | 5.2.2 — asset return |
 ### 5.2.5 Credit Default Swap (CDS)
 
-*The IRS transferred interest rate risk. The TRS transferred asset return risk. The Variance Swap transferred volatility risk. The Credit Default Swap transfers credit risk — the risk that a borrower fails to pay its debts. A CDS is insurance on a loan. The protection buyer pays a regular premium; the protection seller pays out if the borrower defaults. Part 1.9 introduced the CDS concept. This chapter covers the full product mechanics.*
+---
+
+*Where an Interest Rate Swap (Section 5.2.1) exchanges two streams of interest payments and neither side faces an "event" payment, a Credit Default Swap transfers credit risk — the risk that a borrower fails to pay its debts. A CDS is a bilateral OTC contract with no bond wrapper, no barrier, and no embedded put or call: it has a regular premium leg and a contingent protection leg. The protection buyer pays a periodic premium (the CDS spread); the protection seller pays out only if a credit event occurs on the reference entity. This chapter reads the product through two lenses: what it means for **the client** (the counterparty buying or selling protection), and what it means for **the bank** — the latter split into the desk's credit economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 **How This Differs From the IRS (5.2.1):** Both are swaps with periodic payments. But an IRS exchanges interest rate cash flows, and neither side faces a potential "event" payment. A CDS has a regular leg (premium payments) and a contingent leg (payment only if a credit event occurs). The CDS is an insurance contract in swap form.
-
 
 #### §1. Explain Like I'm New
 
 Isabella is a portfolio manager at a European insurance company. Her portfolio holds €200 million in corporate bonds from various issuers. She is comfortable with the credit quality of most issuers but is worried about one: a large energy company whose debt she holds €30 million of. Recent earnings have been weak, and she is concerned about a potential default.
 
-She could sell the bonds, but the market is illiquid — selling would mean accepting a steep discount. Instead, she buys a **Credit Default Swap** on the energy company. She pays a regular premium (the CDS spread — say, 250 basis points per year, or €750,000 annually on €30M). In return, if the energy company defaults, the protection seller compensates Isabella for her loss.
+She could sell the bonds, but the market is illiquid — selling would mean accepting a steep discount. Instead, she buys a **Credit Default Swap** on the energy company. She pays a regular premium (the CDS spread — say, 250 basis points per year, or €750,000 annually on €30M). In return, if the energy company defaults, the protection seller compensates her for the loss.
 
-The CDS allows Isabella to keep the bonds (maintaining her portfolio composition and client relationships) while transferring the default risk to someone else. It is credit insurance — and like all insurance, you hope you never need to collect.
-
+The CDS allows Isabella to keep the bonds (maintaining her portfolio composition and client relationships) while transferring the default risk to the protection seller. It is credit insurance — and like all insurance, the protection buyer hopes never to need to collect.
 
 #### §2. Real-World Analogy
 
 A CDS is like a home warranty plan.
 
-You own a house with aging appliances — the furnace, water heater, and electrical panel are all 15 years old. You could replace them all now (sell the bonds), but that is expensive and disruptive. Instead, you buy a home warranty: you pay an annual fee (CDS spread), and if any appliance fails (credit event), the warranty company pays for the replacement (default payment).
+A homeowner owns a house with aging appliances — the furnace, water heater, and electrical panel are all 15 years old. The homeowner could replace them all now (the equivalent of selling the bonds), but that is expensive and disruptive. Instead, the homeowner buys a home warranty: an annual fee is paid (the CDS spread), and if any appliance fails (a credit event), the warranty company pays for the replacement (the default payment).
 
-If nothing breaks (no credit event), you have paid the warranty premium "for nothing" — but you had peace of mind. If the furnace fails in January (the company defaults), the warranty pays for a new one — saving you thousands.
+If nothing breaks (no credit event), the warranty premium has been paid "for nothing" — but the homeowner had peace of mind. If the furnace fails in January (the company defaults), the warranty pays for a new one — saving thousands.
 
-The warranty premium reflects the condition of your appliances (credit quality of the reference entity). A newer house with modern appliances (investment-grade company) has a low premium. An older house with aging equipment (high-yield company) has a high premium.
-
+The warranty premium reflects the condition of the appliances (the credit quality of the reference entity). A newer house with modern appliances (an investment-grade company) has a low premium. An older house with aging equipment (a high-yield company) has a high premium.
 
 #### §3. What Problem Does This Solve?
 
@@ -9912,10 +9739,9 @@ The CDS addresses the **credit risk transfer** need:
 | Client Need | How the CDS Delivers |
 |------------|---------------------|
 | Hedge credit exposure without selling bonds | Buy protection — keep the bonds, transfer the default risk |
-| Express a negative credit view | Buy protection on a company you believe will deteriorate — profit from spread widening |
+| Express a negative credit view | Buy protection on a company expected to deteriorate — profit from spread widening |
 | Earn credit income without owning bonds | Sell protection — receive the CDS spread as income, bear the default risk |
 | Portfolio credit management | Adjust credit exposure dynamically without trading the underlying bonds |
-
 
 #### §4. Product DNA
 
@@ -9976,87 +9802,125 @@ The CDS addresses the **credit risk transfer** need:
 | 2 | Interest rate swap | Periodic cash flow exchange | Transform rate exposure between fixed and floating |
 | 3 | Credit Default Swap | Specific swap features added | Extended swap concept: Credit protection contract — buyer pays spread for protection against credit event. Foundation of credit derivatives |
 
-#### §7. How the Bank Makes Money
+---
+
+#### §7. THE INVESTOR LENS
+
+**Why the client enters it**
+
+1. **Credit hedging.** The client can protect against the default of a reference entity without selling the underlying bond position.
+2. **View expression.** A client with a negative credit view buys protection on a company expected to deteriorate, profiting as spreads widen; a client with a positive credit view sells protection to earn the premium.
+3. **Relative value.** The client trades the difference between the CDS spread and the bond spread when they diverge (basis trades).
+4. **Income generation.** Selling CDS protection generates regular premium income — similar to selling insurance.
+5. **Portfolio credit management.** The client adjusts credit exposure dynamically without trading the underlying bonds, which are often illiquid, slow, and market-moving to trade.
+
+**Legs & position**
+
+A CDS has two legs, and the client's position is defined entirely by which leg they pay and which they receive. There is no embedded option, no barrier, no bond — only the directional credit exposure that the buy/sell choice creates.
+
+![CDS Cashflow Legs — Investor Lens](assets/cds/legs_cds_01.svg)
+
+- **Protection buyer** is **short the reference entity's credit**: they pay the periodic premium (the CDS spread) on the notional and, if a credit event occurs, receive a contingent payout of (100% − Recovery Rate) × Notional from the protection seller. Premium payments then stop. A bank hedging a loan book, or a client expressing a bearish credit view, typically takes this side. The position gains value as the CDS spread widens (credit deteriorates).
+- **Protection seller** is **long the reference entity's credit**: they receive the periodic premium and, if a credit event occurs, pay the contingent (100% − Recovery Rate) × Notional to the protection buyer. An insurance company seeking premium income, or a client expressing a bullish credit view, takes this side. The position gains value as the CDS spread tightens (credit improves) and earns the full premium if no credit event occurs.
+
+The client's credit risk is measured by **CS01** — the change in the swap's mark-to-market value for a 1 basis point move in the credit spread. The protection seller additionally bears **jump-to-default** risk: the sudden, large contingent payment due if the reference entity defaults.
+
+**Cashflows & scenarios**
+
+On the premium leg, the protection buyer pays the spread × notional × day fraction on each (typically quarterly) payment date. The contingent leg pays only once, and only if a credit event occurs. The notional is never exchanged — it is the reference figure for both the premium and the contingent payment.
+
+**Product:** 5-year CDS on an energy company. **Notional:** €30,000,000. **CDS spread:** 250bp (2.50% per year). **Annual premium:** €30M × 2.50% = €750,000. (The client is the protection buyer.)
+
+- **Scenario 1 — No default, spreads stable:** Protection buyer pays €750,000 × 5 = €3,750,000 over 5 years. No credit event. **Cost: €3,750,000.** The insurance was not needed — like paying car insurance for 5 years without an accident.
+- **Scenario 2 — No default, spreads tighten to 100bp:** Protection buyer continues paying €750,000/year. But the CDS now has positive mark-to-market value (the market charges only 100bp for new protection; the buyer locked in at 250bp). The buyer could unwind for a profit. **MTM gain: ~€3.4M** (approximate, depends on remaining tenor and discount rates).
+- **Scenario 3 — Default in Year 3, recovery = 40%:** Credit event occurs. Protection buyer has paid 2.5 × €750,000 = €1,875,000 in premiums. Settlement: protection seller pays €30M × (1 − 40%) = **€18,000,000** to the protection buyer. Net: €18M − €1.875M = **€16,125,000 profit.** The insurance paid off.
+- **Scenario 4 — Restructuring (soft credit event):** The company restructures its debt, extending maturities. This triggers a "restructuring" credit event under ISDA. The protection buyer delivers bonds to the protection seller and receives par (€30M). The bonds may be trading at 70 cents, so the buyer effectively receives €30M − €21M = **€9M in compensation** (minus premiums paid).
+
+**Risks to the client**
+
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Credit event risk (sellers)** | If the reference entity defaults, the protection seller faces a large, sudden payment. | High |
+| **Spread risk** | CDS mark-to-market changes as spreads move — widening benefits the protection buyer, tightening benefits the protection seller. | Medium-High |
+| **Counterparty risk** | If the protection seller defaults simultaneously with the reference entity ("wrong-way risk"), the protection buyer gets no protection. | High |
+| **Basis risk** | The CDS spread may not move in line with the underlying bond spread the client is hedging. | Medium |
+| **Legal risk** | Disputes over whether an event qualifies as a "credit event" under ISDA definitions. | Medium |
+| **Recovery rate uncertainty** | The actual recovery rate is unknown until after default and auction — it can differ significantly from market assumptions. | Medium |
+
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk takes the other side of the client's CDS and books it as a two-leg trade (premium leg + contingent protection leg) in its credit book. Where the client buys protection, the desk sells protection — receiving the premium and bearing the contingent payout; where the client sells protection, the desk buys it. No bond is booked, no option is embedded; the position is the present value of the expected premium payments less the present value of the expected default payment. The desk does not want a directional credit view from a single client trade — it warehouses the resulting credit risk and hedges it down.
+
+**Credit risk & hedging**
+
+The desk's primary risk is **CS01** — the dollar value of a 1 basis point move in the credit spread — measured name by name across the book, alongside **jump-to-default** risk, the sudden loss if a reference entity defaults outright. A CDS is binary on the contingent leg: either nothing happens (premium accrues) or a credit event triggers a large payout. The desk hedges its warehoused credit risk with **offsetting CDS, basis trades (CDS versus bond spread), or index hedges (CDX, iTraxx)**, and manages **recovery rate uncertainty** — the contingent payout depends on a recovery determined only at auction. Concentration of jump-to-default risk on a single reference entity is the main risk-management concern.
+
+**How the bank makes money**
 
 | Revenue Component | Detail |
 |------------------|--------|
-| **Bid-offer spread** | Captures spread between buy and sell pricing |
-| **Hedging P&L** | Profits from managing hedge portfolio (realized vs implied) |
+| **Bid-offer spread** | The bank buys protection at a lower spread than it sells protection, capturing the difference |
+| **Market-making flow** | High-volume CDS trading generates consistent bid-offer income |
+| **CVA/DVA management** | The bank prices counterparty risk into CDS trades and manages CVA (Credit Valuation Adjustment) as a revenue center |
 | **Funding benefit** | Earns funding spread on collateral received under CSA |
-| **Structuring fee** | Fee for custom features beyond vanilla terms |
+| **Structuring into CLNs** | CDS is the core building block for Credit-Linked Notes — the bank embeds CDS protection in note form and earns a structuring fee |
 
-#### §8. Why This Product Exists (Client Perspective)
+**The desk spread decomposition:**
 
-1. **Credit hedging.** Protect against default without selling the underlying bond position.
-2. **Speculation.** Take a view on credit quality: buy protection if bearish, sell protection if bullish.
-3. **Relative value.** Trade the difference between CDS spread and bond spread when they diverge (basis trades).
-4. **Income generation.** Selling CDS protection generates regular premium income — similar to selling insurance.
+A CDS has no coupon to decompose in the way an ELN does — the client pays a periodic premium (the spread), and the desk's economics come from the markup it charges around the mid-market spread, plus market-making flow, CVA/DVA management, and the funding benefit on CSA collateral. *(The source does not provide a numeric decomposition for the CDS desk spread; the components below are inferred from the revenue table and labelled illustratively rather than taken from worked source figures.)* For a single-name CDS quoted around a mid spread, the desk's gross spread can be decomposed roughly as: bid-offer spread (the markup around mid, the dominant component); market-making flow income; CVA/DVA management; CSA funding benefit on collateral received; less the desk's own hedging and funding costs to run the position. The bid-offer and the CSA funding benefit are the structural sources; the hedging and flow P&L are the variable, market-dependent ones.
 
-#### Why This Product Exists
+![CDS Desk Spread Decomposition — Bank Lens (Desk Economics)](assets/cds/waterfall_cds_09.svg)
 
-**1. Typical Buyer**
+**P&L drivers**
 
-Protection buyers: banks hedging loan portfolios, bond investors managing credit risk, hedge funds expressing bearish credit views. Protection sellers: insurance companies seeking credit premium, pension funds writing credit protection for yield, hedge funds expressing bullish credit views.
+Day to day, desk P&L is driven by moves in credit spreads against the warehoused CS01, the realized-versus-implied carry on the hedge portfolio (offsetting CDS, basis, index), jump-to-default events against concentrated single-name exposure, changes in recovery rate assumptions used for valuation, CVA/DVA on counterparty exposure, and the funding spread earned on CSA collateral. Product Control attributes P&L daily and verifies CDS valuations independently using credit curves and recovery assumptions; the spread-to-bond basis and the recovery assumption are the most common sources of valuation differences.
 
-**2. Problem Being Solved**
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
 
-Corporate bonds are illiquid — buying and selling them to adjust credit exposure is slow, expensive, and market-moving. The CDS provides a liquid, standardized way to transfer credit risk without trading the underlying bonds.
+**Booking & systems**
 
-**3. How The Client Makes Money**
+| Aspect | Detail |
+|--------|--------|
+| **Book of record** | Murex |
+| **Pricing/Risk system** | Murex |
+| **Booking structure** | Two-leg trade (premium leg + contingent protection leg) |
+| **Four-leg framework?** | No (CDS is a standalone derivative, not a structured note) |
+| **Key booking fields** | Notional, reference entity, CDS spread, maturity, ISDA Credit Definitions version, settlement type |
+| **Payment schedule** | Quarterly premium payments (IMM dates: March 20, June 20, Sep 20, Dec 20) |
+| **ISDA documentation** | ISDA Master Agreement, CSA, ISDA Credit Definitions (2014 version) |
 
-Protection buyer (hedger): profits when the reference entity defaults or deteriorates — the CDS payout offsets bond losses. In a typical default with 40% recovery, a $10M CDS pays $6M. Protection seller: profits when the reference entity does not default — keeps the full CDS premium over the contract's life. On a 5-year CDS at 200bp on $10M, the seller earns $1M over 5 years if no default occurs.
+**Reconciliation points**
 
-**4. How The Bank Makes Money**
+| Recon point | What must agree | CDS-specific break |
+|-------------|-----------------|--------------------|
+| **ISDA Credit Definitions** | Which ISDA Credit Definitions version governs the trade (2003 vs 2014) — they carry different credit-event triggers, notably "restructuring" | Trade booked under the wrong definitions version, so a restructuring triggers in one system but not another |
+| **Reference entity / obligation** | The reference entity and its reference / deliverable obligations match the confirmation | Reference obligation confusion — deliverable obligations differ from the reference obligation |
+| **Credit-event / auction** | Credit event declared by the ISDA Determinations Committee; auction-determined recovery used for settlement | Assumed recovery (for valuation) used in place of the actual auction recovery (for settlement) |
+| **Premium accrual** | Premium accrued from the last payment date to the credit-event date, payable by the buyer | Accrued premium omitted or mis-dated when a credit event falls between payment dates |
+| **Trade economics** | Notional, CDS spread, tenor, IMM payment schedule, counterparty | One system records a different notional or spread after an amend; or wrong counterparty |
+| **Upfront / running coupon** | Standardized CDS trade at fixed coupons (100bp or 500bp) with an upfront payment to adjust — both must be captured | Running spread captured but upfront omitted, or vice versa |
+| **Collateral (CSA)** | Daily MTM, margin call amount, and posted collateral agree with the counterparty | Counterparty disputes the MTM and the required collateral amount |
+| **Leg PV reconciliation** | Present value of the premium leg and the contingent leg agree between front office and risk | Credit-curve / recovery-assumption differences, so leg PVs and total MTM diverge |
 
-- **Bid-offer spread:** The bank buys protection at a lower spread than it sells protection, capturing the difference
-- **Market-making flow:** High-volume CDS trading generates consistent bid-offer income
-- **CVA/DVA management:** The bank prices counterparty risk into CDS trades and manages CVA (Credit Valuation Adjustment) as a revenue center
-- **Structuring into CLNs:** CDS is the core building block for Credit-Linked Notes — the bank embeds CDS protection in note form and earns a structuring fee
+![CDS Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/cds/controls_cds_recon_08.svg)
 
-**5. Market Conditions Where Demand Increases**
+**Common breaks & red flags**
 
-Protection buying increases when credit spreads widen, economic outlook deteriorates, or a specific issuer's credit quality is questioned. Protection selling increases in tight spread environments when investors seek yield. Index CDS (CDX, iTraxx) volume increases around economic data releases and credit events.
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| ISDA definitions version mismatch | 2003 vs 2014 ISDA Credit Definitions have different credit event triggers (notably "restructuring") | Verify which version applies to the trade |
+| Accrued premium after credit event | Premium accrued from the last payment date to the credit event date must be paid by the buyer | Ensure accrued premium is calculated correctly |
+| Recovery rate assumption | Systems may use an assumed recovery rate for MTM but the actual recovery is determined by auction | Distinguish between assumed recovery (for valuation) and actual recovery (for settlement) |
+| Reference obligation confusion | The CDS references a specific entity, but deliverable obligations may differ from the reference obligation | Verify deliverable obligation criteria per ISDA definitions |
+| Upfront payment convention | Post-2009, standardized CDS trade at fixed coupons (100bp or 500bp) with an upfront payment to adjust. Systems must handle both the running spread and the upfront correctly | Verify upfront payment and running coupon are both captured |
 
-**6. When This Product Makes Sense**
+**Control implication**
 
-Suitable for institutional investors who understand credit risk, default mechanics, and ISDA standard documentation. Ideal for hedging existing credit exposure or expressing pure credit views without bond market friction.
+For a CDS the dominant controls are the **ISDA Credit Definitions version**, the **credit-event / auction settlement process**, and the **premium accrual and collateral (CSA) process** — together they determine whether each premium, each contingent payment, and each daily margin call is correct. A wrong definitions version misstates whether a restructuring even triggers, driving a payout (or no payout) to the wrong party. An auction-recovery error misstates the contingent payment — the seller pays (100% − Recovery), so a wrong recovery breaks the settlement amount. A missed accrued premium, or a CSA valuation difference rooted in the credit curve or recovery assumption, breaks the running cashflow or the daily collateral call, leaving the bank under- or over-collateralised against a live counterparty exposure. The reconciliation exists precisely to catch these inconsistencies before a premium settles, a credit event is settled, or a margin call is made.
 
-**7. When This Product Is Usually A Poor Choice**
-
-Unsuitable for investors who do not understand contingent settlement mechanics or who cannot manage the potential for large, sudden payouts (protection sellers). A poor choice when the CDS-bond basis makes protection artificially expensive. Not appropriate for retail investors.
-
-
-#### §9. The Three Scenarios
-
-| Scenario | Market Condition | Outcome for Investor |
-|----------|-----------------|---------------------|
-| **Best case** | Underlying performs strongly | Maximum return captured (subject to any participation cap or barrier) |
-| **Base case** | Underlying is flat or moderately positive | Moderate return or coupon income depending on structure |
-| **Worst case** | Underlying declines significantly | Capital at risk if below protection level; coupon may partially offset |
-
-*Detailed scenario analysis with specific numbers follows in §10.*
-
-#### §10. What Happens When Markets Move
-
-**Product:** 5-year CDS on an energy company
-**Notional:** €30,000,000
-**CDS spread:** 250bp (2.50% per year)
-**Annual premium:** €30M × 2.50% = €750,000
-
-**Scenario 1 — No default, spreads stable:**
-Protection buyer pays €750,000 × 5 = €3,750,000 over 5 years. No credit event. **Cost: €3,750,000.** The insurance was not needed — like paying car insurance for 5 years without an accident.
-
-**Scenario 2 — No default, spreads tighten to 100bp:**
-Protection buyer continues paying €750,000/year. But the CDS now has positive mark-to-market value (the market charges only 100bp for new protection, buyer locked in at 250bp). The buyer could unwind for a profit. **MTM gain: ~€3.4M** (approximate, depends on remaining tenor and discount rates).
-
-**Scenario 3 — Default in Year 3, recovery = 40%:**
-Credit event occurs. Protection buyer has paid 2.5 × €750,000 = €1,875,000 in premiums. Settlement: protection seller pays €30M × (1 − 40%) = **€18,000,000** to the protection buyer. Net: €18M − €1.875M = **€16,125,000 profit.** The insurance paid off.
-
-**Scenario 4 — Restructuring (soft credit event):**
-The company restructures its debt, extending maturities. This triggers a "restructuring" credit event under ISDA. The protection buyer delivers bonds to the protection seller and receives par (€30M). The bonds may be trading at 70 cents, so the buyer effectively receives €30M − €21M = **€9M in compensation** (minus premiums paid).
-
-
-#### §11. Formal Definition
+#### §10. Formal Definition
 
 A **Credit Default Swap (CDS)** is a derivative contract that transfers credit risk from one party to another.
 
@@ -10074,112 +9938,22 @@ A **Credit Default Swap (CDS)** is a derivative contract that transfers credit r
 - **Cash settlement:** Protection seller pays (100% − Recovery Rate) × Notional. An auction determines the recovery rate
 - **Auction settlement:** ISDA conducts a credit event auction to determine the final price of deliverable obligations
 
-
-#### §12. Product Construction
-
-```
-Protection Buyer                    Protection Seller
-(hedges credit risk)                (bears credit risk)
-
-    ──── CDS Spread (quarterly) ────→
-
-    ←── Payment if credit event ─────
-         (100% - Recovery) × Notional
-```
-
-The CDS is a pure derivative — no bond, no option. The protection buyer pays a regular fee. The protection seller receives the fee and bears the contingent risk.
-
 **At inception:** The CDS spread is set so that the present value of expected premium payments equals the present value of expected default payments. No money changes hands at inception.
 
-> **Professor Note:** If you remember only one thing from this chapter, remember this: a CDS is credit insurance in swap form. The spread is the insurance premium. The credit event is the claim. The recovery rate determines how much the insurer pays. Everything else is detail.
-
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Detail |
 |-------|--------|
-| **Trade date** | Terms agreed: notional, tenor, rate conventions, special features. ISDA documentation |
+| **Trade date** | Terms agreed: notional, reference entity, CDS spread, maturity, settlement type. ISDA documentation. Book in Murex — record reference entity, notional, CDS spread, maturity, ISDA version |
 | **Effective date** | Swap becomes active. First accrual period begins |
-| **Periodic payments** | Scheduled cash flow exchanges on payment dates. Netting applied |
-| **Maturity** | Final exchange of cash flows. Trade terminated. Collateral returned |
+| **Quarterly premium** | Protection buyer pays spread × notional × day fraction on IMM dates. Netting applied |
+| **Credit event** | If a credit event is declared by the ISDA Determinations Committee, trigger the settlement process. Premium payments stop; accrued premium to the event date is paid by the buyer |
+| **Auction** | ISDA conducts an auction to determine the final price (recovery rate). Settlement = (100% − auction price) × notional |
+| **Maturity** | If no credit event, the CDS expires. No further payments. Collateral returned |
 
-#### §14. Desk Reality
+#### §12. Worked Example (both lenses)
 
-The CDS has two distinct states:
-
-**No credit event (most likely):**
-- Protection buyer pays CDS spread quarterly — a steady, predictable cost
-- Protection seller receives the spread — steady, predictable income
-- At maturity, the CDS expires and no further payments are made
-
-**Credit event occurs:**
-- Premium payments stop
-- Protection seller pays: (100% − Recovery Rate) × Notional
-- This payment compensates the protection buyer for the loss on the reference entity's debt
-
-```
-Protection Buyer's P&L:
-
-  No default:         Loss = Total premiums paid
-                      (insurance cost)
-
-  Default (40% rec):  Gain = 60% × Notional − Premiums paid
-                      (insurance payout)
-
-  The CDS is binary: either nothing happens (cost)
-  or a credit event occurs (large payout)
-```
-
-
-#### §15. Risk Analysis
-
-| Risk | Description | Severity |
-|------|------------|:--------:|
-| **Credit event risk (sellers)** | If the reference entity defaults, the protection seller faces a large, sudden payment | High |
-| **Spread risk** | CDS mark-to-market changes as spreads move — widening benefits buyers, tightening benefits sellers | Medium-High |
-| **Counterparty risk** | If the protection seller defaults simultaneously with the reference entity ("wrong-way risk"), the buyer gets no protection | High |
-| **Basis risk** | CDS spread may not move in line with the underlying bond spread | Medium |
-| **Legal risk** | Disputes over whether an event qualifies as a "credit event" under ISDA definitions | Medium |
-| **Recovery rate uncertainty** | The actual recovery rate is unknown until after default and auction — it can differ significantly from market assumptions | Medium |
-
-
-#### §16. Booking and Systems
-
-| Field | Value |
-|-------|-------|
-| **Booking system** | Murex |
-| **Pricing system** | Murex |
-| **Four-Leg** | No |
-| **Product type** | Credit Default Swap |
-| **Key booking fields** | Notional, reference entity, CDS spread, maturity, ISDA definitions version, settlement type |
-| **Payment schedule** | Quarterly premium payments (IMM dates: March 20, June 20, Sep 20, Dec 20) |
-| **ISDA documentation** | ISDA Master Agreement, CSA, ISDA Credit Definitions (2014 version) |
-
-**Lifecycle events:**
-- **Trade date:** Book in Murex. Record reference entity, notional, CDS spread, maturity, ISDA version.
-- **Quarterly premium:** Protection buyer pays spread × notional × day fraction.
-- **Credit event:** If a credit event is declared by the ISDA Determinations Committee, trigger settlement process.
-- **Auction:** ISDA conducts an auction to determine the final price (recovery rate). Settlement = (100% − auction price) × notional.
-- **Maturity:** If no credit event, the CDS expires. No further payments.
-
-
-#### §17. Red Flags
-
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| **ISDA definitions version mismatch** | 2003 vs 2014 ISDA Credit Definitions have different credit event triggers (notably "restructuring") | Verify which version applies to the trade |
-| **Accrued premium after credit event** | Premium accrued from the last payment date to the credit event date must be paid by the buyer | Ensure accrued premium is calculated correctly |
-| **Recovery rate assumption** | Systems may use an assumed recovery rate for MTM but the actual recovery is determined by auction | Distinguish between assumed recovery (for valuation) and actual recovery (for settlement) |
-| **Reference obligation confusion** | The CDS references a specific entity, but deliverable obligations may differ from the reference obligation | Verify deliverable obligation criteria per ISDA definitions |
-| **Upfront payment convention** | Post-2009, standardized CDS trade at fixed coupons (100bp or 500bp) with an upfront payment to adjust. Systems must handle both the running spread and the upfront correctly | Verify upfront payment and running coupon are both captured |
-
-
-#### §18. Worked Example
-
-**Product:** 5-year CDS on Petrobras
-**Notional:** $20,000,000
-**CDS spread:** 300bp (3.00% per year)
-**Quarterly premium:** $20M × 3.00% / 4 = $150,000
+**Product:** 5-year CDS on Petrobras. **Notional:** $20,000,000. **CDS spread:** 300bp (3.00% per year). **Quarterly premium:** $20M × 3.00% / 4 = $150,000. (The client is the protection buyer; the desk sells protection.)
 
 **Year-by-year (no default):**
 
@@ -10199,15 +9973,21 @@ Premiums paid: 6 × $150,000 = $900,000. Settlement: $20M × (100% − 35%) = **
 **If spreads widen to 600bp after Year 1 (no default):**
 The protection buyer holds a contract paying 300bp for protection now worth 600bp. The mark-to-market gain is approximately the present value of 300bp × remaining notional × remaining years ≈ **$2.1M.** The buyer could unwind for a profit.
 
+*Client lens:*
+As protection buyer, the client pays $150,000 quarterly. If the reference entity never defaults, the protection cost $3,000,000 over five years and was never collected on. If Petrobras defaults in Year 2 with 35% recovery, the client receives a $13,000,000 payout against $900,000 of premiums paid — a $12,100,000 profit that offsets the loss on the underlying bonds. If spreads widen to 600bp, the client holds protection now worth more than it paid for, an MTM gain of ~$2.1M that could be unwound. The protection buyer is short the reference entity's credit and gains as it deteriorates.
 
-#### §19. Knowledge Check
+*Bank lens:*
+The desk holds the mirror position — it sold protection, receiving the $150,000 quarterly premium, and is therefore long Petrobras credit on this single trade, which it warehouses and hedges with offsetting CDS or index hedges so the book's net CS01 and jump-to-default stay within limit. In the no-default path the desk keeps the $3,000,000 of premium less hedge costs; in the Year-2 default it owes the $13,000,000 settlement, funded against its hedge. The 2nd line must confirm the ISDA Credit Definitions version, that each quarterly premium and any accrued premium to the event date settled, that the auction-determined recovery (not the assumed 35% used for valuation) drove the settlement amount, and that daily CSA collateral tracked the changing MTM as spreads moved.
 
-1. **What is a CDS and what risk does it transfer?**
-2. **Name three ISDA-defined credit events.**
-3. **Explain the difference between physical and cash settlement for a CDS.**
-4. **A CDS has a spread of 500bp. What does this imply about the reference entity?**
-5. **What is "wrong-way risk" in the context of a CDS?**
+#### §13. Knowledge Check
 
+1. **What is a CDS and what risk does it transfer?** *(Investor)*
+2. **Name three ISDA-defined credit events.** *(Investor)*
+3. **Explain the difference between physical and cash settlement for a CDS.** *(Investor)*
+4. **A CDS has a spread of 500bp. What does this imply about the reference entity?** *(Investor)*
+5. **What is "wrong-way risk" in the context of a CDS?** *(Investor)*
+6. **(Desk economics / 1LoD)** When a client buys protection, what position does the desk take, what is its dominant credit Greek (and what additional binary risk does it carry), and how does the desk hedge the warehoused credit risk? Where does the desk's spread come from given the client pays a premium rather than a coupon to decompose?
+7. **(Controls / 2LoD)** Name three reconciliation breaks specific to a CDS — covering the ISDA definitions version, the credit-event/auction recovery, and accrued premium or collateral — and the consequence of each for a premium, the contingent settlement, or the margin call.
 
 **Mental Models**
 
@@ -10217,37 +9997,31 @@ The protection buyer holds a contract paying 300bp for protection now worth 600b
 | CDS spread | The warranty premium — reflects the condition and age of the appliances (credit quality) |
 | Credit event | The furnace breaks — the warranty claim triggers a payout |
 | Recovery rate | The salvage value of the broken furnace — what is left after the failure |
-| Protection buyer | The homeowner — pays premiums for peace of mind |
-| Protection seller | The warranty company — collects premiums and bears the repair cost |
-
+| Protection buyer | The homeowner — pays premiums for peace of mind; short the reference entity's credit |
+| Protection seller | The warranty company — collects premiums and bears the repair cost; long the reference entity's credit |
+| CS01 | The desk's speedometer for credit risk — dollars of P&L per 1 basis point move in the spread |
+| Jump-to-default | The desk's tail risk — the sudden, large payout owed if a reference entity defaults outright |
+| CSA collateral | The daily deposit each side posts so neither is over-exposed if the other defaults |
 
 **Key Takeaways**
 
 1. A CDS transfers credit risk: the protection buyer pays a regular premium (spread), and the protection seller pays out if a credit event occurs.
 2. Credit events are defined by ISDA: bankruptcy, failure to pay, and restructuring.
 3. Settlement can be physical (deliver bonds, receive par) or via ISDA auction (cash based on auction-determined recovery rate).
-4. The CDS is the building block for Credit-Linked Notes — understanding the CDS is prerequisite for Part 5.5.
-5. CDS is booked in Murex, traded on standardized IMM dates, and governed by ISDA Credit Definitions.
+4. The CDS is binary on the contingent leg — no barriers, no optionality; the client's position is set purely by whether they buy protection (short credit) or sell protection (long credit).
+5. The CDS is the building block for Credit-Linked Notes — understanding the CDS is prerequisite for Part 5.5.
+6. The desk takes the mirror legs, warehouses the credit risk, and manages it by CS01 and jump-to-default — earning the bid-offer, market-making flow, CVA/DVA, and the CSA funding benefit rather than a coupon spread.
+7. CDS is booked in Murex, traded on standardized IMM dates, and governed by ISDA Credit Definitions.
+8. For the 2nd line, the dominant control risks are the ISDA Credit Definitions version, the credit-event/auction recovery, premium accrual, the upfront/running coupon split, leg PV reconciliation, and CSA collateral — each can misstate a premium, the contingent settlement, or a daily margin call.
 
-
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
 1. **Confusing CDS spread with probability of default.** The spread reflects default probability, recovery assumption, and market risk premium. A 300bp spread does not mean a 3% chance of default.
 2. **Assuming the protection seller always pays 100%.** The seller pays (100% − Recovery Rate). If recovery is 40%, the payout is 60% of notional — not 100%.
 3. **Ignoring accrued premium.** When a credit event occurs between premium payment dates, the buyer still owes the accrued premium from the last payment date to the event date.
 4. **Treating the CDS as a bond.** A CDS is a derivative — it can have negative value (for the buyer) or positive value. It is not a bond with a coupon. The "spread" is not a coupon — it is an insurance premium.
 5. **Forgetting wrong-way risk.** If the protection seller's creditworthiness is correlated with the reference entity (e.g., both are banks in the same country), the protection may fail precisely when it is needed most.
-
-### Desk Perspective
-
-| Role | What the CDS Means to Them |
-|------|---------------------------|
-| **Trader** | Manages a book of credit exposures. Hedges by buying/selling offsetting CDS or trading the underlying bonds. Must monitor the ISDA Determinations Committee for credit event declarations |
-| **Structurer** | Uses CDS as the building block for CLN products. The CDS spread becomes the CLN coupon enhancement. Must price the credit risk accurately and explain settlement mechanics to clients |
-| **Product Control** | Verifies CDS valuations using credit curves and recovery assumptions. Monitors the spread-to-bond basis. Reconciles upfront payments and running coupons across systems |
-| **Risk** | Monitors concentrated credit exposures across the CDS book. Jump-to-default risk — the sudden loss if a reference entity defaults — requires stress testing and scenario analysis |
-| **Operations** | Processes quarterly premiums on IMM dates, manages ISDA documentation, and coordinates credit event settlement (auction participation, deliverable obligation identification, payment processing) |
-
+6. **(Controls)** Settling on the assumed recovery rather than the auction-determined recovery. Systems use an assumed recovery for daily MTM, but the contingent settlement must use the actual auction recovery — using the valuation assumption to pay the claim misstates the (100% − Recovery) × Notional payout.
 ### Knowledge Check
 
 **Review Questions:**
@@ -10257,6 +10031,10 @@ The protection buyer holds a contract paying 300bp for protection now worth 600b
 4. What determines the CDS spread at inception?
 5. Why is the CDS important for Credit-Linked Notes?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* Which side of the swap does the desk take, and what is its primary risk and hedge?
+- *(Controls / 2LoD)* Which leg/fixing/collateral fields must reconcile, and which is the most common break?
 **Scenario Questions:**
 1. A bank holds €50M in bonds from Company X and buys €50M of CDS protection at 200bp. Company X defaults with 45% recovery. Calculate the CDS payout and the net impact on the bank.
 2. A hedge fund sells $100M of CDS protection on a BBB-rated company at 150bp. After 2 years, the company's spreads widen to 400bp. Calculate the approximate mark-to-market loss for the seller. What happens if the company subsequently defaults with 30% recovery?
@@ -10322,6 +10100,11 @@ The ISDA Determinations Committee has declared a credit event on a reference ent
 - **Diagram elements:** Three rate path scenarios (rates up, stable, down) showing P&L impact. Clearly labelled outcomes
 - **Reuse status:** Adapt from scenario template
 
+
+**Dual-lens visuals (generated):**
+- `assets/cds/controls_cds_recon_08.svg` `[generated]`
+- `assets/cds/legs_cds_01.svg` `[generated]`
+- `assets/cds/waterfall_cds_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -10333,10 +10116,9 @@ The ISDA Determinations Committee has declared a credit event on a reference ent
 | Synthetic CDO | 5.5.5 — tranched CDS portfolio |
 ### 5.2.6 Cross-Currency Swap
 
-*The IRS exchanged fixed for floating interest rates — both in the same currency. The TRS exchanged total return for a financing rate. The Cross-Currency Swap adds a new dimension: it exchanges cash flows in two different currencies. Principal is exchanged at the start and returned at the end. Between those dates, each party pays interest in the currency it received.*
+---
 
-**How This Differs From the IRS (5.2.1):** An IRS has one currency. A cross-currency swap has two: each party borrows in one currency and lends in the other. The key structural difference is the exchange of principal — IRS has no principal exchange (only notional), but a cross-currency swap physically exchanges principal at inception and re-exchanges at maturity.
-
+*Where an Interest Rate Swap (Section 5.2.1) exchanges fixed-for-floating interest in a single currency on a notional that is never itself exchanged, a Cross-Currency Swap adds a second dimension: it exchanges cash flows in two different currencies. Principal is exchanged at inception and re-exchanged at maturity, and between those dates each party pays interest in the currency it received. There is no bond wrapper, no barrier, no embedded put or call: just two interest legs in two currencies plus an initial and final exchange of principal, priced around the cross-currency basis. This chapter reads the product through two lenses: what it means for **the client** (the counterparty entering the swap), and what it means for **the bank** — the latter split into the desk's FX, rate and basis economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -10346,15 +10128,15 @@ A **Cross-Currency Swap** solves this. Akira borrows ¥75 billion in Tokyo at 0.
 
 The result: Akira gets his dollar funding at a rate lower than he could have borrowed directly, because the bank passes on its dollar funding advantage.
 
-
 #### §2. Real-World Analogy
 
 A Cross-Currency Swap is like a holiday home exchange.
 
 Two families — one in Tokyo, one in New York — agree to swap homes for a year. At the start, they exchange house keys (principal exchange). During the year, each family pays the other's local utility bills — the Tokyo family pays New York electricity in dollars, the New York family pays Tokyo gas in yen (interest payments in each currency). At the end of the year, they return the keys and move back to their own homes (re-exchange of principal).
 
-Neither family "bought" the other's home. They exchanged assets temporarily, each paying the running costs in the other's currency. If exchange rates changed during the year, one family might feel the utilities were cheaper or more expensive — but the house keys are returned at the original agreed terms.
+Neither family bought the other's home. They exchanged assets temporarily, each paying the running costs in the other's currency. If exchange rates changed during the year, one family might feel the utilities were cheaper or more expensive — but the house keys are returned at the original agreed terms.
 
+The key insight: the re-exchange of principal at maturity happens at the **original** FX rate agreed on day one, not the prevailing rate. That locked re-exchange rate is what turns the swap into an FX hedge on the principal.
 
 #### §3. What Problem Does This Solve?
 
@@ -10366,7 +10148,6 @@ The Cross-Currency Swap addresses the **foreign currency funding** need:
 | Hedge FX exposure on foreign debt | Lock in the exchange rate for principal repayment |
 | Convert asset cash flows to home currency | Receive domestic currency interest, pay foreign currency interest |
 | Exploit funding cost differentials | Arbitrage between two capital markets |
-
 
 #### §4. Product DNA
 
@@ -10425,9 +10206,67 @@ The Cross-Currency Swap addresses the **foreign currency funding** need:
 |:-----:|---------|---------------|-----|
 | 1 | Loan / deposit | — (baseline) | Simple lending/borrowing relationship |
 | 2 | Interest rate swap | Periodic cash flow exchange | Transform rate exposure between fixed and floating |
-| 3 | Cross-Currency Swap | Specific swap features added | Extended swap concept: Exchange of principal and interest in two currencies. Combines IRS with FX forward. Complex due to dual-currency cash flows |
+| 3 | Cross-Currency Swap | Two interest legs in two currencies + initial/final principal exchange | Extended swap concept: exchange of principal and interest in two currencies. Combines IRS with FX forward. Complex due to dual-currency cash flows |
 
-#### §7. How the Bank Makes Money
+---
+
+#### §7. THE INVESTOR LENS
+
+**Why the client enters it**
+
+1. **Cheaper foreign funding.** A client with strong credit in its home market can access a foreign currency at a better rate through a swap than by borrowing directly abroad — the bank passes on its funding advantage in that currency.
+2. **FX risk management.** The principal re-exchange at maturity is locked at the original FX rate, eliminating FX exposure on the principal of the foreign-currency liability.
+3. **Liability management.** The client converts foreign currency debt into domestic currency obligations without refinancing the underlying loan.
+4. **Regulatory capital efficiency.** Some jurisdictions treat swapped funding differently from direct foreign borrowing.
+5. **Asset-liability matching.** The client aligns the currency and interest profile of its assets with its liabilities — receiving domestic-currency interest while paying foreign-currency interest.
+
+**Legs & position**
+
+A cross-currency swap has two interest legs in two currencies, bracketed by an exchange of principal at inception and a re-exchange at maturity. The client's position is defined by which currency principal it delivers and receives, and which interest leg it pays and receives. There is no embedded option, no premium, no barrier — only the directional FX, rate and basis exposure that the leg and currency choice creates.
+
+![Cross-Currency Swap Cashflow Legs — Investor Lens](assets/ccyswap/legs_ccyswap_01.svg)
+
+- At **inception**, the client delivers its home-currency principal (CCY-A, e.g. ¥75 billion) to the bank and receives the foreign-currency principal it needs (CCY-B, e.g. $500 million), exchanged at the spot FX rate (¥150/$).
+- Over the **life**, the client **pays the foreign-currency interest leg** (CCY-B, e.g. USD 4.2% on $500M) and **receives the home-currency interest leg** (CCY-A, e.g. JPY 0.5% on ¥75B). Each party pays interest on the principal it received, in the currency it received.
+- At **maturity**, the principals are **re-exchanged at the original FX rate** (¥150/$, not the prevailing rate): the client returns the foreign-currency principal ($500M) and receives back its home-currency principal (¥75B). This re-exchange at the original rate is what distinguishes the swap from an FX forward and is what provides full FX hedging on the principal.
+
+The client's exposure is measured by **FX delta** (sensitivity to the FX rate on the future cash flows) and by **DV01 in both currencies** (the change in mark-to-market value for a 1 basis point move in each currency's rates), plus sensitivity to the **cross-currency basis**. The longer the tenor, the larger these sensitivities.
+
+**Cashflows & scenarios**
+
+On each payment date, each party pays interest in the currency of the principal it received; the principal itself moves only at inception and at maturity. The re-exchange at maturity is always at the original FX rate.
+
+**Product:** 5-year Cross-Currency Swap. **Principals:** ¥75 billion ↔ $500 million (rate: ¥150/$). **Akira pays:** USD 4.2% on $500M. **Akira receives:** JPY 0.5% on ¥75B.
+
+- **Scenario 1 — Rates and FX stable:** Annual flows: Akira pays $21M USD interest, receives ¥375M JPY interest. At maturity, re-exchange ¥75B ↔ $500M at the original rate. **Cost: the net interest differential, offset by the saving versus direct USD borrowing.**
+- **Scenario 2 — JPY weakens to ¥180/$:** The swap's principal re-exchange is at the original rate (¥150/$), so Akira returns $500M and receives ¥75B regardless. If he had borrowed USD directly, he would be unaffected. The swap **protects** Akira from FX moves on the principal. His ¥75B yen borrowing is repaid with the ¥75B he receives back. **FX risk eliminated on principal.**
+- **Scenario 3 — USD rates rise to 6%:** Akira is locked in at 4.2% on the swap. If he had borrowed floating-rate USD, he would now pay 6%. **The fixed rate on the swap protects against rate rises.**
+- **Scenario 4 — Counterparty default:** If the bank defaults mid-swap, Akira loses the remaining interest payments and, critically, may not receive his ¥75B back at maturity. **Counterparty risk is the primary risk** — mitigated by CSA margin agreements.
+
+**Risks to the client**
+
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **FX risk (mark-to-market)** | Exchange rate moves create MTM gains/losses even though the principal re-exchange is at the original rate. | High |
+| **Interest rate risk** | Changes in rates in either currency affect the swap's value. | Medium |
+| **Cross-currency basis risk** | The basis spread can widen or tighten, affecting valuation and the all-in cost of swapped funding. | Medium |
+| **Counterparty risk** | The principal exchange creates large settlement exposure — if the counterparty defaults at maturity, the full principal is at risk. Mitigated by CSA. | High |
+| **Funding risk** | If the client's underlying funding is floating, rate changes affect its net cost. | Medium |
+| **Settlement risk (Herstatt risk)** | Time-zone differences mean one leg may settle before the other — risk of paying without receiving. | Medium |
+
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk takes the other side of the client's swap and books it as a two-currency, two-interest-leg trade in its rates book, with the initial and final principal exchanges captured explicitly. Where the client delivers CCY-A principal and receives CCY-B principal, the desk receives CCY-A and pays CCY-B at inception, and reverses this at maturity at the original FX rate — the mirror exchange. Where the client pays the CCY-B interest leg and receives the CCY-A interest leg, the desk receives the CCY-B leg and pays the CCY-A leg. The position is the present value of the remaining cash flows in both currencies plus the re-exchange. The desk does not want a directional FX or rate view from a single client trade — it warehouses the resulting FX, rate and basis risk and hedges it down. The bank prefers structuring these swaps over holding outright FX risk because the swap creates a matched book (client flows offset each other), and the bank's funding advantage in certain currencies is a comparative advantage that generates recurring revenue.
+
+**FX / rate / basis risk & hedging**
+
+The desk's risks are **FX delta** on the principal and future cash flows, **DV01 in both currencies** (the dollar value of a 1 basis point move, measured curve-by-curve in each currency), and exposure to the **cross-currency basis**. A cross-currency swap is a linear product: there is no equity-style gamma, no barrier, no discontinuity — the P&L changes proportionally with FX and rate moves.
+
+The FX desk hedges the currency exposure using spot and forward FX markets. The rates desk hedges the interest rate exposure using IRS in each currency. The residual and hardest risk to hedge is the **cross-currency basis risk** — the spread between swap-implied and market FX forward rates — which is volatile and difficult to hedge perfectly; the structured rates desk typically manages this hedge. FX exposure on the principal is the dominant risk factor: a ¥150/$ rate moving to ¥130/$ on a ¥75B/$500M swap creates a ¥7.7B MTM move, dwarfing interest rate sensitivity. The basis can gap 20-30bp overnight during funding stress (e.g. year-end USD squeeze), creating large MTM swings on a book of long-dated swaps. Concentration of FX delta or basis exposure is the main risk-management concern.
+
+**How the bank makes money**
 
 | Revenue Component | Detail |
 |------------------|--------|
@@ -10436,200 +10275,93 @@ The Cross-Currency Swap addresses the **foreign currency funding** need:
 | **Funding benefit** | Earns funding spread on collateral received under CSA |
 | **Structuring fee** | Fee for custom features beyond vanilla terms |
 
-#### §8. Why This Product Exists (Client Perspective)
+**The desk spread decomposition:**
 
-1. **Cheaper foreign funding.** Companies with strong credit in their home market can access foreign currencies at better rates through a swap than by borrowing directly abroad.
-2. **FX risk management.** The principal exchange at maturity locks in an exchange rate, eliminating FX exposure on the principal.
-3. **Liability management.** Convert foreign currency debt into domestic currency obligations without refinancing.
-4. **Regulatory capital efficiency.** Some jurisdictions treat swapped funding differently from direct foreign borrowing.
+The desk's economics come from a spread embedded in the swap rates — typically 5-15bp built into the cross-currency basis. On a $500M swap, this generates $250K-$750K annually. The gross spread can be decomposed roughly as: the basis/bid-offer spread (the markup built into the cross-currency basis, the dominant structural component); hedging P&L (realized versus implied carry on the offsetting FX forwards and IRS hedges); the CSA funding benefit (the funding spread earned on collateral received); less the desk's own hedging and funding costs to run the position. The bank also gains distribution value — cross-currency swaps are relationship products that cement long-term banking relationships with large corporates and sovereigns and open access to the client's broader business (lending, FX, advisory).
 
-#### Why This Product Exists
+![Cross-Currency Swap Desk Margin — Bank Lens (Desk Economics)](assets/ccyswap/waterfall_ccyswap_09.svg)
 
-**1. Typical Buyer**
+**P&L drivers**
 
-Multinational corporations funding foreign subsidiaries. Sovereign borrowers accessing deep capital markets (e.g., USD or EUR). Banks managing multi-currency balance sheets. Supranational institutions (World Bank, EIB) issuing in one currency and swapping to another.
+Day to day, desk P&L is driven by FX moves on the warehoused principal and cash flows, moves in either currency's yield curve against the warehoused DV01, changes in the cross-currency basis against residual basis risk, the realized-versus-implied carry on the FX and IRS hedges, and the funding spread earned on CSA collateral. Product Control attributes P&L daily and verifies two-currency valuations independently, using separate discount curves for each leg; cross-currency basis curve construction and FX moves on the principal are the most common sources of large valuation changes.
 
-**2. Problem Being Solved**
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
 
-Global companies need funding in currencies where they have no credit reputation. A Japanese company is well-known to Tokyo banks but unknown to New York banks. The cross-currency swap allows the company to borrow where it is known (JPY) and convert that funding to where it is needed (USD).
+**Booking & systems**
 
-**3. How The Client Makes Money**
+| Aspect | Detail |
+|--------|--------|
+| **Book of record** | Murex |
+| **Pricing/Risk system** | Murex |
+| **Booking structure** | Two-currency trade: two interest legs (one per currency) + initial and final principal exchange |
+| **Four-leg framework?** | No (cross-currency swap is a standalone derivative, not a structured note) |
+| **Key booking fields** | Two notionals (each currency), FX rate, two interest rates (fixed or floating), payment frequencies, day-count conventions, start/end dates, counterparty |
+| **Payment schedule** | Semi-annual or quarterly in each currency |
+| **ISDA documentation** | ISDA Master Agreement, CSA, ISDA Rate Definitions |
 
-The client "makes money" by saving on borrowing costs. If direct USD borrowing costs 4.5% and the swapped cost is 4.2%, the saving is 30bp per year on $500M = $1.5M annually. Over a 5-year swap, the total saving is approximately $7.5M. The client also eliminates FX risk on the principal.
+**Reconciliation points**
 
-**4. How The Bank Makes Money**
+| Recon point | What must agree | XCCY-specific break |
+|-------------|-----------------|---------------------|
+| **ISDA / CSA terms** | Master Agreement, Credit Support Annex and ISDA Rate Definitions governing the trade — collateral eligibility, thresholds, netting set | Trade executed before ISDA/CSA is in place, or against the wrong netting set |
+| **FX fixing rate** | The exact spot FX rate used for the initial principal exchange and locked for the final re-exchange matches the confirmation | The system FX rate differs from the agreed spot rate used for principal exchange, mispricing both exchanges |
+| **CCY-A interest leg** | Notional, rate (fixed or floating), index, day-count, payment frequency and currency of the home-currency leg | Leg booked in the wrong currency, or a payment booked against the principal it did not receive |
+| **CCY-B interest leg** | Notional, rate (fixed or floating), index, day-count, payment frequency and currency of the foreign-currency leg | Wrong rate or wrong currency on the foreign leg, so the payment amount differs |
+| **Initial notional exchange** | Both currency principals and the exchange date (T+2) agree across systems | Initial exchange date or one principal amount mismatched, leaving an open FX position |
+| **Final notional re-exchange** | Both principals re-exchanged at the **original** FX rate at maturity are booked | Final re-exchange not booked, leaving the system showing an open FX position at maturity |
+| **Cross-currency basis** | The cross-currency basis curve is applied in valuation rather than par rates | System uses par rates without the basis adjustment, mispricing the swap |
+| **Collateral currency (CSA)** | Daily MTM, margin call amount, posted collateral and the eligible collateral currency agree with the counterparty | Counterparty disputes the MTM/collateral, or collateral posted in the wrong currency |
+| **Leg PV reconciliation** | Present value of each currency leg agrees between front office and risk, using separate discount curves | Curve / basis construction differs, so leg PVs and total MTM diverge |
 
-- **Client economics:** The client saves borrowing costs by accessing the bank's funding advantage. The saving must exceed the swap's transaction costs to be worthwhile.
-- **Bank economics:** The bank earns a spread embedded in the swap rates — typically 5-15bp built into the cross-currency basis. On a $500M swap, this generates $250K-$750K annually.
-- **Hedging economics:** The FX desk hedges the currency exposure using spot and forward FX markets. The rates desk hedges the interest rate exposure using IRS. Residual risk: cross-currency basis risk (the spread between swap-implied and market FX forward rates) is the hardest to hedge perfectly. The structured rates desk typically manages the hedge.
-- **Distribution economics:** Cross-currency swaps are relationship products — they cement long-term banking relationships with large corporates and sovereigns. The bank earns the swap spread but also gains access to the client's broader banking business (lending, FX, advisory).
+![CCYSWAP Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/ccyswap/controls_ccyswap_recon_08.svg)
 
-The bank prefers structuring these swaps over holding outright FX risk because the swap creates a matched book (client flows offset each other), and the bank's funding advantage in certain currencies is a comparative advantage that generates recurring revenue.
+**Common breaks & red flags**
 
-**5. Market Conditions Where Demand Increases**
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| **FX rate mismatch at inception** | The system FX rate differs from the agreed spot rate used for principal exchange | Verify the exact FX rate in the confirmation matches the system — it drives both the initial and final exchange |
+| **Interest payment currency confusion** | A payment is booked in the wrong currency | Verify each leg pays in the currency of the principal it received |
+| **Cross-currency basis not reflected in valuation** | The system uses par rates without the basis adjustment, mispricing the swap | Ensure the cross-currency basis curve is applied in Murex |
+| **Settlement date misalignment across time zones** | JPY leg settles in Tokyo hours, USD leg settles in New York hours | Coordinate settlement timing; use CLS (Continuous Linked Settlement) where available |
+| **Notional mismatch after partial unwind** | A partial termination reduces one notional but not the other proportionally | Verify both notionals are adjusted consistently after any amendment |
+| **Final re-exchange missing** | The final principal re-exchange is not booked, leaving an open FX position at maturity | Verify the maturity re-exchange is booked at the original FX rate |
 
-Demand rises when: interest rate differentials between currencies widen (creating larger savings from swapping), when FX volatility increases (making FX hedging more valuable), or when specific currencies experience funding stress (e.g., USD shortage during crises).
+**Control implication**
 
-**6. When This Product Makes Sense**
+For a cross-currency swap the dominant controls are the **initial and final notional exchange** and the **FX fixing rate** that governs them. The FX rate captured at inception is locked for the re-exchange at maturity, so a wrong fixing rate misprices both exchanges and the entire FX hedge; a missing or mis-dated final re-exchange leaves the system showing an open FX position against a live counterparty exposure. Secondary but material: each interest leg must be booked in the correct currency against the principal it received, the cross-currency basis must be applied in valuation, and the CSA collateral — in the eligible currency — must track the changing MTM as FX and rates move. Because the principal exchange creates large settlement exposure across two time zones, settlement timing (Herstatt risk, mitigated by CLS) is the operationally hardest control. The reconciliation exists precisely to catch these inconsistencies before a principal exchange settles or a margin call is made.
 
-Suitable for large institutional borrowers with multi-currency funding needs and long-dated liabilities. The client should have a clear cost saving from swapping versus direct borrowing, and the swap tenor should match the underlying liability.
-
-**7. When This Product Is Usually A Poor Choice**
-
-Unsuitable for short-dated funding (transaction costs outweigh savings) or for clients who do not have a genuine multi-currency funding need. Not appropriate when the cross-currency basis is unfavorable (making swapped funding more expensive than direct borrowing). Also unsuitable for clients who cannot manage the ongoing interest payments in two currencies.
-
-
-#### §9. The Three Scenarios
-
-| Scenario | Market Condition | Outcome for Investor |
-|----------|-----------------|---------------------|
-| **Best case** | Underlying performs strongly | Maximum return captured (subject to any participation cap or barrier) |
-| **Base case** | Underlying is flat or moderately positive | Moderate return or coupon income depending on structure |
-| **Worst case** | Underlying declines significantly | Capital at risk if below protection level; coupon may partially offset |
-
-*Detailed scenario analysis with specific numbers follows in §10.*
-
-#### §10. What Happens When Markets Move
-
-**Product:** 5-year Cross-Currency Swap
-**Principals:** ¥75 billion ↔ $500 million (rate: ¥150/$)
-**Akira pays:** USD 4.2% on $500M
-**Akira receives:** JPY 0.5% on ¥75B
-
-**Scenario 1 — Rates and FX stable:**
-Annual flows: Akira pays $21M USD interest, receives ¥375M JPY interest. At maturity, re-exchange ¥75B ↔ $500M at original rate. **Cost: the net interest differential, offset by the saving versus direct USD borrowing.**
-
-**Scenario 2 — JPY weakens to ¥180/$:**
-The swap's principal re-exchange is at the original rate (¥150/$), so Akira returns $500M and receives ¥75B regardless. If he had borrowed USD directly, he would be unaffected. The swap **protects** Akira from FX moves on the principal. His ¥75B yen borrowing is repaid with the ¥75B he receives back. **FX risk eliminated on principal.**
-
-**Scenario 3 — USD rates rise to 6%:**
-Akira is locked in at 4.2% on the swap. If he had borrowed floating-rate USD, he would now pay 6%. **The fixed rate on the swap protects against rate rises.**
-
-**Scenario 4 — Counterparty default:**
-If the bank defaults mid-swap, Akira loses the remaining interest payments and, critically, may not receive his ¥75B back at maturity. **Counterparty risk is the primary risk** — mitigated by CSA margin agreements.
-
-
-#### §11. Formal Definition
+#### §10. Formal Definition
 
 A **Cross-Currency Swap** is a derivative contract in which two parties exchange principal and interest payments in two different currencies.
 
 **Three phases:**
-1. **Initial exchange:** Principals are exchanged at the spot FX rate (Party A delivers Currency 1, Party B delivers Currency 2)
-2. **Periodic payments:** Each party pays interest on the principal it received, in the currency it received. Payments can be fixed-fixed, fixed-floating, or floating-floating
-3. **Final exchange:** At maturity, the original principals are re-exchanged at the same FX rate as inception (not the prevailing rate)
+1. **Initial exchange:** Principals are exchanged at the spot FX rate (Party A delivers Currency 1, Party B delivers Currency 2).
+2. **Periodic payments:** Each party pays interest on the principal it received, in the currency it received. Payments can be fixed-fixed, fixed-floating, or floating-floating.
+3. **Final exchange:** At maturity, the original principals are re-exchanged at the same FX rate as inception (not the prevailing rate).
 
 The re-exchange at the original rate is what distinguishes a cross-currency swap from an FX forward — it provides full FX hedging on the principal amount for the life of the swap.
 
+**Key terms:**
+- **Two notionals:** One principal in each currency, exchanged at inception and re-exchanged at maturity. Unlike an IRS, the principal is physically exchanged.
+- **FX fixing rate:** The spot rate at inception, which is locked and re-used for the final re-exchange.
+- **Cross-currency basis:** A market-determined spread between the two currencies, built into the swap pricing.
+- **Tenor:** The length of the swap (e.g., 5 years, up to 30 years).
+- **Payment frequency:** How often interest is exchanged in each currency (quarterly, semi-annually).
 
-#### §12. Product Construction
-
-```
-                  Initial Exchange
-Akira (JPY) ────── ¥75B ──────→ Bank
-Akira (JPY) ←───── $500M ─────── Bank
-
-              During Life (Semi-Annual)
-Akira ────── USD 4.2% on $500M ──→ Bank
-Akira ←───── JPY 0.5% on ¥75B ──── Bank
-
-                  Final Exchange
-Akira ────── $500M ──────────→ Bank
-Akira ←───── ¥75B ───────────── Bank
-```
-
-(See Figure 5.2.6-01)
-
-The cross-currency swap is a pure derivative — no bond component, no embedded option.
-
-> **Professor Note:** If you remember only one thing from this chapter, remember this: a cross-currency swap exchanges principal twice (at start and at maturity) at the same FX rate. This is what makes it an FX hedge on the principal — the re-exchange rate is locked in on day one, regardless of where the exchange rate moves during the life of the swap.
-
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Detail |
 |-------|--------|
-| **Trade date** | Terms agreed: notional, tenor, rate conventions, special features. ISDA documentation |
+| **Trade date** | Terms agreed: two notionals, FX rate, tenor, rate conventions, special features. ISDA documentation. Book in Murex — both currency legs and the initial/final principal exchanges entered with matching notionals, FX rate, dates, and conventions |
 | **Effective date** | Swap becomes active. First accrual period begins |
-| **Periodic payments** | Scheduled cash flow exchanges on payment dates. Netting applied |
-| **Maturity** | Final exchange of cash flows. Trade terminated. Collateral returned |
+| **Initial exchange (T+2)** | Physical exchange of principals at the spot FX rate |
+| **Periodic payments** | Scheduled cash flow exchanges on payment dates; both parties pay interest in the currency they received. Netting applied within currency where applicable |
+| **Collateral management** | Under the CSA, the party with a negative mark-to-market posts collateral in the eligible currency. Collateral amounts are recalculated daily as FX and rates move |
+| **Maturity** | Final re-exchange of original principals at the original FX rate. Trade terminated. Collateral returned |
 
-#### §14. Desk Reality
+#### §12. Worked Example (both lenses)
 
-The cross-currency swap does not have a traditional "payoff diagram" because it is a series of cash flows in two currencies, not a single terminal payoff.
-
-The value of the swap changes with:
-- **Interest rate differentials** between the two currencies
-- **FX rate movements** (affecting the mark-to-market of future cash flows)
-- **Cross-currency basis** (the market-implied spread between currencies)
-
-```
-Value to Party Receiving Foreign Currency:
-
-  + │                    ╱
-    │                  ╱
-    │                ╱
-  0 │──────────────*────────  ← Value = 0 at inception
-    │            ╱
-    │          ╱
-  − │        ╱
-    +──────────────────────→
-         Domestic Currency Strengthens →
-```
-
-(See Figure 5.2.6-02)
-
-If the domestic currency strengthens, the foreign currency principal owed at maturity is worth less in domestic terms — positive MTM for the party receiving foreign currency (who will return cheaper foreign currency).
-
-
-#### §15. Risk Analysis
-
-| Risk | Description | Severity |
-|------|------------|:--------:|
-| **FX risk (mark-to-market)** | Exchange rate moves create MTM gains/losses even though principal re-exchange is at the original rate | High |
-| **Interest rate risk** | Changes in rates in either currency affect the swap's value | Medium |
-| **Cross-currency basis risk** | The basis spread can widen or tighten, affecting valuation | Medium |
-| **Counterparty risk** | Principal exchange creates large settlement exposure — if the counterparty defaults at maturity, the full principal is at risk | High |
-| **Funding risk** | If the client's underlying funding is floating, rate changes affect their net cost | Medium |
-| **Settlement risk (Herstatt risk)** | Time zone differences mean one leg may settle before the other — risk of paying without receiving | Medium |
-
-
-#### §16. Booking and Systems
-
-| Field | Value |
-|-------|-------|
-| **Booking system** | Murex |
-| **Pricing system** | Murex |
-| **Four-Leg** | No |
-| **Product type** | Cross-Currency Swap |
-| **Key booking fields** | Two notionals (each currency), FX rate, two interest rates (fixed or floating), payment frequencies, start/end dates |
-| **Payment schedule** | Semi-annual or quarterly in each currency |
-| **ISDA documentation** | ISDA Master Agreement, CSA, ISDA Rate Definitions |
-
-**Lifecycle events:**
-- **Trade date:** Book in Murex with both currency notionals, FX rate, and rate terms.
-- **Initial exchange (T+2):** Physical exchange of principals.
-- **Each payment date:** Both parties pay interest in the currency they received.
-- **MTM margin:** CSA requires collateral posting as FX and rates move.
-- **Final exchange:** Re-exchange of original principals at the original FX rate.
-
-
-#### §17. Red Flags
-
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| **FX rate mismatch at inception** | The system FX rate differs from the agreed spot rate used for principal exchange | Verify the exact FX rate in the confirmation matches the system |
-| **Interest payment currency confusion** | A payment is booked in the wrong currency | Verify each leg pays in the currency of the principal it received |
-| **Cross-currency basis not reflected in valuation** | The system uses par rates without the basis adjustment, mispricing the swap | Ensure the cross-currency basis curve is applied in Murex |
-| **Settlement date misalignment across time zones** | JPY leg settles in Tokyo hours, USD leg settles in New York hours | Coordinate settlement timing, use CLS (Continuous Linked Settlement) where available |
-| **Notional mismatch after partial unwind** | A partial termination reduces one notional but not the other proportionally | Verify both notionals are adjusted consistently after any amendment |
-
-
-#### §18. Worked Example
-
-**Product:** 5-year Cross-Currency Swap (JPY ↔ USD)
-**Notionals:** ¥15,000,000,000 ↔ $100,000,000 (rate: ¥150/$)
-**Akira pays:** USD 4.2% semi-annual on $100M
-**Akira receives:** JPY 0.5% semi-annual on ¥15B
+**Product:** 5-year Cross-Currency Swap (JPY ↔ USD). **Notionals:** ¥15,000,000,000 ↔ $100,000,000 (rate: ¥150/$). **Akira pays:** USD 4.2% semi-annual on $100M. **Akira receives:** JPY 0.5% semi-annual on ¥15B. (Akira is the client, delivering JPY principal and receiving USD principal at inception; the desk takes the mirror side.)
 
 | Period | USD Interest Paid | JPY Interest Received | Net Cost |
 |:------:|:-----------------:|:--------------------:|:--------:|
@@ -10644,17 +10376,23 @@ If the domestic currency strengthens, the foreign currency principal owed at mat
 
 If Akira could only borrow USD directly at 4.5%, the swap saves 30bp × $100M × 5 years = **$1,500,000** in interest costs, plus full FX hedging on the $100M principal.
 
-(See Figure 5.2.6-03)
+*Client lens:*
+The client accessed USD funding at 4.2% versus 4.5% direct, saving $1,500,000 over five years, and locked the ¥150/$ re-exchange rate so the $100M principal repayment is fully FX-hedged. The purpose was cheaper funding plus certainty on the principal, not speculation: regardless of where USD/JPY moves, the client returns $100M and receives back ¥15B at maturity, repaying its ¥15B home-currency borrowing.
 
+*Bank lens:*
+The desk holds the mirror position — receiving USD 4.2% and paying JPY 0.5%, receiving ¥15B and paying $100M at inception, reversed at the original ¥150/$ at maturity — and warehouses the FX, rate and basis risk, hedging the FX with spot/forward markets and the rates with IRS in each currency so the book's net FX delta and DV01 stay within limit. The desk earns the spread built into the cross-currency basis (5-15bp), the bid-offer at execution, and the CSA funding benefit. The 2nd line must confirm the ¥150/$ FX fixing against the termsheet, that each leg's interest settled in the correct currency, that both the initial and the final ¥15B/$100M exchanges are booked at the original rate, that the basis curve is applied, and that the daily CSA collateral tracked the changing MTM as FX and rates moved.
 
-#### §19. Knowledge Check
+#### §13. Knowledge Check
 
-1. **Why does a cross-currency swap exchange principal but an IRS does not?**
-2. **What is the cross-currency basis and how does it affect swap pricing?**
-3. **Explain why the final exchange uses the original FX rate, not the prevailing rate.**
-4. **What is Herstatt risk and how is it mitigated in cross-currency swaps?**
-5. **A Japanese company wants to fund a US subsidiary. Walk through how a cross-currency swap achieves this more cheaply than direct USD borrowing.**
-
+1. **Why does a cross-currency swap exchange principal but an IRS does not?** *(Investor)*
+2. **Explain why the final exchange uses the original FX rate, not the prevailing rate, and why that makes the swap an FX hedge on the principal.** *(Investor)*
+3. **A Japanese company wants to fund a US subsidiary. Walk through how a cross-currency swap achieves this more cheaply than direct USD borrowing.** *(Investor)*
+4. **Which interest leg does the client pay and which does it receive, and in which currency is each principal exchanged at inception and at maturity?** *(Investor)*
+5. **What is Herstatt (settlement) risk and how is it mitigated in cross-currency swaps?** *(Investor)*
+6. **Why is counterparty credit risk elevated relative to an IRS, and how is it mitigated?** *(Investor)*
+7. **What is the cross-currency basis and how does it affect swap pricing?** *(Investor)*
+8. **(Desk economics / 1LoD)** When a client enters a cross-currency swap, what mirror position does the desk book across the two interest legs and the two principal exchanges, what are its dominant risk factors (FX delta, DV01 in both currencies, basis), and how does it hedge each? Where does the desk's spread come from given there is no coupon to decompose?
+9. **(Controls / 2LoD)** Name three reconciliation breaks specific to a cross-currency swap — covering the FX fixing rate, the interest legs, and the initial/final notional exchange — and the consequence of each for the FX hedge, a net payment, or the margin call.
 
 **Mental Models**
 
@@ -10664,48 +10402,29 @@ If Akira could only borrow USD directly at 4.5%, the swap saves 30bp × $100M ×
 | Principal exchange | The house keys — exchanged at start, returned at end, always at the original terms |
 | Interest payments | Utility bills — each family pays the other's local costs in the local currency |
 | Cross-currency basis | The "convenience fee" for accessing a specific currency through a swap rather than borrowing directly |
-| Re-exchange at original rate | A guaranteed return policy — no matter how exchange rates move, you return at the original price |
-
+| Re-exchange at original rate | A guaranteed return policy — no matter how exchange rates move, the principal is returned at the original price |
+| FX delta on principal | The desk's speedometer for FX risk — the dominant risk factor, dwarfing rate sensitivity |
+| CSA collateral | The daily deposit each side posts so neither is over-exposed if the other defaults |
 
 **Key Takeaways**
 
 1. A cross-currency swap exchanges principal and interest in two currencies, with principal re-exchanged at maturity at the original FX rate.
 2. The re-exchange at the original rate provides full FX hedging on the principal — this is the product's defining feature.
-3. Companies use cross-currency swaps to access cheaper foreign funding by exploiting their home-market credit advantage.
+3. Companies use cross-currency swaps to access cheaper foreign funding by exploiting their home-market credit advantage; the client pays the foreign-currency interest leg and receives the home-currency leg.
 4. Counterparty risk is elevated because of the large principal exchange — CSA margin agreements are essential.
-5. Cross-currency swaps are booked in Murex, governed by ISDA, and require careful management of two-currency settlement.
+5. The product is linear — no barriers, no optionality; the client's exposure is set by which principal it delivers/receives and which interest leg it pays/receives, plus the cross-currency basis.
+6. The desk takes the mirror legs and exchanges, warehouses the FX, rate and basis risk, and manages it by FX delta and DV01 in both currencies — earning the spread built into the basis, the bid-offer, and the CSA funding benefit rather than a coupon spread.
+7. Cross-currency swaps are booked in Murex and governed by ISDA Master Agreements, CSA and ISDA Rate Definitions.
+8. For the 2nd line, the dominant control risks are the FX fixing rate and the initial/final notional exchange — together they determine whether the FX hedge is correct — followed by the per-currency interest legs, the cross-currency basis in valuation, and the CSA collateral (in the eligible currency); each can misstate the hedge, a net payment, or a daily margin call.
 
-
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
 1. **Confusing a cross-currency swap with an FX forward.** An FX forward exchanges principal once at a future date. A cross-currency swap exchanges principal at start AND end, with interest payments in between. The swap provides both FX hedging and funding.
 2. **Forgetting the principal exchange.** Unlike an IRS (where notional is only a reference amount), a cross-currency swap physically exchanges principal. This creates real settlement exposure.
 3. **Ignoring the cross-currency basis.** The basis is a market-determined spread that affects the economics of the swap. A negative basis means swapping into a currency costs less than the interest rate differential suggests; a positive basis means it costs more.
 4. **Assuming both legs must be fixed.** Cross-currency swaps can be fixed-fixed, fixed-floating, or floating-floating. The structure depends on the client's funding and hedging needs.
-5. **Underestimating settlement risk.** Time zone differences mean one currency leg may settle hours before the other. If the counterparty defaults between settlements, the party that paid first loses the principal.
-
-### Desk Perspective
-
-| Role | What the Cross-Currency Swap Means to Them |
-|------|------------------------------------------|
-| **Trader** | Manages FX exposure from the principal exchange and interest rate risk in two currencies simultaneously. Cross-currency basis is the key risk factor — it is volatile and difficult to hedge perfectly. Must coordinate with both rates and FX desks |
-| **Structurer** | Designs the swap to minimize the client's all-in cost of foreign funding. Must price the cross-currency basis correctly and explain why the swapped rate differs from the direct borrowing rate. Sets the FX rate for principal exchange |
-| **Product Control** | Verifies two-currency valuations using separate discount curves for each leg. Cross-currency basis curves must be calibrated correctly. MTM changes can be large due to FX moves on the principal |
-| **Risk** | Monitors aggregate FX and interest rate exposure across the cross-currency swap book. Jump risk from counterparty default is significant because of principal exchange. Wrong-way risk if the counterparty's credit is correlated with its domestic currency |
-| **Operations** | Manages settlement in two currencies, two time zones. CLS (Continuous Linked Settlement) reduces Herstatt risk but is not available for all currency pairs. Must process both legs of every periodic payment and the final principal re-exchange |
-
-### Desk Reality
-
-**What keeps traders awake:** Cross-currency basis moves. The basis can gap 20-30bp overnight during funding stress (e.g., year-end USD squeeze), creating large MTM swings on a book of long-dated swaps.
-
-**Most important risk:** FX exposure on the principal. A ¥150/$ rate moving to ¥130/$ on a ¥75B/$500M swap creates a ¥7.7B MTM move. The principal is the dominant risk factor, dwarfing interest rate sensitivity.
-
-**Typical junior mistake:** Booking the swap with the wrong principal exchange date or forgetting to book the final re-exchange, leaving the system showing an open FX position at maturity.
-
-**Hardest operational issue:** Settlement timing across time zones. A USD/JPY swap where the JPY leg settles in Tokyo (4am London) and the USD leg settles in New York (2pm London) creates a window of settlement exposure. CLS mitigates this but is not used for all trades.
-
-**Most misunderstood concept:** The re-exchange at the original FX rate. New joiners frequently ask "but what if the FX rate has moved?" — the answer is that the re-exchange at the original rate IS the FX hedge. That is the entire purpose of the product.
-
+5. **Underestimating settlement risk.** Time-zone differences mean one currency leg may settle hours before the other. If the counterparty defaults between settlements, the party that paid first loses the principal.
+6. **(Controls) Trusting a single system's FX fixing or assuming the final re-exchange is booked.** Because the entire FX hedge depends on the FX rate captured at inception being re-used at maturity, the 2nd line must reconcile the FX fixing against the termsheet and confirm both the initial and final notional exchanges are booked at the original rate, rather than assume they agree.
 ### Knowledge Check
 
 **Review Questions:**
@@ -10715,6 +10434,10 @@ If Akira could only borrow USD directly at 4.5%, the swap saves 30bp × $100M ×
 4. At what FX rate is the principal re-exchanged at maturity?
 5. What booking system is used for cross-currency swaps?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* Which side of the swap does the desk take, and what is its primary risk and hedge?
+- *(Controls / 2LoD)* Which leg/fixing/collateral fields must reconcile, and which is the most common break?
 **Scenario Questions:**
 1. A European company borrows €200M at 3.5% and enters a cross-currency swap to receive €200M and pay $220M at 4.8% (FX rate €1 = $1.10). Over 3 years, what are the company's annual cash flows on the swap? What happens at maturity?
 2. A cross-currency swap has a notional of $100M/¥15B. At inception FX was ¥150/$. Six months later, FX is ¥140/$. Calculate the approximate MTM change on the principal exchange leg only.
@@ -10834,6 +10557,11 @@ Year-end is approaching and the USD cross-currency basis has widened by 25bp in 
 - **Diagram elements:** Three rate path scenarios (rates up, stable, down) showing P&L impact. Clearly labelled outcomes
 - **Reuse status:** Adapt from scenario template
 
+
+**Dual-lens visuals (generated):**
+- `assets/ccyswap/controls_ccyswap_recon_08.svg` `[generated]`
+- `assets/ccyswap/legs_ccyswap_01.svg` `[generated]`
+- `assets/ccyswap/waterfall_ccyswap_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -10846,30 +10574,29 @@ Year-end is approaching and the USD cross-currency basis has widened by 25bp in 
 | Commodity Swap | 5.2.7 — different underlying |
 ### 5.2.7 Commodity Swap
 
-*The IRS exchanged interest rate cash flows. The cross-currency swap exchanged cash flows in two currencies. The Commodity Swap exchanges a fixed price for a floating commodity price. One party locks in a price for a commodity (oil, gas, metals, agricultural products), and the other party takes the price risk. No physical commodity changes hands — only cash flows.*
+---
 
-**How This Differs From the IRS (5.2.1):** In an IRS, the floating leg references an interest rate (SOFR). In a commodity swap, the floating leg references a commodity price (e.g., Brent crude oil). The IRS hedges interest rate risk. The commodity swap hedges commodity price risk. Both are cash-settled swaps with periodic payments.
+*Where an Interest Rate Swap (Section 5.2.1) exchanges two streams of interest payments on a notional, a Commodity Swap exchanges a fixed commodity price for a floating commodity price. It is a bilateral OTC contract: one party pays a fixed price per unit on a specified volume and receives the floating market price of the commodity (typically the arithmetic average of a futures or spot index over the settlement period); the other party takes the mirror side. No physical commodity changes hands — only the net cash difference is settled. There is no bond wrapper, no barrier, no embedded put or call: just a fixed-price leg and a floating-price leg. This chapter reads the product through two lenses: what it means for **the client** (the counterparty entering the swap to hedge a commodity price), and what it means for **the bank** — the latter split into the desk's commodity-price economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
+**How this differs from the IRS (5.2.1):** In an IRS the floating leg references an interest rate (SOFR). In a commodity swap the floating leg references a commodity price (e.g. ICE Brent crude oil). The IRS hedges interest rate risk; the commodity swap hedges commodity price risk. Both are cash-settled swaps with periodic net payments.
 
 #### §1. Explain Like I'm New
 
-Fatima is the fuel procurement manager at a Middle Eastern airline. The airline burns 2 million barrels of jet fuel per year. Fuel is its largest operating cost — over 30% of total expenses. When oil prices spike, the airline's margins collapse. When prices fall, margins expand. This volatility makes budgeting nearly impossible.
+Consider the fuel procurement function at a Middle Eastern airline. The airline burns 2 million barrels of jet fuel per year. Fuel is its largest operating cost — over 30% of total expenses. When oil prices spike, the airline's margins collapse; when prices fall, margins expand. This volatility makes budgeting nearly impossible.
 
-A **Commodity Swap** gives Fatima price certainty. She enters a swap where the airline pays a fixed price per barrel ($85) and receives the floating market price of jet fuel. If jet fuel rises to $100, the swap pays the airline $15/barrel — offsetting the higher fuel cost. If jet fuel falls to $70, the airline pays the swap $15/barrel — but enjoys cheaper fuel at the pump. Either way, the airline's effective fuel cost is locked at $85/barrel.
+A **Commodity Swap** gives the airline price certainty. The airline enters a swap where it pays a fixed price per barrel ($85) and receives the floating market price of jet fuel. If jet fuel rises to $100, the swap pays the airline $15/barrel — offsetting the higher fuel cost. If jet fuel falls to $70, the airline pays the swap $15/barrel — but enjoys cheaper fuel at the pump. Either way, the airline's effective fuel cost is locked at $85/barrel.
 
 The commodity swap does not deliver physical fuel. It is a financial contract that compensates for price differences, netting cash at each settlement.
-
 
 #### §2. Real-World Analogy
 
 A Commodity Swap is like a grocery delivery subscription with a fixed monthly fee.
 
-You sign up for a weekly grocery delivery at a fixed price of $100/week. The actual cost of the groceries fluctuates — some weeks the ingredients cost $120 (you benefit from the fixed price), some weeks they cost $80 (the service benefits). You always pay $100 regardless.
+A household signs up for a weekly grocery delivery at a fixed price of $100/week. The actual cost of the groceries fluctuates — some weeks the ingredients cost $120 (the household benefits from the fixed price), some weeks they cost $80 (the service benefits). The household always pays $100 regardless.
 
-The grocery service has taken on your price risk. If food prices spike during a drought, the service absorbs the extra cost. If food prices drop due to a bumper harvest, the service profits from the difference.
+The grocery service has taken on the household's price risk. If food prices spike during a drought, the service absorbs the extra cost. If food prices drop due to a bumper harvest, the service profits from the difference.
 
 A commodity swap works identically: the fixed-price payer (the airline) locks in a cost, and the floating-price payer (the bank) absorbs the commodity price volatility. Neither party delivers groceries (or oil) — they just settle the price difference in cash.
-
 
 #### §3. What Problem Does This Solve?
 
@@ -10882,7 +10609,6 @@ The Commodity Swap addresses the **commodity price risk** need:
 | Budget certainty | Fixed commodity cost enables reliable financial planning |
 | No physical delivery | Cash-settled — no storage, logistics, or quality issues |
 
-
 #### §4. Product DNA
 
 | Field | Value |
@@ -10893,30 +10619,30 @@ The Commodity Swap addresses the **commodity price risk** need:
 | **Complexity Score** | 4 / 10 |
 | **Complexity Rationale** | Fixed-for-floating exchange on commodity price. Physical or financial settlement. Hedging tool for producers and consumers |
 | **Underlying Asset Class** | Commodities |
-| **Capital Protection** | N/A (swap) |
+| **Capital Protection** | N/A (swap — no principal exchanged) |
 | **Coupon Type** | Fixed vs floating commodity price |
 | **Maturity** | 1 month - 5 years |
 | **Liquidity** | OTC (bilateral, some exchange-cleared) |
 | **Primary System** | Murex / Endur |
-| **ISDA Required** | Yes — ISDA |
+| **ISDA Required** | Yes — ISDA Master Agreement |
 
 **DNA Atlas Fields:**
-- Primary Risk: Commodity price volatility. Basis risk (hedge vs actual commodity). Contango/backwardation. Physical delivery risk
+- Primary Risk: Commodity price volatility. Basis risk (hedge vs actual commodity). Contango/backwardation. Counterparty credit risk
 - Typical Buyer: Commodity producers (lock in selling price), consumers (lock in buying price), traders
 - Typical Use Case: Lock in commodity price for budget certainty. Producers hedge revenue, consumers hedge costs
 - Building Blocks: Fixed-price leg vs floating-price leg (referenced to commodity benchmark)
-- Key Hedge: Offsetting commodity swap, futures, options on commodity
+- Key Hedge: Offsetting commodity swap, exchange-traded futures, options on commodity
 - Similar Products: IRS (5.2.1 — rate version), Equity Swap (5.2.3 — equity version), Forward (5.6.2 — single settlement)
 - Most Important Greek: Commodity delta (price sensitivity)
 
 **Comparison Matrix Fields:**
 - Complexity: 4
-- Yield Potential: Fixed price vs market price difference
+- Yield Potential: Fixed price vs market price difference (no yield enhancement — hedging instrument)
 - Capital Protection: N/A (swap)
-- Credit Exposure: Counterparty
+- Credit Exposure: Counterparty (bilateral, mitigated by CSA)
 - Liquidity: OTC (varies by commodity)
 - Path Dependency: No
-- Volatility Sensitivity: Full commodity vol exposure
+- Volatility Sensitivity: Full commodity price exposure (linear product)
 - Correlation Sensitivity: None
 - Client Type: Producers, Consumers, Trading firms
 - Market Environment: Used when commodity exposure needs hedging or expressing views
@@ -10925,13 +10651,13 @@ The Commodity Swap addresses the **commodity price risk** need:
 
 | Role | Responsibility |
 |------|---------------|
-| **Structurer** | Designs Commodity Swap terms: notional, tenor, fixing conventions, special features |
-| **Trader** | Manages Commodity Swap book. Delta-hedges primary risk. Manages portfolio Greeks |
-| **Sales** | Presents Commodity Swap to clients for hedging or investment. Explains risk-return trade-off |
+| **Structurer** | Designs Commodity Swap terms: notional volume, tenor, fixing conventions, averaging period, special features |
+| **Trader** | Manages Commodity Swap book. Delta-hedges primary risk with futures. Manages portfolio Greeks and basis |
+| **Sales** | Presents Commodity Swap to clients for hedging. Explains risk-return trade-off and basis risk |
 | **Risk Management** | Monitors counterparty exposure, MTM limits, Greek limits. Stress-tests Commodity Swap portfolio |
-| **Product Control** | Daily P&L attribution for Commodity Swap book. Independent price verification |
-| **Operations** | Confirms trade details (ISDA). Processes periodic payments. Manages collateral (CSA) |
-| **Legal / Compliance** | ISDA Master Agreement and CSA negotiation. Trade reporting. Regulatory compliance |
+| **Product Control** | Daily P&L attribution for Commodity Swap book. Independent price verification against agreed source |
+| **Operations** | Confirms trade details (ISDA). Processes periodic averaged settlements. Manages collateral (CSA) |
+| **Legal / Compliance** | ISDA Master Agreement, CSA and ISDA Commodity Definitions negotiation. Trade reporting. Regulatory compliance |
 | **Quantitative Analytics** | Prices Commodity Swap and calibrates models. Develops risk analytics and sensitivities |
 
 #### §6. Product Evolution
@@ -10940,203 +10666,161 @@ The Commodity Swap addresses the **commodity price risk** need:
 |:-----:|---------|---------------|-----|
 | 1 | Loan / deposit | — (baseline) | Simple lending/borrowing relationship |
 | 2 | Interest rate swap | Periodic cash flow exchange | Transform rate exposure between fixed and floating |
-| 3 | Commodity Swap | Specific swap features added | Extended swap concept: Fixed-for-floating exchange on commodity price. Physical or financial settlement. Hedging tool for producers and consumers |
+| 3 | Commodity Swap | Floating leg references a commodity price | Extended swap concept: fixed-for-floating exchange on commodity price. Cash settlement. Hedging tool for producers and consumers |
 
-#### §7. How the Bank Makes Money
+---
+
+#### §7. THE INVESTOR LENS
+
+**Why the client enters it**
+
+1. **Cost certainty.** Airlines, manufacturers, and utilities lock in commodity costs to protect margins, converting a volatile input cost into a fixed, predictable one.
+2. **Revenue certainty.** Producers (mining, agriculture, energy) lock in sales prices to secure cash flows, converting volatile output revenue into a stable stream.
+3. **Budget certainty.** A fixed commodity cost or revenue enables reliable financial planning across the hedge horizon.
+4. **Simplicity.** Cash-settled — no need to arrange physical delivery, storage, or quality inspection.
+5. **Flexibility.** Can be structured on any commodity with a liquid reference price (oil, gas, metals, power, agricultural). The swap is priced so its initial value is zero, so entering it typically requires no upfront payment.
+
+The client does not "make money" on the swap in isolation — it is a hedge, not a speculative instrument. The client benefits when commodity prices move against its physical position: if fuel rises from $85 to $100, the swap pays $15/barrel, protecting the airline's margin. In the opposite scenario the airline pays the swap but benefits from cheaper fuel at the pump. The economic benefit is stability, not directional profit.
+
+**Legs & position**
+
+A commodity swap has two legs, and the client's position is defined entirely by which leg it pays and which it receives. There is no embedded option, no premium, no barrier — only the directional exposure that the leg choice creates.
+
+![Commodity Swap Cashflow Legs — Investor Lens](assets/commodswap/legs_commodswap_01.svg)
+
+- **Pay-fixed / receive-floating client** (e.g. a consumer such as an airline) is **long the commodity** through the swap: it pays a fixed price and receives the floating market price. If the commodity price rises, the floating leg it receives grows while the fixed leg it pays stays constant — the swap gains value for the client, offsetting the higher physical cost. A consumer hedging an input cost typically takes this side, locking in a fixed cost.
+- **Receive-fixed / pay-floating client** (e.g. a producer such as a miner) is **short the commodity** through the swap: it receives a fixed price and pays the floating market price. If the commodity price falls, the floating leg it pays shrinks while the fixed leg it receives stays constant — the swap gains value for the client, protecting its sales revenue. A producer locking in selling price takes this side.
+
+The client's commodity risk is measured by **commodity delta** — the change in the swap's mark-to-market value for a unit move in the reference commodity price. The larger the notional volume and the longer the tenor, the larger the delta.
+
+**Cashflows & scenarios**
+
+On each settlement date only the **net** difference between the fixed price and the averaged floating price, multiplied by the volume, is exchanged. The notional volume is never delivered — it is purely a reference figure for calculating each leg.
+
+**Product:** 1-year Commodity Swap on Jet Fuel. **Volume:** 500,000 barrels (quarterly settlement, 125,000 barrels per quarter). **Fixed price:** $85/barrel. **Reference:** Platts Jet Fuel (Singapore). (The airline is the pay-fixed / receive-floating, long-commodity counterparty.)
+
+- **Scenario 1 — Jet fuel averages $95:** Each quarter the airline receives ($95 − $85) × 125,000 barrels = $1,250,000. **Annual gain: $5,000,000.** The swap compensates for the higher fuel cost.
+- **Scenario 2 — Jet fuel averages $80:** Each quarter the airline pays ($85 − $80) × 125,000 = $625,000. **Annual cost: $2,500,000.** The airline "overpays" on the swap but underpays at the pump.
+- **Scenario 3 — Jet fuel spikes to $130 (supply crisis):** Each quarter the airline receives ($130 − $85) × 125,000 = $5,625,000. **Annual gain: $22,500,000.** The swap is a lifeline — without it, the airline's fuel bill would have increased by $22.5M.
+- **Scenario 4 — Jet fuel drops to $60 (oversupply):** Each quarter the airline pays ($85 − $60) × 125,000 = $3,125,000. **Annual cost: $12,500,000.** The airline locked in at $85 and cannot benefit from cheap fuel. This is the cost of certainty.
+
+**Risks to the client**
+
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Commodity price risk** | The core exposure. If the commodity price moves against the position, the swap loses mark-to-market value for the client — though when used as a hedge this is offset by the physical exposure. | High |
+| **Basis risk** | The swap may reference Brent crude while the airline burns jet fuel — the price correlation is high but imperfect, leaving the crack spread unhedged. | High |
+| **Volume risk** | If the client's actual consumption or production differs from the hedged volume, the hedge is imperfect. | Medium |
+| **Counterparty credit risk** | If the other party defaults when the swap has positive value to the client, the client loses that value. Mitigated by collateral agreements (CSA/ISDA). | Medium |
+| **Opportunity cost** | If the commodity price falls significantly, the fixed-price payer cannot benefit from cheaper prices — the cost of certainty. | Medium |
+| **Mark-to-market volatility** | Commodity prices can swing 5-10% in a day, creating large MTM movements on the swap. | High |
+
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk takes the other side of the client's swap and books it as a two-leg trade (fixed-price leg + floating-price leg) in its commodities book. Where the client pays fixed and receives the floating commodity price, the desk receives fixed and pays the floating commodity price — the mirror leg. No principal is booked, no option is embedded; the position is the present value of the remaining net cash flows. The desk does not want a directional commodity view from a single client trade — it warehouses the resulting commodity price risk and hedges it down.
+
+**Commodity risk & hedging**
+
+The desk's primary risk is **commodity delta** — the dollar value of a unit move in the reference commodity price, measured tenor by tenor across the forward curve, not as a single number. A swap is a **linear** product: there is no equity-style gamma, no barrier, no discontinuity. The P&L changes proportionally with the commodity price.
+
+The desk hedges the warehoused delta with **exchange-traded futures (ICE Brent, NYMEX WTI, LME metals)** and offsetting commodity swaps, and manages the residual risks: **basis risk** (e.g. jet fuel vs Brent crude differential), **timing risk** (swap settlement dates vs futures expiry), and **roll risk** (rolling futures contracts at each expiry, which can total 2-5% of notional per year on a long-dated swap). Concentration of delta in a particular commodity or far-dated tenor is the main risk-management concern, as commodity futures are liquid for 2-3 months but become illiquid beyond 12 months.
+
+**How the bank makes money**
 
 | Revenue Component | Detail |
 |------------------|--------|
 | **Bid-offer spread** | Captures spread between buy and sell pricing |
-| **Hedging P&L** | Profits from managing hedge portfolio (realized vs implied) |
+| **Structuring spread** | Spread embedded in the fixed price above the fair forward price |
+| **Hedging P&L** | Profits from managing the futures hedge portfolio (realized vs implied; basis) |
 | **Funding benefit** | Earns funding spread on collateral received under CSA |
-| **Structuring fee** | Fee for custom features beyond vanilla terms |
 
-#### §8. Why This Product Exists (Client Perspective)
+**The desk spread decomposition:**
 
-1. **Cost certainty.** Airlines, manufacturers, and utilities lock in commodity costs to protect margins.
-2. **Revenue certainty.** Producers (mining, agriculture, energy) lock in sales prices to secure cash flows.
-3. **Simplicity.** Cash-settled — no need to arrange physical delivery, storage, or quality inspection.
-4. **Flexibility.** Can be structured on any commodity with a liquid reference price (oil, gas, metals, power, agricultural).
+Unlike an ELN, a commodity swap has no coupon to decompose — the client pays no premium and there is no embedded option. The desk's economics come instead from the spread it embeds in the fixed price around the fair forward, plus the basis it earns between the swap price and the futures hedge, plus the funding benefit on CSA collateral. On a $85 fixed price where the fair forward is $84, the bank earns $1/barrel × volume; on 2M barrels, this is $2M. The structuring spread (typically 1-3% above the fair forward) and the CSA funding benefit are the two structural sources; the hedging P&L (the basis between the swap and the futures hedge, less roll and funding costs) is the variable, market-dependent one.
 
-#### Why This Product Exists
+![Commodity Swap Desk Margin — Bank Lens (Desk Economics)](assets/commodswap/waterfall_commodswap_09.svg)
 
-**1. Typical Buyer**
+**P&L drivers**
 
-Airlines hedging fuel costs. Mining companies locking in metals revenue. Utilities hedging natural gas or electricity procurement. Agricultural companies managing crop price risk. Energy companies stabilizing oil and gas revenue.
+Day to day, desk P&L is driven by moves in the commodity forward curve against the warehoused delta, the basis between the swap reference and the futures hedge, roll costs at each futures expiry, changes in the shape of the forward curve (contango/backwardation), and the funding spread earned on CSA collateral. Product Control attributes P&L daily and verifies swap valuations independently against the futures curve used for hedging; the averaging methodology and the price source are the most common sources of valuation differences.
 
-**2. Problem Being Solved**
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
 
-Commodity-dependent businesses face input or output price volatility that makes financial planning unreliable. A commodity swap converts volatile commodity exposure into a fixed, predictable cost or revenue stream.
+**Booking & systems**
 
-**3. How The Client Makes Money**
+| Aspect | Detail |
+|--------|--------|
+| **Book of record** | Murex |
+| **Pricing/Risk system** | Murex |
+| **Booking structure** | Two-leg trade (fixed-price leg + floating-price leg) |
+| **Four-leg framework?** | No (commodity swap is a standalone derivative, not a structured note) |
+| **Key booking fields** | Notional volume, commodity reference, fixed price, settlement frequency, averaging method, start/end dates, counterparty |
+| **Payment schedule** | Monthly or quarterly — net cash settlement on each date based on the averaging period |
+| **ISDA documentation** | Governed by ISDA Master Agreement, Credit Support Annex (CSA), and ISDA Commodity Definitions |
 
-The client does not "make money" on the swap in isolation — the swap is a hedge, not a speculative instrument. The client benefits when commodity prices move against them: if fuel rises from $85 to $100, the swap pays $15/barrel, protecting the airline's margin. In the opposite scenario, the airline pays the swap but benefits from cheaper fuel at the pump. The economic benefit is stability, not directional profit.
+**Reconciliation points**
 
-**4. How The Bank Makes Money**
+| Recon point | What must agree | CommSwap-specific break |
+|-------------|-----------------|-------------------------|
+| **ISDA / CSA terms** | Master Agreement, CSA and ISDA Commodity Definitions governing the trade — collateral eligibility, thresholds, netting set | Trade executed before ISDA/CSA is in place, or against the wrong netting set |
+| **Trade economics** | Notional volume, fixed price, commodity reference, settlement frequency, start/end dates, counterparty | One system records 400,000 bbl, another a stale volume after an amend; or wrong counterparty |
+| **Commodity index / fixing source** | The floating-price benchmark — the exact commodity reference code and publishing source (e.g. ICE Brent, Platts Jet Fuel Singapore, NYMEX WTI, LME Copper) | Swap references "ICE Brent" but the system uses "WTI" for the floating price |
+| **Averaging methodology** | The set of observation dates and method (Asian average of all business days vs single end-of-month fixing), and the holiday calendar used | Contract specifies an Asian average but the system uses a single month-end fixing, or the wrong market holiday calendar |
+| **Settlement** | Cash-settled net amount = (floating average − fixed) × volume on each date; net not gross | Gross payment sent instead of net, or settlement against the wrong averaging window |
+| **Leg PV reconciliation** | Present value of the fixed leg and the floating leg agree between front office and risk | Forward-curve construction differs, so leg PVs and total MTM diverge from the futures hedge curve |
+| **Collateral (CSA)** | Daily MTM, margin call amount, and posted collateral agree with the counterparty | Counterparty disputes the MTM and the required collateral amount |
+| **Novation / clearing** | If the trade is novated or cleared, the new counterparty / CCP and the trade record agree | Novation booked on one side only, or cleared trade not removed from the bilateral book |
 
-- **Client economics:** The client gains budget certainty. The swap premium (embedded in the fixed price) is the cost of this certainty — typically 1-3% above the fair forward price.
-- **Bank economics:** The bank earns the structuring spread embedded in the fixed price. On a $85 fixed price where the fair forward is $84, the bank earns $1/barrel × volume. On 2M barrels, this is $2M.
-- **Hedging economics:** The commodities desk hedges using exchange-traded futures (ICE Brent, NYMEX WTI, LME metals). The desk earns the basis between the swap price and the futures hedge. Residual risks include basis risk (jet fuel vs Brent crude differential), timing risk (swap settlement dates vs futures expiry), and roll risk (rolling futures contracts at each expiry). The commodities trading desk manages the hedge.
-- **Distribution economics:** Commodity swaps are typically sold through the bank's commodities sales team to corporate clients. The sales credit is shared between the commodities and structured products desks. Repeat business from corporates creates a recurring revenue stream.
+![COMMODSWAP Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/commodswap/controls_commodswap_recon_08.svg)
 
-The bank prefers structuring over holding because its expertise is in managing basis risk between the client's specific commodity exposure and liquid futures markets — this is a service the client cannot replicate efficiently.
+**Common breaks & red flags**
 
-**5. Market Conditions Where Demand Increases**
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| Averaging period mismatch | The system uses a different set of daily prices than the contract specifies | Verify the exact averaging dates and price source (e.g. Platts vs ICE) against the confirmation |
+| Asian average vs end-of-month fixing | The contract specifies an Asian average (all business days) but the system uses a single month-end fixing | Verify the averaging methodology matches the trade terms |
+| Basis commodity confusion | The swap references "ICE Brent" but the system uses "WTI" for the floating price | Verify the exact commodity reference code matches the confirmation |
+| Volume rollover error | A partial hedge or volume amendment changes the periodic volume but the system retains the old figure | Verify current notional volume matches the live trade |
+| Holiday calendar misalignment | Different commodity markets have different holiday calendars (e.g. Chinese metals vs London) | Use the contractual holiday calendar for price observation |
+| Collateral dispute | Counterparty disagrees on MTM and required collateral amount | Reconcile valuations; differences often stem from forward-curve construction methodology |
 
-Demand increases when commodity prices are volatile or trending upward (consumers want to lock in), when forward curves are in backwardation (making fixed-price locking attractive for producers), or during geopolitical events that threaten supply.
+**Control implication**
 
-**6. When This Product Makes Sense**
+For a commodity swap the dominant controls are the **commodity index / fixing source** and the **averaging methodology** — together they determine whether each net settlement is correct. A wrong reference index misstates the floating leg, driving the wrong net payment to the wrong party (booking the swap against the wrong index creates a systematic settlement error). An averaging error — using a single end-of-month fixing where the contract specifies an Asian average, or the wrong holiday calendar — distorts the floating average and the settlement even when the index is right, because Asian averaging requires correctly collecting 60+ daily prices per quarter, handling holidays and missing prices. A CSA valuation difference — most often rooted in forward-curve construction versus the futures hedge curve — breaks the daily collateral call, leaving the bank under- or over-collateralised against a live counterparty exposure. The reconciliation exists precisely to catch these inconsistencies before a settlement pays or a margin call is made.
 
-Suitable for businesses with material commodity exposure (fuel, metals, energy, agricultural inputs) where price volatility significantly affects margins. The client should have a genuine physical exposure to hedge, not a speculative view.
+#### §10. Formal Definition
 
-**7. When This Product Is Usually A Poor Choice**
+A **Commodity Swap** is a derivative contract in which one party pays a fixed commodity price and the other pays a floating commodity price on a specified volume, with settlement based on the difference.
 
-Unsuitable for speculators who do not have physical commodity exposure — futures or options are more appropriate. A poor choice when the swap tenor extends beyond the client's forecasting horizon (e.g., hedging 5 years of fuel when the flight schedule is uncertain beyond 2 years). Not appropriate when basis risk between the swap's reference commodity and the client's actual commodity is large and unmanageable.
+**Fixed leg:** The hedger pays a fixed price per unit (e.g. $85/barrel) on a specified volume, at regular intervals.
 
+**Floating leg:** The other party pays the average market price over the settlement period, based on a specified reference (e.g. Platts Jet Fuel Singapore, ICE Brent, LME Copper).
 
-#### §9. The Three Scenarios
-
-| Scenario | Market Condition | Outcome for Investor |
-|----------|-----------------|---------------------|
-| **Best case** | Underlying performs strongly | Maximum return captured (subject to any participation cap or barrier) |
-| **Base case** | Underlying is flat or moderately positive | Moderate return or coupon income depending on structure |
-| **Worst case** | Underlying declines significantly | Capital at risk if below protection level; coupon may partially offset |
-
-*Detailed scenario analysis with specific numbers follows in §10.*
-
-#### §10. What Happens When Markets Move
-
-**Product:** 1-year Commodity Swap on Jet Fuel
-**Volume:** 500,000 barrels (quarterly settlement)
-**Fixed price:** $85/barrel
-**Reference:** Platts Jet Fuel (Singapore)
-
-**Scenario 1 — Jet fuel averages $95:**
-Each quarter: airline receives ($95 − $85) × 125,000 barrels = $1,250,000. **Annual gain: $5,000,000.** The swap compensates for the higher fuel cost.
-
-**Scenario 2 — Jet fuel averages $80:**
-Each quarter: airline pays ($85 − $80) × 125,000 = $625,000. **Annual cost: $2,500,000.** The airline "overpays" on the swap but underpays at the pump.
-
-**Scenario 3 — Jet fuel spikes to $130 (supply crisis):**
-Each quarter: airline receives ($130 − $85) × 125,000 = $5,625,000. **Annual gain: $22,500,000.** The swap is a lifeline — without it, the airline's fuel bill would have increased by $22.5M.
-
-**Scenario 4 — Jet fuel drops to $60 (oversupply):**
-Each quarter: airline pays ($85 − $60) × 125,000 = $3,125,000. **Annual cost: $12,500,000.** The airline locked in at $85 and cannot benefit from cheap fuel. This is the cost of certainty.
-
-
-#### §11. Formal Definition
-
-A **Commodity Swap** is a derivative contract in which one party pays a fixed commodity price and the other pays a floating commodity price, with settlement based on the difference.
-
-**Fixed leg:** The hedger pays a fixed price per unit (e.g., $85/barrel) on a specified volume.
-
-**Floating leg:** The hedger receives the average market price over the settlement period, based on a specified reference (e.g., Platts Jet Fuel Singapore, ICE Brent, LME Copper).
-
-**Settlement:** Cash-settled. At each settlement date, the fixed and floating prices are compared, and the difference is paid by the losing party. No physical commodity is delivered.
+**Settlement:** Cash-settled. At each settlement date, the fixed and floating prices are compared, and the net difference (multiplied by the volume) is paid by the losing party. No physical commodity is delivered.
 
 **Key terms:**
-- **Notional volume:** The quantity of commodity (barrels, tonnes, MWh)
-- **Reference price:** The commodity benchmark used for the floating leg
-- **Settlement frequency:** Monthly, quarterly, or per the agreed schedule
-- **Asian average:** Many commodity swaps use the arithmetic average of daily prices over the period (not a single fixing), reducing manipulation risk
+- **Notional volume:** The quantity of commodity (barrels, tonnes, MWh). It is never delivered — it is a reference amount only.
+- **Reference price:** The commodity benchmark used for the floating leg.
+- **Settlement frequency:** Monthly, quarterly, or per the agreed schedule.
+- **Asian average:** Many commodity swaps use the arithmetic average of daily prices over the period (not a single fixing), reducing manipulation risk.
+- **Netting:** On each settlement date, only the net difference between the two legs is exchanged.
 
-
-#### §12. Product Construction
-
-```
-Fixed Price Payer (Airline)        Floating Price Payer (Bank)
-         │                                      │
-         │──── Fixed: $85/barrel ──────────────→│
-         │                                      │
-         │←──── Floating: Market price/bbl ─────│
-         │                                      │
-         Net settlement = (Floating − Fixed) × Volume
-         If floating > fixed → bank pays airline
-         If fixed > floating → airline pays bank
-```
-
-(See Figure 5.2.7-01)
-
-> **Professor Note:** If you remember only one thing from this chapter, remember this: a commodity swap turns a volatile commodity cost into a fixed, predictable cost. The airline pays $85/barrel no matter what. If fuel costs $100, the swap pays the airline $15. If fuel costs $60, the airline pays the swap $25. The fixed price is the airline's budget — everything else is noise.
-
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Detail |
 |-------|--------|
-| **Trade date** | Terms agreed: notional, tenor, rate conventions, special features. ISDA documentation |
+| **Trade date** | Terms agreed: notional volume, tenor, fixed price, reference index, averaging method, special features. ISDA documentation. Book in Murex — both legs entered with matching volume, dates, and conventions |
 | **Effective date** | Swap becomes active. First accrual period begins |
-| **Periodic payments** | Scheduled cash flow exchanges on payment dates. Netting applied |
-| **Maturity** | Final exchange of cash flows. Trade terminated. Collateral returned |
+| **Price observation** | Over each settlement period, the floating reference is observed and the Asian average computed from the agreed source (e.g. ICE Brent, Platts Jet Fuel Singapore) |
+| **Periodic payments** | Scheduled cash flow exchanges on settlement dates. Net settlement applied on each date |
+| **Collateral management** | Under the CSA, the party with a negative mark-to-market posts collateral to the other party. Collateral amounts are recalculated daily |
+| **Maturity** | Final net exchange of cash flows. Trade terminated. Collateral returned |
 
-#### §14. Desk Reality
+#### §12. Worked Example (both lenses)
 
-The commodity swap has a **linear payoff** — identical in structure to an IRS.
-
-```
-P&L for Fixed
-Price Payer
-(Airline)
-    |
-    |              ╱
-    |            ╱
-    |          ╱
-    |        ╱
-  0 |──────*───────────  ← Fixed Price ($85/bbl)
-    |    ╱
-    |  ╱
-    |╱
-    +──────────────────→ Floating Commodity Price ($/bbl)
-```
-
-(See Figure 5.2.7-02)
-
-Above $85: the airline profits on the swap (compensated for higher fuel cost). Below $85: the airline loses on the swap (but pays less at the pump). The total cost — physical fuel plus swap — always equals approximately $85/barrel.
-
-
-#### §15. Risk Analysis
-
-| Risk | Description | Severity |
-|------|------------|:--------:|
-| **Basis risk** | The swap references Brent crude but the airline burns jet fuel — the price correlation is high but imperfect | High |
-| **Volume risk** | If the airline's actual fuel consumption differs from the hedged volume, the hedge is imperfect | Medium |
-| **Counterparty risk** | If the bank defaults when commodity prices have moved in the airline's favor, the airline loses the swap's positive value | Medium |
-| **Opportunity cost** | If commodity prices fall significantly, the fixed-price payer cannot benefit from cheaper prices | Medium |
-| **Roll risk** | The bank's hedge uses exchange-traded futures that must be rolled at expiry — the roll cost can erode the hedge's economics | Low-Medium |
-| **Mark-to-market volatility** | Commodity prices can swing 5-10% in a day, creating large MTM movements on the swap | High |
-
-
-#### §16. Booking and Systems
-
-| Field | Value |
-|-------|-------|
-| **Booking system** | Murex |
-| **Pricing system** | Murex |
-| **Four-Leg** | No |
-| **Product type** | Commodity Swap |
-| **Key booking fields** | Notional volume, commodity reference, fixed price, settlement frequency, averaging method, start/end dates |
-| **Payment schedule** | Monthly or quarterly, based on averaging period |
-| **ISDA documentation** | ISDA Master Agreement, CSA, ISDA Commodity Definitions |
-
-
-#### §17. Red Flags
-
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| **Averaging period mismatch** | The system uses a different set of daily prices than the contract specifies | Verify the exact averaging dates and price source (e.g., Platts vs ICE) |
-| **Volume rollover error** | A partial hedge or volume amendment changes the quarterly volume but the system retains the old figure | Verify current notional volume matches the live trade |
-| **Basis commodity confusion** | The swap references "ICE Brent" but the system uses "WTI" for floating price | Verify the exact commodity reference code matches the confirmation |
-| **Holiday calendar misalignment** | Different commodity markets have different holiday calendars (e.g., Chinese metals holidays vs London holidays) | Use the contractual holiday calendar for price observation |
-| **Asian average vs end-of-month fixing** | The contract specifies an Asian average (all business days) but the system uses a single month-end fixing | Verify the averaging methodology matches the trade terms |
-
-
-#### §18. Worked Example
-
-**Product:** 1-year Commodity Swap on Brent Crude Oil
-**Notional:** 100,000 barrels per quarter (400,000 barrels total)
-**Fixed price:** $82/barrel
-**Reference:** ICE Brent (daily average over each quarter)
-**Settlement:** Quarterly, cash
+**Product:** 1-year Commodity Swap on Brent Crude Oil. **Notional:** 100,000 barrels per quarter (400,000 barrels total). **Fixed price:** $82/barrel. **Reference:** ICE Brent (daily average over each quarter). **Settlement:** Quarterly, cash. (The airline is the pay-fixed / receive-floating, long-commodity counterparty; the desk takes the receive-fixed / pay-floating side.)
 
 | Quarter | Brent Avg ($/bbl) | Fixed ($/bbl) | Difference | Settlement |
 |:-------:|:-----------------:|:-------------:|:----------:|:----------:|
@@ -11147,69 +10831,57 @@ Above $85: the airline profits on the swap (compensated for higher fuel cost). B
 
 **Annual average Brent: $83.25.** Net annual result: airline received $1,600,000 − $1,100,000 = **$500,000 net gain.** The swap stabilized the airline's fuel cost at approximately $82/barrel regardless of quarterly volatility.
 
-(See Figure 5.2.7-03)
+*Client lens:*
+The airline locked in at $82 when Brent averaged $83.25 over the period. The swap was profitable in hindsight — but its purpose was certainty, not speculation. Even if prices had fallen, the airline would have had predictable costs, with any swap loss offset by cheaper physical fuel. The pay-fixed position is long the commodity through the swap, so it gains as Brent rises above $82 in Q1 and Q3 and pays when it falls below in Q2 and Q4.
 
+*Bank lens:*
+The desk holds the mirror position — receive-fixed, pay-floating — and is therefore short Brent on this single trade, which it warehouses and hedges with ICE Brent futures so the book's net commodity delta stays within limit. Across the four quarters the desk pays the $500,000 net to the airline, funded against its hedge P&L, the structuring spread and basis earned at execution, and the CSA funding benefit on collateral. The 2nd line must confirm each quarter's ICE Brent average against the termsheet source and averaging window, that each net amount (not gross) settled, and that the daily CSA collateral tracked the changing MTM as Brent moved.
 
-#### §19. Knowledge Check
+#### §13. Knowledge Check
 
-1. **What is a commodity swap and how does it differ from a commodity futures contract?**
-2. **Why do most commodity swaps use an Asian average rather than a single fixing?**
-3. **What is basis risk in a commodity swap? Give an example.**
-4. **An airline hedges 50% of its fuel consumption. If fuel prices spike 40%, what is the airline's effective cost increase?**
-5. **Explain why a commodity swap is cash-settled rather than physically settled.**
-
+1. **What is a commodity swap and how does it differ from a commodity futures contract?** *(Investor)*
+2. **Why do most commodity swaps use an Asian average rather than a single fixing?** *(Investor)*
+3. **A consumer wants to lock in its input cost. What swap does it enter?** (Pay fixed, receive floating — long the commodity through the swap.) *(Investor)*
+4. **If the commodity price rises after entering a pay-fixed swap, does the swap gain or lose value for the fixed-price payer?** Why? *(Investor)*
+5. **What is the notional volume of a commodity swap? Is it delivered?** *(Investor)*
+6. **What is basis risk in a commodity swap? Give an example.** *(Investor)*
+7. **Explain counterparty credit risk in a commodity swap and how it is mitigated.** *(Investor)*
+8. **(Desk economics / 1LoD)** When a client enters a pay-fixed commodity swap, what position does the desk take, what is its dominant Greek, and how does the desk hedge the warehoused risk? Given there is no coupon to decompose, where does the desk's spread come from, and what residual risks (basis, timing, roll) remain?
+9. **(Controls / 2LoD)** Name three reconciliation breaks specific to a commodity swap — covering the index/fixing source, the averaging methodology, and collateral — and the consequence of each for the net settlement or the margin call.
 
 **Mental Models**
 
 | Concept | Mental Model |
 |---------|-------------|
 | Commodity swap | Grocery subscription — fixed weekly fee regardless of ingredient prices |
-| Fixed price | Your budget — the number you put in the financial plan |
+| Fixed price | The budget — the number put in the financial plan |
 | Floating price | The market reality — what the commodity actually costs |
-| Basis risk | Subscribing to a vegetable box when you actually want organic fruit — similar but not identical |
-| Asian average | Weighing yourself every day and using the monthly average, not just one reading |
-| Opportunity cost | The regret of buying the subscription when groceries were cheap all month |
-
+| Pay-fixed payer | Wants certainty — locks in a known cost; long the commodity through the swap, gains if prices rise |
+| Notional volume | A reference quantity — like a ruler used to measure, never delivered |
+| Zero initial value | The swap is a fair bet at inception — both sides agree the expected value is equal |
+| Basis risk | Subscribing to a vegetable box when the household actually wants organic fruit — similar but not identical |
+| Asian average | Weighing every day and using the period average, not just one reading |
+| Commodity delta | The desk's speedometer for price risk — dollars of P&L per unit move, summed across the forward curve |
+| CSA collateral | The daily deposit each side posts so neither is over-exposed if the other defaults |
 
 **Key Takeaways**
 
-1. A commodity swap exchanges a fixed commodity price for a floating market price, providing budget certainty.
-2. Settlement is cash-based — no physical commodity is delivered.
-3. Most commodity swaps use an Asian average (average of daily prices) to reduce manipulation risk.
-4. Basis risk — the difference between the swap's reference commodity and the client's actual commodity — is the primary hedging challenge.
-5. Commodity swaps are booked in Murex, governed by ISDA Commodity Definitions, and typically settled monthly or quarterly.
+1. A commodity swap exchanges a fixed commodity price for a floating market price on a specified volume, providing budget certainty.
+2. No physical commodity is delivered — settlement is cash-based, and the notional volume is a reference for calculating payments.
+3. At inception, the swap has zero value. Value develops as the commodity price diverges from the fixed price.
+4. The swap is a linear instrument — no barriers, no knock-ins, no optionality; the client's position is set purely by which leg it pays (pay-fixed = long the commodity through the swap, receive-fixed = short).
+5. Most commodity swaps use an Asian average (average of daily prices) to reduce manipulation risk; basis risk — the difference between the swap's reference commodity and the client's actual commodity — is the primary hedging challenge.
+6. The desk takes the mirror legs, warehouses the commodity price risk, and hedges it with exchange-traded futures — earning the bid-offer, the structuring spread embedded in the fixed price, and the basis, while managing roll and timing risk rather than a coupon spread.
+7. Commodity swaps are booked in Murex and governed by ISDA Master Agreements and ISDA Commodity Definitions.
+8. For the 2nd line, the dominant control risks are the commodity index / fixing source, the averaging methodology, settlement netting, leg PV reconciliation, and CSA collateral — each can misstate a net settlement or a daily margin call.
 
-
-#### §20. Common Mistakes
+#### §14. Common Mistakes
 
 1. **Confusing commodity swaps with futures.** Futures are exchange-traded, standardized, and require margin. Commodity swaps are OTC, customizable, and settled per ISDA. A swap can reference any commodity with a published price; futures exist only for major commodities.
 2. **Ignoring basis risk.** An airline hedging with a Brent crude swap is not perfectly hedged — jet fuel and Brent crude have correlated but different prices. The "crack spread" (refining margin) is unhedged.
 3. **Hedging beyond the planning horizon.** Locking in a 5-year fuel price when flight schedules are uncertain beyond 18 months creates over-hedging risk.
-4. **Treating the swap as a profit center.** If fuel prices drop and the swap loses money, the hedge is still "working" — the airline benefits from cheaper physical fuel. The swap loss is offset by the physical gain. Viewing the swap in isolation distorts the picture.
-5. **Forgetting the Asian average.** If the swap uses an Asian average and the system values it using a single end-of-month price, the valuation will be systematically wrong.
-
-### Desk Perspective
-
-| Role | What the Commodity Swap Means to Them |
-|------|--------------------------------------|
-| **Trader** | Hedges the swap using exchange-traded commodity futures. Must manage basis risk between the swap's reference commodity and the futures hedge. Roll costs at futures expiry are a key P&L factor. Commodity markets can be illiquid in far-dated tenors |
-| **Structurer** | Designs the swap to match the client's physical exposure as closely as possible — matching the reference commodity, averaging period, and volume profile. Must explain basis risk to the client. Embeds the bank's spread in the fixed price |
-| **Product Control** | Verifies commodity prices from the agreed source (Platts, ICE, NYMEX). Calculates Asian averages correctly for settlement. Reconciles the swap valuation against the futures curve used for hedging |
-| **Risk** | Monitors commodity price exposure, basis risk (swap reference vs futures hedge), and concentration risk in specific commodities. Commodity prices can gap overnight — stress testing for large price moves is essential |
-| **Operations** | Processes periodic settlements based on averaged commodity prices. Must verify the exact price source, averaging dates, holiday calendar, and volume for each settlement. Commodity market conventions differ by commodity (oil vs metals vs power) |
-
-### Desk Reality
-
-**What keeps traders awake:** Basis risk blowouts. The "crack spread" between crude oil and jet fuel can widen from $5/barrel to $25/barrel in a supply disruption. The trader hedges jet fuel exposure with crude futures, and the basis move creates a loss that no amount of crude hedging can offset.
-
-**Most important risk:** Roll risk on far-dated hedges. Commodity futures are liquid for 2-3 months but become illiquid beyond 12 months. Rolling the futures hedge every month incurs costs that can total 2-5% of notional per year on a long-dated swap.
-
-**Typical junior mistake:** Using the wrong price source for settlement. Platts Singapore Jet Fuel and ICE Gasoil are different benchmarks with different price levels. Booking the swap against the wrong index creates a systematic settlement error.
-
-**Hardest operational issue:** Asian averaging — collecting 60+ daily prices per quarter, handling holidays and missing prices, and computing the arithmetic average correctly. Errors here directly affect the settlement payment.
-
-**Most misunderstood concept:** That the swap "lost money" when commodity prices fall. Junior analysts report a swap loss without realizing the physical side (cheaper fuel) offsets it. The hedge must be evaluated together with the physical exposure, not in isolation.
-
+4. **Treating the swap as a profit center.** If the commodity price drops and the swap loses money, the hedge is still working — the airline benefits from cheaper physical fuel, and the swap loss is offset by the physical gain. Viewing the swap in isolation distorts the picture.
+5. **(Controls)** **Forgetting the Asian average / wrong price source.** If the swap uses an Asian average and the system values it using a single end-of-month price — or uses the wrong benchmark (e.g. Platts Singapore Jet Fuel where the contract specifies ICE Gasoil) — the valuation and settlement will be systematically wrong. Verify the averaging methodology and exact index code against the confirmation.
 ### Knowledge Check
 
 **Review Questions:**
@@ -11219,6 +10891,10 @@ Above $85: the airline profits on the swap (compensated for higher fuel cost). B
 4. How does a commodity swap differ from a commodity future?
 5. Is a commodity swap physically or cash-settled?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* Which side of the swap does the desk take, and what is its primary risk and hedge?
+- *(Controls / 2LoD)* Which leg/fixing/collateral fields must reconcile, and which is the most common break?
 **Scenario Questions:**
 1. An airline enters a 500,000 barrel/year jet fuel swap at $85/barrel. Jet fuel averages $95 in H1 and $75 in H2. Calculate the H1 and H2 settlement amounts and the annual net result.
 2. A mining company wants to lock in its copper revenue. It produces 10,000 tonnes/year and enters a swap at $8,500/tonne. Copper averages $9,200/tonne. Does the swap help or hurt the mining company? Calculate the net impact.
@@ -11339,6 +11015,11 @@ Your desk runs a book of commodity swaps across crude oil, jet fuel, natural gas
 - **Diagram elements:** Three rate path scenarios (rates up, stable, down) showing P&L impact. Clearly labelled outcomes
 - **Reuse status:** Adapt from scenario template
 
+
+**Dual-lens visuals (generated):**
+- `assets/commodswap/controls_commodswap_recon_08.svg` `[generated]`
+- `assets/commodswap/legs_commodswap_01.svg` `[generated]`
+- `assets/commodswap/waterfall_commodswap_09.svg` `[generated]`
 #### §22. Related Chapters / Dependency References
 
 | Concept Used | Where It Was Taught |
@@ -11349,19 +11030,19 @@ Your desk runs a book of commodity swaps across crude oil, jet fuel, natural gas
 | Forward | 5.6.2 — single settlement |
 ### 5.2.8 Vanilla Swap (VLSP)
 
-*You have now learned seven swap products — from the conceptual IRS to specialized TRS, Equity, Variance, CDS, Cross-Currency, and Commodity Swaps. The Vanilla Swap (VLSP) returns to the beginning: it is the simplest, most standardized interest rate swap. Where the IRS chapter introduced the swap concept, this chapter covers how the most standard swap is actually traded, cleared, and risk-managed in practice.*
+---
 
-**How This Differs From the IRS (5.2.1):** The IRS pilot introduced the concept of a swap: fixed versus floating payments. The VLSP covers the plain vanilla swap as a market-standard product: standardized terms, central clearing, IMM dates, Dollar Value of One Basis Point (DV01)-based risk management, and the role of the VLSP as the building block for every structured rate product in Batches 6-7. The IRS taught you what a swap is. The VLSP teaches you how it works in production.
+*Where a Reverse Convertible (Section 5.1.1) embeds an option inside a note, a Vanilla Swap embeds nothing — it is the simplest, most standardized bilateral OTC interest-rate swap, in which two parties exchange two streams of interest payments on a notional that is never itself exchanged. There is no bond wrapper, no barrier, no embedded put or call: just a fixed leg and a floating leg. Where the IRS chapter (5.2.1) introduced the swap concept, this chapter reads the most standard swap as it is actually traded, cleared, and risk-managed — through two lenses: what it means for **the client** (the counterparty entering the swap), and what it means for **the bank** — the latter split into the desk's rate economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
+**How This Differs From the IRS (5.2.1):** The IRS pilot introduced the concept of a swap — fixed versus floating payments. The VLSP covers the plain vanilla swap as a market-standard product: standardized terms, central clearing, IMM dates, Dollar Value of One Basis Point (DV01)-based risk management, and the role of the VLSP as the building block for every structured rate product in Batches 6-7. The IRS taught what a swap is. The VLSP shows how it works in production.
 
 #### §1. Explain Like I'm New
 
-Daniel is a portfolio manager at a pension fund. The fund has $2 billion in corporate bonds paying fixed coupons. Daniel believes interest rates will rise over the next 3 years, which would reduce the value of his fixed-rate bonds.
+Imagine a portfolio manager at a pension fund. The fund has $2 billion in corporate bonds paying fixed coupons. The manager believes interest rates will rise over the next 3 years, which would reduce the value of the fixed-rate bonds.
 
-He enters a **Vanilla Swap** (VLSP): the fund pays a fixed rate (4.0%) and receives SOFR (floating). If rates rise — say SOFR increases from 4.0% to 5.5% — the swap pays the fund the difference: it receives 5.5% and pays 4.0%, netting 1.5% on the notional. This gain offsets the loss in value of the fund's fixed-rate bonds.
+The fund enters a **Vanilla Swap** (VLSP): the fund pays a fixed rate (4.0%) and receives SOFR (floating). If rates rise — say SOFR increases from 4.0% to 5.5% — the swap pays the fund the difference: it receives 5.5% and pays 4.0%, netting 1.5% on the notional. This gain offsets the loss in value of the fund's fixed-rate bonds.
 
 The VLSP is the most traded derivative in the world. Trillions of dollars in notional change hands every day. It is the reference product for interest rate risk management — every other rate product (SRT, STEG, swaptions, caps, floors) is ultimately priced and hedged using vanilla swaps.
-
 
 #### §2. Real-World Analogy
 
@@ -11369,8 +11050,7 @@ A Vanilla Swap is like a standard bread recipe.
 
 Every bread starts with four ingredients: flour, water, yeast, salt. The standard recipe — perfectly measured, universally understood — is what every baker learns first. Artisan breads, sourdough, brioche, and focaccia are all variations that add complexity, but they all start from the standard recipe.
 
-The VLSP is the standard recipe for interest rate products. It is the simplest possible swap: fixed rate versus floating rate, standard terms, standard dates, standard documentation. Every structured rate product you will learn in Batches 6-7 (callable swaps, range accruals, digital cap-floors) starts with a VLSP and adds features. Understanding the standard recipe is prerequisite for understanding everything that follows.
-
+The VLSP is the standard recipe for interest rate products. It is the simplest possible swap: fixed rate versus floating rate, standard terms, standard dates, standard documentation. Every structured rate product in Batches 6-7 (callable swaps, range accruals, digital cap-floors) starts with a VLSP and adds features. Understanding the standard recipe is prerequisite for understanding everything that follows.
 
 #### §3. What Problem Does This Solve?
 
@@ -11382,7 +11062,6 @@ The VLSP addresses the **interest rate risk management** need:
 | Convert floating-rate debt to fixed | Pay fixed on swap, offset floating payments on debt |
 | Express an interest rate view | Position the swap to profit from expected rate movements |
 | Benchmark pricing | VLSP rates are the reference for pricing all other rate products |
-
 
 #### §4. Product DNA
 
@@ -11443,7 +11122,64 @@ The VLSP addresses the **interest rate risk management** need:
 | 2 | Interest rate swap | Periodic cash flow exchange | Transform rate exposure between fixed and floating |
 | 3 | Vanilla Swap Plus | Specific swap features added | Extended swap concept: Enhanced IRS with additional features — spread compression, amortisation, or cap/floor. Intermediate between IRS and structured rate trades |
 
-#### §7. How the Bank Makes Money
+---
+
+#### §7. THE INVESTOR LENS
+
+**Why the client enters it**
+
+1. **Rate hedging.** The client converts fixed-rate exposure to floating or vice versa — the fundamental tool for managing interest rate risk, without restructuring existing debt.
+2. **Liquidity.** The most liquid derivative market in the world — tight bid-offer spreads, available in all major currencies, tenors from 1 to 50 years.
+3. **Standardization.** IMM dates, standard tenors, central clearing — the VLSP is operationally simple compared to exotic swaps.
+4. **View expression.** A client who expects rates to rise can enter a pay-fixed swap, positioning to profit from the expected rate movement.
+5. **No upfront cost.** Entering a swap typically requires no upfront payment — the fixed rate is set so the swap has zero value at inception.
+
+**Legs & position**
+
+A VLSP has two legs, and the client's position is defined entirely by which leg they pay and which they receive. There is no embedded option, no premium, no barrier — only the directional exposure that the leg choice creates.
+
+![Vanilla Swap Cashflow Legs — Investor Lens](assets/vlsp/legs_vlsp_01.svg)
+
+- **Pay-fixed / receive-floating client** is **short rates**: they pay a fixed rate and receive a floating rate (SOFR) that rises with the market. If rates rise, the floating leg they receive grows while the fixed leg they pay stays constant — the swap gains value for them. A pension fund hedging a fixed-rate bond portfolio against rising rates typically takes this side, as does a corporate converting floating-rate debt to fixed.
+- **Receive-fixed / pay-floating client** is **long rates**: they receive a fixed rate and pay a floating rate. If rates fall, the floating leg they pay shrinks while the fixed leg they receive stays constant — the swap gains value for them. A client expressing a view that rates will fall takes this side.
+
+The client's rate risk is measured by **DV01** — the change in the swap's mark-to-market value for a 1 basis point move in rates. The longer the tenor, the larger the DV01 and the more the position moves per basis point.
+
+**Cashflows & scenarios**
+
+On each payment date only the **net** difference between the two legs is exchanged, calculated as (SOFR − Fixed Rate) × Notional × Day Fraction. The notional is never paid — it is purely a reference figure for calculating each leg.
+
+**Product:** 5-year VLSP, $200,000,000 notional. Client pays fixed 4.0% (semi-annual), receives SOFR (compounded in arrears, semi-annual). (The client is therefore the pay-fixed / receive-floating, short-rates counterparty.)
+
+- **Scenario 1 — SOFR averages 5.0%:** Each period the client receives 5.0%, pays 4.0%. Net: +1.0% × $200M / 2 = **$1,000,000 per half-year.** Over 5 years: **$10,000,000 net gain.** The swap is profitable — the client locked in 4.0% while the market rate is now 5.0%.
+- **Scenario 2 — SOFR averages 3.5%:** Each period the client receives 3.5%, pays 4.0%. Net: −0.5% × $200M / 2 = **$500,000 per half-year loss.** Over 5 years: **$5,000,000 net loss.** But if the client has a fixed-rate bond portfolio, the bonds gained value from lower rates — the swap loss is offset.
+- **Scenario 3 — SOFR spikes to 7.0%:** Net: +3.0% × $200M / 2 = **$3,000,000 per half-year gain.** The swap massively offsets the loss in the client's fixed-rate bonds.
+- **Scenario 4 — Rates unchanged at 4.0%:** Net: 0%. The swap produces no gain or loss. The client paid nothing for the hedge (no upfront premium) and rates did not move.
+
+**Risks to the client**
+
+| Risk | Description | Severity |
+|------|------------|:--------:|
+| **Interest rate risk** | The primary risk — rate changes create MTM gains/losses for the client | High |
+| **Curve risk** | Changes in the yield curve shape (steepening/flattening) affect the swap value differently than a parallel shift | Medium |
+| **Counterparty risk** | Mitigated by central clearing for standard VLSPs — residual risk exists for non-cleared swaps | Low-Medium |
+| **Basis risk** | SOFR vs EURIBOR, OIS vs term SOFR — benchmark basis changes affect the floating leg value | Low-Medium |
+| **Fixing risk** | The daily SOFR fixing determines the floating leg — errors or anomalies in the fixing affect payments | Low |
+| **Operational risk** | Central clearing requires daily margin management; a failure to post margin triggers a default cascade | Medium |
+
+#### §8. THE BANK LENS — Desk Economics (1st Line of Defence)
+
+**What the desk books**
+
+The desk takes the other side of the client's swap and books it as a two-leg trade (fixed leg + floating leg) in its rates book. Where the client pays fixed and receives floating, the desk receives fixed and pays floating — the mirror leg. No principal is booked, no option is embedded; the position is the present value of the remaining net cash flows. The desk does not want a directional rate view from a single client trade — it warehouses the resulting rate risk and hedges it down. The VLSP book is the largest book on the rates desk by notional.
+
+**Rate risk & hedging**
+
+The desk's primary risk is **DV01** — the dollar value of a 1 basis point move in rates — measured tenor by tenor across the curve, not as a single number. A VLSP is a **linear** product: there is no equity-style gamma, no barrier, no discontinuity. The P&L changes proportionally with rate moves. The desk hedges the warehoused DV01 with **other VLSPs, government bond futures, and short-term rate futures**, and manages the residual **curve risk** — the exposure to the curve steepening or flattening (2s10s, 5s30s) across the many tenors the book spans. DV01 hedging neutralizes parallel shifts but not curve shape changes, and curve moves are the dominant residual risk factor.
+
+[margin/sensitivity panel]
+
+**How the bank makes money**
 
 | Revenue Component | Detail |
 |------------------|--------|
@@ -11452,80 +11188,61 @@ The VLSP addresses the **interest rate risk management** need:
 | **Funding benefit** | Earns funding spread on collateral received under CSA |
 | **Structuring fee** | Fee for custom features beyond vanilla terms |
 
-#### §8. Why This Product Exists (Client Perspective)
+**The desk spread decomposition:**
 
-1. **Rate hedging.** Convert fixed-rate exposure to floating or vice versa — the fundamental tool for managing interest rate risk.
-2. **Liquidity.** The most liquid derivative market in the world — tight bid-offer spreads, available in all major currencies, tenors from 1 to 50 years.
-3. **Standardization.** IMM dates, standard tenors, central clearing — the VLSP is operationally simple compared to exotic swaps.
-4. **Building block.** Used as the hedging instrument for every structured rate product.
+Unlike an ELN, a VLSP has no coupon to decompose — the client pays no premium and there is no embedded option. The desk's economics come instead from the spread it charges around the mid-market swap rate, plus the funding benefit on CSA collateral. The bid-offer spread is typically 0.5-2bp on liquid tenors; on a $500M swap, 1bp = $50K per year × 5 years ≈ $250K present value, and high volumes make this profitable. For a vanilla swap quoted at a 4.0% mid, the desk's gross spread can be decomposed roughly as: bid-offer spread (the markup around mid, the dominant component); hedging P&L (realized versus implied carry on the offsetting hedge); CSA funding benefit (the funding spread earned on collateral received); less the desk's own hedging and funding costs to run the position. The bid-offer and the CSA funding benefit are the two structural sources; the hedging P&L is the variable, market-dependent one.
 
-#### Why This Product Exists
+![Vanilla Swap Desk Spread Decomposition — Bank Lens (Desk Economics)](assets/vlsp/waterfall_vlsp_09.svg)
 
-**1. Typical Buyer**
+**P&L drivers**
 
-Banks managing their own interest rate exposure. Pension funds hedging fixed-rate bond portfolios. Corporate treasurers converting floating-rate debt to fixed. Mortgage lenders hedging pipeline risk. Central banks implementing monetary policy via swap operations.
+Day to day, desk P&L is driven by moves in the yield curve against the warehoused DV01, the realized-versus-implied carry on the hedge portfolio, changes in the shape of the curve (steepening/flattening) against residual curve risk, and the funding spread earned on CSA collateral. VLSPs are flow products — high volume, low margin, relationship-driven — so revenue comes from volume, not individual trade margin. Product Control attributes P&L daily and verifies swap valuations independently using SOFR/EURIBOR discount curves; curve construction methodology (which points on the curve are used and how they are interpolated) is the most common source of valuation differences — a 0.1bp error in the curve affects millions of dollars of MTM across the book.
 
-**2. Problem Being Solved**
+#### §9. THE BANK LENS — Controls & Reconciliation (2nd Line of Defence)
 
-Interest rate risk is universal — every fixed-rate asset or liability creates exposure to rate changes. The VLSP provides the simplest, most liquid tool to transfer that risk between parties with different views or different natural exposures.
+**Booking & systems**
 
-**3. How The Client Makes Money**
+| Aspect | Detail |
+|--------|--------|
+| **Book of record** | Murex |
+| **Pricing/Risk system** | Murex |
+| **Booking structure** | Two-leg trade (fixed leg + floating leg) |
+| **Four-leg framework?** | No (VLSP is a standalone derivative, not a structured note) |
+| **Key booking fields** | Notional, fixed rate, floating index (SOFR/EURIBOR), payment frequency, day-count conventions, start/end dates, clearing status |
+| **Payment schedule** | Semi-annual (fixed), quarterly or semi-annual (floating) — net settlement on each date |
+| **ISDA documentation** | ISDA Master Agreement and Credit Support Annex (CSA). If centrally cleared: CCP rulebook replaces bilateral ISDA for clearing-eligible trades |
+| **Central clearing** | LCH SwapClear, CME Clearing — mandatory for standard tenors in USD, EUR, GBP, JPY |
 
-Pay-fixed receiver: profits when rates rise above the fixed rate. On a $100M 5-year swap at 4.0%, if SOFR averages 5.0%, the client receives approximately $1M/year net — $5M over the life. Receive-fixed payer: profits when rates fall. Both sides benefit from the hedge matching their underlying exposure.
+**Reconciliation points**
 
-**4. How The Bank Makes Money**
+| Recon point | What must agree | VLSP-specific break |
+|-------------|-----------------|--------------------|
+| **ISDA / CSA terms** | Master Agreement and Credit Support Annex governing the trade — collateral eligibility, thresholds, netting set; CCP rulebook if cleared | Trade executed before ISDA/CSA is in place, or against the wrong netting set |
+| **Trade economics** | Notional, fixed rate, floating index, tenor, payment frequency, start/end dates, counterparty | One system records $100M, another $100.5M after an amend; or wrong counterparty |
+| **Reset / fixing source** | The floating-rate fixing — the benchmark, the fixing convention, and the publishing source (e.g. SOFR published by the Federal Reserve Bank of New York), including SOFR compounding method | System uses a different SOFR observation or compounding method ("compounded in arrears" vs "simple average" vs "term SOFR") than the contract |
+| **Day-count / calendar** | Fixed-leg and floating-leg day-count conventions (e.g. 30/360 fixed, ACT/360 floating) and the payment calendar | A system applies the wrong convention to a leg, so the payment amount differs |
+| **Leg PV reconciliation** | Present value of the fixed leg and the floating leg agree between front office and risk | Curve construction / interpolation differs, so leg PVs, DV01, and total MTM diverge |
+| **Payment netting** | On each date only the net of fixed and floating is exchanged | Gross payment sent instead of net, or netting applied to the wrong pair of legs |
+| **Collateral (CSA)** | Daily MTM, margin call amount, and posted collateral agree with the counterparty or CCP | Counterparty disputes the MTM, or central-clearing margin (initial + variation) is mis-posted |
+| **Clearing / IMM status** | Clearing status (cleared vs bilateral) and IMM start date agree across systems and the confirmation | Trade booked bilateral but eligible for clearing (capital issue), or IMM start date does not match the actual trade start |
 
-- **Client economics:** The client gains certainty on interest rate exposure. The cost is the bid-offer spread on the swap rate.
-- **Bank economics:** The bank earns the bid-offer spread — typically 0.5-2bp on liquid tenors. On a $500M swap, 1bp = $50K per year × 5 years ≈ $250K present value. High volumes make this profitable.
-- **Hedging economics:** The rates desk hedges using other VLSPs, government bond futures, and short-term rate futures. The desk runs a portfolio of swaps and hedges the aggregate DV01 (dollar value of a basis point) and curve risk. Residual risks include curve shape changes (steepening/flattening) and basis risk between swap rates and futures. The rates trading desk manages the hedge.
-- **Distribution economics:** VLSPs are flow products — high volume, low margin, relationship-driven. The bank's rates sales team handles distribution. Revenue comes from volume, not individual trade margin. Client relationships built on swap flow lead to higher-margin structured product business (Batches 6-7).
+![VLSP Reconciliation Flow — Bank Lens (Controls & 2nd Line of Defence)](assets/vlsp/controls_vlsp_recon_08.svg)
 
-The bank prefers structuring and market-making over taking directional positions because the bid-offer spread is a consistent, low-risk revenue stream, while directional rate risk can produce large losses.
+**Common breaks & red flags**
 
-**5. Market Conditions Where Demand Increases**
+| Red Flag | What It Means | 2LoD Action |
+|----------|---------------|-------------|
+| **Day count convention mismatch** | Fixed leg uses 30/360, floating uses ACT/360 — this is normal and correct, but mixing these up changes the payment amount | Verify each leg's day count matches the confirmation |
+| **SOFR compounding method** | "Compounded in arrears" vs "simple average" vs "term SOFR" produce different floating amounts | Verify the exact SOFR calculation method per the trade terms |
+| **Clearing status confusion** | A trade booked as bilateral but eligible for clearing creates regulatory capital issues | Verify whether the trade is cleared or bilateral and book accordingly |
+| **DV01 mismatch between systems** | Murex and the risk system show different DV01 for the same trade | Reconcile the discount curve, day count, and payment schedule between systems |
+| **IMM date roll** | Standard IMM start dates must match the actual start date of the trade | Verify whether the trade starts on an IMM date or a custom date |
 
-Demand increases before central bank meetings (hedging rate decision risk), during periods of high rate volatility, when yield curves are steep (creating incentives to swap between fixed and floating), and during periods of heavy bond issuance (issuers need to swap fixed coupons to floating).
+**Control implication**
 
-**6. When This Product Makes Sense**
+For a VLSP the dominant controls are the **floating-rate fixing source and SOFR compounding method**, the **leg PV / DV01 reconciliation**, and the **collateral / clearing-margin process** — together they determine whether each net payment and each daily margin call is correct. A wrong fixing source, observation date, or compounding method misstates the floating leg, driving the wrong net payment to the wrong party. A day-count error on either leg breaks the payment amount even when the rate is right. A curve-construction difference breaks the DV01 and leg PV between systems and the daily collateral / variation-margin call, leaving the bank under- or over-collateralised against a live counterparty or CCP exposure. The reconciliation exists precisely to catch these inconsistencies before a payment settles or a margin call is made.
 
-Suitable for any institutional investor or corporate with interest rate exposure. The VLSP is appropriate for virtually every rate-sensitive entity — its simplicity and liquidity make it the default choice for rate risk management.
-
-**7. When This Product Is Usually A Poor Choice**
-
-Unsuitable for clients who need optionality (caps, floors, swaptions are better for asymmetric hedging). A poor choice when the client's rate exposure is not large enough to justify the swap's operational requirements (minimum notional, ISDA documentation). Not appropriate for retail investors.
-
-
-#### §9. The Three Scenarios
-
-| Scenario | Market Condition | Outcome for Investor |
-|----------|-----------------|---------------------|
-| **Best case** | Underlying performs strongly | Maximum return captured (subject to any participation cap or barrier) |
-| **Base case** | Underlying is flat or moderately positive | Moderate return or coupon income depending on structure |
-| **Worst case** | Underlying declines significantly | Capital at risk if below protection level; coupon may partially offset |
-
-*Detailed scenario analysis with specific numbers follows in §10.*
-
-#### §10. What Happens When Markets Move
-
-**Product:** 5-year VLSP
-**Notional:** $200,000,000
-**Client pays:** Fixed 4.0% (semi-annual)
-**Client receives:** SOFR (compounded in arrears, semi-annual)
-
-**Scenario 1 — SOFR averages 5.0%:**
-Each period: client receives 5.0%, pays 4.0%. Net: +1.0% × $200M / 2 = **$1,000,000 per half-year.** Over 5 years: **$10,000,000 net gain.**
-
-**Scenario 2 — SOFR averages 3.5%:**
-Each period: client receives 3.5%, pays 4.0%. Net: −0.5% × $200M / 2 = **$500,000 per half-year loss.** Over 5 years: **$5,000,000 net loss.** But if the client has a fixed-rate bond portfolio, the bonds gained value from lower rates — the swap loss is offset.
-
-**Scenario 3 — SOFR spikes to 7.0%:**
-Net: +3.0% × $200M / 2 = **$3,000,000 per half-year gain.** The swap massively offsets the loss in the client's fixed-rate bonds.
-
-**Scenario 4 — Rates unchanged at 4.0%:**
-Net: 0%. The swap produces no gain or loss. The client paid nothing for the hedge (no upfront premium) and rates did not move.
-
-
-#### §11. Formal Definition
+#### §10. Formal Definition
 
 A **Vanilla Swap (VLSP)** is a plain vanilla interest rate swap: the most standardized form of the IRS.
 
@@ -11540,104 +11257,24 @@ A **Vanilla Swap (VLSP)** is a plain vanilla interest rate swap: the most standa
 - **Central clearing:** Most VLSPs are centrally cleared through CCPs (LCH, CME) post-2009 regulatory reform
 - **Day count:** Typically ACT/360 for the floating leg, 30/360 for the fixed leg
 - **DV01:** The dollar value of a 1 basis point move — the primary risk metric
-
-
-#### §12. Product Construction
-
-```
-Fixed Rate Payer (Client)         Floating Rate Payer (Bank)
-         │                                      │
-         │──── Fixed Rate (4.0%) ──────────────→│
-         │                                      │
-         │←──── SOFR (floating) ────────────────│
-         │                                      │
-         Net settlement each period:
-         (SOFR − Fixed Rate) × Notional × Day Fraction
-```
-
-(See Figure 5.2.8-01)
+- **Netting:** On each payment date, only the difference between the two legs is exchanged: (SOFR − Fixed Rate) × Notional × Day Fraction
 
 The VLSP has zero value at inception — the fixed rate is set so that the present value of fixed payments equals the present value of expected floating payments.
 
-> **Professor Note:** If you remember only one thing from this chapter, remember this: the VLSP is the foundation of all interest rate derivatives. Every structured rate product in Batches 6-7 is priced by starting with a VLSP and adding features (callability, range accrual, digital payoff). If you understand the VLSP, you understand the building block of the entire rates business.
-
-
-#### §13. Lifecycle
+#### §11. Lifecycle
 
 | Stage | Detail |
 |-------|--------|
-| **Trade date** | Terms agreed: notional, tenor, rate conventions, special features. ISDA documentation |
+| **Trade date** | Terms agreed: notional, tenor, rate conventions, special features. ISDA documentation. Book in Murex — both legs entered with matching notional, dates, and conventions |
 | **Effective date** | Swap becomes active. First accrual period begins |
-| **Periodic payments** | Scheduled cash flow exchanges on payment dates. Netting applied |
-| **Maturity** | Final exchange of cash flows. Trade terminated. Collateral returned |
+| **Rate fixing** | Before each floating payment, the floating rate is "fixed" — observed and recorded from the benchmark source (e.g. SOFR published by the Federal Reserve Bank of New York); SOFR compounded in arrears is known ~2 business days before the payment date |
+| **Periodic payments** | Scheduled cash flow exchanges on payment dates. Net settlement applied on each date |
+| **Collateral / clearing margin** | Under the CSA (or CCP rulebook if cleared), the party with a negative mark-to-market posts collateral; central clearing requires initial and variation margin recalculated daily |
+| **Maturity** | Final net exchange of cash flows. Trade terminated. Collateral returned |
 
-#### §14. Desk Reality
+#### §12. Worked Example (both lenses)
 
-The VLSP has a **linear payoff** — identical to the IRS.
-
-```
-P&L for Fixed
-Rate Payer
-    |
-    |              ╱
-    |            ╱
-    |          ╱
-    |        ╱
-  0 |──────*───────────  ← Swap Rate (4.0%)
-    |    ╱
-    |  ╱
-    |╱
-    +──────────────────→ Realized SOFR (%)
-```
-
-(See Figure 5.2.8-02)
-
-When SOFR exceeds the fixed rate, the fixed payer profits. When SOFR is below the fixed rate, the fixed payer loses.
-
-
-#### §15. Risk Analysis
-
-| Risk | Description | Severity |
-|------|------------|:--------:|
-| **Interest rate risk** | The primary risk — rate changes create MTM gains/losses | High |
-| **Curve risk** | Changes in the yield curve shape (steepening/flattening) affect the swap value differently than a parallel shift | Medium |
-| **Counterparty risk** | Mitigated by central clearing for standard VLSPs — residual risk exists for non-cleared swaps | Low-Medium |
-| **Basis risk** | SOFR vs EURIBOR, OIS vs term SOFR — benchmark basis changes affect the floating leg value | Low-Medium |
-| **Fixing risk** | The daily SOFR fixing determines the floating leg — errors or anomalies in the fixing affect payments | Low |
-| **Operational risk** | Central clearing requires daily margin management; a failure to post margin triggers a default cascade | Medium |
-
-
-#### §16. Booking and Systems
-
-| Field | Value |
-|-------|-------|
-| **Booking system** | Murex |
-| **Pricing system** | Murex |
-| **Four-Leg** | No |
-| **Product type** | Vanilla Interest Rate Swap (VLSP) |
-| **Key booking fields** | Notional, fixed rate, floating index (SOFR/EURIBOR), payment frequency, day-count conventions, start/end dates, clearing status |
-| **Payment schedule** | Semi-annual (fixed), quarterly or semi-annual (floating) |
-| **ISDA documentation** | ISDA Master Agreement, CSA. If centrally cleared: CCP rulebook replaces bilateral ISDA for clearing-eligible trades |
-| **Central clearing** | LCH SwapClear, CME Clearing — mandatory for standard tenors in USD, EUR, GBP, JPY |
-
-
-#### §17. Red Flags
-
-| Red Flag | What It Means | Action |
-|----------|--------------|--------|
-| **Day count convention mismatch** | Fixed leg uses 30/360, floating uses ACT/360 — mixing these up changes the payment amount | Verify each leg's day count matches the confirmation |
-| **SOFR compounding method** | "Compounded in arrears" vs "simple average" vs "term SOFR" produce different floating amounts | Verify the exact SOFR calculation method per the trade terms |
-| **Clearing status confusion** | A trade booked as bilateral but eligible for clearing creates regulatory capital issues | Verify whether the trade is cleared or bilateral and book accordingly |
-| **DV01 mismatch between systems** | Murex and the risk system show different DV01 for the same trade | Reconcile the discount curve, day count, and payment schedule between systems |
-| **IMM date roll** | Standard IMM start dates must match the actual start date of the trade | Verify whether the trade starts on an IMM date or a custom date |
-
-
-#### §18. Worked Example
-
-**Product:** 3-year VLSP
-**Notional:** $100,000,000
-**Client pays:** Fixed 3.80% (semi-annual, 30/360)
-**Client receives:** SOFR compounded in arrears (semi-annual, ACT/360)
+**Product:** 3-year VLSP. **Notional:** $100,000,000. **Client pays:** Fixed 3.80% (semi-annual, 30/360). **Client receives:** SOFR compounded in arrears (semi-annual, ACT/360). (The client is the pay-fixed / receive-floating, short-rates counterparty; the desk takes the receive-fixed / pay-floating side.)
 
 | Period | SOFR (annualized) | Floating Received | Fixed Paid | Net |
 |:------:|:-----------------:|:----------------:|:----------:|----:|
@@ -11650,71 +11287,56 @@ When SOFR exceeds the fixed rate, the fixed payer profits. When SOFR is below th
 
 **Total net: $350K + $500K + $200K − $150K − $400K − $500K = $0.**
 
-In this example, rates started above the fixed rate (profitable) but fell below later (loss). Over the full life, the swap approximately broke even — consistent with fair pricing at inception.
+*Client lens:*
+In this example, rates started above the fixed rate (profitable) but fell below later (loss). Over the full life, the swap approximately broke even — consistent with fair pricing at inception. The pay-fixed position is short rates, so it gains in H1 Y1 through H1 Y2 as SOFR sits above 3.80%, then loses through H2 Y2 to H2 Y3 as SOFR falls below the fixed rate. Even where the swap loses, its purpose was certainty: a client hedging a fixed-rate bond portfolio sees the falling-rate loss offset by the gain in bond value.
 
-(See Figure 5.2.8-03)
+*Bank lens:*
+The desk holds the mirror position — receive-fixed, pay-floating — and is therefore long rates on this single trade, which it warehouses and hedges with offsetting VLSPs and futures so the book's net DV01 stays within limit. Across the three years the net settles to $0 with the client, while the desk earns the bid-offer at execution and the CSA funding benefit on collateral. The 2nd line must confirm each period's SOFR fixing and compounding method against the termsheet source, that each net amount (not gross) settled, and that the daily CSA / clearing margin tracked the changing MTM as SOFR fell.
 
+#### §13. Knowledge Check
 
-#### §19. Knowledge Check
-
-1. **What is a VLSP and why is it considered the most fundamental rate derivative?**
-2. **What is DV01 and how is it used to manage a swap book?**
-3. **Why are most VLSPs centrally cleared? What was the regulatory driver?**
-4. **Explain the difference between SOFR compounded in arrears and term SOFR.**
-5. **A pension fund has $1B in fixed-rate bonds and wants to hedge against rising rates. Design a VLSP hedge and explain how it works.**
-
+1. **What is a VLSP and why is it considered the most fundamental rate derivative?** *(Investor)*
+2. **Why does no money change hands at inception?** What determines the fixed rate? *(Investor)*
+3. **A pension fund has $1B in fixed-rate bonds and wants to hedge against rising rates. Design a VLSP hedge and explain how it works.** (Pay fixed, receive floating.) *(Investor)*
+4. **If rates rise after entering a pay-fixed swap, does the swap gain or lose value for the fixed payer?** Why? *(Investor)*
+5. **What is the notional of a swap? Is it exchanged?** *(Investor)*
+6. **What is netting, and why is it important for swap cash flows?** *(Investor)*
+7. **Explain the difference between SOFR compounded in arrears and term SOFR.** *(Investor)*
+8. **(Desk economics / 1LoD)** When a client enters a pay-fixed VLSP, what position does the desk take, what is its dominant rate Greek, and how does the desk hedge the warehoused risk? Where does the desk's spread come from given there is no coupon to decompose?
+9. **(Controls / 2LoD)** Name three reconciliation breaks specific to a VLSP — covering the SOFR fixing/compounding, the legs (DV01/leg PV), and collateral/clearing margin — and the consequence of each for the net payment or the margin call.
 
 **Mental Models**
 
 | Concept | Mental Model |
 |---------|-------------|
 | VLSP | Standard bread recipe — the simplest version, from which all others are built |
-| Fixed rate | The recipe's exact measurements — predetermined, unchanging |
-| Floating rate | The oven temperature — it fluctuates, and the bread's quality depends on it |
-| DV01 | How much the bread's value changes per degree of oven temperature change |
+| Fixed payer | Wants certainty — locks in a known cost; short rates, gains if rates rise |
+| Floating receiver | Profits if rates rise above the fixed rate |
+| Notional | A reference number — like a ruler used to measure, never exchanged |
+| Zero initial value | The swap is a fair bet at inception — both sides agree the expected value is equal |
+| DV01 | The desk's speedometer for rate risk — dollars of P&L per 1 basis point move, summed across the curve |
 | Central clearing | A professional kitchen inspector — ensures both bakers follow the recipe and post collateral |
-| IMM dates | Standard baking days — everyone bakes on the same schedule for market consistency |
-
+| CSA / clearing margin | The daily deposit each side posts so neither is over-exposed if the other defaults |
 
 **Key Takeaways**
 
 1. The VLSP is the plain vanilla interest rate swap — the most liquid derivative in the world and the building block for all structured rate products.
-2. One party pays fixed, the other pays floating (SOFR/EURIBOR). No principal is exchanged.
-3. DV01 is the primary risk metric — the dollar value of a 1bp rate move.
-4. Most VLSPs are centrally cleared through CCPs (LCH, CME) under post-2009 regulatory reform.
-5. The VLSP is the foundation for Batches 6-7: every SRT and STEG product starts with a VLSP and adds features.
+2. One party pays fixed, the other pays floating (SOFR/EURIBOR). No principal is exchanged — the notional is a reference for calculating payments.
+3. At inception, the swap has zero value. Value develops as rates diverge from the fixed rate.
+4. DV01 is the primary risk metric — the dollar value of a 1bp rate move; the swap is linear, with no barriers, no knock-ins, no optionality (pay-fixed = short rates, receive-fixed = long rates).
+5. Most VLSPs are centrally cleared through CCPs (LCH, CME) under post-2009 regulatory reform; the VLSP is the foundation for Batches 6-7.
+6. The desk takes the mirror legs, warehouses the rate risk, and manages it by DV01 and curve risk — earning the bid-offer and the CSA funding benefit rather than a coupon spread.
+7. Swaps are booked in Murex and governed by ISDA Master Agreements (or the CCP rulebook when cleared).
+8. For the 2nd line, the dominant control risks are the floating-rate fixing source and SOFR compounding method, the leg PV / DV01 reconciliation, day-count/clearing status, and the CSA / clearing-margin process — each can misstate a net payment or a daily margin call.
 
+#### §14. Common Mistakes
 
-#### §20. Common Mistakes
-
-1. **Treating the VLSP as exotic.** The VLSP is the simplest rate derivative. If you cannot explain a VLSP clearly, you cannot understand any structured rate product. Start here.
+1. **Treating the VLSP as exotic.** The VLSP is the simplest rate derivative. If a VLSP cannot be explained clearly, no structured rate product can be understood. Start here.
 2. **Confusing notional with principal.** The VLSP notional is never exchanged — it is only a reference amount for calculating payments. This differs from cross-currency swaps (where principal IS exchanged).
-3. **Ignoring day-count conventions.** The fixed leg (30/360) and floating leg (ACT/360) use different day counts. This means the payment amounts are not simply "rate × notional / 2" — the day-count fraction matters.
-4. **Assuming central clearing eliminates counterparty risk.** Clearing reduces bilateral counterparty risk but introduces CCP risk. If a CCP fails (an extreme event), all cleared trades are affected.
-5. **Forgetting that the VLSP is the hedge for everything.** When you learn SRT and STEG products in Batches 6-7, remember: the bank hedges every structured rate product by stripping out the embedded VLSP and hedging it separately. The VLSP is not just a product — it is a hedging instrument.
-
-### Desk Perspective
-
-| Role | What the VLSP Means to Them |
-|------|---------------------------|
-| **Trader** | Runs a portfolio of VLSPs measured by DV01 and curve risk. Hedges using government bond futures and other VLSPs. The VLSP book is the largest book on the rates desk by notional. Bid-offer spread is the primary revenue source — margins are thin but volume is enormous |
-| **Structurer** | Uses VLSPs as the hedging building block for all structured rate products (Batches 6-7). Strips the VLSP component out of every SRT and STEG product to price and hedge it. The VLSP rate is the anchor for all structured rate pricing |
-| **Product Control** | Values VLSPs using SOFR/EURIBOR discount curves. Curve calibration is critical — a 0.1bp error in the curve affects millions of dollars of MTM across the book. Reconciles DV01 between Murex and the risk system daily |
-| **Risk** | Monitors aggregate DV01 and curve risk (2s10s, 5s30s) across the VLSP book. The VLSP book is the largest rate exposure on the bank's balance sheet. Stress tests include parallel shifts, curve steepening/flattening, and rate jump scenarios |
-| **Operations** | Processes semi-annual payment calculations, central clearing margin (initial and variation), and SOFR fixings. Clearing-house communications, margin calls, and settlement are daily tasks. Must manage the transition from LIBOR to SOFR for legacy trades |
-
-### Desk Reality
-
-**What keeps traders awake:** Curve risk. A $10B DV01-neutral swap book can still lose $5M+ if the 2s10s spread steepens 5bp unexpectedly. DV01 hedging neutralizes parallel shifts but not curve shape changes, and curve moves are the dominant risk factor.
-
-**Most important risk:** Central clearing margin. In volatile markets, the CCP can call for additional margin intraday. If the desk cannot post margin in time, the CCP can liquidate positions — creating a forced sale at the worst possible moment.
-
-**Typical junior mistake:** Quoting swap rates without adjusting for the correct day count. A $500M swap where the junior uses 30/360 for both legs instead of ACT/360 for the floating leg can produce a $200K+ pricing error.
-
-**Hardest operational issue:** SOFR fixing calculation. SOFR is compounded in arrears, meaning the exact floating payment is not known until 2 business days before the payment date. This creates a "fixing race" where operations must calculate the compounded rate from ~180 daily fixings and confirm the payment amount with the counterparty within hours.
-
-**Most misunderstood concept:** That a zero-value-at-inception swap is "free." The VLSP costs nothing to enter (no upfront premium), but it carries market risk from day one. A 50bp rate move on a $500M swap creates a $2.5M MTM change. "No cost" does not mean "no risk."
-
+3. **Confusing "pay fixed" with "pay a premium."** There is no upfront cost to enter a swap. "Pay fixed" means the client makes regular fixed payments and receives regular floating payments.
+4. **Ignoring day-count conventions.** The fixed leg (30/360) and floating leg (ACT/360) use different day counts. The payment amounts are not simply "rate × notional / 2" — the day-count fraction matters.
+5. **Assuming central clearing eliminates counterparty risk.** Clearing reduces bilateral counterparty risk but introduces CCP risk. If a CCP fails (an extreme event), all cleared trades are affected.
+6. **(Controls)** Booking a clearing-eligible trade as bilateral, or letting Murex and the risk system disagree on DV01. A bilateral booking of a clearable trade creates regulatory capital issues, and a DV01 mismatch — usually rooted in the discount curve, day count, or payment schedule — breaks leg PV reconciliation and the daily margin call; reconcile the curve and conventions between systems before settlement.
 ### Knowledge Check
 
 **Review Questions:**
@@ -11724,6 +11346,10 @@ In this example, rates started above the fixed rate (profitable) but fell below 
 4. What is central clearing and why is it mandatory for standard VLSPs?
 5. Why is the VLSP called the "building block" for structured rate products?
 
+
+**Dual-lens questions:**
+- *(Desk economics / 1LoD)* Which side of the swap does the desk take, and what is its primary risk and hedge?
+- *(Controls / 2LoD)* Which leg/fixing/collateral fields must reconcile, and which is the most common break?
 **Scenario Questions:**
 1. A pension fund enters a $500M 10-year VLSP paying 4.0% fixed, receiving SOFR. SOFR averages 4.5% over the first year. Calculate the approximate net payment for the year. What is the DV01 on this swap (approximate)?
 2. A corporate treasurer has $200M in floating-rate debt at SOFR + 1.0%. She enters a VLSP receiving SOFR, paying 3.5% fixed. What is her all-in fixed cost? Why did she enter the swap?
@@ -11809,6 +11435,11 @@ The rates desk runs a $50B notional VLSP book. The desk is DV01-neutral but has 
 
 ---
 
+
+**Dual-lens visuals (generated):**
+- `assets/vlsp/controls_vlsp_recon_08.svg` `[generated]`
+- `assets/vlsp/legs_vlsp_01.svg` `[generated]`
+- `assets/vlsp/waterfall_vlsp_09.svg` `[generated]`
 ## 5.3 STRUCTURED RATE TRADES
 
 *You have just completed the Swaps family — eight products built on the simple exchange of cash flows between two counterparties. We now turn to Structured Rate Trades (SRT) — products whose payoffs depend on interest rate levels, ranges, and curve shapes. The building blocks for this family were taught in Section 1.7 (Yield Curves, Spot Rates, and Forward Rates), Section 1.8 (Benchmark Rates, Swaps, and Rate Options), and Section 5.2.1 (IRS). Every SRT product is booked in Murex with four legs — Note, Issuer, Deposit, and Hedge — a structure you first encountered in Section 2.7 (The Four-Leg Structure).*

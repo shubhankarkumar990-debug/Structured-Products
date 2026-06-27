@@ -387,6 +387,89 @@ def payoff_warrant(
 
 
 # --------------------------------------------------------------------------- #
+# 1g. Cashflow legs (swaps) — two-leg bilateral exchange
+# --------------------------------------------------------------------------- #
+def swap_legs(
+    out_svg: str | Path,
+    *,
+    client_pays: str,
+    client_receives: str,
+    client_label: str = "Client",
+    desk_label: str = "Desk / Bank",
+    title: str = "Cashflow Legs",
+    lens: str = LENS_INVESTOR,
+    preview: bool = True,
+) -> str:
+    """Schematic two-leg swap: Client and Desk boxes with a 'client pays' arrow
+    one way and a 'client receives' arrow the other."""
+    W, H = 820, 300
+    s = []
+    s.append(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
+             f'font-family="DejaVu Sans, Arial, sans-serif">')
+    s.append(f'<rect x="0" y="0" width="{W}" height="{H}" fill="white"/>')
+    s.append(f'<text x="24" y="36" font-size="16" font-weight="bold" fill="{NAVY}">'
+             f'{_esc(title)} — {_esc(lens)}</text>')
+    # two party boxes
+    s.append(f'<rect x="70" y="110" width="200" height="80" rx="10" fill="{NAVY}"/>')
+    s.append(f'<text x="170" y="156" font-size="15" fill="white" text-anchor="middle" font-weight="bold">{_esc(client_label)}</text>')
+    s.append(f'<rect x="550" y="110" width="200" height="80" rx="10" fill="{SLATE}"/>')
+    s.append(f'<text x="650" y="156" font-size="15" fill="white" text-anchor="middle" font-weight="bold">{_esc(desk_label)}</text>')
+    s.append(f'<defs><marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">'
+             f'<path d="M0,0 L7,3 L0,6 Z" fill="{ACCENT}"/></marker>'
+             f'<marker id="ag" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">'
+             f'<path d="M0,0 L7,3 L0,6 Z" fill="{GREEN}"/></marker></defs>')
+    # client pays -> desk (top arrow)
+    s.append(f'<line x1="270" y1="135" x2="548" y2="135" stroke="{ACCENT}" stroke-width="2.4" marker-end="url(#ar)"/>')
+    s.append(f'<text x="409" y="126" font-size="12" fill="{ACCENT}" text-anchor="middle">Client pays: {_esc(client_pays)}</text>')
+    # desk pays -> client (bottom arrow)
+    s.append(f'<line x1="548" y1="168" x2="272" y2="168" stroke="{GREEN}" stroke-width="2.4" marker-end="url(#ag)"/>')
+    s.append(f'<text x="409" y="186" font-size="12" fill="{GREEN}" text-anchor="middle">Client receives: {_esc(client_receives)}</text>')
+    s.append(f'<text x="{W//2}" y="250" font-size="11" fill="{GREY}" text-anchor="middle">'
+             f'Bilateral OTC swap — two legs exchanged on each reset; only the NET is paid.</text>')
+    s.append('</svg>')
+    out_svg = Path(out_svg); out_svg.parent.mkdir(parents=True, exist_ok=True)
+    out_svg.write_text("\n".join(s), encoding="utf-8")
+    if preview:
+        render_png(out_svg)
+    return str(out_svg)
+
+
+# --------------------------------------------------------------------------- #
+# 1h. Variance swap payoff vs realized volatility
+# --------------------------------------------------------------------------- #
+def payoff_varswap(
+    out_svg: str | Path,
+    *,
+    strike_vol: float,
+    title: str = "Variance Swap Payoff",
+    lens: str = LENS_INVESTOR,
+    vol_max: float = 45.0,
+    preview: bool = True,
+) -> str:
+    """Long-variance payoff in variance points: (realized_vol^2 - strike_vol^2),
+    shown vs realized vol — convex, zero at the strike."""
+    _apply_style()
+    fig, ax = plt.subplots(figsize=(7.2, 4.4))
+    v = np.linspace(0, vol_max, 400)
+    pnl = (v ** 2 - strike_vol ** 2) / 100.0  # scaled variance points
+    ax.plot(v, pnl, color=NAVY, lw=2.6, label="Long variance: realized² − strike²")
+    ax.axhline(0, color=SLATE, lw=0.8)
+    ax.axvline(strike_vol, color=ACCENT, lw=1.4, ls=(0, (4, 3)))
+    ax.text(strike_vol + 0.5, ax.get_ylim()[1] * 0.1 if False else 0.3,
+            f"Strike vol {strike_vol:g}%", fontsize=9, color=ACCENT)
+    ax.fill_between(v, pnl, where=(v > strike_vol), color=GREEN, alpha=0.12)
+    ax.fill_between(v, pnl, where=(v <= strike_vol), color=ACCENT, alpha=0.10)
+    ax.set_xlabel("Realized volatility (%)")
+    ax.set_ylabel("P&L (variance points, ×notional)")
+    ax.set_title(f"{title} — {lens}", color=NAVY, fontsize=13, fontweight="bold", loc="left")
+    ax.set_xlim(0, vol_max)
+    ax.grid(True, color=LIGHT, lw=1)
+    ax.set_axisbelow(True)
+    ax.legend(loc="upper left", frameon=False, fontsize=9)
+    return _finish(fig, out_svg, preview)
+
+
+# --------------------------------------------------------------------------- #
 # 2. Desk gamma / hedge profile (Bank Lens — Desk Economics)
 # --------------------------------------------------------------------------- #
 def desk_gamma_profile(
