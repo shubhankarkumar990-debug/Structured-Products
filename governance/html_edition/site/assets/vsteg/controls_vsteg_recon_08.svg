@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" font-family="DejaVu Sans, Arial, sans-serif">
+<rect x="0" y="0" width="880" height="540" fill="white"/>
+<text x="24" y="34" font-size="17" font-weight="bold" fill="#1f3a5f">VSTEG Reconciliation Flow — Bank Lens (Controls &amp; 2LoD)</text>
+<text x="24" y="54" font-size="11" fill="#41607f">Points that must agree across systems before settlement. Highlighted row = most common break.</text>
+<rect x="60" y="74" width="190" height="34" rx="6" fill="#1f3a5f"/>
+<text x="155" y="96" font-size="12" fill="white" text-anchor="middle" font-weight="bold">Murex · Book of Record</text>
+<rect x="630" y="74" width="190" height="34" rx="6" fill="#41607f"/>
+<text x="725" y="96" font-size="12" fill="white" text-anchor="middle" font-weight="bold">Risk · Risk</text>
+<text x="440" y="96" font-size="12" fill="#1f3a5f" text-anchor="middle" font-weight="bold">must reconcile</text>
+<line x1="155" y1="112" x2="155" y2="450" stroke="#8a99a8" stroke-width="1" stroke-dasharray="3,3"/>
+<line x1="725" y1="112" x2="725" y2="450" stroke="#8a99a8" stroke-width="1" stroke-dasharray="3,3"/>
+<line x1="155" y1="142" x2="725" y2="142" stroke="#41607f" stroke-width="1"/>
+<circle cx="155" cy="142" r="4" fill="#1f3a5f"/>
+<circle cx="725" cy="142" r="4" fill="#41607f"/>
+<rect x="280" y="126" width="320" height="32" rx="6" fill="#f7f3ec" stroke="#41607f" stroke-width="1"/>
+<text x="292" y="140" font-size="11.5" font-weight="bold" fill="#1f3a5f">1. Four-leg net</text>
+<text x="292" y="153" font-size="9" fill="#41607f">Note vs Issuer vs Deposit vs Hedge booked with matching notional, dates and conventions, netting to the intended structured position</text>
+<line x1="155" y1="182" x2="725" y2="182" stroke="#c8553d" stroke-width="1.6"/>
+<circle cx="155" cy="182" r="4" fill="#1f3a5f"/>
+<circle cx="725" cy="182" r="4" fill="#41607f"/>
+<rect x="280" y="166" width="320" height="32" rx="6" fill="#fbe7e2" stroke="#c8553d" stroke-width="1.5"/>
+<text x="292" y="180" font-size="11.5" font-weight="bold" fill="#1f3a5f">2. CMS30Y fixing</text>
+<text x="292" y="193" font-size="9" fill="#41607f">Long-tenor CMS30Y observed on the correct date from ICESWAP at the contractual publication time</text>
+<rect x="606" y="169" width="150" height="26" rx="13" fill="#c8553d"/>
+<text x="681" y="186" font-size="9" fill="white" text-anchor="middle" font-weight="bold">two CMS fixings</text>
+<line x1="155" y1="222" x2="725" y2="222" stroke="#41607f" stroke-width="1"/>
+<circle cx="155" cy="222" r="4" fill="#1f3a5f"/>
+<circle cx="725" cy="222" r="4" fill="#41607f"/>
+<rect x="280" y="206" width="320" height="32" rx="6" fill="#f7f3ec" stroke="#41607f" stroke-width="1"/>
+<text x="292" y="220" font-size="11.5" font-weight="bold" fill="#1f3a5f">3. CMS2Y fixing</text>
+<text x="292" y="233" font-size="9" fill="#41607f">Short-tenor CMS2Y observed on the same date and from the same source (ICESWAP) as CMS30Y; both net the coupon</text>
+<line x1="155" y1="262" x2="725" y2="262" stroke="#41607f" stroke-width="1"/>
+<circle cx="155" cy="262" r="4" fill="#1f3a5f"/>
+<circle cx="725" cy="262" r="4" fill="#41607f"/>
+<rect x="280" y="246" width="320" height="32" rx="6" fill="#f7f3ec" stroke="#41607f" stroke-width="1"/>
+<text x="292" y="260" font-size="11.5" font-weight="bold" fill="#1f3a5f">4. Leverage &amp; floor/cap</text>
+<text x="292" y="273" font-size="9" fill="#41607f">Leverage = 4x; coupon = 4 x max(0, spread) floored at 0% and capped at 10%, applied each period</text>
+<line x1="155" y1="302" x2="725" y2="302" stroke="#41607f" stroke-width="1"/>
+<circle cx="155" cy="302" r="4" fill="#1f3a5f"/>
+<circle cx="725" cy="302" r="4" fill="#41607f"/>
+<rect x="280" y="286" width="320" height="32" rx="6" fill="#f7f3ec" stroke="#41607f" stroke-width="1"/>
+<text x="292" y="300" font-size="11.5" font-weight="bold" fill="#1f3a5f">5. Day-count</text>
+<text x="292" y="313" font-size="9" fill="#41607f">30/360 applied correctly to each quarterly coupon</text>
+<line x1="155" y1="342" x2="725" y2="342" stroke="#41607f" stroke-width="1"/>
+<circle cx="155" cy="342" r="4" fill="#1f3a5f"/>
+<circle cx="725" cy="342" r="4" fill="#41607f"/>
+<rect x="280" y="326" width="320" height="32" rx="6" fill="#f7f3ec" stroke="#41607f" stroke-width="1"/>
+<text x="292" y="340" font-size="11.5" font-weight="bold" fill="#1f3a5f">6. CMS convexity model</text>
+<text x="292" y="353" font-size="9" fill="#41607f">Convexity adjustment calibrated to the current vol surface, consistent between pricing and risk</text>
+<line x1="155" y1="382" x2="725" y2="382" stroke="#41607f" stroke-width="1"/>
+<circle cx="155" cy="382" r="4" fill="#1f3a5f"/>
+<circle cx="725" cy="382" r="4" fill="#41607f"/>
+<rect x="280" y="366" width="320" height="32" rx="6" fill="#f7f3ec" stroke="#41607f" stroke-width="1"/>
+<text x="292" y="380" font-size="11.5" font-weight="bold" fill="#1f3a5f">7. Hedge offset</text>
+<text x="292" y="393" font-size="9" fill="#41607f">Hedge leg P&amp;L (CMS30Y receiver + CMS2Y payer, scaled for leverage) offsets Note leg P&amp;L within tolerance</text>
+<line x1="155" y1="422" x2="725" y2="422" stroke="#41607f" stroke-width="1"/>
+<circle cx="155" cy="422" r="4" fill="#1f3a5f"/>
+<circle cx="725" cy="422" r="4" fill="#41607f"/>
+<rect x="280" y="406" width="320" height="32" rx="6" fill="#f7f3ec" stroke="#41607f" stroke-width="1"/>
+<text x="292" y="420" font-size="11.5" font-weight="bold" fill="#1f3a5f">8. Collateral / settlement</text>
+<text x="292" y="433" font-size="9" fill="#41607f">On each coupon date all four legs settle in line; deposit released when the Note leg matures</text>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8a99a8"/></marker></defs>
+<line x1="440" y1="450" x2="440" y2="468" stroke="#8a99a8" stroke-width="1.4" marker-end="url(#a)"/>
+<rect x="280" y="468" width="320" height="40" rx="6" fill="#1f3a5f"/>
+<text x="440" y="485" font-size="11.5" fill="white" text-anchor="middle" font-weight="bold">Downstream · Settlement</text>
+<text x="440" y="500" font-size="9" fill="#eef2f6" text-anchor="middle">a break here crystallises the wrong redemption / client payout</text>
+</svg>

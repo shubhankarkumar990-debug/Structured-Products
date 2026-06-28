@@ -11,7 +11,7 @@
 
 ## Table of Contents
 
-1. [Start Here — First Products To Learn](#start-here--first-products-to-learn)
+1. [Start Here — First Products To Learn](#start-here-first-products-to-learn)
 2. [Family View](#family-view)
 3. [Complexity View](#complexity-view)
 4. [Alphabetical View](#alphabetical-view)

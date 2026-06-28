@@ -31,11 +31,23 @@ echo "Regression suite…"
 "$PY" "$REG"
 REG_RC=$?
 
+echo
+echo "Link integrity (anchors + cross-document links)…"
+"$PY" governance/audit/link_check.py \
+  START_HERE.md \
+  Desk_Bible_v2.md \
+  production/solutions_manual.md \
+  production/product_comparison_matrix.md \
+  production/product_dna_atlas.md \
+  production/interview_system_v2_2.md \
+  production/infrastructure_encyclopedia_v1.md
+LINK_RC=$?
+
 echo "───────────────────────────────────────────────────────"
-if [[ $LINT_RC -ne 0 || $REG_RC -ne 0 ]]; then
-  echo "BLOCKED: linter exit=$LINT_RC, regression exit=$REG_RC."
+if [[ $LINT_RC -ne 0 || $REG_RC -ne 0 || $LINK_RC -ne 0 ]]; then
+  echo "BLOCKED: linter exit=$LINT_RC, regression exit=$REG_RC, link-check exit=$LINK_RC."
   echo "Fix the findings above (or justify with an inline lint-disable + reason) before committing."
   exit 1
 fi
-echo "PASS: 0 S1 findings, regression green."
+echo "PASS: 0 S1 findings, regression green, all links resolve."
 exit 0

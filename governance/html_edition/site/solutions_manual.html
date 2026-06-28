@@ -1,0 +1,3316 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Solutions Manual</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Solutions Manual</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#solutions-manual">Solutions Manual</a>
+<ul>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+</ul></li>
+<li><a href="#part-1-structurer-decision-framework">Part 1: Structurer Decision Framework</a>
+<ul>
+<li><a href="#the-10-step-decision-model">1.1 The 10-Step Decision Model</a></li>
+<li><a href="#the-4-personas">1.2 The 4 Personas</a></li>
+<li><a href="#market-regime-awareness">1.3 Market Regime Awareness</a></li>
+<li><a href="#complexity-escalation-protocol">1.4 Complexity Escalation Protocol</a></li>
+<li><a href="#the-desk-economics-lens">1.5 The Desk Economics Lens</a></li>
+<li><a href="#the-structurers-anti-instincts">1.6 The Structurer’s Anti-Instincts</a></li>
+</ul></li>
+<li><a href="#part-2-scenario-library">Part 2: Scenario Library</a>
+<ul>
+<li><a href="#category-1-capital-protection">Category 1 — Capital Protection</a>
+<ul>
+<li><a href="#scenario-1.1-full-protection-with-equity-upside">Scenario 1.1: Full Protection With Equity Upside</a></li>
+<li><a href="#scenario-1.2-capital-protection-with-regular-income">Scenario 1.2: Capital Protection With Regular Income</a></li>
+<li><a href="#scenario-1.3-better-terms-with-conditional-protection">Scenario 1.3: Better Terms With Conditional Protection</a></li>
+<li><a href="#scenario-1.4-guaranteed-minimum-return-plus-full-upside">Scenario 1.4: Guaranteed Minimum Return Plus Full Upside</a></li>
+<li><a href="#scenario-1.5-periodic-gain-lock-in">Scenario 1.5: Periodic Gain Lock-In</a></li>
+</ul></li>
+<li><a href="#category-2-yield-enhancement">Category 2 — Yield Enhancement</a>
+<ul>
+<li><a href="#scenario-2.1-bullish-equity-above-market-yield">Scenario 2.1: Bullish Equity — Above-Market Yield</a></li>
+<li><a href="#scenario-2.2-yield-with-discount-entry-margin">Scenario 2.2: Yield With Discount Entry Margin</a></li>
+<li><a href="#scenario-2.3-yield-with-knock-out-protection-layer">Scenario 2.3: Yield With Knock-Out Protection Layer</a></li>
+<li><a href="#scenario-2.4-maximum-conditional-coupon-with-autocall">Scenario 2.4: Maximum Conditional Coupon With Autocall</a></li>
+<li><a href="#scenario-2.5-digital-all-or-nothing-coupon">Scenario 2.5: Digital All-or-Nothing Coupon</a></li>
+<li><a href="#scenario-2.6-callable-yield-enhancement">Scenario 2.6: Callable Yield Enhancement</a></li>
+<li><a href="#scenario-2.7-fx-linked-deposit-yield">Scenario 2.7: FX-Linked Deposit Yield</a></li>
+</ul></li>
+<li><a href="#category-3-income-generation">Category 3 — Income Generation</a>
+<ul>
+<li><a href="#scenario-3.1-rate-linked-regular-income">Scenario 3.1: Rate-Linked Regular Income</a></li>
+<li><a href="#scenario-3.2-range-bound-rate-income">Scenario 3.2: Range-Bound Rate Income</a></li>
+<li><a href="#scenario-3.3-enhanced-income-with-call-risk">Scenario 3.3: Enhanced Income With Call Risk</a></li>
+<li><a href="#scenario-3.4-income-with-target-exit">Scenario 3.4: Income With Target Exit</a></li>
+<li><a href="#scenario-3.5-accumulated-coupon-recovery">Scenario 3.5: Accumulated Coupon Recovery</a></li>
+</ul></li>
+<li><a href="#category-4-rates-inflation">Category 4 — Rates &amp; Inflation</a>
+<ul>
+<li><a href="#scenario-4.1-hedge-floating-rate-exposure">Scenario 4.1: Hedge Floating Rate Exposure</a></li>
+<li><a href="#scenario-4.2-structured-rate-exposure-with-call">Scenario 4.2: Structured Rate Exposure With Call</a></li>
+<li><a href="#scenario-4.3-zero-coupon-rate-growth-for-liability-matching">Scenario 4.3: Zero-Coupon Rate Growth for Liability Matching</a></li>
+<li><a href="#scenario-4.4-range-accrual-rate-income">Scenario 4.4: Range Accrual Rate Income</a></li>
+<li><a href="#scenario-4.5-digital-rate-coupon">Scenario 4.5: Digital Rate Coupon</a></li>
+</ul></li>
+<li><a href="#category-5-credit-exposure">Category 5 — Credit Exposure</a>
+<ul>
+<li><a href="#scenario-5.1-single-name-funded-credit-exposure">Scenario 5.1: Single-Name Funded Credit Exposure</a></li>
+<li><a href="#scenario-5.2-asymmetric-credit-payoff">Scenario 5.2: Asymmetric Credit Payoff</a></li>
+<li><a href="#scenario-5.3-basket-first-to-default-exposure">Scenario 5.3: Basket First-to-Default Exposure</a></li>
+<li><a href="#scenario-5.4-basket-nth-to-default-exposure">Scenario 5.4: Basket Nth-to-Default Exposure</a></li>
+<li><a href="#scenario-5.5-tranched-portfolio-credit">Scenario 5.5: Tranched Portfolio Credit</a></li>
+</ul></li>
+<li><a href="#category-6-volatility-strategies">Category 6 — Volatility Strategies</a>
+<ul>
+<li><a href="#scenario-6.1-pure-volatility-exposure">Scenario 6.1: Pure Volatility Exposure</a></li>
+<li><a href="#scenario-6.2-option-on-a-structured-product">Scenario 6.2: Option on a Structured Product</a></li>
+<li><a href="#scenario-6.3-multi-stock-correlation-via-autocall">Scenario 6.3: Multi-Stock Correlation via Autocall</a></li>
+<li><a href="#scenario-6.4-embedded-volatility-selling">Scenario 6.4: Embedded Volatility Selling</a></li>
+</ul></li>
+<li><a href="#category-7-portfolio-management">Category 7 — Portfolio Management</a>
+<ul>
+<li><a href="#scenario-7.1-synthetic-equity-ownership">Scenario 7.1: Synthetic Equity Ownership</a></li>
+<li><a href="#scenario-7.2-commodity-price-hedging">Scenario 7.2: Commodity Price Hedging</a></li>
+<li><a href="#scenario-7.3-cross-currency-debt-management">Scenario 7.3: Cross-Currency Debt Management</a></li>
+<li><a href="#scenario-7.4-discounted-share-accumulation">Scenario 7.4: Discounted Share Accumulation</a></li>
+<li><a href="#scenario-7.5-systematic-share-disposal">Scenario 7.5: Systematic Share Disposal</a></li>
+</ul></li>
+<li><a href="#category-8-building-blocks-specialist">Category 8 — Building Blocks &amp; Specialist</a>
+<ul>
+<li><a href="#scenario-8.1-forward-price-lock">Scenario 8.1: Forward Price Lock</a></li>
+<li><a href="#scenario-8.2-deposit-based-structured-return">Scenario 8.2: Deposit-Based Structured Return</a></li>
+<li><a href="#scenario-8.3-retail-leveraged-directional-exposure">Scenario 8.3: Retail Leveraged Directional Exposure</a></li>
+<li><a href="#scenario-8.4-maximum-multi-stock-yield-for-private-banking">Scenario 8.4: Maximum Multi-Stock Yield for Private Banking</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#part-3-anti-patterns">Part 3: Anti-Patterns</a>
+<ul>
+<li><a href="#eln-anti-patterns">ELN Anti-Patterns</a>
+<ul>
+<li><a href="#ap-1-client-wants-protection-not-rc">AP-1: “Client Wants Protection” → NOT RC</a></li>
+<li><a href="#ap-2-client-wants-guaranteed-income-not-phoenix">AP-2: “Client Wants Guaranteed Income” → NOT Phoenix</a></li>
+<li><a href="#ap-3-client-wants-simplicity-not-dkip">AP-3: “Client Wants Simplicity” → NOT DKIP</a></li>
+</ul></li>
+<li><a href="#swaps-anti-patterns">Swaps Anti-Patterns</a>
+<ul>
+<li><a href="#ap-4-client-wants-to-sell-vol-not-varswap-short">AP-4: “Client Wants to Sell Vol” → NOT VarSwap Short</a></li>
+<li><a href="#ap-5-client-wants-to-hedge-equity-not-accum">AP-5: “Client Wants to Hedge Equity” → NOT ACCUM</a></li>
+<li><a href="#ap-6-client-wants-simple-rate-hedge-not-xccy">AP-6: “Client Wants Simple Rate Hedge” → NOT XCCY</a></li>
+</ul></li>
+<li><a href="#srt-anti-patterns">SRT Anti-Patterns</a>
+<ul>
+<li><a href="#ap-7-client-wants-safe-income-not-cra-srt">AP-7: “Client Wants Safe Income” → NOT CRA SRT</a></li>
+<li><a href="#ap-8-client-wants-simple-rate-product-not-ncra">AP-8: “Client Wants Simple Rate Product” → NOT NCRA</a></li>
+<li><a href="#ap-9-client-wants-bond-substitute-not-zcl-for-income-seekers">AP-9: “Client Wants Bond Substitute” → NOT ZCL for Income Seekers</a></li>
+</ul></li>
+<li><a href="#steg-anti-patterns">STEG Anti-Patterns</a>
+<ul>
+<li><a href="#ap-10-curve-will-steepen-not-tarn-steg">AP-10: “Curve Will Steepen” → NOT TARN STEG</a></li>
+<li><a href="#ap-11-client-wants-stable-income-not-ra-steg">AP-11: “Client Wants Stable Income” → NOT RA STEG</a></li>
+<li><a href="#ap-12-client-wants-long-duration-steepener-not-callable-steg-if-duration-matters">AP-12: “Client Wants Long-Duration Steepener” → NOT Callable STEG if Duration Matters</a></li>
+</ul></li>
+<li><a href="#cln-anti-patterns">CLN Anti-Patterns</a>
+<ul>
+<li><a href="#ap-13-client-wants-credit-exposure-not-ftd-without-correlation-training">AP-13: “Client Wants Credit Exposure” → NOT FTD Without Correlation Training</a></li>
+<li><a href="#ap-14-client-wants-high-credit-yield-not-cdo-for-non-specialists">AP-14: “Client Wants High Credit Yield” → NOT CDO for Non-Specialists</a></li>
+<li><a href="#ap-15-client-wants-simple-funded-credit-not-ntd">AP-15: “Client Wants Simple Funded Credit” → NOT NTD</a></li>
+</ul></li>
+<li><a href="#other-family-anti-patterns">Other Family Anti-Patterns</a>
+<ul>
+<li><a href="#ap-16-client-wants-low-risk-not-woac">AP-16: “Client Wants Low Risk” → NOT WOAC</a></li>
+<li><a href="#ap-17-client-needs-liquidity-not-snow">AP-17: “Client Needs Liquidity” → NOT SNOW</a></li>
+<li><a href="#ap-18-client-wants-protection-with-maximum-upside-not-cliq-for-trending-markets">AP-18: “Client Wants Protection With Maximum Upside” → NOT CLIQ for Trending Markets</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#part-4-quick-reference-replacement-table">Part 4: Quick Reference &amp; Replacement Table</a>
+<ul>
+<li><a href="#objective-top-3-products">Objective → Top 3 Products</a></li>
+<li><a href="#product-replacement-table">49-Product Replacement Table</a></li>
+<li><a href="#traceability">Traceability</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="solutions-manual">Solutions Manual</h1>
+<p><strong>Desk Bible v2 — Structuring Decisions for 49 Products</strong></p>
+<p><strong>Products:</strong> 49 <strong>Scenarios:</strong> 40 <strong>Anti-Patterns:</strong> 18 <strong>Personas:</strong> 4 <strong>Framework:</strong> v1.3.1 (frozen) <strong>Generated:</strong> 2026-06-22</p>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol type="1">
+<li><a href="#part-1-structurer-decision-framework">Part 1: Structurer Decision Framework</a></li>
+<li><a href="#part-2-scenario-library">Part 2: Scenario Library</a></li>
+<li><a href="#part-3-anti-patterns">Part 3: Anti-Patterns</a></li>
+<li><a href="#part-4-quick-reference-replacement-table">Part 4: Quick Reference &amp; Replacement Table</a></li>
+</ol>
+<hr />
+<h1 id="part-1-structurer-decision-framework">Part 1: Structurer Decision Framework</h1>
+<h2 id="the-10-step-decision-model">1.1 The 10-Step Decision Model</h2>
+<p>Every structuring recommendation follows this sequence. Steps 1–7 narrow the 49-product universe. Steps 8–9 compare survivors. Step 10 validates.</p>
+<pre><code>Step 1   CLIENT OBJECTIVE
+         Protection / Yield / Income / Growth / Hedging / Vol Trading
+              ↓
+Step 2   CASH FLOW REQUIREMENT
+         Growth (no payments) / Fixed Income / Contingent Income
+              ↓
+Step 3   ASSET CLASS
+         Equity / Rates / Credit / Volatility / FX / Commodity
+              ↓
+Step 3.5 PERSONA FILTER
+         Retail (cap 4) / PB (cap 8) / Institutional (full) / Sophisticated (full)
+              ↓
+Step 4   MARKET REGIME
+         Bullish / Bearish / Range-bound / Steepening / Flattening / No view
+              ↓
+Step 5   RISK BUDGET
+         Zero loss / Conditional (barrier) / Defined (premium) / Unlimited
+              ↓
+Step 6   CONSTRAINTS
+         Liquidity / Maturity / Regulatory / Currency
+              ↓
+Step 7   COMPLEXITY FILTER
+         Apply persona cap from Step 3.5 + client-specific tolerance
+              ↓
+Step 8   CANDIDATE SET
+         3–8 products surviving Steps 1–7
+              ↓
+Step 9   COMPARATIVE SELECTION
+         Evaluate candidates on payoff, cost, path dependency, hedge cost
+              ↓
+Step 10  VALIDATION
+         Confirm recommendation respects all constraints</code></pre>
+<p><strong>Step 1</strong> eliminates entire families. A hedging objective eliminates all ELN products. A protection objective eliminates all swaps.</p>
+<p><strong>Step 2</strong> splits paths early. “Growth” eliminates coupon products (RC, STEG). “Fixed income” eliminates growth products (PPN, Booster).</p>
+<p><strong>Step 3</strong> narrows to an asset class. Equity clients see ELN + Equity Swaps. Rates clients see SRT + STEG + IRS.</p>
+<p><strong>Step 3.5</strong> applies persona-based product eligibility (see §1.2).</p>
+<p><strong>Step 4</strong> is where structurer judgment begins. The same objective under different market views produces different products. Bullish equity → RC. Range-bound equity → Digital.</p>
+<p><strong>Step 5</strong> determines protection level. Zero-loss clients get PPN/SD. Conditional-loss clients get RC/Phoenix. Premium-loss clients get Warrants/Options.</p>
+<p><strong>Step 6</strong> applies hard constraints. Need liquidity? Eliminate long-dated exotics. Need short maturity? Eliminate 5-year SRT.</p>
+<p><strong>Step 7</strong> caps complexity. A Retail persona cannot access Phoenix (6). A PB client capped at 5 cannot access WOAC (8).</p>
+<p><strong>Step 8</strong> outputs the candidate set — typically 3–8 products.</p>
+<p><strong>Step 9</strong> is the decision. Use the Comparative Selection table to evaluate candidates on payoff shape, protection cost, path dependency, complexity premium, and desk hedge cost.</p>
+<p><strong>Step 10</strong> validates: does the recommendation respect all constraints from Steps 1–7? If not, return to Step 8.</p>
+<hr />
+<h2 id="the-4-personas">1.2 The 4 Personas</h2>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 27%" />
+<col style="width: 30%" />
+<col style="width: 27%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Persona</th>
+<th style="text-align: center;">Complexity Cap</th>
+<th style="text-align: center;">Product Universe</th>
+<th>Key Constraint</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Retail</strong></td>
+<td style="text-align: center;">≤4</td>
+<td style="text-align: center;">Notes only. No swaps, no ISDA</td>
+<td>PRIIPS/KID required. Suitability rules</td>
+</tr>
+<tr class="even">
+<td><strong>Private Banking</strong></td>
+<td style="text-align: center;">≤8</td>
+<td style="text-align: center;">All notes + select swaps (IRS, CDS)</td>
+<td>Sophistication assessed. Advisory mandate</td>
+</tr>
+<tr class="odd">
+<td><strong>Institutional</strong></td>
+<td style="text-align: center;">No cap</td>
+<td style="text-align: center;">Full universe including all swaps, SRT, STEG</td>
+<td>ALM/hedging focus. Regulatory capital aware</td>
+</tr>
+<tr class="even">
+<td><strong>Sophisticated</strong></td>
+<td style="text-align: center;">No cap</td>
+<td style="text-align: center;">Full universe + leverage products</td>
+<td>ACCUM/DECUM/VarSwap accessible. No suitability cap</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Persona determines eligibility, not preference.</strong> A Retail client cannot access Phoenix (6) regardless of their market view. An Institutional client can access PPN (2) if it fits their mandate.</p>
+<p>Product counts by persona eligibility:</p>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 50%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Persona</th>
+<th style="text-align: center;">Eligible Products</th>
+<th style="text-align: center;">Excluded</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Retail</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">37</td>
+</tr>
+<tr class="even">
+<td>Private Banking</td>
+<td style="text-align: center;">41</td>
+<td style="text-align: center;">8 (VarSwap, CRA SRT, TARN STEG, NTD, CDO, RA STEG, ACCUM, DECUM)</td>
+</tr>
+<tr class="odd">
+<td>Institutional</td>
+<td style="text-align: center;">49</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td>Sophisticated</td>
+<td style="text-align: center;">49</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="market-regime-awareness">1.3 Market Regime Awareness</h2>
+<p>The same client objective requires different products in different regimes.</p>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Regime</th>
+<th>Benefits</th>
+<th>Suffers</th>
+<th>Structurer Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>High equity vol</strong></td>
+<td>RC, Phoenix (rich premium)</td>
+<td>PPN (option expensive, low participation)</td>
+<td>Favour yield products over protection</td>
+</tr>
+<tr class="even">
+<td><strong>Low equity vol</strong></td>
+<td>PPN (cheap option, high participation)</td>
+<td>RC, Phoenix (thin premiums, unattractive coupons)</td>
+<td>Favour protection products over yield</td>
+</tr>
+<tr class="odd">
+<td><strong>Steep yield curve</strong></td>
+<td>STEG family (wide CMS spread)</td>
+<td>Flat-rate products</td>
+<td>STEG coupons attractive</td>
+</tr>
+<tr class="even">
+<td><strong>Flat/inverted curve</strong></td>
+<td>Fixed-rate products, IRS</td>
+<td>STEG family (zero spread coupon)</td>
+<td>Avoid STEG — recommend fixed income</td>
+</tr>
+<tr class="odd">
+<td><strong>Wide credit spreads</strong></td>
+<td>CLN (high credit premium)</td>
+<td>CDS buyer (expensive protection)</td>
+<td>Sell credit protection via CLN/CDS</td>
+</tr>
+<tr class="even">
+<td><strong>Tight credit spreads</strong></td>
+<td>CDS buyer (cheap protection)</td>
+<td>CLN (low premium, poor compensation)</td>
+<td>Buy credit protection, avoid selling</td>
+</tr>
+<tr class="odd">
+<td><strong>Rising rates</strong></td>
+<td>PPN worse (expensive ZCB)</td>
+<td>Floating-rate products benefit</td>
+<td>Favour floating over fixed</td>
+</tr>
+<tr class="even">
+<td><strong>Falling rates</strong></td>
+<td>PPN better (cheap ZCB, high participation)</td>
+<td>Floating-rate products suffer</td>
+<td>Favour PPN, lock fixed rates</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Regime awareness is the single biggest differentiator between a junior and senior structurer.</strong> A junior recommends RC because it’s the “yield product.” A senior knows RC premiums are thin in low-vol environments and switches to Digital or STEG.</p>
+<hr />
+<h2 id="complexity-escalation-protocol">1.4 Complexity Escalation Protocol</h2>
+<p><strong>The Complexity Ladder:</strong> always start at the lowest complexity that meets the objective. Only escalate when the simpler product fails to meet a specific requirement.</p>
+<p>Rules: 1. Tier 1 products (Complexity 2) considered first: SD, FWD, PPN, VLSP 2. Tier 2 (Complexity 3) tried before Tier 3: RC, DRC, ICN, Warrant, IRS, VO, ELO, DCI 3. Complexity 7+ only when 4–6 are exhausted — require explicit justification 4. Complexity 10 (CDO) only for Institutional/Sophisticated with documented credit expertise</p>
+<p>Each ladder rung has an <strong>escalation trigger</strong> — the specific condition that justifies moving up:</p>
+<pre><code>PPN (2) — full protection, 55% participation
+   ↑ Trigger: Participation below 40% in current rate environment
+Airbag (4) — conditional protection, ~80% participation
+   ↑ Trigger: Client accepts barrier risk for higher participation
+Bonus (4) — minimum return guarantee + full upside
+   ↑ Trigger: Client wants guaranteed minimum above zero
+SHRK (4) — barrier-enhanced, higher participation
+   ↑ Trigger: Client accepts capped upside via knock-out barrier
+CLIQ (7) — periodic lock-in, protection resets</code></pre>
+<p><strong>Never skip rungs without documenting why the intermediate product was inadequate.</strong></p>
+<hr />
+<h2 id="the-desk-economics-lens">1.5 The Desk Economics Lens</h2>
+<p>When two products meet client needs equally, the desk prefers the product that is:</p>
+<table>
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 20%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Preference</th>
+<th>Why</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Higher margin</strong></td>
+<td>Structuring fee + bid-offer</td>
+<td>RC margin 2–3× PPN margin</td>
+</tr>
+<tr class="even">
+<td><strong>Easier to hedge</strong></td>
+<td>Liquid underliers, standard Greeks</td>
+<td>Index-linked over single-stock</td>
+</tr>
+<tr class="odd">
+<td><strong>Lower operational burden</strong></td>
+<td>Fewer observations, simpler lifecycle</td>
+<td>RC (European) over Phoenix (periodic observations)</td>
+</tr>
+<tr class="even">
+<td><strong>Lower capital consumption</strong></td>
+<td>Simpler RWA calculation</td>
+<td>Notes over swaps (funded vs unfunded)</td>
+</tr>
+</tbody>
+</table>
+<p>Desk economics should never override client suitability. But when choosing between equally suitable products, the desk preference matters — it produces better pricing for the client (the desk passes through lower hedge cost).</p>
+<hr />
+<h2 id="the-structurers-anti-instincts">1.6 The Structurer’s Anti-Instincts</h2>
+<p>Five cases where the “obvious” choice is wrong:</p>
+<ol type="1">
+<li><p><strong>“Client wants yield” → PPN is wrong.</strong> PPN pays zero coupon. It’s a growth product. Yield means RC/STEG/CLN.</p></li>
+<li><p><strong>“Client wants protection” → RC is wrong.</strong> RC has conditional protection. Below the barrier, the client takes full equity loss. Protection means PPN/SD.</p></li>
+<li><p><strong>“Client wants maximum coupon” → WOAC is tempting but dangerous.</strong> WOAC coupon is high because the client sells correlation risk on a basket. The worst stock drives all outcomes. This is not “high yield” — it’s concentrated tail risk.</p></li>
+<li><p><strong>“Client wants volatility exposure” → VarSwap short is tempting but catastrophic.</strong> VarSwap has convex payoff. Short sellers face unlimited loss. A 2× vol move produces 4× loss. Use VO for directional vol instead.</p></li>
+<li><p><strong>“Client is bullish” → Phoenix is wrong.</strong> Phoenix is designed for range-bound markets. Autocall terminates quickly if stock rallies, capping total return. Bullish clients should use RC, Booster, or Warrant.</p></li>
+</ol>
+<hr />
+<h1 id="part-2-scenario-library">Part 2: Scenario Library</h1>
+<h2 id="category-1-capital-protection">Category 1 — Capital Protection</h2>
+<p><em>“I cannot afford to lose my principal.”</em></p>
+<hr />
+<h3 id="scenario-1.1-full-protection-with-equity-upside">Scenario 1.1: Full Protection With Equity Upside</h3>
+<p><strong>Client says:</strong> “I need 100% principal protection but want equity market participation.”</p>
+<p><strong>Persona:</strong> Retail / PB. Cap varies by persona.</p>
+<p><strong>Narrowing:</strong> Objective → Protection | Cash Flow → Growth | Asset → Equity | Regime → Neutral | Risk → Zero loss | Complexity → ≤4 (Retail) or ≤8 (PB)</p>
+<p><strong>Candidates:</strong> PPN (2), SD (2), SHRK (4)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RC (3)</td>
+<td style="text-align: center;">Risk Budget</td>
+<td>Conditional protection — client demands zero loss</td>
+</tr>
+<tr class="even">
+<td>Booster (4)</td>
+<td style="text-align: center;">Risk Budget</td>
+<td>No capital protection at all</td>
+</tr>
+<tr class="odd">
+<td>CLIQ (7)</td>
+<td style="text-align: center;">Persona</td>
+<td>Exceeds Retail cap of 4</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>PPN (2)</th>
+<th>SD (2)</th>
+<th>SHRK (4)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Protection</td>
+<td>100% at maturity</td>
+<td>100% (deposit insurance)</td>
+<td>100% at maturity</td>
+</tr>
+<tr class="even">
+<td>Participation</td>
+<td>50–65%</td>
+<td>30–50%</td>
+<td>60–80%</td>
+</tr>
+<tr class="odd">
+<td>Complexity</td>
+<td>Simplest note</td>
+<td>Simplest product</td>
+<td>Barrier caps upside</td>
+</tr>
+<tr class="even">
+<td>Maturity</td>
+<td>3–5 years</td>
+<td>1–3 years</td>
+<td>1–3 years</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> PPN (2) — full protection, highest participation among fully protected products, no barrier complications.</p>
+<p><strong>Why This Wins:</strong> - Full 100% principal guarantee with no conditions or barriers - Participation rate 50–65% captures meaningful equity upside - Complexity 2 — accessible to all personas including Retail</p>
+<p><strong>Ladder:</strong> 1. SD (2) — deposit insurance, ~40% participation ↑ If participation too low and client accepts note format (no deposit insurance): escalate 2. PPN (2) — note format, ~55% participation ↑ If participation still insufficient and client accepts barrier cap: escalate 3. SHRK (4) — barrier-enhanced, ~70% participation but KO caps strong rallies</p>
+<p><strong>Common Mistake:</strong> Recommending RC because “it also has protection.” RC protection is conditional — barrier breach means full equity loss. The client said “cannot lose principal.”</p>
+<p><strong>Regime Note:</strong> In low-rate environments (rates &lt; 2%), PPN participation drops below 40%. Consider SD for shorter duration or wait for better rate conditions.</p>
+<hr />
+<h3 id="scenario-1.2-capital-protection-with-regular-income">Scenario 1.2: Capital Protection With Regular Income</h3>
+<p><strong>Client says:</strong> “I want my principal safe AND regular coupon payments.”</p>
+<p><strong>Persona:</strong> PB / Institutional.</p>
+<p><strong>Narrowing:</strong> Objective → Protection | Cash Flow → Income | Asset → Equity or Rates | Risk → Zero loss | Complexity → ≤6</p>
+<p><strong>Candidates:</strong> Digital (4), CRA ELN (6), Vanilla STEG (5), Digital CF (5)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PPN (2)</td>
+<td style="text-align: center;">Cash Flow</td>
+<td>No coupon — growth only</td>
+</tr>
+<tr class="even">
+<td>RC (3)</td>
+<td style="text-align: center;">Risk Budget</td>
+<td>Conditional protection</td>
+</tr>
+<tr class="odd">
+<td>TARN STEG (8)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Exceeds cap and path-dependent</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection:</strong></p>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 23%" />
+<col style="width: 33%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>Digital (4)</th>
+<th>Vanilla STEG (5)</th>
+<th>CRA ELN (6)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Coupon type</td>
+<td>Binary (all-or-nothing)</td>
+<td>CMS spread</td>
+<td>Range accrual</td>
+</tr>
+<tr class="even">
+<td>Protection</td>
+<td>100%</td>
+<td>100%</td>
+<td>100%</td>
+</tr>
+<tr class="odd">
+<td>Income risk</td>
+<td>Near-strike: zero coupon</td>
+<td>Flat curve: zero coupon</td>
+<td>Outside range: zero coupon</td>
+</tr>
+<tr class="even">
+<td>Asset class</td>
+<td>Equity</td>
+<td>Rates</td>
+<td>Equity</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> Digital (4) for equity view. Vanilla STEG (5) for rates view. Decision depends on Step 3 (Asset Class).</p>
+<p><strong>Why This Wins:</strong> - Both offer 100% capital protection WITH coupon payments - Digital is simpler (Complexity 4) and appropriate for equity-focused clients - Vanilla STEG suits clients with a yield curve steepening view</p>
+<p><strong>Ladder:</strong> 1. Digital (4) — binary coupon, principal safe ↑ If need higher coupon and accept range condition: escalate 2. Vanilla STEG (5) — CMS spread coupon if rates view exists ↑ If accept call risk for better coupon: escalate 3. CRA ELN (6) — range accrual, highest coupon among protected products</p>
+<p><strong>Common Mistake:</strong> Assuming “capital protection + income” is contradictory. 14 products offer 100% protection — the income risk shifts from principal to coupon.</p>
+<p><strong>Regime Note:</strong> In flat yield curve environments, avoid STEG (zero coupon). Default to equity-linked Digital.</p>
+<hr />
+<h3 id="scenario-1.3-better-terms-with-conditional-protection">Scenario 1.3: Better Terms With Conditional Protection</h3>
+<p><strong>Client says:</strong> “I’d accept some downside risk if it means significantly better participation or yield.”</p>
+<p><strong>Persona:</strong> PB. Complexity ≤6.</p>
+<p><strong>Narrowing:</strong> Objective → Protection (conditional) | Cash Flow → Growth | Asset → Equity | Regime → Mildly bullish | Risk → Conditional (barrier) | Complexity → ≤6</p>
+<p><strong>Candidates:</strong> Airbag (4), Bonus (4), KODRC (4)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 26%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PPN (2)</td>
+<td style="text-align: center;">Objective</td>
+<td>Client explicitly accepts conditional risk for better terms</td>
+</tr>
+<tr class="even">
+<td>Phoenix (6)</td>
+<td style="text-align: center;">Cash Flow</td>
+<td>Income product — client wants growth</td>
+</tr>
+<tr class="odd">
+<td>WOAC (8)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Exceeds cap and multi-stock risk inappropriate</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection:</strong></p>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 26%" />
+<col style="width: 24%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>Airbag (4)</th>
+<th>Bonus (4)</th>
+<th>KODRC (4)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mechanism</td>
+<td>Cushion absorbs losses between strike and barrier</td>
+<td>Minimum return if barrier intact</td>
+<td>KO barrier + discount entry</td>
+</tr>
+<tr class="even">
+<td>Upside</td>
+<td>Leveraged above strike</td>
+<td>Full participation above bonus</td>
+<td>Capped at KO level</td>
+</tr>
+<tr class="odd">
+<td>Downside</td>
+<td>Full loss below airbag level</td>
+<td>Full loss below barrier</td>
+<td>Full loss below KI barrier</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> Airbag (4) — best balance of leveraged upside and defined cushion. Client who accepts conditional risk gets 1.5× participation.</p>
+<p><strong>Why This Wins:</strong> - Leveraged upside (typically 150% participation) vs PPN’s 55% - Airbag cushion absorbs first 20–30% of decline - Same complexity as alternatives but clearest payoff diagram</p>
+<p><strong>Ladder:</strong> 1. PPN (2) — zero downside, ~55% participation ↑ If participation insufficient: escalate 2. Airbag (4) — cushion protection, ~150% participation ↑ If client wants guaranteed minimum return: switch to 3. Bonus (4) — min 10%+ return if barrier unbreached, full upside above</p>
+<p><strong>Common Mistake:</strong> Treating Airbag and Bonus as interchangeable. Airbag provides a leverage mechanism. Bonus provides a minimum return. Different payoff shapes for different views.</p>
+<p><strong>Regime Note:</strong> High vol makes barriers risky. In high-vol regimes, widen the barrier (lower cushion) or retreat to PPN.</p>
+<hr />
+<h3 id="scenario-1.4-guaranteed-minimum-return-plus-full-upside">Scenario 1.4: Guaranteed Minimum Return Plus Full Upside</h3>
+<p><strong>Client says:</strong> “I want at least 10% return even if markets are flat, plus full upside if markets rally.”</p>
+<p><strong>Persona:</strong> Retail / PB.</p>
+<p><strong>Narrowing:</strong> Objective → Protection + Growth | Cash Flow → Growth | Asset → Equity | Regime → Uncertain (flat or up) | Risk → Conditional | Complexity → ≤4</p>
+<p><strong>Candidates:</strong> Bonus (4)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PPN (2)</td>
+<td style="text-align: center;">Objective</td>
+<td>No minimum return — just principal back if flat</td>
+</tr>
+<tr class="even">
+<td>Airbag (4)</td>
+<td style="text-align: center;">Objective</td>
+<td>No guaranteed minimum — only cushion</td>
+</tr>
+<tr class="odd">
+<td>RC (3)</td>
+<td style="text-align: center;">Cash Flow</td>
+<td>Income product, not growth</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> Bonus (4) — unique payoff: guaranteed bonus above zero if barrier intact, plus full participation in rally.</p>
+<p><strong>Why This Wins:</strong> - Only product guaranteeing positive return in flat markets (barrier intact) - Full 100% participation above the bonus level - Attractive in uncertain markets where direction is unclear</p>
+<p><strong>Ladder:</strong> 1. PPN (2) — zero return if flat, ~55% participation if up ↑ If client demands positive return even in flat market: escalate 2. Bonus (4) — 10%+ minimum return + full upside</p>
+<p><strong>Common Mistake:</strong> Ignoring barrier risk. If the barrier is breached at any point (even temporarily), the bonus evaporates and the product becomes a direct equity position. The “guarantee” is conditional.</p>
+<p><strong>Regime Note:</strong> Bonus works best in low-vol environments where barrier breach is unlikely. In high-vol, the barrier becomes a real threat.</p>
+<p><strong>Desk Note:</strong> Bonus is harder to hedge than RC (down-and-in put + call combination). Desk passes through higher hedge cost as wider bid-ask.</p>
+<hr />
+<h3 id="scenario-1.5-periodic-gain-lock-in">Scenario 1.5: Periodic Gain Lock-In</h3>
+<p><strong>Client says:</strong> “I want protection but also want to lock in gains periodically so I don’t lose them.”</p>
+<p><strong>Persona:</strong> PB. Complexity ≤7.</p>
+<p><strong>Narrowing:</strong> Objective → Protection + Growth | Cash Flow → Growth | Asset → Equity | Regime → Trending | Risk → Zero loss on principal | Complexity → ≤7</p>
+<p><strong>Candidates:</strong> SHRK (4), CLIQ (7)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PPN (2)</td>
+<td style="text-align: center;">Objective</td>
+<td>No lock-in — all return at maturity</td>
+</tr>
+<tr class="even">
+<td>Bonus (4)</td>
+<td style="text-align: center;">Objective</td>
+<td>Minimum return, but no periodic lock-in</td>
+</tr>
+<tr class="odd">
+<td>WOAC (8)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Exceeds cap</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection:</strong></p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 32%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>SHRK (4)</th>
+<th>CLIQ (7)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mechanism</td>
+<td>Barrier-enhanced participation with KO cap</td>
+<td>Serial forward-starting options, periodic resets</td>
+</tr>
+<tr class="even">
+<td>Lock-in</td>
+<td>Single barrier event</td>
+<td>Periodic (quarterly/annual)</td>
+</tr>
+<tr class="odd">
+<td>Protection</td>
+<td>100% principal</td>
+<td>100% principal</td>
+</tr>
+<tr class="even">
+<td>Upside cap</td>
+<td>KO barrier caps strong rally (rebate paid)</td>
+<td>Local caps per period</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> SHRK (4) for simpler lock-in. CLIQ (7) for true periodic reset with PB sophistication.</p>
+<p><strong>Why This Wins:</strong> - SHRK: principal safe + enhanced participation up to KO barrier - CLIQ: genuine periodic lock-in — gains from each period are banked regardless of future performance - Both address the specific “don’t lose my gains” anxiety</p>
+<p><strong>Ladder:</strong> 1. PPN (2) — no lock-in, all at maturity ↑ If client explicitly wants gain capture during life: escalate 2. SHRK (4) — barrier-enhanced, rebate on KO ↑ If need true periodic lock-in (not just barrier): escalate 3. CLIQ (7) — serial forward-starting options, periodic gain banking</p>
+<p><strong>Common Mistake:</strong> Recommending CLIQ for bullish clients. CLIQ has local caps per period — in a strongly trending market, the caps reduce total return below what PPN would deliver.</p>
+<p><strong>Regime Note:</strong> CLIQ outperforms in choppy, mean-reverting markets. In trending markets, PPN wins.</p>
+<hr />
+<h2 id="category-2-yield-enhancement">Category 2 — Yield Enhancement</h2>
+<p><em>“I want higher returns than bonds or deposits.”</em></p>
+<hr />
+<h3 id="scenario-2.1-bullish-equity-above-market-yield">Scenario 2.1: Bullish Equity — Above-Market Yield</h3>
+<p><strong>Client says:</strong> “I’m bullish on this stock and want a higher yield than bonds.”</p>
+<p><strong>Persona:</strong> PB. Complexity ≤5.</p>
+<p><strong>Narrowing:</strong> Objective → Yield | Cash Flow → Fixed Income | Asset → Equity | Regime → Bullish | Risk → Conditional | Complexity → ≤5</p>
+<p><strong>Candidates:</strong> RC (3), DRC (3), Bonus (4), KODRC (4)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Phoenix (6)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Exceeds cap of 5</td>
+</tr>
+<tr class="even">
+<td>PPN (2)</td>
+<td style="text-align: center;">Cash Flow</td>
+<td>No coupon</td>
+</tr>
+<tr class="odd">
+<td>VarSwap (7)</td>
+<td style="text-align: center;">Asset/Risk</td>
+<td>Not yield — pure vol</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection:</strong></p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 20%" />
+<col style="width: 23%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>RC (3)</th>
+<th>DRC (3)</th>
+<th>KODRC (4)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Coupon</td>
+<td>Fixed 8–12%</td>
+<td>None (discount entry)</td>
+<td>Fixed 6–10%</td>
+</tr>
+<tr class="even">
+<td>Entry</td>
+<td>Par</td>
+<td>Below par (~95%)</td>
+<td>Par</td>
+</tr>
+<tr class="odd">
+<td>Protection</td>
+<td>Barrier at 60–70%</td>
+<td>Barrier at 60–70%</td>
+<td>KO barrier + KI barrier</td>
+</tr>
+<tr class="even">
+<td>Bullish fit</td>
+<td>Best — barrier unlikely to breach</td>
+<td>Good — discount provides extra buffer</td>
+<td>Good — KO adds protection layer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> RC (3) — highest fixed coupon, simplest structure, barrier protection adequate for bullish view.</p>
+<p><strong>Why This Wins:</strong> - Highest fixed coupon among Complexity ≤5 products - Simplest yield enhancement structure — universally understood - Bullish view means barrier breach probability is low</p>
+<p><strong>Ladder:</strong> 1. RC (3) — 8–12% coupon, barrier 60–70% ↑ If coupon insufficient and client accepts callable risk: escalate 2. CRC (5) — higher coupon via embedded call option sold to issuer</p>
+<p><strong>Common Mistake:</strong> Recommending Phoenix for a bullish client. If the stock rallies, Phoenix autocalls early — total return is just one coupon period. RC pays the full coupon for the entire term.</p>
+<p><strong>Regime Note:</strong> In low-vol environments, RC premiums shrink to 4–6%. Switch to Digital (4) for principal-protected binary coupon.</p>
+<p><strong>Desk Note:</strong> RC margin is 2–3× PPN margin. Desk actively prefers RC flow.</p>
+<hr />
+<h3 id="scenario-2.2-yield-with-discount-entry-margin">Scenario 2.2: Yield With Discount Entry Margin</h3>
+<p><strong>Client says:</strong> “I want yield but with more downside buffer than a standard RC.”</p>
+<p><strong>Persona:</strong> PB.</p>
+<p><strong>Narrowing:</strong> Objective → Yield | Cash Flow → Growth (return at maturity) | Asset → Equity | Regime → Mildly bullish | Risk → Conditional with extra buffer | Complexity → ≤4</p>
+<p><strong>Candidates:</strong> DRC (3), KODRC (4)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RC (3)</td>
+<td style="text-align: center;">Objective</td>
+<td>Client explicitly wants MORE buffer</td>
+</tr>
+<tr class="even">
+<td>Airbag (4)</td>
+<td style="text-align: center;">Cash Flow</td>
+<td>Growth/protection — not yield-enhancement framing</td>
+</tr>
+<tr class="odd">
+<td>DKIP (7)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Far exceeds cap</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>DRC (3)</th>
+<th>KODRC (4)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Buffer mechanism</td>
+<td>Discount entry (~95%)</td>
+<td>KO barrier adds protection layer</td>
+</tr>
+<tr class="even">
+<td>Coupon</td>
+<td>None (return via discount)</td>
+<td>Fixed coupon</td>
+</tr>
+<tr class="odd">
+<td>Effective buffer</td>
+<td>~35% (barrier 65% + 5% discount)</td>
+<td>Dual barrier (KO + KI)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> DRC (3) — extra 5% buffer via discount, simplest enhanced-buffer product.</p>
+<p><strong>Why This Wins:</strong> - Discount entry provides automatic 5% additional buffer vs standard RC - Same complexity as RC — no additional features to understand - Effective protection level is 35% decline vs RC’s 30% decline</p>
+<p><strong>Ladder:</strong> 1. RC (3) — standard barrier at 65% ↑ If client needs more buffer: escalate 2. DRC (3) — same barrier + 5% discount entry ↑ If client wants both coupon AND buffer: escalate 3. KODRC (4) — KO barrier adds protection, fixed coupon maintained</p>
+<p><strong>Common Mistake:</strong> Confusing DRC’s discount entry with “buying at a discount.” The discount is embedded in the put strike — the client buys at par but the effective strike is lower.</p>
+<p><strong>Regime Note:</strong> DRC works in any vol regime since the buffer is structural, not premium-dependent.</p>
+<hr />
+<h3 id="scenario-2.3-yield-with-knock-out-protection-layer">Scenario 2.3: Yield With Knock-Out Protection Layer</h3>
+<p><strong>Client says:</strong> “I want yield like an RC but with an extra protection feature.”</p>
+<p><strong>Persona:</strong> PB. Complexity ≤5.</p>
+<p><strong>Narrowing:</strong> Objective → Yield | Cash Flow → Fixed Income | Asset → Equity | Regime → Moderate | Risk → Conditional (enhanced) | Complexity → ≤5</p>
+<p><strong>Candidates:</strong> KODRC (4), CRC (5)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RC (3)</td>
+<td style="text-align: center;">Objective</td>
+<td>Client explicitly wants enhanced protection</td>
+</tr>
+<tr class="even">
+<td>Phoenix (6)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Exceeds cap</td>
+</tr>
+<tr class="odd">
+<td>CLIQ (7)</td>
+<td style="text-align: center;">Objective</td>
+<td>Not yield enhancement — protection/growth</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> KODRC (4) — standard RC yield plus KO barrier that cancels downside risk if stock recovers above KO level.</p>
+<p><strong>Why This Wins:</strong> - Same coupon as RC but with additional knock-out protection - If stock dips then recovers above KO level, principal is safe regardless of prior KI breach - Moderate complexity step up (3→4) for meaningful protection improvement</p>
+<p><strong>Ladder:</strong> 1. RC (3) — single barrier ↑ If client wants protection against temporary dips: escalate 2. KODRC (4) — KO barrier cancels KI on recovery</p>
+<p><strong>Common Mistake:</strong> Thinking KO protection is “free.” KODRC coupon is lower than RC because the KO barrier costs the desk money. The client pays for protection via reduced yield.</p>
+<p><strong>Regime Note:</strong> KODRC outperforms RC in volatile-but-recovering markets. In sustained declines, both suffer equally.</p>
+<hr />
+<h3 id="scenario-2.4-maximum-conditional-coupon-with-autocall">Scenario 2.4: Maximum Conditional Coupon With Autocall</h3>
+<p><strong>Client says:</strong> “I want the highest possible coupon. I understand it’s contingent on performance.”</p>
+<p><strong>Persona:</strong> PB. Complexity ≤6.</p>
+<p><strong>Narrowing:</strong> Objective → Yield | Cash Flow → Contingent Income | Asset → Equity | Regime → Range-bound to mildly bullish | Risk → Conditional | Complexity → ≤6</p>
+<p><strong>Candidates:</strong> Phoenix (6), FCN (6)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RC (3)</td>
+<td style="text-align: center;">Objective</td>
+<td>Coupon lower than Phoenix/FCN</td>
+</tr>
+<tr class="even">
+<td>DKIP (7)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Exceeds cap</td>
+</tr>
+<tr class="odd">
+<td>WOAC (8)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Far exceeds cap</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection:</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 39%" />
+<col style="width: 27%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>Phoenix (6)</th>
+<th>FCN (6)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Coupon</td>
+<td>Contingent (paid if above barrier)</td>
+<td>Fixed (paid regardless)</td>
+</tr>
+<tr class="even">
+<td>Autocall</td>
+<td>Yes — early exit if above trigger</td>
+<td>Yes — early exit if above trigger</td>
+</tr>
+<tr class="odd">
+<td>Best scenario</td>
+<td>All coupons + autocall at par</td>
+<td>All coupons + autocall at par</td>
+</tr>
+<tr class="even">
+<td>Worst scenario</td>
+<td>Zero coupons + below barrier at maturity</td>
+<td>All coupons but below barrier at maturity</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> Phoenix (6) for maximum coupon. FCN (6) for coupon certainty.</p>
+<p><strong>Why This Wins:</strong> - Phoenix: highest coupon in the ELN family (contingent = higher premium) - FCN: coupon is guaranteed regardless of performance — pure income certainty - Both offer autocall for early exit if market cooperates</p>
+<p><strong>Ladder:</strong> 1. RC (3) — fixed coupon, no autocall ↑ If coupon insufficient: escalate 2. CRC (5) — higher coupon via callable ↑ If client wants autocall + maximum coupon: escalate 3. Phoenix (6) — contingent coupon, autocall, memory feature</p>
+<p><strong>Common Mistake:</strong> Choosing Phoenix for income certainty. Phoenix coupon is CONTINGENT — if the stock is below the coupon barrier on any observation date, that period’s coupon is zero. For guaranteed income, use FCN.</p>
+<p><strong>Regime Note:</strong> Phoenix thrives in range-bound markets where stock hovers above barrier. In trending markets (up or down), autocall terminates quickly or coupons are lost.</p>
+<p><strong>Desk Note:</strong> Phoenix is the desk’s most traded autocallable. Hedge liquidity is excellent on major indices.</p>
+<hr />
+<h3 id="scenario-2.5-digital-all-or-nothing-coupon">Scenario 2.5: Digital All-or-Nothing Coupon</h3>
+<p><strong>Client says:</strong> “I want a high coupon if the market stays above a level. I don’t need the coupon to scale with performance.”</p>
+<p><strong>Persona:</strong> PB. Complexity ≤7.</p>
+<p><strong>Narrowing:</strong> Objective → Yield | Cash Flow → Contingent Income | Asset → Equity | Regime → Mildly bullish | Risk → Zero capital loss (Digital) or Conditional (DKIP) | Complexity → ≤7</p>
+<p><strong>Candidates:</strong> Digital (4), DKIP (7)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RC (3)</td>
+<td style="text-align: center;">Objective</td>
+<td>Coupon not digital — scales linearly</td>
+</tr>
+<tr class="even">
+<td>Phoenix (6)</td>
+<td style="text-align: center;">Objective</td>
+<td>Memory + autocall add complexity beyond need</td>
+</tr>
+<tr class="odd">
+<td>CRA ELN (6)</td>
+<td style="text-align: center;">Objective</td>
+<td>Range accrual — client wants binary, not daily</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection:</strong></p>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 38%" />
+<col style="width: 29%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>Digital (4)</th>
+<th>DKIP (7)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Capital</td>
+<td>100% protected</td>
+<td>Conditional (KI barrier)</td>
+</tr>
+<tr class="even">
+<td>Coupon</td>
+<td>Binary: above strike = full coupon, below = zero</td>
+<td>Digital coupon + separate KI capital risk</td>
+</tr>
+<tr class="odd">
+<td>Yield</td>
+<td>Moderate (6–8%)</td>
+<td>High (10–15%)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> Digital (4) for principal safety. DKIP (7) only for PB clients who accept capital risk for significantly higher yield.</p>
+<p><strong>Why This Wins:</strong> - Digital: 100% principal protection + binary coupon — cleanest digital structure - Risk is purely on coupon, never on capital - DKIP trades capital safety for 2× the yield — clear risk/return upgrade</p>
+<p><strong>Ladder:</strong> 1. Digital (4) — 100% protected, 6–8% binary coupon ↑ If coupon insufficient and client accepts capital risk: escalate 2. DKIP (7) — 10–15% coupon but KI barrier on principal</p>
+<p><strong>Common Mistake:</strong> Assuming digital coupon = guaranteed coupon. Digital is all-or-nothing: one tick below the strike = zero coupon. The P&amp;L discontinuity at the digital strike is severe.</p>
+<p><strong>Regime Note:</strong> Digital works in any directional regime where the strike is set appropriately. In high-vol, set strike lower for higher coupon probability.</p>
+<hr />
+<h3 id="scenario-2.6-callable-yield-enhancement">Scenario 2.6: Callable Yield Enhancement</h3>
+<p><strong>Client says:</strong> “I want yield and understand the issuer may call the note early.”</p>
+<p><strong>Persona:</strong> PB. Complexity ≤5.</p>
+<p><strong>Narrowing:</strong> Objective → Yield | Cash Flow → Fixed Income | Asset → Equity | Risk → Conditional + call risk | Complexity → ≤5</p>
+<p><strong>Candidates:</strong> CRC (5), ICN (3)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RC (3)</td>
+<td style="text-align: center;">Objective</td>
+<td>No call feature — client accepts call for higher coupon</td>
+</tr>
+<tr class="even">
+<td>Phoenix (6)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Exceeds stated cap</td>
+</tr>
+<tr class="odd">
+<td>IR Callable (5)</td>
+<td style="text-align: center;">Asset</td>
+<td>Rate-linked, not equity</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>CRC (5)</th>
+<th>ICN (3)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Coupon</td>
+<td>Highest RC variant</td>
+<td>Moderate</td>
+</tr>
+<tr class="even">
+<td>Call</td>
+<td>Issuer calls when stock rallies</td>
+<td>Issuer calls when funding cheaper</td>
+</tr>
+<tr class="odd">
+<td>Risk</td>
+<td>Downside + call reinvestment</td>
+<td>Downside + call reinvestment</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> ICN (3) for simplicity. CRC (5) for maximum coupon.</p>
+<p><strong>Why This Wins:</strong> - ICN: Complexity 3, simple callable — extra coupon for call risk - CRC: highest coupon in the RC family — issuer sold both put and call - Both compensate client for reinvestment risk with higher yield</p>
+<p><strong>Ladder:</strong> 1. RC (3) — no call, 8–12% coupon ↑ If willing to accept call risk for higher coupon: escalate 2. ICN (3) — callable, moderate coupon uplift ↑ If want maximum coupon: escalate 3. CRC (5) — callable + highest coupon (short put + short call)</p>
+<p><strong>Common Mistake:</strong> Ignoring call timing. Issuers call when it benefits THEM (rates fall, stock rallies). The call always comes at the worst time for the investor’s reinvestment.</p>
+<p><strong>Regime Note:</strong> Callable products benefit from stable markets. In volatile markets, call probability fluctuates — pricing becomes challenging.</p>
+<hr />
+<h3 id="scenario-2.7-fx-linked-deposit-yield">Scenario 2.7: FX-Linked Deposit Yield</h3>
+<p><strong>Client says:</strong> “I want to earn more than my deposit rate and have a view on FX.”</p>
+<p><strong>Persona:</strong> PB. Complexity ≤3.</p>
+<p><strong>Narrowing:</strong> Objective → Yield | Cash Flow → Fixed Income | Asset → FX | Regime → FX view (mild) | Risk → Conditional (FX conversion) | Complexity → ≤3</p>
+<p><strong>Candidates:</strong> DCI (3)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RC (3)</td>
+<td style="text-align: center;">Asset</td>
+<td>Equity-linked, not FX</td>
+</tr>
+<tr class="even">
+<td>SD (2)</td>
+<td style="text-align: center;">Objective</td>
+<td>Lower yield — no risk premium</td>
+</tr>
+<tr class="odd">
+<td>XCCY (5)</td>
+<td style="text-align: center;">Persona/Complexity</td>
+<td>Institutional swap, not deposit product</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> DCI (3) — enhanced deposit rate funded by selling FX put option. If FX moves against client, principal converts to alternate currency.</p>
+<p><strong>Why This Wins:</strong> - Simple: deposit + embedded FX option = enhanced yield - Complexity 3 — accessible to most PB clients - Client already has FX view — product monetizes that view</p>
+<p><strong>Ladder:</strong> 1. Standard deposit — base rate ↑ If client has directional FX view: escalate 2. DCI (3) — deposit + FX option premium = enhanced yield</p>
+<p><strong>Common Mistake:</strong> Clients don’t understand the conversion risk. If their base currency weakens past the strike, they receive principal in the alternate (weaker) currency. The enhanced yield does not compensate for large FX moves.</p>
+<p><strong>Regime Note:</strong> DCI works when FX volatility is moderate. In high FX vol, conversion risk outweighs yield premium.</p>
+<hr />
+<h2 id="category-3-income-generation">Category 3 — Income Generation</h2>
+<p><em>“I need regular coupon payments.”</em></p>
+<hr />
+<h3 id="scenario-3.1-rate-linked-regular-income">Scenario 3.1: Rate-Linked Regular Income</h3>
+<p><strong>Client says:</strong> “I want regular coupon payments linked to the yield curve. I believe the curve will steepen.”</p>
+<p><strong>Persona:</strong> Institutional.</p>
+<p><strong>Narrowing:</strong> Objective → Income | Cash Flow → Periodic coupon | Asset → Rates (CMS spread) | Regime → Steepening | Risk → Zero capital loss | Complexity → ≤6</p>
+<p><strong>Candidates:</strong> Vanilla STEG (5), Callable STEG (6)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RC (3)</td>
+<td style="text-align: center;">Asset</td>
+<td>Equity-linked, not rates</td>
+</tr>
+<tr class="even">
+<td>IRS (3)</td>
+<td style="text-align: center;">Cash Flow</td>
+<td>Fixed/floating exchange — not CMS spread coupon</td>
+</tr>
+<tr class="odd">
+<td>RA STEG (7)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Exceeds cap</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>Vanilla STEG (5)</th>
+<th>Callable STEG (6)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Coupon</td>
+<td>Leverage × (CMS30Y – CMS2Y)</td>
+<td>Same formula, higher leverage</td>
+</tr>
+<tr class="even">
+<td>Call risk</td>
+<td>None</td>
+<td>Issuer calls when curve steepens (worst timing)</td>
+</tr>
+<tr class="odd">
+<td>Yield</td>
+<td>Moderate</td>
+<td>Higher (compensates for call)</td>
+</tr>
+<tr class="even">
+<td>Protection</td>
+<td>100%</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> Vanilla STEG (5) — pure steepener exposure without call risk.</p>
+<p><strong>Why This Wins:</strong> - Clean expression of steepening view — no additional features to distort payoff - 100% capital protection at maturity - No call risk — client holds to maturity and captures full steepening</p>
+<p><strong>Ladder:</strong> 1. Vanilla STEG (5) — pure CMS spread coupon ↑ If coupon insufficient and accept call risk: escalate 2. Callable STEG (6) — higher leverage, issuer callable ↑ If accept range condition for maximum coupon: escalate 3. RA STEG (7) — range accrual on CMS spread (dual condition)</p>
+<p><strong>Common Mistake:</strong> Buying STEG without checking the current curve shape. If CMS30Y – CMS2Y is already negative (inverted), the coupon is zero from day one. STEG requires a STEEPENING view, not just positive slope.</p>
+<p><strong>Regime Note:</strong> In flat/inverted curve environments, avoid STEG entirely. Switch to Digital CF (5) for binary rate income.</p>
+<p><strong>Desk Note:</strong> Desk prefers Callable STEG — the call optionality generates extra margin.</p>
+<hr />
+<h3 id="scenario-3.2-range-bound-rate-income">Scenario 3.2: Range-Bound Rate Income</h3>
+<p><strong>Client says:</strong> “I believe rates will stay in a range. I want income that accrues daily when they do.”</p>
+<p><strong>Persona:</strong> Institutional / Sophisticated.</p>
+<p><strong>Narrowing:</strong> Objective → Income | Cash Flow → Accrual coupon | Asset → Rates or Equity | Regime → Range-bound | Risk → Zero capital loss | Complexity → ≤7</p>
+<p><strong>Candidates:</strong> CRA ELN (6), NCRA (6), RA STEG (7)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Vanilla STEG (5)</td>
+<td style="text-align: center;">Regime</td>
+<td>Directional (steepening), not range-bound</td>
+</tr>
+<tr class="even">
+<td>Digital (4)</td>
+<td style="text-align: center;">Cash Flow</td>
+<td>Periodic binary, not daily accrual</td>
+</tr>
+<tr class="odd">
+<td>CRA SRT (7)</td>
+<td style="text-align: center;">Complexity</td>
+<td>At cap — CRA SRT adds callable to range accrual</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>CRA ELN (6)</th>
+<th>NCRA (6)</th>
+<th>RA STEG (7)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Underlying</td>
+<td>Equity index</td>
+<td>Interest rate</td>
+<td>CMS spread</td>
+</tr>
+<tr class="even">
+<td>Accrual</td>
+<td>Days equity in range</td>
+<td>Days rate in range</td>
+<td>Days spread in range</td>
+</tr>
+<tr class="odd">
+<td>Protection</td>
+<td>100%</td>
+<td>100%</td>
+<td>100%</td>
+</tr>
+<tr class="even">
+<td>Callable</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> NCRA (6) for pure rate range view. CRA ELN (6) for equity range view.</p>
+<p><strong>Why This Wins:</strong> - Daily accrual means coupon scales linearly with time in range - 100% capital protection — risk is purely on coupon amount - Range accrual generates higher yields than fixed coupons because client sells vol</p>
+<p><strong>Ladder:</strong> 1. Digital (4) / Digital CF (5) — periodic binary coupon ↑ If client wants daily accrual (not periodic): escalate 2. NCRA (6) / CRA ELN (6) — daily range accrual ↑ If accept dual condition (curve + range): escalate 3. RA STEG (7) — range accrual on CMS spread</p>
+<p><strong>Common Mistake:</strong> Setting the range too narrow for higher coupon. A narrow range = more accrual days missed = volatile income. Range width should match rate volatility.</p>
+<p><strong>Regime Note:</strong> Range accrual products suffer when rates break out of the range. In trending rate environments, switch to directional products (STEG for steepening, IRS for hedging).</p>
+<hr />
+<h3 id="scenario-3.3-enhanced-income-with-call-risk">Scenario 3.3: Enhanced Income With Call Risk</h3>
+<p><strong>Client says:</strong> “I want higher income than a vanilla steepener. I understand the issuer may call.”</p>
+<p><strong>Persona:</strong> Institutional.</p>
+<p><strong>Narrowing:</strong> Objective → Income | Cash Flow → Periodic coupon | Asset → Rates | Regime → Steepening | Risk → Zero capital + call risk | Complexity → ≤6</p>
+<p><strong>Candidates:</strong> Callable STEG (6)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 26%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Vanilla STEG (5)</td>
+<td style="text-align: center;">Objective</td>
+<td>Client wants MORE income — willing to accept call</td>
+</tr>
+<tr class="even">
+<td>RA STEG (7)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Exceeds cap</td>
+</tr>
+<tr class="odd">
+<td>IR Callable (5)</td>
+<td style="text-align: center;">Asset</td>
+<td>Single rate, not CMS spread</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> Callable STEG (6) — higher leverage ratio than Vanilla STEG, compensated by issuer call right.</p>
+<p><strong>Why This Wins:</strong> - Higher leverage on CMS spread = higher coupon when curve is steep - Call feature compensates client with better terms (leverage, floor, cap) - 100% capital protection maintained</p>
+<p><strong>Ladder:</strong> 1. Vanilla STEG (5) — no call risk, lower leverage ↑ If coupon insufficient: accept call risk 2. Callable STEG (6) — higher leverage, issuer callable</p>
+<p><strong>Common Mistake:</strong> Ignoring the “call when it’s best for the issuer” dynamic. The issuer calls when the curve steepens significantly — exactly when the client wants to hold. The high coupon periods are the ones you lose.</p>
+<p><strong>Regime Note:</strong> In persistently steep curve environments, Callable STEG gets called quickly. If client needs long-duration income, Vanilla STEG is more reliable.</p>
+<hr />
+<h3 id="scenario-3.4-income-with-target-exit">Scenario 3.4: Income With Target Exit</h3>
+<p><strong>Client says:</strong> “I want income but with a total return target. Once I’ve earned enough, I’m happy to exit.”</p>
+<p><strong>Persona:</strong> Sophisticated. No complexity cap.</p>
+<p><strong>Narrowing:</strong> Objective → Income | Cash Flow → Periodic + target | Asset → Rates | Regime → Steepening | Risk → Zero capital + path risk | Complexity → ≤8</p>
+<p><strong>Candidates:</strong> TARN STEG (8)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Vanilla STEG (5)</td>
+<td style="text-align: center;">Objective</td>
+<td>No target — holds to maturity regardless</td>
+</tr>
+<tr class="even">
+<td>Callable STEG (6)</td>
+<td style="text-align: center;">Objective</td>
+<td>Call is issuer’s decision, not target-based</td>
+</tr>
+<tr class="odd">
+<td>RA STEG (7)</td>
+<td style="text-align: center;">Objective</td>
+<td>No target feature</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> TARN STEG (8) — cumulative coupon triggers early redemption once target reached.</p>
+<p><strong>Why This Wins:</strong> - Only product with a target redemption feature in the STEG family - Locks in total return once target met — no risk of giving back gains - 100% principal protection if target not reached by maturity</p>
+<p><strong>Ladder:</strong> 1. Vanilla STEG (5) — no target, no cap ↑ If client wants defined total return: escalate 2. Callable STEG (6) — issuer may call (uncertain timing) ↑ If client wants CLIENT-driven exit: escalate 3. TARN STEG (8) — target triggers automatic redemption</p>
+<p><strong>Common Mistake:</strong> Assuming the target will be reached. In flat curve environments, the TARN STEG may reach maturity without ever hitting the target — the client holds a complex product for 10 years earning minimal coupon.</p>
+<p><strong>Regime Note:</strong> TARN STEG is a steepening bet with a profit-taking mechanism. In flat curve environments, it becomes an expensive way to earn near-zero income.</p>
+<hr />
+<h3 id="scenario-3.5-accumulated-coupon-recovery">Scenario 3.5: Accumulated Coupon Recovery</h3>
+<p><strong>Client says:</strong> “I want income, and if I miss coupons in bad periods, I want them back when markets recover.”</p>
+<p><strong>Persona:</strong> PB. Complexity ≤7.</p>
+<p><strong>Narrowing:</strong> Objective → Income | Cash Flow → Contingent + cumulative | Asset → Equity | Regime → Volatile with recovery expectation | Risk → Conditional | Complexity → ≤7</p>
+<p><strong>Candidates:</strong> SNOW (7)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 26%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Phoenix (6)</td>
+<td style="text-align: center;">Objective</td>
+<td>Memory feature recovers ONE missed coupon — SNOW recovers ALL</td>
+</tr>
+<tr class="even">
+<td>RC (3)</td>
+<td style="text-align: center;">Objective</td>
+<td>No coupon recovery mechanism</td>
+</tr>
+<tr class="odd">
+<td>Digital (4)</td>
+<td style="text-align: center;">Objective</td>
+<td>Binary — no accumulation</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> SNOW (7) — snowball coupon accumulates missed payments. On recovery, all missed coupons paid in a single large payment.</p>
+<p><strong>Why This Wins:</strong> - Unique cumulative coupon mechanism — missed coupons are not lost but deferred - Recovery payment can be very large (6+ missed coupons paid at once) - Autocall feature provides early exit once market recovers</p>
+<p><strong>Ladder:</strong> 1. Phoenix (6) — memory feature recovers 1 missed coupon per observation ↑ If client wants FULL cumulative recovery: escalate 2. SNOW (7) — all missed coupons accumulate and pay on recovery</p>
+<p><strong>Common Mistake:</strong> Assuming the snowball will always pay out. If the market stays below the barrier until maturity, the snowball accumulates to a large number that is never paid — plus the client faces principal loss.</p>
+<p><strong>Regime Note:</strong> SNOW requires a recovery view. In sustained bear markets, the accumulated coupon is meaningless. Use SNOW only when the client believes volatility is temporary.</p>
+<hr />
+<h2 id="category-4-rates-inflation">Category 4 — Rates &amp; Inflation</h2>
+<p><em>“I have a view on interest rates or the yield curve.”</em></p>
+<hr />
+<h3 id="scenario-4.1-hedge-floating-rate-exposure">Scenario 4.1: Hedge Floating Rate Exposure</h3>
+<p><strong>Client says:</strong> “I have floating rate debt and want to fix my interest costs.”</p>
+<p><strong>Persona:</strong> Institutional.</p>
+<p><strong>Narrowing:</strong> Objective → Hedging | Cash Flow → Fixed/floating exchange | Asset → Rates | Regime → Any | Risk → Mark-to-market | Complexity → ≤3</p>
+<p><strong>Candidates:</strong> IRS (3), VLSP (2)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>STEG (5)</td>
+<td style="text-align: center;">Objective</td>
+<td>CMS spread product, not a hedge</td>
+</tr>
+<tr class="even">
+<td>XCCY (5)</td>
+<td style="text-align: center;">Asset</td>
+<td>Cross-currency — client’s exposure is single-currency</td>
+</tr>
+<tr class="odd">
+<td>IR Callable (5)</td>
+<td style="text-align: center;">Objective</td>
+<td>Structured note, not a hedge</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection:</strong></p>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 30%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>IRS (3)</th>
+<th>VLSP (2)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mechanism</td>
+<td>Fixed-for-floating exchange</td>
+<td>Enhanced IRS with additional features</td>
+</tr>
+<tr class="even">
+<td>Complexity</td>
+<td>Standard derivative</td>
+<td>Simplest customized swap</td>
+</tr>
+<tr class="odd">
+<td>Liquidity</td>
+<td>Most liquid OTC derivative globally</td>
+<td>Less liquid</td>
+</tr>
+<tr class="even">
+<td>Customization</td>
+<td>Standard terms</td>
+<td>Bespoke features available</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> IRS (3) — the global standard for rate hedging.</p>
+<p><strong>Why This Wins:</strong> - Most liquid OTC derivative — tight spreads, deep market - Exact hedge for floating-rate exposure - Universally understood by all counterparties</p>
+<p><strong>Ladder:</strong> 1. VLSP (2) — enhanced IRS for specific customization ↑ If standard terms sufficient: prefer more liquid option 2. IRS (3) — global standard</p>
+<p><strong>Common Mistake:</strong> Using a STEG note as a “rate hedge.” STEG is a leveraged CMS spread bet — it is a directional view, not a hedge. Rate hedging requires IRS.</p>
+<p><strong>Regime Note:</strong> Always appropriate when the objective is hedging. IRS pricing reflects market-implied forward rates.</p>
+<hr />
+<h3 id="scenario-4.2-structured-rate-exposure-with-call">Scenario 4.2: Structured Rate Exposure With Call</h3>
+<p><strong>Client says:</strong> “I want above-market fixed income from a rate-linked note. I accept the issuer may call.”</p>
+<p><strong>Persona:</strong> Institutional (Insurance/Pension).</p>
+<p><strong>Narrowing:</strong> Objective → Income | Cash Flow → Fixed coupon (enhanced) | Asset → Rates | Risk → Zero capital + call risk | Complexity → ≤5</p>
+<p><strong>Candidates:</strong> IR Callable (5)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>IRS (3)</td>
+<td style="text-align: center;">Cash Flow</td>
+<td>Swap — no enhanced fixed coupon</td>
+</tr>
+<tr class="even">
+<td>Vanilla STEG (5)</td>
+<td style="text-align: center;">Asset</td>
+<td>CMS spread, not fixed rate</td>
+</tr>
+<tr class="odd">
+<td>NCRA (6)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Range accrual adds complexity beyond need</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> IR Callable (5) — enhanced fixed coupon in exchange for issuer call right.</p>
+<p><strong>Why This Wins:</strong> - Higher fixed coupon than comparable bonds — funded by selling swaption to issuer - 100% capital protection at maturity - Standard institutional product for insurance/pension ALM</p>
+<p><strong>Ladder:</strong> 1. Plain bond — base rate ↑ If yield insufficient: accept call risk 2. IR Callable (5) — enhanced yield, issuer callable</p>
+<p><strong>Common Mistake:</strong> Not stress-testing the call scenario. If rates fall, the issuer calls and the client must reinvest at lower rates. The “enhanced yield” disappears on reinvestment.</p>
+<p><strong>Regime Note:</strong> In rising rate environments, IR Callable is unlikely to be called — client gets enhanced yield for full term. In falling rate environments, expect early call.</p>
+<hr />
+<h3 id="scenario-4.3-zero-coupon-rate-growth-for-liability-matching">Scenario 4.3: Zero-Coupon Rate Growth for Liability Matching</h3>
+<p><strong>Client says:</strong> “I need a rate-linked product that matches my future liability at a specific date.”</p>
+<p><strong>Persona:</strong> Institutional (Pension).</p>
+<p><strong>Narrowing:</strong> Objective → Growth (liability matching) | Cash Flow → Zero coupon | Asset → Rates | Regime → Any | Risk → Duration risk | Complexity → ≤4</p>
+<p><strong>Candidates:</strong> ZCL (4)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 26%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PPN (2)</td>
+<td style="text-align: center;">Asset</td>
+<td>Equity-linked, not rate-linked</td>
+</tr>
+<tr class="even">
+<td>IR Callable (5)</td>
+<td style="text-align: center;">Cash Flow</td>
+<td>Pays coupons — client needs zero-coupon for matching</td>
+</tr>
+<tr class="odd">
+<td>IRS (3)</td>
+<td style="text-align: center;">Objective</td>
+<td>Swap — no principal matching</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> ZCL (4) — zero-coupon rate-linked note. Grows to par at maturity, matching future liability.</p>
+<p><strong>Why This Wins:</strong> - Zero-coupon structure exactly matches a future liability payment - Rate-linked return provides inflation/rate protection - 100% principal at maturity</p>
+<p><strong>Ladder:</strong> 1. ZCB (plain zero-coupon bond) — fixed growth to par ↑ If need rate-linked return: escalate 2. ZCL (4) — rate-linked zero-coupon</p>
+<p><strong>Common Mistake:</strong> Ignoring duration risk. ZCL has very long duration sensitivity. A 1% rate move can cause 10%+ MTM swing on a 10-year ZCL. The product matches liability at maturity but fluctuates before.</p>
+<p><strong>Regime Note:</strong> ZCL is always appropriate for liability matching regardless of rate view. The matching benefit is at maturity, not during the life.</p>
+<hr />
+<h3 id="scenario-4.4-range-accrual-rate-income">Scenario 4.4: Range Accrual Rate Income</h3>
+<p><strong>Client says:</strong> “I believe rates will stay in a band. I want income that accrues each day they stay in range.”</p>
+<p><strong>Persona:</strong> Institutional / Sophisticated.</p>
+<p><strong>Narrowing:</strong> Objective → Income | Cash Flow → Accrual | Asset → Rates | Regime → Range-bound | Risk → Zero capital, coupon at risk | Complexity → ≤7</p>
+<p><strong>Candidates:</strong> NCRA (6), CRA SRT (7)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Digital CF (5)</td>
+<td style="text-align: center;">Cash Flow</td>
+<td>Periodic binary, not daily accrual</td>
+</tr>
+<tr class="even">
+<td>Vanilla STEG (5)</td>
+<td style="text-align: center;">Regime</td>
+<td>Directional steepener, not range-bound</td>
+</tr>
+<tr class="odd">
+<td>CRA ELN (6)</td>
+<td style="text-align: center;">Asset</td>
+<td>Equity-linked range accrual</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>NCRA (6)</th>
+<th>CRA SRT (7)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Accrual</td>
+<td>Daily, based on rate in range</td>
+<td>Daily + callable</td>
+</tr>
+<tr class="even">
+<td>Coupon</td>
+<td>High (range accrual premium)</td>
+<td>Highest (range + call premium)</td>
+</tr>
+<tr class="odd">
+<td>Call risk</td>
+<td>None</td>
+<td>Issuer callable</td>
+</tr>
+<tr class="even">
+<td>Protection</td>
+<td>100%</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> NCRA (6) — pure range accrual without call risk.</p>
+<p><strong>Why This Wins:</strong> - Highest daily accrual coupon among non-callable rate products - 100% principal protection — risk is purely on coupon amount - No call risk means full term exposure to range accrual</p>
+<p><strong>Ladder:</strong> 1. Digital CF (5) — periodic binary rate coupon ↑ If client wants daily accrual: escalate 2. NCRA (6) — daily range accrual, no call ↑ If accept call risk for higher coupon: escalate 3. CRA SRT (7) — range accrual + callable = maximum coupon</p>
+<p><strong>Common Mistake:</strong> Setting the range to maximize coupon rate without considering breakout probability. The highest-quoted coupon has the narrowest range — and the highest chance of earning zero.</p>
+<p><strong>Regime Note:</strong> Range accrual products work in low-vol rate environments. In trending rate environments (hiking or cutting cycles), rates leave the range and coupon drops to zero.</p>
+<hr />
+<h3 id="scenario-4.5-digital-rate-coupon">Scenario 4.5: Digital Rate Coupon</h3>
+<p><strong>Client says:</strong> “I want a rate-linked coupon that pays if rates are above a certain level.”</p>
+<p><strong>Persona:</strong> Institutional.</p>
+<p><strong>Narrowing:</strong> Objective → Income | Cash Flow → Binary periodic | Asset → Rates | Regime → Mildly bullish on rates | Risk → Zero capital | Complexity → ≤5</p>
+<p><strong>Candidates:</strong> Digital CF (5)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NCRA (6)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Daily accrual adds complexity</td>
+</tr>
+<tr class="even">
+<td>Vanilla STEG (5)</td>
+<td style="text-align: center;">Asset</td>
+<td>CMS spread, not single rate</td>
+</tr>
+<tr class="odd">
+<td>Digital (4)</td>
+<td style="text-align: center;">Asset</td>
+<td>Equity-linked digital</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> Digital CF (5) — binary cap/floor rate coupon. Above strike = full coupon. Below = zero.</p>
+<p><strong>Why This Wins:</strong> - Clean digital payoff on a single rate reference - 100% capital protection - Simpler than range accrual (single condition vs range)</p>
+<p><strong>Ladder:</strong> 1. Plain FRN — floating rate coupon ↑ If client wants above-market binary coupon: escalate 2. Digital CF (5) — digital rate coupon</p>
+<p><strong>Common Mistake:</strong> Confusing digital cap-floor with range accrual. Digital CF checks one condition once per period. Range accrual checks every day. Different risk profiles — digital has jump risk at the strike.</p>
+<p><strong>Regime Note:</strong> Digital CF works when the rate is comfortably above the strike. When rates are near the strike, the P&amp;L becomes extremely sensitive to small moves.</p>
+<hr />
+<h2 id="category-5-credit-exposure">Category 5 — Credit Exposure</h2>
+<p><em>“I want credit spread exposure.”</em></p>
+<hr />
+<h3 id="scenario-5.1-single-name-funded-credit-exposure">Scenario 5.1: Single-Name Funded Credit Exposure</h3>
+<p><strong>Client says:</strong> “I want to earn credit spread on a specific corporate. I prefer a funded note.”</p>
+<p><strong>Persona:</strong> Institutional.</p>
+<p><strong>Narrowing:</strong> Objective → Credit income | Cash Flow → Coupon (credit spread) | Asset → Credit (single name) | Risk → Credit event = principal loss | Complexity → ≤5</p>
+<p><strong>Candidates:</strong> CLN (4), CDS (5)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FTD (7)</td>
+<td style="text-align: center;">Complexity/Risk</td>
+<td>Basket — client wants single-name</td>
+</tr>
+<tr class="even">
+<td>Skew CLN (5)</td>
+<td style="text-align: center;">Objective</td>
+<td>Non-linear recovery — client wants standard</td>
+</tr>
+<tr class="odd">
+<td>CDO (10)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Portfolio product, not single-name</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>CLN (4)</th>
+<th>CDS (5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Format</td>
+<td>Funded (note)</td>
+<td>Unfunded (swap)</td>
+</tr>
+<tr class="even">
+<td>ISDA needed</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>Capital treatment</td>
+<td>Note on balance sheet</td>
+<td>Off-balance-sheet</td>
+</tr>
+<tr class="even">
+<td>Counterparty risk</td>
+<td>Issuer + reference name</td>
+<td>Reference name only</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> CLN (4) — funded note format, no ISDA required, simpler for institutional credit investors.</p>
+<p><strong>Why This Wins:</strong> - Funded format = cash investment, no ISDA documentation needed - Simpler legal structure than CDS - Standard note booking — fits existing infrastructure</p>
+<p><strong>Ladder:</strong> 1. Corporate bond — direct credit exposure ↑ If specific credit exposure not available in bond market: escalate 2. CLN (4) — synthetic credit via note ↑ If unfunded format preferred: escalate 3. CDS (5) — unfunded credit swap</p>
+<p><strong>Common Mistake:</strong> Ignoring double credit risk in CLN. The investor is exposed to BOTH the reference name AND the issuing bank. If either defaults, principal is at risk.</p>
+<p><strong>Regime Note:</strong> Wide credit spreads = high CLN premium. Tight spreads = low compensation for credit risk. Timing matters.</p>
+<p><strong>Desk Note:</strong> CLN provides funding advantage to the desk — client’s cash funds the note, reducing desk funding costs.</p>
+<hr />
+<h3 id="scenario-5.2-asymmetric-credit-payoff">Scenario 5.2: Asymmetric Credit Payoff</h3>
+<p><strong>Client says:</strong> “I have a view on recovery rates for a specific credit. I want exposure to that view.”</p>
+<p><strong>Persona:</strong> Institutional / Sophisticated.</p>
+<p><strong>Narrowing:</strong> Objective → Credit (recovery view) | Asset → Credit | Risk → Credit event + recovery uncertainty | Complexity → ≤5</p>
+<p><strong>Candidates:</strong> Skew CLN (5), CDS (5)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CLN (4)</td>
+<td style="text-align: center;">Objective</td>
+<td>Linear recovery — client wants non-linear payoff</td>
+</tr>
+<tr class="even">
+<td>FTD (7)</td>
+<td style="text-align: center;">Objective</td>
+<td>Basket — client has single-name view</td>
+</tr>
+<tr class="odd">
+<td>NTD (8)</td>
+<td style="text-align: center;">Complexity/Objective</td>
+<td>Multi-name basket</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection:</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 39%" />
+<col style="width: 27%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>Skew CLN (5)</th>
+<th>CDS (5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Recovery exposure</td>
+<td>Non-linear — payoff depends on actual recovery rate</td>
+<td>Linear — fixed recovery assumption</td>
+</tr>
+<tr class="even">
+<td>View expression</td>
+<td>Pays more/less based on recovery outcome</td>
+<td>Binary credit event trigger</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> Skew CLN (5) — unique product for recovery rate views.</p>
+<p><strong>Why This Wins:</strong> - Only product that provides direct exposure to recovery rate uncertainty - Allows expression of view that market-implied recovery is wrong - Same funded format as CLN but with skewed payoff</p>
+<p><strong>Ladder:</strong> 1. CLN (4) — standard linear credit exposure ↑ If client has specific recovery view: escalate 2. Skew CLN (5) — non-linear recovery-dependent payoff</p>
+<p><strong>Common Mistake:</strong> Confusing Skew CLN with leveraged CLN. Skew CLN doesn’t multiply credit exposure — it changes the SHAPE of the payoff based on recovery rate.</p>
+<p><strong>Regime Note:</strong> Skew CLN is most valuable when market-implied recovery rates diverge from client’s fundamental analysis.</p>
+<hr />
+<h3 id="scenario-5.3-basket-first-to-default-exposure">Scenario 5.3: Basket First-to-Default Exposure</h3>
+<p><strong>Client says:</strong> “I want to earn premium on a basket of credits. I accept the first-to-default risk.”</p>
+<p><strong>Persona:</strong> Sophisticated.</p>
+<p><strong>Narrowing:</strong> Objective → Credit income (basket) | Asset → Credit (multi-name) | Risk → First default triggers full loss | Complexity → ≤7</p>
+<p><strong>Candidates:</strong> FTD (7)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CLN (4)</td>
+<td style="text-align: center;">Objective</td>
+<td>Single-name, not basket</td>
+</tr>
+<tr class="even">
+<td>NTD (8)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Higher complexity for Nth-default</td>
+</tr>
+<tr class="odd">
+<td>CDO (10)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Portfolio tranching is different product</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> FTD (7) — premium from selling first-to-default protection on a credit basket.</p>
+<p><strong>Why This Wins:</strong> - Highest single-payment credit premium (compensates for first-default risk) - Basket diversification provides some protection — all 5 names must be separately analysed - Standard basket credit product for sophisticated credit investors</p>
+<p><strong>Ladder:</strong> 1. CLN (4) — single-name credit ↑ If client wants higher premium via basket: escalate 2. FTD (7) — first-to-default basket ↑ If client wants protection against early defaults: escalate 3. NTD (8) — Nth-to-default (2nd, 3rd default trigger)</p>
+<p><strong>Common Mistake:</strong> Assuming basket diversification reduces FTD risk. In FTD, LOW correlation INCREASES risk — independent defaults mean higher probability of at least one default. This is the opposite of equity diversification.</p>
+<p><strong>Regime Note:</strong> In high correlation environments, FTD risk drops (all names default together or none do). In low correlation, FTD risk rises sharply.</p>
+<hr />
+<h3 id="scenario-5.4-basket-nth-to-default-exposure">Scenario 5.4: Basket Nth-to-Default Exposure</h3>
+<p><strong>Client says:</strong> “I want the higher premium of basket credit but with protection against the first default.”</p>
+<p><strong>Persona:</strong> Sophisticated.</p>
+<p><strong>Narrowing:</strong> Objective → Credit income (protected basket) | Asset → Credit (multi-name) | Risk → Nth default | Complexity → ≤8</p>
+<p><strong>Candidates:</strong> NTD (8)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 26%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FTD (7)</td>
+<td style="text-align: center;">Objective</td>
+<td>First default triggers loss — client wants protection against first</td>
+</tr>
+<tr class="even">
+<td>CDO (10)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Portfolio tranching</td>
+</tr>
+<tr class="odd">
+<td>CLN (4)</td>
+<td style="text-align: center;">Objective</td>
+<td>Single-name</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> NTD (8) — Nth-to-default note. Client survives first N-1 defaults; only the Nth triggers loss.</p>
+<p><strong>Why This Wins:</strong> - Protection against first (or first few) defaults — junior tranche absorbs initial losses - Higher premium than single-name CLN due to basket + correlation risk - Explicit attachment point: client knows exactly when loss starts</p>
+<p><strong>Ladder:</strong> 1. FTD (7) — first default triggers loss (highest premium) ↑ If client wants first-default protection: escalate to higher attachment 2. NTD (8) — Nth default trigger (lower premium but safer)</p>
+<p><strong>Common Mistake:</strong> Ignoring correlation reversal. In NTD, HIGH correlation INCREASES risk (opposite of FTD). When correlation rises, all names tend to default together — the “protection” of the first N-1 defaults evaporates.</p>
+<p><strong>Regime Note:</strong> NTD is the mirror image of FTD on correlation. Understanding this is mandatory before trading.</p>
+<hr />
+<h3 id="scenario-5.5-tranched-portfolio-credit">Scenario 5.5: Tranched Portfolio Credit</h3>
+<p><strong>Client says:</strong> “I need exposure to a specific attachment point in a credit portfolio.”</p>
+<p><strong>Persona:</strong> Institutional / Sophisticated. No complexity cap.</p>
+<p><strong>Narrowing:</strong> Objective → Credit (tranched) | Asset → Credit (portfolio) | Risk → Losses reach attachment | Complexity → 10</p>
+<p><strong>Candidates:</strong> CDO (10)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FTD (7)</td>
+<td style="text-align: center;">Objective</td>
+<td>Single tranche — CDO provides specific attachment point</td>
+</tr>
+<tr class="even">
+<td>NTD (8)</td>
+<td style="text-align: center;">Objective</td>
+<td>Basket, not portfolio</td>
+</tr>
+<tr class="odd">
+<td>CLN (4)</td>
+<td style="text-align: center;">Objective</td>
+<td>Single name, not portfolio</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> CDO (10) — synthetic CDO tranche note. Client selects attachment and detachment points on a portfolio.</p>
+<p><strong>Why This Wins:</strong> - Only product providing exposure to a specific loss tranche of a credit portfolio - Equity tranche (0–3%) for maximum leverage; senior tranche (12–22%) for investment-grade-like exposure - Essential product for bank capital relief trades</p>
+<p><strong>Ladder:</strong> N/A — CDO is the only product at this level. No simpler substitute provides tranched portfolio credit.</p>
+<p><strong>Common Mistake:</strong> Using equity tranche correlation assumptions for senior tranches. Equity and senior tranches have OPPOSITE correlation sensitivity. This is the “correlation smile” — the single most tested concept in structured credit interviews.</p>
+<p><strong>Regime Note:</strong> CDO pricing is driven by base correlation, not just spread levels. In spread widening events, correlation typically increases — equity tranches benefit, senior tranches suffer.</p>
+<p><strong>Desk Note:</strong> CDO margin is the highest in the credit universe but requires sophisticated correlation modelling. Model risk is material.</p>
+<hr />
+<h2 id="category-6-volatility-strategies">Category 6 — Volatility Strategies</h2>
+<p><em>“I want to trade or hedge volatility.”</em></p>
+<hr />
+<h3 id="scenario-6.1-pure-volatility-exposure">Scenario 6.1: Pure Volatility Exposure</h3>
+<p><strong>Client says:</strong> “I want direct exposure to realized volatility. I have a vol view.”</p>
+<p><strong>Persona:</strong> Sophisticated (long vol) / Institutional (hedge).</p>
+<p><strong>Narrowing:</strong> Objective → Vol trading | Asset → Volatility | Risk → Defined (VO) or convex (VarSwap) | Complexity → depends on persona</p>
+<p><strong>Candidates:</strong> VO (3), VarSwap (7)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RC (3)</td>
+<td style="text-align: center;">Objective</td>
+<td>Embedded vol selling — not pure vol exposure</td>
+</tr>
+<tr class="even">
+<td>WOAC (8)</td>
+<td style="text-align: center;">Objective</td>
+<td>Correlation product, not pure vol</td>
+</tr>
+<tr class="odd">
+<td>Phoenix (6)</td>
+<td style="text-align: center;">Objective</td>
+<td>Autocall — vol is secondary</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection:</strong></p>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 25%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>VO (3)</th>
+<th>VarSwap (7)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Vol exposure</td>
+<td>Asymmetric (limited loss long)</td>
+<td>Pure variance (convex, unlimited short risk)</td>
+</tr>
+<tr class="even">
+<td>Premium</td>
+<td>Paid upfront</td>
+<td>No premium (MTM swap)</td>
+</tr>
+<tr class="odd">
+<td>Payoff</td>
+<td>Non-linear</td>
+<td>Convex in variance (squared vol)</td>
+</tr>
+<tr class="even">
+<td>Complexity</td>
+<td>Simple</td>
+<td>High — convexity traps</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> VO (3) for directional vol view with limited loss. VarSwap (7) ONLY for sophisticated clients who understand convexity.</p>
+<p><strong>Why This Wins:</strong> - VO: defined maximum loss (premium), unlimited upside — cleanest vol bet - VarSwap: direct variance exposure but CONVEX — short sellers face unlimited loss - Choice between these two separates retail from institutional vol trading</p>
+<p><strong>Ladder:</strong> 1. VO (3) — limited loss, asymmetric payoff ↑ If client needs variance (not vol) and understands convexity: escalate 2. VarSwap (7) — pure variance swap (squared exposure)</p>
+<p><strong>Common Mistake:</strong> Shorting VarSwap as “selling vol.” VarSwap convexity means a 2× vol move produces 4× loss. Short VarSwap is the product that destroyed XIV and similar vehicles in the 2018 Volmageddon event.</p>
+<p><strong>Regime Note:</strong> Long vol works when implied vol is cheap relative to expected realized. Short vol works when implied is rich. The difficulty is knowing which regime you’re in.</p>
+<p><strong>Desk Note:</strong> Desk earns convexity premium from VarSwap clients who misunderstand the squared payoff.</p>
+<hr />
+<h3 id="scenario-6.2-option-on-a-structured-product">Scenario 6.2: Option on a Structured Product</h3>
+<p><strong>Client says:</strong> “I want the right — but not the obligation — to enter an RC at a future date.”</p>
+<p><strong>Persona:</strong> Sophisticated.</p>
+<p><strong>Narrowing:</strong> Objective → Deferred entry | Asset → Equity (via RC) | Risk → Premium loss | Complexity → ≤5</p>
+<p><strong>Candidates:</strong> Opt-on-RC (5)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RC (3)</td>
+<td style="text-align: center;">Objective</td>
+<td>Immediate entry — client wants optionality on entry</td>
+</tr>
+<tr class="even">
+<td>VO (3)</td>
+<td style="text-align: center;">Objective</td>
+<td>Option on underlying, not on RC structure</td>
+</tr>
+<tr class="odd">
+<td>Phoenix (6)</td>
+<td style="text-align: center;">Complexity</td>
+<td>No deferred entry mechanism</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> Opt-on-RC (5) — compound option giving right to enter RC at a future date on predetermined terms.</p>
+<p><strong>Why This Wins:</strong> - Only product providing optionality on entry into a structured product - Premium is the maximum loss — no obligation to enter the RC - Useful when client expects better entry conditions in the future</p>
+<p><strong>Ladder:</strong> 1. VO (3) — option on underlying asset directly ↑ If client wants optionality on entering a STRUCTURED product: escalate 2. Opt-on-RC (5) — compound option on RC</p>
+<p><strong>Common Mistake:</strong> Treating Opt-on-RC as a leveraged RC. The compound option has two layers of Greeks — the outer option and the inner RC each have their own sensitivities. Hedging is significantly more complex.</p>
+<p><strong>Regime Note:</strong> Opt-on-RC is most valuable when implied vol is high (option is expensive to buy outright) but expected to fall (making future RC entry cheaper).</p>
+<hr />
+<h3 id="scenario-6.3-multi-stock-correlation-via-autocall">Scenario 6.3: Multi-Stock Correlation via Autocall</h3>
+<p><strong>Client says:</strong> “I want to earn premium from selling correlation risk on a basket of stocks.”</p>
+<p><strong>Persona:</strong> PB / Sophisticated.</p>
+<p><strong>Narrowing:</strong> Objective → Yield (correlation premium) | Asset → Equity basket | Regime → Range-bound, moderate correlation | Risk → Worst stock drives outcome | Complexity → ≤8</p>
+<p><strong>Candidates:</strong> WOAC (8)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Phoenix (6)</td>
+<td style="text-align: center;">Objective</td>
+<td>Single-stock autocall — no correlation premium</td>
+</tr>
+<tr class="even">
+<td>FTD (7)</td>
+<td style="text-align: center;">Asset</td>
+<td>Credit basket, not equity</td>
+</tr>
+<tr class="odd">
+<td>SNOW (7)</td>
+<td style="text-align: center;">Objective</td>
+<td>Snowball — no explicit correlation exposure</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> WOAC (8) — worst-of autocallable. Coupon funded by selling correlation risk across basket of 3–5 stocks.</p>
+<p><strong>Why This Wins:</strong> - Highest coupon in the ELN universe (15–25%) due to correlation premium - Autocall provides early exit if all stocks perform - Most traded complex retail product in APAC and Europe</p>
+<p><strong>Ladder:</strong> 1. Phoenix (6) — single-stock autocall, lower coupon ↑ If coupon insufficient and client accepts worst-of risk: escalate 2. WOAC (8) — multi-stock worst-of, maximum coupon</p>
+<p><strong>Common Mistake:</strong> Thinking basket = diversification. In WOAC, the WORST stock drives all outcomes. A basket of 5 stocks doesn’t reduce risk — it multiplies the chance that at least one stock breaches the barrier.</p>
+<p><strong>Regime Note:</strong> WOAC suffers when correlations drop (stocks diverge). In dispersion events, the worst stock decouples from the others and breaches barriers independently.</p>
+<p><strong>Desk Note:</strong> WOAC is the most profitable retail structured product for the desk. Correlation premium is large and difficult for clients to price independently.</p>
+<hr />
+<h3 id="scenario-6.4-embedded-volatility-selling">Scenario 6.4: Embedded Volatility Selling</h3>
+<p><strong>Client says:</strong> “I want to earn from selling volatility but through a simple, familiar structure.”</p>
+<p><strong>Persona:</strong> PB. Complexity ≤3.</p>
+<p><strong>Narrowing:</strong> Objective → Vol selling (implicit) | Cash Flow → Fixed Income | Asset → Equity | Risk → Conditional | Complexity → ≤3</p>
+<p><strong>Candidates:</strong> RC (3)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VarSwap (7) short</td>
+<td style="text-align: center;">Risk/Complexity</td>
+<td>Unlimited loss, convex</td>
+</tr>
+<tr class="even">
+<td>Phoenix (6)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Exceeds cap</td>
+</tr>
+<tr class="odd">
+<td>WOAC (8)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Far exceeds cap</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> RC (3) — embedded short put = implicit vol selling. Client earns premium (coupon) for selling downside risk.</p>
+<p><strong>Why This Wins:</strong> - Simplest vol-selling structure — bond + short put - Loss is defined by barrier level (not unlimited like VarSwap short) - Coupon IS the vol premium — client earns richly when vol is high</p>
+<p><strong>Ladder:</strong> RC is already the simplest vol-selling product. No further simplification possible.</p>
+<p><strong>Common Mistake:</strong> Not recognizing RC as vol selling. When a client buys RC, they are selling a put option. The coupon comes from vol premium. If the client doesn’t have a vol view, they shouldn’t be trading RC.</p>
+<p><strong>Regime Note:</strong> RC coupon is highest when vol is high (rich put premium). In low-vol, RC coupon is thin — switch to Digital for protected income.</p>
+<hr />
+<h2 id="category-7-portfolio-management">Category 7 — Portfolio Management</h2>
+<p><em>“I need to manage portfolio-level exposures.”</em></p>
+<hr />
+<h3 id="scenario-7.1-synthetic-equity-ownership">Scenario 7.1: Synthetic Equity Ownership</h3>
+<p><strong>Client says:</strong> “I want equity exposure without owning the stock. I need synthetic access.”</p>
+<p><strong>Persona:</strong> Institutional (hedge fund / asset manager).</p>
+<p><strong>Narrowing:</strong> Objective → Synthetic access | Cash Flow → Total return exchange | Asset → Equity | Complexity → ≤5</p>
+<p><strong>Candidates:</strong> TRS (5), EqSwap (5)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FWD (2)</td>
+<td style="text-align: center;">Objective</td>
+<td>Single-period — client wants ongoing exposure</td>
+</tr>
+<tr class="even">
+<td>CLN (4)</td>
+<td style="text-align: center;">Asset</td>
+<td>Credit-linked, not equity</td>
+</tr>
+<tr class="odd">
+<td>RC (3)</td>
+<td style="text-align: center;">Objective</td>
+<td>Yield product, not synthetic ownership</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection:</strong></p>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 28%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>TRS (5)</th>
+<th>EqSwap (5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mechanism</td>
+<td>Total return of asset vs financing rate</td>
+<td>Equity return vs fixed/floating</td>
+</tr>
+<tr class="even">
+<td>Asset class</td>
+<td>Any (equity, credit, bond)</td>
+<td>Equity only</td>
+</tr>
+<tr class="odd">
+<td>Flexibility</td>
+<td>Broadest — any reference asset</td>
+<td>Equity-specific optimizations</td>
+</tr>
+<tr class="even">
+<td>Typical user</td>
+<td>Hedge funds (leverage, short selling)</td>
+<td>Asset managers (tracking)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> TRS (5) for maximum flexibility. EqSwap (5) for equity-specific.</p>
+<p><strong>Why This Wins:</strong> - TRS: can reference any asset — equity, bond, index, loan — most versatile - EqSwap: optimized for equity-specific exposure (dividend, withholding tax) - Both achieve synthetic ownership without balance sheet impact</p>
+<p><strong>Ladder:</strong> 1. FWD (2) — single-period forward exposure ↑ If need ongoing synthetic ownership: escalate 2. EqSwap (5) — equity-specific swap ↑ If need multi-asset flexibility: escalate 3. TRS (5) — total return on any reference asset</p>
+<p><strong>Common Mistake:</strong> Using TRS for “no-risk” equity exposure. TRS gives full equity risk — the synthetic owner bears all market, dividend, and corporate action risk. It’s just off-balance-sheet.</p>
+<p><strong>Regime Note:</strong> TRS/EqSwap financing rates widen in stressed markets. The “cost of carry” for synthetic exposure can spike during crises.</p>
+<p><strong>Desk Note:</strong> TRS is the primary product for prime brokerage. High revenue, recurring fees.</p>
+<hr />
+<h3 id="scenario-7.2-commodity-price-hedging">Scenario 7.2: Commodity Price Hedging</h3>
+<p><strong>Client says:</strong> “I’m a producer/consumer and need to lock my commodity price.”</p>
+<p><strong>Persona:</strong> Institutional (corporate).</p>
+<p><strong>Narrowing:</strong> Objective → Hedging | Asset → Commodity | Risk → Basis risk | Complexity → ≤4</p>
+<p><strong>Candidates:</strong> CommSwap (4)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FWD (2)</td>
+<td style="text-align: center;">Cash Flow</td>
+<td>Single settlement — client needs ongoing hedge</td>
+</tr>
+<tr class="even">
+<td>IRS (3)</td>
+<td style="text-align: center;">Asset</td>
+<td>Rate swap, not commodity</td>
+</tr>
+<tr class="odd">
+<td>TRS (5)</td>
+<td style="text-align: center;">Complexity</td>
+<td>More complex than needed</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> CommSwap (4) — fixed-for-floating commodity swap. Producer locks selling price; consumer locks buying price.</p>
+<p><strong>Why This Wins:</strong> - Exact hedge for commodity price risk over multiple periods - No premium — swap exchanges fixed for floating - Standard product for corporate hedging programs</p>
+<p><strong>Ladder:</strong> 1. FWD (2) — single-period commodity forward ↑ If need multi-period hedge: escalate 2. CommSwap (4) — ongoing commodity swap</p>
+<p><strong>Common Mistake:</strong> Ignoring basis risk. The swap references a commodity index (e.g., Brent crude). The client’s actual exposure may differ (e.g., WTI or a specific grade). The basis between the two can move independently.</p>
+<p><strong>Regime Note:</strong> Commodity curves shift between contango and backwardation. The forward curve shape affects swap pricing — hedging is cheaper in contango for producers.</p>
+<hr />
+<h3 id="scenario-7.3-cross-currency-debt-management">Scenario 7.3: Cross-Currency Debt Management</h3>
+<p><strong>Client says:</strong> “I issued debt in EUR but my revenue is in USD. I need to manage the FX mismatch.”</p>
+<p><strong>Persona:</strong> Institutional (corporate / sovereign).</p>
+<p><strong>Narrowing:</strong> Objective → Hedging (FX + rate) | Asset → Cross-currency | Risk → FX + rate + basis | Complexity → ≤5</p>
+<p><strong>Candidates:</strong> XCCY (5)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>IRS (3)</td>
+<td style="text-align: center;">Asset</td>
+<td>Single currency — doesn’t address FX</td>
+</tr>
+<tr class="even">
+<td>FWD (2)</td>
+<td style="text-align: center;">Cash Flow</td>
+<td>Single-period FX — doesn’t match debt coupons</td>
+</tr>
+<tr class="odd">
+<td>DCI (3)</td>
+<td style="text-align: center;">Objective</td>
+<td>Yield product, not hedge</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> XCCY (5) — cross-currency swap. Converts EUR debt to synthetic USD debt by exchanging principals and coupons.</p>
+<p><strong>Why This Wins:</strong> - Complete hedge: converts both principal and interest rate exposure between currencies - Matches debt maturity and coupon schedule exactly - Standard corporate treasury product for foreign-currency debt management</p>
+<p><strong>Ladder:</strong> 1. FX forward strip — individual forwards for each coupon date ↑ If need principal exchange and full restructuring: escalate 2. XCCY (5) — single swap converting entire debt structure</p>
+<p><strong>Common Mistake:</strong> Ignoring cross-currency basis. XCCY pricing includes a basis spread that can move 50+ bps. This basis is a separate risk factor beyond FX and rates.</p>
+<p><strong>Regime Note:</strong> Cross-currency basis widens in USD funding stress events. Hedging costs spike when dollar demand is highest.</p>
+<hr />
+<h3 id="scenario-7.4-discounted-share-accumulation">Scenario 7.4: Discounted Share Accumulation</h3>
+<p><strong>Client says:</strong> “I want to buy shares at below-market prices on a schedule. I accept the risk of buying more if the stock falls.”</p>
+<p><strong>Persona:</strong> Sophisticated.</p>
+<p><strong>Narrowing:</strong> Objective → Accumulation | Asset → Equity | Risk → Geared downside (2× below strike) | Complexity → ≤6</p>
+<p><strong>Candidates:</strong> ACCUM (6)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FWD (2)</td>
+<td style="text-align: center;">Objective</td>
+<td>No discount, no gearing</td>
+</tr>
+<tr class="even">
+<td>EqSwap (5)</td>
+<td style="text-align: center;">Objective</td>
+<td>Synthetic — client wants physical shares</td>
+</tr>
+<tr class="odd">
+<td>TRS (5)</td>
+<td style="text-align: center;">Objective</td>
+<td>Total return swap, not share accumulation</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> ACCUM (6) — daily accumulator. Buys shares at discount when above strike. Buys 2× shares at discount when below strike.</p>
+<p><strong>Why This Wins:</strong> - Guaranteed discount to market price on every accumulation day - KO barrier terminates if stock rallies too far (limits bank’s exposure) - Systematic accumulation replaces ad hoc buying</p>
+<p><strong>Ladder:</strong> 1. FWD (2) — buy at today’s price, settled later ↑ If client wants ongoing discounted accumulation: escalate 2. ACCUM (6) — daily discounted accumulation with gearing</p>
+<p><strong>Common Mistake:</strong> Using ACCUM as a hedge. The 2× gearing below strike means the client buys DOUBLE the shares when the stock is falling — this is a leveraged directional bet, not a hedge. The client must want to own more shares at lower prices.</p>
+<p><strong>Regime Note:</strong> ACCUM works when the stock is range-bound above strike. In sharp declines, 2× gearing creates forced buying at the worst time.</p>
+<p><strong>Desk Note:</strong> ACCUM is highly profitable for the desk due to daily barrier monitoring and gearing premium.</p>
+<hr />
+<h3 id="scenario-7.5-systematic-share-disposal">Scenario 7.5: Systematic Share Disposal</h3>
+<p><strong>Client says:</strong> “I have a large stock position and want to sell at above-market prices on a schedule.”</p>
+<p><strong>Persona:</strong> Sophisticated.</p>
+<p><strong>Narrowing:</strong> Objective → Disposal | Asset → Equity | Risk → Geared opportunity cost (2× above strike) | Complexity → ≤6</p>
+<p><strong>Candidates:</strong> DECUM (6)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FWD (2)</td>
+<td style="text-align: center;">Objective</td>
+<td>Single sale, no premium</td>
+</tr>
+<tr class="even">
+<td>EqSwap (5)</td>
+<td style="text-align: center;">Objective</td>
+<td>Synthetic — client wants physical disposal</td>
+</tr>
+<tr class="odd">
+<td>ACCUM (6)</td>
+<td style="text-align: center;">Objective</td>
+<td>Accumulation, not disposal</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> DECUM (6) — daily decumulator. Sells shares at premium when below strike. Sells 2× shares at premium when above strike.</p>
+<p><strong>Why This Wins:</strong> - Guaranteed premium to market price on every disposal day - Systematic liquidation of large positions without market impact - Mirror image of ACCUM — same mechanics, opposite direction</p>
+<p><strong>Ladder:</strong> 1. FWD (2) — sell at today’s price ↑ If client wants ongoing premium disposal: escalate 2. DECUM (6) — daily premium disposal with gearing</p>
+<p><strong>Common Mistake:</strong> Not understanding the gearing reversal. If the stock rallies, the client sells 2× shares at a premium — but misses the upside on those extra shares. The “premium” becomes an opportunity cost in rallying markets.</p>
+<p><strong>Regime Note:</strong> DECUM works when stock is range-bound. In strong rallies, the 2× gearing forces selling at the worst time (relative to holding).</p>
+<hr />
+<h2 id="category-8-building-blocks-specialist">Category 8 — Building Blocks &amp; Specialist</h2>
+<p><em>“I need a fundamental building block or specialist product.”</em></p>
+<hr />
+<h3 id="scenario-8.1-forward-price-lock">Scenario 8.1: Forward Price Lock</h3>
+<p><strong>Client says:</strong> “I need to lock today’s price for a future transaction.”</p>
+<p><strong>Persona:</strong> Institutional / Corporate.</p>
+<p><strong>Narrowing:</strong> Objective → Price lock | Risk → Unlimited (symmetric) | Complexity → ≤2</p>
+<p><strong>Candidates:</strong> FWD (2)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>IRS (3)</td>
+<td style="text-align: center;">Asset</td>
+<td>Rate swap, not price lock</td>
+</tr>
+<tr class="even">
+<td>VO (3)</td>
+<td style="text-align: center;">Risk</td>
+<td>Asymmetric — premium + limited loss, client wants exact lock</td>
+</tr>
+<tr class="odd">
+<td>ACCUM (6)</td>
+<td style="text-align: center;">Risk</td>
+<td>Geared — not a pure hedge</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> FWD (2) — linear payoff, no optionality, purest price-locking derivative.</p>
+<p><strong>Why This Wins:</strong> - Zero basis risk — exact price lock at the forward price - No premium — symmetric payoff - Foundation of all derivative pricing</p>
+<p><strong>Ladder:</strong> N/A — FWD is Tier 1. No simpler derivative exists.</p>
+<p><strong>Common Mistake:</strong> Using ACCUM/DECUM as “discounted forwards.” Both have 2× gearing — they are leveraged directional bets, not hedges. A hedge should not amplify exposure on one side.</p>
+<p><strong>Regime Note:</strong> Forward pricing reflects carry (dividends, funding, storage). No directional view required — it’s a mathematical relationship.</p>
+<hr />
+<h3 id="scenario-8.2-deposit-based-structured-return">Scenario 8.2: Deposit-Based Structured Return</h3>
+<p><strong>Client says:</strong> “I want something safer than a note. I want deposit insurance.”</p>
+<p><strong>Persona:</strong> Retail.</p>
+<p><strong>Narrowing:</strong> Objective → Protection | Cash Flow → Growth | Risk → Zero (deposit insurance) | Complexity → ≤2</p>
+<p><strong>Candidates:</strong> SD (2)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PPN (2)</td>
+<td style="text-align: center;">Risk</td>
+<td>Note format — no deposit insurance</td>
+</tr>
+<tr class="even">
+<td>RC (3)</td>
+<td style="text-align: center;">Risk</td>
+<td>Conditional protection</td>
+</tr>
+<tr class="odd">
+<td>Digital (4)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Exceeds Retail preference for simplest product</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> SD (2) — structured deposit. Bank deposit with embedded call option. Protected by deposit insurance (up to national limit).</p>
+<p><strong>Why This Wins:</strong> - Deposit insurance — protection beyond issuer credit - Simplest structured product in the universe (Complexity 2) - Available through bank branches — widest distribution</p>
+<p><strong>Ladder:</strong> SD is the simplest product. No further simplification possible.</p>
+<p><strong>Common Mistake:</strong> Confusing SD with PPN. Both offer 100% protection + equity participation. The difference: SD has deposit insurance. PPN is a note — if the bank defaults, the “guarantee” fails.</p>
+<p><strong>Regime Note:</strong> SD participation rates are lower than PPN (deposit insurance has a cost). In high-rate environments, PPN may be more attractive if the client accepts note format.</p>
+<hr />
+<h3 id="scenario-8.3-retail-leveraged-directional-exposure">Scenario 8.3: Retail Leveraged Directional Exposure</h3>
+<p><strong>Client says:</strong> “I want to make a leveraged directional bet on equities. I accept I can lose my entire investment.”</p>
+<p><strong>Persona:</strong> Retail / PB.</p>
+<p><strong>Narrowing:</strong> Objective → Directional leverage | Cash Flow → Growth | Asset → Equity | Risk → Total premium loss | Complexity → ≤4</p>
+<p><strong>Candidates:</strong> Warrant (3), ELO (3), Booster (4)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ACCUM (6)</td>
+<td style="text-align: center;">Complexity/Risk</td>
+<td>Geared accumulation — different product</td>
+</tr>
+<tr class="even">
+<td>VarSwap (7)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Volatility, not directional</td>
+</tr>
+<tr class="odd">
+<td>Phoenix (6)</td>
+<td style="text-align: center;">Complexity</td>
+<td>Income product with autocall</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>Warrant (3)</th>
+<th>ELO (3)</th>
+<th>Booster (4)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Format</td>
+<td>Exchange-listed</td>
+<td>OTC note (retail wrapper)</td>
+<td>OTC note</td>
+</tr>
+<tr class="even">
+<td>Leverage</td>
+<td>High (premium &lt; notional)</td>
+<td>Moderate</td>
+<td>Leveraged up, full down</td>
+</tr>
+<tr class="odd">
+<td>Max loss</td>
+<td>Premium</td>
+<td>Premium</td>
+<td>Full notional below strike</td>
+</tr>
+<tr class="even">
+<td>Upside</td>
+<td>Unlimited (call) or geared</td>
+<td>Asymmetric</td>
+<td>Leveraged but capped</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> Warrant (3) for exchange-traded. ELO (3) for OTC retail wrapper. Booster (4) for leveraged participation with cap.</p>
+<p><strong>Why This Wins:</strong> - Warrant: exchange-listed, regulated, transparent pricing — best for retail - ELO: same option exposure but in a note wrapper for bank distribution - Booster: leveraged upside (150%+) but capped — defined risk/return profile</p>
+<p><strong>Ladder:</strong> 1. VO (3) — institutional vanilla option (if accessible) ↑ If need retail format: escalate 2. Warrant (3) / ELO (3) — retail option wrappers ↑ If want leveraged note format: escalate 3. Booster (4) — leveraged participation note (no protection)</p>
+<p><strong>Common Mistake:</strong> Treating Booster as a “protected” product. Booster has ZERO capital protection — below the strike, the client takes full equity loss. The “booster” refers to upside leverage, not downside protection.</p>
+<p><strong>Regime Note:</strong> Leveraged directional products work when the view is correct. They amplify both gains AND losses. Only appropriate when the client has genuine directional conviction.</p>
+<hr />
+<h3 id="scenario-8.4-maximum-multi-stock-yield-for-private-banking">Scenario 8.4: Maximum Multi-Stock Yield for Private Banking</h3>
+<p><strong>Client says:</strong> “I want the absolute highest coupon available on an equity-linked note. I understand the risks.”</p>
+<p><strong>Persona:</strong> PB / Sophisticated.</p>
+<p><strong>Narrowing:</strong> Objective → Maximum yield | Cash Flow → Contingent Income | Asset → Equity basket | Risk → Worst stock = total loss | Complexity → ≤8</p>
+<p><strong>Candidates:</strong> WOAC (8)</p>
+<p><strong>Rejected:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Step</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Phoenix (6)</td>
+<td style="text-align: center;">Objective</td>
+<td>Single stock — lower coupon than worst-of</td>
+</tr>
+<tr class="even">
+<td>DKIP (7)</td>
+<td style="text-align: center;">Objective</td>
+<td>Single stock digital — lower correlation premium</td>
+</tr>
+<tr class="odd">
+<td>SNOW (7)</td>
+<td style="text-align: center;">Objective</td>
+<td>Snowball — cumulative, not maximum current coupon</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation:</strong> WOAC (8) — worst-of autocallable on 3–5 stock basket. Highest coupon in the structured products universe (15–25%).</p>
+<p><strong>Why This Wins:</strong> - Coupon of 15–25% is funded by selling correlation + vol on a basket - Autocall provides early exit if all stocks perform above trigger - The most traded complex retail/PB product globally</p>
+<p><strong>Ladder:</strong> 1. RC (3) — single stock, 8–12% coupon ↑ If coupon insufficient: escalate 2. Phoenix (6) — single stock autocall, 10–15% contingent coupon ↑ If still insufficient and client accepts worst-of risk: escalate 3. WOAC (8) — worst-of basket, 15–25% coupon</p>
+<p><strong>Common Mistake:</strong> Underestimating worst-of risk. A basket of 5 blue-chip stocks feels diversified. It’s not. The WORST stock drives all outcomes. If even one stock drops 35%+, the barrier breaches and the client faces principal loss on the full notional.</p>
+<p><strong>Regime Note:</strong> WOAC suffers most in dispersion events — when stocks decorrelate and the worst stock drops independently. In high-correlation environments (all stocks move together), WOAC is safer.</p>
+<hr />
+<h1 id="part-3-anti-patterns">Part 3: Anti-Patterns</h1>
+<p><strong>18 “When NOT To” Rules — 3 Per Family</strong></p>
+<hr />
+<h2 id="eln-anti-patterns">ELN Anti-Patterns</h2>
+<h3 id="ap-1-client-wants-protection-not-rc">AP-1: “Client Wants Protection” → NOT RC</h3>
+<p>RC has conditional protection. Below the barrier, the investor takes full equity loss. If the client cannot tolerate any principal loss, use PPN (2) or SD (2). RC is a yield product, not a protection product.</p>
+<h3 id="ap-2-client-wants-guaranteed-income-not-phoenix">AP-2: “Client Wants Guaranteed Income” → NOT Phoenix</h3>
+<p>Phoenix coupon is contingent on the stock staying above the coupon barrier. If the stock drops below, coupon is zero. For guaranteed income, use FCN (6) — fixed coupon paid regardless of performance.</p>
+<h3 id="ap-3-client-wants-simplicity-not-dkip">AP-3: “Client Wants Simplicity” → NOT DKIP</h3>
+<p>DKIP has three barrier conditions: digital coupon barrier, knock-in put barrier, and autocall trigger. Explaining this to a client requires understanding three simultaneous conditions. For simple digital income, use Digital (4).</p>
+<hr />
+<h2 id="swaps-anti-patterns">Swaps Anti-Patterns</h2>
+<h3 id="ap-4-client-wants-to-sell-vol-not-varswap-short">AP-4: “Client Wants to Sell Vol” → NOT VarSwap Short</h3>
+<p>VarSwap has convex payoff. Short sellers face unlimited loss — a 2× vol move produces 4× loss. The 2018 Volmageddon event destroyed short vol products overnight. For vol selling with defined risk, use RC (3) — the embedded short put IS vol selling with a barrier floor.</p>
+<h3 id="ap-5-client-wants-to-hedge-equity-not-accum">AP-5: “Client Wants to Hedge Equity” → NOT ACCUM</h3>
+<p>ACCUM buys 2× shares when the stock falls — this INCREASES equity exposure on the downside. ACCUM is a leveraged accumulation strategy, not a hedge. For equity hedging, use VO (3) long put, EqSwap (5), or FWD (2).</p>
+<h3 id="ap-6-client-wants-simple-rate-hedge-not-xccy">AP-6: “Client Wants Simple Rate Hedge” → NOT XCCY</h3>
+<p>XCCY adds FX risk on top of rate risk. If the client’s exposure is single-currency, XCCY introduces unnecessary complexity. Use IRS (3) or VLSP (2) for single-currency rate hedging.</p>
+<hr />
+<h2 id="srt-anti-patterns">SRT Anti-Patterns</h2>
+<h3 id="ap-7-client-wants-safe-income-not-cra-srt">AP-7: “Client Wants Safe Income” → NOT CRA SRT</h3>
+<p>CRA SRT can earn zero coupon for 10 years. If rates leave the accrual range, every period pays nothing — while principal is returned at maturity, the opportunity cost is a decade of zero income. For safer rate income, use IR Callable (5) with fixed coupon.</p>
+<h3 id="ap-8-client-wants-simple-rate-product-not-ncra">AP-8: “Client Wants Simple Rate Product” → NOT NCRA</h3>
+<p>NCRA (Non-Callable Range Accrual) involves digital options on rates with daily observation. The “range” concept is simple but the risk is not — near-boundary rates create extreme P&amp;L sensitivity. For simple rate exposure, use IRS (3).</p>
+<h3 id="ap-9-client-wants-bond-substitute-not-zcl-for-income-seekers">AP-9: “Client Wants Bond Substitute” → NOT ZCL for Income Seekers</h3>
+<p>ZCL pays zero coupon. It’s a zero-coupon growth product for liability matching, not an income product. Clients seeking bond-like income should use IR Callable (5) or Digital CF (5).</p>
+<hr />
+<h2 id="steg-anti-patterns">STEG Anti-Patterns</h2>
+<h3 id="ap-10-curve-will-steepen-not-tarn-steg">AP-10: “Curve Will Steepen” → NOT TARN STEG</h3>
+<p>TARN STEG has a target feature that triggers early redemption once cumulative coupons reach the cap. If the curve steepens slowly, the target may be reached in year 2 — the client gets their money back just as the steepening accelerates. For pure steepening exposure without target termination, use Vanilla STEG (5).</p>
+<h3 id="ap-11-client-wants-stable-income-not-ra-steg">AP-11: “Client Wants Stable Income” → NOT RA STEG</h3>
+<p>RA STEG requires a dual condition: the CMS spread must be positive AND within a range. If either condition fails, the coupon is zero. For more stable CMS spread income, use Vanilla STEG (5) — only one condition (spread &gt; 0).</p>
+<h3 id="ap-12-client-wants-long-duration-steepener-not-callable-steg-if-duration-matters">AP-12: “Client Wants Long-Duration Steepener” → NOT Callable STEG if Duration Matters</h3>
+<p>Callable STEG will be called by the issuer when the curve steepens significantly — precisely when the client wants to hold. If the client values long-duration exposure, Vanilla STEG (5) is the only non-callable option.</p>
+<hr />
+<h2 id="cln-anti-patterns">CLN Anti-Patterns</h2>
+<h3 id="ap-13-client-wants-credit-exposure-not-ftd-without-correlation-training">AP-13: “Client Wants Credit Exposure” → NOT FTD Without Correlation Training</h3>
+<p>FTD risk depends on correlation between basket names. LOW correlation INCREASES FTD risk (opposite of equity diversification). A client who thinks “5 names = diversified” will be shocked when an independent default triggers full loss. Start with CLN (4) for single-name credit.</p>
+<h3 id="ap-14-client-wants-high-credit-yield-not-cdo-for-non-specialists">AP-14: “Client Wants High Credit Yield” → NOT CDO for Non-Specialists</h3>
+<p>CDO requires understanding of: portfolio loss distributions, attachment/detachment points, base correlation, copula models, and tranche sensitivity. Complexity 10. For high credit yield without portfolio modelling, use FTD (7) with correlation education.</p>
+<h3 id="ap-15-client-wants-simple-funded-credit-not-ntd">AP-15: “Client Wants Simple Funded Credit” → NOT NTD</h3>
+<p>NTD (Nth-to-Default) has opposite correlation sensitivity to FTD. Rising correlation INCREASES NTD risk. A client who learned FTD correlation dynamics will apply the wrong intuition to NTD. Start with CLN (4), then FTD (7) with explicit correlation reversal education.</p>
+<hr />
+<h2 id="other-family-anti-patterns">Other Family Anti-Patterns</h2>
+<h3 id="ap-16-client-wants-low-risk-not-woac">AP-16: “Client Wants Low Risk” → NOT WOAC</h3>
+<p>WOAC coupon is 15–25% because the client is selling correlation risk on a basket. The worst stock out of 3–5 names drives all outcomes. A single stock declining 35% triggers barrier breach on the entire notional. For low-risk yield, use Digital (4) with 100% protection.</p>
+<h3 id="ap-17-client-needs-liquidity-not-snow">AP-17: “Client Needs Liquidity” → NOT SNOW</h3>
+<p>SNOW (Snowball) has cumulative path-dependent payoff. Valuing it on the secondary market requires Monte Carlo simulation with hundreds of paths. Bid-ask spreads are wide. For liquid autocallable income, use Phoenix (6) — standardized, actively traded.</p>
+<h3 id="ap-18-client-wants-protection-with-maximum-upside-not-cliq-for-trending-markets">AP-18: “Client Wants Protection With Maximum Upside” → NOT CLIQ for Trending Markets</h3>
+<p>CLIQ has local caps per period. In a strong trending market, the caps limit return from each period — cumulative return underperforms PPN or direct equity investment. CLIQ outperforms in choppy, mean-reverting markets. For trending bullish view, use PPN (2) or Booster (4).</p>
+<hr />
+<h1 id="part-4-quick-reference-replacement-table">Part 4: Quick Reference &amp; Replacement Table</h1>
+<h2 id="objective-top-3-products">Objective → Top 3 Products</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Client Objective</th>
+<th style="text-align: center;">First Choice</th>
+<th style="text-align: center;">Second Choice</th>
+<th style="text-align: center;">Third Choice</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Full capital protection + equity growth</td>
+<td style="text-align: center;">PPN (2)</td>
+<td style="text-align: center;">SD (2)</td>
+<td style="text-align: center;">SHRK (4)</td>
+</tr>
+<tr class="even">
+<td>Yield enhancement (equity, bullish)</td>
+<td style="text-align: center;">RC (3)</td>
+<td style="text-align: center;">DRC (3)</td>
+<td style="text-align: center;">KODRC (4)</td>
+</tr>
+<tr class="odd">
+<td>Maximum conditional coupon</td>
+<td style="text-align: center;">Phoenix (6)</td>
+<td style="text-align: center;">WOAC (8)</td>
+<td style="text-align: center;">CRC (5)</td>
+</tr>
+<tr class="even">
+<td>Guaranteed coupon + autocall</td>
+<td style="text-align: center;">FCN (6)</td>
+<td style="text-align: center;">ICN (3)</td>
+<td style="text-align: center;">Callable STEG (6)</td>
+</tr>
+<tr class="odd">
+<td>Digital coupon (equity)</td>
+<td style="text-align: center;">Digital (4)</td>
+<td style="text-align: center;">DKIP (7)</td>
+<td style="text-align: center;">CRA ELN (6)</td>
+</tr>
+<tr class="even">
+<td>CMS spread income</td>
+<td style="text-align: center;">Vanilla STEG (5)</td>
+<td style="text-align: center;">Callable STEG (6)</td>
+<td style="text-align: center;">RA STEG (7)</td>
+</tr>
+<tr class="odd">
+<td>Range-bound rate income</td>
+<td style="text-align: center;">NCRA (6)</td>
+<td style="text-align: center;">CRA SRT (7)</td>
+<td style="text-align: center;">Digital CF (5)</td>
+</tr>
+<tr class="even">
+<td>Rate hedging</td>
+<td style="text-align: center;">IRS (3)</td>
+<td style="text-align: center;">VLSP (2)</td>
+<td style="text-align: center;">XCCY (5)</td>
+</tr>
+<tr class="odd">
+<td>Single-name credit</td>
+<td style="text-align: center;">CLN (4)</td>
+<td style="text-align: center;">CDS (5)</td>
+<td style="text-align: center;">Skew CLN (5)</td>
+</tr>
+<tr class="even">
+<td>Basket credit</td>
+<td style="text-align: center;">FTD (7)</td>
+<td style="text-align: center;">NTD (8)</td>
+<td style="text-align: center;">CDO (10)</td>
+</tr>
+<tr class="odd">
+<td>Pure volatility exposure</td>
+<td style="text-align: center;">VO (3)</td>
+<td style="text-align: center;">VarSwap (7)</td>
+<td style="text-align: center;">Opt-on-RC (5)</td>
+</tr>
+<tr class="even">
+<td>Synthetic equity access</td>
+<td style="text-align: center;">TRS (5)</td>
+<td style="text-align: center;">EqSwap (5)</td>
+<td style="text-align: center;">FWD (2)</td>
+</tr>
+<tr class="odd">
+<td>Commodity hedging</td>
+<td style="text-align: center;">CommSwap (4)</td>
+<td style="text-align: center;">FWD (2)</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="even">
+<td>Cross-currency management</td>
+<td style="text-align: center;">XCCY (5)</td>
+<td style="text-align: center;">IRS (3)</td>
+<td style="text-align: center;">FWD (2)</td>
+</tr>
+<tr class="odd">
+<td>Share accumulation</td>
+<td style="text-align: center;">ACCUM (6)</td>
+<td style="text-align: center;">FWD (2)</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="even">
+<td>Share disposal</td>
+<td style="text-align: center;">DECUM (6)</td>
+<td style="text-align: center;">FWD (2)</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="odd">
+<td>Leveraged directional (retail)</td>
+<td style="text-align: center;">Warrant (3)</td>
+<td style="text-align: center;">ELO (3)</td>
+<td style="text-align: center;">Booster (4)</td>
+</tr>
+<tr class="even">
+<td>FX yield enhancement</td>
+<td style="text-align: center;">DCI (3)</td>
+<td style="text-align: center;">SD (2)</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="odd">
+<td>Liability matching</td>
+<td style="text-align: center;">ZCL (4)</td>
+<td style="text-align: center;">PPN (2)</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="even">
+<td>Snowball recovery income</td>
+<td style="text-align: center;">SNOW (7)</td>
+<td style="text-align: center;">Phoenix (6)</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="odd">
+<td>Periodic gain lock-in</td>
+<td style="text-align: center;">CLIQ (7)</td>
+<td style="text-align: center;">SHRK (4)</td>
+<td style="text-align: center;">PPN (2)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="product-replacement-table">49-Product Replacement Table</h2>
+<p>When the recommended product is unavailable, use the nearest substitute.</p>
+<p><strong>Rule:</strong> At least one substitute is lower or equal complexity.</p>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 13%" />
+<col style="width: 21%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th style="text-align: center;">Cmplx</th>
+<th>Objective</th>
+<th style="text-align: center;">Sub 1</th>
+<th style="text-align: center;">Sub 2</th>
+<th>Trade-Off</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PPN</td>
+<td style="text-align: center;">2</td>
+<td>Protected growth</td>
+<td style="text-align: center;">SD (2)</td>
+<td style="text-align: center;">Airbag (4)</td>
+<td>SD: deposit insurance, lower participation. Airbag: conditional</td>
+</tr>
+<tr class="even">
+<td>RC</td>
+<td style="text-align: center;">3</td>
+<td>Yield enhancement</td>
+<td style="text-align: center;">DRC (3)</td>
+<td style="text-align: center;">Digital (4)</td>
+<td>DRC: discount not coupon. Digital: protected, binary</td>
+</tr>
+<tr class="odd">
+<td>Phoenix</td>
+<td style="text-align: center;">6</td>
+<td>Conditional income</td>
+<td style="text-align: center;">FCN (6)</td>
+<td style="text-align: center;">CRC (5)</td>
+<td>FCN: guaranteed coupon. CRC: callable, no autocall</td>
+</tr>
+<tr class="even">
+<td>DRC</td>
+<td style="text-align: center;">3</td>
+<td>Discount yield</td>
+<td style="text-align: center;">RC (3)</td>
+<td style="text-align: center;">KODRC (4)</td>
+<td>RC: coupon not discount. KODRC: KO protection added</td>
+</tr>
+<tr class="odd">
+<td>KODRC</td>
+<td style="text-align: center;">4</td>
+<td>Protected yield</td>
+<td style="text-align: center;">RC (3)</td>
+<td style="text-align: center;">Airbag (4)</td>
+<td>RC: no KO layer. Airbag: cushion not KO</td>
+</tr>
+<tr class="even">
+<td>CRC</td>
+<td style="text-align: center;">5</td>
+<td>Callable yield</td>
+<td style="text-align: center;">ICN (3)</td>
+<td style="text-align: center;">Phoenix (6)</td>
+<td>ICN: simpler callable. Phoenix: autocall not call</td>
+</tr>
+<tr class="odd">
+<td>Airbag</td>
+<td style="text-align: center;">4</td>
+<td>Conditional protection</td>
+<td style="text-align: center;">Bonus (4)</td>
+<td style="text-align: center;">PPN (2)</td>
+<td>Bonus: min return not cushion. PPN: full protection</td>
+</tr>
+<tr class="even">
+<td>Bonus</td>
+<td style="text-align: center;">4</td>
+<td>Min return + upside</td>
+<td style="text-align: center;">Airbag (4)</td>
+<td style="text-align: center;">PPN (2)</td>
+<td>Airbag: cushion not guarantee. PPN: zero not min return</td>
+</tr>
+<tr class="odd">
+<td>FCN</td>
+<td style="text-align: center;">6</td>
+<td>Guaranteed coupon</td>
+<td style="text-align: center;">RC (3)</td>
+<td style="text-align: center;">Phoenix (6)</td>
+<td>RC: lower coupon. Phoenix: contingent not guaranteed</td>
+</tr>
+<tr class="even">
+<td>CRA ELN</td>
+<td style="text-align: center;">6</td>
+<td>Equity range accrual</td>
+<td style="text-align: center;">Digital (4)</td>
+<td style="text-align: center;">RA STEG (7)</td>
+<td>Digital: periodic not daily. RA STEG: rate not equity</td>
+</tr>
+<tr class="odd">
+<td>ICN</td>
+<td style="text-align: center;">3</td>
+<td>Callable note</td>
+<td style="text-align: center;">CRC (5)</td>
+<td style="text-align: center;">RC (3)</td>
+<td>CRC: higher coupon. RC: no call</td>
+</tr>
+<tr class="even">
+<td>Digital</td>
+<td style="text-align: center;">4</td>
+<td>Binary equity coupon</td>
+<td style="text-align: center;">RC (3)</td>
+<td style="text-align: center;">CRA ELN (6)</td>
+<td>RC: continuous not binary. CRA ELN: range not digital</td>
+</tr>
+<tr class="odd">
+<td>DKIP</td>
+<td style="text-align: center;">7</td>
+<td>Complex digital</td>
+<td style="text-align: center;">Digital (4)</td>
+<td style="text-align: center;">Phoenix (6)</td>
+<td>Digital: no KI capital risk. Phoenix: autocall mechanism</td>
+</tr>
+<tr class="even">
+<td>Booster</td>
+<td style="text-align: center;">4</td>
+<td>Leveraged growth</td>
+<td style="text-align: center;">Warrant (3)</td>
+<td style="text-align: center;">PPN (2)</td>
+<td>Warrant: option format. PPN: protected, lower leverage</td>
+</tr>
+<tr class="odd">
+<td>Warrant</td>
+<td style="text-align: center;">3</td>
+<td>Directional leverage</td>
+<td style="text-align: center;">ELO (3)</td>
+<td style="text-align: center;">Booster (4)</td>
+<td>ELO: OTC wrapper. Booster: note format, capped</td>
+</tr>
+<tr class="even">
+<td>IRS</td>
+<td style="text-align: center;">3</td>
+<td>Rate hedging</td>
+<td style="text-align: center;">VLSP (2)</td>
+<td style="text-align: center;">FWD (2)</td>
+<td>VLSP: enhanced features. FWD: single period</td>
+</tr>
+<tr class="odd">
+<td>TRS</td>
+<td style="text-align: center;">5</td>
+<td>Synthetic ownership</td>
+<td style="text-align: center;">EqSwap (5)</td>
+<td style="text-align: center;">FWD (2)</td>
+<td>EqSwap: equity-specific. FWD: single period</td>
+</tr>
+<tr class="even">
+<td>EqSwap</td>
+<td style="text-align: center;">5</td>
+<td>Equity swap</td>
+<td style="text-align: center;">TRS (5)</td>
+<td style="text-align: center;">FWD (2)</td>
+<td>TRS: multi-asset. FWD: single period</td>
+</tr>
+<tr class="odd">
+<td>VarSwap</td>
+<td style="text-align: center;">7</td>
+<td>Pure vol</td>
+<td style="text-align: center;">VO (3)</td>
+<td style="text-align: center;">Opt-on-RC (5)</td>
+<td>VO: linear vol, limited loss. Opt-on-RC: indirect</td>
+</tr>
+<tr class="even">
+<td>CDS</td>
+<td style="text-align: center;">5</td>
+<td>Credit transfer</td>
+<td style="text-align: center;">CLN (4)</td>
+<td style="text-align: center;">FTD (7)</td>
+<td>CLN: funded note. FTD: basket, not single-name</td>
+</tr>
+<tr class="odd">
+<td>XCCY</td>
+<td style="text-align: center;">5</td>
+<td>Cross-currency</td>
+<td style="text-align: center;">IRS (3)</td>
+<td style="text-align: center;">FWD (2)</td>
+<td>IRS: single currency. FWD: single period FX</td>
+</tr>
+<tr class="even">
+<td>CommSwap</td>
+<td style="text-align: center;">4</td>
+<td>Commodity hedge</td>
+<td style="text-align: center;">FWD (2)</td>
+<td style="text-align: center;">TRS (5)</td>
+<td>FWD: single period. TRS: broader but complex</td>
+</tr>
+<tr class="odd">
+<td>VLSP</td>
+<td style="text-align: center;">2</td>
+<td>Enhanced rate swap</td>
+<td style="text-align: center;">IRS (3)</td>
+<td style="text-align: center;">FWD (2)</td>
+<td>IRS: standard terms. FWD: single period</td>
+</tr>
+<tr class="even">
+<td>IR Callable</td>
+<td style="text-align: center;">5</td>
+<td>Callable rate note</td>
+<td style="text-align: center;">ZCL (4)</td>
+<td style="text-align: center;">C. STEG (6)</td>
+<td>ZCL: no coupon. C.STEG: CMS spread not fixed</td>
+</tr>
+<tr class="odd">
+<td>ZCL</td>
+<td style="text-align: center;">4</td>
+<td>Zero-coupon rate</td>
+<td style="text-align: center;">PPN (2)</td>
+<td style="text-align: center;">IR Call. (5)</td>
+<td>PPN: equity-linked. IR Callable: has coupon</td>
+</tr>
+<tr class="even">
+<td>NCRA</td>
+<td style="text-align: center;">6</td>
+<td>Rate range accrual</td>
+<td style="text-align: center;">CRA SRT (7)</td>
+<td style="text-align: center;">Dig. CF (5)</td>
+<td>CRA SRT: callable. Digital CF: periodic binary</td>
+</tr>
+<tr class="odd">
+<td>CRA SRT</td>
+<td style="text-align: center;">7</td>
+<td>Callable range accrual</td>
+<td style="text-align: center;">NCRA (6)</td>
+<td style="text-align: center;">C. STEG (6)</td>
+<td>NCRA: no call. C.STEG: spread not range</td>
+</tr>
+<tr class="even">
+<td>Digital CF</td>
+<td style="text-align: center;">5</td>
+<td>Digital rate coupon</td>
+<td style="text-align: center;">Digital (4)</td>
+<td style="text-align: center;">NCRA (6)</td>
+<td>Digital: equity not rate. NCRA: daily accrual</td>
+</tr>
+<tr class="odd">
+<td>V. STEG</td>
+<td style="text-align: center;">5</td>
+<td>Curve steepener</td>
+<td style="text-align: center;">C. STEG (6)</td>
+<td style="text-align: center;">IRS (3)</td>
+<td>C.STEG: higher yield + call. IRS: hedge not income</td>
+</tr>
+<tr class="even">
+<td>RA STEG</td>
+<td style="text-align: center;">7</td>
+<td>Range accrual steepener</td>
+<td style="text-align: center;">V. STEG (5)</td>
+<td style="text-align: center;">CRA ELN (6)</td>
+<td>V.STEG: no range. CRA ELN: equity not rates</td>
+</tr>
+<tr class="odd">
+<td>C. STEG</td>
+<td style="text-align: center;">6</td>
+<td>Callable steepener</td>
+<td style="text-align: center;">V. STEG (5)</td>
+<td style="text-align: center;">IR Call. (5)</td>
+<td>V.STEG: no call. IR Callable: fixed not spread</td>
+</tr>
+<tr class="even">
+<td>TARN STEG</td>
+<td style="text-align: center;">8</td>
+<td>Target steepener</td>
+<td style="text-align: center;">C. STEG (6)</td>
+<td style="text-align: center;">RA STEG (7)</td>
+<td>C.STEG: no target. RA STEG: range not target</td>
+</tr>
+<tr class="odd">
+<td>CLN</td>
+<td style="text-align: center;">4</td>
+<td>Funded credit</td>
+<td style="text-align: center;">CDS (5)</td>
+<td style="text-align: center;">Skew CLN (5)</td>
+<td>CDS: unfunded. Skew: non-linear recovery</td>
+</tr>
+<tr class="even">
+<td>Skew CLN</td>
+<td style="text-align: center;">5</td>
+<td>Asymmetric credit</td>
+<td style="text-align: center;">CLN (4)</td>
+<td style="text-align: center;">CDS (5)</td>
+<td>CLN: linear recovery. CDS: unfunded</td>
+</tr>
+<tr class="odd">
+<td>FTD</td>
+<td style="text-align: center;">7</td>
+<td>First-to-default</td>
+<td style="text-align: center;">CLN (4)</td>
+<td style="text-align: center;">NTD (8)</td>
+<td>CLN: single-name. NTD: Nth default</td>
+</tr>
+<tr class="even">
+<td>NTD</td>
+<td style="text-align: center;">8</td>
+<td>Nth-to-default</td>
+<td style="text-align: center;">FTD (7)</td>
+<td style="text-align: center;">CDO (10)</td>
+<td>FTD: first default. CDO: portfolio tranche</td>
+</tr>
+<tr class="odd">
+<td>CDO</td>
+<td style="text-align: center;">10</td>
+<td>Tranched credit</td>
+<td style="text-align: center;">NTD (8)</td>
+<td style="text-align: center;">FTD (7)</td>
+<td>NTD: simpler basket. FTD: single tranche</td>
+</tr>
+<tr class="even">
+<td>SD</td>
+<td style="text-align: center;">2</td>
+<td>Deposit protection</td>
+<td style="text-align: center;">PPN (2)</td>
+<td style="text-align: center;">ELO (3)</td>
+<td>PPN: note (no deposit ins.). ELO: option wrapper</td>
+</tr>
+<tr class="odd">
+<td>FWD</td>
+<td style="text-align: center;">2</td>
+<td>Price lock</td>
+<td style="text-align: center;">IRS (3)</td>
+<td style="text-align: center;">CommSwap (4)</td>
+<td>IRS: multi-period rate. CommSwap: commodity swap</td>
+</tr>
+<tr class="even">
+<td>ELO</td>
+<td style="text-align: center;">3</td>
+<td>Retail option</td>
+<td style="text-align: center;">VO (3)</td>
+<td style="text-align: center;">Warrant (3)</td>
+<td>VO: institutional. Warrant: exchange-listed</td>
+</tr>
+<tr class="odd">
+<td>VO</td>
+<td style="text-align: center;">3</td>
+<td>Vanilla option</td>
+<td style="text-align: center;">ELO (3)</td>
+<td style="text-align: center;">VarSwap (7)</td>
+<td>ELO: retail wrapper. VarSwap: variance not vol</td>
+</tr>
+<tr class="even">
+<td>DCI</td>
+<td style="text-align: center;">3</td>
+<td>FX deposit yield</td>
+<td style="text-align: center;">RC (3)</td>
+<td style="text-align: center;">SD (2)</td>
+<td>RC: equity not FX. SD: no FX view</td>
+</tr>
+<tr class="odd">
+<td>Opt-on-RC</td>
+<td style="text-align: center;">5</td>
+<td>Deferred RC entry</td>
+<td style="text-align: center;">RC (3)</td>
+<td style="text-align: center;">VO (3)</td>
+<td>RC: immediate entry. VO: option on underlying</td>
+</tr>
+<tr class="even">
+<td>ACCUM</td>
+<td style="text-align: center;">6</td>
+<td>Share accumulation</td>
+<td style="text-align: center;">FWD (2)</td>
+<td style="text-align: center;">EqSwap (5)</td>
+<td>FWD: no gearing. EqSwap: synthetic, no physical</td>
+</tr>
+<tr class="odd">
+<td>DECUM</td>
+<td style="text-align: center;">6</td>
+<td>Share disposal</td>
+<td style="text-align: center;">FWD (2)</td>
+<td style="text-align: center;">EqSwap (5)</td>
+<td>FWD: no gearing. EqSwap: synthetic</td>
+</tr>
+<tr class="even">
+<td>SHRK</td>
+<td style="text-align: center;">4</td>
+<td>Barrier-enhanced PPN</td>
+<td style="text-align: center;">PPN (2)</td>
+<td style="text-align: center;">Booster (4)</td>
+<td>PPN: no KO cap. Booster: no protection</td>
+</tr>
+<tr class="odd">
+<td>SNOW</td>
+<td style="text-align: center;">7</td>
+<td>Snowball coupon</td>
+<td style="text-align: center;">Phoenix (6)</td>
+<td style="text-align: center;">WOAC (8)</td>
+<td>Phoenix: memory not snowball. WOAC: worst-of basket</td>
+</tr>
+<tr class="even">
+<td>CLIQ</td>
+<td style="text-align: center;">7</td>
+<td>Periodic lock-in</td>
+<td style="text-align: center;">PPN (2)</td>
+<td style="text-align: center;">SHRK (4)</td>
+<td>PPN: no lock-in. SHRK: KO not periodic</td>
+</tr>
+<tr class="odd">
+<td>WOAC</td>
+<td style="text-align: center;">8</td>
+<td>Multi-stock yield</td>
+<td style="text-align: center;">Phoenix (6)</td>
+<td style="text-align: center;">SNOW (7)</td>
+<td>Phoenix: single stock. SNOW: snowball not worst-of</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="traceability">Traceability</h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Source Artifact</th>
+<th>Role in Solutions Manual</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Product DNA Atlas (frozen)</td>
+<td>Product features, complexity scores, family assignments</td>
+</tr>
+<tr class="even">
+<td>Product Comparison Matrix</td>
+<td>12 dimensions, decision trees, fast views, interview priority</td>
+</tr>
+<tr class="odd">
+<td>Learning Dependency Graph</td>
+<td>Tier assignments, prerequisite chains</td>
+</tr>
+<tr class="even">
+<td>Product Evolution Map</td>
+<td>Family trees, evolution paths</td>
+</tr>
+<tr class="odd">
+<td>Product Universe Map</td>
+<td>3 graph systems, cross-product navigation</td>
+</tr>
+<tr class="even">
+<td>Desk Bible v2 §3 per chapter</td>
+<td>Client need per product (ground truth)</td>
+</tr>
+<tr class="odd">
+<td>Desk Bible v2 §7 per chapter</td>
+<td>Desk economics per product</td>
+</tr>
+<tr class="even">
+<td>Desk Bible v2 §8 per chapter</td>
+<td>Client perspective per product</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Solutions Manual complete. 49 products. 40 scenarios. 18 anti-patterns. 49 replacement mappings. 2026-06-22.</em></p>
+<script>
+(function(){
+  var toc=document.getElementById('TOC');
+  if(!toc) return;
+  // home link + search box at top of sidebar
+  var home=document.createElement('a');
+  home.className='home-link'; home.href='index.html'; home.textContent='⌂ Library Home';
+  var box=document.createElement('input');
+  box.id='nav-search'; box.type='search'; box.placeholder='Filter contents…';
+  toc.insertBefore(box, toc.firstChild);
+  toc.insertBefore(home, toc.firstChild);
+  var links=[].slice.call(toc.querySelectorAll('a'));
+  box.addEventListener('input', function(){
+    var q=box.value.trim().toLowerCase();
+    links.forEach(function(a){
+      var li=a.closest('li'); if(!li) return;
+      li.classList.toggle('toc-hide', q && a.textContent.toLowerCase().indexOf(q)===-1);
+    });
+  });
+})();
+</script>
+</body>
+</html>

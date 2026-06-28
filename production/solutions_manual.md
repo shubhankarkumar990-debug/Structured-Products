@@ -16,7 +16,7 @@
 1. [Part 1: Structurer Decision Framework](#part-1-structurer-decision-framework)
 2. [Part 2: Scenario Library](#part-2-scenario-library)
 3. [Part 3: Anti-Patterns](#part-3-anti-patterns)
-4. [Part 4: Quick Reference & Replacement Table](#part-4-quick-reference--replacement-table)
+4. [Part 4: Quick Reference & Replacement Table](#part-4-quick-reference-replacement-table)
 
 ---
 

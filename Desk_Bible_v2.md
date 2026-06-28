@@ -8,9 +8,169 @@
 
 ---
 
-**Version:** 2.0
+**Version:** 2.1
 **Classification:** INTERNAL — CONFIDENTIAL
 **Date:** June 2026
+
+---
+
+# Preface {#preface}
+
+When I began working alongside a structured-products trading desk, I quickly learned that the hardest part was not the mathematics. It was that the same trade meant different things depending on where you sat. To the investor it was a payoff and a risk. To the desk it was a hedge and a margin. To me, on the second line of defence, it was a set of numbers that had to reconcile — and a loss to the bank if they did not. No single book spoke all three languages at once.
+
+This book is my attempt to write the one I wished I had. It starts from absolute zero — no finance background assumed — and builds, concept by concept, to a professional understanding of forty-nine products across six families. Every product is read through two lenses that never collapse into one: what happens to the **investor**, and what happens to the **bank** — both the desk that prices and hedges it (the first line of defence) and the controls that reconcile and protect it (the second line). That dual-lens discipline is the spine of the book, because it is the discipline the work itself demands.
+
+I have tried to keep three promises throughout. First, that nothing is hand-waved: every worked example is computed, every diagram is generated from the same numbers the text uses, and every claim about correlation, payoff, or risk is one I would defend on a desk. Second, that the book is honest about the bank's side — funding, hedging, capital, reconciliation — and not only the marketing-brochure investor view. Third, that it stays navigable: a library you can read cover to cover, or open to a single page and trust.
+
+This is a living document. It is held together by an automated quality gate — a semantic linter, a regression suite, structural and numeric audits, and a link-integrity check — so that as it grows, it does not drift. If you find an error, it is mine, and I would like to know.
+
+My hope is simple: that a newcomer can open Part 0 knowing nothing, and close Part 7 able to hold their own on a desk, in product control, or in an interview — and that they will understand not just *what* these products do, but *who* bears each risk, and why.
+
+*Shubhankar Kumar*
+
+---
+
+## Colophon {#colophon}
+
+This is the central volume of a six-document library — one teaching Bible (this volume, Parts 0–7) and five companions (Solutions Manual, Comparison Matrices, Product DNA Atlas, Interview System, Market Infrastructure Encyclopedia). See [The Companion Library](#companion-library) for what each is and when to use it, or open the [Start Here](START_HERE.md) page for the full library map.
+
+Every numbered section and Part carries a stable anchor (e.g. `#sec-5-1-1`, `#part-6`); in-text references are clickable. The book is produced in two editions from a single source: a cross-linked, searchable **HTML edition** for daily use, and self-contained **PDF/DOCX** editions for print. Correctness is held by an automated quality gate — a 22-rule semantic linter, a 21-test regression suite, structural and numeric audits, and a link-integrity check — run on every change.
+
+## Changelog {#changelog}
+
+| Version | Date | Summary |
+|---------|------|---------|
+| **2.1** | Jun 2026 | Navigation layer: 122 stable heading anchors, 381 cross-references converted to links, per-chapter prerequisite links, ecosystem usage guide, HTML edition, link-integrity gate. |
+| **2.0** | Jun 2026 | Dual-lens rebuild (investor + bank, 1st & 2nd line of defence) across all 49 products; 174 generated diagrams; §6.12 Reconciliation Casebook; knowledge graph; full structural, integrity, and numeric audits. |
+| **1.0.1** | Jun 2026 | Errata pass: 9 corrections to the canonical MTM correlation convention and worked examples; semantic linter and regression suite established. |
+| **1.0** | Jun 2026 | First edition — 49 products across six families, foundations (Parts 0–4), operations (Part 6). |
+
+---
+
+# Table of Contents {#table-of-contents}
+
+- [PART 0 — HOW FINANCE WORKS](#part-0)
+  - [0.1 What Is a Financial Market?](#sec-0-1)
+  - [0.2 Why Companies Need Capital](#sec-0-2)
+  - [0.3 Debt vs Equity](#sec-0-3)
+  - [0.4 Risk and Return](#sec-0-4)
+  - [0.5 What Is Interest?](#sec-0-5)
+  - [0.6 Time Value of Money](#sec-0-6)
+  - [0.7 What Banks Actually Do](#sec-0-7)
+  - [0.8 What Is a Derivative?](#sec-0-8)
+  - [0.9 Why Derivatives Were Invented](#sec-0-9)
+  - [0.10 Why Structured Products Exist](#sec-0-10)
+  - [0.11 The Investment Banking Ecosystem](#sec-0-11)
+  - [0.12 Front Office vs Middle Office vs Back Office](#sec-0-12)
+- [PART 1 — FOUNDATIONS](#part-1)
+  - [1.1 Core Trading Concepts](#sec-1-1)
+  - [1.2 Options From Zero](#sec-1-2)
+  - [1.3 Barriers and Digitals](#sec-1-3)
+  - [1.4 Greeks — How Risk Is Measured](#sec-1-4)
+  - [1.5 Volatility](#sec-1-5)
+  - [1.6 Correlation and Baskets](#sec-1-6)
+  - [1.7 Yield Curves, Spot Rates, and Forward Rates](#sec-1-7)
+  - [1.8 Benchmark Rates, Swaps, and Rate Options](#sec-1-8)
+  - [1.9 Credit Risk](#sec-1-9)
+- [PART 2 — THE STRUCTURED PRODUCTS FRAMEWORK](#part-2)
+  - [2.1 What Is a Structured Product?](#sec-2-1)
+  - [2.2 Product Construction Principles](#sec-2-2)
+  - [2.3 The Four-Leg Framework](#sec-2-3)
+  - [2.4 Capital Protection Spectrum](#sec-2-4)
+  - [2.5 Product Lifecycle](#sec-2-5)
+  - [2.6 Trade Lifecycle](#sec-2-6)
+  - [2.7 How Desks Hedge](#sec-2-7)
+  - [2.8 The Systems: A First Look](#sec-2-8)
+- [PART 3 — PRODUCT TAXONOMY](#part-3)
+  - [3.1 Product Family Overview](#sec-3-1)
+  - [3.2 Classification Dimensions](#sec-3-2)
+  - [3.3 ELN Family Tree](#sec-3-3)
+  - [3.4 Swaps Family Tree](#sec-3-4)
+  - [3.5 SRT Family Tree](#sec-3-5)
+  - [3.6 STEG Family Tree](#sec-3-6)
+  - [3.7 CLN Family Tree](#sec-3-7)
+  - [3.8 Other Products](#sec-3-8)
+- [PART 4 — PRODUCT COMPARISON MATRICES](#part-4)
+  - [4.1 ELN Master Comparison Matrix](#sec-4-1)
+  - [4.2 Reverse Convertible Variant Comparison](#sec-4-2)
+  - [4.3 Autocallable Variant Comparison](#sec-4-3)
+  - [4.4 Swaps Comparison Matrix](#sec-4-4)
+  - [4.5 SRT Family Comparison](#sec-4-5)
+  - [4.6 STEG Family Comparison](#sec-4-6)
+  - [4.7 CLN Family Comparison](#sec-4-7)
+  - [4.8 Cross-Family Comparisons](#sec-4-8)
+- [PART 5 — PRODUCT DEEP DIVES](#part-5)
+  - [5.1 EQUITY-LINKED NOTES](#sec-5-1)
+    - [5.1.1 Principal Protected Note (PPN)](#sec-5-1-1)
+    - [5.1.2 Reverse Convertible (Enhanced Return Note)](#sec-5-1-2)
+    - [5.1.3 Phoenix Autocallable](#sec-5-1-3)
+    - [5.1.4 Discounted Reverse Convertible (DRC)](#sec-5-1-4)
+    - [5.1.5 Knock-Out Discounted Reverse Convertible (KODRC)](#sec-5-1-5)
+    - [5.1.6 Callable Reverse Convertible (CRC)](#sec-5-1-6)
+    - [5.1.7 Airbag / Leveraged Reverse Convertible](#sec-5-1-7)
+    - [5.1.8 Bonus / Participation Note](#sec-5-1-8)
+    - [5.1.9 Fixed Coupon Note (FCN)](#sec-5-1-9)
+    - [5.1.10 Callable Range Accrual ELN (CRA ELN)](#sec-5-1-10)
+    - [5.1.11 Issuer Callable Note (ICN)](#sec-5-1-11)
+    - [5.1.12 Digital Coupon Note](#sec-5-1-12)
+    - [5.1.13 Booster Note](#sec-5-1-13)
+    - [5.1.14 Digital Coupon Knock-In Put](#sec-5-1-14)
+    - [5.1.15 Warrant / Turbo Certificate](#sec-5-1-15)
+  - [5.2 SWAPS](#sec-5-2)
+    - [5.2.1 Interest Rate Swap (IRS)](#sec-5-2-1)
+    - [5.2.2 Total Return Swap (TRS)](#sec-5-2-2)
+    - [5.2.3 Equity Swap](#sec-5-2-3)
+    - [5.2.4 Variance Swap](#sec-5-2-4)
+    - [5.2.5 Credit Default Swap (CDS)](#sec-5-2-5)
+    - [5.2.6 Cross-Currency Swap](#sec-5-2-6)
+    - [5.2.7 Commodity Swap](#sec-5-2-7)
+    - [5.2.8 Vanilla Swap (VLSP)](#sec-5-2-8)
+  - [5.3 STRUCTURED RATE TRADES](#sec-5-3)
+    - [5.3.1 IR Callable Fixed Rate Swap](#sec-5-3-1)
+    - [5.3.2 Zero-Coupon Linked Note (ZCL)](#sec-5-3-2)
+    - [5.3.3 Non-Callable Range Accrual (NCRA)](#sec-5-3-3)
+    - [5.3.4 Callable Range Accrual SRT (CRA SRT)](#sec-5-3-4)
+    - [5.3.5 Digital Cap-Floor Note](#sec-5-3-5)
+  - [5.4 STEEPENER NOTES](#sec-5-4)
+    - [5.4.1 Vanilla Steepener Note](#sec-5-4-1)
+    - [5.4.2 Range Accrual Steepener (RA STEG)](#sec-5-4-2)
+    - [5.4.3 Callable Steepener (Callable STEG)](#sec-5-4-3)
+    - [5.4.4 TARN Steepener](#sec-5-4-4)
+  - [5.5 CREDIT-LINKED NOTES](#sec-5-5)
+    - [5.5.1 Vanilla Credit-Linked Note (CLN)](#sec-5-5-1)
+    - [5.5.2 Skew Credit-Linked Note (Skew CLN)](#sec-5-5-2)
+    - [5.5.3 First-to-Default Note (FTD)](#sec-5-5-3)
+    - [5.5.4 Nth-to-Default Note (NTD)](#sec-5-5-4)
+    - [5.5.5 Synthetic CDO Tranche](#sec-5-5-5)
+  - [5.6 OTHER STRUCTURED PRODUCTS](#sec-5-6)
+    - [5.6.1 Structured Deposit](#sec-5-6-1)
+    - [5.6.2 Forward](#sec-5-6-2)
+    - [5.6.3 Vanilla Options](#sec-5-6-3)
+    - [5.6.4 Equity-Linked Option (ELO)](#sec-5-6-4)
+    - [5.6.5 Option on Reverse Convertible (Option on RC)](#sec-5-6-5)
+    - [5.6.6 Accumulator](#sec-5-6-6)
+    - [5.6.7 Decumulator](#sec-5-6-7)
+    - [5.6.8 Dual Currency Investment (DCI)](#sec-5-6-8)
+    - [5.6.9 Shark Fin Note](#sec-5-6-9)
+    - [5.6.10 Snowball Note](#sec-5-6-10)
+    - [5.6.11 Cliquet / Ratchet Note](#sec-5-6-11)
+    - [5.6.12 Worst-of Autocallable](#sec-5-6-12)
+- [PART 6 — DESK OPERATIONS & CONTROL](#part-6)
+  - [6.1 Market Conventions](#sec-6-1)
+  - [6.2 Reading a Termsheet](#sec-6-2)
+  - [6.3 Documentation & Legal Framework](#sec-6-3)
+  - [6.4 Credit & Capital Structure](#sec-6-4)
+  - [6.5 Valuation & Fair Value](#sec-6-5)
+  - [6.6 Product Control](#sec-6-6)
+  - [6.7 Treasury, Capital & XVA](#sec-6-7)
+  - [6.8 Model Risk Management](#sec-6-8)
+  - [6.9 Operations](#sec-6-9)
+  - [6.10 The Practitioner's Desk](#sec-6-10)
+  - [6.11 Regulatory Framework](#sec-6-11)
+  - [6.12 The 2nd-Line Reconciliation Casebook](#sec-6-12)
+- [PART 7 — QUICK REFERENCE](#part-7)
+  - [7.1 Knowledge Check](#sec-7-1)
+  - [7.2 Mental Models Summary](#sec-7-2)
 
 ---
 
@@ -18,22 +178,22 @@
 
 This book is designed to take you from zero finance knowledge to a professional-level understanding of structured products. You do not need any prior experience. You do not need a finance degree. You need only curiosity and the willingness to learn.
 
-**If you are a complete beginner**, start at Part 0 and read sequentially. Every concept builds on the previous one. You will never encounter a term that has not already been explained.
+**If you are a complete beginner**, start at [Part 0](#part-0) and read sequentially. Every concept builds on the previous one. You will never encounter a term that has not already been explained.
 
-**If you have some finance experience**, you may skip Part 0 and begin at Part 1 (Foundations). If you find any concept unfamiliar, go back — it was explained earlier.
+**If you have some finance experience**, you may skip [Part 0](#part-0) and begin at [Part 1](#part-1) (Foundations). If you find any concept unfamiliar, go back — it was explained earlier.
 
-**If you are an experienced professional**, you may jump directly to the product deep dives in Part 5, the operational guide in Part 6, or the quick reference in Part 7.
+**If you are an experienced professional**, you may jump directly to the product deep dives in [Part 5](#part-5), the operational guide in [Part 6](#part-6), or the quick reference in [Part 7](#part-7).
 
 **Reading paths by role:**
 
 | Your Role | Recommended Path |
 |-----------|-----------------|
-| New Joiner (no finance background) | Part 0 → 1 → 2 → 3 → 4 → selected products from Part 5 |
-| New Joiner (finance background) | Part 1 → 2 → 3 → 4 → Part 5 |
-| Product Control / Operations | Part 2 → 6 → 4 → 7 → selected products from Part 5 |
-| Risk Analyst | Parts 1.4–1.6 → 2.7 → 4 → selected products from Part 5 (note: Sections 1.7-1.9 cover rates and credit) |
+| New Joiner (no finance background) | [Part 0](#part-0) → 1 → 2 → 3 → 4 → selected products from [Part 5](#part-5) |
+| New Joiner (finance background) | [Part 1](#part-1) → 2 → 3 → 4 → [Part 5](#part-5) |
+| Product Control / Operations | [Part 2](#part-2) → 6 → 4 → 7 → selected products from [Part 5](#part-5) |
+| Risk Analyst | Parts 1.4–1.6 → 2.7 → 4 → selected products from [Part 5](#part-5) (note: Sections 1.7-1.9 cover rates and credit) |
 | Trader | Parts 4 → 5 → 7 |
-| Interview Preparation | Part 0 → 1 → 2 → product interview questions in Part 5 → Part 7 (Quick Reference) |
+| Interview Preparation | [Part 0](#part-0) → 1 → 2 → product interview questions in [Part 5](#part-5) → [Part 7](#part-7) (Quick Reference) |
 
 Every chapter ends with mental models — memorable one-line summaries that help you remember concepts, not just definitions.
 
@@ -41,13 +201,32 @@ Every product chapter includes interview questions — so you can test your own 
 
 ---
 
-# PART 0 — HOW FINANCE WORKS
+# The Companion Library — What to Read, and When {#companion-library}
 
-*This part assumes you know nothing about finance. If you already understand markets, bonds, stocks, interest, and derivatives, skip to Part 1.*
+This book is the centre of a small library. The main volume (Parts 0–7) teaches structured products from first principles; five companions surround it, each for a different moment in your work. You do not need all of them at once — use this map to reach for the right one.
+
+| Companion | Use it when you want to… | Best read |
+|-----------|--------------------------|-----------|
+| **This Bible** (Parts 0–7) | Learn a product or concept from the ground up, with intuition, mechanics, the two lenses (investor and bank), and worked examples. | Cover-to-cover for learning; by chapter for reference. |
+| **Solutions Manual** | Work through *how a structurer decides* — a 10-step decision model, the personas, and a library of scenario walk-throughs ("client wants X, which product and why"). | Alongside [Part 2](#part-2) and [Part 5](#part-5), when you want applied decision practice. |
+| **Product Comparison Matrices** | Tell two similar products apart fast — coupon type, barrier, booking system, risk — in side-by-side tables and decision trees. | As a lookup, when a client or interviewer asks "what's the difference between an FCN and a Phoenix?" |
+| **Product DNA Atlas** | Recall one product at a glance — a single reference card per product (the "DNA": payoff, risks, system, lifecycle). | As a fast flip-card deck, beside the full chapters. |
+| **Interview System** | Prepare for a desk, product-control, or risk interview — graded Q&A, traps, and model answers. | In the run-up to interviews, after you have learned the products. |
+| **Market Infrastructure Encyclopedia** | Look up a termsheet field, a market convention, or an operational term. | As a reference, when reading real termsheets or booking screens. |
+
+**How the pieces connect.** Every numbered section, Part, and product chapter in this book carries a stable anchor (for example `#sec-5-1-1` for Reverse Convertibles, `#part-6` for Operations). Throughout the text, references like [Part 5](#part-5) or [§5.1.1](#sec-5-1-1) are clickable — they jump you straight to the right place. In the **digital (HTML) edition**, these links also reach across into the companions; in the **print (PDF) editions**, each document is self-contained with its own linked table of contents.
+
+**Two editions, two purposes.** Use the **HTML edition** for day-to-day work — it is searchable, fully cross-linked across every document, and fastest for looking things up. Use the **print PDF/DOCX** when you want to read offline or carry a bound copy. The content is identical; only the navigation differs.
 
 ---
 
-## 0.1 What Is a Financial Market?
+# PART 0 — HOW FINANCE WORKS {#part-0}
+
+*This part assumes you know nothing about finance. If you already understand markets, bonds, stocks, interest, and derivatives, skip to [Part 1](#part-1).*
+
+---
+
+## 0.1 What Is a Financial Market? {#sec-0-1}
 
 ### The Village Marketplace
 
@@ -95,7 +274,7 @@ Every structured product that you will encounter in this book is created, priced
 
 ---
 
-## 0.2 Why Companies Need Capital
+## 0.2 Why Companies Need Capital {#sec-0-2}
 
 ### The Bakery Problem
 
@@ -129,7 +308,7 @@ Understanding that companies need capital — and that they raise it by issuing 
 
 ---
 
-## 0.3 Debt vs Equity
+## 0.3 Debt vs Equity {#sec-0-3}
 
 ### Lending vs Owning
 
@@ -185,7 +364,7 @@ A structured product takes the predictability of debt and combines it with the m
 
 ---
 
-## 0.4 Risk and Return
+## 0.4 Risk and Return {#sec-0-4}
 
 ### The Savings Account and the Startup
 
@@ -230,7 +409,7 @@ Every structured product represents a deliberate choice about how much risk to t
 
 ---
 
-## 0.5 What Is Interest?
+## 0.5 What Is Interest? {#sec-0-5}
 
 ### The Price of Borrowing Money
 
@@ -275,13 +454,13 @@ Interest is woven into every structured product. When a bank creates a structure
 Understanding interest is essential because:
 - The **coupon** on every structured product is funded by interest, option premiums, or both.
 - The **discount rate** used to value future payments depends on interest rates.
-- **Yield curves** (which we will cover in Part 1) describe how interest rates change with time, and many structured products are built around these curves.
+- **Yield curves** (which we will cover in [Part 1](#part-1)) describe how interest rates change with time, and many structured products are built around these curves.
 
 > **Mental Model:** Interest is rent for money. The riskier the borrower, the higher the rent. Coupons are the regular interest payments on a bond. Yield is the total return.
 
 ---
 
-## 0.6 Time Value of Money
+## 0.6 Time Value of Money {#sec-0-6}
 
 ### Would You Rather Have $100 Today or $100 Next Year?
 
@@ -335,7 +514,7 @@ Every number you see in a structured product — the coupon, the price, the fair
 
 ---
 
-## 0.7 What Banks Actually Do
+## 0.7 What Banks Actually Do {#sec-0-7}
 
 ### The Bank as an Ecosystem
 
@@ -376,7 +555,7 @@ Understanding the bank's structure helps you understand who does what and why. W
 
 ---
 
-## 0.8 What Is a Derivative?
+## 0.8 What Is a Derivative? {#sec-0-8}
 
 ### A Side Bet on Something Else
 
@@ -420,13 +599,13 @@ Almost every derivative in the world falls into one of three categories:
 
 Structured products are built from derivatives. A structured product is typically a bond combined with one or more options, swaps, or other derivative contracts. Understanding what derivatives are — contracts whose value depends on something else — is the first step to understanding how structured products work.
 
-We will spend most of Part 1 building a deep understanding of options, swaps, and other derivatives. For now, just remember: a derivative is a contract about something else.
+We will spend most of [Part 1](#part-1) building a deep understanding of options, swaps, and other derivatives. For now, just remember: a derivative is a contract about something else.
 
 > **Mental Model:** A derivative is a financial side bet. Its value depends on something else — a stock, a rate, a commodity. The three types are forwards (locked-in future trade), options (the right to choose), and swaps (exchange of cash flows).
 
 ---
 
-## 0.9 Why Derivatives Were Invented
+## 0.9 Why Derivatives Were Invented {#sec-0-9}
 
 ### The Farmer and the Baker
 
@@ -468,7 +647,7 @@ Once derivative contracts existed for hedging, people realized they could also b
 
 ---
 
-## 0.10 Why Structured Products Exist
+## 0.10 Why Structured Products Exist {#sec-0-10}
 
 ### The Pension Fund's Problem
 
@@ -531,7 +710,7 @@ Structured products fill the gap between what investors need and what simple sec
 
 ---
 
-## 0.11 The Investment Banking Ecosystem
+## 0.11 The Investment Banking Ecosystem {#sec-0-11}
 
 ### Who Does What
 
@@ -569,7 +748,7 @@ Structured products are complex enough that no single person or team can manage 
 
 ---
 
-## 0.12 Front Office vs Middle Office vs Back Office
+## 0.12 Front Office vs Middle Office vs Back Office {#sec-0-12}
 
 ### The Restaurant Analogy
 
@@ -666,13 +845,13 @@ A new client calls Sales and says: "I want guaranteed returns of 10% per year wi
 
 ---
 
-# PART 1 — FOUNDATIONS
+# PART 1 — FOUNDATIONS {#part-1}
 
 *This part teaches the financial concepts you need before studying any structured product. Every term introduced here will be used repeatedly in Parts 2 through 7. Take your time with these concepts — they are the foundation of everything that follows.*
 
 ---
 
-## 1.1 Core Trading Concepts
+## 1.1 Core Trading Concepts {#sec-1-1}
 
 ### Buying and Selling: Long vs Short
 
@@ -755,7 +934,7 @@ Carry is a critical concept for trading desks because it determines whether a po
 
 ---
 
-## 1.2 Options From Zero
+## 1.2 Options From Zero {#sec-1-2}
 
 ### The Reservation at a Restaurant
 
@@ -883,7 +1062,7 @@ So far, we have discussed buying options. But every option that is bought must a
 
 ---
 
-## 1.3 Barriers and Digitals
+## 1.3 Barriers and Digitals {#sec-1-3}
 
 ### The Tripwire
 
@@ -959,7 +1138,7 @@ These three barriers are often set at different levels within the same product. 
 
 ---
 
-## 1.4 Greeks — How Risk Is Measured
+## 1.4 Greeks — How Risk Is Measured {#sec-1-4}
 
 ### Why We Need Greeks
 
@@ -1076,7 +1255,7 @@ Structured products have non-linear payoffs because they contain embedded option
 
 ---
 
-## 1.5 Volatility
+## 1.5 Volatility {#sec-1-5}
 
 ### Calm Seas vs Stormy Seas
 
@@ -1128,7 +1307,7 @@ This downward-sloping pattern is called the **volatility skew**. OTM puts (low s
 
 **Variance** is the statistical measure of how spread out a set of values is from the average. In finance, variance is the square of volatility. A volatility of 20% corresponds to a variance of 0.04 (0.20 x 0.20).
 
-Variance is important because some derivative products (Variance Swaps, which we will cover in Part 5) trade variance directly rather than volatility. The distinction matters for pricing and risk management, but for intuition, you can think of variance as "volatility squared."
+Variance is important because some derivative products (Variance Swaps, which we will cover in [Part 5](#part-5)) trade variance directly rather than volatility. The distinction matters for pricing and risk management, but for intuition, you can think of variance as "volatility squared."
 
 ### Why Clients Consistently Misprice Volatility
 
@@ -1144,7 +1323,7 @@ This is why structured products can offer enhanced coupons. The bank buys option
 
 ---
 
-## 1.6 Correlation and Baskets
+## 1.6 Correlation and Baskets {#sec-1-6}
 
 ### The Orchestra and the Soloists
 
@@ -1195,11 +1374,11 @@ Structured products that involve selling options are exposed to tail risk: the i
 
 ---
 
-## 1.7 Yield Curves, Spot Rates, and Forward Rates
+## 1.7 Yield Curves, Spot Rates, and Forward Rates {#sec-1-7}
 
 ### The Price of Waiting
 
-In Section 0.5, we learned that interest is the price of borrowing money. Now we need to go deeper, because interest rates are not a single number — they form a complex landscape that changes constantly.
+In [Section 0.5](#sec-0-5), we learned that interest is the price of borrowing money. Now we need to go deeper, because interest rates are not a single number — they form a complex landscape that changes constantly.
 
 When you lend money, the interest rate you demand depends on how long you are lending for. Lending money for one month is very different from lending it for thirty years. The longer you lend, the more uncertainty you face: more time for inflation to erode your money's value, more time for the borrower to get into trouble, and more time for unexpected events to occur.
 
@@ -1250,7 +1429,7 @@ Forward rates are critical for pricing structured products because many products
 
 ---
 
-## 1.8 Benchmark Rates, Swaps, and Rate Options
+## 1.8 Benchmark Rates, Swaps, and Rate Options {#sec-1-8}
 
 ### Benchmark Rates: SOFR, EURIBOR, and the LIBOR Transition
 
@@ -1276,7 +1455,7 @@ CMS rates are important because many structured products — particularly Steepe
 
 ### Swaps: A Conceptual Introduction
 
-We defined swaps briefly in Part 0 as "exchange agreements." Here is a slightly more detailed introduction, which will be expanded fully in Part 5.
+We defined swaps briefly in [Part 0](#part-0) as "exchange agreements." Here is a slightly more detailed introduction, which will be expanded fully in [Part 5](#part-5).
 
 An **interest rate swap** is an agreement between two parties to exchange interest rate payments:
 - One party pays a **fixed rate** (for example, 3% per year)
@@ -1321,7 +1500,7 @@ These instruments are building blocks for structured rate products. A Callable R
 
 ---
 
-## 1.9 Credit Risk
+## 1.9 Credit Risk {#sec-1-9}
 
 ### Lending to Your Neighbor
 
@@ -1372,7 +1551,7 @@ CDS are critical for structured products because:
 - **First-to-Default notes** combine multiple CDS on different borrowers, with the investor bearing the loss on whichever defaults first.
 - CDS spreads are used to price the credit risk component of many structured products.
 
-We will explore CDS in full detail in Part 5 (Swaps).
+We will explore CDS in full detail in [Part 5](#part-5) (Swaps).
 
 ### Credit Events
 
@@ -1467,13 +1646,13 @@ A client asks: "If I sell puts through a structured product, I'm essentially sel
 
 ---
 
-# PART 2 — THE STRUCTURED PRODUCTS FRAMEWORK
+# PART 2 — THE STRUCTURED PRODUCTS FRAMEWORK {#part-2}
 
 *You now understand markets, trading, options, rates, and credit. This part answers the next question: how does a bank take these building blocks and construct a structured product?*
 
 ---
 
-## 2.1 What Is a Structured Product?
+## 2.1 What Is a Structured Product? {#sec-2-1}
 
 ### The Custom Kitchen
 
@@ -1507,7 +1686,7 @@ This asymmetry of perspective is not a flaw. It is how markets work. The client 
 
 ---
 
-## 2.2 Product Construction Principles
+## 2.2 Product Construction Principles {#sec-2-2}
 
 ### Decomposition: Taking Things Apart
 
@@ -1558,7 +1737,7 @@ The margin is invisible to the client — it is embedded in the pricing. The cli
 
 ---
 
-## 2.3 The Four-Leg Framework
+## 2.3 The Four-Leg Framework {#sec-2-3}
 
 ### How Money Actually Flows
 
@@ -1625,7 +1804,7 @@ The $70,000 coupon is funded by: $20,000 (FTP/bond interest) + $45,000 (option p
 
 ---
 
-## 2.4 Capital Protection Spectrum
+## 2.4 Capital Protection Spectrum {#sec-2-4}
 
 ### How Much Can You Lose?
 
@@ -1658,7 +1837,7 @@ The fundamental law: **more protection = lower coupon. Less protection = higher 
 
 ---
 
-## 2.5 Product Lifecycle
+## 2.5 Product Lifecycle {#sec-2-5}
 
 ### From Idea to Settlement
 
@@ -1686,7 +1865,7 @@ A structured product does not just appear. It goes through a defined lifecycle:
 
 ---
 
-## 2.6 Trade Lifecycle
+## 2.6 Trade Lifecycle {#sec-2-6}
 
 ### Who Does What, When
 
@@ -1705,7 +1884,7 @@ The product lifecycle describes what happens to the product. The trade lifecycle
 
 ---
 
-## 2.7 How Desks Hedge
+## 2.7 How Desks Hedge {#sec-2-7}
 
 ### Why Hedging Exists
 
@@ -1713,7 +1892,7 @@ When a bank sells a structured product, it takes on risk. If the bank does nothi
 
 **Hedging** is the process of taking offsetting positions in the market to neutralize the risk from structured products.
 
-*Analogy:* Think of the trading desk as a kitchen that runs like a casino. In Section 0.12, we compared the front office to a kitchen — where revenue is generated. But this kitchen does not gamble on each dish turning out perfectly. It follows tested recipes (hedging strategies) to earn a consistent margin, just as a casino sets the mathematical odds in its favor across many bets. Individual trades may gain or lose, but the desk earns its margin on average — by design, not by luck.
+*Analogy:* Think of the trading desk as a kitchen that runs like a casino. In [Section 0.12](#sec-0-12), we compared the front office to a kitchen — where revenue is generated. But this kitchen does not gamble on each dish turning out perfectly. It follows tested recipes (hedging strategies) to earn a consistent margin, just as a casino sets the mathematical odds in its favor across many bets. Individual trades may gain or lose, but the desk earns its margin on average — by design, not by luck.
 
 ### What Gets Hedged
 
@@ -1759,7 +1938,7 @@ The desk's risk management framework must account for these stress scenarios. Th
 
 ---
 
-## 2.8 The Systems: A First Look
+## 2.8 The Systems: A First Look {#sec-2-8}
 
 ### Three Systems, Three Purposes
 
@@ -1834,13 +2013,13 @@ A junior trader says: "If we hedge perfectly, we earn the margin with zero risk.
 
 ---
 
-# PART 3 — PRODUCT TAXONOMY
+# PART 3 — PRODUCT TAXONOMY {#part-3}
 
-*You now understand the framework: bond + derivatives, four legs, hedging, and systems. The next question is: what specific products can be built within this framework? Part 3 maps the entire landscape — six families, forty-nine products — so that when you encounter any product in Part 5, you already know where it fits and what family it belongs to.*
+*You now understand the framework: bond + derivatives, four legs, hedging, and systems. The next question is: what specific products can be built within this framework? [Part 3](#part-3) maps the entire landscape — six families, forty-nine products — so that when you encounter any product in [Part 5](#part-5), you already know where it fits and what family it belongs to.*
 
 ---
 
-## 3.1 Product Family Overview
+## 3.1 Product Family Overview {#sec-3-1}
 
 Structured products are organized into six families. Each family is defined by its underlying risk factor — the market variable that drives the product's payoff.
 
@@ -1855,7 +2034,7 @@ Structured products are organized into six families. Each family is defined by i
 
 ---
 
-## 3.2 Classification Dimensions
+## 3.2 Classification Dimensions {#sec-3-2}
 
 Any structured product can be classified along six dimensions:
 
@@ -1884,7 +2063,7 @@ Any structured product can be classified along six dimensions:
 
 ---
 
-## 3.3 ELN Family Tree
+## 3.3 ELN Family Tree {#sec-3-3}
 
 The Reverse Convertible is the seed from which the entire ELN family grows. Every variant in the RC sub-family adds exactly one feature to the base product. Understanding the RC means understanding the core of every product below it.
 
@@ -1895,7 +2074,7 @@ The Reverse Convertible is the seed from which the entire ELN family grows. Ever
 
 ---
 
-## 3.4 Swaps Family Tree
+## 3.4 Swaps Family Tree {#sec-3-4}
 
 Swaps are the plumbing of the financial system — they let institutions exchange one type of cash flow for another. The Interest Rate Swap is the foundation; every other swap applies the same "exchange" mechanism to a different underlying.
 
@@ -1923,7 +2102,7 @@ Swaps
 
 ---
 
-## 3.5 SRT Family Tree
+## 3.5 SRT Family Tree {#sec-3-5}
 
 Structured Rate Trades embed interest rate derivatives into a note structure. They are all booked in Murex with the four-leg framework, and their coupons depend on where interest rates are — not on equity prices.
 
@@ -1934,7 +2113,7 @@ Structured Rate Trades embed interest rate derivatives into a note structure. Th
 
 ---
 
-## 3.6 STEG Family Tree
+## 3.6 STEG Family Tree {#sec-3-6}
 
 ![Steepener Notes — variants](assets/foundations/concept_taxonomy_steepener_01.svg)
 
@@ -1943,7 +2122,7 @@ Structured Rate Trades embed interest rate derivatives into a note structure. Th
 
 ---
 
-## 3.7 CLN Family Tree
+## 3.7 CLN Family Tree {#sec-3-7}
 
 Credit-Linked Notes apply the same "investor sells protection" logic as put-selling ELNs, but in the credit world. Instead of selling equity downside risk, the investor sells default risk — and earns a CDS-like premium as a coupon.
 
@@ -1954,7 +2133,7 @@ Credit-Linked Notes apply the same "investor sells protection" logic as put-sell
 
 ---
 
-## 3.8 Other Products
+## 3.8 Other Products {#sec-3-8}
 
 | Product | Type | Key Feature |
 |---------|------|------------|
@@ -1976,13 +2155,13 @@ Credit-Linked Notes apply the same "investor sells protection" logic as put-sell
 
 ---
 
-# PART 4 — PRODUCT COMPARISON MATRICES
+# PART 4 — PRODUCT COMPARISON MATRICES {#part-4}
 
-*Part 3 showed you what products exist. Part 4 shows you how they differ. These matrices let you compare products side by side — which coupon type, which barrier, which system, which risks. Use them as reference tables when you need to distinguish between variants, or when a client asks "what is the difference between an FCN and a Phoenix?" You do not need to memorize these tables — they are designed to be looked up, not read sequentially.*
+*[Part 3](#part-3) showed you what products exist. [Part 4](#part-4) shows you how they differ. These matrices let you compare products side by side — which coupon type, which barrier, which system, which risks. Use them as reference tables when you need to distinguish between variants, or when a client asks "what is the difference between an FCN and a Phoenix?" You do not need to memorize these tables — they are designed to be looked up, not read sequentially.*
 
 ---
 
-**Abbreviation Legend for Part 4:**
+**Abbreviation Legend for [Part 4](#part-4):**
 
 | Abbreviation | Meaning |
 |:------------:|---------|
@@ -2004,7 +2183,7 @@ Credit-Linked Notes apply the same "investor sells protection" logic as put-sell
 
 ---
 
-## 4.1 ELN Master Comparison Matrix
+## 4.1 ELN Master Comparison Matrix {#sec-4-1}
 
 ### How to Read This Matrix
 
@@ -2032,7 +2211,7 @@ Think of this table like a restaurant menu with columns for price, spice level, 
 
 ---
 
-## 4.2 Reverse Convertible Variant Comparison
+## 4.2 Reverse Convertible Variant Comparison {#sec-4-2}
 
 | Feature | RC | DRC | KODRC | CRC | Airbag |
 |---------|:--:|:---:|:-----:|:---:|:------:|
@@ -2048,7 +2227,7 @@ Think of this table like a restaurant menu with columns for price, spice level, 
 
 ---
 
-## 4.3 Autocallable Variant Comparison
+## 4.3 Autocallable Variant Comparison {#sec-4-3}
 
 | Feature | FCN | Phoenix |
 |---------|:---:|:-------:|
@@ -2061,7 +2240,7 @@ Think of this table like a restaurant menu with columns for price, spice level, 
 
 ---
 
-## 4.4 Swaps Comparison Matrix
+## 4.4 Swaps Comparison Matrix {#sec-4-4}
 
 | Swap | Leg A Pays | Leg B Pays | Physical Exchange? | Typical Users |
 |------|-----------|-----------|:-----------------:|--------------|
@@ -2076,7 +2255,7 @@ Think of this table like a restaurant menu with columns for price, spice level, 
 
 ---
 
-## 4.5 SRT Family Comparison
+## 4.5 SRT Family Comparison {#sec-4-5}
 
 | Feature | IR Callable FRN | IR Accreting/ZCL | Non-Callable RA | Callable RA | Digital Cap-Floor |
 |---------|:--------------:|:----------------:|:--------------:|:----------:|:-----------------:|
@@ -2088,7 +2267,7 @@ Think of this table like a restaurant menu with columns for price, spice level, 
 
 ---
 
-## 4.6 STEG Family Comparison
+## 4.6 STEG Family Comparison {#sec-4-6}
 
 | Feature | Vanilla | Range-Accrual | Callable | TARN |
 |---------|:-------:|:------------:|:--------:|:----:|
@@ -2101,7 +2280,7 @@ Think of this table like a restaurant menu with columns for price, spice level, 
 
 ---
 
-## 4.7 CLN Family Comparison
+## 4.7 CLN Family Comparison {#sec-4-7}
 
 | Feature | Vanilla CLN | Skew CLN | FTD | NTD | Synthetic Tranche |
 |---------|:-----------:|:--------:|:---:|:---:|:-----------------:|
@@ -2114,7 +2293,7 @@ Think of this table like a restaurant menu with columns for price, spice level, 
 
 ---
 
-## 4.8 Cross-Family Comparisons
+## 4.8 Cross-Family Comparisons {#sec-4-8}
 
 ### By Risk Profile
 
@@ -2157,17 +2336,19 @@ A structurer is designing a new product. The client wants: 6%+ annual coupon, so
 
 ---
 
-# PART 5 — PRODUCT DEEP DIVES
+# PART 5 — PRODUCT DEEP DIVES {#part-5}
 
 *This is the heart of the book. Each chapter teaches one product from first principles — starting with why it exists, building intuition through analogy and story, and progressing to the mechanics, risks, and operational details that professionals need. You now have the foundation from Parts 0-4. Every concept referenced here was taught there.*
 
 ---
 
-## 5.1 EQUITY-LINKED NOTES
+## 5.1 EQUITY-LINKED NOTES {#sec-5-1}
 
 ---
 
-### 5.1.1 Principal Protected Note (PPN)
+### 5.1.1 Principal Protected Note (PPN) {#sec-5-1-1}
+
+> **Prerequisites:** none — a foundation product, start here &nbsp;|&nbsp; **Key concepts:** Zero-coupon bond, European call option, participation rate
 
 ---
 
@@ -2331,7 +2512,7 @@ The desk is short the embedded call and delta-hedges by buying the underlying as
 | **Funding advantage** | Issues note at sub-LIBOR effective rate vs own funding curve |
 | **Hedging P&L** | Earns from delta-hedging the embedded call (realized vs implied vol) |
 
-**The construction decomposition (from Section 2.2):**
+**The construction decomposition (from [Section 2.2](#sec-2-2)):**
 
 A PPN is built from two components: a zero-coupon bond that guarantees the principal, and a call option that provides the upside. The investor pays $100 (par). The bank uses most of that to buy a zero-coupon bond — if the 3-year risk-free rate is 4%, the present value of $100 in 3 years is approximately **$88.90**, so the bank pays $88.90 for the bond, which grows to $100 at maturity. The remaining $100 − $88.90 = **$11.10** is the "option budget." The bank deducts its margin (say **$1.50**), leaving **$9.60** to buy the call. If a 3-year ATM call costs $18.50, the $9.60 budget buys $9.60 / $18.50 ≈ **52%** of a call — and that 52% becomes the participation rate.
 
@@ -2524,13 +2705,13 @@ A client says: "PPNs seem like free money — I get protected downside and parti
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Zero-coupon bond, present value, discounting | Section 0.6 (Time Value of Money) |
-| Call option, premium, strike | Section 1.2 (Options From Zero) |
-| Option value, intrinsic vs time value | Section 1.2 (Options From Zero) |
-| Delta, Vega | Section 1.4 (Greeks) |
-| Product decomposition, Funds Transfer Pricing (FTP), margin | Section 2.2 (Product Construction) |
-| Capital protection spectrum | Section 2.4 (Capital Protection Spectrum) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
+| Zero-coupon bond, present value, discounting | [Section 0.6](#sec-0-6) (Time Value of Money) |
+| Call option, premium, strike | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Option value, intrinsic vs time value | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Delta, Vega | [Section 1.4](#sec-1-4) (Greeks) |
+| Product decomposition, Funds Transfer Pricing (FTP), margin | [Section 2.2](#sec-2-2) (Product Construction) |
+| Capital protection spectrum | [Section 2.4](#sec-2-4) (Capital Protection Spectrum) |
+| NEMO/Sophis booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -2577,18 +2758,20 @@ A client says: "PPNs seem like free money — I get protected downside and parti
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Zero-coupon bond mechanics | Section 1.1 (Bond Foundations) |
-| European call option pricing | Section 1.2 (Options From Zero) |
-| Participation rate calculation | Section 2.2 (Product Construction) |
-| Equity index mechanics | Section 1.4 (Equity Essentials) |
-| Issuer credit risk | Section 1.9 (Credit Risk) |
+| Zero-coupon bond mechanics | [Section 1.1](#sec-1-1) (Bond Foundations) |
+| European call option pricing | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Participation rate calculation | [Section 2.2](#sec-2-2) (Product Construction) |
+| Equity index mechanics | [Section 1.4](#sec-1-4) (Equity Essentials) |
+| Issuer credit risk | [Section 1.9](#sec-1-9) (Credit Risk) |
 | Enhanced PPN with barrier | Shark Fin (5.6.9) |
 | Capital protection via deposit wrapper | Structured Deposit (5.6.1) |
-### 5.1.2 Reverse Convertible (Enhanced Return Note)
+### 5.1.2 Reverse Convertible (Enhanced Return Note) {#sec-5-1-2}
+
+> **Prerequisites:** [PPN](#sec-5-1-1) &nbsp;|&nbsp; **Key concepts:** Short put, yield enhancement, conditional capital return
 
 ---
 
-*The PPN (Section 5.1.1) protected 100% of the investor's principal. The Reverse Convertible removes that guarantee — the investor accepts full downside equity exposure below a barrier in exchange for a significantly higher coupon. This is the fundamental tradeoff at the heart of most ELNs: more yield for less protection. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*The PPN ([Section 5.1.1](#sec-5-1-1)) protected 100% of the investor's principal. The Reverse Convertible removes that guarantee — the investor accepts full downside equity exposure below a barrier in exchange for a significantly higher coupon. This is the fundamental tradeoff at the heart of most ELNs: more yield for less protection. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -2693,7 +2876,7 @@ These investors are often willing to accept some risk of loss — they just do n
 
 **Position taken**
 
-The investor simultaneously holds a long bond (lends principal to the issuer) and a **short** knock-in put (sold to the bank). Net, the investor is **short volatility** (hurt by volatile markets) and carries full equity downside below the strike. With a single underlying there is no correlation exposure; on a worst-of basket the investor is additionally long correlation (see §15 and the worst-of products).
+The investor simultaneously holds a long bond (lends principal to the issuer) and a **short** knock-in put (sold to the bank). Net, the investor is **short volatility** (hurt by volatile markets) and carries full equity downside below the strike. With a single underlying there is no correlation exposure; on a worst-of basket the investor is additionally long correlation (see the worst-of products).
 
 **Payoff & scenarios**
 
@@ -2740,7 +2923,7 @@ The desk is long the embedded knock-in put and delta-hedges by trading the under
 | **Hedging P&L** | Delta-hedging profits from realized vs implied vol spread |
 | **Funding benefit** | Effective funding below bank's unsecured rate |
 
-**The coupon decomposition (from Section 2.2):**
+**The coupon decomposition (from [Section 2.2](#sec-2-2)):**
 
 Coupon = Bond interest + Put premium − Funds Transfer Pricing (FTP) − Desk margin
 
@@ -2917,13 +3100,13 @@ A junior structurer proposes an RC with a 50% barrier on a volatile tech stock, 
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Put option, knock-in | Section 1.2 (Options), Section 1.3 (Barriers) |
-| Capital barrier, coupon barrier, autocall barrier | Section 1.3 (Barrier Terminology Note) |
-| Delta, Gamma, Vega | Section 1.4 (Greeks) |
-| Implied volatility, short Vega | Section 1.5 (Volatility) |
-| Product decomposition, coupon formula | Section 2.2 (Product Construction) |
-| Conditional capital protection | Section 2.4 (Capital Protection Spectrum) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
+| Put option, knock-in | [Section 1.2](#sec-1-2) (Options), [Section 1.3](#sec-1-3) (Barriers) |
+| Capital barrier, coupon barrier, autocall barrier | [Section 1.3](#sec-1-3) (Barrier Terminology Note) |
+| Delta, Gamma, Vega | [Section 1.4](#sec-1-4) (Greeks) |
+| Implied volatility, short Vega | [Section 1.5](#sec-1-5) (Volatility) |
+| Product decomposition, coupon formula | [Section 2.2](#sec-2-2) (Product Construction) |
+| Conditional capital protection | [Section 2.4](#sec-2-4) (Capital Protection Spectrum) |
+| NEMO/Sophis booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -2978,19 +3161,21 @@ A junior structurer proposes an RC with a 50% barrier on a volatile tech stock, 
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Put option mechanics | Section 1.2 (Options From Zero) |
-| Equity risk, dividend yield | Section 1.4 (Equity Essentials) |
-| Physical vs cash settlement | Section 2.4 (Settlement) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Put option mechanics | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Equity risk, dividend yield | [Section 1.4](#sec-1-4) (Equity Essentials) |
+| Physical vs cash settlement | [Section 2.4](#sec-2-4) (Settlement) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | Capital protection comparison | PPN (5.1.1) |
 | Discounted entry variant | DRC (5.1.4) |
 | Barrier-enhanced variant | KODRC (5.1.5) |
 | Callable coupon variant | Phoenix (5.1.3) |
-### 5.1.3 Phoenix Autocallable
+### 5.1.3 Phoenix Autocallable {#sec-5-1-3}
+
+> **Prerequisites:** [RC](#sec-5-1-2) &nbsp;|&nbsp; **Key concepts:** Autocall trigger, memory coupon, barrier observation, early termination
 
 ---
 
-*The Reverse Convertible (Section 5.1.2) paid a fixed coupon over a single observation period. The Phoenix Autocallable adds two features: periodic barrier observations with memory coupons (missed coupons can be recovered if the underlying rebounds), and an autocall mechanism that terminates the note early when the underlying trades above a call level. These additions create a path-dependent product with multiple possible outcomes. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*The Reverse Convertible ([Section 5.1.2](#sec-5-1-2)) paid a fixed coupon over a single observation period. The Phoenix Autocallable adds two features: periodic barrier observations with memory coupons (missed coupons can be recovered if the underlying rebounds), and an autocall mechanism that terminates the note early when the underlying trades above a call level. These additions create a path-dependent product with multiple possible outcomes. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -3109,7 +3294,7 @@ Meanwhile, the conditional coupon with memory provides a balanced income stream 
 1. **High conditional income.** Coupons of 8-12% annualized, significantly above bonds.
 2. **Memory feature.** Missed coupons are not lost — they accumulate and pay out when conditions improve. This reduces the penalty for temporary market downturns.
 3. **Autocall provides liquidity.** The investor is not locked in for the full maturity. If markets perform well, they receive their principal back early.
-4. **Worst-of basket enhances coupons.** Phoenix products are often linked to a basket of stocks (worst-of), which increases the coupon because the investor is taking on correlation risk (Section 1.6).
+4. **Worst-of basket enhances coupons.** Phoenix products are often linked to a basket of stocks (worst-of), which increases the coupon because the investor is taking on correlation risk ([Section 1.6](#sec-1-6)).
 5. **Psychological comfort.** The structure — regular coupons, memory, early redemption — feels like a "smart bond" to many investors, even though the risk profile is fundamentally different from a bond.
 
 **Position taken**
@@ -3341,13 +3526,13 @@ An operations analyst discovers that the system paid a coupon on Q3 even though 
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Put option, knock-in barrier | Section 1.2 (Options), Section 1.3 (Barriers) |
-| Capital, coupon, autocall barrier distinction | Section 1.3 (Barrier Terminology Note) |
-| Digital payoff (conditional coupon) | Section 1.3 (Digitals) |
-| Delta, Gamma, Vega | Section 1.4 (Greeks) |
-| Correlation, worst-of, basket | Section 1.6 (Correlation and Baskets) |
-| Product decomposition | Section 2.2 (Product Construction) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
+| Put option, knock-in barrier | [Section 1.2](#sec-1-2) (Options), [Section 1.3](#sec-1-3) (Barriers) |
+| Capital, coupon, autocall barrier distinction | [Section 1.3](#sec-1-3) (Barrier Terminology Note) |
+| Digital payoff (conditional coupon) | [Section 1.3](#sec-1-3) (Digitals) |
+| Delta, Gamma, Vega | [Section 1.4](#sec-1-4) (Greeks) |
+| Correlation, worst-of, basket | [Section 1.6](#sec-1-6) (Correlation and Baskets) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
+| NEMO/Sophis booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -3394,13 +3579,15 @@ An operations analyst discovers that the system paid a coupon on Q3 even though 
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Equity fundamentals | Section 1.4 (Equity Essentials) |
-| Options mechanics | Section 1.2 (Options From Zero) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Equity fundamentals | [Section 1.4](#sec-1-4) (Equity Essentials) |
+| Options mechanics | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | RC | 5.1.2 — simpler |
 | KODRC | 5.1.5 — barrier but no autocall |
 | Snowball | 5.6.10 — cumulative coupon |
-### 5.1.4 Discounted Reverse Convertible (DRC)
+### 5.1.4 Discounted Reverse Convertible (DRC) {#sec-5-1-4}
+
+> **Prerequisites:** [RC](#sec-5-1-2) &nbsp;|&nbsp; **Key concepts:** Discount pricing, break-even calculation, adjusted strike
 
 ---
 
@@ -3552,7 +3739,7 @@ Identical to the RC — the desk is long the KI put and delta-hedges by trading 
 | **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
 | **Funding advantage** | Issues the note at a sub-market effective funding rate |
 
-**The discount decomposition (from Section 2.2):**
+**The discount decomposition (from [Section 2.2](#sec-2-2)):**
 
 Discount = Bond yield + Put premium − FTP − Desk margin. For an 8% discount (issue 92%): bond yield ~2.0%; put premium ~7.5%; FTP −0.5%; desk margin −1.0%; **net discount 8.0%**. The put premium is identical to a standard RC — only the delivery differs (lower price, not coupons).
 
@@ -3709,12 +3896,12 @@ A structurer is pitching a DRC to a client who currently holds a standard RC wit
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Put option, knock-in | Section 1.2 (Options), Section 1.3 (Barriers) |
-| Capital barrier | Section 1.3 (Barrier Terminology Note) |
-| Delta, Gamma | Section 1.4 (Greeks) |
-| Product decomposition, coupon formula | Section 2.2 (Product Construction) |
-| Zero-coupon bond | Section 1.7 (Yield Curves, Spot Rates, and Forward Rates) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
+| Put option, knock-in | [Section 1.2](#sec-1-2) (Options), [Section 1.3](#sec-1-3) (Barriers) |
+| Capital barrier | [Section 1.3](#sec-1-3) (Barrier Terminology Note) |
+| Delta, Gamma | [Section 1.4](#sec-1-4) (Greeks) |
+| Product decomposition, coupon formula | [Section 2.2](#sec-2-2) (Product Construction) |
+| Zero-coupon bond | [Section 1.7](#sec-1-7) (Yield Curves, Spot Rates, and Forward Rates) |
+| NEMO/Sophis booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -3775,13 +3962,15 @@ A structurer is pitching a DRC to a client who currently holds a standard RC wit
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Equity fundamentals | Section 1.4 (Equity Essentials) |
-| Options mechanics | Section 1.2 (Options From Zero) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Equity fundamentals | [Section 1.4](#sec-1-4) (Equity Essentials) |
+| Options mechanics | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | RC | 5.1.2 — full price |
 | KODRC | 5.1.5 — barrier version |
 | CRC | 5.1.6 — callable |
-### 5.1.5 Knock-Out Discounted Reverse Convertible (KODRC)
+### 5.1.5 Knock-Out Discounted Reverse Convertible (KODRC) {#sec-5-1-5}
+
+> **Prerequisites:** [RC](#sec-5-1-2) &nbsp;|&nbsp; **Key concepts:** Knock-out barrier, continuous monitoring, barrier gap risk
 
 ---
 
@@ -3938,7 +4127,7 @@ The desk is long the embedded knock-in put and short the knock-out feature, and 
 | **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
 | **Funding advantage** | Issues note at sub-market effective funding rate |
 
-**The discount decomposition (from Section 2.2):**
+**The discount decomposition (from [Section 2.2](#sec-2-2)):**
 
 Gross put premium ~7.5%; cost of KO feature ~−2.0%; net put premium available ~5.5%; bond yield ~2.5%; Funds Transfer Pricing (FTP) −0.5%; desk margin ~−0.5% (lower margin due to smaller premium pool); **net discount ~7.0%**. The KO feature costs approximately 2% of the premium. This is why the KODRC discount (7%) is smaller than the DRC discount (9%) — the investor is paying for downside protection, and that 2% is the desk's cost of buying back the up-and-out feature on the put.
 
@@ -4100,13 +4289,13 @@ A portfolio manager holds five KODRCs on different underlyings. Three have alrea
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Put option, knock-in, knock-out | Section 1.2 (Options), Section 1.3 (Barriers) |
-| Capital barrier | Section 1.3 (Barrier Terminology Note) |
-| American vs European barrier | Section 1.3 (Barriers) |
-| Delta, Gamma | Section 1.4 (Greeks) |
-| Product decomposition | Section 2.2 (Product Construction) |
-| Zero-coupon bond | Section 1.7 (Yield Curves, Spot Rates, and Forward Rates) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
+| Put option, knock-in, knock-out | [Section 1.2](#sec-1-2) (Options), [Section 1.3](#sec-1-3) (Barriers) |
+| Capital barrier | [Section 1.3](#sec-1-3) (Barrier Terminology Note) |
+| American vs European barrier | [Section 1.3](#sec-1-3) (Barriers) |
+| Delta, Gamma | [Section 1.4](#sec-1-4) (Greeks) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
+| Zero-coupon bond | [Section 1.7](#sec-1-7) (Yield Curves, Spot Rates, and Forward Rates) |
+| NEMO/Sophis booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -4154,13 +4343,15 @@ A portfolio manager holds five KODRCs on different underlyings. Three have alrea
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Equity fundamentals | Section 1.4 (Equity Essentials) |
-| Options mechanics | Section 1.2 (Options From Zero) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Equity fundamentals | [Section 1.4](#sec-1-4) (Equity Essentials) |
+| Options mechanics | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | DRC | 5.1.4 — no barrier |
 | RC | 5.1.2 — no discount/barrier |
 | Shark Fin | 5.6.9 — up-and-out barrier |
-### 5.1.6 Callable Reverse Convertible (CRC)
+### 5.1.6 Callable Reverse Convertible (CRC) {#sec-5-1-6}
+
+> **Prerequisites:** [RC](#sec-5-1-2) &nbsp;|&nbsp; **Key concepts:** Bermudan exercise, embedded swaption, reinvestment risk
 
 ---
 
@@ -4487,12 +4678,12 @@ A structurer is debating between offering a client a 3-year non-callable RC at 8
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Put option, knock-in | Section 1.2 (Options), Section 1.3 (Barriers) |
-| Call option, Bermudan exercise | Section 1.2 (Options) |
-| Capital barrier | Section 1.3 (Barrier Terminology Note) |
-| Delta, Gamma, Vega | Section 1.4 (Greeks) |
-| Product decomposition, coupon formula | Section 2.2 (Product Construction) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
+| Put option, knock-in | [Section 1.2](#sec-1-2) (Options), [Section 1.3](#sec-1-3) (Barriers) |
+| Call option, Bermudan exercise | [Section 1.2](#sec-1-2) (Options) |
+| Capital barrier | [Section 1.3](#sec-1-3) (Barrier Terminology Note) |
+| Delta, Gamma, Vega | [Section 1.4](#sec-1-4) (Greeks) |
+| Product decomposition, coupon formula | [Section 2.2](#sec-2-2) (Product Construction) |
+| NEMO/Sophis booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -4540,13 +4731,15 @@ A structurer is debating between offering a client a 3-year non-callable RC at 8
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Equity fundamentals | Section 1.4 (Equity Essentials) |
-| Options mechanics | Section 1.2 (Options From Zero) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Equity fundamentals | [Section 1.4](#sec-1-4) (Equity Essentials) |
+| Options mechanics | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | RC | 5.1.2 — without call |
 | Phoenix | 5.1.3 — autocall vs bank call |
 | ICN | 5.1.11 — issuer callable |
-### 5.1.7 Airbag / Leveraged Reverse Convertible
+### 5.1.7 Airbag / Leveraged Reverse Convertible {#sec-5-1-7}
+
+> **Prerequisites:** [RC](#sec-5-1-2) &nbsp;|&nbsp; **Key concepts:** Leverage ratio, put spread, cushion zone
 
 ---
 
@@ -4868,12 +5061,12 @@ A risk manager notices that the desk's Airbag book has 15 positions with barrier
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Put option, knock-in | Section 1.2 (Options), Section 1.3 (Barriers) |
-| Capital barrier | Section 1.3 (Barrier Terminology Note) |
-| Delta, Gamma | Section 1.4 (Greeks) |
-| Product decomposition, coupon formula | Section 2.2 (Product Construction) |
-| Leverage, payoff slope | Section 1.2 (Options — payoff diagrams) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
+| Put option, knock-in | [Section 1.2](#sec-1-2) (Options), [Section 1.3](#sec-1-3) (Barriers) |
+| Capital barrier | [Section 1.3](#sec-1-3) (Barrier Terminology Note) |
+| Delta, Gamma | [Section 1.4](#sec-1-4) (Greeks) |
+| Product decomposition, coupon formula | [Section 2.2](#sec-2-2) (Product Construction) |
+| Leverage, payoff slope | [Section 1.2](#sec-1-2) (Options — payoff diagrams) |
+| NEMO/Sophis booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -4921,13 +5114,15 @@ A risk manager notices that the desk's Airbag book has 15 positions with barrier
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Equity fundamentals | Section 1.4 (Equity Essentials) |
-| Options mechanics | Section 1.2 (Options From Zero) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Equity fundamentals | [Section 1.4](#sec-1-4) (Equity Essentials) |
+| Options mechanics | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | PPN | 5.1.1 — full protection |
 | RC | 5.1.2 — no leverage |
 | Booster | 5.1.13 — leveraged upside |
-### 5.1.8 Bonus / Participation Note
+### 5.1.8 Bonus / Participation Note {#sec-5-1-8}
+
+> **Prerequisites:** [RC](#sec-5-1-2) &nbsp;|&nbsp; **Key concepts:** Down-and-in barrier, conditional bonus, continuous observation
 
 ---
 
@@ -5247,12 +5442,12 @@ A portfolio manager wants to express a bullish view on the S&P 500 with some dow
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Put option, knock-out | Section 1.2 (Options), Section 1.3 (Barriers) |
-| Call option, participation | Section 1.2 (Options) |
-| Capital protection spectrum | Section 2.4 (Capital Protection Spectrum) |
-| Product decomposition | Section 2.2 (Product Construction) |
-| PPN structure (participation + protection) | Section 5.1.1 (PPN) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
+| Put option, knock-out | [Section 1.2](#sec-1-2) (Options), [Section 1.3](#sec-1-3) (Barriers) |
+| Call option, participation | [Section 1.2](#sec-1-2) (Options) |
+| Capital protection spectrum | [Section 2.4](#sec-2-4) (Capital Protection Spectrum) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
+| PPN structure (participation + protection) | [Section 5.1.1](#sec-5-1-1) (PPN) |
+| NEMO/Sophis booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -5300,17 +5495,19 @@ A portfolio manager wants to express a bullish view on the S&P 500 with some dow
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Equity fundamentals | Section 1.4 (Equity Essentials) |
-| Options mechanics | Section 1.2 (Options From Zero) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Equity fundamentals | [Section 1.4](#sec-1-4) (Equity Essentials) |
+| Options mechanics | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | PPN | 5.1.1 — guaranteed protection |
 | Shark Fin | 5.6.9 — barrier with rebate |
 | Phoenix | 5.1.3 — conditional coupon |
-### 5.1.9 Fixed Coupon Note (FCN)
+### 5.1.9 Fixed Coupon Note (FCN) {#sec-5-1-9}
+
+> **Prerequisites:** PHOENIX &nbsp;|&nbsp; **Key concepts:** Guaranteed vs conditional coupon, step-down autocall
 
 ---
 
-*This product combines two concepts taught earlier: the barrier risk from the Reverse Convertible (Section 5.1.2) and the autocall mechanism from the Phoenix (Section 5.1.3). The FCN removes the conditional coupon and the memory feature, replacing them with a simple fixed coupon. The result is a product with guaranteed periodic income for the investor, automatic early redemption when markets are strong, and capital risk when markets crash. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*This product combines two concepts taught earlier: the barrier risk from the Reverse Convertible ([Section 5.1.2](#sec-5-1-2)) and the autocall mechanism from the Phoenix ([Section 5.1.3](#sec-5-1-3)). The FCN removes the conditional coupon and the memory feature, replacing them with a simple fixed coupon. The result is a product with guaranteed periodic income for the investor, automatic early redemption when markets are strong, and capital risk when markets crash. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -5468,7 +5665,7 @@ The desk is long the embedded knock-in put and delta-hedges by trading the under
 | **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
 | **Funding advantage** | Issues note at sub-market effective funding rate |
 
-**The coupon decomposition (from Section 2.2):**
+**The coupon decomposition (from [Section 2.2](#sec-2-2)):**
 
 Fixed Coupon = Bond yield + Put premium − Funds Transfer Pricing (FTP) − Desk margin
 
@@ -5628,12 +5825,12 @@ An FCN on Unilever is approaching its Q4 observation date. The stock closed at 9
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Put option, knock-in barrier | Section 1.2 (Options), Section 1.3 (Barriers) |
-| Autocall mechanism, memory feature | Section 5.1.3 (Phoenix) |
-| Coupon decomposition, FTP | Section 2.2 (Product Construction) |
-| Capital barrier, European observation | Section 1.3 (Barriers), Section 5.1.2 (RC) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
-| Reinvestment risk | Section 5.1.6 (CRC) |
+| Put option, knock-in barrier | [Section 1.2](#sec-1-2) (Options), [Section 1.3](#sec-1-3) (Barriers) |
+| Autocall mechanism, memory feature | [Section 5.1.3](#sec-5-1-3) (Phoenix) |
+| Coupon decomposition, FTP | [Section 2.2](#sec-2-2) (Product Construction) |
+| Capital barrier, European observation | [Section 1.3](#sec-1-3) (Barriers), [Section 5.1.2](#sec-5-1-2) (RC) |
+| NEMO/Sophis booking | [Section 2.8](#sec-2-8) (Systems Primer) |
+| Reinvestment risk | [Section 5.1.6](#sec-5-1-6) (CRC) |
 
 ---
 
@@ -5681,13 +5878,15 @@ An FCN on Unilever is approaching its Q4 observation date. The stock closed at 9
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Equity fundamentals | Section 1.4 (Equity Essentials) |
-| Options mechanics | Section 1.2 (Options From Zero) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Equity fundamentals | [Section 1.4](#sec-1-4) (Equity Essentials) |
+| Options mechanics | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | RC | 5.1.2 — no autocall |
 | Phoenix | 5.1.3 — contingent coupon |
 | ICN | 5.1.11 — issuer callable |
-### 5.1.10 Callable Range Accrual ELN (CRA ELN)
+### 5.1.10 Callable Range Accrual ELN (CRA ELN) {#sec-5-1-10}
+
+> **Prerequisites:** DIGITAL · [CRC](#sec-5-1-6) &nbsp;|&nbsp; **Key concepts:** Range accrual mechanism, daily observation, digital strip + call
 
 ---
 
@@ -6004,12 +6203,12 @@ A CRA ELN on Barclays shows 48 accrual days out of 63 in Q3. Product Control rep
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Put option, knock-in barrier | Section 1.2 (Options), Section 1.3 (Barriers) |
-| Digital (binary) option | Section 1.3 (Barriers) |
-| Callable mechanism, no-call period | Section 5.1.6 (CRC) |
-| Coupon decomposition, FTP | Section 2.2 (Product Construction) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
-| Autocall and fixed coupon concepts | Section 5.1.9 (FCN) |
+| Put option, knock-in barrier | [Section 1.2](#sec-1-2) (Options), [Section 1.3](#sec-1-3) (Barriers) |
+| Digital (binary) option | [Section 1.3](#sec-1-3) (Barriers) |
+| Callable mechanism, no-call period | [Section 5.1.6](#sec-5-1-6) (CRC) |
+| Coupon decomposition, FTP | [Section 2.2](#sec-2-2) (Product Construction) |
+| NEMO/Sophis booking | [Section 2.8](#sec-2-8) (Systems Primer) |
+| Autocall and fixed coupon concepts | [Section 5.1.9](#sec-5-1-9) (FCN) |
 
 ---
 
@@ -6056,13 +6255,15 @@ A CRA ELN on Barclays shows 48 accrual days out of 63 in Q3. Product Control rep
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Equity fundamentals | Section 1.4 (Equity Essentials) |
-| Options mechanics | Section 1.2 (Options From Zero) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Equity fundamentals | [Section 1.4](#sec-1-4) (Equity Essentials) |
+| Options mechanics | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | NCRA | 5.3.3 — rates version |
 | CRA SRT | 5.3.4 — rates + call |
 | Digital | 5.1.12 — simpler equity digital |
-### 5.1.11 Issuer Callable Note (ICN)
+### 5.1.11 Issuer Callable Note (ICN) {#sec-5-1-11}
+
+> **Prerequisites:** [RC](#sec-5-1-2) &nbsp;|&nbsp; **Key concepts:** Bermudan call right, reinvestment risk
 
 ---
 
@@ -6387,12 +6588,12 @@ You are a Risk analyst reviewing the bank's ICN book. You notice that several IC
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Call option, Bermudan exercise | Section 1.2 (Options) |
-| Callable mechanism, reinvestment risk | Section 5.1.6 (CRC) |
-| Interest rates, yield curve | Section 1.7 (Yield Curves, Spot Rates, and Forward Rates) |
-| Swaptions | Section 1.8 (Benchmark Rates, Swaps, and Rate Options) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
-| Issuer credit risk | Section 1.9 (Credit Risk) |
+| Call option, Bermudan exercise | [Section 1.2](#sec-1-2) (Options) |
+| Callable mechanism, reinvestment risk | [Section 5.1.6](#sec-5-1-6) (CRC) |
+| Interest rates, yield curve | [Section 1.7](#sec-1-7) (Yield Curves, Spot Rates, and Forward Rates) |
+| Swaptions | [Section 1.8](#sec-1-8) (Benchmark Rates, Swaps, and Rate Options) |
+| NEMO/Sophis booking | [Section 2.8](#sec-2-8) (Systems Primer) |
+| Issuer credit risk | [Section 1.9](#sec-1-9) (Credit Risk) |
 
 ---
 
@@ -6438,17 +6639,19 @@ You are a Risk analyst reviewing the bank's ICN book. You notice that several IC
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Equity fundamentals | Section 1.4 (Equity Essentials) |
-| Options mechanics | Section 1.2 (Options From Zero) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Equity fundamentals | [Section 1.4](#sec-1-4) (Equity Essentials) |
+| Options mechanics | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | CRC | 5.1.6 — callable RC |
 | Phoenix | 5.1.3 — autocall vs discretionary call |
 | IR Callable | 5.3.1 — rates version |
-### 5.1.12 Digital Coupon Note
+### 5.1.12 Digital Coupon Note {#sec-5-1-12}
+
+> **Prerequisites:** [RC](#sec-5-1-2) &nbsp;|&nbsp; **Key concepts:** Binary/digital payoff, digital gamma, call spread replication
 
 ---
 
-*The Reverse Convertible (Section 5.1.2) paid a guaranteed coupon. The Digital Coupon Note replaces that guarantee with an all-or-nothing payment. On each observation date, if the underlying is above a coupon barrier, the full coupon is paid; if below, zero is paid — no partial credit, no memory, no catch-up. The Digital Coupon Note is the Phoenix without memory: a missed coupon is gone forever. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*The Reverse Convertible ([Section 5.1.2](#sec-5-1-2)) paid a guaranteed coupon. The Digital Coupon Note replaces that guarantee with an all-or-nothing payment. On each observation date, if the underlying is above a coupon barrier, the full coupon is paid; if below, zero is paid — no partial credit, no memory, no catch-up. The Digital Coupon Note is the Phoenix without memory: a missed coupon is gone forever. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -6600,7 +6803,7 @@ The desk is long a strip of digital call options, one per observation date, and 
 | **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
 | **Funding advantage** | Issues the note at a sub-market effective funding rate |
 
-**The coupon decomposition (from Section 2.2):**
+**The coupon decomposition (from [Section 2.2](#sec-2-2)):**
 
 Digital Coupon = Bond yield + Put premium + Digital option portfolio value − Funds Transfer Pricing (FTP) − Desk margin
 
@@ -6777,11 +6980,11 @@ You are in Product Control on an observation date. The Digital Coupon Note has a
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Digital (binary) option | Section 1.3 (Barriers) |
-| Put option, knock-in barrier | Section 1.2 (Options), Section 1.3 (Barriers) |
-| Conditional coupon, memory feature | Section 5.1.3 (Phoenix) |
-| Coupon decomposition, FTP | Section 2.2 (Product Construction) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
+| Digital (binary) option | [Section 1.3](#sec-1-3) (Barriers) |
+| Put option, knock-in barrier | [Section 1.2](#sec-1-2) (Options), [Section 1.3](#sec-1-3) (Barriers) |
+| Conditional coupon, memory feature | [Section 5.1.3](#sec-5-1-3) (Phoenix) |
+| Coupon decomposition, FTP | [Section 2.2](#sec-2-2) (Product Construction) |
+| NEMO/Sophis booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -6829,13 +7032,15 @@ You are in Product Control on an observation date. The Digital Coupon Note has a
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Equity fundamentals | Section 1.4 (Equity Essentials) |
-| Options mechanics | Section 1.2 (Options From Zero) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Equity fundamentals | [Section 1.4](#sec-1-4) (Equity Essentials) |
+| Options mechanics | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | CRA ELN | 5.1.10 — range-based digital |
 | Digital CF | 5.3.5 — rates digital |
 | Phoenix | 5.1.3 — contingent coupon |
-### 5.1.13 Booster Note
+### 5.1.13 Booster Note {#sec-5-1-13}
+
+> **Prerequisites:** [PPN](#sec-5-1-1) &nbsp;|&nbsp; **Key concepts:** Leveraged call spread, participation cap
 
 ---
 
@@ -6987,7 +7192,7 @@ The desk is short the leveraged call spread and delta-hedges by trading the unde
 | **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
 | **Funding advantage** | Issues the note at a sub-market effective funding rate |
 
-**The note decomposition (from Section 2.2):**
+**The note decomposition (from [Section 2.2](#sec-2-2)):**
 
 The investor's notional funds a zero-coupon bond plus the leveraged call package. No put is sold (unlike RC/FCN). The extra calls are funded by (a) the dividend income forwarded to the desk, and (b) the cap, which generates premium from the short OTM call.
 
@@ -7155,13 +7360,13 @@ A Booster Note on ASML is approaching maturity. ASML closed at €699 yesterday 
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Call option, participation rate | Section 1.2 (Options) |
-| Capital protection spectrum | Section 2.4 (Capital Protection Spectrum) |
-| Zero-coupon bond | Section 0.5 (Interest) |
-| Product decomposition, Funds Transfer Pricing (FTP) | Section 2.2 (Product Construction) |
-| PPN structure (protection + participation trade-off) | Section 5.1.1 (PPN) |
-| Bonus structure (participation + floor) | Section 5.1.8 (Bonus) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
+| Call option, participation rate | [Section 1.2](#sec-1-2) (Options) |
+| Capital protection spectrum | [Section 2.4](#sec-2-4) (Capital Protection Spectrum) |
+| Zero-coupon bond | [Section 0.5](#sec-0-5) (Interest) |
+| Product decomposition, Funds Transfer Pricing (FTP) | [Section 2.2](#sec-2-2) (Product Construction) |
+| PPN structure (protection + participation trade-off) | [Section 5.1.1](#sec-5-1-1) (PPN) |
+| Bonus structure (participation + floor) | [Section 5.1.8](#sec-5-1-8) (Bonus) |
+| NEMO/Sophis booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -7208,17 +7413,19 @@ A Booster Note on ASML is approaching maturity. ASML closed at €699 yesterday 
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Equity fundamentals | Section 1.4 (Equity Essentials) |
-| Options mechanics | Section 1.2 (Options From Zero) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Equity fundamentals | [Section 1.4](#sec-1-4) (Equity Essentials) |
+| Options mechanics | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | Airbag | 5.1.7 — leverage with protection |
 | PPN | 5.1.1 — protected no leverage |
 | Warrant | 5.1.15 — pure leverage |
-### 5.1.14 Digital Coupon Knock-In Put
+### 5.1.14 Digital Coupon Knock-In Put {#sec-5-1-14}
+
+> **Prerequisites:** DIGITAL · KODRC &nbsp;|&nbsp; **Key concepts:** Dual barrier (digital + KI), three-barrier interaction
 
 ---
 
-*This product combines every major ELN feature the reader has encountered: digital coupon (from 5.1.12), knock-in put (from 5.1.2), and autocall (from 5.1.3). It is the ELN family's capstone — the most complex product in Part 5.1. If you understand the Digital KI Put, you understand the full ELN toolkit. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*This product combines every major ELN feature the reader has encountered: digital coupon (from 5.1.12), knock-in put (from 5.1.2), and autocall (from 5.1.3). It is the ELN family's capstone — the most complex product in [Part 5](#part-5).1. If you understand the Digital KI Put, you understand the full ELN toolkit. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 **How This Differs From the Digital Coupon Note (5.1.12):** The Digital Coupon Note pays an all-or-nothing coupon per period and runs to maturity with no early termination. The Digital KI Put adds autocall: on each eligible observation date, the issuer first checks whether the stock has risen above the autocall barrier. If it has, the note terminates early with full principal plus any coupon due that period. If not, the digital coupon test applies — stock above the coupon barrier pays full coupon; below pays zero. This three-barrier structure (autocall, coupon, capital) makes the Digital KI Put the most feature-rich product in the ELN family.
 
@@ -7375,7 +7582,7 @@ The desk delta-hedges the combined position by trading the underlying. Two regio
 | **Hedging P&L** | Delta-hedging profits from realized vs implied vol differential |
 | **Funding advantage** | Issues note at sub-market effective funding rate |
 
-**The coupon decomposition (from Section 2.2):**
+**The coupon decomposition (from [Section 2.2](#sec-2-2)):**
 
 Digital KI Put Coupon = Bond yield + Put premium + Digital option portfolio + Autocall premium − Funds Transfer Pricing (FTP) − Desk margin
 
@@ -7558,12 +7765,12 @@ You are the Structurer pricing a new Digital KI Put for a client. The client wan
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Digital (binary) option, digital coupon | Section 1.3 (Barriers), Section 5.1.12 (Digital Coupon Note) |
-| Put option, knock-in barrier | Section 1.2 (Options), Section 1.3 (Barriers) |
-| Autocall mechanism, memory (for contrast) | Section 5.1.3 (Phoenix) |
-| Coupon decomposition, FTP | Section 2.2 (Product Construction) |
-| Capital protection spectrum | Section 2.4 (Capital Protection Spectrum) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
+| Digital (binary) option, digital coupon | [Section 1.3](#sec-1-3) (Barriers), [Section 5.1.12](#sec-5-1-12) (Digital Coupon Note) |
+| Put option, knock-in barrier | [Section 1.2](#sec-1-2) (Options), [Section 1.3](#sec-1-3) (Barriers) |
+| Autocall mechanism, memory (for contrast) | [Section 5.1.3](#sec-5-1-3) (Phoenix) |
+| Coupon decomposition, FTP | [Section 2.2](#sec-2-2) (Product Construction) |
+| Capital protection spectrum | [Section 2.4](#sec-2-4) (Capital Protection Spectrum) |
+| NEMO/Sophis booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -7611,13 +7818,15 @@ You are the Structurer pricing a new Digital KI Put for a client. The client wan
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Equity fundamentals | Section 1.4 (Equity Essentials) |
-| Options mechanics | Section 1.2 (Options From Zero) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Equity fundamentals | [Section 1.4](#sec-1-4) (Equity Essentials) |
+| Options mechanics | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | Digital | 5.1.12 — digital only |
 | RC | 5.1.2 — put only |
 | Phoenix | 5.1.3 — autocall with barrier |
-### 5.1.15 Warrant / Turbo Certificate
+### 5.1.15 Warrant / Turbo Certificate {#sec-5-1-15}
+
+> **Prerequisites:** [VO](#sec-5-6-3) &nbsp;|&nbsp; **Key concepts:** Exchange-traded leverage, time decay acceleration
 
 ---
 
@@ -7633,7 +7842,7 @@ A **Warrant** makes this possible. The investor pays a premium (€50,000) for t
 
 A **Turbo Certificate** adds a twist: it includes a knock-out barrier. If Volkswagen's price drops below a specified level at any point, the turbo is immediately terminated and becomes worthless (or worth a small residual). The knock-out reduces the premium (making the turbo cheaper than a vanilla warrant) but introduces the risk of sudden, total loss even if the stock eventually recovers.
 
-Unlike every other product in Part 5.1, there is no bond, no coupon, and no capital protection. The warrant is pure leverage.
+Unlike every other product in [Part 5](#part-5).1, there is no bond, no coupon, and no capital protection. The warrant is pure leverage.
 
 #### §2. Real-World Analogy
 
@@ -7759,7 +7968,7 @@ At expiry the warrant pays its intrinsic value, scaled by the ratio. The payoff 
 
 **What the desk books**
 
-The desk's position is the mirror image of the investor's. Where the investor is long the warrant, the desk is **short** that warrant — short a call (or short a put) that it has issued and listed on the exchange. There is no bond leg: unlike every other Part 5.1 product, the warrant has no note wrapper providing funding or coupons, so the desk's only exposure is the short option it must hedge. For a Turbo, the desk is short an option that knocks out on an intraday touch of the barrier, which sharply alters the hedge the moment the level is hit.
+The desk's position is the mirror image of the investor's. Where the investor is long the warrant, the desk is **short** that warrant — short a call (or short a put) that it has issued and listed on the exchange. There is no bond leg: unlike every other [Part 5](#part-5).1 product, the warrant has no note wrapper providing funding or coupons, so the desk's only exposure is the short option it must hedge. For a Turbo, the desk is short an option that knocks out on an intraday touch of the barrier, which sharply alters the hedge the moment the level is hit.
 
 **Greeks & hedging**
 
@@ -7879,7 +8088,7 @@ In the +30% expiry, the desk is short the call it issued; against the €225,000
 
 #### §13. Knowledge Check
 
-1. **What is the fundamental difference between a warrant and every other product in Part 5.1?** *(Investor)*
+1. **What is the fundamental difference between a warrant and every other product in [Part 5](#part-5).1?** *(Investor)*
 2. **Explain why a warrant can lose 100% of its value while the underlying stock declines only 5%.** *(Investor)*
 3. **What is the difference between a vanilla warrant and a turbo certificate? Why is the turbo cheaper?** *(Investor)*
 4. **How does time decay (Theta) affect a warrant's value as maturity approaches?** *(Investor)*
@@ -7901,7 +8110,7 @@ In the +30% expiry, the desk is short the call it issued; against the €225,000
 
 **Key Takeaways**
 
-1. A Warrant is a securitized option — the only product in Part 5.1 with no bond component.
+1. A Warrant is a securitized option — the only product in [Part 5](#part-5).1 with no bond component.
 2. The investor's maximum loss is the premium paid. Maximum gain is theoretically unlimited for calls.
 3. Leverage amplifies returns in both directions: small stock moves create large percentage changes in the warrant's value.
 4. A Turbo Certificate adds a knock-out barrier that terminates the product if the stock touches the barrier at any point. The KO makes the turbo cheaper but introduces sudden-death risk.
@@ -7920,7 +8129,7 @@ In the +30% expiry, the desk is short the call it issued; against the €225,000
 ### Knowledge Check
 
 **Review Questions:**
-1. What component is present in all other Part 5.1 products but absent from the warrant?
+1. What component is present in all other [Part 5](#part-5).1 products but absent from the warrant?
 2. What determines whether a warrant expires with value or worthless?
 3. How does a turbo certificate's knock-out barrier affect its price relative to a vanilla warrant?
 4. What is the maximum loss for a warrant investor?
@@ -7944,7 +8153,7 @@ The desk issues a turbo call warrant with a KO barrier at €85 on a stock tradi
 2. **Turbo vs vanilla warrant comparison** — Overlaid payoffs: vanilla warrant (full payoff curve) vs turbo (same curve but terminated at KO barrier) with cost comparison (P1)
 3. **Leverage comparison table** — Stock vs warrant returns for the same underlying move: +10% stock → +50% warrant, −10% stock → −50% warrant, showing amplification in both directions (P2)
 4. **Time decay visualization** — Warrant value declining over time with stock price held constant, showing the Theta erosion curve accelerating near expiry (P2)
-5. **ELN family tree** — All 15 products in Part 5.1, organized from most bond-like (PPN) to least bond-like (Warrant), showing which components each product contains (P3)
+5. **ELN family tree** — All 15 products in [Part 5](#part-5).1, organized from most bond-like (PPN) to least bond-like (Warrant), showing which components each product contains (P3)
 
 
 **Dual-lens visuals (generated):**
@@ -7956,16 +8165,16 @@ The desk issues a turbo call warrant with a KO barrier at €85 on a stock tradi
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Call option, put option | Section 1.2 (Options) |
-| Knock-out barrier | Section 1.3 (Barriers) |
-| Delta, Gamma, Theta, Vega | Section 1.4 (Greeks) |
-| Implied volatility | Section 1.5 (Volatility) |
-| Leverage and capital efficiency | Section 0.6 (Understanding Risk) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
+| Call option, put option | [Section 1.2](#sec-1-2) (Options) |
+| Knock-out barrier | [Section 1.3](#sec-1-3) (Barriers) |
+| Delta, Gamma, Theta, Vega | [Section 1.4](#sec-1-4) (Greeks) |
+| Implied volatility | [Section 1.5](#sec-1-5) (Volatility) |
+| Leverage and capital efficiency | [Section 0.6](#sec-0-6) (Understanding Risk) |
+| NEMO/Sophis booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
-## 5.2 SWAPS
+## 5.2 SWAPS {#sec-5-2}
 
 ---
 
@@ -8007,17 +8216,19 @@ The desk issues a turbo call warrant with a KO barrier at €85 on a stock tradi
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Equity fundamentals | Section 1.4 (Equity Essentials) |
-| Options mechanics | Section 1.2 (Options From Zero) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Equity fundamentals | [Section 1.4](#sec-1-4) (Equity Essentials) |
+| Options mechanics | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | Booster | 5.1.13 — note-wrapped leverage |
 | Vanilla Options | 5.6.3 — OTC options |
 | ELO | 5.6.4 — equity-linked option |
-### 5.2.1 Interest Rate Swap (IRS)
+### 5.2.1 Interest Rate Swap (IRS) {#sec-5-2-1}
+
+> **Prerequisites:** [FWD](#sec-5-6-2) &nbsp;|&nbsp; **Key concepts:** Swap valuation, DV01, fixed vs floating, yield curve
 
 ---
 
-*Where a Reverse Convertible (Section 5.1.1) embeds an option inside a note, an Interest Rate Swap embeds nothing — it is a bilateral OTC contract in which two parties exchange two streams of interest payments on a notional that is never itself exchanged. There is no bond wrapper, no barrier, no embedded put or call: just a fixed leg and a floating leg. This chapter reads the product through two lenses: what it means for **the client** (the counterparty entering the swap), and what it means for **the bank** — the latter split into the desk's rate economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*Where a Reverse Convertible ([Section 5.1.1](#sec-5-1-1)) embeds an option inside a note, an Interest Rate Swap embeds nothing — it is a bilateral OTC contract in which two parties exchange two streams of interest payments on a notional that is never itself exchanged. There is no bond wrapper, no barrier, no embedded put or call: just a fixed leg and a floating leg. This chapter reads the product through two lenses: what it means for **the client** (the counterparty entering the swap), and what it means for **the bank** — the latter split into the desk's rate economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -8354,11 +8565,11 @@ A trader notices that the 5-year swap rate has moved from 3.5% to 3.8% over the 
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Interest, interest rates | Section 0.5 (What Is Interest?) |
-| Yield curves, spot rates, forward rates | Section 1.7 (Yield Curves) |
-| SOFR, EURIBOR, benchmark rates | Section 1.8 (Benchmark Rates) |
-| Swap concept, CMS rates | Section 1.8 (Swaps introduction) |
-| Murex booking | Section 2.8 (Systems Primer) |
+| Interest, interest rates | [Section 0.5](#sec-0-5) (What Is Interest?) |
+| Yield curves, spot rates, forward rates | [Section 1.7](#sec-1-7) (Yield Curves) |
+| SOFR, EURIBOR, benchmark rates | [Section 1.8](#sec-1-8) (Benchmark Rates) |
+| Swap concept, CMS rates | [Section 1.8](#sec-1-8) (Swaps introduction) |
+| Murex booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -8405,17 +8616,19 @@ A trader notices that the 5-year swap rate has moved from 3.5% to 3.8% over the 
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Interest rate risk | Section 1.8 (Interest Rate Risk) |
-| Yield curve mechanics | Section 1.7 (Yield Curves) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Interest rate risk | [Section 1.8](#sec-1-8) (Interest Rate Risk) |
+| Yield curve mechanics | [Section 1.7](#sec-1-7) (Yield Curves) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | XCCY | 5.2.6 — cross-currency |
 | IR Callable | 5.3.1 — callable variant |
 | VLSP | 5.2.8 — vanilla swap plus |
-### 5.2.2 Total Return Swap (TRS)
+### 5.2.2 Total Return Swap (TRS) {#sec-5-2-2}
+
+> **Prerequisites:** [IRS](#sec-5-2-1) &nbsp;|&nbsp; **Key concepts:** Total return, synthetic ownership, funding spread
 
 ---
 
-*The IRS (Section 5.2.1) exchanged fixed interest payments for floating interest payments — both parties exchanged interest, nothing more. The Total Return Swap goes further: one party pays the entire economic return on a reference asset (capital gains plus income), while the other pays a financing rate. The TRS gives the client synthetic ownership — all the economics of holding an asset without ever buying it. This chapter reads the product through two lenses: what it means for **the client** (the total-return receiver), and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*The IRS ([Section 5.2.1](#sec-5-2-1)) exchanged fixed interest payments for floating interest payments — both parties exchanged interest, nothing more. The Total Return Swap goes further: one party pays the entire economic return on a reference asset (capital gains plus income), while the other pays a financing rate. The TRS gives the client synthetic ownership — all the economics of holding an asset without ever buying it. This chapter reads the product through two lenses: what it means for **the client** (the total-return receiver), and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -8742,12 +8955,12 @@ A prime brokerage client has a $300M TRS on a concentrated portfolio of 5 tech s
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Swap structure, netting, notional | Section 5.2.1 (IRS) |
-| Interest rates, SOFR, EURIBOR | Section 1.8 (Benchmark Rates) |
-| Derivatives concept | Section 0.8 (What Is a Derivative?) |
-| Counterparty risk, ISDA/CSA | Section 5.2.1 (IRS), Section 1.9 (Credit Risk) |
-| Delta hedging | Section 2.7 (How Desks Hedge) |
-| Murex booking | Section 2.8 (Systems Primer) |
+| Swap structure, netting, notional | [Section 5.2.1](#sec-5-2-1) (IRS) |
+| Interest rates, SOFR, EURIBOR | [Section 1.8](#sec-1-8) (Benchmark Rates) |
+| Derivatives concept | [Section 0.8](#sec-0-8) (What Is a Derivative?) |
+| Counterparty risk, ISDA/CSA | [Section 5.2.1](#sec-5-2-1) (IRS), [Section 1.9](#sec-1-9) (Credit Risk) |
+| Delta hedging | [Section 2.7](#sec-2-7) (How Desks Hedge) |
+| Murex booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -8794,15 +9007,17 @@ A prime brokerage client has a $300M TRS on a concentrated portfolio of 5 tech s
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Product decomposition | Section 2.2 (Product Construction) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | Equity Swap | 5.2.3 — equity-specific |
 | CDS | 5.2.5 — credit protection |
 | Variance Swap | 5.2.4 — vol exposure |
-### 5.2.3 Equity Swap
+### 5.2.3 Equity Swap {#sec-5-2-3}
+
+> **Prerequisites:** TRS &nbsp;|&nbsp; **Key concepts:** Dividend risk (gross vs net), quanto, equity delta
 
 ---
 
-*The TRS (Section 5.2.2) gave the client the total return on any reference asset — stocks, bonds, loans, or portfolios. The Equity Swap narrows the focus to equities specifically. It is a bilateral contract: one side receives the equity return (price change plus dividends) on a stock or index and pays a funding leg (a floating rate plus a spread); the other side is the exact reverse. There is no note, no barrier, and no embedded option — the payoff is linear. This chapter reads the product through two lenses: what it means for **the client**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*The TRS ([Section 5.2.2](#sec-5-2-2)) gave the client the total return on any reference asset — stocks, bonds, loans, or portfolios. The Equity Swap narrows the focus to equities specifically. It is a bilateral contract: one side receives the equity return (price change plus dividends) on a stock or index and pays a funding leg (a floating rate plus a spread); the other side is the exact reverse. There is no note, no barrier, and no embedded option — the payoff is linear. This chapter reads the product through two lenses: what it means for **the client**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 **How This Differs From the TRS (5.2.2):** The Equity Swap is a TRS where the reference asset is specifically equity — a single stock, basket, or index. The mechanics are identical, but the equity context introduces specific considerations: dividend treatment (gross vs net), equity market conventions, and corporate action complexity.
 
@@ -9118,12 +9333,12 @@ A client has a $500M equity swap receiving the return on a concentrated basket o
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Total Return Swap concept | Section 5.2.2 (TRS) |
-| Swap structure, netting | Section 5.2.1 (IRS) |
-| Equity, dividends | Section 0.3 (Debt vs Equity) |
-| SOFR, EURIBOR | Section 1.8 (Benchmark Rates) |
-| Counterparty risk, ISDA | Section 1.9 (Credit Risk), Section 5.2.1 (IRS) |
-| Murex booking | Section 2.8 (Systems Primer) |
+| Total Return Swap concept | [Section 5.2.2](#sec-5-2-2) (TRS) |
+| Swap structure, netting | [Section 5.2.1](#sec-5-2-1) (IRS) |
+| Equity, dividends | [Section 0.3](#sec-0-3) (Debt vs Equity) |
+| SOFR, EURIBOR | [Section 1.8](#sec-1-8) (Benchmark Rates) |
+| Counterparty risk, ISDA | [Section 1.9](#sec-1-9) (Credit Risk), [Section 5.2.1](#sec-5-2-1) (IRS) |
+| Murex booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -9170,13 +9385,15 @@ A client has a $500M equity swap receiving the return on a concentrated basket o
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Equity fundamentals | Section 1.4 (Equity Essentials) |
-| Options mechanics | Section 1.2 (Options From Zero) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Equity fundamentals | [Section 1.4](#sec-1-4) (Equity Essentials) |
+| Options mechanics | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | TRS | 5.2.2 — broader asset class |
 | IRS | 5.2.1 — rates only |
 | Variance Swap | 5.2.4 — vol not direction |
-### 5.2.4 Variance Swap
+### 5.2.4 Variance Swap {#sec-5-2-4}
+
+> **Prerequisites:** [VO](#sec-5-6-3) &nbsp;|&nbsp; **Key concepts:** Variance vs volatility, convexity, log contract replication
 
 ---
 
@@ -9278,7 +9495,7 @@ When a client needs pure volatility exposure, options fall short: they are "cont
 
 **Why the client enters it**
 
-1. **Pure volatility exposure.** No directional view required — the payoff depends only on realized variance, not market direction. This is the cleanest instrument for trading the concept taught in Section 1.5 (Volatility).
+1. **Pure volatility exposure.** No directional view required — the payoff depends only on realized variance, not market direction. This is the cleanest instrument for trading the concept taught in [Section 1.5](#sec-1-5) (Volatility).
 2. **Convexity.** The variance payoff is convex: a move from 20% vol to 30% vol pays more than a move from 10% to 20%. This makes long variance a natural tail-risk hedge.
 3. **No delta hedging.** Unlike options (which have delta and must be continuously hedged), a variance swap has zero delta by construction.
 4. **View expression.** A client with a view on whether the market will be more or less volatile than the implied strike can monetize that view directly, going long or short variance.
@@ -9499,12 +9716,12 @@ The desk has sold $2M vega notional of variance swaps on the EURO STOXX 50 at a 
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Volatility, implied vs realized | Section 1.5 (Volatility) |
-| Swap structure | Section 5.2.1 (IRS) |
-| Options, strike price | Section 1.2 (Options) |
-| Vega (sensitivity to vol) | Section 1.4 (Greeks) |
-| Derivatives concept | Section 0.8 (What Is a Derivative?) |
-| Murex booking | Section 2.8 (Systems Primer) |
+| Volatility, implied vs realized | [Section 1.5](#sec-1-5) (Volatility) |
+| Swap structure | [Section 5.2.1](#sec-5-2-1) (IRS) |
+| Options, strike price | [Section 1.2](#sec-1-2) (Options) |
+| Vega (sensitivity to vol) | [Section 1.4](#sec-1-4) (Greeks) |
+| Derivatives concept | [Section 0.8](#sec-0-8) (What Is a Derivative?) |
+| Murex booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -9551,17 +9768,19 @@ The desk has sold $2M vega notional of variance swaps on the EURO STOXX 50 at a 
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Equity fundamentals | Section 1.4 (Equity Essentials) |
-| Options mechanics | Section 1.2 (Options From Zero) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Equity fundamentals | [Section 1.4](#sec-1-4) (Equity Essentials) |
+| Options mechanics | [Section 1.2](#sec-1-2) (Options From Zero) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | Cliquet | 5.6.11 — periodic vol exposure |
 | Vanilla Options | 5.6.3 — directional + vol |
 | TRS | 5.2.2 — asset return |
-### 5.2.5 Credit Default Swap (CDS)
+### 5.2.5 Credit Default Swap (CDS) {#sec-5-2-5}
+
+> **Prerequisites:** [IRS](#sec-5-2-1) &nbsp;|&nbsp; **Key concepts:** Credit events, recovery rate, ISDA determinations
 
 ---
 
-*Where an Interest Rate Swap (Section 5.2.1) exchanges two streams of interest payments and neither side faces an "event" payment, a Credit Default Swap transfers credit risk — the risk that a borrower fails to pay its debts. A CDS is a bilateral OTC contract with no bond wrapper, no barrier, and no embedded put or call: it has a regular premium leg and a contingent protection leg. The protection buyer pays a periodic premium (the CDS spread); the protection seller pays out only if a credit event occurs on the reference entity. This chapter reads the product through two lenses: what it means for **the client** (the counterparty buying or selling protection), and what it means for **the bank** — the latter split into the desk's credit economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*Where an Interest Rate Swap ([Section 5.2.1](#sec-5-2-1)) exchanges two streams of interest payments and neither side faces an "event" payment, a Credit Default Swap transfers credit risk — the risk that a borrower fails to pay its debts. A CDS is a bilateral OTC contract with no bond wrapper, no barrier, and no embedded put or call: it has a regular premium leg and a contingent protection leg. The protection buyer pays a periodic premium (the CDS spread); the protection seller pays out only if a credit event occurs on the reference entity. This chapter reads the product through two lenses: what it means for **the client** (the counterparty buying or selling protection), and what it means for **the bank** — the latter split into the desk's credit economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 **How This Differs From the IRS (5.2.1):** Both are swaps with periodic payments. But an IRS exchanges interest rate cash flows, and neither side faces a potential "event" payment. A CDS has a regular leg (premium payments) and a contingent leg (payment only if a credit event occurs). The CDS is an insurance contract in swap form.
 
@@ -9860,7 +10079,7 @@ The desk holds the mirror position — it sold protection, receiving the $150,00
 2. Credit events are defined by ISDA: bankruptcy, failure to pay, and restructuring.
 3. Settlement can be physical (deliver bonds, receive par) or via ISDA auction (cash based on auction-determined recovery rate).
 4. The CDS is binary on the contingent leg — no barriers, no optionality; the client's position is set purely by whether they buy protection (short credit) or sell protection (long credit).
-5. The CDS is the building block for Credit-Linked Notes — understanding the CDS is prerequisite for Part 5.5.
+5. The CDS is the building block for Credit-Linked Notes — understanding the CDS is prerequisite for [Part 5](#part-5).5.
 6. The desk takes the mirror legs, warehouses the credit risk, and manages it by CS01 and jump-to-default — earning the bid-offer, market-making flow, CVA/DVA, and the CSA funding benefit rather than a coupon spread.
 7. CDS is booked in Murex, traded on standardized IMM dates, and governed by ISDA Credit Definitions.
 8. For the 2nd line, the dominant control risks are the ISDA Credit Definitions version, the credit-event/auction recovery, premium accrual, the upfront/running coupon split, leg PV reconciliation, and CSA collateral — each can misstate a premium, the contingent settlement, or a daily margin call.
@@ -9908,12 +10127,12 @@ The ISDA Determinations Committee has declared a credit event on a reference ent
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Credit risk, credit spread, recovery rate | Section 1.9 (Credit Risk) |
-| CDS concept, protection buyer/seller | Section 1.9 (Credit Default Swaps — The Basics) |
-| Credit events, ISDA | Section 1.9 (Credit Events) |
-| Swap structure | Section 5.2.1 (IRS) |
-| Counterparty risk, CSA | Section 5.2.1 (IRS), Section 1.9 (Credit Risk) |
-| Murex booking | Section 2.8 (Systems Primer) |
+| Credit risk, credit spread, recovery rate | [Section 1.9](#sec-1-9) (Credit Risk) |
+| CDS concept, protection buyer/seller | [Section 1.9](#sec-1-9) (Credit Default Swaps — The Basics) |
+| Credit events, ISDA | [Section 1.9](#sec-1-9) (Credit Events) |
+| Swap structure | [Section 5.2.1](#sec-5-2-1) (IRS) |
+| Counterparty risk, CSA | [Section 5.2.1](#sec-5-2-1) (IRS), [Section 1.9](#sec-1-9) (Credit Risk) |
+| Murex booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -9960,16 +10179,18 @@ The ISDA Determinations Committee has declared a credit event on a reference ent
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Credit risk fundamentals | Section 1.9 (Credit Risk) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Credit risk fundamentals | [Section 1.9](#sec-1-9) (Credit Risk) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | CLN | 5.5.1 — funded credit |
 | FTD | 5.5.3 — basket CDS |
 | Synthetic CDO | 5.5.5 — tranched CDS portfolio |
-### 5.2.6 Cross-Currency Swap
+### 5.2.6 Cross-Currency Swap {#sec-5-2-6}
+
+> **Prerequisites:** [IRS](#sec-5-2-1) &nbsp;|&nbsp; **Key concepts:** Cross-currency basis, Herstatt risk, dual-currency PV
 
 ---
 
-*Where an Interest Rate Swap (Section 5.2.1) exchanges fixed-for-floating interest in a single currency on a notional that is never itself exchanged, a Cross-Currency Swap adds a second dimension: it exchanges cash flows in two different currencies. Principal is exchanged at inception and re-exchanged at maturity, and between those dates each party pays interest in the currency it received. There is no bond wrapper, no barrier, no embedded put or call: just two interest legs in two currencies plus an initial and final exchange of principal, priced around the cross-currency basis. This chapter reads the product through two lenses: what it means for **the client** (the counterparty entering the swap), and what it means for **the bank** — the latter split into the desk's FX, rate and basis economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*Where an Interest Rate Swap ([Section 5.2.1](#sec-5-2-1)) exchanges fixed-for-floating interest in a single currency on a notional that is never itself exchanged, a Cross-Currency Swap adds a second dimension: it exchanges cash flows in two different currencies. Principal is exchanged at inception and re-exchanged at maturity, and between those dates each party pays interest in the currency it received. There is no bond wrapper, no barrier, no embedded put or call: just two interest legs in two currencies plus an initial and final exchange of principal, priced around the cross-currency basis. This chapter reads the product through two lenses: what it means for **the client** (the counterparty entering the swap), and what it means for **the bank** — the latter split into the desk's FX, rate and basis economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -10365,12 +10586,12 @@ Year-end is approaching and the USD cross-currency basis has widened by 25bp in 
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Swap structure, netting | Section 5.2.1 (IRS) |
-| Interest rates, SOFR, EURIBOR | Section 1.8 (Benchmark Rates) |
-| FX concepts, exchange rates | Section 0.5 (Currency Basics) |
-| Counterparty risk, ISDA/CSA | Section 5.2.1 (IRS), Section 1.9 (Credit Risk) |
-| Forward rates, yield curves | Section 1.7 (Yield Curves) |
-| Murex booking | Section 2.8 (Systems Primer) |
+| Swap structure, netting | [Section 5.2.1](#sec-5-2-1) (IRS) |
+| Interest rates, SOFR, EURIBOR | [Section 1.8](#sec-1-8) (Benchmark Rates) |
+| FX concepts, exchange rates | [Section 0.5](#sec-0-5) (Currency Basics) |
+| Counterparty risk, ISDA/CSA | [Section 5.2.1](#sec-5-2-1) (IRS), [Section 1.9](#sec-1-9) (Credit Risk) |
+| Forward rates, yield curves | [Section 1.7](#sec-1-7) (Yield Curves) |
+| Murex booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -10417,17 +10638,19 @@ Year-end is approaching and the USD cross-currency basis has widened by 25bp in 
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Interest rate risk | Section 1.8 (Interest Rate Risk) |
-| Yield curve mechanics | Section 1.7 (Yield Curves) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Interest rate risk | [Section 1.8](#sec-1-8) (Interest Rate Risk) |
+| Yield curve mechanics | [Section 1.7](#sec-1-7) (Yield Curves) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | IRS | 5.2.1 — single currency |
 | DCI | 5.6.8 — FX-linked deposit |
 | Commodity Swap | 5.2.7 — different underlying |
-### 5.2.7 Commodity Swap
+### 5.2.7 Commodity Swap {#sec-5-2-7}
+
+> **Prerequisites:** [IRS](#sec-5-2-1) &nbsp;|&nbsp; **Key concepts:** Commodity benchmarks, Asian averaging, basis risk
 
 ---
 
-*Where an Interest Rate Swap (Section 5.2.1) exchanges two streams of interest payments on a notional, a Commodity Swap exchanges a fixed commodity price for a floating commodity price. It is a bilateral OTC contract: one party pays a fixed price per unit on a specified volume and receives the floating market price of the commodity (typically the arithmetic average of a futures or spot index over the settlement period); the other party takes the mirror side. No physical commodity changes hands — only the net cash difference is settled. There is no bond wrapper, no barrier, no embedded put or call: just a fixed-price leg and a floating-price leg. This chapter reads the product through two lenses: what it means for **the client** (the counterparty entering the swap to hedge a commodity price), and what it means for **the bank** — the latter split into the desk's commodity-price economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*Where an Interest Rate Swap ([Section 5.2.1](#sec-5-2-1)) exchanges two streams of interest payments on a notional, a Commodity Swap exchanges a fixed commodity price for a floating commodity price. It is a bilateral OTC contract: one party pays a fixed price per unit on a specified volume and receives the floating market price of the commodity (typically the arithmetic average of a futures or spot index over the settlement period); the other party takes the mirror side. No physical commodity changes hands — only the net cash difference is settled. There is no bond wrapper, no barrier, no embedded put or call: just a fixed-price leg and a floating-price leg. This chapter reads the product through two lenses: what it means for **the client** (the counterparty entering the swap to hedge a commodity price), and what it means for **the bank** — the latter split into the desk's commodity-price economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 **How this differs from the IRS (5.2.1):** In an IRS the floating leg references an interest rate (SOFR). In a commodity swap the floating leg references a commodity price (e.g. ICE Brent crude oil). The IRS hedges interest rate risk; the commodity swap hedges commodity price risk. Both are cash-settled swaps with periodic net payments.
 
@@ -10823,12 +11046,12 @@ Your desk runs a book of commodity swaps across crude oil, jet fuel, natural gas
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Swap structure, netting | Section 5.2.1 (IRS) |
-| Derivatives concept | Section 0.8 (What Is a Derivative?) |
-| Forward prices, futures | Section 1.7 (Yield Curves, Forward Rates) |
-| Counterparty risk, ISDA/CSA | Section 5.2.1 (IRS), Section 1.9 (Credit Risk) |
-| Delta hedging | Section 2.7 (How Desks Hedge) |
-| Murex booking | Section 2.8 (Systems Primer) |
+| Swap structure, netting | [Section 5.2.1](#sec-5-2-1) (IRS) |
+| Derivatives concept | [Section 0.8](#sec-0-8) (What Is a Derivative?) |
+| Forward prices, futures | [Section 1.7](#sec-1-7) (Yield Curves, Forward Rates) |
+| Counterparty risk, ISDA/CSA | [Section 5.2.1](#sec-5-2-1) (IRS), [Section 1.9](#sec-1-9) (Credit Risk) |
+| Delta hedging | [Section 2.7](#sec-2-7) (How Desks Hedge) |
+| Murex booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -10875,15 +11098,17 @@ Your desk runs a book of commodity swaps across crude oil, jet fuel, natural gas
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Product decomposition | Section 2.2 (Product Construction) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | IRS | 5.2.1 — rate version |
 | Equity Swap | 5.2.3 — equity version |
 | Forward | 5.6.2 — single settlement |
-### 5.2.8 Vanilla Swap (VLSP)
+### 5.2.8 Vanilla Swap (VLSP) {#sec-5-2-8}
+
+> **Prerequisites:** none — a foundation product, start here &nbsp;|&nbsp; **Key concepts:** Fixed vs floating rates, swap mechanics, cap/floor basics
 
 ---
 
-*Where a Reverse Convertible (Section 5.1.1) embeds an option inside a note, a Vanilla Swap embeds nothing — it is the simplest, most standardized bilateral OTC interest-rate swap, in which two parties exchange two streams of interest payments on a notional that is never itself exchanged. There is no bond wrapper, no barrier, no embedded put or call: just a fixed leg and a floating leg. Where the IRS chapter (5.2.1) introduced the swap concept, this chapter reads the most standard swap as it is actually traded, cleared, and risk-managed — through two lenses: what it means for **the client** (the counterparty entering the swap), and what it means for **the bank** — the latter split into the desk's rate economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*Where a Reverse Convertible ([Section 5.1.1](#sec-5-1-1)) embeds an option inside a note, a Vanilla Swap embeds nothing — it is the simplest, most standardized bilateral OTC interest-rate swap, in which two parties exchange two streams of interest payments on a notional that is never itself exchanged. There is no bond wrapper, no barrier, no embedded put or call: just a fixed leg and a floating leg. Where the IRS chapter (5.2.1) introduced the swap concept, this chapter reads the most standard swap as it is actually traded, cleared, and risk-managed — through two lenses: what it means for **the client** (the counterparty entering the swap), and what it means for **the bank** — the latter split into the desk's rate economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 **How This Differs From the IRS (5.2.1):** The IRS pilot introduced the concept of a swap — fixed versus floating payments. The VLSP covers the plain vanilla swap as a market-standard product: standardized terms, central clearing, IMM dates, Dollar Value of One Basis Point (DV01)-based risk management, and the role of the VLSP as the building block for every structured rate product in Batches 6-7. The IRS taught what a swap is. The VLSP shows how it works in production.
 
@@ -11277,12 +11502,12 @@ The rates desk runs a $50B notional VLSP book. The desk is DV01-neutral but has 
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Interest rate swap concept | Section 5.2.1 (IRS) |
-| SOFR, EURIBOR, benchmark rates | Section 1.8 (Benchmark Rates) |
-| Yield curves, forward rates | Section 1.7 (Yield Curves) |
-| Caps, floors, swaptions | Section 1.8 (Caps, Floors, Swaptions) |
-| Counterparty risk, ISDA/CSA | Section 5.2.1 (IRS), Section 1.9 (Credit Risk) |
-| Murex booking | Section 2.8 (Systems Primer) |
+| Interest rate swap concept | [Section 5.2.1](#sec-5-2-1) (IRS) |
+| SOFR, EURIBOR, benchmark rates | [Section 1.8](#sec-1-8) (Benchmark Rates) |
+| Yield curves, forward rates | [Section 1.7](#sec-1-7) (Yield Curves) |
+| Caps, floors, swaptions | [Section 1.8](#sec-1-8) (Caps, Floors, Swaptions) |
+| Counterparty risk, ISDA/CSA | [Section 5.2.1](#sec-5-2-1) (IRS), [Section 1.9](#sec-1-9) (Credit Risk) |
+| Murex booking | [Section 2.8](#sec-2-8) (Systems Primer) |
 
 ---
 
@@ -11291,9 +11516,9 @@ The rates desk runs a $50B notional VLSP book. The desk is DV01-neutral but has 
 - `assets/vlsp/controls_vlsp_recon_08.svg` `[generated]`
 - `assets/vlsp/legs_vlsp_01.svg` `[generated]`
 - `assets/vlsp/waterfall_vlsp_09.svg` `[generated]`
-## 5.3 STRUCTURED RATE TRADES
+## 5.3 STRUCTURED RATE TRADES {#sec-5-3}
 
-*You have just completed the Swaps family — eight products built on the simple exchange of cash flows between two counterparties. We now turn to Structured Rate Trades (SRT) — products whose payoffs depend on interest rate levels, ranges, and curve shapes. The building blocks for this family were taught in Section 1.7 (Yield Curves, Spot Rates, and Forward Rates), Section 1.8 (Benchmark Rates, Swaps, and Rate Options), and Section 5.2.1 (IRS). Every SRT product is booked in Murex with four legs — Note, Issuer, Deposit, and Hedge — a structure you first encountered in Section 2.7 (The Four-Leg Structure).*
+*You have just completed the Swaps family — eight products built on the simple exchange of cash flows between two counterparties. We now turn to Structured Rate Trades (SRT) — products whose payoffs depend on interest rate levels, ranges, and curve shapes. The building blocks for this family were taught in [Section 1.7](#sec-1-7) (Yield Curves, Spot Rates, and Forward Rates), [Section 1.8](#sec-1-8) (Benchmark Rates, Swaps, and Rate Options), and [Section 5.2.1](#sec-5-2-1) (IRS). Every SRT product is booked in Murex with four legs — Note, Issuer, Deposit, and Hedge — a structure you first encountered in [Section 2.7](#sec-2-7) (The Four-Leg Structure).*
 
 ---
 
@@ -11335,13 +11560,15 @@ The rates desk runs a $50B notional VLSP book. The desk is DV01-neutral but has 
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Interest rate risk | Section 1.8 (Interest Rate Risk) |
-| Yield curve mechanics | Section 1.7 (Yield Curves) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Interest rate risk | [Section 1.8](#sec-1-8) (Interest Rate Risk) |
+| Yield curve mechanics | [Section 1.7](#sec-1-7) (Yield Curves) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | IRS | 5.2.1 — vanilla |
 | IR Callable | 5.3.1 — callable |
 | NCRA | 5.3.3 — range accrual |
-### 5.3.1 IR Callable Fixed Rate Swap
+### 5.3.1 IR Callable Fixed Rate Swap {#sec-5-3-1}
+
+> **Prerequisites:** [IRS](#sec-5-2-1) &nbsp;|&nbsp; **Key concepts:** Embedded swaption, four-leg SRT, non-call period
 
 ---
 
@@ -11656,7 +11883,9 @@ The desk holds the four legs and is long the call (the Bermudan receiver swaptio
 - `assets/ircallable/controls_ircallable_recon_08.svg` `[generated]`
 - `assets/ircallable/legs_ircallable_01.svg` `[generated]`
 - `assets/ircallable/waterfall_ircallable_09.svg` `[generated]`
-### 5.3.2 Zero-Coupon Linked Note (ZCL)
+### 5.3.2 Zero-Coupon Linked Note (ZCL) {#sec-5-3-2}
+
+> **Prerequisites:** [PPN](#sec-5-1-1) · [IRS](#sec-5-2-1) &nbsp;|&nbsp; **Key concepts:** Zero-coupon accretion, duration, liability matching
 
 ---
 
@@ -11967,7 +12196,9 @@ The desk books the four legs in Murex, warehouses the accreting Note-leg duratio
 - `assets/zcl/controls_zcl_recon_08.svg` `[generated]`
 - `assets/zcl/legs_zcl_01.svg` `[generated]`
 - `assets/zcl/waterfall_zcl_09.svg` `[generated]`
-### 5.3.3 Non-Callable Range Accrual (NCRA)
+### 5.3.3 Non-Callable Range Accrual (NCRA) {#sec-5-3-3}
+
+> **Prerequisites:** IR CALLABLE · DIGITAL CF &nbsp;|&nbsp; **Key concepts:** Range accrual on rates, digital option strip, days-in-range
 
 ---
 
@@ -12313,11 +12544,13 @@ The desk holds the mirror position — long the digital strip / short the accrua
 - `assets/ncra/desk_ncra_gamma_07.svg` `[generated]`
 - `assets/ncra/payoff_ncra_01.svg` `[generated]`
 - `assets/ncra/waterfall_ncra_09.svg` `[generated]`
-### 5.3.4 Callable Range Accrual SRT (CRA SRT)
+### 5.3.4 Callable Range Accrual SRT (CRA SRT) {#sec-5-3-4}
+
+> **Prerequisites:** NCRA · IR CALLABLE &nbsp;|&nbsp; **Key concepts:** Dual embedded options (digital strip + swaption), correlation
 
 ---
 
-*Where a Non-Callable Range Accrual (Section 5.3.3) pays a conditional coupon based on days in range with the investor locked in for the full term, the Callable Range Accrual SRT adds the issuing bank's right to terminate early — combining the range accrual coupon mechanism with the callable feature from Section 5.3.1. That single change increases the coupon rate (because the investor is selling both a range view AND a call option) but introduces reinvestment risk on top of range breakout risk. The product is a Structured Rate Trade booked in Murex with the four-leg structure (Note, Issuer, Deposit, Hedge). This chapter reads the product through two lenses: what it means for **the investor** (the note holder), and what it means for **the bank** — the latter split into the desk's rate economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*Where a Non-Callable Range Accrual ([Section 5.3.3](#sec-5-3-3)) pays a conditional coupon based on days in range with the investor locked in for the full term, the Callable Range Accrual SRT adds the issuing bank's right to terminate early — combining the range accrual coupon mechanism with the callable feature from [Section 5.3.1](#sec-5-3-1). That single change increases the coupon rate (because the investor is selling both a range view AND a call option) but introduces reinvestment risk on top of range breakout risk. The product is a Structured Rate Trade booked in Murex with the four-leg structure (Note, Issuer, Deposit, Hedge). This chapter reads the product through two lenses: what it means for **the investor** (the note holder), and what it means for **the bank** — the latter split into the desk's rate economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -12657,7 +12890,9 @@ The desk holds the mirror position — long the digital strip and long the issue
 - `assets/crasrt/desk_crasrt_gamma_07.svg` `[generated]`
 - `assets/crasrt/payoff_crasrt_01.svg` `[generated]`
 - `assets/crasrt/waterfall_crasrt_09.svg` `[generated]`
-### 5.3.5 Digital Cap-Floor Note
+### 5.3.5 Digital Cap-Floor Note {#sec-5-3-5}
+
+> **Prerequisites:** [IRS](#sec-5-2-1) · DIGITAL &nbsp;|&nbsp; **Key concepts:** Digital caplet strip, binary rate payoff
 
 ---
 
@@ -12987,13 +13222,15 @@ The desk holds the mirror position — short the digital cap — and pays the $3
 - `assets/digcapfloor/desk_digcapfloor_gamma_07.svg` `[generated]`
 - `assets/digcapfloor/payoff_digcapfloor_01.svg` `[generated]`
 - `assets/digcapfloor/waterfall_digcapfloor_09.svg` `[generated]`
-## 5.4 STEEPENER NOTES
+## 5.4 STEEPENER NOTES {#sec-5-4}
 
-*You have just completed the Structured Rate Trades family — five products whose payoffs depend on the level of a single interest rate. We now turn to Steepener Notes (STEG) — products whose payoffs depend on the slope of the yield curve: the difference between a long-term rate and a short-term rate. The building blocks for this family were taught in Section 1.7 (Yield Curves, Spot Rates, and Forward Rates), Section 1.8 (Benchmark Rates — including CMS rates), and the SRT family (Section 5.3) established the four-leg booking structure in Murex. Every STEG product references two CMS (Constant Maturity Swap) rates — typically CMS30Y and CMS2Y — and pays the investor based on the spread between them.*
+*You have just completed the Structured Rate Trades family — five products whose payoffs depend on the level of a single interest rate. We now turn to Steepener Notes (STEG) — products whose payoffs depend on the slope of the yield curve: the difference between a long-term rate and a short-term rate. The building blocks for this family were taught in [Section 1.7](#sec-1-7) (Yield Curves, Spot Rates, and Forward Rates), [Section 1.8](#sec-1-8) (Benchmark Rates — including CMS rates), and the SRT family ([Section 5.3](#sec-5-3)) established the four-leg booking structure in Murex. Every STEG product references two CMS (Constant Maturity Swap) rates — typically CMS30Y and CMS2Y — and pays the investor based on the spread between them.*
 
 ---
 
-### 5.4.1 Vanilla Steepener Note
+### 5.4.1 Vanilla Steepener Note {#sec-5-4-1}
+
+> **Prerequisites:** [IRS](#sec-5-2-1) &nbsp;|&nbsp; **Key concepts:** CMS spread, convexity adjustment, curve slope
 
 ---
 
@@ -13329,11 +13566,13 @@ The desk holds the four legs and is short the CMS spread, hedged with the offset
 - `assets/vsteg/payoff_vsteg_01.svg` `[spec-only — requires rendering]`
 - `assets/vsteg/waterfall_vsteg_01.svg` `[spec-only — requires rendering]`
 - `assets/vsteg/controls_vsteg_recon_01.svg` `[spec-only — requires rendering]`
-### 5.4.2 Range Accrual Steepener (RA STEG)
+### 5.4.2 Range Accrual Steepener (RA STEG) {#sec-5-4-2}
+
+> **Prerequisites:** VANILLA STEG · NCRA &nbsp;|&nbsp; **Key concepts:** Spread-based range accrual, dual-condition coupon
 
 ---
 
-*A Range Accrual Steepener is a Structured Rate Trade booked in Murex with the four-leg structure (Note, Issuer, Deposit, Hedge). Where the Vanilla Steepener pays a coupon directly based on the CMS spread level, the Range Accrual Steepener pays a fixed coupon rate only on the days when the CMS spread (CMS30Y − CMS2Y) stays within a predefined range. It applies the same range accrual mechanism used in Section 5.3.3 (NCRA) and Section 5.1.10 (CRA ELN), but to the yield-curve slope rather than a single interest rate. Economically the investor is short a strip of digital spread options on the slope (long the slope-staying-in-range view); the bank's desk is long that strip. This chapter reads the product through two lenses: what it means for **the investor** (the note holder who receives the conditional accrual coupon), and what it means for **the bank** — the latter split into the desk's rate economics (1st line of defence) and the controls and reconciliation that surround the four-leg booking (2nd line of defence).*
+*A Range Accrual Steepener is a Structured Rate Trade booked in Murex with the four-leg structure (Note, Issuer, Deposit, Hedge). Where the Vanilla Steepener pays a coupon directly based on the CMS spread level, the Range Accrual Steepener pays a fixed coupon rate only on the days when the CMS spread (CMS30Y − CMS2Y) stays within a predefined range. It applies the same range accrual mechanism used in [Section 5.3.3](#sec-5-3-3) (NCRA) and [Section 5.1.10](#sec-5-1-10) (CRA ELN), but to the yield-curve slope rather than a single interest rate. Economically the investor is short a strip of digital spread options on the slope (long the slope-staying-in-range view); the bank's desk is long that strip. This chapter reads the product through two lenses: what it means for **the investor** (the note holder who receives the conditional accrual coupon), and what it means for **the bank** — the latter split into the desk's rate economics (1st line of defence) and the controls and reconciliation that surround the four-leg booking (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -13669,7 +13908,9 @@ The desk holds the four legs and is long the digital spread strip (digital floor
 - `assets/rasteg/desk_rasteg_gamma_07.svg` `[generated]`
 - `assets/rasteg/payoff_rasteg_01.svg` `[generated]`
 - `assets/rasteg/waterfall_rasteg_09.svg` `[generated]`
-### 5.4.3 Callable Steepener (Callable STEG)
+### 5.4.3 Callable Steepener (Callable STEG) {#sec-5-4-3}
+
+> **Prerequisites:** VANILLA STEG &nbsp;|&nbsp; **Key concepts:** CMS spread + Bermudan call, dual optionality
 
 ---
 
@@ -14012,7 +14253,9 @@ The desk holds the four legs and is short the slope (the 4.5×-scaled CMS swaps)
 - `assets/callablesteg/controls_callablesteg_recon_08.svg` `[generated]`
 - `assets/callablesteg/payoff_callablesteg_01.svg` `[generated]`
 - `assets/callablesteg/waterfall_callablesteg_09.svg` `[generated]`
-### 5.4.4 TARN Steepener
+### 5.4.4 TARN Steepener {#sec-5-4-4}
+
+> **Prerequisites:** VANILLA STEG &nbsp;|&nbsp; **Key concepts:** Target accumulation, path-dependent termination, Monte Carlo
 
 ---
 
@@ -14341,11 +14584,13 @@ The desk holds the four legs and is short the CMS spread (CMS30Y receiver + CMS2
 - `assets/tarnsteg/controls_tarnsteg_recon_08.svg` `[generated]`
 - `assets/tarnsteg/payoff_tarnsteg_01.svg` `[generated]`
 - `assets/tarnsteg/waterfall_tarnsteg_09.svg` `[generated]`
-## 5.5 CREDIT-LINKED NOTES
+## 5.5 CREDIT-LINKED NOTES {#sec-5-5}
 
 ---
 
-### 5.5.1 Vanilla Credit-Linked Note (CLN)
+### 5.5.1 Vanilla Credit-Linked Note (CLN) {#sec-5-5-1}
+
+> **Prerequisites:** CDS &nbsp;|&nbsp; **Key concepts:** Funded credit, note wrapper, dual credit exposure
 
 ---
 
@@ -14360,8 +14605,8 @@ Company X is a large, established corporation. Bankruptcy seems unlikely. The in
 This is, in essence, what a **Credit-Linked Note (CLN)** does. The investor lends money to a bank (like a bond) and simultaneously sells credit protection on a single reference entity (a company or government). The investor earns the CDS spread — the insurance premium — as an enhanced coupon. But if the reference entity defaults, the investor absorbs the loss.
 
 The CLN combines two things introduced in earlier chapters:
-- A **bond** (Section 0.3 — lending money to the issuer)
-- A **Credit Default Swap** (Section 1.9 — selling insurance on a single name)
+- A **bond** ([Section 0.3](#sec-0-3) — lending money to the issuer)
+- A **Credit Default Swap** ([Section 1.9](#sec-1-9) — selling insurance on a single name)
 
 The CLN wraps these into a single product: Bond + Short CDS = CLN.
 
@@ -14511,7 +14756,7 @@ The desk is long single-name CDS protection on the reference entity and hedges b
 | **Hedging P&L** | Captured on laying off the single-name CDS and managing the basis |
 | **Funding advantage** | Issues the note at a sub-market effective funding rate |
 
-**The coupon decomposition (from Section 2.2):**
+**The coupon decomposition (from [Section 2.2](#sec-2-2)):**
 
 Coupon = Bond interest (risk-free + issuer spread) + CDS spread − Bank margin
 
@@ -14579,7 +14824,7 @@ A **Credit-Linked Note (CLN)** is a structured product in which the investor len
 - **Credit event:** A formally defined occurrence (bankruptcy, failure to pay, restructuring) that triggers settlement.
 - **Recovery rate:** The fraction of the principal recovered after default (typically 30-60% for senior debt).
 - **CDS spread:** The annual premium for credit protection, in basis points. This funds the enhanced coupon.
-- **ISDA definitions:** Credit events are defined under ISDA standards (Section 1.9).
+- **ISDA definitions:** Credit events are defined under ISDA standards ([Section 1.9](#sec-1-9)).
 
 #### §11. Lifecycle
 
@@ -14691,11 +14936,11 @@ A credit event occurs on a reference entity. The ISDA Determinations Committee d
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
 | Debt, bonds, coupon, principal | Sections 0.3 (Debt vs Equity), 0.5 (Interest) |
-| Credit risk, credit spread, recovery rate | Section 1.9 (Credit Risk) |
-| CDS, credit events, ISDA | Section 1.9 (Credit Risk) |
-| Product decomposition, Funds Transfer Pricing (FTP), margin | Section 2.2 (Product Construction) |
-| NEMO/Sophis booking | Section 2.8 (Systems Primer) |
-| CLN family tree, positioning | Section 3.7 (CLN Family Tree) |
+| Credit risk, credit spread, recovery rate | [Section 1.9](#sec-1-9) (Credit Risk) |
+| CDS, credit events, ISDA | [Section 1.9](#sec-1-9) (Credit Risk) |
+| Product decomposition, Funds Transfer Pricing (FTP), margin | [Section 2.2](#sec-2-2) (Product Construction) |
+| NEMO/Sophis booking | [Section 2.8](#sec-2-8) (Systems Primer) |
+| CLN family tree, positioning | [Section 3.7](#sec-3-7) (CLN Family Tree) |
 
 ---
 
@@ -14742,16 +14987,18 @@ A credit event occurs on a reference entity. The ISDA Determinations Committee d
 
 | Concept Used | Where It Was Taught |
 |-------------|-------------------|
-| Credit risk fundamentals | Section 1.9 (Credit Risk) |
-| Product decomposition | Section 2.2 (Product Construction) |
+| Credit risk fundamentals | [Section 1.9](#sec-1-9) (Credit Risk) |
+| Product decomposition | [Section 2.2](#sec-2-2) (Product Construction) |
 | CDS | 5.2.5 — unfunded version |
 | Skew CLN | 5.5.2 — recovery skew |
 | FTD | 5.5.3 — basket credit |
-### 5.5.2 Skew Credit-Linked Note (Skew CLN)
+### 5.5.2 Skew Credit-Linked Note (Skew CLN) {#sec-5-5-2}
+
+> **Prerequisites:** CLN &nbsp;|&nbsp; **Key concepts:** Recovery rate distribution, non-linear recovery payoff
 
 ---
 
-*The Vanilla CLN (Section 5.5.1) carried a fixed recovery-rate assumption — on a credit event, the investor's loss was computed using a predetermined recovery rate. The Skew CLN reshapes that recovery leg: instead of settling at whatever the market recovery rate turns out to be, it applies a predetermined or formula-based recovery (a fixed rate, zero recovery, or a digital threshold). This introduces explicit recovery-rate exposure — the "skew" of the product is in its recovery terms, not in its default trigger. The reference is a single credit entity, so the product carries no portfolio or tranche correlation exposure. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*The Vanilla CLN ([Section 5.5.1](#sec-5-5-1)) carried a fixed recovery-rate assumption — on a credit event, the investor's loss was computed using a predetermined recovery rate. The Skew CLN reshapes that recovery leg: instead of settling at whatever the market recovery rate turns out to be, it applies a predetermined or formula-based recovery (a fixed rate, zero recovery, or a digital threshold). This introduces explicit recovery-rate exposure — the "skew" of the product is in its recovery terms, not in its default trigger. The reference is a single credit entity, so the product carries no portfolio or tranche correlation exposure. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -14901,7 +15148,7 @@ The desk's defining exposure is **recovery basis**, not correlation. The desk se
 
 The bank prices the recovery modification with its model, retains a margin between the modelled fair value and the terms offered, captures the pricing differential between standard and modified-recovery CDS, and earns the bid-offer on any recovery-swap hedges.
 
-**The coupon decomposition (from Section 2.2):**
+**The coupon decomposition (from [Section 2.2](#sec-2-2)):**
 
 Skew CLN Coupon = Vanilla CLN Coupon + Recovery Modification Premium
 
@@ -15059,11 +15306,13 @@ A **Skew Credit-Linked Note (Skew CLN)** is a credit-linked note on a single ref
 - `assets/skewcln/controls_skewcln_recon_08.svg` `[generated]`
 - `assets/skewcln/legs_skewcln_01.svg` `[generated]`
 - `assets/skewcln/waterfall_skewcln_09.svg` `[generated]`
-### 5.5.3 First-to-Default Note (FTD)
+### 5.5.3 First-to-Default Note (FTD) {#sec-5-5-3}
+
+> **Prerequisites:** CLN &nbsp;|&nbsp; **Key concepts:** Basket credit, first-default trigger, credit correlation
 
 ---
 
-*The Vanilla CLN (Section 5.5.1) referenced a single credit. The First-to-Default Note references a basket of credits — typically 5 to 10 names — and triggers a loss when the first entity in the basket defaults. The investor earns a higher coupon because the probability of at least one default in a basket exceeds the probability of any single name defaulting. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*The Vanilla CLN ([Section 5.5.1](#sec-5-5-1)) referenced a single credit. The First-to-Default Note references a basket of credits — typically 5 to 10 names — and triggers a loss when the first entity in the basket defaults. The investor earns a higher coupon because the probability of at least one default in a basket exceeds the probability of any single name defaulting. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -15073,7 +15322,7 @@ The structurer proposes an alternative: instead of selling protection on one com
 
 This is a **First-to-Default Note (FTD)**. The investor sells credit protection on a basket of reference entities — typically 5 to 10 companies — and earns a significantly enhanced coupon because the probability that *at least one* company in the basket defaults is much higher than the probability that any *specific* company defaults. The investor only loses on the *first* default — not on all subsequent defaults.
 
-In Section 1.6, correlation was introduced as a measure of how synchronized assets are, in the context of equity baskets: when stocks in a worst-of product have low correlation, the investor faces more risk because one stock can fall while others rise.
+In [Section 1.6](#sec-1-6), correlation was introduced as a measure of how synchronized assets are, in the context of equity baskets: when stocks in a worst-of product have low correlation, the investor faces more risk because one stock can fall while others rise.
 
 **The same principle applies to credit baskets, but with defaults instead of stock prices.** When companies in an FTD basket have low default correlation, the probability that *at least one* defaults is high — even if each individual company is safe. This is the key insight: the FTD investor is **long correlation (under the MTM convention)** — benefiting when default correlation is high (defaults either all happen or none do, reducing the probability of an isolated first default). The investor is *structurally* short correlation in the sense of having sold the first-default premium, but the economic (MTM) sensitivity is long: rising correlation helps the FTD position. See the Correlation Convention Framework for the distinction between structural and MTM conventions.
 
@@ -15167,7 +15416,7 @@ The FTD allows investors to earn high-yield-level coupons (7-12%) while referenc
 3. **NTD** — Basket, Nth-default trigger (5.5.4 — next chapter)
 4. **Synthetic CDO** — Large portfolio, tranched loss allocation (5.5.5)
 
-**Why FTDs were created:** Banks discovered that investors would accept basket default risk for significantly higher coupons. The key innovation was applying **credit correlation modeling** — borrowed from the equity world (Section 1.6) — to credit baskets. This created a new source of yield without requiring lower credit quality.
+**Why FTDs were created:** Banks discovered that investors would accept basket default risk for significantly higher coupons. The key innovation was applying **credit correlation modeling** — borrowed from the equity world ([Section 1.6](#sec-1-6)) — to credit baskets. This created a new source of yield without requiring lower credit quality.
 
 ---
 
@@ -15305,7 +15554,7 @@ The FTD coupon depends critically on **default correlation** — the tendency fo
 | **Medium** (0.3-0.6) | Moderate probability → MODERATE coupon | Some clustering. Defaults are partially linked but not fully synchronized |
 | **High** (0.7-0.9) | Low first-default probability → LOW coupon | Companies default together or not at all. The basket behaves almost like a single name. If one defaults, all likely default — but the probability of *any* default is lower |
 
-**Key insight:** The FTD investor is **long correlation (under the MTM sensitivity convention)** — profiting when correlation is high (defaults are rare because companies move together) and losing when correlation is low (independent defaults make the first default highly probable). The investor *structurally sold* the first-default premium, which some practitioners describe as "selling correlation"; V1.0.1 uses the MTM convention as the headline label — see Correlation Convention Framework. This parallels worst-of equity products (Section 1.6): worst-of investors are also long correlation (MTM convention) — they profit when stocks move together and lose when stocks move independently. Like FTD investors, worst-of investors *structurally sold* the correlation premium, but the economic sensitivity is long: rising correlation reduces worst-of risk.
+**Key insight:** The FTD investor is **long correlation (under the MTM sensitivity convention)** — profiting when correlation is high (defaults are rare because companies move together) and losing when correlation is low (independent defaults make the first default highly probable). The investor *structurally sold* the first-default premium, which some practitioners describe as "selling correlation"; V1.0.1 uses the MTM convention as the headline label — see Correlation Convention Framework. This parallels worst-of equity products ([Section 1.6](#sec-1-6)): worst-of investors are also long correlation (MTM convention) — they profit when stocks move together and lose when stocks move independently. Like FTD investors, worst-of investors *structurally sold* the correlation premium, but the economic sensitivity is long: rising correlation reduces worst-of risk.
 
 #### §11. Lifecycle
 
@@ -15396,11 +15645,13 @@ The FTD coupon depends critically on **default correlation** — the tendency fo
 - `assets/ftd/controls_ftd_recon_08.svg` `[generated]`
 - `assets/ftd/payoff_ftd_01.svg` `[generated]`
 - `assets/ftd/waterfall_ftd_09.svg` `[generated]`
-### 5.5.4 Nth-to-Default Note (NTD)
+### 5.5.4 Nth-to-Default Note (NTD) {#sec-5-5-4}
+
+> **Prerequisites:** FTD &nbsp;|&nbsp; **Key concepts:** Nth-default threshold, correlation reversal, non-monotonic sensitivity
 
 ---
 
-*The First-to-Default Note (Section 5.5.3) triggered on the first default in a basket. The Nth-to-Default Note moves the trigger deeper: the investor is protected against the first (N-1) defaults and only takes a loss on the Nth. This provides more protection than FTD but less coupon, creating a spectrum of credit risk tranching within a single basket. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*The First-to-Default Note ([Section 5.5.3](#sec-5-5-3)) triggered on the first default in a basket. The Nth-to-Default Note moves the trigger deeper: the investor is protected against the first (N-1) defaults and only takes a loss on the Nth. This provides more protection than FTD but less coupon, creating a spectrum of credit risk tranching within a single basket. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -15776,7 +16027,9 @@ The 2TD investor collected 2 extra years of coupons and had a different recovery
 - `assets/ntd/controls_ntd_recon_08.svg` `[generated]`
 - `assets/ntd/payoff_ntd_01.svg` `[generated]`
 - `assets/ntd/waterfall_ntd_09.svg` `[generated]`
-### 5.5.5 Synthetic CDO Tranche
+### 5.5.5 Synthetic CDO Tranche {#sec-5-5-5}
+
+> **Prerequisites:** FTD &nbsp;|&nbsp; **Key concepts:** Tranching, attachment/detachment, copula dependency, base correlation, loss waterfall
 
 ---
 
@@ -16199,13 +16452,15 @@ Now losses have breached the 3% attachment point:
 - `assets/cdo/controls_cdo_recon_08.svg` `[generated]`
 - `assets/cdo/payoff_cdo_01.svg` `[generated]`
 - `assets/cdo/waterfall_cdo_09.svg` `[generated]`
-## 5.6 OTHER STRUCTURED PRODUCTS
+## 5.6 OTHER STRUCTURED PRODUCTS {#sec-5-6}
 
-### 5.6.1 Structured Deposit
+### 5.6.1 Structured Deposit {#sec-5-6-1}
+
+> **Prerequisites:** none — a foundation product, start here &nbsp;|&nbsp; **Key concepts:** Deposit mechanics, call option basics
 
 ---
 
-*The PPN (Section 5.1.1) protects principal in a note format. The Structured Deposit delivers the same economics — capital protection plus market-linked upside — but wraps them in a bank deposit. The wrapper matters: in many jurisdictions a deposit is eligible for a deposit guarantee scheme, an additional layer of protection that a note cannot offer. This chapter reads the product through two lenses: what it means for **the investor** (here, the depositor), and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*The PPN ([Section 5.1.1](#sec-5-1-1)) protects principal in a note format. The Structured Deposit delivers the same economics — capital protection plus market-linked upside — but wraps them in a bank deposit. The wrapper matters: in many jurisdictions a deposit is eligible for a deposit guarantee scheme, an additional layer of protection that a note cannot offer. This chapter reads the product through two lenses: what it means for **the investor** (here, the depositor), and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -16560,11 +16815,13 @@ This is economically identical to a PPN. The distinction is legal (deposit vs no
 - `assets/strdep/controls_strdep_recon_08.svg` `[generated]`
 - `assets/strdep/payoff_strdep_01.svg` `[generated]`
 - `assets/strdep/waterfall_strdep_09.svg` `[generated]`
-### 5.6.2 Forward
+### 5.6.2 Forward {#sec-5-6-2}
+
+> **Prerequisites:** none — a foundation product, start here &nbsp;|&nbsp; **Key concepts:** Forward pricing, cost of carry, settlement
 
 ---
 
-*The Structured Deposit (Section 5.6.1) protected the investor's principal and linked returns to market performance. The Forward removes protection entirely: it is a binding obligation to buy or sell an asset at a predetermined price on a future date. There is no optionality — both parties must perform. The payoff is linear and symmetric, making the Forward the simplest derivative structure. This chapter reads the product through two lenses: what it means for **the investor** (here the client taking the long forward), and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*The Structured Deposit ([Section 5.6.1](#sec-5-6-1)) protected the investor's principal and linked returns to market performance. The Forward removes protection entirely: it is a binding obligation to buy or sell an asset at a predetermined price on a future date. There is no optionality — both parties must perform. The payoff is linear and symmetric, making the Forward the simplest derivative structure. This chapter reads the product through two lenses: what it means for **the investor** (here the client taking the long forward), and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -16899,11 +17156,13 @@ F = $50.00 × e^((0.04 - 0.015) × 0.5) = $50.00 × e^(0.0125) = $50.00 × 1.012
 - `assets/forward/controls_forward_recon_08.svg` `[generated]`
 - `assets/forward/payoff_forward_01.svg` `[generated]`
 - `assets/forward/waterfall_forward_09.svg` `[generated]`
-### 5.6.3 Vanilla Options
+### 5.6.3 Vanilla Options {#sec-5-6-3}
+
+> **Prerequisites:** [FWD](#sec-5-6-2) &nbsp;|&nbsp; **Key concepts:** Put-call parity, Greeks, time decay, intrinsic vs extrinsic value
 
 ---
 
-*The Forward (Section 5.6.2) created a symmetric obligation for both parties. The Vanilla Option breaks that symmetry: the buyer pays a premium for the right — but not the obligation — to buy (call) or sell (put) at a fixed strike price. This asymmetric payoff is the building block for most structured products in this Bible. This chapter reads the product through two lenses: what it means for **the investor** — here the option **buyer**, who is **long** the option — and what it means for **the bank** — the **writer / market-maker**, who is **short** the option — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*The Forward ([Section 5.6.2](#sec-5-6-2)) created a symmetric obligation for both parties. The Vanilla Option breaks that symmetry: the buyer pays a premium for the right — but not the obligation — to buy (call) or sell (put) at a fixed strike price. This asymmetric payoff is the building block for most structured products in this Bible. This chapter reads the product through two lenses: what it means for **the investor** — here the option **buyer**, who is **long** the option — and what it means for **the bank** — the **writer / market-maker**, who is **short** the option — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -16913,7 +17172,7 @@ This is an **option**. The buyer has paid for the **right but not the obligation
 
 A **Vanilla Option** is the simplest form of this right. A **call option** gives the holder the right to buy. A **put option** gives the holder the right to sell. "Vanilla" means no exotic features — no barriers, no knock-ins, no autocalls, no digital payoffs. Just a strike price and an expiry date.
 
-Section 1.2 introduced what options are. This chapter explains how they are traded, booked, hedged, and managed on a structured products desk.
+[Section 1.2](#sec-1-2) introduced what options are. This chapter explains how they are traded, booked, hedged, and managed on a structured products desk.
 
 #### §2. Real-World Analogy
 
@@ -17254,17 +17513,19 @@ The desk is **short** the put — the writer — and receives the $14,600 premiu
 - `assets/vanopt/controls_vanopt_recon_08.svg` `[generated]`
 - `assets/vanopt/payoff_vanopt_01.svg` `[generated]`
 - `assets/vanopt/waterfall_vanopt_09.svg` `[generated]`
-### 5.6.4 Equity-Linked Option (ELO)
+### 5.6.4 Equity-Linked Option (ELO) {#sec-5-6-4}
+
+> **Prerequisites:** [VO](#sec-5-6-3) &nbsp;|&nbsp; **Key concepts:** Retail wrapper, term sheet vs ISDA
 
 ---
 
-*Vanilla Options (Section 5.6.3) are traded between institutional counterparties via exchanges or OTC markets. The Equity-Linked Option wraps the identical option payoff in a retail-friendly product format — term sheet, minimum ticket, simplified documentation — making vanilla option economics accessible to private banking and mass affluent clients who cannot or do not trade options directly. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*Vanilla Options ([Section 5.6.3](#sec-5-6-3)) are traded between institutional counterparties via exchanges or OTC markets. The Equity-Linked Option wraps the identical option payoff in a retail-friendly product format — term sheet, minimum ticket, simplified documentation — making vanilla option economics accessible to private banking and mass affluent clients who cannot or do not trade options directly. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
 Consider an investor who believes a particular stock — say, Apple — will rise over the next year. The investor could buy the stock for $200, putting $200 at risk. Instead, the bank offers an **Equity-Linked Option** (ELO): the investor pays $15 today, and if Apple is above $200 in one year, the investor receives the difference. If Apple finishes at $230, the investor collects $30. If Apple finishes below $200, the investor loses only the $15 premium.
 
-An ELO is a vanilla option — typically a call — packaged and sold as a standalone investment product to retail or mass affluent clients. It is NOT structurally different from the vanilla options described in Section 5.6.3. The difference is in the packaging: an ELO is marketed as a product with a term sheet, minimum ticket, and retail distribution infrastructure, whereas a vanilla option is a trading instrument.
+An ELO is a vanilla option — typically a call — packaged and sold as a standalone investment product to retail or mass affluent clients. It is NOT structurally different from the vanilla options described in [Section 5.6.3](#sec-5-6-3). The difference is in the packaging: an ELO is marketed as a product with a term sheet, minimum ticket, and retail distribution infrastructure, whereas a vanilla option is a trading instrument.
 
 The ELO bridges the gap between the options desk (which trades vanilla options all day) and the retail client (who wants a simple, branded product with defined terms). The investor is **long** the embedded option; the bank, as writer and market-maker, is **short** it.
 
@@ -17577,15 +17838,17 @@ There is no structural difference from a vanilla option. The formal definition, 
 - `assets/elo/controls_elo_recon_08.svg` `[generated]`
 - `assets/elo/payoff_elo_01.svg` `[generated]`
 - `assets/elo/waterfall_elo_09.svg` `[generated]`
-### 5.6.5 Option on Reverse Convertible (Option on RC)
+### 5.6.5 Option on Reverse Convertible (Option on RC) {#sec-5-6-5}
+
+> **Prerequisites:** [RC](#sec-5-1-2) · [VO](#sec-5-6-3) &nbsp;|&nbsp; **Key concepts:** Compound option, vol-of-vol, two-layer structure
 
 ---
 
-*Vanilla Options (Section 5.6.3) gave the right to buy or sell an asset. The Option on Reverse Convertible gives the right to enter into an RC (Section 5.1.2) at a future date — it is an option on a structured product, not an option on a single asset. This adds a layer of optionality: the investor decides whether the RC's terms are attractive at the option's expiry before committing. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*Vanilla Options ([Section 5.6.3](#sec-5-6-3)) gave the right to buy or sell an asset. The Option on Reverse Convertible gives the right to enter into an RC ([Section 5.1.2](#sec-5-1-2)) at a future date — it is an option on a structured product, not an option on a single asset. This adds a layer of optionality: the investor decides whether the RC's terms are attractive at the option's expiry before committing. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
-A Reverse Convertible (RC, Section 5.1.2) is a product that pays a high coupon but risks converting principal into shares if the stock falls below a barrier. An **Option on a Reverse Convertible** is a product that gives the holder the right — but not the obligation — to enter into an RC with pre-agreed terms on a future date.
+A Reverse Convertible (RC, [Section 5.1.2](#sec-5-1-2)) is a product that pays a high coupon but risks converting principal into shares if the stock falls below a barrier. An **Option on a Reverse Convertible** is a product that gives the holder the right — but not the obligation — to enter into an RC with pre-agreed terms on a future date.
 
 If market conditions at that future date make the RC attractive, the holder exercises and enters the RC. If conditions are unfavorable, the holder walks away, losing only the premium paid for the option.
 
@@ -17904,7 +18167,9 @@ Where:
 **Dual-lens visuals (generated):**
 - `assets/optrc/controls_optrc_recon_08.svg` `[generated]`
 - `assets/optrc/waterfall_optrc_09.svg` `[generated]`
-### 5.6.6 Accumulator
+### 5.6.6 Accumulator {#sec-5-6-6}
+
+> **Prerequisites:** [FWD](#sec-5-6-2) · [VO](#sec-5-6-3) &nbsp;|&nbsp; **Key concepts:** Daily forwards, gearing, knock-out, obligation asymmetry
 
 ---
 
@@ -18254,11 +18519,13 @@ An Accumulator obliges the buyer to purchase N shares at each observation date t
 - `assets/accum/controls_accum_recon_08.svg` `[generated]`
 - `assets/accum/payoff_accum_01.svg` `[generated]`
 - `assets/accum/waterfall_accum_09.svg` `[generated]`
-### 5.6.7 Decumulator
+### 5.6.7 Decumulator {#sec-5-6-7}
+
+> **Prerequisites:** ACCUM &nbsp;|&nbsp; **Key concepts:** Mirror mechanics, selling vs buying, down knock-out
 
 ---
 
-*The Accumulator (Section 5.6.6) obligated the investor to buy shares periodically at a discount; the Decumulator reverses the direction. The investor is obligated to sell shares periodically at a premium to market, with a knock-out barrier that terminates the structure if the price falls too far, and a gearing feature that doubles the quantity sold if the price rises above the strike. It is the mirror image of the Accumulator, used by shareholders who want to monetise an existing position at above-market prices. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*The Accumulator ([Section 5.6.6](#sec-5-6-6)) obligated the investor to buy shares periodically at a discount; the Decumulator reverses the direction. The investor is obligated to sell shares periodically at a premium to market, with a knock-out barrier that terminates the structure if the price falls too far, and a gearing feature that doubles the quantity sold if the price rises above the strike. It is the mirror image of the Accumulator, used by shareholders who want to monetise an existing position at above-market prices. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -18604,7 +18871,9 @@ A Decumulator obliges the seller to sell N shares at each observation date t_i a
 **Dual-lens visuals (generated):**
 - `assets/decum/controls_decum_recon_08.svg` `[generated]`
 - `assets/decum/waterfall_decum_09.svg` `[generated]`
-### 5.6.8 Dual Currency Investment (DCI)
+### 5.6.8 Dual Currency Investment (DCI) {#sec-5-6-8}
+
+> **Prerequisites:** [RC](#sec-5-1-2) &nbsp;|&nbsp; **Key concepts:** FX option, currency conversion risk
 
 ---
 
@@ -18952,11 +19221,13 @@ The strike is in USD/CHF terms: 0.8600 means the bank has the right to repay the
 - `assets/dci/controls_dci_recon_08.svg` `[generated]`
 - `assets/dci/payoff_dci_01.svg` `[generated]`
 - `assets/dci/waterfall_dci_09.svg` `[generated]`
-### 5.6.9 Shark Fin Note
+### 5.6.9 Shark Fin Note {#sec-5-6-9}
+
+> **Prerequisites:** [PPN](#sec-5-1-1) &nbsp;|&nbsp; **Key concepts:** Up-and-out barrier, rebate, barrier knock-out
 
 ---
 
-*The PPN (Section 5.1.1) protected 100% of the investor's principal and gave uncapped upside participation. The Shark Fin Note also protects principal and participates in the upside — but adds an upper knock-out barrier. If the underlying rises far enough to touch the barrier, the participation is extinguished and the investor receives a small fixed rebate instead of the full gain. The investor still profits in that case, but by less than the unbarriered participation would have delivered: the barrier reduces the return, it does not erase it. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*The PPN ([Section 5.1.1](#sec-5-1-1)) protected 100% of the investor's principal and gave uncapped upside participation. The Shark Fin Note also protects principal and participates in the upside — but adds an upper knock-out barrier. If the underlying rises far enough to touch the barrier, the participation is extinguished and the investor receives a small fixed rebate instead of the full gain. The investor still profits in that case, but by less than the unbarriered participation would have delivered: the barrier reduces the return, it does not erase it. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -19272,11 +19543,13 @@ Where:
 - `assets/sharkfin/controls_sharkfin_recon_08.svg` `[generated]`
 - `assets/sharkfin/payoff_sharkfin_01.svg` `[generated]`
 - `assets/sharkfin/waterfall_sharkfin_09.svg` `[generated]`
-### 5.6.10 Snowball Note
+### 5.6.10 Snowball Note {#sec-5-6-10}
+
+> **Prerequisites:** PHOENIX &nbsp;|&nbsp; **Key concepts:** Cumulative coupon accumulation, all-or-nothing dynamic
 
 ---
 
-*The Phoenix Autocallable (Section 5.1.3) carries a "memory" feature: if a coupon is missed and the condition is later met, the missed coupon is paid — but each coupon is a fixed amount. The Snowball Note has a fundamentally different mechanism: missed coupons are not just remembered, they accumulate. Each period without a coupon payment, the "snowball" of owed coupons grows. When the condition is finally met, the entire accumulated snowball is paid at once. Each observation date therefore becomes more consequential as the snowball grows, creating a different risk profile from the Phoenix. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*The Phoenix Autocallable ([Section 5.1.3](#sec-5-1-3)) carries a "memory" feature: if a coupon is missed and the condition is later met, the missed coupon is paid — but each coupon is a fixed amount. The Snowball Note has a fundamentally different mechanism: missed coupons are not just remembered, they accumulate. Each period without a coupon payment, the "snowball" of owed coupons grows. When the condition is finally met, the entire accumulated snowball is paid at once. Each observation date therefore becomes more consequential as the snowball grows, creating a different risk profile from the Phoenix. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
@@ -19603,7 +19876,9 @@ Snowball_t = Σ (coupon rate × 1 period) for each period from the last payment 
 **Dual-lens visuals (generated):**
 - `assets/snowball/controls_snowball_recon_08.svg` `[generated]`
 - `assets/snowball/waterfall_snowball_09.svg` `[generated]`
-### 5.6.11 Cliquet / Ratchet Note
+### 5.6.11 Cliquet / Ratchet Note {#sec-5-6-11}
+
+> **Prerequisites:** [PPN](#sec-5-1-1) · [VO](#sec-5-6-3) &nbsp;|&nbsp; **Key concepts:** Forward-starting options, periodic reset, local/global caps
 
 ---
 
@@ -19984,17 +20259,19 @@ Option decomposition for the investor in this example:
 **Dual-lens visuals (generated):**
 - `assets/cliquet/controls_cliquet_recon_08.svg` `[generated]`
 - `assets/cliquet/waterfall_cliquet_09.svg` `[generated]`
-### 5.6.12 Worst-of Autocallable
+### 5.6.12 Worst-of Autocallable {#sec-5-6-12}
+
+> **Prerequisites:** PHOENIX &nbsp;|&nbsp; **Key concepts:** Worst-of observation, basket correlation, dispersion
 
 ---
 
-*The Phoenix Autocallable (Section 5.1.3) is linked to a single underlying — one stock or one index. The Worst-of Autocallable is linked to a basket of multiple stocks (typically 3-5). Every observation — autocall, coupon, and barrier — is determined by whichever stock in the basket has performed the worst. This "worst-of" mechanism fundamentally changes the product's risk profile: the investor is now exposed to correlation. When stocks move independently (low correlation), the probability that at least one stock falls below the barrier is much higher than for a single stock; the bank compensates for this risk with a significantly higher coupon. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
+*The Phoenix Autocallable ([Section 5.1.3](#sec-5-1-3)) is linked to a single underlying — one stock or one index. The Worst-of Autocallable is linked to a basket of multiple stocks (typically 3-5). Every observation — autocall, coupon, and barrier — is determined by whichever stock in the basket has performed the worst. This "worst-of" mechanism fundamentally changes the product's risk profile: the investor is now exposed to correlation. When stocks move independently (low correlation), the probability that at least one stock falls below the barrier is much higher than for a single stock; the bank compensates for this risk with a significantly higher coupon. This chapter reads the product through two lenses: what it means for **the investor**, and what it means for **the bank** — the latter split into the desk's market economics (1st line of defence) and the controls and reconciliation that surround it (2nd line of defence).*
 
 #### §1. Explain Like I'm New
 
 A relay team's finishing time is not the average of its runners — it is set by the **slowest runner**. If three runners are fast but one trips and crawls, the team's official time is poor.
 
-A **Worst-of Autocallable** works the same way. It is linked to a basket of stocks — for example Apple, Toyota, and Nestlé. The product pays a high coupon and has autocall and barrier features, just like a Phoenix Autocallable (Section 5.1.3). But every single feature is evaluated using whichever stock has performed the worst:
+A **Worst-of Autocallable** works the same way. It is linked to a basket of stocks — for example Apple, Toyota, and Nestlé. The product pays a high coupon and has autocall and barrier features, just like a Phoenix Autocallable ([Section 5.1.3](#sec-5-1-3)). But every single feature is evaluated using whichever stock has performed the worst:
 
 - **Autocall?** Only if the worst-performing stock is above the autocall level — the product redeems early and the investor is returned principal plus due coupons.
 - **Coupon?** Only if the worst-performing stock is above the coupon barrier.
@@ -20359,13 +20636,13 @@ If KI breached AND WO_T < Strike: physical delivery of the worst-performing stoc
 
 ---
 
-# PART 6 — DESK OPERATIONS & CONTROL
+# PART 6 — DESK OPERATIONS & CONTROL {#part-6}
 
 *The operational guide — how a structured-products desk is actually run: market conventions, termsheets and documentation, credit and capital structure, valuation and fair value, product control, treasury and XVA, model risk, operations, regulation, and the 2nd-line reconciliation discipline.*
 
 ---
 
-## 6.1 Market Conventions
+## 6.1 Market Conventions {#sec-6-1}
 
 *How the market speaks — the conventions that govern when, how, and on what basis payments are calculated*
 
@@ -20377,7 +20654,7 @@ Without shared conventions, even a simple agreement becomes an argument.
 
 Financial markets are the same, except the sums are measured in millions. When a bank in London sells a structured note to a pension fund in New York, with an underlying stock listed in Tokyo, every party must agree on precisely how dates are counted, which calendars determine business days, when payments settle, and how interest accrues. Market conventions are the shared language that makes this possible.
 
-Every field you will encounter in a termsheet (Section 6.2), every booking parameter in Part 5's §16 sections, and every clause in the ISDA Master Agreement (Section 6.3) rests on these conventions. Get them wrong by one day, one calendar, or one day count method, and the numbers stop matching between counterparties.
+Every field you will encounter in a termsheet ([Section 6.2](#sec-6-2)), every booking parameter in [Part 5](#part-5)'s product chapters, and every clause in the ISDA Master Agreement ([Section 6.3](#sec-6-3)) rests on these conventions. Get them wrong by one day, one calendar, or one day count method, and the numbers stop matching between counterparties.
 
 ---
 
@@ -20517,9 +20794,9 @@ The "T" is the trade date, and the "+" refers to *business* days, not calendar d
 
 **Delivery versus Payment (DvP).** The standard settlement mechanism for most securities transactions. The securities and the cash move simultaneously — neither party releases their side until both sides are ready. This eliminates settlement risk: the risk that one party delivers but the other fails to pay.
 
-**Free of Payment (FoP).** Delivery of securities without a corresponding cash payment. Used in specific contexts such as collateral transfers under a CSA (Section 6.3), internal transfers between accounts, or corporate actions like stock splits.
+**Free of Payment (FoP).** Delivery of securities without a corresponding cash payment. Used in specific contexts such as collateral transfers under a CSA ([Section 6.3](#sec-6-3)), internal transfers between accounts, or corporate actions like stock splits.
 
-**Cash Settlement vs Physical Delivery.** This distinction matters enormously for structured products and connects directly to Part 5.
+**Cash Settlement vs Physical Delivery.** This distinction matters enormously for structured products and connects directly to [Part 5](#part-5).
 
 In **cash settlement**, the redemption amount is calculated as a cash value and paid to the investor. The investor never receives the underlying securities. Most structured notes are cash-settled.
 
@@ -20549,7 +20826,7 @@ Consider a stock at $100 with a knock-in barrier at $70. During a market selloff
 | Daily (closing) | No — closing price was $73 | No barrier event; principal protected (subject to maturity observation) |
 | Periodic (quarterly) | No — unless the observation date was that Wednesday | No barrier event unless checked that day |
 
-This connects directly to Part 1, Section 1.3, where we introduced European vs American barrier observation. American barriers use continuous or daily observation. European barriers use periodic (often single-date) observation at maturity. The coupon premium reflects this difference — American barriers pay higher coupons because they are riskier for the investor.
+This connects directly to [Part 1](#part-1), [Section 1.3](#sec-1-3), where we introduced European vs American barrier observation. American barriers use continuous or daily observation. European barriers use periodic (often single-date) observation at maturity. The coupon premium reflects this difference — American barriers pay higher coupons because they are riskier for the investor.
 
 ---
 
@@ -20601,7 +20878,7 @@ Coupons are the regular payments that structured products make to investors. The
 
 Accrued Interest = Notional × Coupon Rate × Day Count Fraction (from last coupon date to today)
 
-This matters for secondary market trading — if an investor sells a note between coupon dates, the buyer must compensate the seller for interest that has accrued but not yet been paid. This is the difference between clean price and dirty price (covered in Section 6.2).
+This matters for secondary market trading — if an investor sells a note between coupon dates, the buyer must compensate the seller for interest that has accrued but not yet been paid. This is the difference between clean price and dirty price (covered in [Section 6.2](#sec-6-2)).
 
 **Record Date.** The date on which the registrar determines who owns the note and is therefore entitled to receive the next coupon. Typically 1-2 business days before the payment date. If you own the note on the record date, you receive the coupon — even if you sell the note the next day.
 
@@ -20635,11 +20912,11 @@ Where the Day Count Fraction is determined by the day count convention (ACT/360,
 
 > **Professor Note:** If you remember only one thing from this section, remember this: conventions are not preferences — they are contractual obligations. The termsheet specifies ACT/360 or 30/360, Modified Following or Following, T+2 or T+3, continuous or daily observation. Each choice has precise economic consequences. A $100M trade with the wrong day count convention will pay the wrong coupon on every single payment date, and neither counterparty's system will flag it as an error — it will simply calculate a different number. The convention is the contract. Read it. Book it. Verify it.
 
-Every §16 (Booking and Systems) section in Part 5 specifies the system and key booking fields for each product. This section teaches the conventions that those fields rely on. When you see "Day Count: ACT/360" or "Business Day Convention: Modified Following" in a booking screen, you now know exactly what those fields mean, why they matter, and what goes wrong when they are incorrect.
+Every product chapter in [Part 5](#part-5) specifies the system and key booking fields for each product (in its Bank Lens — Controls & Reconciliation section). This section teaches the conventions that those fields rely on. When you see "Day Count: ACT/360" or "Business Day Convention: Modified Following" in a booking screen, you now know exactly what those fields mean, why they matter, and what goes wrong when they are incorrect.
 
 ---
 
-## 6.2 Reading a Termsheet
+## 6.2 Reading a Termsheet {#sec-6-2}
 
 *What the document says — a field-by-field guide to structured product documentation*
 
@@ -20659,7 +20936,7 @@ A **termsheet** (also called a term sheet, pricing supplement, or product supple
 
 **Indicative Termsheet.** A proposal. Issued during the pre-trade phase, it shows approximate terms based on current market conditions. Key terms like coupons, barriers, and participation rates may change before the trade is finalized. The header will typically say "INDICATIVE TERMS — SUBJECT TO CHANGE." An indicative termsheet is not binding.
 
-**Final Termsheet.** Binding. Issued after the trade is priced and executed. The terms are fixed and reflect the actual economics of the trade. The final termsheet is the basis for the confirmation (Section 6.3) and the booking in systems.
+**Final Termsheet.** Binding. Issued after the trade is priced and executed. The terms are fixed and reflect the actual economics of the trade. The final termsheet is the basis for the confirmation ([Section 6.3](#sec-6-3)) and the booking in systems.
 
 **Who produces it:** The structurer drafts the termsheet based on the product design and pricing. Legal reviews it for accuracy and compliance. Sales sends it to the client. After execution, Operations uses it as the primary reference for booking.
 
@@ -20684,7 +20961,7 @@ Dates are the skeleton of a structured product. Every cash flow, every observati
 
 **Trade Date.** The date on which the trade is agreed between the two parties. This is when the economic terms are locked in. The trade date establishes the legal existence of the transaction.
 
-**Booking Date.** The date on which the trade is entered into the bank's systems (NEMO, Sophis, or Murex, as described in Part 5's §16 sections). The booking date may differ from the trade date — a trade agreed on a Friday afternoon might not be booked until Monday. The booking date matters for system reconciliation and audit trails, but the economic terms are governed by the trade date.
+**Booking Date.** The date on which the trade is entered into the bank's systems (NEMO, Sophis, or Murex, as described in [Part 5](#part-5)'s product chapters). The booking date may differ from the trade date — a trade agreed on a Friday afternoon might not be booked until Monday. The booking date matters for system reconciliation and audit trails, but the economic terms are governed by the trade date.
 
 **Effective Date.** The date on which the trade's economics begin. For swaps, this is when cash flows start accruing. For notes, the effective date may coincide with the issue date. The effective date is not always the same as the trade date — a swap agreed on March 15 might have an effective date of March 17 (T+2).
 
@@ -20702,7 +20979,7 @@ Dates are the skeleton of a structured product. Every cash flow, every observati
 
 **Fixing Date.** The date on which a floating rate or reference price is observed and fixed for the purpose of calculating a payment. For SOFR-based coupons, the fixing date is each business day during the accrual period. For equity-linked products, the fixing date is when the initial reference level is set (often the trade date or issue date).
 
-**Reset Date.** The date on which a floating rate resets for the next accrual period. For a quarterly-pay floating-rate note, the reset date is typically 2 business days before the start of each new accrual period (the "fixing lag" from Section 6.1).
+**Reset Date.** The date on which a floating rate resets for the next accrual period. For a quarterly-pay floating-rate note, the reset date is typically 2 business days before the start of each new accrual period (the "fixing lag" from [Section 6.1](#sec-6-1)).
 
 **Roll Date.** The date on which a position moves from one contract period to the next. This is most relevant for products linked to futures contracts or for rolling swap positions. The roll date determines which contract month the product references.
 
@@ -20716,11 +20993,11 @@ Dates are the skeleton of a structured product. Every cash flow, every observati
 
 ### Economics Fields
 
-These are the numbers that define the payoff. Every economics field maps directly to a component in the product decomposition framework taught in Part 2.
+These are the numbers that define the payoff. Every economics field maps directly to a component in the product decomposition framework taught in [Part 2](#part-2).
 
 **Notional / Face Value.** The reference amount on which all calculations are based. A $10,000,000 notional structured note means all coupons, barriers, and redemption amounts are calculated as percentages of $10,000,000. The investor's initial investment equals the notional multiplied by the issue price.
 
-**Issue Price.** The price at which the note is issued, expressed as a percentage of notional. An issue price of 100% (par) means the investor pays the full notional. An issue price of 99% means the investor pays $9,900,000 on a $10,000,000 notional — the 1% discount may reflect structuring fees or market conditions. Discount Reverse Convertibles (Part 5) are issued below par by design.
+**Issue Price.** The price at which the note is issued, expressed as a percentage of notional. An issue price of 100% (par) means the investor pays the full notional. An issue price of 99% means the investor pays $9,900,000 on a $10,000,000 notional — the 1% discount may reflect structuring fees or market conditions. Discount Reverse Convertibles ([Part 5](#part-5)) are issued below par by design.
 
 **Clean Price.** The quoted price of the note excluding accrued interest. This is what you see on trading screens and what dealers quote to each other. Clean price facilitates comparison because it strips out the coupon accrual effect that would otherwise make prices change daily.
 
@@ -20730,7 +21007,7 @@ These are the numbers that define the payoff. Every economics field maps directl
 
 **Strike.** The reference level for option payoffs. In a Reverse Convertible, the strike is typically set at the underlying's closing price on the trade date (100% of initial level). In a Principal Protected Note, the strike determines the level above which the investor participates in upside. The strike may be expressed as a percentage of the initial level or as an absolute price.
 
-**Barrier.** The level that triggers a change in payoff. A knock-in barrier at 70% means the put option activates if the underlying falls to 70% of its initial level. A knock-out barrier at 130% means the option is extinguished if the underlying rises to 130%. The barrier level, observation convention (Section 6.1), and barrier type (knock-in vs knock-out) together define the conditional protection structure.
+**Barrier.** The level that triggers a change in payoff. A knock-in barrier at 70% means the put option activates if the underlying falls to 70% of its initial level. A knock-out barrier at 130% means the option is extinguished if the underlying rises to 130%. The barrier level, observation convention ([Section 6.1](#sec-6-1)), and barrier type (knock-in vs knock-out) together define the conditional protection structure.
 
 **Participation Rate.** The percentage of the underlying's performance that the investor receives. A participation rate of 60% on upside means if the underlying rises 20%, the investor earns 12% (60% × 20%). This appears primarily in Principal Protected Notes and Booster Notes.
 
@@ -20744,7 +21021,7 @@ These are the numbers that define the payoff. Every economics field maps directl
 
 **Coupon Rate.** The periodic return paid to the investor, expressed as an annualized percentage. A 7% semi-annual coupon on $10,000,000 pays $10,000,000 × 7% × Day Count Fraction per period. The coupon may be fixed (unconditional), conditional (paid only if an observation condition is met), or memory (conditional with ability to recover missed payments).
 
-**Funding Spread.** The spread over the reference rate that reflects the issuer's cost of borrowing. This appears in the pricing breakdown rather than the client-facing termsheet. It represents FTP (Funds Transfer Pricing) discussed in Part 2 — the internal cost that reduces the coupon budget.
+**Funding Spread.** The spread over the reference rate that reflects the issuer's cost of borrowing. This appears in the pricing breakdown rather than the client-facing termsheet. It represents FTP (Funds Transfer Pricing) discussed in [Part 2](#part-2) — the internal cost that reduces the coupon budget.
 
 **Discount Spread.** The spread used to discount future cash flows when calculating the present value of the product. This includes the issuer's credit spread and is used in mark-to-market valuation, not in coupon calculations.
 
@@ -20752,9 +21029,9 @@ These are the numbers that define the payoff. Every economics field maps directl
 
 ### Convention Fields
 
-These fields specify *how* the economics are calculated. They reference the conventions taught in Section 6.1.
+These fields specify *how* the economics are calculated. They reference the conventions taught in [Section 6.1](#sec-6-1).
 
-**Business Day Convention.** Specifies which business day convention applies to payment and observation dates (Modified Following, Following, Preceding, or No Adjustment). As discussed in Section 6.1, this determines what happens when a scheduled date falls on a holiday.
+**Business Day Convention.** Specifies which business day convention applies to payment and observation dates (Modified Following, Following, Preceding, or No Adjustment). As discussed in [Section 6.1](#sec-6-1), this determines what happens when a scheduled date falls on a holiday.
 
 **Day Count Convention.** Specifies the day count basis for interest calculations (ACT/360, ACT/365, 30/360, ACT/ACT, or 30E/360). This determines the fraction of a year used in every coupon and accrual calculation.
 
@@ -20764,13 +21041,13 @@ These fields specify *how* the economics are calculated. They reference the conv
 
 **Settlement Currency.** The currency in which all payments are made. A note linked to a Japanese stock but denominated in USD will have all coupon and redemption payments in USD. Any currency conversion is handled by the issuer (and the FX risk may or may not be hedged — this is a separate consideration).
 
-**Exercise Style.** European, American, or Bermudan. This describes when the embedded option can be exercised, and connects directly to Part 1, Section 1.2. Most structured products use European exercise (option exercisable only at maturity), but autocallable features effectively create early exercise opportunities on discrete observation dates (Bermudan-like behavior).
+**Exercise Style.** European, American, or Bermudan. This describes when the embedded option can be exercised, and connects directly to [Part 1](#part-1), [Section 1.2](#sec-1-2). Most structured products use European exercise (option exercisable only at maturity), but autocallable features effectively create early exercise opportunities on discrete observation dates (Bermudan-like behavior).
 
 ---
 
 ### Legal Fields
 
-These fields define the legal framework that governs the trade. They connect to Section 6.3 and are often the most overlooked — and most dangerous — section of the termsheet.
+These fields define the legal framework that governs the trade. They connect to [Section 6.3](#sec-6-3) and are often the most overlooked — and most dangerous — section of the termsheet.
 
 **Calculation Agent.** The entity responsible for determining outcomes under the termsheet — including whether barriers have been breached, what coupon amounts are due, and what the final redemption amount is. The calculation agent is almost always the issuing bank. This means the bank acts as both counterparty and referee, which creates a conflict of interest that is managed through standard market practice and regulatory oversight.
 
@@ -20802,7 +21079,7 @@ These fields define the legal framework that governs the trade. They connect to 
 
 ---
 
-## 6.3 Documentation & Legal Framework
+## 6.3 Documentation & Legal Framework {#sec-6-3}
 
 *What the contract means — the legal architecture that governs structured product trades*
 
@@ -20910,7 +21187,7 @@ The **Credit Support Annex** is the collateral agreement that sits alongside the
 
 **Bilateral vs Cleared CSA.** In bilateral trades (between two specific counterparties), the CSA is negotiated as part of the ISDA documentation. In cleared trades (executed through a central counterparty or CCP), the collateral terms are standardized by the clearinghouse — initial margin and variation margin are calculated centrally, and there is no bilateral negotiation.
 
-**How CSA terms affect XVA.** The CSA terms directly influence the valuation adjustments (XVA) discussed in Section 6.7. A CSA with a zero threshold and daily margin calls significantly reduces Credit Valuation Adjustment (CVA) because the counterparty exposure is continuously collateralized. A CSA with a high threshold or infrequent margin calls leaves more uncollateralized exposure, increasing CVA. The Funding Valuation Adjustment (FVA) is affected by the cost of funding the collateral posted. The collateral currency (a CSA might specify USD cash as eligible collateral) affects the discount rate used for valuation.
+**How CSA terms affect XVA.** The CSA terms directly influence the valuation adjustments (XVA) discussed in [Section 6.7](#sec-6-7). A CSA with a zero threshold and daily margin calls significantly reduces Credit Valuation Adjustment (CVA) because the counterparty exposure is continuously collateralized. A CSA with a high threshold or infrequent margin calls leaves more uncollateralized exposure, increasing CVA. The Funding Valuation Adjustment (FVA) is affected by the cost of funding the collateral posted. The collateral currency (a CSA might specify USD cash as eligible collateral) affects the discount rate used for valuation.
 
 ---
 
@@ -20918,7 +21195,7 @@ The **Credit Support Annex** is the collateral agreement that sits alongside the
 
 A **confirmation** is the trade-specific document that records the economic terms of an individual derivative transaction under the ISDA Master Agreement. If the Master Agreement is the franchise manual and the Schedule is the local customization, the confirmation is the receipt for each individual order.
 
-**What a confirmation contains:** All the economic terms from the termsheet (Section 6.2) are replicated in the confirmation, plus references to the applicable ISDA definitions. The confirmation ties the trade to the legal framework — it says "this trade is governed by the ISDA Master Agreement dated [date] between [Party A] and [Party B], as modified by the Schedule, and the terms of this trade are as set forth below."
+**What a confirmation contains:** All the economic terms from the termsheet ([Section 6.2](#sec-6-2)) are replicated in the confirmation, plus references to the applicable ISDA definitions. The confirmation ties the trade to the legal framework — it says "this trade is governed by the ISDA Master Agreement dated [date] between [Party A] and [Party B], as modified by the Schedule, and the terms of this trade are as set forth below."
 
 **Confirmation matching.** Both parties must agree on every term in the confirmation. After a trade is executed, each side produces its version of the confirmation. The operations teams compare the two versions (a process called "matching") and resolve any discrepancies. A matched confirmation means both parties agree on all terms.
 
@@ -21058,7 +21335,7 @@ Compression is typically facilitated by a third-party service provider (such as 
 > **Professor Note:** If you remember only one thing from this section, remember this: the ISDA Master Agreement is not a document you sign and forget. It is the document that determines what happens on the worst day — the day a counterparty defaults, a market shuts down, or a force majeure event strikes. On that day, the Master Agreement, the Schedule, and the CSA are the only things that matter. The termsheet tells you what the trade should have been. The legal documentation tells you what actually happens. Every clause that seemed academic on the day you signed it becomes the governing reality on the day something goes wrong. Respect the documentation. Read the Schedule. Know the CSA terms. Understand what triggers default and what happens when it is triggered. This is not legal trivia — it is operational survival.
 
 
-## 6.4 Credit & Capital Structure
+## 6.4 Credit & Capital Structure {#sec-6-4}
 
 *Who gets paid when things go wrong — the hierarchy of claims, restructuring mechanics, and resolution frameworks*
 
@@ -21318,7 +21595,7 @@ The DC decides:
 
 ---
 
-## 6.5 Valuation & Fair Value
+## 6.5 Valuation & Fair Value {#sec-6-5}
 
 *How we know what things are worth — the hierarchy, the process, and the governance*
 
@@ -21341,7 +21618,7 @@ For structured products, fair value is not always obvious. A bespoke 7-year auto
 
 ### Mark-to-Market vs Mark-to-Model
 
-Section 1.1 introduced **mark-to-market** — revaluing positions at current market prices every day. But what happens when there is no market price?
+[Section 1.1](#sec-1-1) introduced **mark-to-market** — revaluing positions at current market prices every day. But what happens when there is no market price?
 
 **Mark-to-Market (MTM):**
 
@@ -21539,13 +21816,13 @@ Day One P&L is a significant audit focus area. External auditors specifically te
 
 ---
 
-## 6.6 Product Control
+## 6.6 Product Control {#sec-6-6}
 
 *How we verify the numbers — the daily discipline of P&L, reserves, and month-end*
 
 Product Control is the financial equivalent of air traffic control. Traders are the pilots — they fly the trades. Product Control watches every flight on the radar, verifies altitude and heading, and raises the alarm when something deviates from the flight plan. Without Product Control, the trading floor is flying blind.
 
-Section 0.12 introduced Product Control as the P&L verification team. Section 2.3 showed how money flows through the Four-Leg Framework. Section 6.5 covered IPV and valuation governance. This chapter goes deeper — into the daily mechanics of P&L explain, the reserve framework, and the month-end process that holds the entire structured products business together.
+[Section 0.12](#sec-0-12) introduced Product Control as the P&L verification team. [Section 2.3](#sec-2-3) showed how money flows through the Four-Leg Framework. [Section 6.5](#sec-6-5) covered IPV and valuation governance. This chapter goes deeper — into the daily mechanics of P&L explain, the reserve framework, and the month-end process that holds the entire structured products business together.
 
 ### What Product Control Does
 
@@ -21692,7 +21969,7 @@ Management watches the difference between flash and official. A consistent patte
 
 Reserves are valuation adjustments that reduce the mid-market model price to a more conservative, realistic fair value. They exist because the model price assumes perfect conditions — instant liquidity, zero transaction costs, no model uncertainty — that do not exist in reality.
 
-Section 6.5 introduced valuation adjustments conceptually. Here, we cover every reserve type in operational detail.
+[Section 6.5](#sec-6-5) introduced valuation adjustments conceptually. Here, we cover every reserve type in operational detail.
 
 **Bid-Offer Reserve**
 
@@ -21728,7 +22005,7 @@ The bid-offer reserve assumes you can close a position at the quoted bid or offe
 
 **Day One Reserve (Inception Profit Deferral)**
 
-Section 6.5 explained Day One P&L conceptually. The Day One reserve is the operational implementation: when a Level 3 trade is booked and the model shows Day One P&L, that profit is deferred into a reserve rather than being recognized immediately.
+[Section 6.5](#sec-6-5) explained Day One P&L conceptually. The Day One reserve is the operational implementation: when a Level 3 trade is booked and the model shows Day One P&L, that profit is deferred into a reserve rather than being recognized immediately.
 
 *Amortization:* The deferred Day One P&L is released over the life of the trade on a straight-line basis, or upon occurrence of observable evidence that supports the model valuation (e.g., a comparable trade prices in the market).
 
@@ -21835,13 +22112,13 @@ Different product families present different challenges for Product Control. Her
 > **Professor Note:** If you remember only one thing from this chapter, remember this: Product Control's job is to make the invisible visible. The trader sees P&L as a single number. PC decomposes that number into its causes, verifies each cause independently, holds reserves for what cannot be verified, and presents the result to management in a form that can be understood, challenged, and relied upon. Every reserve, every P&L Explain, every IPV check exists because someone, somewhere, once lost money that nobody could explain — and the control was built to make sure it does not happen again.
 
 
-## 6.7 Treasury, Capital & XVA
+## 6.7 Treasury, Capital & XVA {#sec-6-7}
 
 ### How the Bank Prices Its Own Costs — Funding, Capital Consumption, and Valuation Adjustments
 
 Imagine you run a restaurant. Your menu prices must cover more than just ingredients (the hedge). They must also cover rent (funding cost), insurance (capital), the health inspector's requirements (regulatory capital), and the cost of extending credit to regular customers who run tabs (CVA). Treasury, Capital, and XVA are the structured products desk's equivalent of these overhead costs. They are invisible to the customer but critical to profitability.
 
-Part 2 taught you the product construction formula: **Coupon = Bond Yield + Option Premium - FTP - Margin.** That formula told you *that* FTP exists and *that* it reduces the coupon. This section teaches you *how* FTP works, *why* Treasury charges it, and what other invisible costs — XVA and capital consumption — sit between the desk's gross revenue and its actual profit.
+[Part 2](#part-2) taught you the product construction formula: **Coupon = Bond Yield + Option Premium - FTP - Margin.** That formula told you *that* FTP exists and *that* it reduces the coupon. This section teaches you *how* FTP works, *why* Treasury charges it, and what other invisible costs — XVA and capital consumption — sit between the desk's gross revenue and its actual profit.
 
 ---
 
@@ -21866,7 +22143,7 @@ The structured products desk interacts with Treasury primarily through FTP. Ever
 
 ### FTP Methodology
 
-In Part 2 Section 2.2, you learned that FTP is a cost component in the product formula. In the Four-Leg Framework (Section 2.3), you saw the Deposit Leg — the leg where Treasury charges the desk for funding. This section explains how that charge is calculated.
+In [Part 2](#part-2) [Section 2.2](#sec-2-2), you learned that FTP is a cost component in the product formula. In the Four-Leg Framework ([Section 2.3](#sec-2-3)), you saw the Deposit Leg — the leg where Treasury charges the desk for funding. This section explains how that charge is calculated.
 
 **What FTP is:** FTP (Funds Transfer Price) is the internal cost charged to the trading desk for the funding embedded in a structured product. When the bank issues a 5-year structured note, it needs to fund that note for 5 years. FTP is the price Treasury charges the desk for that 5-year funding.
 
@@ -22200,13 +22477,13 @@ Smart desks do not accept high capital consumption as a given. They actively man
 
 ---
 
-## 6.8 Model Risk Management
+## 6.8 Model Risk Management {#sec-6-8}
 
 ### How We Govern the Models — Validation, Limitations, and the Discipline of Knowing What We Do Not Know
 
 Models are like maps. A good map helps you navigate confidently. But every map has limitations: it may be outdated, it may not show elevation, it may distort distances at the edges. Model Risk Management is the discipline of knowing where the map is accurate, where it is approximate, and where it is dangerously wrong.
 
-Part 1 Section 1.9 introduced model risk as "the risk that your math is wrong." This section expands on that introduction. Model risk has two sources. The first is that the model is *inherently* wrong — it makes assumptions that do not reflect reality. The second is that the model is *used* incorrectly — correct model, wrong inputs, wrong application. Both sources can produce large losses.
+[Part 1](#part-1) [Section 1.9](#sec-1-9) introduced model risk as "the risk that your math is wrong." This section expands on that introduction. Model risk has two sources. The first is that the model is *inherently* wrong — it makes assumptions that do not reflect reality. The second is that the model is *used* incorrectly — correct model, wrong inputs, wrong application. Both sources can produce large losses.
 
 ---
 
@@ -22261,7 +22538,7 @@ The Model Risk Management (MRM) committee reviews the validation report and deci
 
 **5. Implementation**
 
-The approved model is coded into the bank's pricing systems — Sophis for ELN/CLN products, Murex for SRT/STEG products (as described in Part 2 Section 2.8). Implementation is itself a source of model risk: the code may not perfectly match the mathematics. This is why implementation testing is a validation requirement.
+The approved model is coded into the bank's pricing systems — Sophis for ELN/CLN products, Murex for SRT/STEG products (as described in [Part 2](#part-2) [Section 2.8](#sec-2-8)). Implementation is itself a source of model risk: the code may not perfectly match the mathematics. This is why implementation testing is a validation requirement.
 
 **6. Monitoring**
 
@@ -22305,7 +22582,7 @@ A challenger model is an alternative model used to benchmark the primary (produc
 
 For example, if the desk prices worst-of autocallables using a **Local Volatility + Monte Carlo** model, the challenger might use a **Stochastic Volatility + Monte Carlo** model. Both models should produce similar prices for vanilla products (where the choice of model matters less) but may diverge for complex products (where model assumptions become more important).
 
-The difference between the primary model price and the challenger model price is a measure of **model uncertainty**. This difference often drives the **Model Reserve** — a reserve that Product Control holds against positions where model risk is material (as discussed in Section 6.6).
+The difference between the primary model price and the challenger model price is a measure of **model uncertainty**. This difference often drives the **Model Reserve** — a reserve that Product Control holds against positions where model risk is material (as discussed in [Section 6.6](#sec-6-6)).
 
 | Primary Model | Challenger Model | Typical Products |
 |--------------|-----------------|-----------------|
@@ -22415,7 +22692,7 @@ In these situations, the desk may apply an **expert judgment override** — adju
 
 ### Model Risk for Structured Products
 
-Different product families have different model risk profiles. The table below summarizes the key model risks for each family covered in Part 5.
+Different product families have different model risk profiles. The table below summarizes the key model risks for each family covered in [Part 5](#part-5).
 
 | Product Family | Key Model Risks | Most Sensitive Parameter |
 |---------------|----------------|------------------------|
@@ -22447,13 +22724,13 @@ The pattern is clear: the more complex the product, the more assumptions the mod
 
 ---
 
-## 6.9 Operations
+## 6.9 Operations {#sec-6-9}
 
 ### How Trades Flow Through the System — Booking, Settlement, Reconciliation, and the Discipline of Getting It Right
 
 Operations is the logistics network of a structured products desk. If the front office is the factory that designs and builds products, Operations is the shipping, warehousing, and delivery system that ensures every product reaches its destination correctly and on time. A brilliant product that is booked incorrectly, settled late, or reconciled wrong is a failed delivery — regardless of how elegant the design.
 
-Part 2 Section 2.6 introduced the trade lifecycle from the perspective of front, middle, and back office. Each product chapter in Part 5 includes Section 16 (Booking and Systems), which describes how that specific product is booked. This section goes deeper into the operational machinery that applies across all products: the detailed workflow from trade capture to maturity, the systems of checks and reconciliation that prevent errors, and the lifecycle events that require operational attention.
+[Part 2](#part-2) [Section 2.6](#sec-2-6) introduced the trade lifecycle from the perspective of front, middle, and back office. Each product chapter in [Part 5](#part-5) includes Section 16 (Booking and Systems), which describes how that specific product is booked. This section goes deeper into the operational machinery that applies across all products: the detailed workflow from trade capture to maturity, the systems of checks and reconciliation that prevent errors, and the lifecycle events that require operational attention.
 
 ---
 
@@ -22463,7 +22740,7 @@ The operational trade lifecycle has eight stages. Each stage has its own procedu
 
 **1. Trade Capture**
 
-The structurer finalizes the product terms with the client. Once terms are agreed, the trade is entered into the booking system — NEMO for ELN and CLN products, Murex for SRT, STEG, and Swaps (as established in Part 2 Section 2.8).
+The structurer finalizes the product terms with the client. Once terms are agreed, the trade is entered into the booking system — NEMO for ELN and CLN products, Murex for SRT, STEG, and Swaps (as established in [Part 2](#part-2) [Section 2.8](#sec-2-8)).
 
 The person entering the trade fills in a trade capture form with the key economic terms: notional, underlying, strike, barrier levels, maturity date, coupon schedule, counterparty, settlement currency, and observation conventions. The system validates these fields against business rules before accepting the trade.
 
@@ -22835,7 +23112,7 @@ The operational workflow:
 4. Generate the payment instruction
 5. Send the payment on the payment date (typically 2-5 business days after the observation date)
 
-For memory coupons (as taught in Section 5.1.3, Phoenix Autocallable), Operations must also check whether previously missed coupons are recoverable — adding complexity to the calculation.
+For memory coupons (as taught in [Section 5.1.3](#sec-5-1-3), Phoenix Autocallable), Operations must also check whether previously missed coupons are recoverable — adding complexity to the calculation.
 
 **Barrier Observations**
 
@@ -22882,7 +23159,7 @@ If the autocall does not trigger, the trade continues to the next observation da
 > **Professor Note:** If you remember only one thing from this section, remember this: the front office designs the product and the hedge. Operations makes it real. Every coupon payment, every fixing, every barrier check, every settlement — these are the moments where the product's promises are either kept or broken. Operations does not create the P&L, but Operations can destroy it.
 
 
-## 6.10 The Practitioner's Desk
+## 6.10 The Practitioner's Desk {#sec-6-10}
 
 *How the desk actually talks and works — vocabulary, organization, and the daily rhythm of structured products*
 
@@ -22959,7 +23236,7 @@ Warehouse risk is the risk that accumulated inventory moves against the desk bef
 
 ### Greeks Positioning Language
 
-Part 1 taught what the Greeks **are**. This section teaches how the desk **talks** about them.
+[Part 1](#part-1) taught what the Greeks **are**. This section teaches how the desk **talks** about them.
 
 **Long Gamma**
 
@@ -23136,7 +23413,7 @@ Here is the end-to-end journey of a 1-year Phoenix Autocallable on the Euro Stox
 
 ---
 
-## 6.11 Regulatory Framework
+## 6.11 Regulatory Framework {#sec-6-11}
 
 *What the regulators require — the rules that govern structured product design, distribution, and risk management*
 
@@ -23173,7 +23450,7 @@ The **distributor** (the sales team or external bank that sells the product) mus
 
 **Suitability and Appropriateness**
 
-Part 5 of the Bible already covers suitability extensively (105 mentions). MiFID II adds specific procedural requirements:
+[Part 5](#part-5) of the Bible already covers suitability extensively (105 mentions). MiFID II adds specific procedural requirements:
 
 - **Advisory sales**: the bank must conduct a full suitability assessment — checking knowledge, experience, financial situation, investment objectives, and risk tolerance. The assessment must be documented and provided to the client.
 - **Execution-only sales**: the bank must conduct an appropriateness assessment — checking only whether the client has sufficient knowledge and experience to understand the product's risks. If the client fails, the bank must warn them (but the client may still proceed).
@@ -23320,7 +23597,7 @@ The industry-standard model for calculating bilateral IM:
 
 **Impact on Structured Products**
 
-UMR increases the cost of bilateral (non-cleared) trades by requiring funded collateral. This cost flows into product pricing via MVA (see §6.7). Products that would have been economically viable before UMR may become too expensive after the margin funding cost is included.
+UMR increases the cost of bilateral (non-cleared) trades by requiring funded collateral. This cost flows into product pricing via MVA (see [§6.7](#sec-6-7)). Products that would have been economically viable before UMR may become too expensive after the margin funding cost is included.
 
 **Segregation**
 
@@ -23334,7 +23611,7 @@ The Basel framework (Basel III, with Basel IV changes being implemented) sets gl
 
 **Credit Risk Capital (SA-CCR)**
 
-The Standardised Approach for Counterparty Credit Risk (covered in §6.7) determines the exposure amount for derivative trades. Higher exposure → higher RWA → higher capital → higher cost.
+The Standardised Approach for Counterparty Credit Risk (covered in [§6.7](#sec-6-7)) determines the exposure amount for derivative trades. Higher exposure → higher RWA → higher capital → higher cost.
 
 **Market Risk Capital (FRTB)**
 
@@ -23412,11 +23689,11 @@ Using this information to benefit the desk or personal accounts is illegal. Bank
 
 ---
 
-## 6.12 The 2nd-Line Reconciliation Casebook
+## 6.12 The 2nd-Line Reconciliation Casebook {#sec-6-12}
 
 *Where the controls meet the trade — fifteen worked reconciliation breaks, end to end, for the 2nd line of defence.*
 
-The product chapters in Part 5 each carry a **Controls & Reconciliation (2nd Line of Defence)** lens with a reconciliation-points table and a flagged "most common break." This casebook is the operational companion: it takes the breaks that matter most across the 49 products and works each one through, with numbers, from the moment the trade is booked to the moment 2nd line catches it. It is written for the reader who runs trade reconciliation alongside the desk (1st line) and must prevent losses to the bank from data inconsistency.
+The product chapters in [Part 5](#part-5) each carry a **Controls & Reconciliation (2nd Line of Defence)** lens with a reconciliation-points table and a flagged "most common break." This casebook is the operational companion: it takes the breaks that matter most across the 49 products and works each one through, with numbers, from the moment the trade is booked to the moment 2nd line catches it. It is written for the reader who runs trade reconciliation alongside the desk (1st line) and must prevent losses to the bank from data inconsistency.
 
 Every case follows the same anatomy so the discipline becomes muscle memory.
 
@@ -23658,7 +23935,7 @@ A reconciliation break is never "just a data issue." It is a future loss, a futu
 
 **Root cause.** Model change management — a model-version deployment without a re-baseline.
 
-**Remediation / preventive control.** Model changes are governed (Section 6.8): no overnight deployment without a parallel run and a P&L impact assessment; the day's Unexplained must be reconciled to the model-change log.
+**Remediation / preventive control.** Model changes are governed ([Section 6.8](#sec-6-8)): no overnight deployment without a parallel run and a P&L impact assessment; the day's Unexplained must be reconciled to the model-change log.
 
 ---
 
@@ -23733,13 +24010,13 @@ A reconciliation break is never "just a data issue." It is a future loss, a futu
 
 ---
 
-# PART 7 — QUICK REFERENCE
+# PART 7 — QUICK REFERENCE {#part-7}
 
 *The fast lookup layer for revision and interview preparation — consolidated review questions and the book-wide mental-models glossary.*
 
 ---
 
-## 7.1 Knowledge Check
+## 7.1 Knowledge Check {#sec-7-1}
 
 ### Review Questions
 
@@ -23777,7 +24054,7 @@ A junior structurer says: "We do not need to worry about XVA charges — they ar
 
 ---
 
-## 7.2 Mental Models Summary
+## 7.2 Mental Models Summary {#sec-7-2}
 
 | Concept | Mental Model |
 |---------|-------------|

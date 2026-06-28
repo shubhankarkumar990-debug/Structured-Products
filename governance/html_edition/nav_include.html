@@ -1,0 +1,21 @@
+<script>
+(function(){
+  var toc=document.getElementById('TOC');
+  if(!toc) return;
+  // home link + search box at top of sidebar
+  var home=document.createElement('a');
+  home.className='home-link'; home.href='index.html'; home.textContent='⌂ Library Home';
+  var box=document.createElement('input');
+  box.id='nav-search'; box.type='search'; box.placeholder='Filter contents…';
+  toc.insertBefore(box, toc.firstChild);
+  toc.insertBefore(home, toc.firstChild);
+  var links=[].slice.call(toc.querySelectorAll('a'));
+  box.addEventListener('input', function(){
+    var q=box.value.trim().toLowerCase();
+    links.forEach(function(a){
+      var li=a.closest('li'); if(!li) return;
+      li.classList.toggle('toc-hide', q && a.textContent.toLowerCase().indexOf(q)===-1);
+    });
+  });
+})();
+</script>
